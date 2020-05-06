@@ -37,17 +37,17 @@ class DefaultApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def add_inventory(self, **kwargs):  # noqa: E501
+    def insert(self, **kwargs):  # noqa: E501
         """insert a document  # noqa: E501
 
         insert a document in a manticore index  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.add_inventory(async_req=True)
+        >>> thread = api.insert(async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
-        :param Insert insert: Inventory item to add
+        :param Insert insert: payload for insert
         :param _preload_content: if False, the urllib3.HTTPResponse object will
                                  be returned without reading/decoding response
                                  data. Default is True.
@@ -60,19 +60,19 @@ class DefaultApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        return self.add_inventory_with_http_info(**kwargs)  # noqa: E501
+        return self.insert_with_http_info(**kwargs)  # noqa: E501
 
-    def add_inventory_with_http_info(self, **kwargs):  # noqa: E501
+    def insert_with_http_info(self, **kwargs):  # noqa: E501
         """insert a document  # noqa: E501
 
         insert a document in a manticore index  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.add_inventory_with_http_info(async_req=True)
+        >>> thread = api.insert_with_http_info(async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
-        :param Insert insert: Inventory item to add
+        :param Insert insert: payload for insert
         :param _return_http_data_only: response data without head status code
                                        and headers
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -105,7 +105,7 @@ class DefaultApi(object):
             if key not in all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method add_inventory" % key
+                    " to method insert" % key
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']

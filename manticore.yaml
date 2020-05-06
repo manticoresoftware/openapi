@@ -19,7 +19,7 @@ paths:
   /json/insert:
     post:
       summary: insert a document
-      operationId: addInventory
+      operationId: insert
       description: insert a document in a manticore index
       responses:
         '200':
@@ -39,7 +39,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/insert'
-        description: Inventory item to add
+        description: payload for insert
 components:
   schemas:
     insert:

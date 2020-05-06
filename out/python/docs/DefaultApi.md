@@ -4,11 +4,11 @@ All URIs are relative to *https://virtserver.swaggerhub.com/ManticoreSearch/Mant
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_inventory**](DefaultApi.md#add_inventory) | **POST** /json/insert | insert a document
+[**insert**](DefaultApi.md#insert) | **POST** /json/insert | insert a document
 
 
-# **add_inventory**
-> InsertResponse add_inventory(insert=insert)
+# **insert**
+> InsertResponse insert(insert=insert)
 
 insert a document
 
@@ -33,21 +33,21 @@ configuration = openapi_client.Configuration(
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.DefaultApi(api_client)
-    insert = openapi_client.Insert() # Insert | Inventory item to add (optional)
+    insert = openapi_client.Insert() # Insert | payload for insert (optional)
 
     try:
         # insert a document
-        api_response = api_instance.add_inventory(insert=insert)
+        api_response = api_instance.insert(insert=insert)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling DefaultApi->add_inventory: %s\n" % e)
+        print("Exception when calling DefaultApi->insert: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **insert** | [**Insert**](Insert.md)| Inventory item to add | [optional] 
+ **insert** | [**Insert**](Insert.md)| payload for insert | [optional] 
 
 ### Return type
 

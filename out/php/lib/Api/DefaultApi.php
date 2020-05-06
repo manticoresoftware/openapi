@@ -116,36 +116,36 @@ class DefaultApi
     }
 
     /**
-     * Operation addInventory
+     * Operation insert
      *
      * insert a document
      *
-     * @param  \OpenAPI\Client\Model\Insert $insert Inventory item to add (optional)
+     * @param  \OpenAPI\Client\Model\Insert $insert payload for insert (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\InsertResponse|\OpenAPI\Client\Model\ErrorResponse
      */
-    public function addInventory($insert = null)
+    public function insert($insert = null)
     {
-        list($response) = $this->addInventoryWithHttpInfo($insert);
+        list($response) = $this->insertWithHttpInfo($insert);
         return $response;
     }
 
     /**
-     * Operation addInventoryWithHttpInfo
+     * Operation insertWithHttpInfo
      *
      * insert a document
      *
-     * @param  \OpenAPI\Client\Model\Insert $insert Inventory item to add (optional)
+     * @param  \OpenAPI\Client\Model\Insert $insert payload for insert (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\InsertResponse|\OpenAPI\Client\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function addInventoryWithHttpInfo($insert = null)
+    public function insertWithHttpInfo($insert = null)
     {
-        $request = $this->addInventoryRequest($insert);
+        $request = $this->insertRequest($insert);
 
         try {
             $options = $this->createHttpClientOption();
@@ -241,18 +241,18 @@ class DefaultApi
     }
 
     /**
-     * Operation addInventoryAsync
+     * Operation insertAsync
      *
      * insert a document
      *
-     * @param  \OpenAPI\Client\Model\Insert $insert Inventory item to add (optional)
+     * @param  \OpenAPI\Client\Model\Insert $insert payload for insert (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function addInventoryAsync($insert = null)
+    public function insertAsync($insert = null)
     {
-        return $this->addInventoryAsyncWithHttpInfo($insert)
+        return $this->insertAsyncWithHttpInfo($insert)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -261,19 +261,19 @@ class DefaultApi
     }
 
     /**
-     * Operation addInventoryAsyncWithHttpInfo
+     * Operation insertAsyncWithHttpInfo
      *
      * insert a document
      *
-     * @param  \OpenAPI\Client\Model\Insert $insert Inventory item to add (optional)
+     * @param  \OpenAPI\Client\Model\Insert $insert payload for insert (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function addInventoryAsyncWithHttpInfo($insert = null)
+    public function insertAsyncWithHttpInfo($insert = null)
     {
         $returnType = '\OpenAPI\Client\Model\InsertResponse';
-        $request = $this->addInventoryRequest($insert);
+        $request = $this->insertRequest($insert);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -310,14 +310,14 @@ class DefaultApi
     }
 
     /**
-     * Create request for operation 'addInventory'
+     * Create request for operation 'insert'
      *
-     * @param  \OpenAPI\Client\Model\Insert $insert Inventory item to add (optional)
+     * @param  \OpenAPI\Client\Model\Insert $insert payload for insert (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function addInventoryRequest($insert = null)
+    protected function insertRequest($insert = null)
     {
 
         $resourcePath = '/json/insert';

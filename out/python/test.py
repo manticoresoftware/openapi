@@ -17,11 +17,11 @@ configuration = openapi_client.Configuration(
 with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.DefaultApi(api_client)
-    insert = openapi_client.Insert(id=101,index='testrt2',doc={"title":"some text","gid":1}) # Insert | Inventory item to add (optional)
+    insert = openapi_client.Insert(id=104,index='testrt2',doc={"title":"some text","gid":1}) # Insert | Inventory item to add (optional)
    
     try:
         # insert a document
-        api_response = api_instance.add_inventory(insert=insert)
+        api_response = api_instance.insert(insert=insert)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling DefaultApi->add_inventory: %s\n" % e)
+        print("Exception when calling DefaultApi->insert: %s\n" % e)

@@ -65,13 +65,13 @@ $apiInstance = new OpenAPI\Client\Api\DefaultApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$insert = new \OpenAPI\Client\Model\Insert(); // \OpenAPI\Client\Model\Insert | Inventory item to add
+$insert = new \OpenAPI\Client\Model\Insert(); // \OpenAPI\Client\Model\Insert | payload for insert
 
 try {
-    $result = $apiInstance->addInventory($insert);
+    $result = $apiInstance->insert($insert);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->addInventory: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->insert: ', $e->getMessage(), PHP_EOL;
 }
 
 ?>
@@ -83,7 +83,7 @@ All URIs are relative to *https://virtserver.swaggerhub.com/ManticoreSearch/Mant
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**addInventory**](docs/Api/DefaultApi.md#addinventory) | **POST** /json/insert | insert a document
+*DefaultApi* | [**insert**](docs/Api/DefaultApi.md#insert) | **POST** /json/insert | insert a document
 
 
 ## Documentation For Models

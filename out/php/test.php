@@ -9,11 +9,11 @@ $apiInstance = new OpenAPI\Client\Api\DefaultApi(
 );
 $body = new \OpenAPI\Client\Model\Insert(); // \OpenAPI\Client\Model\Insert | Inventory item to add
 $body->setIndex('testrt2');
-$body->setId(100);
+$body->setId(102);
 $body->setDoc(['title'=>'sample test','gid'=>100]);
 try {
-    $result = $apiInstance->addInventory($body);
+    $result = $apiInstance->insert($body);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->addInventory: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->insert: ', $e->getMessage(), PHP_EOL;
 }
