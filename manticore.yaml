@@ -1,0 +1,96 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+# Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ManticoreSearch/ManticoreSearch/1.0.0
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/adriannuta/ManticoreSearch/1.0.0
+info:
+  description: This is the API for Manticore Search HTTP protocol
+  version: "1.0.0"
+  title: Manticore Search API
+  contact:
+    email: adrian.nuta@manticoresearch.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+paths:
+  /json/insert:
+    post:
+      summary: insert a document
+      operationId: addInventory
+      description: insert a document in a manticore index
+      responses:
+        '200':
+          description: item inserted
+          content:
+             application/json:
+               schema: 
+                  $ref: '#/components/schemas/insertResponse'
+        '500':
+          description: error
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/insert'
+        description: Inventory item to add
+components:
+  schemas:
+    insert:
+      type: object
+      required:
+        - id
+        - index
+        - doc
+      properties:
+        id:
+          type: integer
+          example: 1
+        index:
+          type: string
+          example: myindex
+        doc:
+          type: object
+          example: 
+            gid: 10
+            content: new document
+    insertResponse:
+      type: object
+      required:
+        - _index
+        - _id
+        - created
+        - result
+      properties:
+        _index:
+          type: string
+          example: 1
+        _id:
+          type: integer
+          example: myindex
+        created:
+          type: boolean
+          example: true
+        result:
+          type: string
+          example: created
+    errorResponse:
+      type: object
+      required:
+        - error
+        - status
+      properties:
+        error:
+          type: object
+          example:
+            type: duplicate id
+            index: testrt
+        status:
+          type: integer
+          example: 500
