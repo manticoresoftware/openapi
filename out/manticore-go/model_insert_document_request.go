@@ -9,9 +9,12 @@
  */
 
 package openapi
-// InsertDocumentRequest struct for InsertDocumentRequest
+// InsertDocumentRequest Object with document data. 
 type InsertDocumentRequest struct {
+	// Name of the index
 	Index string `json:"index"`
+	// Document ID. 
 	Id int64 `json:"id,omitempty"`
+	// Object with document data 
 	Doc map[string]interface{} `json:"doc"`
 }

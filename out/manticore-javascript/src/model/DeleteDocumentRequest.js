@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class DeleteDocumentRequest {
     /**
      * Constructs a new <code>DeleteDocumentRequest</code>.
+     * Payload for delete request.
      * @alias module:model/DeleteDocumentRequest
      * @param index {String} 
      */

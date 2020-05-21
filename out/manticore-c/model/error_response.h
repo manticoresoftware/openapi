@@ -1,7 +1,7 @@
 /*
  * error_response.h
  *
- * 
+ * Error response
  */
 
 #ifndef _error_response_H_

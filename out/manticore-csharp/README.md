@@ -111,12 +111,14 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**Replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *IndexApi* | [**Update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
 *SearchApi* | [**Search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
+*UtilsApi* | [**Sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
 
 ## Documentation for Models
 
  - [Model.DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
  - [Model.ErrorResponse](docs/ErrorResponse.md)
+ - [Model.InlineObject](docs/InlineObject.md)
  - [Model.InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [Model.SearchRequest](docs/SearchRequest.md)
  - [Model.SearchResponse](docs/SearchResponse.md)

@@ -1,7 +1,7 @@
 /*
  * search_response.h
  *
- * 
+ * Response object of a search request
  */
 
 #ifndef _search_response_H_

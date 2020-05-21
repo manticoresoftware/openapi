@@ -65,6 +65,7 @@ class InsertDocumentRequest(object):
     def index(self):
         """Gets the index of this InsertDocumentRequest.  # noqa: E501
 
+        Name of the index  # noqa: E501
 
         :return: The index of this InsertDocumentRequest.  # noqa: E501
         :rtype: str
@@ -75,6 +76,7 @@ class InsertDocumentRequest(object):
     def index(self, index):
         """Sets the index of this InsertDocumentRequest.
 
+        Name of the index  # noqa: E501
 
         :param index: The index of this InsertDocumentRequest.  # noqa: E501
         :type: str
@@ -88,6 +90,7 @@ class InsertDocumentRequest(object):
     def id(self):
         """Gets the id of this InsertDocumentRequest.  # noqa: E501
 
+        Document ID.   # noqa: E501
 
         :return: The id of this InsertDocumentRequest.  # noqa: E501
         :rtype: int
@@ -98,6 +101,7 @@ class InsertDocumentRequest(object):
     def id(self, id):
         """Sets the id of this InsertDocumentRequest.
 
+        Document ID.   # noqa: E501
 
         :param id: The id of this InsertDocumentRequest.  # noqa: E501
         :type: int
@@ -112,6 +116,7 @@ class InsertDocumentRequest(object):
     def doc(self):
         """Gets the doc of this InsertDocumentRequest.  # noqa: E501
 
+        Object with document data   # noqa: E501
 
         :return: The doc of this InsertDocumentRequest.  # noqa: E501
         :rtype: object
@@ -122,6 +127,7 @@ class InsertDocumentRequest(object):
     def doc(self, doc):
         """Sets the doc of this InsertDocumentRequest.
 
+        Object with document data   # noqa: E501
 
         :param doc: The doc of this InsertDocumentRequest.  # noqa: E501
         :type: object

@@ -1,5 +1,6 @@
 # DeleteDocumentRequest
 
+Payload for delete request.
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

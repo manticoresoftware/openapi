@@ -9,7 +9,7 @@
  */
 
 package openapi
-// SearchResponse struct for SearchResponse
+// SearchResponse Response object of a search request
 type SearchResponse struct {
 	Took int32 `json:"took,omitempty"`
 	TimedOut bool `json:"timed_out,omitempty"`

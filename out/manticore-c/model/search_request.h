@@ -1,7 +1,7 @@
 /*
  * search_request.h
  *
- * 
+ * Payload for search operation
  */
 
 #ifndef _search_request_H_

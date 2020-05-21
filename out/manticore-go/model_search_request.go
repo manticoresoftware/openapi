@@ -9,7 +9,7 @@
  */
 
 package openapi
-// SearchRequest struct for SearchRequest
+// SearchRequest Payload for search operation
 type SearchRequest struct {
 	Index string `json:"index"`
 	Query map[string]interface{} `json:"query"`

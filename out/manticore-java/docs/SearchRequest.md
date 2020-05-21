@@ -2,6 +2,7 @@
 
 # SearchRequest
 
+Payload for search operation
 ## Properties
 
 Name | Type | Description | Notes

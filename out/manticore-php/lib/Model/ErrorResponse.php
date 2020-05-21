@@ -36,6 +36,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * ErrorResponse Class Doc Comment
  *
  * @category Class
+ * @description Error response
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

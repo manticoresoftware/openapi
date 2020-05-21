@@ -81,12 +81,14 @@ Class | Method | HTTP request | Description
 *OpenapiClient::IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *OpenapiClient::IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
 *OpenapiClient::SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
+*OpenapiClient::UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
 
 ## Documentation for Models
 
  - [OpenapiClient::DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
  - [OpenapiClient::ErrorResponse](docs/ErrorResponse.md)
+ - [OpenapiClient::InlineObject](docs/InlineObject.md)
  - [OpenapiClient::InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [OpenapiClient::SearchRequest](docs/SearchRequest.md)
  - [OpenapiClient::SearchResponse](docs/SearchResponse.md)

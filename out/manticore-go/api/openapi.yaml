@@ -20,6 +20,8 @@ tags:
   name: Index
 - description: Operations about performing searches over indexes
   name: Search
+- description: Various operations
+  name: Utils
 paths:
   /json/search:
     post:
@@ -156,9 +158,52 @@ paths:
       summary: Delete a document in an index
       tags:
       - Index
+  /sql:
+    post:
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/httpapi_reference.html#sql-api
+      operationId: sql
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                query:
+                  type: string
+                mode:
+                  type: string
+              required:
+              - query
+              type: object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sqlResponse'
+          description: item updated
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+          description: error
+      summary: Perform SQL requests
+      tags:
+      - utils
 components:
+  requestBodies:
+    inline_object:
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            $ref: '#/components/schemas/inline_object'
+      required: true
   schemas:
     searchRequest:
+      description: Payload for search operation
       properties:
         index:
           type: string
@@ -194,6 +239,7 @@ components:
       - query
       type: object
     updateDocumentRequest:
+      description: Payload for update document
       example:
         index: test
         doc:
@@ -217,6 +263,7 @@ components:
       - index
       type: object
     deleteDocumentRequest:
+      description: Payload for delete request.
       example:
         index: test
         id: 1
@@ -233,23 +280,31 @@ components:
       - index
       type: object
     insertDocumentRequest:
+      description: |
+        Object with document data.
       example:
         title: This is some title
         gid: 100
       properties:
         index:
+          description: Name of the index
           type: string
         id:
+          description: |
+            Document ID.
           format: int64
           minimum: 1
           type: integer
         doc:
+          description: |
+            Object with document data
           type: object
       required:
       - doc
       - index
       type: object
     searchResponse:
+      description: Response object of a search request
       example:
         hits:
           hits:
@@ -269,7 +324,11 @@ components:
         profile:
           type: object
       type: object
+    sqlResponse:
+      description: Response from sql depends on the query executed.
+      type: object
     successResponse:
+      description: Success response
       example:
         result: result
         found: true
@@ -294,6 +353,7 @@ components:
       - result
       type: object
     errorResponse:
+      description: Error response
       properties:
         error:
           type: object
@@ -303,6 +363,15 @@ components:
       required:
       - error
       - status
+      type: object
+    inline_object:
+      properties:
+        query:
+          type: string
+        mode:
+          type: string
+      required:
+      - query
       type: object
     searchResponse_hits:
       example:

@@ -2,7 +2,7 @@
 
 Manticore Search API
 - API version: 1.0.0
-  - Build date: 2020-05-21T08:55:33.223Z[GMT]
+  - Build date: 2020-05-21T09:13:50.147Z[GMT]
 
 This is the API for Manticore Search HTTP protocol
 
@@ -113,12 +113,14 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
 *SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
+*UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
 
 ## Documentation for Models
 
  - [DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
  - [ErrorResponse](docs/ErrorResponse.md)
+ - [InlineObject](docs/InlineObject.md)
  - [InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [SearchRequest](docs/SearchRequest.md)
  - [SearchResponse](docs/SearchResponse.md)

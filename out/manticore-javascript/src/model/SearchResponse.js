@@ -22,6 +22,7 @@ import SearchResponseHits from './SearchResponseHits';
 class SearchResponse {
     /**
      * Constructs a new <code>SearchResponse</code>.
+     * Response object of a search request
      * @alias module:model/SearchResponse
      */
     constructor() { 

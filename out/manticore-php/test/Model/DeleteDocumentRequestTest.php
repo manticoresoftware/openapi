@@ -35,7 +35,7 @@ use PHPUnit\Framework\TestCase;
  * DeleteDocumentRequestTest Class Doc Comment
  *
  * @category    Class
- * @description DeleteDocumentRequest
+ * @description Payload for delete request.
  * @package     OpenAPI\Client
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

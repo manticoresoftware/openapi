@@ -1,7 +1,7 @@
 /*
  * delete_document_request.h
  *
- * 
+ * Payload for delete request.
  */
 
 #ifndef _delete_document_request_H_

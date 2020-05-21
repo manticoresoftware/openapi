@@ -1,7 +1,7 @@
 /*
  * insert_document_request.h
  *
- * 
+ * Object with document data. 
  */
 
 #ifndef _insert_document_request_H_

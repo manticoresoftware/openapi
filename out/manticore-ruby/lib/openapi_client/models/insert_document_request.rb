@@ -13,11 +13,15 @@ OpenAPI Generator version: 5.0.0-SNAPSHOT
 require 'date'
 
 module OpenapiClient
+  # Object with document data. 
   class InsertDocumentRequest
+    # Name of the index
     attr_accessor :index
 
+    # Document ID. 
     attr_accessor :id
 
+    # Object with document data 
     attr_accessor :doc
 
     # Attribute mapping from ruby-style variable name to JSON key.

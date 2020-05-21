@@ -36,6 +36,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * InsertDocumentRequest Class Doc Comment
  *
  * @category Class
+ * @description Object with document data.
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -239,7 +240,7 @@ class InsertDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets index
      *
-     * @param string $index index
+     * @param string $index Name of the index
      *
      * @return $this
      */
@@ -263,7 +264,7 @@ class InsertDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param int|null $id id
+     * @param int|null $id Document ID.
      *
      * @return $this
      */
@@ -292,7 +293,7 @@ class InsertDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets doc
      *
-     * @param object $doc doc
+     * @param object $doc Object with document data
      *
      * @return $this
      */

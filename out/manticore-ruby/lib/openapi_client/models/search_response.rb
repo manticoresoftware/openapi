@@ -13,6 +13,7 @@ OpenAPI Generator version: 5.0.0-SNAPSHOT
 require 'date'
 
 module OpenapiClient
+  # Response object of a search request
   class SearchResponse
     attr_accessor :took
 

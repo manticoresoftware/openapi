@@ -25,7 +25,7 @@ using OpenAPIDateConverter = Org.OpenAPITools.Client.OpenAPIDateConverter;
 namespace Org.OpenAPITools.Model
 {
     /// <summary>
-    /// DeleteDocumentRequest
+    /// Payload for delete request.
     /// </summary>
     [DataContract]
     public partial class DeleteDocumentRequest :  IEquatable<DeleteDocumentRequest>, IValidatableObject

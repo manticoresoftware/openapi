@@ -9,7 +9,7 @@
  */
 
 package openapi
-// UpdateDocumentRequest struct for UpdateDocumentRequest
+// UpdateDocumentRequest Payload for update document
 type UpdateDocumentRequest struct {
 	Index string `json:"index"`
 	Doc map[string]interface{} `json:"doc"`

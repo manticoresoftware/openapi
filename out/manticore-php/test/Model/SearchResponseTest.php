@@ -35,7 +35,7 @@ use PHPUnit\Framework\TestCase;
  * SearchResponseTest Class Doc Comment
  *
  * @category    Class
- * @description SearchResponse
+ * @description Response object of a search request
  * @package     OpenAPI\Client
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

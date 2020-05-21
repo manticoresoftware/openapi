@@ -89,12 +89,14 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**replace**](docs/Api/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *IndexApi* | [**update**](docs/Api/IndexApi.md#update) | **POST** /json/update | Update a document in an index
 *SearchApi* | [**search**](docs/Api/SearchApi.md#search) | **POST** /json/search | Performs a search
+*UtilsApi* | [**sql**](docs/Api/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
 
 ## Documentation For Models
 
  - [DeleteDocumentRequest](docs/Model/DeleteDocumentRequest.md)
  - [ErrorResponse](docs/Model/ErrorResponse.md)
+ - [InlineObject](docs/Model/InlineObject.md)
  - [InsertDocumentRequest](docs/Model/InsertDocumentRequest.md)
  - [SearchRequest](docs/Model/SearchRequest.md)
  - [SearchResponse](docs/Model/SearchResponse.md)

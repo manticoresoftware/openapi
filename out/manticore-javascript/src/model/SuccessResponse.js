@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class SuccessResponse {
     /**
      * Constructs a new <code>SuccessResponse</code>.
+     * Success response
      * @alias module:model/SuccessResponse
      * @param index {String} 
      * @param id {Number} 

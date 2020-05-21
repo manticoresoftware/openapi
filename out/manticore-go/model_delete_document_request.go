@@ -9,7 +9,7 @@
  */
 
 package openapi
-// DeleteDocumentRequest struct for DeleteDocumentRequest
+// DeleteDocumentRequest Payload for delete request.
 type DeleteDocumentRequest struct {
 	Index string `json:"index"`
 	Id int64 `json:"id,omitempty"`

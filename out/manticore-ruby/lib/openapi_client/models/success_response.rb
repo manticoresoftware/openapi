@@ -13,6 +13,7 @@ OpenAPI Generator version: 5.0.0-SNAPSHOT
 require 'date'
 
 module OpenapiClient
+  # Success response
   class SuccessResponse
     attr_accessor :_index
 

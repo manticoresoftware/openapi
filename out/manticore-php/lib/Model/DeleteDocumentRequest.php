@@ -36,6 +36,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * DeleteDocumentRequest Class Doc Comment
  *
  * @category Class
+ * @description Payload for delete request.
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

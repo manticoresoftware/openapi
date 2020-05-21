@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **String** |  | 
-**id** | **Number** |  | [optional] 
-**doc** | **Object** |  | 
+**index** | **String** | Name of the index | 
+**id** | **Number** | Document ID.  | [optional] 
+**doc** | **Object** | Object with document data  | 
 
 

@@ -1,5 +1,6 @@
 # SearchResponse
 
+Response object of a search request
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -40,6 +40,7 @@ set(SRCS
     model/object.c
     model/delete_document_request.c
     model/error_response.c
+    model/inline_object.c
     model/insert_document_request.c
     model/search_request.c
     model/search_response.c
@@ -48,6 +49,7 @@ set(SRCS
     model/update_document_request.c
     api/IndexAPI.c
     api/SearchAPI.c
+    api/UtilsAPI.c
 
 )
 
@@ -60,6 +62,7 @@ set(HDRS
     model/object.h
     model/delete_document_request.h
     model/error_response.h
+    model/inline_object.h
     model/insert_document_request.h
     model/search_request.h
     model/search_response.h
@@ -68,6 +71,7 @@ set(HDRS
     model/update_document_request.h
     api/IndexAPI.h
     api/SearchAPI.h
+    api/UtilsAPI.h
 
 )
 
@@ -88,6 +92,7 @@ set(HDRS "")
 #set(SRCS
 #    unit-tests/manual-IndexAPI.c
 #    unit-tests/manual-SearchAPI.c
+#    unit-tests/manual-UtilsAPI.c
 #)
 
 ##set header files

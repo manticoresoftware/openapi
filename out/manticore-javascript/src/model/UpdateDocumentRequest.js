@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class UpdateDocumentRequest {
     /**
      * Constructs a new <code>UpdateDocumentRequest</code>.
+     * Payload for update document
      * @alias module:model/UpdateDocumentRequest
      * @param index {String} 
      * @param doc {Object} 

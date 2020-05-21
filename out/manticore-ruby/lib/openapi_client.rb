@@ -19,6 +19,7 @@ require 'openapi_client/configuration'
 # Models
 require 'openapi_client/models/delete_document_request'
 require 'openapi_client/models/error_response'
+require 'openapi_client/models/inline_object'
 require 'openapi_client/models/insert_document_request'
 require 'openapi_client/models/search_request'
 require 'openapi_client/models/search_response'
@@ -29,6 +30,7 @@ require 'openapi_client/models/update_document_request'
 # APIs
 require 'openapi_client/api/index_api'
 require 'openapi_client/api/search_api'
+require 'openapi_client/api/utils_api'
 
 module OpenapiClient
   class << self

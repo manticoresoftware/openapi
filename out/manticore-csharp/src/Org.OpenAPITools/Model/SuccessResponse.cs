@@ -25,7 +25,7 @@ using OpenAPIDateConverter = Org.OpenAPITools.Client.OpenAPIDateConverter;
 namespace Org.OpenAPITools.Model
 {
     /// <summary>
-    /// SuccessResponse
+    /// Success response
     /// </summary>
     [DataContract]
     public partial class SuccessResponse :  IEquatable<SuccessResponse>, IValidatableObject

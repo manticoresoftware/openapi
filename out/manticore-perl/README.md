@@ -224,6 +224,7 @@ To load the API packages:
 ```perl
 use WWW::OpenAPIClient::IndexApi;
 use WWW::OpenAPIClient::SearchApi;
+use WWW::OpenAPIClient::UtilsApi;
 
 ```
 
@@ -231,6 +232,7 @@ To load the models:
 ```perl
 use WWW::OpenAPIClient::Object::DeleteDocumentRequest;
 use WWW::OpenAPIClient::Object::ErrorResponse;
+use WWW::OpenAPIClient::Object::InlineObject;
 use WWW::OpenAPIClient::Object::InsertDocumentRequest;
 use WWW::OpenAPIClient::Object::SearchRequest;
 use WWW::OpenAPIClient::Object::SearchResponse;
@@ -250,10 +252,12 @@ use warnings;
 # load the API package
 use WWW::OpenAPIClient::IndexApi;
 use WWW::OpenAPIClient::SearchApi;
+use WWW::OpenAPIClient::UtilsApi;
 
 # load the models
 use WWW::OpenAPIClient::Object::DeleteDocumentRequest;
 use WWW::OpenAPIClient::Object::ErrorResponse;
+use WWW::OpenAPIClient::Object::InlineObject;
 use WWW::OpenAPIClient::Object::InsertDocumentRequest;
 use WWW::OpenAPIClient::Object::SearchRequest;
 use WWW::OpenAPIClient::Object::SearchResponse;
@@ -291,11 +295,13 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
 *SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
+*UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
 
 # DOCUMENTATION FOR MODELS
  - [WWW::OpenAPIClient::Object::DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
  - [WWW::OpenAPIClient::Object::ErrorResponse](docs/ErrorResponse.md)
+ - [WWW::OpenAPIClient::Object::InlineObject](docs/InlineObject.md)
  - [WWW::OpenAPIClient::Object::InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [WWW::OpenAPIClient::Object::SearchRequest](docs/SearchRequest.md)
  - [WWW::OpenAPIClient::Object::SearchResponse](docs/SearchResponse.md)

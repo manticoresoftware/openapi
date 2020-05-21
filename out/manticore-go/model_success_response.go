@@ -9,7 +9,7 @@
  */
 
 package openapi
-// SuccessResponse struct for SuccessResponse
+// SuccessResponse Success response
 type SuccessResponse struct {
 	Index string `json:"_index"`
 	Id int64 `json:"_id"`

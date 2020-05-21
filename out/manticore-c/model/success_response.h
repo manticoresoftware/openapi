@@ -1,7 +1,7 @@
 /*
  * success_response.h
  *
- * 
+ * Success response
  */
 
 #ifndef _success_response_H_

@@ -36,6 +36,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * SuccessResponse Class Doc Comment
  *
  * @category Class
+ * @description Success response
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

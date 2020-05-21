@@ -25,7 +25,7 @@ using OpenAPIDateConverter = Org.OpenAPITools.Client.OpenAPIDateConverter;
 namespace Org.OpenAPITools.Model
 {
     /// <summary>
-    /// UpdateDocumentRequest
+    /// Payload for update document
     /// </summary>
     [DataContract]
     public partial class UpdateDocumentRequest :  IEquatable<UpdateDocumentRequest>, IValidatableObject

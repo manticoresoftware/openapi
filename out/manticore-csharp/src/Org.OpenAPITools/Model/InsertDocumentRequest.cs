@@ -25,7 +25,7 @@ using OpenAPIDateConverter = Org.OpenAPITools.Client.OpenAPIDateConverter;
 namespace Org.OpenAPITools.Model
 {
     /// <summary>
-    /// InsertDocumentRequest
+    /// Object with document data. 
     /// </summary>
     [DataContract]
     public partial class InsertDocumentRequest :  IEquatable<InsertDocumentRequest>, IValidatableObject
@@ -38,9 +38,9 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="InsertDocumentRequest" /> class.
         /// </summary>
-        /// <param name="index">index (required).</param>
-        /// <param name="id">id.</param>
-        /// <param name="doc">doc (required).</param>
+        /// <param name="index">Name of the index (required).</param>
+        /// <param name="id">Document ID. .</param>
+        /// <param name="doc">Object with document data  (required).</param>
         public InsertDocumentRequest(string index = default(string), long id = default(long), Object doc = default(Object))
         {
             // to ensure "index" is required (not null)
@@ -67,20 +67,23 @@ namespace Org.OpenAPITools.Model
         }
         
         /// <summary>
-        /// Gets or Sets Index
+        /// Name of the index
         /// </summary>
+        /// <value>Name of the index</value>
         [DataMember(Name="index", EmitDefaultValue=true)]
         public string Index { get; set; }
 
         /// <summary>
-        /// Gets or Sets Id
+        /// Document ID. 
         /// </summary>
+        /// <value>Document ID. </value>
         [DataMember(Name="id", EmitDefaultValue=false)]
         public long Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets Doc
+        /// Object with document data 
         /// </summary>
+        /// <value>Object with document data </value>
         [DataMember(Name="doc", EmitDefaultValue=true)]
         public Object Doc { get; set; }
 

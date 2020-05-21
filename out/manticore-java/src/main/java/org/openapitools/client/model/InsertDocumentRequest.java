@@ -25,9 +25,10 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * InsertDocumentRequest
+ * Object with document data. 
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-21T08:55:33.223Z[GMT]")
+@ApiModel(description = "Object with document data. ")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-21T09:13:50.147Z[GMT]")
 public class InsertDocumentRequest {
   public static final String SERIALIZED_NAME_INDEX = "index";
   @SerializedName(SERIALIZED_NAME_INDEX)
@@ -49,10 +50,10 @@ public class InsertDocumentRequest {
   }
 
    /**
-   * Get index
+   * Name of the index
    * @return index
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Name of the index")
 
   public String getIndex() {
     return index;
@@ -71,12 +72,12 @@ public class InsertDocumentRequest {
   }
 
    /**
-   * Get id
+   * Document ID. 
    * minimum: 1
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Document ID. ")
 
   public Long getId() {
     return id;
@@ -95,10 +96,10 @@ public class InsertDocumentRequest {
   }
 
    /**
-   * Get doc
+   * Object with document data 
    * @return doc
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Object with document data ")
 
   public Object getDoc() {
     return doc;

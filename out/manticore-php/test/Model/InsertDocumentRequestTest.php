@@ -35,7 +35,7 @@ use PHPUnit\Framework\TestCase;
  * InsertDocumentRequestTest Class Doc Comment
  *
  * @category    Class
- * @description InsertDocumentRequest
+ * @description Object with document data.
  * @package     OpenAPI\Client
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

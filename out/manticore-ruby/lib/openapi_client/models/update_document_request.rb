@@ -13,6 +13,7 @@ OpenAPI Generator version: 5.0.0-SNAPSHOT
 require 'date'
 
 module OpenapiClient
+  # Payload for update document
   class UpdateDocumentRequest
     attr_accessor :index
 

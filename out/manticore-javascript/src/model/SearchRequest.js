@@ -22,6 +22,7 @@ import OneOfstringobject from './OneOfstringobject';
 class SearchRequest {
     /**
      * Constructs a new <code>SearchRequest</code>.
+     * Payload for search operation
      * @alias module:model/SearchRequest
      * @param index {String} 
      * @param query {Object} 

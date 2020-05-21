@@ -38,12 +38,14 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**Replace**](docs/IndexApi.md#replace) | **Post** /json/replace | Replace new document in an index
 *IndexApi* | [**Update**](docs/IndexApi.md#update) | **Post** /json/update | Update a document in an index
 *SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /json/search | Performs a search
+*UtilsApi* | [**Sql**](docs/UtilsApi.md#sql) | **Post** /sql | Perform SQL requests
 
 
 ## Documentation For Models
 
  - [DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
  - [ErrorResponse](docs/ErrorResponse.md)
+ - [InlineObject](docs/InlineObject.md)
  - [InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [SearchRequest](docs/SearchRequest.md)
  - [SearchResponse](docs/SearchResponse.md)

@@ -21,9 +21,10 @@ import ApiClient from '../ApiClient';
 class InsertDocumentRequest {
     /**
      * Constructs a new <code>InsertDocumentRequest</code>.
+     * Object with document data. 
      * @alias module:model/InsertDocumentRequest
-     * @param index {String} 
-     * @param doc {Object} 
+     * @param index {String} Name of the index
+     * @param doc {Object} Object with document data 
      */
     constructor(index, doc) { 
         
@@ -68,16 +69,19 @@ class InsertDocumentRequest {
 }
 
 /**
+ * Name of the index
  * @member {String} index
  */
 InsertDocumentRequest.prototype['index'] = undefined;
 
 /**
+ * Document ID. 
  * @member {Number} id
  */
 InsertDocumentRequest.prototype['id'] = undefined;
 
 /**
+ * Object with document data 
  * @member {Object} doc
  */
 InsertDocumentRequest.prototype['doc'] = undefined;

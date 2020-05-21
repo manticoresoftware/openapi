@@ -35,7 +35,7 @@ use PHPUnit\Framework\TestCase;
  * ErrorResponseTest Class Doc Comment
  *
  * @category    Class
- * @description ErrorResponse
+ * @description Error response
  * @package     OpenAPI\Client
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

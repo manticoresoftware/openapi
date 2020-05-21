@@ -36,6 +36,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * UpdateDocumentRequest Class Doc Comment
  *
  * @category Class
+ * @description Payload for update document
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

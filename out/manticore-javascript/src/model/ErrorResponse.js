@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class ErrorResponse {
     /**
      * Constructs a new <code>ErrorResponse</code>.
+     * Error response
      * @alias module:model/ErrorResponse
      * @param error {Object} 
      * @param status {Number} 

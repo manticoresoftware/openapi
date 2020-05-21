@@ -15,6 +15,7 @@
 import ApiClient from './ApiClient';
 import DeleteDocumentRequest from './model/DeleteDocumentRequest';
 import ErrorResponse from './model/ErrorResponse';
+import InlineObject from './model/InlineObject';
 import InsertDocumentRequest from './model/InsertDocumentRequest';
 import SearchRequest from './model/SearchRequest';
 import SearchResponse from './model/SearchResponse';
@@ -23,6 +24,7 @@ import SuccessResponse from './model/SuccessResponse';
 import UpdateDocumentRequest from './model/UpdateDocumentRequest';
 import IndexApi from './api/IndexApi';
 import SearchApi from './api/SearchApi';
+import UtilsApi from './api/UtilsApi';
 
 
 /**
@@ -76,6 +78,12 @@ export {
     ErrorResponse,
 
     /**
+     * The InlineObject model constructor.
+     * @property {module:model/InlineObject}
+     */
+    InlineObject,
+
+    /**
      * The InsertDocumentRequest model constructor.
      * @property {module:model/InsertDocumentRequest}
      */
@@ -121,5 +129,11 @@ export {
     * The SearchApi service constructor.
     * @property {module:api/SearchApi}
     */
-    SearchApi
+    SearchApi,
+
+    /**
+    * The UtilsApi service constructor.
+    * @property {module:api/UtilsApi}
+    */
+    UtilsApi
 };

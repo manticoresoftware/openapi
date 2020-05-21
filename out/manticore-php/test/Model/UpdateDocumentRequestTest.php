@@ -35,7 +35,7 @@ use PHPUnit\Framework\TestCase;
  * UpdateDocumentRequestTest Class Doc Comment
  *
  * @category    Class
- * @description UpdateDocumentRequest
+ * @description Payload for update document
  * @package     OpenAPI\Client
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

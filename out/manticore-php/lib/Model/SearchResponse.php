@@ -36,6 +36,7 @@ use \OpenAPI\Client\ObjectSerializer;
  * SearchResponse Class Doc Comment
  *
  * @category Class
+ * @description Response object of a search request
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

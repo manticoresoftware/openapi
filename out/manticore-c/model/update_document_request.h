@@ -1,7 +1,7 @@
 /*
  * update_document_request.h
  *
- * 
+ * Payload for update document
  */
 
 #ifndef _update_document_request_H_

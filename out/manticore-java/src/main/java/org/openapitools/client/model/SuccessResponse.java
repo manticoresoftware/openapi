@@ -25,9 +25,10 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * SuccessResponse
+ * Success response
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-21T08:55:33.223Z[GMT]")
+@ApiModel(description = "Success response")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-21T09:13:50.147Z[GMT]")
 public class SuccessResponse {
   public static final String SERIALIZED_NAME_INDEX = "_index";
   @SerializedName(SERIALIZED_NAME_INDEX)

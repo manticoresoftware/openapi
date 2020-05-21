@@ -126,12 +126,14 @@ Class | Method | HTTP request | Description
 *ManticoreSearchApi.IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *ManticoreSearchApi.IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
 *ManticoreSearchApi.SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
+*ManticoreSearchApi.UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
 
 ## Documentation for Models
 
  - [ManticoreSearchApi.DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
  - [ManticoreSearchApi.ErrorResponse](docs/ErrorResponse.md)
+ - [ManticoreSearchApi.InlineObject](docs/InlineObject.md)
  - [ManticoreSearchApi.InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [ManticoreSearchApi.SearchRequest](docs/SearchRequest.md)
  - [ManticoreSearchApi.SearchResponse](docs/SearchResponse.md)
