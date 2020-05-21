@@ -1,85 +1,153 @@
-openapi: 3.0.0
-# Added by API Auto Mocking Plugin
-servers:
-# Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/ManticoreSearch/ManticoreSearch/1.0.0
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/adriannuta/ManticoreSearch/1.0.0
+openapi: 3.0.2
+
 info:
-  description: This is the API for Manticore Search HTTP protocol
-  version: "1.0.0"
   title: Manticore Search API
+  description: | 
+    This is the API for Manticore Search HTTP protocol
+  version: "1.0.0"
   contact:
     email: adrian.nuta@manticoresearch.com
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-paths:
-  /json/insert:
-    post:
-      summary: insert a document
-      operationId: insert
-      description: insert a document in a manticore index
-      responses:
-        '200':
-          description: item inserted
-          content:
-             application/json:
-               schema: 
-                  $ref: '#/components/schemas/insertResponse'
-        '500':
-          description: error
-          content:
-            application/json:
-              schema:
-                  $ref: '#/components/schemas/errorResponse'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/insert'
-        description: payload for insert
+tags:
+  - name: Index
+    description: Operations regarding adding, updating or deleting documents
+  - name: Search
+    description: Operations about performing searches over indexes
+externalDocs:
+  description: Find out more about Manticore Search
+  url: 'https://manticoresearch.com/'    
 components:
   schemas:
-    insert:
+    searchRequest:
       type: object
       required:
-        - id
+        - index
+        - query
+      properties:
+        index:
+          type: string
+        query:
+          type: object
+        limit:
+          type: integer
+          minimum: 0
+        offset:
+          type: integer
+          minimum: 0
+        max_matches:
+          type: integer
+          minimum: 0
+        sort:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: object
+        script_fields:
+          type: object
+        highlight:
+          type: object
+        _source:
+          oneOf:
+            - type: string
+            - type: object
+        profile:
+          type: boolean
+    updateDocumentRequest:
+      type: object
+      required:
         - index
         - doc
       properties:
-        id:
-          type: integer
-          example: 1
         index:
           type: string
-          example: myindex
         doc:
           type: object
-          example: 
-            gid: 10
-            content: new document
-    insertResponse:
+        id:  
+          type: integer
+          format: int64          
+          minimum: 1
+        query:  
+          type: object
+      example:
+        index: test
+        doc: 
+          price: 1000
+        query:
+          match:
+             '*': apple          
+    deleteDocumentRequest:
+      type: object
+      required:
+        - index
+      properties:
+        index:
+          type: string
+        id:  
+          type: integer
+          format: int64          
+          minimum: 1
+        doc:
+          type: object
+      example:
+        index: test
+        id: 1    
+
+    insertDocumentRequest:
+      type: object
+      required:
+        - index
+        - doc
+      properties:
+        index:
+         type: string
+        id:  
+          type: integer
+          format: int64          
+          minimum: 1
+        doc:
+          type: object
+      example:
+        title: "This is some title"
+        gid: 100    
+    searchResponse:
+      type: object
+      properties:
+        took:
+          type: integer
+        timed_out:
+          type: boolean
+        hits:
+          type: object
+          properties:
+            total:
+              type: integer
+            hits:
+              type: array
+              items:
+                type: object
+        profile:
+          type: object
+    successResponse:
       type: object
       required:
         - _index
         - _id
-        - created
         - result
       properties:
         _index:
           type: string
-          example: 1
         _id:
           type: integer
-          example: myindex
+          format: int64
         created:
           type: boolean
-          example: true
         result:
           type: string
-          example: created
+        found:
+          type: boolean
     errorResponse:
       type: object
       required:
@@ -88,9 +156,152 @@ components:
       properties:
         error:
           type: object
-          example:
-            type: duplicate id
-            index: testrt
         status:
           type: integer
           example: 500
+
+        
+paths:
+  /json/search:
+    post:
+      summary: Performs a search
+      operationId: search
+      tags:
+        - Search
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/searchRequest'
+      responses:
+        '200':
+          description: Ok
+          content:
+             application/json:
+               schema: 
+                  $ref: '#/components/schemas/searchResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errorResponse'
+  /json/insert:
+    post:
+      summary: Create a new document in an index
+      operationId: insert
+      tags:
+        - Index      
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/insertDocumentRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+             application/json:
+               schema: 
+                  $ref: '#/components/schemas/successResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errorResponse'
+  /json/replace:
+    post:
+      summary: Replace new document in an index
+      operationId: replace
+      tags:
+        - Index      
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/insertDocumentRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+             application/json:
+               schema: 
+                  $ref: '#/components/schemas/successResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errorResponse'                  
+  /json/update:
+    post:
+      summary: Update a document in an index
+      operationId: update
+      tags:
+        - Index      
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_update.html
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateDocumentRequest'
+
+      responses:
+        '200':
+          description: item updated
+          content:
+             application/json:
+               schema: 
+                  $ref: '#/components/schemas/successResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errorResponse'
+  /json/delete:
+    post:
+      summary: Delete a document in an index
+      operationId: delete
+      tags:
+        - Index      
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_update.html
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+             $ref: '#/components/schemas/deleteDocumentRequest'
+
+      responses:
+        '200':
+          description: item updated
+          content:
+             application/json:
+               schema: 
+                  $ref: '#/components/schemas/successResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errorResponse'                  
+                                    
+# Added by API Auto Mocking Plugin
+servers:
+# Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0
