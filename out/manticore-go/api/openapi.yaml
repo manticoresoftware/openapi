@@ -1,7 +1,9 @@
 openapi: 3.0.2
 info:
   contact:
-    email: adrian.nuta@manticoresearch.com
+    email: info@manticoresearch.com
+    name: Manticore Software Ltd.
+    url: https://manticoresearch.com/contact-us/
   description: |
     This is the API for Manticore Search HTTP protocol
   license:
@@ -317,7 +319,9 @@ components:
       - index
       type: object
     deleteDocumentRequest:
-      description: Payload for delete request.
+      description: "Payload for delete request.\nDocuments can be deleted either one\
+        \ by one by specifying the document id\nor by providing a query object.\n\
+        For more information see \n[Delete API](https://docs.manticoresearch.com/latest/html/http_reference/json_delete.html)\n"
       example:
         index: test
         id: 1
@@ -328,7 +332,7 @@ components:
           format: int64
           minimum: 1
           type: integer
-        doc:
+        query:
           type: object
       required:
       - index

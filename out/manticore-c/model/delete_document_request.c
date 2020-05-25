@@ -8,7 +8,7 @@
 delete_document_request_t *delete_document_request_create(
     char *index,
     long id,
-    object_t *doc
+    object_t *query
     ) {
     delete_document_request_t *delete_document_request_local_var = malloc(sizeof(delete_document_request_t));
     if (!delete_document_request_local_var) {
@@ -16,7 +16,7 @@ delete_document_request_t *delete_document_request_create(
     }
     delete_document_request_local_var->index = index;
     delete_document_request_local_var->id = id;
-    delete_document_request_local_var->doc = doc;
+    delete_document_request_local_var->query = query;
 
     return delete_document_request_local_var;
 }
@@ -28,7 +28,7 @@ void delete_document_request_free(delete_document_request_t *delete_document_req
     }
     listEntry_t *listEntry;
     free(delete_document_request->index);
-    object_free(delete_document_request->doc);
+    object_free(delete_document_request->query);
     free(delete_document_request);
 }
 
@@ -53,13 +53,13 @@ cJSON *delete_document_request_convertToJSON(delete_document_request_t *delete_d
      } 
 
 
-    // delete_document_request->doc
-    if(delete_document_request->doc) { 
-    cJSON *doc_object = object_convertToJSON(delete_document_request->doc);
-    if(doc_object == NULL) {
+    // delete_document_request->query
+    if(delete_document_request->query) { 
+    cJSON *query_object = object_convertToJSON(delete_document_request->query);
+    if(query_object == NULL) {
     goto fail; //model
     }
-    cJSON_AddItemToObject(item, "doc", doc_object);
+    cJSON_AddItemToObject(item, "query", query_object);
     if(item->child == NULL) {
     goto fail;
     }
@@ -98,18 +98,18 @@ delete_document_request_t *delete_document_request_parseFromJSON(cJSON *delete_d
     }
     }
 
-    // delete_document_request->doc
-    cJSON *doc = cJSON_GetObjectItemCaseSensitive(delete_document_requestJSON, "doc");
-    object_t *doc_local_object = NULL;
-    if (doc) { 
-    doc_local_object = object_parseFromJSON(doc); //object
+    // delete_document_request->query
+    cJSON *query = cJSON_GetObjectItemCaseSensitive(delete_document_requestJSON, "query");
+    object_t *query_local_object = NULL;
+    if (query) { 
+    query_local_object = object_parseFromJSON(query); //object
     }
 
 
     delete_document_request_local_var = delete_document_request_create (
         strdup(index->valuestring),
         id ? id->valuedouble : 0,
-        doc ? doc_local_object : NULL
+        query ? query_local_object : NULL
         );
 
     return delete_document_request_local_var;

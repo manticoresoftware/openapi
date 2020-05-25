@@ -6,7 +6,9 @@ info:
     This is the API for Manticore Search HTTP protocol
   version: "1.0.0"
   contact:
-    email: adrian.nuta@manticoresearch.com
+    name: Manticore Software Ltd.
+    email: info@manticoresearch.com
+    url: https://manticoresearch.com/contact-us/
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
@@ -84,7 +86,12 @@ components:
              '*': apple          
     deleteDocumentRequest:
       type: object
-      description: Payload for delete request.
+      description: | 
+        Payload for delete request.
+        Documents can be deleted either one by one by specifying the document id
+        or by providing a query object.
+        For more information see 
+        [Delete API](https://docs.manticoresearch.com/latest/html/http_reference/json_delete.html)
       required:
         - index
       properties:
@@ -94,7 +101,7 @@ components:
           type: integer
           format: int64          
           minimum: 1
-        doc:
+        query:
           type: object
       example:
         index: test

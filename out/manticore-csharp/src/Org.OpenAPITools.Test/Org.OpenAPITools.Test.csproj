@@ -5,7 +5,7 @@ Manticore Search API
 This is the API for Manticore Search HTTP protocol 
 
 The version of the OpenAPI document: 1.0.0
-Contact: adrian.nuta@manticoresearch.com
+Contact: info@manticoresearch.com
 -->
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
@@ -81,7 +81,7 @@ Contact: adrian.nuta@manticoresearch.com
   <Import Project="$(MsBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
       <ProjectReference Include="..\Org.OpenAPITools\Org.OpenAPITools.csproj">
-          <Project>{26FAC330-8BC0-401D-84AE-E8851FD74A4E}</Project>
+          <Project>{DD15317F-9E1C-4CE4-96BD-B1EB846A3EFA}</Project>
           <Name>Org.OpenAPITools</Name>
       </ProjectReference>
   </ItemGroup>

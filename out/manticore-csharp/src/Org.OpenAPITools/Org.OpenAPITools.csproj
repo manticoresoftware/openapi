@@ -5,14 +5,14 @@ Manticore Search API
 This is the API for Manticore Search HTTP protocol 
 
 The version of the OpenAPI document: 1.0.0
-Contact: adrian.nuta@manticoresearch.com
+Contact: info@manticoresearch.com
 -->
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{26FAC330-8BC0-401D-84AE-E8851FD74A4E}</ProjectGuid>
+    <ProjectGuid>{DD15317F-9E1C-4CE4-96BD-B1EB846A3EFA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Org.OpenAPITools</RootNamespace>

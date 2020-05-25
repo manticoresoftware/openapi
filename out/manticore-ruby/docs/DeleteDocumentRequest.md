@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **String** |  | 
 **id** | **Integer** |  | [optional] 
-**doc** | **Object** |  | [optional] 
+**query** | **Object** |  | [optional] 
 
 ## Code Sample
 
@@ -15,7 +15,7 @@ require 'OpenapiClient'
 
 instance = OpenapiClient::DeleteDocumentRequest.new(index: null,
                                  id: null,
-                                 doc: null)
+                                 query: null)
 ```
 
 
