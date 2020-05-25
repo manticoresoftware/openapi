@@ -4,11 +4,57 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**bulk**](IndexApi.md#bulk) | **POST** /json/bulk | Bulk index operations
 [**delete**](IndexApi.md#delete) | **POST** /json/delete | Delete a document in an index
 [**insert**](IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 [**replace**](IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 [**update**](IndexApi.md#update) | **POST** /json/update | Update a document in an index
 
+
+
+## bulk
+
+> SuccessResponse bulk(body)
+
+Bulk index operations
+
+### Example
+
+```ruby
+# load the gem
+require 'openapi_client'
+
+api_instance = OpenapiClient::IndexApi.new
+body = nil # Object | 
+
+begin
+  #Bulk index operations
+  result = api_instance.bulk(body)
+  p result
+rescue OpenapiClient::ApiError => e
+  puts "Exception when calling IndexApi->bulk: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **Object**|  | 
+
+### Return type
+
+[**SuccessResponse**](SuccessResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/x-ndjson
+- **Accept**: application/json
 
 
 ## delete

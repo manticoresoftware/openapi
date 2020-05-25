@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * SearchResponseHits
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-21T09:13:50.147Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-21T16:46:05.830Z[GMT]")
 public class SearchResponseHits {
   public static final String SERIALIZED_NAME_TOTAL = "total";
   @SerializedName(SERIALIZED_NAME_TOTAL)

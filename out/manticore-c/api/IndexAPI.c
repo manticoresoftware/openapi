@@ -12,6 +12,80 @@
 }while(0)
 
 
+// Bulk index operations
+//
+success_response_t*
+IndexAPI_bulk(apiClient_t *apiClient, object_t * body )
+{
+    list_t    *localVarQueryParameters = NULL;
+    list_t    *localVarHeaderParameters = NULL;
+    list_t    *localVarFormParameters = NULL;
+    list_t *localVarHeaderType = list_create();
+    list_t *localVarContentType = list_create();
+    char      *localVarBodyParameters = NULL;
+
+    // create the path
+    long sizeOfPath = strlen("/json/bulk")+1;
+    char *localVarPath = malloc(sizeOfPath);
+    snprintf(localVarPath, sizeOfPath, "/json/bulk");
+
+
+
+
+    // Body Param
+    cJSON *localVarSingleItemJSON_body;
+    if (body != NULL)
+    {
+        //string
+        localVarSingleItemJSON_body = object_convertToJSON(body);
+        localVarBodyParameters = cJSON_Print(localVarSingleItemJSON_body);
+    }
+    list_addElement(localVarHeaderType,"application/json"); //produces
+    list_addElement(localVarContentType,"application/x-ndjson"); //consumes
+    apiClient_invoke(apiClient,
+                    localVarPath,
+                    localVarQueryParameters,
+                    localVarHeaderParameters,
+                    localVarFormParameters,
+                    localVarHeaderType,
+                    localVarContentType,
+                    localVarBodyParameters,
+                    "POST");
+
+    if (apiClient->response_code == 200) {
+        printf("%s\n","item updated");
+    }
+    if (apiClient->response_code == 0) {
+        printf("%s\n","error");
+    }
+    //nonprimitive not container
+    cJSON *IndexAPIlocalVarJSON = cJSON_Parse(apiClient->dataReceived);
+    success_response_t *elementToReturn = success_response_parseFromJSON(IndexAPIlocalVarJSON);
+    cJSON_Delete(IndexAPIlocalVarJSON);
+    if(elementToReturn == NULL) {
+        // return 0;
+    }
+
+    //return type
+    if (apiClient->dataReceived) {
+        free(apiClient->dataReceived);
+        apiClient->dataReceived = NULL;
+        apiClient->dataReceivedLen = 0;
+    }
+    
+    
+    
+    list_free(localVarHeaderType);
+    list_free(localVarContentType);
+    free(localVarPath);
+    cJSON_Delete(localVarSingleItemJSON_body);
+    free(localVarBodyParameters);
+    return elementToReturn;
+end:
+    return NULL;
+
+}
+
 // Delete a document in an index
 //
 success_response_t*

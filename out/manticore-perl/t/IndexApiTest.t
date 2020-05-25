@@ -30,6 +30,14 @@ my $api = WWW::OpenAPIClient::IndexApi->new();
 isa_ok($api, 'WWW::OpenAPIClient::IndexApi');
 
 #
+# bulk test
+#
+{
+    my $body = undef; # replace NULL with a proper value
+    my $result = $api->bulk(body => $body);
+}
+
+#
 # delete test
 #
 {

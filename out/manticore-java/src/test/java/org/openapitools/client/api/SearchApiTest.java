@@ -15,6 +15,7 @@ package org.openapitools.client.api;
 
 import org.openapitools.client.ApiException;
 import org.openapitools.client.model.ErrorResponse;
+import org.openapitools.client.model.PercolateRequest;
 import org.openapitools.client.model.SearchRequest;
 import org.openapitools.client.model.SearchResponse;
 import org.junit.Test;
@@ -33,6 +34,22 @@ public class SearchApiTest {
 
     private final SearchApi api = new SearchApi();
 
+    
+    /**
+     * Perform reverse search on a percolate index
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void percolateTest() throws ApiException {
+        PercolateRequest percolateRequest = null;
+        SearchResponse response = api.percolate(percolateRequest);
+
+        // TODO: test validations
+    }
     
     /**
      * Performs a search

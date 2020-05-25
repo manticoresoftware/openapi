@@ -64,6 +64,18 @@ namespace Org.OpenAPITools.Test
 
         
         /// <summary>
+        /// Test Bulk
+        /// </summary>
+        [Test]
+        public void BulkTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //Object body = null;
+            //var response = instance.Bulk(body);
+            //Assert.IsInstanceOf(typeof(SuccessResponse), response, "response is SuccessResponse");
+        }
+        
+        /// <summary>
         /// Test Delete
         /// </summary>
         [Test]

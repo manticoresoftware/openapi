@@ -4,11 +4,73 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**bulk**](IndexApi.md#bulk) | **POST** /json/bulk | Bulk index operations
 [**delete**](IndexApi.md#delete) | **POST** /json/delete | Delete a document in an index
 [**insert**](IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 [**replace**](IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 [**update**](IndexApi.md#update) | **POST** /json/update | Update a document in an index
 
+
+<a name="bulk"></a>
+# **bulk**
+> SuccessResponse bulk(body)
+
+Bulk index operations
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.IndexApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
+
+    IndexApi apiInstance = new IndexApi(defaultClient);
+    Object body = null; // Object | 
+    try {
+      SuccessResponse result = apiInstance.bulk(body);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling IndexApi#bulk");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **Object**|  |
+
+### Return type
+
+[**SuccessResponse**](SuccessResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-ndjson
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | item updated |  -  |
+**0** | error |  -  |
 
 <a name="delete"></a>
 # **delete**

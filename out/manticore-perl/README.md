@@ -234,6 +234,8 @@ use WWW::OpenAPIClient::Object::DeleteDocumentRequest;
 use WWW::OpenAPIClient::Object::ErrorResponse;
 use WWW::OpenAPIClient::Object::InlineObject;
 use WWW::OpenAPIClient::Object::InsertDocumentRequest;
+use WWW::OpenAPIClient::Object::PercolateRequest;
+use WWW::OpenAPIClient::Object::PercolateRequestQuery;
 use WWW::OpenAPIClient::Object::SearchRequest;
 use WWW::OpenAPIClient::Object::SearchResponse;
 use WWW::OpenAPIClient::Object::SearchResponseHits;
@@ -259,6 +261,8 @@ use WWW::OpenAPIClient::Object::DeleteDocumentRequest;
 use WWW::OpenAPIClient::Object::ErrorResponse;
 use WWW::OpenAPIClient::Object::InlineObject;
 use WWW::OpenAPIClient::Object::InsertDocumentRequest;
+use WWW::OpenAPIClient::Object::PercolateRequest;
+use WWW::OpenAPIClient::Object::PercolateRequestQuery;
 use WWW::OpenAPIClient::Object::SearchRequest;
 use WWW::OpenAPIClient::Object::SearchResponse;
 use WWW::OpenAPIClient::Object::SearchResponseHits;
@@ -272,14 +276,14 @@ use WWW::OpenAPIClient::;
 my $api_instance = WWW::OpenAPIClient::->new(
 );
 
-my $delete_document_request = WWW::OpenAPIClient::Object::DeleteDocumentRequest->new(); # DeleteDocumentRequest | 
+my $body = WWW::OpenAPIClient::Object::object->new(); # object | 
 
 eval {
-    my $result = $api_instance->delete(delete_document_request => $delete_document_request);
+    my $result = $api_instance->bulk(body => $body);
     print Dumper($result);
 };
 if ($@) {
-    warn "Exception when calling IndexApi->delete: $@\n";
+    warn "Exception when calling IndexApi->bulk: $@\n";
 }
 
 ```
@@ -290,10 +294,12 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*IndexApi* | [**bulk**](docs/IndexApi.md#bulk) | **POST** /json/bulk | Bulk index operations
 *IndexApi* | [**delete**](docs/IndexApi.md#delete) | **POST** /json/delete | Delete a document in an index
 *IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 *IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
+*SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
 *SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
 *UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
@@ -303,6 +309,8 @@ Class | Method | HTTP request | Description
  - [WWW::OpenAPIClient::Object::ErrorResponse](docs/ErrorResponse.md)
  - [WWW::OpenAPIClient::Object::InlineObject](docs/InlineObject.md)
  - [WWW::OpenAPIClient::Object::InsertDocumentRequest](docs/InsertDocumentRequest.md)
+ - [WWW::OpenAPIClient::Object::PercolateRequest](docs/PercolateRequest.md)
+ - [WWW::OpenAPIClient::Object::PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [WWW::OpenAPIClient::Object::SearchRequest](docs/SearchRequest.md)
  - [WWW::OpenAPIClient::Object::SearchResponse](docs/SearchResponse.md)
  - [WWW::OpenAPIClient::Object::SearchResponseHits](docs/SearchResponseHits.md)

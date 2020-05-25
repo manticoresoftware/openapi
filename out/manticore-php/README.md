@@ -66,13 +66,13 @@ $apiInstance = new OpenAPI\Client\Api\IndexApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$delete_document_request = new \OpenAPI\Client\Model\DeleteDocumentRequest(); // \OpenAPI\Client\Model\DeleteDocumentRequest | 
+$body = new \stdClass; // object | 
 
 try {
-    $result = $apiInstance->delete($delete_document_request);
+    $result = $apiInstance->bulk($body);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling IndexApi->delete: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling IndexApi->bulk: ', $e->getMessage(), PHP_EOL;
 }
 
 ?>
@@ -84,10 +84,12 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*IndexApi* | [**bulk**](docs/Api/IndexApi.md#bulk) | **POST** /json/bulk | Bulk index operations
 *IndexApi* | [**delete**](docs/Api/IndexApi.md#delete) | **POST** /json/delete | Delete a document in an index
 *IndexApi* | [**insert**](docs/Api/IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 *IndexApi* | [**replace**](docs/Api/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *IndexApi* | [**update**](docs/Api/IndexApi.md#update) | **POST** /json/update | Update a document in an index
+*SearchApi* | [**percolate**](docs/Api/SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
 *SearchApi* | [**search**](docs/Api/SearchApi.md#search) | **POST** /json/search | Performs a search
 *UtilsApi* | [**sql**](docs/Api/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
@@ -98,6 +100,8 @@ Class | Method | HTTP request | Description
  - [ErrorResponse](docs/Model/ErrorResponse.md)
  - [InlineObject](docs/Model/InlineObject.md)
  - [InsertDocumentRequest](docs/Model/InsertDocumentRequest.md)
+ - [PercolateRequest](docs/Model/PercolateRequest.md)
+ - [PercolateRequestQuery](docs/Model/PercolateRequestQuery.md)
  - [SearchRequest](docs/Model/SearchRequest.md)
  - [SearchResponse](docs/Model/SearchResponse.md)
  - [SearchResponseHits](docs/Model/SearchResponseHits.md)

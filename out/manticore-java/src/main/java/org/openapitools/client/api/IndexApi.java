@@ -59,6 +59,128 @@ public class IndexApi {
     }
 
     /**
+     * Build call for bulk
+     * @param body  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> item updated </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> error </td><td>  -  </td></tr>
+     </table>
+     * 
+     * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Bulk index operations Documentation</a>
+     */
+    public okhttp3.Call bulkCall(Object body, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = body;
+
+        // create path and map variables
+        String localVarPath = "/json/bulk";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/x-ndjson"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call bulkValidateBeforeCall(Object body, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling bulk(Async)");
+        }
+        
+
+        okhttp3.Call localVarCall = bulkCall(body, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Bulk index operations
+     * 
+     * @param body  (required)
+     * @return SuccessResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> item updated </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> error </td><td>  -  </td></tr>
+     </table>
+     * 
+     * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Bulk index operations Documentation</a>
+     */
+    public SuccessResponse bulk(Object body) throws ApiException {
+        ApiResponse<SuccessResponse> localVarResp = bulkWithHttpInfo(body);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Bulk index operations
+     * 
+     * @param body  (required)
+     * @return ApiResponse&lt;SuccessResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> item updated </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> error </td><td>  -  </td></tr>
+     </table>
+     * 
+     * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Bulk index operations Documentation</a>
+     */
+    public ApiResponse<SuccessResponse> bulkWithHttpInfo(Object body) throws ApiException {
+        okhttp3.Call localVarCall = bulkValidateBeforeCall(body, null);
+        Type localVarReturnType = new TypeToken<SuccessResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Bulk index operations (asynchronously)
+     * 
+     * @param body  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> item updated </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> error </td><td>  -  </td></tr>
+     </table>
+     * 
+     * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Bulk index operations Documentation</a>
+     */
+    public okhttp3.Call bulkAsync(Object body, final ApiCallback<SuccessResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = bulkValidateBeforeCall(body, _callback);
+        Type localVarReturnType = new TypeToken<SuccessResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
      * Build call for delete
      * @param deleteDocumentRequest  (required)
      * @param _callback Callback for upload/download progress

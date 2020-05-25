@@ -32,6 +32,17 @@ describe 'SearchApi' do
     end
   end
 
+  # unit tests for percolate
+  # Perform reverse search on a percolate index
+  # @param percolate_request 
+  # @param [Hash] opts the optional parameters
+  # @return [SearchResponse]
+  describe 'percolate test' do
+    it 'should work' do
+      # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+    end
+  end
+
   # unit tests for search
   # Performs a search
   # @param search_request 

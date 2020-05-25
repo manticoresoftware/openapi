@@ -73,6 +73,16 @@ class IndexApiTest extends TestCase
     }
 
     /**
+     * Test case for bulk
+     *
+     * Bulk index operations.
+     *
+     */
+    public function testBulk()
+    {
+    }
+
+    /**
      * Test case for delete
      *
      * Delete a document in an index.

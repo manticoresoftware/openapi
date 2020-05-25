@@ -6,8 +6,15 @@
 #include "../include/keyValuePair.h"
 #include "../include/binary.h"
 #include "../model/error_response.h"
+#include "../model/percolate_request.h"
 #include "../model/search_request.h"
 #include "../model/search_response.h"
+
+
+// Perform reverse search on a percolate index
+//
+search_response_t*
+SearchAPI_percolate(apiClient_t *apiClient, percolate_request_t * percolate_request );
 
 
 // Performs a search

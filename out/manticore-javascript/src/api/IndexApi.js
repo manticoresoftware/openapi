@@ -39,6 +39,47 @@ export default class IndexApi {
 
 
     /**
+     * Callback function to receive the result of the bulk operation.
+     * @callback module:api/IndexApi~bulkCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/SuccessResponse} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Bulk index operations
+     * @param {Object} body 
+     * @param {module:api/IndexApi~bulkCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/SuccessResponse}
+     */
+    bulk(body, callback) {
+      let postBody = body;
+      // verify the required parameter 'body' is set
+      if (body === undefined || body === null) {
+        throw new Error("Missing the required parameter 'body' when calling bulk");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = ['application/x-ndjson'];
+      let accepts = ['application/json'];
+      let returnType = SuccessResponse;
+      return this.apiClient.callApi(
+        '/json/bulk', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the callDelete operation.
      * @callback module:api/IndexApi~callDeleteCallback
      * @param {String} error Error message, if any.

@@ -49,6 +49,71 @@ sub new {
 
 
 #
+# percolate
+#
+# Perform reverse search on a percolate index
+# 
+# @param PercolateRequest $percolate_request  (required)
+{
+    my $params = {
+    'percolate_request' => {
+        data_type => 'PercolateRequest',
+        description => '',
+        required => '1',
+    },
+    };
+    __PACKAGE__->method_documentation->{ 'percolate' } = { 
+        summary => 'Perform reverse search on a percolate index',
+        params => $params,
+        returns => 'SearchResponse',
+        };
+}
+# @return SearchResponse
+#
+sub percolate {
+    my ($self, %args) = @_;
+
+    # verify the required parameter 'percolate_request' is set
+    unless (exists $args{'percolate_request'}) {
+      croak("Missing the required parameter 'percolate_request' when calling percolate");
+    }
+
+    # parse inputs
+    my $_resource_path = '/json/pq/search';
+
+    my $_method = 'POST';
+    my $query_params = {};
+    my $header_params = {};
+    my $form_params = {};
+
+    # 'Accept' and 'Content-Type' header
+    my $_header_accept = $self->{api_client}->select_header_accept('application/json');
+    if ($_header_accept) {
+        $header_params->{'Accept'} = $_header_accept;
+    }
+    $header_params->{'Content-Type'} = $self->{api_client}->select_header_content_type('application/json');
+
+    my $_body_data;
+    # body params
+    if ( exists $args{'percolate_request'}) {
+        $_body_data = $args{'percolate_request'};
+    }
+
+    # authentication setting, if any
+    my $auth_settings = [qw()];
+
+    # make the API Call
+    my $response = $self->{api_client}->call_api($_resource_path, $_method,
+                                           $query_params, $form_params,
+                                           $header_params, $_body_data, $auth_settings);
+    if (!$response) {
+        return;
+    }
+    my $_response_object = $self->{api_client}->deserialize('SearchResponse', $response);
+    return $_response_object;
+}
+
+#
 # search
 #
 # Performs a search

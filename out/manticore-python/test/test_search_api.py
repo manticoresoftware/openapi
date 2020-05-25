@@ -29,6 +29,13 @@ class TestSearchApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_percolate(self):
+        """Test case for percolate
+
+        Perform reverse search on a percolate index  # noqa: E501
+        """
+        pass
+
     def test_search(self):
         """Test case for search
 

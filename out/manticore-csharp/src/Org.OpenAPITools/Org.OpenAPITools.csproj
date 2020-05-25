@@ -12,7 +12,7 @@ Contact: adrian.nuta@manticoresearch.com
     
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FE45EDFC-09F1-4099-BBDD-597041DCADB4}</ProjectGuid>
+    <ProjectGuid>{26FAC330-8BC0-401D-84AE-E8851FD74A4E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Org.OpenAPITools</RootNamespace>

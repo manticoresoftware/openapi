@@ -48,6 +48,16 @@
   }
 
   describe('IndexApi', function() {
+    describe('bulk', function() {
+      it('should call bulk successfully', function(done) {
+        //uncomment below and update the code to test bulk
+        //instance.bulk(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('callDelete', function() {
       it('should call callDelete successfully', function(done) {
         //uncomment below and update the code to test callDelete

@@ -4,8 +4,70 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
 [**search**](SearchApi.md#search) | **POST** /json/search | Performs a search
 
+
+# **percolate**
+> SearchResponse percolate(percolate_request)
+
+Perform reverse search on a percolate index
+
+### Example
+
+```python
+from __future__ import print_function
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0"
+)
+
+
+# Enter a context with an instance of the API client
+with openapi_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = openapi_client.SearchApi(api_client)
+    percolate_request = openapi_client.PercolateRequest() # PercolateRequest | 
+
+    try:
+        # Perform reverse search on a percolate index
+        api_response = api_instance.percolate(percolate_request)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling SearchApi->percolate: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **percolate_request** | [**PercolateRequest**](PercolateRequest.md)|  | 
+
+### Return type
+
+[**SearchResponse**](SearchResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | items found |  -  |
+**0** | error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search**
 > SearchResponse search(search_request)

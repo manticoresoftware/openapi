@@ -158,6 +158,60 @@ paths:
       summary: Delete a document in an index
       tags:
       - Index
+  /json/bulk:
+    post:
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_update.html
+      operationId: bulk
+      requestBody:
+        content:
+          application/x-ndjson:
+            schema:
+              $ref: '#/components/schemas/bulkRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/successResponse'
+          description: item updated
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+          description: error
+      summary: Bulk index operations
+      tags:
+      - Index
+  /json/pq/search:
+    post:
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_update.html
+      operationId: percolate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/percolateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchResponse'
+          description: items found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+          description: error
+      summary: Perform reverse search on a percolate index
+      tags:
+      - Search
   /sql:
     post:
       externalDocs:
@@ -279,6 +333,9 @@ components:
       required:
       - index
       type: object
+    bulkRequest:
+      description: list of operations
+      type: object
     insertDocumentRequest:
       description: |
         Object with document data.
@@ -302,6 +359,14 @@ components:
       required:
       - doc
       - index
+      type: object
+    percolateRequest:
+      description: Object with documents to percolate
+      properties:
+        query:
+          $ref: '#/components/schemas/percolateRequest_query'
+      required:
+      - query
       type: object
     searchResponse:
       description: Response object of a search request
@@ -373,6 +438,12 @@ components:
       required:
       - query
       type: object
+    percolateRequest_query:
+      properties:
+        percolate:
+          type: object
+      required:
+      - percolate
     searchResponse_hits:
       example:
         hits:

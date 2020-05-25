@@ -64,6 +64,18 @@ namespace Org.OpenAPITools.Test
 
         
         /// <summary>
+        /// Test Percolate
+        /// </summary>
+        [Test]
+        public void PercolateTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //PercolateRequest percolateRequest = null;
+            //var response = instance.Percolate(percolateRequest);
+            //Assert.IsInstanceOf(typeof(SearchResponse), response, "response is SearchResponse");
+        }
+        
+        /// <summary>
         /// Test Search
         /// </summary>
         [Test]

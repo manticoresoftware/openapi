@@ -29,6 +29,13 @@ class TestIndexApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_bulk(self):
+        """Test case for bulk
+
+        Bulk index operations  # noqa: E501
+        """
+        pass
+
     def test_delete(self):
         """Test case for delete
 

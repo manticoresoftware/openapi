@@ -80,17 +80,17 @@ namespace Example
 
             Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
             var apiInstance = new IndexApi(Configuration.Default);
-            var deleteDocumentRequest = new DeleteDocumentRequest(); // DeleteDocumentRequest | 
+            var body = ;  // Object | 
 
             try
             {
-                // Delete a document in an index
-                SuccessResponse result = apiInstance.Delete(deleteDocumentRequest);
+                // Bulk index operations
+                SuccessResponse result = apiInstance.Bulk(body);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
             {
-                Debug.Print("Exception when calling IndexApi.Delete: " + e.Message );
+                Debug.Print("Exception when calling IndexApi.Bulk: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -106,10 +106,12 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*IndexApi* | [**Bulk**](docs/IndexApi.md#bulk) | **POST** /json/bulk | Bulk index operations
 *IndexApi* | [**Delete**](docs/IndexApi.md#delete) | **POST** /json/delete | Delete a document in an index
 *IndexApi* | [**Insert**](docs/IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 *IndexApi* | [**Replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *IndexApi* | [**Update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
+*SearchApi* | [**Percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
 *SearchApi* | [**Search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
 *UtilsApi* | [**Sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
@@ -120,6 +122,8 @@ Class | Method | HTTP request | Description
  - [Model.ErrorResponse](docs/ErrorResponse.md)
  - [Model.InlineObject](docs/InlineObject.md)
  - [Model.InsertDocumentRequest](docs/InsertDocumentRequest.md)
+ - [Model.PercolateRequest](docs/PercolateRequest.md)
+ - [Model.PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [Model.SearchRequest](docs/SearchRequest.md)
  - [Model.SearchResponse](docs/SearchResponse.md)
  - [Model.SearchResponseHits](docs/SearchResponseHits.md)

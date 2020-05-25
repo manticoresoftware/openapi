@@ -4,11 +4,66 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**bulk**](IndexApi.md#bulk) | **POST** /json/bulk | Bulk index operations
 [**delete**](IndexApi.md#delete) | **POST** /json/delete | Delete a document in an index
 [**insert**](IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 [**replace**](IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 [**update**](IndexApi.md#update) | **POST** /json/update | Update a document in an index
 
+
+
+## bulk
+
+> \OpenAPI\Client\Model\SuccessResponse bulk($body)
+
+Bulk index operations
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+$apiInstance = new OpenAPI\Client\Api\IndexApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$body = new \stdClass; // object | 
+
+try {
+    $result = $apiInstance->bulk($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling IndexApi->bulk: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **object**|  |
+
+### Return type
+
+[**\OpenAPI\Client\Model\SuccessResponse**](../Model/SuccessResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/x-ndjson
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../../README.md#documentation-for-models)
+[[Back to README]](../../README.md)
 
 
 ## delete

@@ -4,11 +4,86 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**Bulk**](IndexApi.md#bulk) | **POST** /json/bulk | Bulk index operations
 [**Delete**](IndexApi.md#delete) | **POST** /json/delete | Delete a document in an index
 [**Insert**](IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 [**Replace**](IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 [**Update**](IndexApi.md#update) | **POST** /json/update | Update a document in an index
 
+
+
+## Bulk
+
+> SuccessResponse Bulk (Object body)
+
+Bulk index operations
+
+### Example
+
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class BulkExample
+    {
+        public static void Main()
+        {
+            Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
+            var apiInstance = new IndexApi(Configuration.Default);
+            var body = ;  // Object | 
+
+            try
+            {
+                // Bulk index operations
+                SuccessResponse result = apiInstance.Bulk(body);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException e)
+            {
+                Debug.Print("Exception when calling IndexApi.Bulk: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **Object**|  | 
+
+### Return type
+
+[**SuccessResponse**](SuccessResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/x-ndjson
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | item updated |  -  |
+| **0** | error |  -  |
+
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## Delete

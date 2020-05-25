@@ -4,11 +4,44 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**Bulk**](IndexApi.md#Bulk) | **Post** /json/bulk | Bulk index operations
 [**Delete**](IndexApi.md#Delete) | **Post** /json/delete | Delete a document in an index
 [**Insert**](IndexApi.md#Insert) | **Post** /json/insert | Create a new document in an index
 [**Replace**](IndexApi.md#Replace) | **Post** /json/replace | Replace new document in an index
 [**Update**](IndexApi.md#Update) | **Post** /json/update | Update a document in an index
 
+
+
+## Bulk
+
+> SuccessResponse Bulk(ctx, body)
+
+Bulk index operations
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**body** | **map[string]interface{}**|  | 
+
+### Return type
+
+[**SuccessResponse**](successResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/x-ndjson
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## Delete

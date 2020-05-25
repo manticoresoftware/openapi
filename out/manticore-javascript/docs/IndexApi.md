@@ -4,11 +4,55 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**bulk**](IndexApi.md#bulk) | **POST** /json/bulk | Bulk index operations
 [**callDelete**](IndexApi.md#callDelete) | **POST** /json/delete | Delete a document in an index
 [**insert**](IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 [**replace**](IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 [**update**](IndexApi.md#update) | **POST** /json/update | Update a document in an index
 
+
+
+## bulk
+
+> SuccessResponse bulk(body)
+
+Bulk index operations
+
+### Example
+
+```javascript
+import ManticoreSearchApi from 'manticore_search_api';
+
+let apiInstance = new ManticoreSearchApi.IndexApi();
+let body = null; // Object | 
+apiInstance.bulk(body, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **Object**|  | 
+
+### Return type
+
+[**SuccessResponse**](SuccessResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/x-ndjson
+- **Accept**: application/json
 
 
 ## callDelete

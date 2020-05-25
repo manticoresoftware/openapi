@@ -17,6 +17,8 @@ import DeleteDocumentRequest from './model/DeleteDocumentRequest';
 import ErrorResponse from './model/ErrorResponse';
 import InlineObject from './model/InlineObject';
 import InsertDocumentRequest from './model/InsertDocumentRequest';
+import PercolateRequest from './model/PercolateRequest';
+import PercolateRequestQuery from './model/PercolateRequestQuery';
 import SearchRequest from './model/SearchRequest';
 import SearchResponse from './model/SearchResponse';
 import SearchResponseHits from './model/SearchResponseHits';
@@ -88,6 +90,18 @@ export {
      * @property {module:model/InsertDocumentRequest}
      */
     InsertDocumentRequest,
+
+    /**
+     * The PercolateRequest model constructor.
+     * @property {module:model/PercolateRequest}
+     */
+    PercolateRequest,
+
+    /**
+     * The PercolateRequestQuery model constructor.
+     * @property {module:model/PercolateRequestQuery}
+     */
+    PercolateRequestQuery,
 
     /**
      * The SearchRequest model constructor.

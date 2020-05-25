@@ -26,6 +26,27 @@ namespace Org.OpenAPITools.Api
     {
         #region Synchronous Operations
         /// <summary>
+        /// Perform reverse search on a percolate index
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="percolateRequest"></param>
+        /// <returns>SearchResponse</returns>
+        SearchResponse Percolate (PercolateRequest percolateRequest);
+
+        /// <summary>
+        /// Perform reverse search on a percolate index
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="percolateRequest"></param>
+        /// <returns>ApiResponse of SearchResponse</returns>
+        ApiResponse<SearchResponse> PercolateWithHttpInfo (PercolateRequest percolateRequest);
+        /// <summary>
         /// Performs a search
         /// </summary>
         /// <remarks>
@@ -48,6 +69,29 @@ namespace Org.OpenAPITools.Api
         ApiResponse<SearchResponse> SearchWithHttpInfo (SearchRequest searchRequest);
         #endregion Synchronous Operations
         #region Asynchronous Operations
+        /// <summary>
+        /// Perform reverse search on a percolate index
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="percolateRequest"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
+        /// <returns>Task of SearchResponse</returns>
+        System.Threading.Tasks.Task<SearchResponse> PercolateAsync (PercolateRequest percolateRequest, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Perform reverse search on a percolate index
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="percolateRequest"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
+        /// <returns>Task of ApiResponse (SearchResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<SearchResponse>> PercolateAsyncWithHttpInfo (PercolateRequest percolateRequest, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Performs a search
         /// </summary>
@@ -180,6 +224,157 @@ namespace Org.OpenAPITools.Api
         public void AddDefaultHeader(string key, string value)
         {
             this.Configuration.AddDefaultHeader(key, value);
+        }
+
+        /// <summary>
+        /// Perform reverse search on a percolate index 
+        /// </summary>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="percolateRequest"></param>
+        /// <returns>SearchResponse</returns>
+        public SearchResponse Percolate (PercolateRequest percolateRequest)
+        {
+             ApiResponse<SearchResponse> localVarResponse = PercolateWithHttpInfo(percolateRequest);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Perform reverse search on a percolate index 
+        /// </summary>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="percolateRequest"></param>
+        /// <returns>ApiResponse of SearchResponse</returns>
+        public ApiResponse<SearchResponse> PercolateWithHttpInfo (PercolateRequest percolateRequest)
+        {
+            // verify the required parameter 'percolateRequest' is set
+            if (percolateRequest == null)
+                throw new ApiException(400, "Missing required parameter 'percolateRequest' when calling SearchApi->Percolate");
+
+            var localVarPath = "/json/pq/search";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (percolateRequest != null && percolateRequest.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(percolateRequest); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = percolateRequest; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("Percolate", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<SearchResponse>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (SearchResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(SearchResponse)));
+        }
+
+        /// <summary>
+        /// Perform reverse search on a percolate index 
+        /// </summary>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="percolateRequest"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
+        /// <returns>Task of SearchResponse</returns>
+        public async System.Threading.Tasks.Task<SearchResponse> PercolateAsync (PercolateRequest percolateRequest, CancellationToken cancellationToken = default(CancellationToken))
+        {
+             ApiResponse<SearchResponse> localVarResponse = await PercolateAsyncWithHttpInfo(percolateRequest, cancellationToken);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Perform reverse search on a percolate index 
+        /// </summary>
+        /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="percolateRequest"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
+        /// <returns>Task of ApiResponse (SearchResponse)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<SearchResponse>> PercolateAsyncWithHttpInfo (PercolateRequest percolateRequest, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            // verify the required parameter 'percolateRequest' is set
+            if (percolateRequest == null)
+                throw new ApiException(400, "Missing required parameter 'percolateRequest' when calling SearchApi->Percolate");
+
+            var localVarPath = "/json/pq/search";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (percolateRequest != null && percolateRequest.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(percolateRequest); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = percolateRequest; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType, cancellationToken);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("Percolate", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<SearchResponse>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (SearchResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(SearchResponse)));
         }
 
         /// <summary>

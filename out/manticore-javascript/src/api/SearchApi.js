@@ -14,6 +14,7 @@
 
 import ApiClient from "../ApiClient";
 import ErrorResponse from '../model/ErrorResponse';
+import PercolateRequest from '../model/PercolateRequest';
 import SearchRequest from '../model/SearchRequest';
 import SearchResponse from '../model/SearchResponse';
 
@@ -35,6 +36,47 @@ export default class SearchApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
+
+    /**
+     * Callback function to receive the result of the percolate operation.
+     * @callback module:api/SearchApi~percolateCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/SearchResponse} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Perform reverse search on a percolate index
+     * @param {module:model/PercolateRequest} percolateRequest 
+     * @param {module:api/SearchApi~percolateCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/SearchResponse}
+     */
+    percolate(percolateRequest, callback) {
+      let postBody = percolateRequest;
+      // verify the required parameter 'percolateRequest' is set
+      if (percolateRequest === undefined || percolateRequest === null) {
+        throw new Error("Missing the required parameter 'percolateRequest' when calling percolate");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = SearchResponse;
+      return this.apiClient.callApi(
+        '/json/pq/search', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
 
     /**
      * Callback function to receive the result of the search operation.

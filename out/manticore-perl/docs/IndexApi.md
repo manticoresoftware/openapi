@@ -9,11 +9,56 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**bulk**](IndexApi.md#bulk) | **POST** /json/bulk | Bulk index operations
 [**delete**](IndexApi.md#delete) | **POST** /json/delete | Delete a document in an index
 [**insert**](IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 [**replace**](IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 [**update**](IndexApi.md#update) | **POST** /json/update | Update a document in an index
 
+
+# **bulk**
+> SuccessResponse bulk(body => $body)
+
+Bulk index operations
+
+### Example 
+```perl
+use Data::Dumper;
+use WWW::OpenAPIClient::IndexApi;
+my $api_instance = WWW::OpenAPIClient::IndexApi->new(
+);
+
+my $body = WWW::OpenAPIClient::Object::object->new(); # object | 
+
+eval { 
+    my $result = $api_instance->bulk(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling IndexApi->bulk: $@\n";
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **object**|  | 
+
+### Return type
+
+[**SuccessResponse**](SuccessResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-ndjson
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete**
 > SuccessResponse delete(delete_document_request => $delete_document_request)

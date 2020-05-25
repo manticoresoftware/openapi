@@ -73,6 +73,16 @@ class SearchApiTest extends TestCase
     }
 
     /**
+     * Test case for percolate
+     *
+     * Perform reverse search on a percolate index.
+     *
+     */
+    public function testPercolate()
+    {
+    }
+
+    /**
      * Test case for search
      *
      * Performs a search.

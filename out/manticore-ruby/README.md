@@ -58,14 +58,14 @@ Please follow the [installation](#installation) procedure and then run the follo
 require 'openapi_client'
 
 api_instance = OpenapiClient::IndexApi.new
-delete_document_request = OpenapiClient::DeleteDocumentRequest.new # DeleteDocumentRequest | 
+body = nil # Object | 
 
 begin
-  #Delete a document in an index
-  result = api_instance.delete(delete_document_request)
+  #Bulk index operations
+  result = api_instance.bulk(body)
   p result
 rescue OpenapiClient::ApiError => e
-  puts "Exception when calling IndexApi->delete: #{e}"
+  puts "Exception when calling IndexApi->bulk: #{e}"
 end
 
 ```
@@ -76,10 +76,12 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*OpenapiClient::IndexApi* | [**bulk**](docs/IndexApi.md#bulk) | **POST** /json/bulk | Bulk index operations
 *OpenapiClient::IndexApi* | [**delete**](docs/IndexApi.md#delete) | **POST** /json/delete | Delete a document in an index
 *OpenapiClient::IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 *OpenapiClient::IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *OpenapiClient::IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
+*OpenapiClient::SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
 *OpenapiClient::SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
 *OpenapiClient::UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
@@ -90,6 +92,8 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::ErrorResponse](docs/ErrorResponse.md)
  - [OpenapiClient::InlineObject](docs/InlineObject.md)
  - [OpenapiClient::InsertDocumentRequest](docs/InsertDocumentRequest.md)
+ - [OpenapiClient::PercolateRequest](docs/PercolateRequest.md)
+ - [OpenapiClient::PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [OpenapiClient::SearchRequest](docs/SearchRequest.md)
  - [OpenapiClient::SearchResponse](docs/SearchResponse.md)
  - [OpenapiClient::SearchResponseHits](docs/SearchResponseHits.md)

@@ -12,6 +12,12 @@
 #include "../model/update_document_request.h"
 
 
+// Bulk index operations
+//
+success_response_t*
+IndexAPI_bulk(apiClient_t *apiClient, object_t * body );
+
+
 // Delete a document in an index
 //
 success_response_t*

@@ -37,6 +37,22 @@ public class IndexApiTest {
 
     
     /**
+     * Bulk index operations
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void bulkTest() throws ApiException {
+        Object body = null;
+        SuccessResponse response = api.bulk(body);
+
+        // TODO: test validations
+    }
+    
+    /**
      * Delete a document in an index
      *
      * 

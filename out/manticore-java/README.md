@@ -2,7 +2,7 @@
 
 Manticore Search API
 - API version: 1.0.0
-  - Build date: 2020-05-21T09:13:50.147Z[GMT]
+  - Build date: 2020-05-21T16:46:05.830Z[GMT]
 
 This is the API for Manticore Search HTTP protocol
 
@@ -86,12 +86,12 @@ public class Example {
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
-    DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(); // DeleteDocumentRequest | 
+    Object body = null; // Object | 
     try {
-      SuccessResponse result = apiInstance.delete(deleteDocumentRequest);
+      SuccessResponse result = apiInstance.bulk(body);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling IndexApi#delete");
+      System.err.println("Exception when calling IndexApi#bulk");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -108,10 +108,12 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*IndexApi* | [**bulk**](docs/IndexApi.md#bulk) | **POST** /json/bulk | Bulk index operations
 *IndexApi* | [**delete**](docs/IndexApi.md#delete) | **POST** /json/delete | Delete a document in an index
 *IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 *IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
+*SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
 *SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
 *UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
@@ -122,6 +124,8 @@ Class | Method | HTTP request | Description
  - [ErrorResponse](docs/ErrorResponse.md)
  - [InlineObject](docs/InlineObject.md)
  - [InsertDocumentRequest](docs/InsertDocumentRequest.md)
+ - [PercolateRequest](docs/PercolateRequest.md)
+ - [PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [SearchRequest](docs/SearchRequest.md)
  - [SearchResponse](docs/SearchResponse.md)
  - [SearchResponseHits](docs/SearchResponseHits.md)

@@ -30,6 +30,14 @@ my $api = WWW::OpenAPIClient::SearchApi->new();
 isa_ok($api, 'WWW::OpenAPIClient::SearchApi');
 
 #
+# percolate test
+#
+{
+    my $percolate_request = undef; # replace NULL with a proper value
+    my $result = $api->percolate(percolate_request => $percolate_request);
+}
+
+#
 # search test
 #
 {

@@ -32,6 +32,17 @@ describe 'IndexApi' do
     end
   end
 
+  # unit tests for bulk
+  # Bulk index operations
+  # @param body 
+  # @param [Hash] opts the optional parameters
+  # @return [SuccessResponse]
+  describe 'bulk test' do
+    it 'should work' do
+      # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+    end
+  end
+
   # unit tests for delete
   # Delete a document in an index
   # @param delete_document_request 

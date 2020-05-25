@@ -48,6 +48,16 @@
   }
 
   describe('SearchApi', function() {
+    describe('percolate', function() {
+      it('should call percolate successfully', function(done) {
+        //uncomment below and update the code to test percolate
+        //instance.percolate(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('search', function() {
       it('should call search successfully', function(done) {
         //uncomment below and update the code to test search

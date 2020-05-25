@@ -99,7 +99,9 @@ components:
       example:
         index: test
         id: 1    
-
+    bulkRequest:
+      type: object
+      description: list of operations
     insertDocumentRequest:
       type: object
       description: |
@@ -124,6 +126,19 @@ components:
       example:
         title: "This is some title"
         gid: 100    
+    percolateRequest:
+      type: object
+      description: Object with documents to percolate
+      required: 
+        - query
+      properties:
+        query:
+          type: object
+          required: 
+            - percolate
+          properties:
+            percolate:
+              type: object
     searchResponse:
       type: object
       description: Response object of a search request
@@ -143,6 +158,7 @@ components:
                 type: object
         profile:
           type: object
+          
     sqlResponse:
       type: object
       description: Response from sql depends on the query executed.
@@ -316,7 +332,63 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/errorResponse'                  
+                  $ref: '#/components/schemas/errorResponse'        
+  /json/bulk:
+    post:
+      summary: Bulk index operations
+      operationId: bulk
+      tags:
+        - Index      
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_update.html
+      requestBody:
+        required: true
+        content:
+          application/x-ndjson:
+            schema:
+             $ref: '#/components/schemas/bulkRequest'
+
+      responses:
+        '200':
+          description: item updated
+          content:
+             application/json:
+               schema: 
+                  $ref: '#/components/schemas/successResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errorResponse'                          
+  /json/pq/search:
+    post:
+      summary: Perform reverse search on a percolate index
+      operationId: percolate
+      tags:
+        - Search      
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_update.html
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+             $ref: '#/components/schemas/percolateRequest'
+
+      responses:
+        '200':
+          description: items found
+          content:
+             application/json:
+               schema: 
+                  $ref: '#/components/schemas/searchResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/errorResponse'                           
   /sql:
     post:
       summary: Perform SQL requests

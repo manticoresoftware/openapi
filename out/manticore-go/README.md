@@ -33,10 +33,12 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*IndexApi* | [**Bulk**](docs/IndexApi.md#bulk) | **Post** /json/bulk | Bulk index operations
 *IndexApi* | [**Delete**](docs/IndexApi.md#delete) | **Post** /json/delete | Delete a document in an index
 *IndexApi* | [**Insert**](docs/IndexApi.md#insert) | **Post** /json/insert | Create a new document in an index
 *IndexApi* | [**Replace**](docs/IndexApi.md#replace) | **Post** /json/replace | Replace new document in an index
 *IndexApi* | [**Update**](docs/IndexApi.md#update) | **Post** /json/update | Update a document in an index
+*SearchApi* | [**Percolate**](docs/SearchApi.md#percolate) | **Post** /json/pq/search | Perform reverse search on a percolate index
 *SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /json/search | Performs a search
 *UtilsApi* | [**Sql**](docs/UtilsApi.md#sql) | **Post** /sql | Perform SQL requests
 
@@ -47,6 +49,8 @@ Class | Method | HTTP request | Description
  - [ErrorResponse](docs/ErrorResponse.md)
  - [InlineObject](docs/InlineObject.md)
  - [InsertDocumentRequest](docs/InsertDocumentRequest.md)
+ - [PercolateRequest](docs/PercolateRequest.md)
+ - [PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [SearchRequest](docs/SearchRequest.md)
  - [SearchResponse](docs/SearchResponse.md)
  - [SearchResponseHits](docs/SearchResponseHits.md)
