@@ -38,7 +38,7 @@ export default class UtilsApi {
      * Callback function to receive the result of the sql operation.
      * @callback module:api/UtilsApi~sqlCallback
      * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
+     * @param {Object.<String, {String: Object}>} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -48,7 +48,7 @@ export default class UtilsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.mode 
      * @param {module:api/UtilsApi~sqlCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * data is of type: {@link Object.<String, {String: Object}>}
      */
     sql(query, opts, callback) {
       opts = opts || {};
@@ -72,7 +72,7 @@ export default class UtilsApi {
       let authNames = [];
       let contentTypes = ['application/x-www-form-urlencoded'];
       let accepts = ['application/json'];
-      let returnType = Object;
+      let returnType = {'String': Object};
       return this.apiClient.callApi(
         '/sql', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,

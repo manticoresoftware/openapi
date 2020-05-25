@@ -22,8 +22,8 @@ search_request_t* instantiate_search_request(int include_optional) {
   search_request_t* search_request = NULL;
   if (include_optional) {
     search_request = search_request_create(
-      "0",
-      0,
+      "test",
+      list_create(),
       0,
       0,
       0,
@@ -35,8 +35,8 @@ search_request_t* instantiate_search_request(int include_optional) {
     );
   } else {
     search_request = search_request_create(
-      "0",
-      0,
+      "test",
+      list_create(),
       0,
       0,
       0,

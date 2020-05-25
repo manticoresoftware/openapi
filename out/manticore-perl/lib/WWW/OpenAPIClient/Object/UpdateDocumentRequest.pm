@@ -169,7 +169,7 @@ __PACKAGE__->method_documentation({
         read_only => '',
             },
     'doc' => {
-        datatype => 'object',
+        datatype => 'HASH[string,object]',
         base_name => 'doc',
         description => 'Index name',
         format => '',
@@ -183,7 +183,7 @@ __PACKAGE__->method_documentation({
         read_only => '',
             },
     'query' => {
-        datatype => 'object',
+        datatype => 'HASH[string,object]',
         base_name => 'query',
         description => 'Query tree object',
         format => '',
@@ -193,9 +193,9 @@ __PACKAGE__->method_documentation({
 
 __PACKAGE__->openapi_types( {
     'index' => 'string',
-    'doc' => 'object',
+    'doc' => 'HASH[string,object]',
     'id' => 'int',
-    'query' => 'object'
+    'query' => 'HASH[string,object]'
 } );
 
 __PACKAGE__->attribute_map( {

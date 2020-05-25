@@ -15,17 +15,17 @@
 
 typedef struct percolate_request_t percolate_request_t;
 
-#include "percolate_request_query.h"
+#include "object.h"
 
 
 
 typedef struct percolate_request_t {
-    struct percolate_request_query_t *query; //model
+    list_t* query; //map
 
 } percolate_request_t;
 
 percolate_request_t *percolate_request_create(
-    percolate_request_query_t *query
+    list_t* query
 );
 
 void percolate_request_free(percolate_request_t *percolate_request);

@@ -24,7 +24,7 @@ class UpdateDocumentRequest {
      * Payload for update document
      * @alias module:model/UpdateDocumentRequest
      * @param index {String} 
-     * @param doc {Object} Index name
+     * @param doc {Object.<String, Object>} Index name
      */
     constructor(index, doc) { 
         
@@ -56,13 +56,13 @@ class UpdateDocumentRequest {
                 obj['index'] = ApiClient.convertToType(data['index'], 'String');
             }
             if (data.hasOwnProperty('doc')) {
-                obj['doc'] = ApiClient.convertToType(data['doc'], Object);
+                obj['doc'] = ApiClient.convertToType(data['doc'], {'String': Object});
             }
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'Number');
             }
             if (data.hasOwnProperty('query')) {
-                obj['query'] = ApiClient.convertToType(data['query'], Object);
+                obj['query'] = ApiClient.convertToType(data['query'], {'String': Object});
             }
         }
         return obj;
@@ -78,7 +78,7 @@ UpdateDocumentRequest.prototype['index'] = undefined;
 
 /**
  * Index name
- * @member {Object} doc
+ * @member {Object.<String, Object>} doc
  */
 UpdateDocumentRequest.prototype['doc'] = undefined;
 
@@ -90,7 +90,7 @@ UpdateDocumentRequest.prototype['id'] = undefined;
 
 /**
  * Query tree object
- * @member {Object} query
+ * @member {Object.<String, Object>} query
  */
 UpdateDocumentRequest.prototype['query'] = undefined;
 

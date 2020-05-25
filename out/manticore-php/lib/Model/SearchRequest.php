@@ -59,7 +59,7 @@ class SearchRequest implements ModelInterface, ArrayAccess
       */
     protected static $openAPITypes = [
         'index' => 'string',
-        'query' => 'object',
+        'query' => 'map[string,object]',
         'limit' => 'int',
         'offset' => 'int',
         'max_matches' => 'int',
@@ -304,7 +304,7 @@ class SearchRequest implements ModelInterface, ArrayAccess
     /**
      * Gets query
      *
-     * @return object
+     * @return map[string,object]
      */
     public function getQuery()
     {
@@ -314,7 +314,7 @@ class SearchRequest implements ModelInterface, ArrayAccess
     /**
      * Sets query
      *
-     * @param object $query query
+     * @param map[string,object] $query query
      *
      * @return $this
      */

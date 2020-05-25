@@ -9,9 +9,9 @@ use WWW::OpenAPIClient::Object::UpdateDocumentRequest;
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **string** |  | 
-**doc** | **object** | Index name | 
+**doc** | **HASH[string,object]** | Index name | 
 **id** | **int** | Document ID | [optional] 
-**query** | **object** | Query tree object | [optional] 
+**query** | **HASH[string,object]** | Query tree object | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -24,7 +24,7 @@ Bulk index operations
 import ManticoreSearchApi from 'manticore_search_api';
 
 let apiInstance = new ManticoreSearchApi.IndexApi();
-let requestBody = [null]; // [Object] | 
+let requestBody = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}]; // [Object] | 
 apiInstance.bulk(requestBody, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -67,7 +67,7 @@ Delete a document in an index
 import ManticoreSearchApi from 'manticore_search_api';
 
 let apiInstance = new ManticoreSearchApi.IndexApi();
-let deleteDocumentRequest = new ManticoreSearchApi.DeleteDocumentRequest(); // DeleteDocumentRequest | 
+let deleteDocumentRequest = {"index":"test","query":{"match":{"title":"apple"}}}; // DeleteDocumentRequest | 
 apiInstance.callDelete(deleteDocumentRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -110,7 +110,7 @@ Create a new document in an index
 import ManticoreSearchApi from 'manticore_search_api';
 
 let apiInstance = new ManticoreSearchApi.IndexApi();
-let insertDocumentRequest = new ManticoreSearchApi.InsertDocumentRequest(); // InsertDocumentRequest | 
+let insertDocumentRequest = {"index":"test","id":1,"doc":{"title":"sample title","gid":10}}; // InsertDocumentRequest | 
 apiInstance.insert(insertDocumentRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -153,7 +153,7 @@ Replace new document in an index
 import ManticoreSearchApi from 'manticore_search_api';
 
 let apiInstance = new ManticoreSearchApi.IndexApi();
-let insertDocumentRequest = new ManticoreSearchApi.InsertDocumentRequest(); // InsertDocumentRequest | 
+let insertDocumentRequest = {"index":"test","id":1,"doc":{"title":"updated title","gid":15}}; // InsertDocumentRequest | 
 apiInstance.replace(insertDocumentRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -196,7 +196,7 @@ Update a document in an index
 import ManticoreSearchApi from 'manticore_search_api';
 
 let apiInstance = new ManticoreSearchApi.IndexApi();
-let updateDocumentRequest = new ManticoreSearchApi.UpdateDocumentRequest(); // UpdateDocumentRequest | 
+let updateDocumentRequest = {"index":"test","doc":{"gid":20},"query":{"equals":{"cat_id":2}}}; // UpdateDocumentRequest | 
 apiInstance.update(updateDocumentRequest, (error, data, response) => {
   if (error) {
     console.error(error);

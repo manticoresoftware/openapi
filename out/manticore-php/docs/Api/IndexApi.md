@@ -30,7 +30,7 @@ $apiInstance = new OpenAPI\Client\Api\IndexApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$request_body = array(new \stdClass); // object[] | 
+$request_body = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}]; // object[] | 
 
 try {
     $result = $apiInstance->bulk($request_body);
@@ -84,7 +84,7 @@ $apiInstance = new OpenAPI\Client\Api\IndexApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$delete_document_request = new \OpenAPI\Client\Model\DeleteDocumentRequest(); // \OpenAPI\Client\Model\DeleteDocumentRequest | 
+$delete_document_request = {"index":"test","query":{"match":{"title":"apple"}}}; // \OpenAPI\Client\Model\DeleteDocumentRequest | 
 
 try {
     $result = $apiInstance->delete($delete_document_request);
@@ -138,7 +138,7 @@ $apiInstance = new OpenAPI\Client\Api\IndexApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$insert_document_request = new \OpenAPI\Client\Model\InsertDocumentRequest(); // \OpenAPI\Client\Model\InsertDocumentRequest | 
+$insert_document_request = {"index":"test","id":1,"doc":{"title":"sample title","gid":10}}; // \OpenAPI\Client\Model\InsertDocumentRequest | 
 
 try {
     $result = $apiInstance->insert($insert_document_request);
@@ -192,7 +192,7 @@ $apiInstance = new OpenAPI\Client\Api\IndexApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$insert_document_request = new \OpenAPI\Client\Model\InsertDocumentRequest(); // \OpenAPI\Client\Model\InsertDocumentRequest | 
+$insert_document_request = {"index":"test","id":1,"doc":{"title":"updated title","gid":15}}; // \OpenAPI\Client\Model\InsertDocumentRequest | 
 
 try {
     $result = $apiInstance->replace($insert_document_request);
@@ -246,7 +246,7 @@ $apiInstance = new OpenAPI\Client\Api\IndexApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$update_document_request = new \OpenAPI\Client\Model\UpdateDocumentRequest(); // \OpenAPI\Client\Model\UpdateDocumentRequest | 
+$update_document_request = {"index":"test","doc":{"gid":20},"query":{"equals":{"cat_id":2}}}; // \OpenAPI\Client\Model\UpdateDocumentRequest | 
 
 try {
     $result = $apiInstance->update($update_document_request);

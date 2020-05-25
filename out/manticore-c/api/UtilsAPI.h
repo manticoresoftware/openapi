@@ -11,7 +11,7 @@
 
 // Perform SQL requests
 //
-object_t*
+list_t*_t*
 UtilsAPI_sql(apiClient_t *apiClient, char * query , char * mode );
 
 

@@ -9,7 +9,6 @@ docs/IndexApi.md
 docs/InlineObject.md
 docs/InsertDocumentRequest.md
 docs/PercolateRequest.md
-docs/PercolateRequestQuery.md
 docs/SearchApi.md
 docs/SearchRequest.md
 docs/SearchResponse.md
@@ -27,7 +26,6 @@ lib/WWW/OpenAPIClient/Object/ErrorResponse.pm
 lib/WWW/OpenAPIClient/Object/InlineObject.pm
 lib/WWW/OpenAPIClient/Object/InsertDocumentRequest.pm
 lib/WWW/OpenAPIClient/Object/PercolateRequest.pm
-lib/WWW/OpenAPIClient/Object/PercolateRequestQuery.pm
 lib/WWW/OpenAPIClient/Object/SearchRequest.pm
 lib/WWW/OpenAPIClient/Object/SearchResponse.pm
 lib/WWW/OpenAPIClient/Object/SearchResponseHits.pm
@@ -42,7 +40,6 @@ t/ErrorResponseTest.t
 t/IndexApiTest.t
 t/InlineObjectTest.t
 t/InsertDocumentRequestTest.t
-t/PercolateRequestQueryTest.t
 t/PercolateRequestTest.t
 t/SearchApiTest.t
 t/SearchRequestTest.t

@@ -38,7 +38,7 @@ module OpenapiClient
       {
         :'index' => :'String',
         :'id' => :'Integer',
-        :'doc' => :'Object'
+        :'doc' => :'Hash<String, Object>'
       }
     end
 
@@ -72,7 +72,9 @@ module OpenapiClient
       end
 
       if attributes.key?(:'doc')
-        self.doc = attributes[:'doc']
+        if (value = attributes[:'doc']).is_a?(Hash)
+          self.doc = value
+        end
       end
     end
 

@@ -12,7 +12,7 @@ Contact: info@manticoresearch.com
     
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{520D6085-81D4-480E-8D9E-F9A968981B1C}</ProjectGuid>
+    <ProjectGuid>{8AB3CE1D-EC14-46DC-834B-18E3490F001F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Org.OpenAPITools</RootNamespace>

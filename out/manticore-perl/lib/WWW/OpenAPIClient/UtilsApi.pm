@@ -71,10 +71,10 @@ sub new {
     __PACKAGE__->method_documentation->{ 'sql' } = { 
         summary => 'Perform SQL requests',
         params => $params,
-        returns => 'object',
+        returns => 'HASH[string,object]',
         };
 }
-# @return object
+# @return HASH[string,object]
 #
 sub sql {
     my ($self, %args) = @_;
@@ -120,7 +120,7 @@ sub sql {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('object', $response);
+    my $_response_object = $self->{api_client}->deserialize('HASH[string,object]', $response);
     return $_response_object;
 }
 

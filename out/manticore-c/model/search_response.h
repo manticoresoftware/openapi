@@ -23,7 +23,7 @@ typedef struct search_response_t search_response_t;
 typedef struct search_response_t {
     int took; //numeric
     int timed_out; //boolean
-    struct search_response_hits_t *hits; //model
+    list_t* hits; //map
     object_t *profile; //object
 
 } search_response_t;
@@ -31,7 +31,7 @@ typedef struct search_response_t {
 search_response_t *search_response_create(
     int took,
     int timed_out,
-    search_response_hits_t *hits,
+    list_t* hits,
     object_t *profile
 );
 

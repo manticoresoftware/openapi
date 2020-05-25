@@ -23,12 +23,15 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Object with document data. 
  */
 @ApiModel(description = "Object with document data. ")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T14:00:55.300Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T15:19:00.920Z[GMT]")
 public class InsertDocumentRequest {
   public static final String SERIALIZED_NAME_INDEX = "index";
   @SerializedName(SERIALIZED_NAME_INDEX)
@@ -40,7 +43,7 @@ public class InsertDocumentRequest {
 
   public static final String SERIALIZED_NAME_DOC = "doc";
   @SerializedName(SERIALIZED_NAME_DOC)
-  private Object doc;
+  private Map<String, Object> doc = new HashMap<String, Object>();
 
 
   public InsertDocumentRequest index(String index) {
@@ -89,9 +92,14 @@ public class InsertDocumentRequest {
   }
 
 
-  public InsertDocumentRequest doc(Object doc) {
+  public InsertDocumentRequest doc(Map<String, Object> doc) {
     
     this.doc = doc;
+    return this;
+  }
+
+  public InsertDocumentRequest putDocItem(String key, Object docItem) {
+    this.doc.put(key, docItem);
     return this;
   }
 
@@ -101,12 +109,12 @@ public class InsertDocumentRequest {
   **/
   @ApiModelProperty(required = true, value = "Object with document data ")
 
-  public Object getDoc() {
+  public Map<String, Object> getDoc() {
     return doc;
   }
 
 
-  public void setDoc(Object doc) {
+  public void setDoc(Map<String, Object> doc) {
     this.doc = doc;
   }
 

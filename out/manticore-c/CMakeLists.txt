@@ -43,7 +43,6 @@ set(SRCS
     model/inline_object.c
     model/insert_document_request.c
     model/percolate_request.c
-    model/percolate_request_query.c
     model/search_request.c
     model/search_response.c
     model/search_response_hits.c
@@ -67,7 +66,6 @@ set(HDRS
     model/inline_object.h
     model/insert_document_request.h
     model/percolate_request.h
-    model/percolate_request_query.h
     model/search_request.h
     model/search_response.h
     model/search_response_hits.h

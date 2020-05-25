@@ -22,14 +22,14 @@ typedef struct insert_document_request_t insert_document_request_t;
 typedef struct insert_document_request_t {
     char *index; // string
     long id; //numeric
-    object_t *doc; //object
+    list_t* doc; //map
 
 } insert_document_request_t;
 
 insert_document_request_t *insert_document_request_create(
     char *index,
     long id,
-    object_t *doc
+    list_t* doc
 );
 
 void insert_document_request_free(insert_document_request_t *insert_document_request);

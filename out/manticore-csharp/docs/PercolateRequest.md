@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Query** | [**PercolateRequestQuery**](PercolateRequestQuery.md) |  | 
+**Query** | **Dictionary&lt;string, Object&gt;** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to API list]](../README.md#documentation-for-api-endpoints)

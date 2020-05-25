@@ -48,7 +48,7 @@ namespace Org.OpenAPITools.Model
         /// <param name="highlight">highlight.</param>
         /// <param name="source">source.</param>
         /// <param name="profile">profile.</param>
-        public SearchRequest(string index = default(string), Object query = default(Object), int limit = default(int), int offset = default(int), int maxMatches = default(int), List<Object> sort = default(List<Object>), Object scriptFields = default(Object), Object highlight = default(Object), List<string> source = default(List<string>), bool profile = default(bool))
+        public SearchRequest(string index = default(string), Dictionary<string, Object> query = default(Dictionary<string, Object>), int limit = default(int), int offset = default(int), int maxMatches = default(int), List<Object> sort = default(List<Object>), Object scriptFields = default(Object), Object highlight = default(Object), List<string> source = default(List<string>), bool profile = default(bool))
         {
             // to ensure "index" is required (not null)
             if (index == null)
@@ -90,7 +90,7 @@ namespace Org.OpenAPITools.Model
         /// Gets or Sets Query
         /// </summary>
         [DataMember(Name="query", EmitDefaultValue=true)]
-        public Object Query { get; set; }
+        public Dictionary<string, Object> Query { get; set; }
 
         /// <summary>
         /// Gets or Sets Limit
@@ -199,8 +199,9 @@ namespace Org.OpenAPITools.Model
                 ) && 
                 (
                     this.Query == input.Query ||
-                    (this.Query != null &&
-                    this.Query.Equals(input.Query))
+                    this.Query != null &&
+                    input.Query != null &&
+                    this.Query.SequenceEqual(input.Query)
                 ) && 
                 (
                     this.Limit == input.Limit ||

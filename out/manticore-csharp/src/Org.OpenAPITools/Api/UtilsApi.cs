@@ -34,8 +34,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="query"></param>
         /// <param name="mode"> (optional)</param>
-        /// <returns>Object</returns>
-        Object Sql (string query, string mode = default(string));
+        /// <returns>Dictionary&lt;string, Object&gt;</returns>
+        Dictionary<string, Object> Sql (string query, string mode = default(string));
 
         /// <summary>
         /// Perform SQL requests
@@ -46,8 +46,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="query"></param>
         /// <param name="mode"> (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> SqlWithHttpInfo (string query, string mode = default(string));
+        /// <returns>ApiResponse of Dictionary&lt;string, Object&gt;</returns>
+        ApiResponse<Dictionary<string, Object>> SqlWithHttpInfo (string query, string mode = default(string));
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -60,8 +60,8 @@ namespace Org.OpenAPITools.Api
         /// <param name="query"></param>
         /// <param name="mode"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SqlAsync (string query, string mode = default(string), CancellationToken cancellationToken = default(CancellationToken));
+        /// <returns>Task of Dictionary&lt;string, Object&gt;</returns>
+        System.Threading.Tasks.Task<Dictionary<string, Object>> SqlAsync (string query, string mode = default(string), CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Perform SQL requests
@@ -73,8 +73,8 @@ namespace Org.OpenAPITools.Api
         /// <param name="query"></param>
         /// <param name="mode"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> SqlAsyncWithHttpInfo (string query, string mode = default(string), CancellationToken cancellationToken = default(CancellationToken));
+        /// <returns>Task of ApiResponse (Dictionary&lt;string, Object&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Dictionary<string, Object>>> SqlAsyncWithHttpInfo (string query, string mode = default(string), CancellationToken cancellationToken = default(CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -192,10 +192,10 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="query"></param>
         /// <param name="mode"> (optional)</param>
-        /// <returns>Object</returns>
-        public Object Sql (string query, string mode = default(string))
+        /// <returns>Dictionary&lt;string, Object&gt;</returns>
+        public Dictionary<string, Object> Sql (string query, string mode = default(string))
         {
-             ApiResponse<Object> localVarResponse = SqlWithHttpInfo(query, mode);
+             ApiResponse<Dictionary<string, Object>> localVarResponse = SqlWithHttpInfo(query, mode);
              return localVarResponse.Data;
         }
 
@@ -205,8 +205,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="query"></param>
         /// <param name="mode"> (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        public ApiResponse<Object> SqlWithHttpInfo (string query, string mode = default(string))
+        /// <returns>ApiResponse of Dictionary&lt;string, Object&gt;</returns>
+        public ApiResponse<Dictionary<string, Object>> SqlWithHttpInfo (string query, string mode = default(string))
         {
             // verify the required parameter 'query' is set
             if (query == null)
@@ -251,9 +251,9 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<Dictionary<string, Object>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (Object) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Dictionary<string, Object>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Dictionary<string, Object>)));
         }
 
         /// <summary>
@@ -263,10 +263,10 @@ namespace Org.OpenAPITools.Api
         /// <param name="query"></param>
         /// <param name="mode"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> SqlAsync (string query, string mode = default(string), CancellationToken cancellationToken = default(CancellationToken))
+        /// <returns>Task of Dictionary&lt;string, Object&gt;</returns>
+        public async System.Threading.Tasks.Task<Dictionary<string, Object>> SqlAsync (string query, string mode = default(string), CancellationToken cancellationToken = default(CancellationToken))
         {
-             ApiResponse<Object> localVarResponse = await SqlAsyncWithHttpInfo(query, mode, cancellationToken);
+             ApiResponse<Dictionary<string, Object>> localVarResponse = await SqlAsyncWithHttpInfo(query, mode, cancellationToken);
              return localVarResponse.Data;
 
         }
@@ -278,8 +278,8 @@ namespace Org.OpenAPITools.Api
         /// <param name="query"></param>
         /// <param name="mode"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> SqlAsyncWithHttpInfo (string query, string mode = default(string), CancellationToken cancellationToken = default(CancellationToken))
+        /// <returns>Task of ApiResponse (Dictionary&lt;string, Object&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Dictionary<string, Object>>> SqlAsyncWithHttpInfo (string query, string mode = default(string), CancellationToken cancellationToken = default(CancellationToken))
         {
             // verify the required parameter 'query' is set
             if (query == null)
@@ -324,9 +324,9 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<Dictionary<string, Object>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (Object) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Dictionary<string, Object>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Dictionary<string, Object>)));
         }
 
     }

@@ -59,7 +59,7 @@ Please follow the [installation](#installation) procedure and then run the follo
 require 'openapi_client'
 
 api_instance = OpenapiClient::IndexApi.new
-request_body = nil # Array<Object> | 
+request_body = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}] # Array<Object> | 
 
 begin
   #Bulk index operations
@@ -94,7 +94,6 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::InlineObject](docs/InlineObject.md)
  - [OpenapiClient::InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [OpenapiClient::PercolateRequest](docs/PercolateRequest.md)
- - [OpenapiClient::PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [OpenapiClient::SearchRequest](docs/SearchRequest.md)
  - [OpenapiClient::SearchResponse](docs/SearchResponse.md)
  - [OpenapiClient::SearchResponseHits](docs/SearchResponseHits.md)

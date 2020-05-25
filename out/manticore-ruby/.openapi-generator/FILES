@@ -12,7 +12,6 @@ docs/IndexApi.md
 docs/InlineObject.md
 docs/InsertDocumentRequest.md
 docs/PercolateRequest.md
-docs/PercolateRequestQuery.md
 docs/SearchApi.md
 docs/SearchRequest.md
 docs/SearchResponse.md
@@ -34,7 +33,6 @@ lib/openapi_client/models/error_response.rb
 lib/openapi_client/models/inline_object.rb
 lib/openapi_client/models/insert_document_request.rb
 lib/openapi_client/models/percolate_request.rb
-lib/openapi_client/models/percolate_request_query.rb
 lib/openapi_client/models/search_request.rb
 lib/openapi_client/models/search_response.rb
 lib/openapi_client/models/search_response_hits.rb
@@ -51,7 +49,6 @@ spec/models/delete_document_request_spec.rb
 spec/models/error_response_spec.rb
 spec/models/inline_object_spec.rb
 spec/models/insert_document_request_spec.rb
-spec/models/percolate_request_query_spec.rb
 spec/models/percolate_request_spec.rb
 spec/models/search_request_spec.rb
 spec/models/search_response_hits_spec.rb

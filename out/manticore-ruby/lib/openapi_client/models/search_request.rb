@@ -55,7 +55,7 @@ module OpenapiClient
     def self.openapi_types
       {
         :'index' => :'String',
-        :'query' => :'Object',
+        :'query' => :'Hash<String, Object>',
         :'limit' => :'Integer',
         :'offset' => :'Integer',
         :'max_matches' => :'Integer',
@@ -93,7 +93,9 @@ module OpenapiClient
       end
 
       if attributes.key?(:'query')
-        self.query = attributes[:'query']
+        if (value = attributes[:'query']).is_a?(Hash)
+          self.query = value
+        end
       end
 
       if attributes.key?(:'limit')

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## Sql
 
-> map[string]interface{} Sql(ctx, query, optional)
+> map[string]map[string]interface{} Sql(ctx, query, optional)
 
 Perform SQL requests
 
@@ -35,7 +35,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+**map[string]map[string]interface{}**
 
 ### Authorization
 

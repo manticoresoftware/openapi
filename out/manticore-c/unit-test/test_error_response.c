@@ -22,12 +22,12 @@ error_response_t* instantiate_error_response(int include_optional) {
   error_response_t* error_response = NULL;
   if (include_optional) {
     error_response = error_response_create(
-      0,
+      list_create(),
       500
     );
   } else {
     error_response = error_response_create(
-      0,
+      list_create(),
       500
     );
   }

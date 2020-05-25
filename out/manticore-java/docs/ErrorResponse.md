@@ -7,7 +7,7 @@ Error response
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**error** | **Object** |  | 
+**error** | **Map&lt;String, Object&gt;** |  | 
 **status** | **Integer** |  | 
 
 

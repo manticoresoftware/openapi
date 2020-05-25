@@ -51,7 +51,6 @@ Class | Method | HTTP request | Description
  - [InlineObject](docs/InlineObject.md)
  - [InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [PercolateRequest](docs/PercolateRequest.md)
- - [PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [SearchRequest](docs/SearchRequest.md)
  - [SearchResponse](docs/SearchResponse.md)
  - [SearchResponseHits](docs/SearchResponseHits.md)

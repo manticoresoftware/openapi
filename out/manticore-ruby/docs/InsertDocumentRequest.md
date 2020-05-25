@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **String** | Name of the index | 
 **id** | **Integer** | Document ID.  | [optional] 
-**doc** | **Object** | Object with document data  | 
+**doc** | **Hash&lt;String, Object&gt;** | Object with document data  | 
 
 ## Code Sample
 

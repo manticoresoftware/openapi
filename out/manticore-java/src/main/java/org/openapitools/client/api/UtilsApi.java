@@ -126,7 +126,7 @@ public class UtilsApi {
      * 
      * @param query  (required)
      * @param mode  (optional)
-     * @return Object
+     * @return Map&lt;String, Object&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -137,8 +137,8 @@ public class UtilsApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/httpapi_reference.html#sql-api">Perform SQL requests Documentation</a>
      */
-    public Object sql(String query, String mode) throws ApiException {
-        ApiResponse<Object> localVarResp = sqlWithHttpInfo(query, mode);
+    public Map<String, Object> sql(String query, String mode) throws ApiException {
+        ApiResponse<Map<String, Object>> localVarResp = sqlWithHttpInfo(query, mode);
         return localVarResp.getData();
     }
 
@@ -147,7 +147,7 @@ public class UtilsApi {
      * 
      * @param query  (required)
      * @param mode  (optional)
-     * @return ApiResponse&lt;Object&gt;
+     * @return ApiResponse&lt;Map&lt;String, Object&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -158,9 +158,9 @@ public class UtilsApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/httpapi_reference.html#sql-api">Perform SQL requests Documentation</a>
      */
-    public ApiResponse<Object> sqlWithHttpInfo(String query, String mode) throws ApiException {
+    public ApiResponse<Map<String, Object>> sqlWithHttpInfo(String query, String mode) throws ApiException {
         okhttp3.Call localVarCall = sqlValidateBeforeCall(query, mode, null);
-        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, Object>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -181,10 +181,10 @@ public class UtilsApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/httpapi_reference.html#sql-api">Perform SQL requests Documentation</a>
      */
-    public okhttp3.Call sqlAsync(String query, String mode, final ApiCallback<Object> _callback) throws ApiException {
+    public okhttp3.Call sqlAsync(String query, String mode, final ApiCallback<Map<String, Object>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = sqlValidateBeforeCall(query, mode, _callback);
-        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, Object>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

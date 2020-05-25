@@ -44,7 +44,7 @@ public class UtilsApiTest {
     public void sqlTest() throws ApiException {
         String query = null;
         String mode = null;
-        Object response = api.sql(query, mode);
+        Map<String, Object> response = api.sql(query, mode);
 
         // TODO: test validations
     }

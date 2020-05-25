@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **String** |  | 
-**query** | **Object** |  | 
+**query** | **{String: Object}** |  | 
 **limit** | **Number** |  | [optional] 
 **offset** | **Number** |  | [optional] 
 **maxMatches** | **Number** |  | [optional] 

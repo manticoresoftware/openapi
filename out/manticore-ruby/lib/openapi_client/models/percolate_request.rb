@@ -27,7 +27,7 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'query' => :'PercolateRequestQuery'
+        :'query' => :'Hash<String, Object>'
       }
     end
 
@@ -53,7 +53,9 @@ module OpenapiClient
       }
 
       if attributes.key?(:'query')
-        self.query = attributes[:'query']
+        if (value = attributes[:'query']).is_a?(Hash)
+          self.query = value
+        end
       end
     end
 

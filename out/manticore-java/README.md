@@ -2,7 +2,7 @@
 
 Manticore Search API
 - API version: 1.0.0
-  - Build date: 2020-05-25T14:00:55.300Z[GMT]
+  - Build date: 2020-05-25T15:19:00.920Z[GMT]
 
 This is the API for Manticore Search HTTP protocol
 
@@ -87,7 +87,7 @@ public class Example {
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
-    List<Object> requestBody = null; // List<Object> | 
+    List<Object> requestBody = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}]; // List<Object> | 
     try {
       SuccessResponse result = apiInstance.bulk(requestBody);
       System.out.println(result);
@@ -126,7 +126,6 @@ Class | Method | HTTP request | Description
  - [InlineObject](docs/InlineObject.md)
  - [InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [PercolateRequest](docs/PercolateRequest.md)
- - [PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [SearchRequest](docs/SearchRequest.md)
  - [SearchResponse](docs/SearchResponse.md)
  - [SearchResponseHits](docs/SearchResponseHits.md)

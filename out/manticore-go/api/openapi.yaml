@@ -60,6 +60,12 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+              index: test
+              id: 1
+              doc:
+                title: sample title
+                gid: 10
             schema:
               $ref: '#/components/schemas/insertDocumentRequest'
         required: true
@@ -87,6 +93,12 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+              index: test
+              id: 1
+              doc:
+                title: updated title
+                gid: 15
             schema:
               $ref: '#/components/schemas/insertDocumentRequest'
         required: true
@@ -114,6 +126,13 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+              index: test
+              doc:
+                gid: 20
+              query:
+                equals:
+                  cat_id: 2
             schema:
               $ref: '#/components/schemas/updateDocumentRequest'
         required: true
@@ -141,6 +160,11 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+              index: test
+              query:
+                match:
+                  title: apple
             schema:
               $ref: '#/components/schemas/deleteDocumentRequest'
         required: true
@@ -168,6 +192,19 @@ paths:
       requestBody:
         content:
           application/x-ndjson:
+            example:
+            - insert: null
+              index: test
+              id: 10
+              doc:
+                gid: 10
+                title: doc one
+            - insert: null
+              index: test
+              id: 11
+              doc:
+                gid: 20
+                title: dow two
             schema:
               $ref: '#/components/schemas/bulkRequest'
         required: true
@@ -237,6 +274,9 @@ paths:
         $ref: '#/components/requestBodies/inline_object'
         content:
           application/x-www-form-urlencoded:
+            example:
+              sql: SHOW THREADS
+              mode: raw
             schema:
               properties:
                 query:
@@ -279,8 +319,10 @@ components:
         query: query_string:"find me"
       properties:
         index:
+          example: test
           type: string
         query:
+          additionalProperties: true
           type: object
         limit:
           minimum: 0
@@ -322,7 +364,10 @@ components:
         index:
           type: string
         doc:
+          additionalProperties: true
           description: Index name
+          example:
+            gid: 10
           type: object
         id:
           description: Document ID
@@ -330,7 +375,12 @@ components:
           minimum: 1
           type: integer
         query:
+          additionalProperties: true
           description: Query tree object
+          example:
+            query:
+              match:
+                title: match me
           type: object
       required:
       - doc
@@ -381,8 +431,9 @@ components:
         Object with document data.
       example:
         index: test
-        title: This is some title
-        gid: 100
+        doc:
+          title: This is some title
+          gid: 100
       properties:
         index:
           description: Name of the index
@@ -394,6 +445,7 @@ components:
           minimum: 1
           type: integer
         doc:
+          additionalProperties: true
           description: |
             Object with document data
           type: object
@@ -410,7 +462,17 @@ components:
               title: some text to match
       properties:
         query:
-          $ref: '#/components/schemas/percolateRequest_query'
+          additionalProperties: true
+          example:
+            percolate:
+              document:
+                title: some text to match
+          properties:
+            percolate:
+              type: object
+          required:
+          - percolate
+          type: object
       required:
       - query
       type: object
@@ -418,10 +480,16 @@ components:
       description: Response object of a search request
       example:
         hits:
+          total: 2
           hits:
-          - '{}'
-          - '{}'
-          total: 6
+          - _id: 1
+            _score: 1
+            _source:
+              gid: 11
+          - _id: 2
+            _score: 1
+            _source:
+              gid: 20
         took: 0
         profile: '{}'
         timed_out: true
@@ -431,21 +499,37 @@ components:
         timed_out:
           type: boolean
         hits:
-          $ref: '#/components/schemas/searchResponse_hits'
+          additionalProperties:
+            $ref: '#/components/schemas/searchResponse_hits'
+          example:
+            total: 2
+            hits:
+            - _id: 1
+              _score: 1
+              _source:
+                gid: 11
+            - _id: 2
+              _score: 1
+              _source:
+                gid: 20
+          type: object
         profile:
           type: object
       type: object
     sqlResponse:
+      additionalProperties: true
       description: Response from sql depends on the query executed.
+      example:
+        total: 0
+        error: null
       type: object
     successResponse:
       description: Success response
       example:
-        result: result
-        found: true
-        _index: _index
+        _index: test
+        _id: 1
+        result: created
         created: true
-        _id: 0
       properties:
         _index:
           type: string
@@ -465,8 +549,12 @@ components:
       type: object
     errorResponse:
       description: Error response
+      example:
+        status: 500
+        error: an error occured
       properties:
         error:
+          additionalProperties: true
           type: object
         status:
           example: 500
@@ -484,18 +572,7 @@ components:
       required:
       - query
       type: object
-    percolateRequest_query:
-      properties:
-        percolate:
-          type: object
-      required:
-      - percolate
     searchResponse_hits:
-      example:
-        hits:
-        - '{}'
-        - '{}'
-        total: 6
       properties:
         total:
           type: integer

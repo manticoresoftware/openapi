@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **string** |  | 
-**query** | **object** |  | 
+**query** | **map[string,object]** |  | 
 **limit** | **int** |  | [optional] 
 **offset** | **int** |  | [optional] 
 **max_matches** | **int** |  | [optional] 

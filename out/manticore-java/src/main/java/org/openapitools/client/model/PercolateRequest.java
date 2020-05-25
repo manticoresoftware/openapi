@@ -23,22 +23,29 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import org.openapitools.client.model.PercolateRequestQuery;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Object with documents to percolate
  */
 @ApiModel(description = "Object with documents to percolate")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T14:00:55.300Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T15:19:00.920Z[GMT]")
 public class PercolateRequest {
   public static final String SERIALIZED_NAME_QUERY = "query";
   @SerializedName(SERIALIZED_NAME_QUERY)
-  private PercolateRequestQuery query;
+  private Map<String, Object> query = new HashMap<String, Object>();
 
 
-  public PercolateRequest query(PercolateRequestQuery query) {
+  public PercolateRequest query(Map<String, Object> query) {
     
     this.query = query;
+    return this;
+  }
+
+  public PercolateRequest putQueryItem(String key, Object queryItem) {
+    this.query.put(key, queryItem);
     return this;
   }
 
@@ -46,14 +53,14 @@ public class PercolateRequest {
    * Get query
    * @return query
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "{\"percolate\":{\"document\":{\"title\":\"some text to match\"}}}", required = true, value = "")
 
-  public PercolateRequestQuery getQuery() {
+  public Map<String, Object> getQuery() {
     return query;
   }
 
 
-  public void setQuery(PercolateRequestQuery query) {
+  public void setQuery(Map<String, Object> query) {
     this.query = query;
   }
 

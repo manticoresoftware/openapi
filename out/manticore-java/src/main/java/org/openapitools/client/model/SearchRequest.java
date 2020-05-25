@@ -24,13 +24,15 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Payload for search operation
  */
 @ApiModel(description = "Payload for search operation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T14:00:55.300Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T15:19:00.920Z[GMT]")
 public class SearchRequest {
   public static final String SERIALIZED_NAME_INDEX = "index";
   @SerializedName(SERIALIZED_NAME_INDEX)
@@ -38,7 +40,7 @@ public class SearchRequest {
 
   public static final String SERIALIZED_NAME_QUERY = "query";
   @SerializedName(SERIALIZED_NAME_QUERY)
-  private Object query;
+  private Map<String, Object> query = new HashMap<String, Object>();
 
   public static final String SERIALIZED_NAME_LIMIT = "limit";
   @SerializedName(SERIALIZED_NAME_LIMIT)
@@ -83,7 +85,7 @@ public class SearchRequest {
    * Get index
    * @return index
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "test", required = true, value = "")
 
   public String getIndex() {
     return index;
@@ -95,9 +97,14 @@ public class SearchRequest {
   }
 
 
-  public SearchRequest query(Object query) {
+  public SearchRequest query(Map<String, Object> query) {
     
     this.query = query;
+    return this;
+  }
+
+  public SearchRequest putQueryItem(String key, Object queryItem) {
+    this.query.put(key, queryItem);
     return this;
   }
 
@@ -107,12 +114,12 @@ public class SearchRequest {
   **/
   @ApiModelProperty(required = true, value = "")
 
-  public Object getQuery() {
+  public Map<String, Object> getQuery() {
     return query;
   }
 
 
-  public void setQuery(Object query) {
+  public void setQuery(Map<String, Object> query) {
     this.query = query;
   }
 

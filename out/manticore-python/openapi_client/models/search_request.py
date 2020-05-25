@@ -35,7 +35,7 @@ class SearchRequest(object):
     """
     openapi_types = {
         'index': 'str',
-        'query': 'object',
+        'query': 'dict(str, object)',
         'limit': 'int',
         'offset': 'int',
         'max_matches': 'int',
@@ -125,7 +125,7 @@ class SearchRequest(object):
 
 
         :return: The query of this SearchRequest.  # noqa: E501
-        :rtype: object
+        :rtype: dict(str, object)
         """
         return self._query
 
@@ -135,7 +135,7 @@ class SearchRequest(object):
 
 
         :param query: The query of this SearchRequest.  # noqa: E501
-        :type: object
+        :type: dict(str, object)
         """
         if self.local_vars_configuration.client_side_validation and query is None:  # noqa: E501
             raise ValueError("Invalid value for `query`, must not be `None`")  # noqa: E501

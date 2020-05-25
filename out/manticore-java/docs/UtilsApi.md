@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="sql"></a>
 # **sql**
-> Object sql(query, mode)
+> Map&lt;String, Object&gt; sql(query, mode)
 
 Perform SQL requests
 
@@ -31,7 +31,7 @@ public class Example {
     String query = "query_example"; // String | 
     String mode = "mode_example"; // String | 
     try {
-      Object result = apiInstance.sql(query, mode);
+      Map<String, Object> result = apiInstance.sql(query, mode);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling UtilsApi#sql");
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+**Map&lt;String, Object&gt;**
 
 ### Authorization
 

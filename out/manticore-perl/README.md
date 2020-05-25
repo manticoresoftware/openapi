@@ -236,7 +236,6 @@ use WWW::OpenAPIClient::Object::ErrorResponse;
 use WWW::OpenAPIClient::Object::InlineObject;
 use WWW::OpenAPIClient::Object::InsertDocumentRequest;
 use WWW::OpenAPIClient::Object::PercolateRequest;
-use WWW::OpenAPIClient::Object::PercolateRequestQuery;
 use WWW::OpenAPIClient::Object::SearchRequest;
 use WWW::OpenAPIClient::Object::SearchResponse;
 use WWW::OpenAPIClient::Object::SearchResponseHits;
@@ -263,7 +262,6 @@ use WWW::OpenAPIClient::Object::ErrorResponse;
 use WWW::OpenAPIClient::Object::InlineObject;
 use WWW::OpenAPIClient::Object::InsertDocumentRequest;
 use WWW::OpenAPIClient::Object::PercolateRequest;
-use WWW::OpenAPIClient::Object::PercolateRequestQuery;
 use WWW::OpenAPIClient::Object::SearchRequest;
 use WWW::OpenAPIClient::Object::SearchResponse;
 use WWW::OpenAPIClient::Object::SearchResponseHits;
@@ -311,7 +309,6 @@ Class | Method | HTTP request | Description
  - [WWW::OpenAPIClient::Object::InlineObject](docs/InlineObject.md)
  - [WWW::OpenAPIClient::Object::InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [WWW::OpenAPIClient::Object::PercolateRequest](docs/PercolateRequest.md)
- - [WWW::OpenAPIClient::Object::PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [WWW::OpenAPIClient::Object::SearchRequest](docs/SearchRequest.md)
  - [WWW::OpenAPIClient::Object::SearchResponse](docs/SearchResponse.md)
  - [WWW::OpenAPIClient::Object::SearchResponseHits](docs/SearchResponseHits.md)

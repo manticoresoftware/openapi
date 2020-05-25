@@ -58,7 +58,7 @@ class PercolateRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $openAPITypes = [
-        'query' => '\OpenAPI\Client\Model\PercolateRequestQuery'
+        'query' => 'map[string,object]'
     ];
 
     /**
@@ -211,7 +211,7 @@ class PercolateRequest implements ModelInterface, ArrayAccess
     /**
      * Gets query
      *
-     * @return \OpenAPI\Client\Model\PercolateRequestQuery
+     * @return map[string,object]
      */
     public function getQuery()
     {
@@ -221,7 +221,7 @@ class PercolateRequest implements ModelInterface, ArrayAccess
     /**
      * Sets query
      *
-     * @param \OpenAPI\Client\Model\PercolateRequestQuery $query query
+     * @param map[string,object] $query query
      *
      * @return $this
      */

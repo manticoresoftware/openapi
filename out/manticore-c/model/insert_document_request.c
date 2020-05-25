@@ -8,7 +8,7 @@
 insert_document_request_t *insert_document_request_create(
     char *index,
     long id,
-    object_t *doc
+    list_t* doc
     ) {
     insert_document_request_t *insert_document_request_local_var = malloc(sizeof(insert_document_request_t));
     if (!insert_document_request_local_var) {
@@ -28,7 +28,12 @@ void insert_document_request_free(insert_document_request_t *insert_document_req
     }
     listEntry_t *listEntry;
     free(insert_document_request->index);
-    object_free(insert_document_request->doc);
+    list_ForEach(listEntry, insert_document_request->doc) {
+        keyValuePair_t *localKeyValue = (keyValuePair_t*) listEntry->data;
+        free (localKeyValue->key);
+        free (localKeyValue->value);
+    }
+    list_free(insert_document_request->doc);
     free(insert_document_request);
 }
 
@@ -58,13 +63,16 @@ cJSON *insert_document_request_convertToJSON(insert_document_request_t *insert_d
         goto fail;
     }
     
-    cJSON *doc_object = object_convertToJSON(insert_document_request->doc);
-    if(doc_object == NULL) {
-    goto fail; //model
+    cJSON *doc = cJSON_AddObjectToObject(item, "doc");
+    if(doc == NULL) {
+        goto fail; //primitive map container
     }
-    cJSON_AddItemToObject(item, "doc", doc_object);
-    if(item->child == NULL) {
-    goto fail;
+    cJSON *localMapObject = doc;
+    listEntry_t *docListEntry;
+    if (insert_document_request->doc) {
+    list_ForEach(docListEntry, insert_document_request->doc) {
+        keyValuePair_t *localKeyValue = (keyValuePair_t*)docListEntry->data;
+    }
     }
 
     return item;
@@ -106,15 +114,25 @@ insert_document_request_t *insert_document_request_parseFromJSON(cJSON *insert_d
         goto end;
     }
 
-    object_t *doc_local_object = NULL;
+    list_t *docList;
     
-    doc_local_object = object_parseFromJSON(doc); //object
+    cJSON *doc_local_map;
+    if(!cJSON_IsObject(doc)) {
+        goto end;//primitive map container
+    }
+    docList = list_create();
+    keyValuePair_t *localMapKeyPair;
+    cJSON_ArrayForEach(doc_local_map, doc)
+    {
+		cJSON *localMapObject = doc_local_map;
+        list_addElement(docList , localMapKeyPair);
+    }
 
 
     insert_document_request_local_var = insert_document_request_create (
         strdup(index->valuestring),
         id ? id->valuedouble : 0,
-        doc_local_object
+        docList
         );
 
     return insert_document_request_local_var;

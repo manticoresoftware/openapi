@@ -37,8 +37,8 @@ class TestSearchRequest(unittest.TestCase):
         # model = openapi_client.models.search_request.SearchRequest()  # noqa: E501
         if include_optional :
             return SearchRequest(
-                index = '0', 
-                query = None, 
+                index = 'test', 
+                query = { }, 
                 limit = 0, 
                 offset = 0, 
                 max_matches = 0, 
@@ -54,8 +54,8 @@ class TestSearchRequest(unittest.TestCase):
             )
         else :
             return SearchRequest(
-                index = '0',
-                query = None,
+                index = 'test',
+                query = { },
         )
 
     def testSearchRequest(self):

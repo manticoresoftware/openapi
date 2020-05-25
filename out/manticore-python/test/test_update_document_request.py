@@ -38,14 +38,14 @@ class TestUpdateDocumentRequest(unittest.TestCase):
         if include_optional :
             return UpdateDocumentRequest(
                 index = '0', 
-                doc = None, 
+                doc = {"gid":10}, 
                 id = 1, 
-                query = None
+                query = {"query":{"match":{"title":"match me"}}}
             )
         else :
             return UpdateDocumentRequest(
                 index = '0',
-                doc = None,
+                doc = {"gid":10},
         )
 
     def testUpdateDocumentRequest(self):

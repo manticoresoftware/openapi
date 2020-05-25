@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **String** |  | 
-**doc** | **Object** | Index name | 
+**doc** | **{String: Object}** | Index name | 
 **id** | **Number** | Document ID | [optional] 
-**query** | **Object** | Query tree object | [optional] 
+**query** | **{String: Object}** | Query tree object | [optional] 
 
 

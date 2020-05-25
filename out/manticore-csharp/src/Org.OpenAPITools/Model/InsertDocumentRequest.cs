@@ -41,7 +41,7 @@ namespace Org.OpenAPITools.Model
         /// <param name="index">Name of the index (required).</param>
         /// <param name="id">Document ID. .</param>
         /// <param name="doc">Object with document data  (required).</param>
-        public InsertDocumentRequest(string index = default(string), long id = default(long), Object doc = default(Object))
+        public InsertDocumentRequest(string index = default(string), long id = default(long), Dictionary<string, Object> doc = default(Dictionary<string, Object>))
         {
             // to ensure "index" is required (not null)
             if (index == null)
@@ -85,7 +85,7 @@ namespace Org.OpenAPITools.Model
         /// </summary>
         /// <value>Object with document data </value>
         [DataMember(Name="doc", EmitDefaultValue=true)]
-        public Object Doc { get; set; }
+        public Dictionary<string, Object> Doc { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -144,8 +144,9 @@ namespace Org.OpenAPITools.Model
                 ) && 
                 (
                     this.Doc == input.Doc ||
-                    (this.Doc != null &&
-                    this.Doc.Equals(input.Doc))
+                    this.Doc != null &&
+                    input.Doc != null &&
+                    this.Doc.SequenceEqual(input.Doc)
                 );
         }
 

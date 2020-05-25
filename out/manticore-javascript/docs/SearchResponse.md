@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **took** | **Number** |  | [optional] 
 **timedOut** | **Boolean** |  | [optional] 
-**hits** | [**SearchResponseHits**](SearchResponseHits.md) |  | [optional] 
+**hits** | [**{String: SearchResponseHits}**](SearchResponseHits.md) |  | [optional] 
 **profile** | **Object** |  | [optional] 
 
 

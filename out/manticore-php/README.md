@@ -67,7 +67,7 @@ $apiInstance = new OpenAPI\Client\Api\IndexApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$request_body = array(new \stdClass); // object[] | 
+$request_body = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}]; // object[] | 
 
 try {
     $result = $apiInstance->bulk($request_body);
@@ -102,7 +102,6 @@ Class | Method | HTTP request | Description
  - [InlineObject](docs/Model/InlineObject.md)
  - [InsertDocumentRequest](docs/Model/InsertDocumentRequest.md)
  - [PercolateRequest](docs/Model/PercolateRequest.md)
- - [PercolateRequestQuery](docs/Model/PercolateRequestQuery.md)
  - [SearchRequest](docs/Model/SearchRequest.md)
  - [SearchResponse](docs/Model/SearchResponse.md)
  - [SearchResponseHits](docs/Model/SearchResponseHits.md)

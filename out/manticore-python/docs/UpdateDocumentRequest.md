@@ -5,9 +5,9 @@ Payload for update document
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **str** |  | 
-**doc** | **object** | Index name | 
+**doc** | **dict(str, object)** | Index name | 
 **id** | **int** | Document ID | [optional] 
-**query** | **object** | Query tree object | [optional] 
+**query** | **dict(str, object)** | Query tree object | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

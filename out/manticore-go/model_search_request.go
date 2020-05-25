@@ -12,7 +12,7 @@ package openapi
 // SearchRequest Payload for search operation
 type SearchRequest struct {
 	Index string `json:"index"`
-	Query map[string]interface{} `json:"query"`
+	Query map[string]map[string]interface{} `json:"query"`
 	Limit int32 `json:"limit,omitempty"`
 	Offset int32 `json:"offset,omitempty"`
 	MaxMatches int32 `json:"max_matches,omitempty"`

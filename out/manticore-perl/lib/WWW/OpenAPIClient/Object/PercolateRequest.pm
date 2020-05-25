@@ -30,7 +30,6 @@ use Log::Any qw($log);
 use Date::Parse;
 use DateTime;
 
-use WWW::OpenAPIClient::Object::PercolateRequestQuery;
 
 use base ("Class::Accessor", "Class::Data::Inheritable");
 
@@ -163,7 +162,7 @@ __PACKAGE__->class_documentation({description => 'Object with documents to perco
 
 __PACKAGE__->method_documentation({
     'query' => {
-        datatype => 'PercolateRequestQuery',
+        datatype => 'HASH[string,object]',
         base_name => 'query',
         description => '',
         format => '',
@@ -172,7 +171,7 @@ __PACKAGE__->method_documentation({
 });
 
 __PACKAGE__->openapi_types( {
-    'query' => 'PercolateRequestQuery'
+    'query' => 'HASH[string,object]'
 } );
 
 __PACKAGE__->attribute_map( {

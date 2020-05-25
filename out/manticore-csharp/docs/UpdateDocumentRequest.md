@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Index** | **string** |  | 
-**Doc** | **Object** | Index name | 
+**Doc** | **Dictionary&lt;string, Object&gt;** | Index name | 
 **Id** | **long** | Document ID | [optional] 
-**Query** | **Object** | Query tree object | [optional] 
+**Query** | **Dictionary&lt;string, Object&gt;** | Query tree object | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to API list]](../README.md#documentation-for-api-endpoints)

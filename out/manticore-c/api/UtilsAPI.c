@@ -14,7 +14,7 @@
 
 // Perform SQL requests
 //
-object_t*
+list_t*_t*
 UtilsAPI_sql(apiClient_t *apiClient, char * query , char * mode )
 {
     list_t    *localVarQueryParameters = NULL;
@@ -73,14 +73,24 @@ UtilsAPI_sql(apiClient_t *apiClient, char * query , char * mode )
     if (apiClient->response_code == 0) {
         printf("%s\n","error");
     }
-    //nonprimitive not container
     cJSON *UtilsAPIlocalVarJSON = cJSON_Parse(apiClient->dataReceived);
-    object_t *elementToReturn = object_parseFromJSON(UtilsAPIlocalVarJSON);
-    cJSON_Delete(UtilsAPIlocalVarJSON);
-    if(elementToReturn == NULL) {
-        // return 0;
+    if(!cJSON_IsArray(UtilsAPIlocalVarJSON)) {
+        return 0;//nonprimitive container
+    }
+    list_t *elementToReturn = list_create();
+    cJSON *VarJSON;
+    cJSON_ArrayForEach(VarJSON, UtilsAPIlocalVarJSON)
+    {
+        if(!cJSON_IsObject(VarJSON))
+        {
+           // return 0;
+        }
+        char *localVarJSONToChar = cJSON_Print(VarJSON);
+        list_addElement(elementToReturn , localVarJSONToChar);
     }
 
+    cJSON_Delete( UtilsAPIlocalVarJSON);
+    cJSON_Delete( VarJSON);
     //return type
     if (apiClient->dataReceived) {
         free(apiClient->dataReceived);

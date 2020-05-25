@@ -20,13 +20,13 @@ typedef struct error_response_t error_response_t;
 
 
 typedef struct error_response_t {
-    object_t *error; //object
+    list_t* error; //map
     int status; //numeric
 
 } error_response_t;
 
 error_response_t *error_response_create(
-    object_t *error,
+    list_t* error,
     int status
 );
 

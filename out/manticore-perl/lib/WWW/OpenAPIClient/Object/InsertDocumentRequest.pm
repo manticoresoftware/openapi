@@ -176,7 +176,7 @@ __PACKAGE__->method_documentation({
         read_only => '',
             },
     'doc' => {
-        datatype => 'object',
+        datatype => 'HASH[string,object]',
         base_name => 'doc',
         description => 'Object with document data ',
         format => '',
@@ -187,7 +187,7 @@ __PACKAGE__->method_documentation({
 __PACKAGE__->openapi_types( {
     'index' => 'string',
     'id' => 'int',
-    'doc' => 'object'
+    'doc' => 'HASH[string,object]'
 } );
 
 __PACKAGE__->attribute_map( {

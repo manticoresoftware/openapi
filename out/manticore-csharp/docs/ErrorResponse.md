@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Error** | **Object** |  | 
+**Error** | **Dictionary&lt;string, Object&gt;** |  | 
 **Status** | **int** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models)

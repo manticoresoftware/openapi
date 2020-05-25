@@ -6,7 +6,7 @@
 
 
 percolate_request_t *percolate_request_create(
-    percolate_request_query_t *query
+    list_t* query
     ) {
     percolate_request_t *percolate_request_local_var = malloc(sizeof(percolate_request_t));
     if (!percolate_request_local_var) {
@@ -23,7 +23,12 @@ void percolate_request_free(percolate_request_t *percolate_request) {
         return ;
     }
     listEntry_t *listEntry;
-    percolate_request_query_free(percolate_request->query);
+    list_ForEach(listEntry, percolate_request->query) {
+        keyValuePair_t *localKeyValue = (keyValuePair_t*) listEntry->data;
+        free (localKeyValue->key);
+        free (localKeyValue->value);
+    }
+    list_free(percolate_request->query);
     free(percolate_request);
 }
 
@@ -35,13 +40,16 @@ cJSON *percolate_request_convertToJSON(percolate_request_t *percolate_request) {
         goto fail;
     }
     
-    cJSON *query_local_JSON = percolate_request_query_convertToJSON(percolate_request->query);
-    if(query_local_JSON == NULL) {
-    goto fail; //model
+    cJSON *query = cJSON_AddObjectToObject(item, "query");
+    if(query == NULL) {
+        goto fail; //primitive map container
     }
-    cJSON_AddItemToObject(item, "query", query_local_JSON);
-    if(item->child == NULL) {
-    goto fail;
+    cJSON *localMapObject = query;
+    listEntry_t *queryListEntry;
+    if (percolate_request->query) {
+    list_ForEach(queryListEntry, percolate_request->query) {
+        keyValuePair_t *localKeyValue = (keyValuePair_t*)queryListEntry->data;
+    }
     }
 
     return item;
@@ -62,13 +70,23 @@ percolate_request_t *percolate_request_parseFromJSON(cJSON *percolate_requestJSO
         goto end;
     }
 
-    percolate_request_query_t *query_local_nonprim = NULL;
+    list_t *queryList;
     
-    query_local_nonprim = percolate_request_query_parseFromJSON(query); //nonprimitive
+    cJSON *query_local_map;
+    if(!cJSON_IsObject(query)) {
+        goto end;//primitive map container
+    }
+    queryList = list_create();
+    keyValuePair_t *localMapKeyPair;
+    cJSON_ArrayForEach(query_local_map, query)
+    {
+		cJSON *localMapObject = query_local_map;
+        list_addElement(queryList , localMapKeyPair);
+    }
 
 
     percolate_request_local_var = percolate_request_create (
-        query_local_nonprim
+        queryList
         );
 
     return percolate_request_local_var;

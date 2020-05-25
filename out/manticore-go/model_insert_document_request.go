@@ -16,5 +16,5 @@ type InsertDocumentRequest struct {
 	// Document ID. 
 	Id int64 `json:"id,omitempty"`
 	// Object with document data 
-	Doc map[string]interface{} `json:"doc"`
+	Doc map[string]map[string]interface{} `json:"doc"`
 }

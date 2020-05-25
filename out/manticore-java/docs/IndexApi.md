@@ -32,7 +32,7 @@ public class Example {
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
-    List<Object> requestBody = null; // List<Object> | 
+    List<Object> requestBody = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}]; // List<Object> | 
     try {
       SuccessResponse result = apiInstance.bulk(requestBody);
       System.out.println(result);
@@ -93,7 +93,7 @@ public class Example {
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
-    DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(); // DeleteDocumentRequest | 
+    DeleteDocumentRequest deleteDocumentRequest = {"index":"test","query":{"match":{"title":"apple"}}}; // DeleteDocumentRequest | 
     try {
       SuccessResponse result = apiInstance.delete(deleteDocumentRequest);
       System.out.println(result);
@@ -154,7 +154,7 @@ public class Example {
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
-    InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(); // InsertDocumentRequest | 
+    InsertDocumentRequest insertDocumentRequest = {"index":"test","id":1,"doc":{"title":"sample title","gid":10}}; // InsertDocumentRequest | 
     try {
       SuccessResponse result = apiInstance.insert(insertDocumentRequest);
       System.out.println(result);
@@ -215,7 +215,7 @@ public class Example {
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
-    InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(); // InsertDocumentRequest | 
+    InsertDocumentRequest insertDocumentRequest = {"index":"test","id":1,"doc":{"title":"updated title","gid":15}}; // InsertDocumentRequest | 
     try {
       SuccessResponse result = apiInstance.replace(insertDocumentRequest);
       System.out.println(result);
@@ -276,7 +276,7 @@ public class Example {
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
-    UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(); // UpdateDocumentRequest | 
+    UpdateDocumentRequest updateDocumentRequest = {"index":"test","doc":{"gid":20},"query":{"equals":{"cat_id":2}}}; // UpdateDocumentRequest | 
     try {
       SuccessResponse result = apiInstance.update(updateDocumentRequest);
       System.out.println(result);

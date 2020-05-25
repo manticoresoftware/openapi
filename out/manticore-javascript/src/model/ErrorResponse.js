@@ -23,7 +23,7 @@ class ErrorResponse {
      * Constructs a new <code>ErrorResponse</code>.
      * Error response
      * @alias module:model/ErrorResponse
-     * @param error {Object} 
+     * @param error {Object.<String, Object>} 
      * @param status {Number} 
      */
     constructor(error, status) { 
@@ -53,7 +53,7 @@ class ErrorResponse {
             obj = obj || new ErrorResponse();
 
             if (data.hasOwnProperty('error')) {
-                obj['error'] = ApiClient.convertToType(data['error'], Object);
+                obj['error'] = ApiClient.convertToType(data['error'], {'String': Object});
             }
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
@@ -66,7 +66,7 @@ class ErrorResponse {
 }
 
 /**
- * @member {Object} error
+ * @member {Object.<String, Object>} error
  */
 ErrorResponse.prototype['error'] = undefined;
 

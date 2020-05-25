@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## Sql
 
-> Object Sql (string query, string mode = null)
+> Dictionary&lt;string, Object&gt; Sql (string query, string mode = null)
 
 Perform SQL requests
 
@@ -37,7 +37,7 @@ namespace Example
             try
             {
                 // Perform SQL requests
-                Object result = apiInstance.Sql(query, mode);
+                Dictionary<string, Object> result = apiInstance.Sql(query, mode);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+**Dictionary<string, Object>**
 
 ### Authorization
 

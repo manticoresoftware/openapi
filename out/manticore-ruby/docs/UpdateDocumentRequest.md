@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **String** |  | 
-**doc** | **Object** | Index name | 
+**doc** | **Hash&lt;String, Object&gt;** | Index name | 
 **id** | **Integer** | Document ID | [optional] 
-**query** | **Object** | Query tree object | [optional] 
+**query** | **Hash&lt;String, Object&gt;** | Query tree object | [optional] 
 
 ## Code Sample
 
@@ -15,9 +15,9 @@ Name | Type | Description | Notes
 require 'OpenapiClient'
 
 instance = OpenapiClient::UpdateDocumentRequest.new(index: null,
-                                 doc: null,
+                                 doc: {&quot;gid&quot;:10},
                                  id: null,
-                                 query: null)
+                                 query: {&quot;query&quot;:{&quot;match&quot;:{&quot;title&quot;:&quot;match me&quot;}}})
 ```
 
 

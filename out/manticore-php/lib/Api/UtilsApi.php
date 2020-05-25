@@ -125,7 +125,7 @@ class UtilsApi
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return object|\OpenAPI\Client\Model\ErrorResponse
+     * @return map[string,object]|\OpenAPI\Client\Model\ErrorResponse
      */
     public function sql($query, $mode = null)
     {
@@ -143,7 +143,7 @@ class UtilsApi
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of object|\OpenAPI\Client\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of map[string,object]|\OpenAPI\Client\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function sqlWithHttpInfo($query, $mode = null)
     {
@@ -180,14 +180,14 @@ class UtilsApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('object' === '\SplFileObject') {
+                    if ('map[string,object]' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, 'object', []),
+                        ObjectSerializer::deserialize($content, 'map[string,object]', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -205,7 +205,7 @@ class UtilsApi
                     ];
             }
 
-            $returnType = 'object';
+            $returnType = 'map[string,object]';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -224,7 +224,7 @@ class UtilsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'object',
+                        'map[string,object]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -276,7 +276,7 @@ class UtilsApi
      */
     public function sqlAsyncWithHttpInfo($query, $mode = null)
     {
-        $returnType = 'object';
+        $returnType = 'map[string,object]';
         $request = $this->sqlRequest($query, $mode);
 
         return $this->client

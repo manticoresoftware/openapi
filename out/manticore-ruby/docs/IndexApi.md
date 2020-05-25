@@ -25,7 +25,7 @@ Bulk index operations
 require 'openapi_client'
 
 api_instance = OpenapiClient::IndexApi.new
-request_body = nil # Array<Object> | 
+request_body = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}] # Array<Object> | 
 
 begin
   #Bulk index operations
@@ -70,7 +70,7 @@ Delete a document in an index
 require 'openapi_client'
 
 api_instance = OpenapiClient::IndexApi.new
-delete_document_request = OpenapiClient::DeleteDocumentRequest.new # DeleteDocumentRequest | 
+delete_document_request = {"index":"test","query":{"match":{"title":"apple"}}} # DeleteDocumentRequest | 
 
 begin
   #Delete a document in an index
@@ -115,7 +115,7 @@ Create a new document in an index
 require 'openapi_client'
 
 api_instance = OpenapiClient::IndexApi.new
-insert_document_request = OpenapiClient::InsertDocumentRequest.new # InsertDocumentRequest | 
+insert_document_request = {"index":"test","id":1,"doc":{"title":"sample title","gid":10}} # InsertDocumentRequest | 
 
 begin
   #Create a new document in an index
@@ -160,7 +160,7 @@ Replace new document in an index
 require 'openapi_client'
 
 api_instance = OpenapiClient::IndexApi.new
-insert_document_request = OpenapiClient::InsertDocumentRequest.new # InsertDocumentRequest | 
+insert_document_request = {"index":"test","id":1,"doc":{"title":"updated title","gid":15}} # InsertDocumentRequest | 
 
 begin
   #Replace new document in an index
@@ -205,7 +205,7 @@ Update a document in an index
 require 'openapi_client'
 
 api_instance = OpenapiClient::IndexApi.new
-update_document_request = OpenapiClient::UpdateDocumentRequest.new # UpdateDocumentRequest | 
+update_document_request = {"index":"test","doc":{"gid":20},"query":{"equals":{"cat_id":2}}} # UpdateDocumentRequest | 
 
 begin
   #Update a document in an index

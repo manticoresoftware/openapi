@@ -37,13 +37,11 @@ class TestPercolateRequest(unittest.TestCase):
         # model = openapi_client.models.percolate_request.PercolateRequest()  # noqa: E501
         if include_optional :
             return PercolateRequest(
-                query = openapi_client.models.percolate_request_query.percolateRequest_query(
-                    percolate = openapi_client.models.percolate.percolate(), )
+                query = {"percolate":{"document":{"title":"some text to match"}}}
             )
         else :
             return PercolateRequest(
-                query = openapi_client.models.percolate_request_query.percolateRequest_query(
-                    percolate = openapi_client.models.percolate.percolate(), ),
+                query = {"percolate":{"document":{"title":"some text to match"}}},
         )
 
     def testPercolateRequest(self):

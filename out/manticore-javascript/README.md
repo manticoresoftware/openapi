@@ -104,7 +104,7 @@ var ManticoreSearchApi = require('manticore_search_api');
 
 
 var api = new ManticoreSearchApi.IndexApi()
-var requestBody = [null]; // {[Object]} 
+var requestBody = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}]; // {[Object]} 
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -139,7 +139,6 @@ Class | Method | HTTP request | Description
  - [ManticoreSearchApi.InlineObject](docs/InlineObject.md)
  - [ManticoreSearchApi.InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [ManticoreSearchApi.PercolateRequest](docs/PercolateRequest.md)
- - [ManticoreSearchApi.PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [ManticoreSearchApi.SearchRequest](docs/SearchRequest.md)
  - [ManticoreSearchApi.SearchResponse](docs/SearchResponse.md)
  - [ManticoreSearchApi.SearchResponseHits](docs/SearchResponseHits.md)

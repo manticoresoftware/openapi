@@ -9,7 +9,7 @@ use WWW::OpenAPIClient::Object::SearchRequest;
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **string** |  | 
-**query** | **object** |  | 
+**query** | **HASH[string,object]** |  | 
 **limit** | **int** |  | [optional] 
 **offset** | **int** |  | [optional] 
 **max_matches** | **int** |  | [optional] 

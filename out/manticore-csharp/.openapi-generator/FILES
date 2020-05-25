@@ -11,7 +11,6 @@ docs/IndexApi.md
 docs/InlineObject.md
 docs/InsertDocumentRequest.md
 docs/PercolateRequest.md
-docs/PercolateRequestQuery.md
 docs/SearchApi.md
 docs/SearchRequest.md
 docs/SearchResponse.md
@@ -28,7 +27,6 @@ src/Org.OpenAPITools.Test/Model/DeleteDocumentRequestTests.cs
 src/Org.OpenAPITools.Test/Model/ErrorResponseTests.cs
 src/Org.OpenAPITools.Test/Model/InlineObjectTests.cs
 src/Org.OpenAPITools.Test/Model/InsertDocumentRequestTests.cs
-src/Org.OpenAPITools.Test/Model/PercolateRequestQueryTests.cs
 src/Org.OpenAPITools.Test/Model/PercolateRequestTests.cs
 src/Org.OpenAPITools.Test/Model/SearchRequestTests.cs
 src/Org.OpenAPITools.Test/Model/SearchResponseHitsTests.cs
@@ -54,7 +52,6 @@ src/Org.OpenAPITools/Model/ErrorResponse.cs
 src/Org.OpenAPITools/Model/InlineObject.cs
 src/Org.OpenAPITools/Model/InsertDocumentRequest.cs
 src/Org.OpenAPITools/Model/PercolateRequest.cs
-src/Org.OpenAPITools/Model/PercolateRequestQuery.cs
 src/Org.OpenAPITools/Model/SearchRequest.cs
 src/Org.OpenAPITools/Model/SearchResponse.cs
 src/Org.OpenAPITools/Model/SearchResponseHits.cs

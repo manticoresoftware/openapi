@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **took** | **Integer** |  |  [optional]
 **timedOut** | **Boolean** |  |  [optional]
-**hits** | [**SearchResponseHits**](SearchResponseHits.md) |  |  [optional]
+**hits** | [**Map&lt;String, SearchResponseHits&gt;**](SearchResponseHits.md) |  |  [optional]
 **profile** | **Object** |  |  [optional]
 
 

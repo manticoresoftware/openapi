@@ -36,7 +36,7 @@ class InsertDocumentRequest(object):
     openapi_types = {
         'index': 'str',
         'id': 'int',
-        'doc': 'object'
+        'doc': 'dict(str, object)'
     }
 
     attribute_map = {
@@ -119,7 +119,7 @@ class InsertDocumentRequest(object):
         Object with document data   # noqa: E501
 
         :return: The doc of this InsertDocumentRequest.  # noqa: E501
-        :rtype: object
+        :rtype: dict(str, object)
         """
         return self._doc
 
@@ -130,7 +130,7 @@ class InsertDocumentRequest(object):
         Object with document data   # noqa: E501
 
         :param doc: The doc of this InsertDocumentRequest.  # noqa: E501
-        :type: object
+        :type: dict(str, object)
         """
         if self.local_vars_configuration.client_side_validation and doc is None:  # noqa: E501
             raise ValueError("Invalid value for `doc`, must not be `None`")  # noqa: E501

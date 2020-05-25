@@ -59,9 +59,9 @@ class UpdateDocumentRequest implements ModelInterface, ArrayAccess
       */
     protected static $openAPITypes = [
         'index' => 'string',
-        'doc' => 'object',
+        'doc' => 'map[string,object]',
         'id' => 'int',
-        'query' => 'object'
+        'query' => 'map[string,object]'
     ];
 
     /**
@@ -260,7 +260,7 @@ class UpdateDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Gets doc
      *
-     * @return object
+     * @return map[string,object]
      */
     public function getDoc()
     {
@@ -270,7 +270,7 @@ class UpdateDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets doc
      *
-     * @param object $doc Index name
+     * @param map[string,object] $doc Index name
      *
      * @return $this
      */
@@ -313,7 +313,7 @@ class UpdateDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Gets query
      *
-     * @return object|null
+     * @return map[string,object]|null
      */
     public function getQuery()
     {
@@ -323,7 +323,7 @@ class UpdateDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets query
      *
-     * @param object|null $query Query tree object
+     * @param map[string,object]|null $query Query tree object
      *
      * @return $this
      */

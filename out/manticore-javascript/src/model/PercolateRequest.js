@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import PercolateRequestQuery from './PercolateRequestQuery';
 
 /**
  * The PercolateRequest model module.
@@ -24,7 +23,7 @@ class PercolateRequest {
      * Constructs a new <code>PercolateRequest</code>.
      * Object with documents to percolate
      * @alias module:model/PercolateRequest
-     * @param query {module:model/PercolateRequestQuery} 
+     * @param query {Object.<String, Object>} 
      */
     constructor(query) { 
         
@@ -52,7 +51,7 @@ class PercolateRequest {
             obj = obj || new PercolateRequest();
 
             if (data.hasOwnProperty('query')) {
-                obj['query'] = PercolateRequestQuery.constructFromObject(data['query']);
+                obj['query'] = ApiClient.convertToType(data['query'], {'String': Object});
             }
         }
         return obj;
@@ -62,7 +61,7 @@ class PercolateRequest {
 }
 
 /**
- * @member {module:model/PercolateRequestQuery} query
+ * @member {Object.<String, Object>} query
  */
 PercolateRequest.prototype['query'] = undefined;
 

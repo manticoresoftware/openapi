@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## sql
 
-> object sql($query, $mode)
+> map[string,object] sql($query, $mode)
 
 Perform SQL requests
 
@@ -48,7 +48,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+**map[string,object]**
 
 ### Authorization
 

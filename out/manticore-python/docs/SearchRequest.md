@@ -5,7 +5,7 @@ Payload for search operation
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **str** |  | 
-**query** | **object** |  | 
+**query** | **dict(str, object)** |  | 
 **limit** | **int** |  | [optional] 
 **offset** | **int** |  | [optional] 
 **max_matches** | **int** |  | [optional] 

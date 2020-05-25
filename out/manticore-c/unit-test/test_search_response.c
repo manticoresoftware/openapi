@@ -16,7 +16,6 @@
 #include "../model/search_response.h"
 search_response_t* instantiate_search_response(int include_optional);
 
-#include "test_search_response_hits.c"
 
 
 search_response_t* instantiate_search_response(int include_optional) {
@@ -25,15 +24,14 @@ search_response_t* instantiate_search_response(int include_optional) {
     search_response = search_response_create(
       56,
       1,
-       // false, not to have infinite recursion
-      instantiate_search_response_hits(0),
+      {"total":2,"hits":[{"_id":1,"_score":1,"_source":{"gid":11}},{"_id":2,"_score":1,"_source":{"gid":20}}]},
       0
     );
   } else {
     search_response = search_response_create(
       56,
       1,
-      NULL,
+      {"total":2,"hits":[{"_id":1,"_score":1,"_source":{"gid":11}},{"_id":2,"_score":1,"_source":{"gid":20}}]},
       0
     );
   }

@@ -33,8 +33,10 @@ components:
       properties:
         index:
           type: string
+          example: test
         query:
           type: object
+          additionalProperties: true
         limit:
           type: integer
           minimum: 0
@@ -75,6 +77,9 @@ components:
         doc:
           type: object
           description: Index name
+          additionalProperties: true
+          example:
+            gid: 10
         id:  
           type: integer
           format: int64          
@@ -82,7 +87,12 @@ components:
           description: Document ID
         query:  
           type: object
+          additionalProperties: true
           description: Query tree object 
+          example:
+            query:
+              match:
+                title: match me
       example:
         index: test
         doc: 
@@ -152,12 +162,14 @@ components:
             Document ID.
         doc:
           type: object
+          additionalProperties: true
           description: |
             Object with document data
       example:
         index: test
-        title: "This is some title"
-        gid: 100    
+        doc:
+          title: "This is some title"
+          gid: 100    
     percolateRequest:
       type: object
       description: Object with documents to percolate
@@ -166,11 +178,16 @@ components:
       properties:
         query:
           type: object
+          additionalProperties: true
           required: 
             - percolate
           properties:
             percolate:
               type: object
+          example:
+            percolate:
+              document:
+                title: some text to match
       example:
         query:
           percolate:
@@ -186,19 +203,39 @@ components:
           type: boolean
         hits:
           type: object
-          properties:
-            total:
-              type: integer
+          additionalProperties:
+            type: object
+            properties:
+              total:
+                type: integer
+              hits:
+                type: array
+                items:
+                  type: object
+          example:
+            total: 2
             hits:
-              type: array
-              items:
-                type: object
+              - 
+                _id: 1
+                _score: 1
+                _source: 
+                  gid: 11
+              -
+                _id: 2
+                _score: 1
+                _source:
+                  gid: 20
         profile:
           type: object
           
     sqlResponse:
       type: object
       description: Response from sql depends on the query executed.
+      additionalProperties: true
+      example:
+        total: 0
+        error:
+        
     successResponse:
       type: object
       description: Success response
@@ -218,6 +255,13 @@ components:
           type: string
         found:
           type: boolean
+      example:
+        _index: test
+        _id: 1
+        result: created
+        created: true
+
+        
     errorResponse:
       type: object
       description: Error response
@@ -227,10 +271,13 @@ components:
       properties:
         error:
           type: object
+          additionalProperties: true
         status:
           type: integer
           example: 500
-
+      example:
+          status: 500
+          error: an error occured
         
 paths:
   /json/search:
@@ -274,6 +321,12 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/insertDocumentRequest'
+            example:
+              index: test
+              id: 1
+              doc:
+                title: sample title
+                gid: 10
 
       responses:
         '200':
@@ -302,6 +355,12 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/insertDocumentRequest'
+            example:
+              index: test
+              id: 1
+              doc:
+                title: updated title
+                gid: 15
       responses:
         '200':
           description: OK
@@ -329,7 +388,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/updateDocumentRequest'
-
+            example:
+              index: test
+              doc:
+                gid: 20
+              query:
+                equals:
+                  cat_id: 2
       responses:
         '200':
           description: item updated
@@ -357,6 +422,11 @@ paths:
           application/json:
             schema:
              $ref: '#/components/schemas/deleteDocumentRequest'
+            example: 
+              index: test
+              query:
+                match:
+                  title: apple
 
       responses:
         '200':
@@ -385,6 +455,19 @@ paths:
           application/x-ndjson:
             schema:
              $ref: '#/components/schemas/bulkRequest'
+            example:
+              - insert:
+                index: test
+                id: 10
+                doc: 
+                  gid: 10
+                  title: doc one
+              - insert:
+                index: test
+                id: 11
+                doc:
+                  gid: 20
+                  title: dow two
 
       responses:
         '200':
@@ -450,7 +533,7 @@ paths:
         required: true
         content:
           application/x-www-form-urlencoded:
-               schema: 
+            schema: 
                   type: object
                   required:
                     - query
@@ -459,6 +542,9 @@ paths:
                       type: string
                     mode:
                       type: string
+            example: 
+              sql: SHOW THREADS
+              mode: raw
       responses:
         '200':
           description: item updated

@@ -20,7 +20,6 @@ from openapi_client.models.error_response import ErrorResponse
 from openapi_client.models.inline_object import InlineObject
 from openapi_client.models.insert_document_request import InsertDocumentRequest
 from openapi_client.models.percolate_request import PercolateRequest
-from openapi_client.models.percolate_request_query import PercolateRequestQuery
 from openapi_client.models.search_request import SearchRequest
 from openapi_client.models.search_response import SearchResponse
 from openapi_client.models.search_response_hits import SearchResponseHits

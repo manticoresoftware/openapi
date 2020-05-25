@@ -6,6 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **String** | Name of the index | 
 **id** | **Number** | Document ID.  | [optional] 
-**doc** | **Object** | Object with document data  | 
+**doc** | **{String: Object}** | Object with document data  | 
 
 

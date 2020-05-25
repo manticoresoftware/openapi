@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **sql**
-> object sql(query => $query, mode => $mode)
+> HASH[string,object] sql(query => $query, mode => $mode)
 
 Perform SQL requests
 
@@ -45,7 +45,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+**HASH[string,object]**
 
 ### Authorization
 

@@ -7,9 +7,9 @@
 
 update_document_request_t *update_document_request_create(
     char *index,
-    object_t *doc,
+    list_t* doc,
     long id,
-    object_t *query
+    list_t* query
     ) {
     update_document_request_t *update_document_request_local_var = malloc(sizeof(update_document_request_t));
     if (!update_document_request_local_var) {
@@ -30,8 +30,18 @@ void update_document_request_free(update_document_request_t *update_document_req
     }
     listEntry_t *listEntry;
     free(update_document_request->index);
-    object_free(update_document_request->doc);
-    object_free(update_document_request->query);
+    list_ForEach(listEntry, update_document_request->doc) {
+        keyValuePair_t *localKeyValue = (keyValuePair_t*) listEntry->data;
+        free (localKeyValue->key);
+        free (localKeyValue->value);
+    }
+    list_free(update_document_request->doc);
+    list_ForEach(listEntry, update_document_request->query) {
+        keyValuePair_t *localKeyValue = (keyValuePair_t*) listEntry->data;
+        free (localKeyValue->key);
+        free (localKeyValue->value);
+    }
+    list_free(update_document_request->query);
     free(update_document_request);
 }
 
@@ -53,13 +63,16 @@ cJSON *update_document_request_convertToJSON(update_document_request_t *update_d
         goto fail;
     }
     
-    cJSON *doc_object = object_convertToJSON(update_document_request->doc);
-    if(doc_object == NULL) {
-    goto fail; //model
+    cJSON *doc = cJSON_AddObjectToObject(item, "doc");
+    if(doc == NULL) {
+        goto fail; //primitive map container
     }
-    cJSON_AddItemToObject(item, "doc", doc_object);
-    if(item->child == NULL) {
-    goto fail;
+    cJSON *localMapObject = doc;
+    listEntry_t *docListEntry;
+    if (update_document_request->doc) {
+    list_ForEach(docListEntry, update_document_request->doc) {
+        keyValuePair_t *localKeyValue = (keyValuePair_t*)docListEntry->data;
+    }
     }
 
 
@@ -73,13 +86,16 @@ cJSON *update_document_request_convertToJSON(update_document_request_t *update_d
 
     // update_document_request->query
     if(update_document_request->query) { 
-    cJSON *query_object = object_convertToJSON(update_document_request->query);
-    if(query_object == NULL) {
-    goto fail; //model
+    cJSON *query = cJSON_AddObjectToObject(item, "query");
+    if(query == NULL) {
+        goto fail; //primitive map container
     }
-    cJSON_AddItemToObject(item, "query", query_object);
-    if(item->child == NULL) {
-    goto fail;
+    cJSON *localMapObject = query;
+    listEntry_t *queryListEntry;
+    if (update_document_request->query) {
+    list_ForEach(queryListEntry, update_document_request->query) {
+        keyValuePair_t *localKeyValue = (keyValuePair_t*)queryListEntry->data;
+    }
     }
      } 
 
@@ -113,9 +129,19 @@ update_document_request_t *update_document_request_parseFromJSON(cJSON *update_d
         goto end;
     }
 
-    object_t *doc_local_object = NULL;
+    list_t *docList;
     
-    doc_local_object = object_parseFromJSON(doc); //object
+    cJSON *doc_local_map;
+    if(!cJSON_IsObject(doc)) {
+        goto end;//primitive map container
+    }
+    docList = list_create();
+    keyValuePair_t *localMapKeyPair;
+    cJSON_ArrayForEach(doc_local_map, doc)
+    {
+		cJSON *localMapObject = doc_local_map;
+        list_addElement(docList , localMapKeyPair);
+    }
 
     // update_document_request->id
     cJSON *id = cJSON_GetObjectItemCaseSensitive(update_document_requestJSON, "id");
@@ -128,17 +154,27 @@ update_document_request_t *update_document_request_parseFromJSON(cJSON *update_d
 
     // update_document_request->query
     cJSON *query = cJSON_GetObjectItemCaseSensitive(update_document_requestJSON, "query");
-    object_t *query_local_object = NULL;
+    list_t *queryList;
     if (query) { 
-    query_local_object = object_parseFromJSON(query); //object
+    cJSON *query_local_map;
+    if(!cJSON_IsObject(query)) {
+        goto end;//primitive map container
+    }
+    queryList = list_create();
+    keyValuePair_t *localMapKeyPair;
+    cJSON_ArrayForEach(query_local_map, query)
+    {
+		cJSON *localMapObject = query_local_map;
+        list_addElement(queryList , localMapKeyPair);
+    }
     }
 
 
     update_document_request_local_var = update_document_request_create (
         strdup(index->valuestring),
-        doc_local_object,
+        docList,
         id ? id->valuedouble : 0,
-        query ? query_local_object : NULL
+        query ? queryList : NULL
         );
 
     return update_document_request_local_var;

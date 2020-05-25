@@ -40,7 +40,7 @@ namespace Org.OpenAPITools.Model
         /// </summary>
         /// <param name="error">error (required).</param>
         /// <param name="status">status (required).</param>
-        public ErrorResponse(Object error = default(Object), int status = default(int))
+        public ErrorResponse(Dictionary<string, Object> error = default(Dictionary<string, Object>), int status = default(int))
         {
             // to ensure "error" is required (not null)
             if (error == null)
@@ -68,7 +68,7 @@ namespace Org.OpenAPITools.Model
         /// Gets or Sets Error
         /// </summary>
         [DataMember(Name="error", EmitDefaultValue=true)]
-        public Object Error { get; set; }
+        public Dictionary<string, Object> Error { get; set; }
 
         /// <summary>
         /// Gets or Sets Status
@@ -122,8 +122,9 @@ namespace Org.OpenAPITools.Model
             return 
                 (
                     this.Error == input.Error ||
-                    (this.Error != null &&
-                    this.Error.Equals(input.Error))
+                    this.Error != null &&
+                    input.Error != null &&
+                    this.Error.SequenceEqual(input.Error)
                 ) && 
                 (
                     this.Status == input.Status ||

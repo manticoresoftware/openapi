@@ -35,7 +35,7 @@ configuration = openapi_client.Configuration(
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.IndexApi(api_client)
-    request_body = None # list[object] | 
+    request_body = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}] # list[object] | 
 
     try:
         # Bulk index operations
@@ -96,7 +96,7 @@ configuration = openapi_client.Configuration(
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.IndexApi(api_client)
-    delete_document_request = openapi_client.DeleteDocumentRequest() # DeleteDocumentRequest | 
+    delete_document_request = {"index":"test","query":{"match":{"title":"apple"}}} # DeleteDocumentRequest | 
 
     try:
         # Delete a document in an index
@@ -157,7 +157,7 @@ configuration = openapi_client.Configuration(
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.IndexApi(api_client)
-    insert_document_request = openapi_client.InsertDocumentRequest() # InsertDocumentRequest | 
+    insert_document_request = {"index":"test","id":1,"doc":{"title":"sample title","gid":10}} # InsertDocumentRequest | 
 
     try:
         # Create a new document in an index
@@ -218,7 +218,7 @@ configuration = openapi_client.Configuration(
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.IndexApi(api_client)
-    insert_document_request = openapi_client.InsertDocumentRequest() # InsertDocumentRequest | 
+    insert_document_request = {"index":"test","id":1,"doc":{"title":"updated title","gid":15}} # InsertDocumentRequest | 
 
     try:
         # Replace new document in an index
@@ -279,7 +279,7 @@ configuration = openapi_client.Configuration(
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.IndexApi(api_client)
-    update_document_request = openapi_client.UpdateDocumentRequest() # UpdateDocumentRequest | 
+    update_document_request = {"index":"test","doc":{"gid":20},"query":{"equals":{"cat_id":2}}} # UpdateDocumentRequest | 
 
     try:
         # Update a document in an index

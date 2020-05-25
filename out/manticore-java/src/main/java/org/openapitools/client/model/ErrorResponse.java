@@ -23,25 +23,33 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Error response
  */
 @ApiModel(description = "Error response")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T14:00:55.300Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T15:19:00.920Z[GMT]")
 public class ErrorResponse {
   public static final String SERIALIZED_NAME_ERROR = "error";
   @SerializedName(SERIALIZED_NAME_ERROR)
-  private Object error;
+  private Map<String, Object> error = new HashMap<String, Object>();
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
   private Integer status;
 
 
-  public ErrorResponse error(Object error) {
+  public ErrorResponse error(Map<String, Object> error) {
     
     this.error = error;
+    return this;
+  }
+
+  public ErrorResponse putErrorItem(String key, Object errorItem) {
+    this.error.put(key, errorItem);
     return this;
   }
 
@@ -51,12 +59,12 @@ public class ErrorResponse {
   **/
   @ApiModelProperty(required = true, value = "")
 
-  public Object getError() {
+  public Map<String, Object> getError() {
     return error;
   }
 
 
-  public void setError(Object error) {
+  public void setError(Map<String, Object> error) {
     this.error = error;
   }
 

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## sql
 
-> Object sql(query, opts)
+> {String: Object} sql(query, opts)
 
 Perform SQL requests
 
@@ -43,7 +43,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+**{String: Object}**
 
 ### Authorization
 

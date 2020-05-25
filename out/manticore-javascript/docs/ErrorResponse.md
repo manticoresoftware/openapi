@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**error** | **Object** |  | 
+**error** | **{String: Object}** |  | 
 **status** | **Number** |  | 
 
 

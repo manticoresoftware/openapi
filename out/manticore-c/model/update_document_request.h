@@ -21,17 +21,17 @@ typedef struct update_document_request_t update_document_request_t;
 
 typedef struct update_document_request_t {
     char *index; // string
-    object_t *doc; //object
+    list_t* doc; //map
     long id; //numeric
-    object_t *query; //object
+    list_t* query; //map
 
 } update_document_request_t;
 
 update_document_request_t *update_document_request_create(
     char *index,
-    object_t *doc,
+    list_t* doc,
     long id,
-    object_t *query
+    list_t* query
 );
 
 void update_document_request_free(update_document_request_t *update_document_request);

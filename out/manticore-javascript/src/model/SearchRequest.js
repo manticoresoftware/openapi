@@ -24,7 +24,7 @@ class SearchRequest {
      * Payload for search operation
      * @alias module:model/SearchRequest
      * @param index {String} 
-     * @param query {Object} 
+     * @param query {Object.<String, Object>} 
      */
     constructor(index, query) { 
         
@@ -56,7 +56,7 @@ class SearchRequest {
                 obj['index'] = ApiClient.convertToType(data['index'], 'String');
             }
             if (data.hasOwnProperty('query')) {
-                obj['query'] = ApiClient.convertToType(data['query'], Object);
+                obj['query'] = ApiClient.convertToType(data['query'], {'String': Object});
             }
             if (data.hasOwnProperty('limit')) {
                 obj['limit'] = ApiClient.convertToType(data['limit'], 'Number');
@@ -95,7 +95,7 @@ class SearchRequest {
 SearchRequest.prototype['index'] = undefined;
 
 /**
- * @member {Object} query
+ * @member {Object.<String, Object>} query
  */
 SearchRequest.prototype['query'] = undefined;
 

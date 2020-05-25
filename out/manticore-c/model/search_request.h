@@ -21,7 +21,7 @@ typedef struct search_request_t search_request_t;
 
 typedef struct search_request_t {
     char *index; // string
-    object_t *query; //object
+    list_t* query; //map
     int limit; //numeric
     int offset; //numeric
     int max_matches; //numeric
@@ -35,7 +35,7 @@ typedef struct search_request_t {
 
 search_request_t *search_request_create(
     char *index,
-    object_t *query,
+    list_t* query,
     int limit,
     int offset,
     int max_matches,

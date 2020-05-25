@@ -124,7 +124,6 @@ Class | Method | HTTP request | Description
  - [Model.InlineObject](docs/InlineObject.md)
  - [Model.InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [Model.PercolateRequest](docs/PercolateRequest.md)
- - [Model.PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [Model.SearchRequest](docs/SearchRequest.md)
  - [Model.SearchResponse](docs/SearchResponse.md)
  - [Model.SearchResponseHits](docs/SearchResponseHits.md)

@@ -30,7 +30,7 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'error' => :'Object',
+        :'error' => :'Hash<String, Object>',
         :'status' => :'Integer'
       }
     end
@@ -57,7 +57,9 @@ module OpenapiClient
       }
 
       if attributes.key?(:'error')
-        self.error = attributes[:'error']
+        if (value = attributes[:'error']).is_a?(Hash)
+          self.error = value
+        end
       end
 
       if attributes.key?(:'status')

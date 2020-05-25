@@ -37,16 +37,16 @@ Sql Perform SQL requests
  * @param query
  * @param optional nil or *SqlOpts - Optional Parameters:
  * @param "Mode" (optional.String) - 
-@return map[string]interface{}
+@return map[string]map[string]interface{}
 */
-func (a *UtilsApiService) Sql(ctx _context.Context, query string, localVarOptionals *SqlOpts) (map[string]interface{}, *_nethttp.Response, error) {
+func (a *UtilsApiService) Sql(ctx _context.Context, query string, localVarOptionals *SqlOpts) (map[string]map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  map[string]map[string]interface{}
 	)
 
 	// create path and map variables

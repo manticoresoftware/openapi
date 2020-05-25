@@ -23,16 +23,16 @@ update_document_request_t* instantiate_update_document_request(int include_optio
   if (include_optional) {
     update_document_request = update_document_request_create(
       "0",
-      0,
+      {"gid":10},
       1,
-      0
+      {"query":{"match":{"title":"match me"}}}
     );
   } else {
     update_document_request = update_document_request_create(
       "0",
-      0,
+      {"gid":10},
       1,
-      0
+      {"query":{"match":{"title":"match me"}}}
     );
   }
 

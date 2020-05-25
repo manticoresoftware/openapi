@@ -73,7 +73,7 @@ namespace Org.OpenAPITools.Test
             //string query = null;
             //string mode = null;
             //var response = instance.Sql(query, mode);
-            //Assert.IsInstanceOf(typeof(Object), response, "response is Object");
+            //Assert.IsInstanceOf(typeof(Dictionary<string, Object>), response, "response is Dictionary<string, Object>");
         }
         
     }

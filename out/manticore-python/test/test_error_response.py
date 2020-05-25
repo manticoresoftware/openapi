@@ -37,12 +37,12 @@ class TestErrorResponse(unittest.TestCase):
         # model = openapi_client.models.error_response.ErrorResponse()  # noqa: E501
         if include_optional :
             return ErrorResponse(
-                error = None, 
+                error = { }, 
                 status = 500
             )
         else :
             return ErrorResponse(
-                error = None,
+                error = { },
                 status = 500,
         )
 

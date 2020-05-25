@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Index** | **string** |  | 
-**Query** | **map[string]interface{}** |  | 
+**Query** | **map[string]map[string]interface{}** |  | 
 **Limit** | **int32** |  | [optional] 
 **Offset** | **int32** |  | [optional] 
 **MaxMatches** | **int32** |  | [optional] 

@@ -8,9 +8,9 @@ Payload for update document
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **String** |  | 
-**doc** | **Object** | Index name | 
+**doc** | **Map&lt;String, Object&gt;** | Index name | 
 **id** | **Long** | Document ID |  [optional]
-**query** | **Object** | Query tree object |  [optional]
+**query** | **Map&lt;String, Object&gt;** | Query tree object |  [optional]
 
 
 

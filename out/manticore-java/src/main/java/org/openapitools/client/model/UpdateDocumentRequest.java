@@ -23,12 +23,15 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Payload for update document
  */
 @ApiModel(description = "Payload for update document")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T14:00:55.300Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T15:19:00.920Z[GMT]")
 public class UpdateDocumentRequest {
   public static final String SERIALIZED_NAME_INDEX = "index";
   @SerializedName(SERIALIZED_NAME_INDEX)
@@ -36,7 +39,7 @@ public class UpdateDocumentRequest {
 
   public static final String SERIALIZED_NAME_DOC = "doc";
   @SerializedName(SERIALIZED_NAME_DOC)
-  private Object doc;
+  private Map<String, Object> doc = new HashMap<String, Object>();
 
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -44,7 +47,7 @@ public class UpdateDocumentRequest {
 
   public static final String SERIALIZED_NAME_QUERY = "query";
   @SerializedName(SERIALIZED_NAME_QUERY)
-  private Object query;
+  private Map<String, Object> query = null;
 
 
   public UpdateDocumentRequest index(String index) {
@@ -69,9 +72,14 @@ public class UpdateDocumentRequest {
   }
 
 
-  public UpdateDocumentRequest doc(Object doc) {
+  public UpdateDocumentRequest doc(Map<String, Object> doc) {
     
     this.doc = doc;
+    return this;
+  }
+
+  public UpdateDocumentRequest putDocItem(String key, Object docItem) {
+    this.doc.put(key, docItem);
     return this;
   }
 
@@ -79,14 +87,14 @@ public class UpdateDocumentRequest {
    * Index name
    * @return doc
   **/
-  @ApiModelProperty(required = true, value = "Index name")
+  @ApiModelProperty(example = "{\"gid\":10}", required = true, value = "Index name")
 
-  public Object getDoc() {
+  public Map<String, Object> getDoc() {
     return doc;
   }
 
 
-  public void setDoc(Object doc) {
+  public void setDoc(Map<String, Object> doc) {
     this.doc = doc;
   }
 
@@ -115,9 +123,17 @@ public class UpdateDocumentRequest {
   }
 
 
-  public UpdateDocumentRequest query(Object query) {
+  public UpdateDocumentRequest query(Map<String, Object> query) {
     
     this.query = query;
+    return this;
+  }
+
+  public UpdateDocumentRequest putQueryItem(String key, Object queryItem) {
+    if (this.query == null) {
+      this.query = new HashMap<String, Object>();
+    }
+    this.query.put(key, queryItem);
     return this;
   }
 
@@ -126,14 +142,14 @@ public class UpdateDocumentRequest {
    * @return query
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Query tree object")
+  @ApiModelProperty(example = "{\"query\":{\"match\":{\"title\":\"match me\"}}}", value = "Query tree object")
 
-  public Object getQuery() {
+  public Map<String, Object> getQuery() {
     return query;
   }
 
 
-  public void setQuery(Object query) {
+  public void setQuery(Map<String, Object> query) {
     this.query = query;
   }
 

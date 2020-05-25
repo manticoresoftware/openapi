@@ -6,7 +6,7 @@
 
 
 error_response_t *error_response_create(
-    object_t *error,
+    list_t* error,
     int status
     ) {
     error_response_t *error_response_local_var = malloc(sizeof(error_response_t));
@@ -25,7 +25,12 @@ void error_response_free(error_response_t *error_response) {
         return ;
     }
     listEntry_t *listEntry;
-    object_free(error_response->error);
+    list_ForEach(listEntry, error_response->error) {
+        keyValuePair_t *localKeyValue = (keyValuePair_t*) listEntry->data;
+        free (localKeyValue->key);
+        free (localKeyValue->value);
+    }
+    list_free(error_response->error);
     free(error_response);
 }
 
@@ -37,13 +42,16 @@ cJSON *error_response_convertToJSON(error_response_t *error_response) {
         goto fail;
     }
     
-    cJSON *error_object = object_convertToJSON(error_response->error);
-    if(error_object == NULL) {
-    goto fail; //model
+    cJSON *error = cJSON_AddObjectToObject(item, "error");
+    if(error == NULL) {
+        goto fail; //primitive map container
     }
-    cJSON_AddItemToObject(item, "error", error_object);
-    if(item->child == NULL) {
-    goto fail;
+    cJSON *localMapObject = error;
+    listEntry_t *errorListEntry;
+    if (error_response->error) {
+    list_ForEach(errorListEntry, error_response->error) {
+        keyValuePair_t *localKeyValue = (keyValuePair_t*)errorListEntry->data;
+    }
     }
 
 
@@ -74,9 +82,19 @@ error_response_t *error_response_parseFromJSON(cJSON *error_responseJSON){
         goto end;
     }
 
-    object_t *error_local_object = NULL;
+    list_t *errorList;
     
-    error_local_object = object_parseFromJSON(error); //object
+    cJSON *error_local_map;
+    if(!cJSON_IsObject(error)) {
+        goto end;//primitive map container
+    }
+    errorList = list_create();
+    keyValuePair_t *localMapKeyPair;
+    cJSON_ArrayForEach(error_local_map, error)
+    {
+		cJSON *localMapObject = error_local_map;
+        list_addElement(errorList , localMapKeyPair);
+    }
 
     // error_response->status
     cJSON *status = cJSON_GetObjectItemCaseSensitive(error_responseJSON, "status");
@@ -92,7 +110,7 @@ error_response_t *error_response_parseFromJSON(cJSON *error_responseJSON){
 
 
     error_response_local_var = error_response_create (
-        error_local_object,
+        errorList,
         status->valuedouble
         );
 

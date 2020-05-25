@@ -39,11 +39,7 @@ class TestSearchResponse(unittest.TestCase):
             return SearchResponse(
                 took = 56, 
                 timed_out = True, 
-                hits = openapi_client.models.search_response_hits.searchResponse_hits(
-                    total = 56, 
-                    hits = [
-                        None
-                        ], ), 
+                hits = {"total":2,"hits":[{"_id":1,"_score":1,"_source":{"gid":11}},{"_id":2,"_score":1,"_source":{"gid":20}}]}, 
                 profile = None
             )
         else :

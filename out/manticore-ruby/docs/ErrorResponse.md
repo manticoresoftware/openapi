@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**error** | **Object** |  | 
+**error** | **Hash&lt;String, Object&gt;** |  | 
 **status** | **Integer** |  | 
 
 ## Code Sample

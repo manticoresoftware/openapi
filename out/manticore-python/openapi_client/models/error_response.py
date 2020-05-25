@@ -34,7 +34,7 @@ class ErrorResponse(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'error': 'object',
+        'error': 'dict(str, object)',
         'status': 'int'
     }
 
@@ -62,7 +62,7 @@ class ErrorResponse(object):
 
 
         :return: The error of this ErrorResponse.  # noqa: E501
-        :rtype: object
+        :rtype: dict(str, object)
         """
         return self._error
 
@@ -72,7 +72,7 @@ class ErrorResponse(object):
 
 
         :param error: The error of this ErrorResponse.  # noqa: E501
-        :type: object
+        :type: dict(str, object)
         """
         if self.local_vars_configuration.client_side_validation and error is None:  # noqa: E501
             raise ValueError("Invalid value for `error`, must not be `None`")  # noqa: E501

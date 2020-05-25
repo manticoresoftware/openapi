@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **sql**
-> object sql(query, mode=mode)
+> dict(str, object) sql(query, mode=mode)
 
 Perform SQL requests
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+**dict(str, object)**
 
 ### Authorization
 

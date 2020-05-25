@@ -24,7 +24,7 @@ class InsertDocumentRequest {
      * Object with document data. 
      * @alias module:model/InsertDocumentRequest
      * @param index {String} Name of the index
-     * @param doc {Object} Object with document data 
+     * @param doc {Object.<String, Object>} Object with document data 
      */
     constructor(index, doc) { 
         
@@ -59,7 +59,7 @@ class InsertDocumentRequest {
                 obj['id'] = ApiClient.convertToType(data['id'], 'Number');
             }
             if (data.hasOwnProperty('doc')) {
-                obj['doc'] = ApiClient.convertToType(data['doc'], Object);
+                obj['doc'] = ApiClient.convertToType(data['doc'], {'String': Object});
             }
         }
         return obj;
@@ -82,7 +82,7 @@ InsertDocumentRequest.prototype['id'] = undefined;
 
 /**
  * Object with document data 
- * @member {Object} doc
+ * @member {Object.<String, Object>} doc
  */
 InsertDocumentRequest.prototype['doc'] = undefined;
 

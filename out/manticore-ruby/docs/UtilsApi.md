@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## sql
 
-> Object sql(query, opts)
+> Hash&lt;String, Object&gt; sql(query, opts)
 
 Perform SQL requests
 
@@ -45,7 +45,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+**Hash&lt;String, Object&gt;**
 
 ### Authorization
 

@@ -11,5 +11,5 @@
 package openapi
 // PercolateRequest Object with documents to percolate
 type PercolateRequest struct {
-	Query PercolateRequestQuery `json:"query"`
+	Query map[string]map[string]interface{} `json:"query"`
 }

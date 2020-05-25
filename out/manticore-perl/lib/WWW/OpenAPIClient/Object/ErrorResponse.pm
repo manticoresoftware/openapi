@@ -162,7 +162,7 @@ __PACKAGE__->class_documentation({description => 'Error response',
 
 __PACKAGE__->method_documentation({
     'error' => {
-        datatype => 'object',
+        datatype => 'HASH[string,object]',
         base_name => 'error',
         description => '',
         format => '',
@@ -178,7 +178,7 @@ __PACKAGE__->method_documentation({
 });
 
 __PACKAGE__->openapi_types( {
-    'error' => 'object',
+    'error' => 'HASH[string,object]',
     'status' => 'int'
 } );
 

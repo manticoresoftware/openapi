@@ -177,7 +177,7 @@ __PACKAGE__->method_documentation({
         read_only => '',
             },
     'hits' => {
-        datatype => 'SearchResponseHits',
+        datatype => 'HASH[string,SearchResponseHits]',
         base_name => 'hits',
         description => '',
         format => '',
@@ -195,7 +195,7 @@ __PACKAGE__->method_documentation({
 __PACKAGE__->openapi_types( {
     'took' => 'int',
     'timed_out' => 'boolean',
-    'hits' => 'SearchResponseHits',
+    'hits' => 'HASH[string,SearchResponseHits]',
     'profile' => 'object'
 } );
 

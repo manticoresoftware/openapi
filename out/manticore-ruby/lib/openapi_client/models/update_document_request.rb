@@ -40,9 +40,9 @@ module OpenapiClient
     def self.openapi_types
       {
         :'index' => :'String',
-        :'doc' => :'Object',
+        :'doc' => :'Hash<String, Object>',
         :'id' => :'Integer',
-        :'query' => :'Object'
+        :'query' => :'Hash<String, Object>'
       }
     end
 
@@ -72,7 +72,9 @@ module OpenapiClient
       end
 
       if attributes.key?(:'doc')
-        self.doc = attributes[:'doc']
+        if (value = attributes[:'doc']).is_a?(Hash)
+          self.doc = value
+        end
       end
 
       if attributes.key?(:'id')
@@ -80,7 +82,9 @@ module OpenapiClient
       end
 
       if attributes.key?(:'query')
-        self.query = attributes[:'query']
+        if (value = attributes[:'query']).is_a?(Hash)
+          self.query = value
+        end
       end
     end
 

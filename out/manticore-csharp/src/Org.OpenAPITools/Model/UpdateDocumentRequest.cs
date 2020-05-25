@@ -42,7 +42,7 @@ namespace Org.OpenAPITools.Model
         /// <param name="doc">Index name (required).</param>
         /// <param name="id">Document ID.</param>
         /// <param name="query">Query tree object.</param>
-        public UpdateDocumentRequest(string index = default(string), Object doc = default(Object), long id = default(long), Object query = default(Object))
+        public UpdateDocumentRequest(string index = default(string), Dictionary<string, Object> doc = default(Dictionary<string, Object>), long id = default(long), Dictionary<string, Object> query = default(Dictionary<string, Object>))
         {
             // to ensure "index" is required (not null)
             if (index == null)
@@ -79,7 +79,7 @@ namespace Org.OpenAPITools.Model
         /// </summary>
         /// <value>Index name</value>
         [DataMember(Name="doc", EmitDefaultValue=true)]
-        public Object Doc { get; set; }
+        public Dictionary<string, Object> Doc { get; set; }
 
         /// <summary>
         /// Document ID
@@ -93,7 +93,7 @@ namespace Org.OpenAPITools.Model
         /// </summary>
         /// <value>Query tree object</value>
         [DataMember(Name="query", EmitDefaultValue=false)]
-        public Object Query { get; set; }
+        public Dictionary<string, Object> Query { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -148,8 +148,9 @@ namespace Org.OpenAPITools.Model
                 ) && 
                 (
                     this.Doc == input.Doc ||
-                    (this.Doc != null &&
-                    this.Doc.Equals(input.Doc))
+                    this.Doc != null &&
+                    input.Doc != null &&
+                    this.Doc.SequenceEqual(input.Doc)
                 ) && 
                 (
                     this.Id == input.Id ||
@@ -158,8 +159,9 @@ namespace Org.OpenAPITools.Model
                 ) && 
                 (
                     this.Query == input.Query ||
-                    (this.Query != null &&
-                    this.Query.Equals(input.Query))
+                    this.Query != null &&
+                    input.Query != null &&
+                    this.Query.SequenceEqual(input.Query)
                 );
         }
 

@@ -60,7 +60,7 @@ class SearchResponse implements ModelInterface, ArrayAccess
     protected static $openAPITypes = [
         'took' => 'int',
         'timed_out' => 'bool',
-        'hits' => '\OpenAPI\Client\Model\SearchResponseHits',
+        'hits' => 'map[string,\OpenAPI\Client\Model\SearchResponseHits]',
         'profile' => 'object'
     ];
 
@@ -274,7 +274,7 @@ class SearchResponse implements ModelInterface, ArrayAccess
     /**
      * Gets hits
      *
-     * @return \OpenAPI\Client\Model\SearchResponseHits|null
+     * @return map[string,\OpenAPI\Client\Model\SearchResponseHits]|null
      */
     public function getHits()
     {
@@ -284,7 +284,7 @@ class SearchResponse implements ModelInterface, ArrayAccess
     /**
      * Sets hits
      *
-     * @param \OpenAPI\Client\Model\SearchResponseHits|null $hits hits
+     * @param map[string,\OpenAPI\Client\Model\SearchResponseHits]|null $hits hits
      *
      * @return $this
      */

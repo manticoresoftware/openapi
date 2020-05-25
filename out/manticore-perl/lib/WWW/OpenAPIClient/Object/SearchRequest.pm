@@ -169,7 +169,7 @@ __PACKAGE__->method_documentation({
         read_only => '',
             },
     'query' => {
-        datatype => 'object',
+        datatype => 'HASH[string,object]',
         base_name => 'query',
         description => '',
         format => '',
@@ -235,7 +235,7 @@ __PACKAGE__->method_documentation({
 
 __PACKAGE__->openapi_types( {
     'index' => 'string',
-    'query' => 'object',
+    'query' => 'HASH[string,object]',
     'limit' => 'int',
     'offset' => 'int',
     'max_matches' => 'int',

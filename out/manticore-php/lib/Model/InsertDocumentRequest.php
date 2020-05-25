@@ -60,7 +60,7 @@ class InsertDocumentRequest implements ModelInterface, ArrayAccess
     protected static $openAPITypes = [
         'index' => 'string',
         'id' => 'int',
-        'doc' => 'object'
+        'doc' => 'map[string,object]'
     ];
 
     /**
@@ -283,7 +283,7 @@ class InsertDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Gets doc
      *
-     * @return object
+     * @return map[string,object]
      */
     public function getDoc()
     {
@@ -293,7 +293,7 @@ class InsertDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets doc
      *
-     * @param object $doc Object with document data
+     * @param map[string,object] $doc Object with document data
      *
      * @return $this
      */

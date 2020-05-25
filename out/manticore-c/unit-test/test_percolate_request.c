@@ -16,19 +16,17 @@
 #include "../model/percolate_request.h"
 percolate_request_t* instantiate_percolate_request(int include_optional);
 
-#include "test_percolate_request_query.c"
 
 
 percolate_request_t* instantiate_percolate_request(int include_optional) {
   percolate_request_t* percolate_request = NULL;
   if (include_optional) {
     percolate_request = percolate_request_create(
-       // false, not to have infinite recursion
-      instantiate_percolate_request_query(0)
+      {"percolate":{"document":{"title":"some text to match"}}}
     );
   } else {
     percolate_request = percolate_request_create(
-      NULL
+      {"percolate":{"document":{"title":"some text to match"}}}
     );
   }
 

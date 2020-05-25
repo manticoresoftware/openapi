@@ -39,7 +39,7 @@ namespace Org.OpenAPITools.Model
         /// Initializes a new instance of the <see cref="PercolateRequest" /> class.
         /// </summary>
         /// <param name="query">query (required).</param>
-        public PercolateRequest(PercolateRequestQuery query = default(PercolateRequestQuery))
+        public PercolateRequest(Dictionary<string, Object> query = default(Dictionary<string, Object>))
         {
             // to ensure "query" is required (not null)
             if (query == null)
@@ -57,7 +57,7 @@ namespace Org.OpenAPITools.Model
         /// Gets or Sets Query
         /// </summary>
         [DataMember(Name="query", EmitDefaultValue=true)]
-        public PercolateRequestQuery Query { get; set; }
+        public Dictionary<string, Object> Query { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -104,8 +104,9 @@ namespace Org.OpenAPITools.Model
             return 
                 (
                     this.Query == input.Query ||
-                    (this.Query != null &&
-                    this.Query.Equals(input.Query))
+                    this.Query != null &&
+                    input.Query != null &&
+                    this.Query.SequenceEqual(input.Query)
                 );
         }
 

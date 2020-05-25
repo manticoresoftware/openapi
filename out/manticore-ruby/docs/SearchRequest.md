@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **String** |  | 
-**query** | **Object** |  | 
+**query** | **Hash&lt;String, Object&gt;** |  | 
 **limit** | **Integer** |  | [optional] 
 **offset** | **Integer** |  | [optional] 
 **max_matches** | **Integer** |  | [optional] 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 ```ruby
 require 'OpenapiClient'
 
-instance = OpenapiClient::SearchRequest.new(index: null,
+instance = OpenapiClient::SearchRequest.new(index: test,
                                  query: null,
                                  limit: null,
                                  offset: null,

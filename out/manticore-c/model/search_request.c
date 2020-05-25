@@ -7,7 +7,7 @@
 
 search_request_t *search_request_create(
     char *index,
-    object_t *query,
+    list_t* query,
     int limit,
     int offset,
     int max_matches,
@@ -42,7 +42,12 @@ void search_request_free(search_request_t *search_request) {
     }
     listEntry_t *listEntry;
     free(search_request->index);
-    object_free(search_request->query);
+    list_ForEach(listEntry, search_request->query) {
+        keyValuePair_t *localKeyValue = (keyValuePair_t*) listEntry->data;
+        free (localKeyValue->key);
+        free (localKeyValue->value);
+    }
+    list_free(search_request->query);
     list_ForEach(listEntry, search_request->sort) {
         object_free(listEntry->data);
     }
@@ -74,13 +79,16 @@ cJSON *search_request_convertToJSON(search_request_t *search_request) {
         goto fail;
     }
     
-    cJSON *query_object = object_convertToJSON(search_request->query);
-    if(query_object == NULL) {
-    goto fail; //model
+    cJSON *query = cJSON_AddObjectToObject(item, "query");
+    if(query == NULL) {
+        goto fail; //primitive map container
     }
-    cJSON_AddItemToObject(item, "query", query_object);
-    if(item->child == NULL) {
-    goto fail;
+    cJSON *localMapObject = query;
+    listEntry_t *queryListEntry;
+    if (search_request->query) {
+    list_ForEach(queryListEntry, search_request->query) {
+        keyValuePair_t *localKeyValue = (keyValuePair_t*)queryListEntry->data;
+    }
     }
 
 
@@ -208,9 +216,19 @@ search_request_t *search_request_parseFromJSON(cJSON *search_requestJSON){
         goto end;
     }
 
-    object_t *query_local_object = NULL;
+    list_t *queryList;
     
-    query_local_object = object_parseFromJSON(query); //object
+    cJSON *query_local_map;
+    if(!cJSON_IsObject(query)) {
+        goto end;//primitive map container
+    }
+    queryList = list_create();
+    keyValuePair_t *localMapKeyPair;
+    cJSON_ArrayForEach(query_local_map, query)
+    {
+		cJSON *localMapObject = query_local_map;
+        list_addElement(queryList , localMapKeyPair);
+    }
 
     // search_request->limit
     cJSON *limit = cJSON_GetObjectItemCaseSensitive(search_requestJSON, "limit");
@@ -307,7 +325,7 @@ search_request_t *search_request_parseFromJSON(cJSON *search_requestJSON){
 
     search_request_local_var = search_request_create (
         strdup(index->valuestring),
-        query_local_object,
+        queryList,
         limit ? limit->valuedouble : 0,
         offset ? offset->valuedouble : 0,
         max_matches ? max_matches->valuedouble : 0,

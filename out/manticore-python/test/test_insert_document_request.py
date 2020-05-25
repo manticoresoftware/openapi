@@ -39,12 +39,12 @@ class TestInsertDocumentRequest(unittest.TestCase):
             return InsertDocumentRequest(
                 index = '0', 
                 id = 1, 
-                doc = None
+                doc = { }
             )
         else :
             return InsertDocumentRequest(
                 index = '0',
-                doc = None,
+                doc = { },
         )
 
     def testInsertDocumentRequest(self):

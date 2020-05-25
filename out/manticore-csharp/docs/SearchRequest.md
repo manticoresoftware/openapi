@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Index** | **string** |  | 
-**Query** | **Object** |  | 
+**Query** | **Dictionary&lt;string, Object&gt;** |  | 
 **Limit** | **int** |  | [optional] 
 **Offset** | **int** |  | [optional] 
 **MaxMatches** | **int** |  | [optional] 

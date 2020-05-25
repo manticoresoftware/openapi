@@ -23,7 +23,7 @@ module OpenapiClient
     # @param query [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :mode 
-    # @return [Object]
+    # @return [Hash<String, Object>]
     def sql(query, opts = {})
       data, _status_code, _headers = sql_with_http_info(query, opts)
       data
@@ -33,7 +33,7 @@ module OpenapiClient
     # @param query [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :mode 
-    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    # @return [Array<(Hash<String, Object>, Integer, Hash)>] Hash<String, Object> data, response status code and response headers
     def sql_with_http_info(query, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: UtilsApi.sql ...'
@@ -64,7 +64,7 @@ module OpenapiClient
       post_body = opts[:body] 
 
       # return_type
-      return_type = opts[:return_type] || 'Object' 
+      return_type = opts[:return_type] || 'Hash<String, Object>' 
 
       # auth_names
       auth_names = opts[:auth_names] || []

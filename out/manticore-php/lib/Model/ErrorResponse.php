@@ -58,7 +58,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $openAPITypes = [
-        'error' => 'object',
+        'error' => 'map[string,object]',
         'status' => 'int'
     ];
 
@@ -220,7 +220,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess
     /**
      * Gets error
      *
-     * @return object
+     * @return map[string,object]
      */
     public function getError()
     {
@@ -230,7 +230,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess
     /**
      * Sets error
      *
-     * @param object $error error
+     * @param map[string,object] $error error
      *
      * @return $this
      */

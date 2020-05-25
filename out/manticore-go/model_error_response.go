@@ -11,6 +11,6 @@
 package openapi
 // ErrorResponse Error response
 type ErrorResponse struct {
-	Error map[string]interface{} `json:"error"`
+	Error map[string]map[string]interface{} `json:"error"`
 	Status int32 `json:"status"`
 }
