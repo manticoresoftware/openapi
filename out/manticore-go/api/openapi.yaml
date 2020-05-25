@@ -187,14 +187,28 @@ paths:
       summary: Bulk index operations
       tags:
       - Index
-  /json/pq/search:
+  /json/pq/{index}/search:
     post:
       externalDocs:
         url: https://docs.manticoresearch.com/latest/html/http_reference/json_update.html
       operationId: percolate
+      parameters:
+      - description: Name of the percolate index
+        explode: false
+        in: path
+        name: index
+        required: true
+        schema:
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
+            example:
+              query:
+                percolate:
+                  document:
+                    title: some text to match
             schema:
               $ref: '#/components/schemas/percolateRequest'
         required: true
@@ -260,6 +274,9 @@ components:
   schemas:
     searchRequest:
       description: Payload for search operation
+      example:
+        index: test
+        query: query_string:"find me"
       properties:
         index:
           type: string
@@ -276,18 +293,16 @@ components:
           type: integer
         sort:
           items:
-            oneOf:
-            - type: string
-            - type: object
+            type: object
           type: array
         script_fields:
           type: object
         highlight:
           type: object
         _source:
-          oneOf:
-          - type: string
-          - type: object
+          items:
+            type: string
+          type: array
         profile:
           type: boolean
       required:
@@ -307,12 +322,15 @@ components:
         index:
           type: string
         doc:
+          description: Index name
           type: object
         id:
+          description: Document ID
           format: int64
           minimum: 1
           type: integer
         query:
+          description: Query tree object
           type: object
       required:
       - doc
@@ -327,23 +345,42 @@ components:
         id: 1
       properties:
         index:
+          description: Index name
           type: string
         id:
+          description: Document ID
           format: int64
           minimum: 1
           type: integer
         query:
+          description: Query tree object
           type: object
       required:
       - index
       type: object
     bulkRequest:
       description: list of operations
-      type: object
+      example:
+      - insert: null
+        index: test
+        id: 1
+        doc:
+          gid: 10
+          content: doc one
+      - insert: null
+        index: test
+        id: 2
+        doc:
+          gid: 20
+          content: doc two
+      items:
+        type: object
+      type: array
     insertDocumentRequest:
       description: |
         Object with document data.
       example:
+        index: test
         title: This is some title
         gid: 100
       properties:
@@ -366,6 +403,11 @@ components:
       type: object
     percolateRequest:
       description: Object with documents to percolate
+      example:
+        query:
+          percolate:
+            document:
+              title: some text to match
       properties:
         query:
           $ref: '#/components/schemas/percolateRequest_query'

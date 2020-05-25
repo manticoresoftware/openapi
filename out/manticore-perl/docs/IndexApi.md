@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 
 # **bulk**
-> SuccessResponse bulk(body => $body)
+> SuccessResponse bulk(request_body => $request_body)
 
 Bulk index operations
 
@@ -28,10 +28,10 @@ use WWW::OpenAPIClient::IndexApi;
 my $api_instance = WWW::OpenAPIClient::IndexApi->new(
 );
 
-my $body = WWW::OpenAPIClient::Object::object->new(); # object | 
+my $request_body = [WWW::OpenAPIClient::Object::ARRAY[object]->new()]; # ARRAY[object] | 
 
 eval { 
-    my $result = $api_instance->bulk(body => $body);
+    my $result = $api_instance->bulk(request_body => $request_body);
     print Dumper($result);
 };
 if ($@) {
@@ -43,7 +43,7 @@ if ($@) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **object**|  | 
+ **request_body** | [**ARRAY[object]**](object.md)|  | 
 
 ### Return type
 

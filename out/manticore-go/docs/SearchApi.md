@@ -4,14 +4,14 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Percolate**](SearchApi.md#Percolate) | **Post** /json/pq/search | Perform reverse search on a percolate index
+[**Percolate**](SearchApi.md#Percolate) | **Post** /json/pq/{index}/search | Perform reverse search on a percolate index
 [**Search**](SearchApi.md#Search) | **Post** /json/search | Performs a search
 
 
 
 ## Percolate
 
-> SearchResponse Percolate(ctx, percolateRequest)
+> SearchResponse Percolate(ctx, index, percolateRequest)
 
 Perform reverse search on a percolate index
 
@@ -21,6 +21,7 @@ Perform reverse search on a percolate index
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**index** | **string**| Name of the percolate index | 
 **percolateRequest** | [**PercolateRequest**](PercolateRequest.md)|  | 
 
 ### Return type

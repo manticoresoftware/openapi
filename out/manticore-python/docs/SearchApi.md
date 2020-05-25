@@ -4,12 +4,12 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
+[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
 [**search**](SearchApi.md#search) | **POST** /json/search | Performs a search
 
 
 # **percolate**
-> SearchResponse percolate(percolate_request)
+> SearchResponse percolate(index, percolate_request)
 
 Perform reverse search on a percolate index
 
@@ -32,11 +32,12 @@ configuration = openapi_client.Configuration(
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.SearchApi(api_client)
-    percolate_request = openapi_client.PercolateRequest() # PercolateRequest | 
+    index = 'index_example' # str | Name of the percolate index
+percolate_request = {"query":{"percolate":{"document":{"title":"some text to match"}}}} # PercolateRequest | 
 
     try:
         # Perform reverse search on a percolate index
-        api_response = api_instance.percolate(percolate_request)
+        api_response = api_instance.percolate(index, percolate_request)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling SearchApi->percolate: %s\n" % e)
@@ -46,6 +47,7 @@ with openapi_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **index** | **str**| Name of the percolate index | 
  **percolate_request** | [**PercolateRequest**](PercolateRequest.md)|  | 
 
 ### Return type

@@ -28,10 +28,10 @@ type IndexApiService service
 /*
 Bulk Bulk index operations
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param body
+ * @param requestBody
 @return SuccessResponse
 */
-func (a *IndexApiService) Bulk(ctx _context.Context, body map[string]interface{}) (SuccessResponse, *_nethttp.Response, error) {
+func (a *IndexApiService) Bulk(ctx _context.Context, requestBody []map[string]interface{}) (SuccessResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -65,7 +65,7 @@ func (a *IndexApiService) Bulk(ctx _context.Context, body map[string]interface{}
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &body
+	localVarPostBody = &requestBody
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

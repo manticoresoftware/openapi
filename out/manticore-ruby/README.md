@@ -59,11 +59,11 @@ Please follow the [installation](#installation) procedure and then run the follo
 require 'openapi_client'
 
 api_instance = OpenapiClient::IndexApi.new
-body = nil # Object | 
+request_body = nil # Array<Object> | 
 
 begin
   #Bulk index operations
-  result = api_instance.bulk(body)
+  result = api_instance.bulk(request_body)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Exception when calling IndexApi->bulk: #{e}"
@@ -82,7 +82,7 @@ Class | Method | HTTP request | Description
 *OpenapiClient::IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 *OpenapiClient::IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *OpenapiClient::IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
-*OpenapiClient::SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
+*OpenapiClient::SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
 *OpenapiClient::SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
 *OpenapiClient::UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 

@@ -24,7 +24,7 @@ class UpdateDocumentRequest {
      * Payload for update document
      * @alias module:model/UpdateDocumentRequest
      * @param index {String} 
-     * @param doc {Object} 
+     * @param doc {Object} Index name
      */
     constructor(index, doc) { 
         
@@ -77,16 +77,19 @@ class UpdateDocumentRequest {
 UpdateDocumentRequest.prototype['index'] = undefined;
 
 /**
+ * Index name
  * @member {Object} doc
  */
 UpdateDocumentRequest.prototype['doc'] = undefined;
 
 /**
+ * Document ID
  * @member {Number} id
  */
 UpdateDocumentRequest.prototype['id'] = undefined;
 
 /**
+ * Query tree object
  * @member {Object} query
  */
 UpdateDocumentRequest.prototype['query'] = undefined;

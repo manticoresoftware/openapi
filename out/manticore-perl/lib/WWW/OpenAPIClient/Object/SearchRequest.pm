@@ -30,7 +30,6 @@ use Log::Any qw($log);
 use Date::Parse;
 use DateTime;
 
-use WWW::OpenAPIClient::Object::OneOfstringobject;
 
 use base ("Class::Accessor", "Class::Data::Inheritable");
 
@@ -198,7 +197,7 @@ __PACKAGE__->method_documentation({
         read_only => '',
             },
     'sort' => {
-        datatype => 'ARRAY[OneOfstringobject]',
+        datatype => 'ARRAY[object]',
         base_name => 'sort',
         description => '',
         format => '',
@@ -219,7 +218,7 @@ __PACKAGE__->method_documentation({
         read_only => '',
             },
     '_source' => {
-        datatype => 'OneOfstringobject',
+        datatype => 'ARRAY[string]',
         base_name => '_source',
         description => '',
         format => '',
@@ -240,10 +239,10 @@ __PACKAGE__->openapi_types( {
     'limit' => 'int',
     'offset' => 'int',
     'max_matches' => 'int',
-    'sort' => 'ARRAY[OneOfstringobject]',
+    'sort' => 'ARRAY[object]',
     'script_fields' => 'object',
     'highlight' => 'object',
-    '_source' => 'OneOfstringobject',
+    '_source' => 'ARRAY[string]',
     'profile' => 'boolean'
 } );
 

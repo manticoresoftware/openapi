@@ -9,10 +9,10 @@ Name | Type | Description | Notes
 **limit** | **Number** |  | [optional] 
 **offset** | **Number** |  | [optional] 
 **maxMatches** | **Number** |  | [optional] 
-**sort** | [**[OneOfstringobject]**](OneOfstringobject.md) |  | [optional] 
+**sort** | **[Object]** |  | [optional] 
 **scriptFields** | **Object** |  | [optional] 
 **highlight** | **Object** |  | [optional] 
-**source** | [**OneOfstringobject**](OneOfstringobject.md) |  | [optional] 
+**source** | **[String]** |  | [optional] 
 **profile** | **Boolean** |  | [optional] 
 
 

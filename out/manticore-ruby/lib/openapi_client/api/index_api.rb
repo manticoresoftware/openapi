@@ -20,25 +20,25 @@ module OpenapiClient
       @api_client = api_client
     end
     # Bulk index operations
-    # @param body [Object] 
+    # @param request_body [Array<Object>] 
     # @param [Hash] opts the optional parameters
     # @return [SuccessResponse]
-    def bulk(body, opts = {})
-      data, _status_code, _headers = bulk_with_http_info(body, opts)
+    def bulk(request_body, opts = {})
+      data, _status_code, _headers = bulk_with_http_info(request_body, opts)
       data
     end
 
     # Bulk index operations
-    # @param body [Object] 
+    # @param request_body [Array<Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(SuccessResponse, Integer, Hash)>] SuccessResponse data, response status code and response headers
-    def bulk_with_http_info(body, opts = {})
+    def bulk_with_http_info(request_body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: IndexApi.bulk ...'
       end
-      # verify the required parameter 'body' is set
-      if @api_client.config.client_side_validation && body.nil?
-        fail ArgumentError, "Missing the required parameter 'body' when calling IndexApi.bulk"
+      # verify the required parameter 'request_body' is set
+      if @api_client.config.client_side_validation && request_body.nil?
+        fail ArgumentError, "Missing the required parameter 'request_body' when calling IndexApi.bulk"
       end
       # resource path
       local_var_path = '/json/bulk'
@@ -57,7 +57,7 @@ module OpenapiClient
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:body] || @api_client.object_to_http_body(body) 
+      post_body = opts[:body] || @api_client.object_to_http_body(request_body) 
 
       # return_type
       return_type = opts[:return_type] || 'SuccessResponse' 

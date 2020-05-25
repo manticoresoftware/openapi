@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import OneOfstringobject from './OneOfstringobject';
 
 /**
  * The SearchRequest model module.
@@ -69,7 +68,7 @@ class SearchRequest {
                 obj['max_matches'] = ApiClient.convertToType(data['max_matches'], 'Number');
             }
             if (data.hasOwnProperty('sort')) {
-                obj['sort'] = ApiClient.convertToType(data['sort'], [OneOfstringobject]);
+                obj['sort'] = ApiClient.convertToType(data['sort'], [Object]);
             }
             if (data.hasOwnProperty('script_fields')) {
                 obj['script_fields'] = ApiClient.convertToType(data['script_fields'], Object);
@@ -78,7 +77,7 @@ class SearchRequest {
                 obj['highlight'] = ApiClient.convertToType(data['highlight'], Object);
             }
             if (data.hasOwnProperty('_source')) {
-                obj['_source'] = ApiClient.convertToType(data['_source'], OneOfstringobject);
+                obj['_source'] = ApiClient.convertToType(data['_source'], ['String']);
             }
             if (data.hasOwnProperty('profile')) {
                 obj['profile'] = ApiClient.convertToType(data['profile'], 'Boolean');
@@ -116,7 +115,7 @@ SearchRequest.prototype['offset'] = undefined;
 SearchRequest.prototype['max_matches'] = undefined;
 
 /**
- * @member {Array.<module:model/OneOfstringobject>} sort
+ * @member {Array.<Object>} sort
  */
 SearchRequest.prototype['sort'] = undefined;
 
@@ -131,7 +130,7 @@ SearchRequest.prototype['script_fields'] = undefined;
 SearchRequest.prototype['highlight'] = undefined;
 
 /**
- * @member {module:model/OneOfstringobject} _source
+ * @member {Array.<String>} _source
  */
 SearchRequest.prototype['_source'] = undefined;
 

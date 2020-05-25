@@ -53,11 +53,11 @@ sub new {
 #
 # Bulk index operations
 # 
-# @param object $body  (required)
+# @param ARRAY[object] $request_body  (required)
 {
     my $params = {
-    'body' => {
-        data_type => 'object',
+    'request_body' => {
+        data_type => 'ARRAY[object]',
         description => '',
         required => '1',
     },
@@ -73,9 +73,9 @@ sub new {
 sub bulk {
     my ($self, %args) = @_;
 
-    # verify the required parameter 'body' is set
-    unless (exists $args{'body'}) {
-      croak("Missing the required parameter 'body' when calling bulk");
+    # verify the required parameter 'request_body' is set
+    unless (exists $args{'request_body'}) {
+      croak("Missing the required parameter 'request_body' when calling bulk");
     }
 
     # parse inputs
@@ -95,8 +95,8 @@ sub bulk {
 
     my $_body_data;
     # body params
-    if ( exists $args{'body'}) {
-        $_body_data = $args{'body'};
+    if ( exists $args{'request_body'}) {
+        $_body_data = $args{'request_body'};
     }
 
     # authentication setting, if any

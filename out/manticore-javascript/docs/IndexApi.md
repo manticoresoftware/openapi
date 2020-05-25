@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## bulk
 
-> SuccessResponse bulk(body)
+> SuccessResponse bulk(requestBody)
 
 Bulk index operations
 
@@ -24,8 +24,8 @@ Bulk index operations
 import ManticoreSearchApi from 'manticore_search_api';
 
 let apiInstance = new ManticoreSearchApi.IndexApi();
-let body = null; // Object | 
-apiInstance.bulk(body, (error, data, response) => {
+let requestBody = [null]; // [Object] | 
+apiInstance.bulk(requestBody, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -39,7 +39,7 @@ apiInstance.bulk(body, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **Object**|  | 
+ **requestBody** | [**[Object]**](Object.md)|  | 
 
 ### Return type
 

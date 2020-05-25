@@ -20,28 +20,34 @@ module OpenapiClient
       @api_client = api_client
     end
     # Perform reverse search on a percolate index
+    # @param index [String] Name of the percolate index
     # @param percolate_request [PercolateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [SearchResponse]
-    def percolate(percolate_request, opts = {})
-      data, _status_code, _headers = percolate_with_http_info(percolate_request, opts)
+    def percolate(index, percolate_request, opts = {})
+      data, _status_code, _headers = percolate_with_http_info(index, percolate_request, opts)
       data
     end
 
     # Perform reverse search on a percolate index
+    # @param index [String] Name of the percolate index
     # @param percolate_request [PercolateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(SearchResponse, Integer, Hash)>] SearchResponse data, response status code and response headers
-    def percolate_with_http_info(percolate_request, opts = {})
+    def percolate_with_http_info(index, percolate_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SearchApi.percolate ...'
+      end
+      # verify the required parameter 'index' is set
+      if @api_client.config.client_side_validation && index.nil?
+        fail ArgumentError, "Missing the required parameter 'index' when calling SearchApi.percolate"
       end
       # verify the required parameter 'percolate_request' is set
       if @api_client.config.client_side_validation && percolate_request.nil?
         fail ArgumentError, "Missing the required parameter 'percolate_request' when calling SearchApi.percolate"
       end
       # resource path
-      local_var_path = '/json/pq/search'
+      local_var_path = '/json/pq/{index}/search'.sub('{' + 'index' + '}', CGI.escape(index.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}

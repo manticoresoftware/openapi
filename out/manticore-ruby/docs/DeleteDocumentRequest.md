@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **String** |  | 
-**id** | **Integer** |  | [optional] 
-**query** | **Object** |  | [optional] 
+**index** | **String** | Index name | 
+**id** | **Integer** | Document ID | [optional] 
+**query** | **Object** | Query tree object | [optional] 
 
 ## Code Sample
 

@@ -270,7 +270,7 @@ class UpdateDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets doc
      *
-     * @param object $doc doc
+     * @param object $doc Index name
      *
      * @return $this
      */
@@ -294,7 +294,7 @@ class UpdateDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param int|null $id id
+     * @param int|null $id Document ID
      *
      * @return $this
      */
@@ -323,7 +323,7 @@ class UpdateDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets query
      *
-     * @param object|null $query query
+     * @param object|null $query Query tree object
      *
      * @return $this
      */

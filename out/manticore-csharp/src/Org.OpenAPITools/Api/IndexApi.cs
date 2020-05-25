@@ -32,9 +32,9 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body"></param>
+        /// <param name="requestBody"></param>
         /// <returns>SuccessResponse</returns>
-        SuccessResponse Bulk (Object body);
+        SuccessResponse Bulk (List<Object> requestBody);
 
         /// <summary>
         /// Bulk index operations
@@ -43,9 +43,9 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body"></param>
+        /// <param name="requestBody"></param>
         /// <returns>ApiResponse of SuccessResponse</returns>
-        ApiResponse<SuccessResponse> BulkWithHttpInfo (Object body);
+        ApiResponse<SuccessResponse> BulkWithHttpInfo (List<Object> requestBody);
         /// <summary>
         /// Delete a document in an index
         /// </summary>
@@ -139,10 +139,10 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body"></param>
+        /// <param name="requestBody"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
         /// <returns>Task of SuccessResponse</returns>
-        System.Threading.Tasks.Task<SuccessResponse> BulkAsync (Object body, CancellationToken cancellationToken = default(CancellationToken));
+        System.Threading.Tasks.Task<SuccessResponse> BulkAsync (List<Object> requestBody, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Bulk index operations
@@ -151,10 +151,10 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body"></param>
+        /// <param name="requestBody"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
         /// <returns>Task of ApiResponse (SuccessResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<SuccessResponse>> BulkAsyncWithHttpInfo (Object body, CancellationToken cancellationToken = default(CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<SuccessResponse>> BulkAsyncWithHttpInfo (List<Object> requestBody, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Delete a document in an index
         /// </summary>
@@ -362,11 +362,11 @@ namespace Org.OpenAPITools.Api
         /// Bulk index operations 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body"></param>
+        /// <param name="requestBody"></param>
         /// <returns>SuccessResponse</returns>
-        public SuccessResponse Bulk (Object body)
+        public SuccessResponse Bulk (List<Object> requestBody)
         {
-             ApiResponse<SuccessResponse> localVarResponse = BulkWithHttpInfo(body);
+             ApiResponse<SuccessResponse> localVarResponse = BulkWithHttpInfo(requestBody);
              return localVarResponse.Data;
         }
 
@@ -374,13 +374,13 @@ namespace Org.OpenAPITools.Api
         /// Bulk index operations 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body"></param>
+        /// <param name="requestBody"></param>
         /// <returns>ApiResponse of SuccessResponse</returns>
-        public ApiResponse<SuccessResponse> BulkWithHttpInfo (Object body)
+        public ApiResponse<SuccessResponse> BulkWithHttpInfo (List<Object> requestBody)
         {
-            // verify the required parameter 'body' is set
-            if (body == null)
-                throw new ApiException(400, "Missing required parameter 'body' when calling IndexApi->Bulk");
+            // verify the required parameter 'requestBody' is set
+            if (requestBody == null)
+                throw new ApiException(400, "Missing required parameter 'requestBody' when calling IndexApi->Bulk");
 
             var localVarPath = "/json/bulk";
             var localVarPathParams = new Dictionary<String, String>();
@@ -404,13 +404,13 @@ namespace Org.OpenAPITools.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (body != null && body.GetType() != typeof(byte[]))
+            if (requestBody != null && requestBody.GetType() != typeof(byte[]))
             {
-                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+                localVarPostBody = this.Configuration.ApiClient.Serialize(requestBody); // http body (model) parameter
             }
             else
             {
-                localVarPostBody = body; // byte array
+                localVarPostBody = requestBody; // byte array
             }
 
 
@@ -436,12 +436,12 @@ namespace Org.OpenAPITools.Api
         /// Bulk index operations 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body"></param>
+        /// <param name="requestBody"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
         /// <returns>Task of SuccessResponse</returns>
-        public async System.Threading.Tasks.Task<SuccessResponse> BulkAsync (Object body, CancellationToken cancellationToken = default(CancellationToken))
+        public async System.Threading.Tasks.Task<SuccessResponse> BulkAsync (List<Object> requestBody, CancellationToken cancellationToken = default(CancellationToken))
         {
-             ApiResponse<SuccessResponse> localVarResponse = await BulkAsyncWithHttpInfo(body, cancellationToken);
+             ApiResponse<SuccessResponse> localVarResponse = await BulkAsyncWithHttpInfo(requestBody, cancellationToken);
              return localVarResponse.Data;
 
         }
@@ -450,14 +450,14 @@ namespace Org.OpenAPITools.Api
         /// Bulk index operations 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body"></param>
+        /// <param name="requestBody"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
         /// <returns>Task of ApiResponse (SuccessResponse)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<SuccessResponse>> BulkAsyncWithHttpInfo (Object body, CancellationToken cancellationToken = default(CancellationToken))
+        public async System.Threading.Tasks.Task<ApiResponse<SuccessResponse>> BulkAsyncWithHttpInfo (List<Object> requestBody, CancellationToken cancellationToken = default(CancellationToken))
         {
-            // verify the required parameter 'body' is set
-            if (body == null)
-                throw new ApiException(400, "Missing required parameter 'body' when calling IndexApi->Bulk");
+            // verify the required parameter 'requestBody' is set
+            if (requestBody == null)
+                throw new ApiException(400, "Missing required parameter 'requestBody' when calling IndexApi->Bulk");
 
             var localVarPath = "/json/bulk";
             var localVarPathParams = new Dictionary<String, String>();
@@ -481,13 +481,13 @@ namespace Org.OpenAPITools.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (body != null && body.GetType() != typeof(byte[]))
+            if (requestBody != null && requestBody.GetType() != typeof(byte[]))
             {
-                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+                localVarPostBody = this.Configuration.ApiClient.Serialize(requestBody); // http body (model) parameter
             }
             else
             {
-                localVarPostBody = body; // byte array
+                localVarPostBody = requestBody; // byte array
             }
 
 

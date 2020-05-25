@@ -15,7 +15,7 @@
 // Bulk index operations
 //
 success_response_t*
-IndexAPI_bulk(apiClient_t *apiClient, object_t * body )
+IndexAPI_bulk(apiClient_t *apiClient, list_t * request_body )
 {
     list_t    *localVarQueryParameters = NULL;
     list_t    *localVarHeaderParameters = NULL;
@@ -33,12 +33,32 @@ IndexAPI_bulk(apiClient_t *apiClient, object_t * body )
 
 
     // Body Param
-    cJSON *localVarSingleItemJSON_body;
-    if (body != NULL)
+    //notstring
+    cJSON *localVar_request_body;
+    cJSON *localVarItemJSON_request_body;
+    cJSON *localVarSingleItemJSON_request_body;
+    if (request_body != NULL)
     {
-        //string
-        localVarSingleItemJSON_body = object_convertToJSON(body);
-        localVarBodyParameters = cJSON_Print(localVarSingleItemJSON_body);
+        localVarItemJSON_request_body = cJSON_CreateObject();
+        localVarSingleItemJSON_request_body = cJSON_AddArrayToObject(localVarItemJSON_request_body, "request_body");
+        if (localVarSingleItemJSON_request_body == NULL)
+        {
+            // nonprimitive container
+
+            goto end;
+        }
+    }
+
+    listEntry_t *request_bodyBodyListEntry;
+    list_ForEach(request_bodyBodyListEntry, request_body)
+    {
+        localVar_request_body = _convertToJSON(request_bodyBodyListEntry->data);
+        if(localVar_request_body == NULL)
+        {
+            goto end;
+        }
+        cJSON_AddItemToArray(localVarSingleItemJSON_request_body, localVar_request_body);
+        localVarBodyParameters = cJSON_Print(localVarItemJSON_request_body);
     }
     list_addElement(localVarHeaderType,"application/json"); //produces
     list_addElement(localVarContentType,"application/x-ndjson"); //consumes
@@ -78,7 +98,9 @@ IndexAPI_bulk(apiClient_t *apiClient, object_t * body )
     list_free(localVarHeaderType);
     list_free(localVarContentType);
     free(localVarPath);
-    cJSON_Delete(localVarSingleItemJSON_body);
+    cJSON_Delete(localVarItemJSON_request_body);
+    cJSON_Delete(localVarSingleItemJSON_request_body);
+    cJSON_Delete(localVar_request_body);
     free(localVarBodyParameters);
     return elementToReturn;
 end:

@@ -45,8 +45,9 @@ public class SearchApiTest {
      */
     @Test
     public void percolateTest() throws ApiException {
+        String index = null;
         PercolateRequest percolateRequest = null;
-        SearchResponse response = api.percolate(percolateRequest);
+        SearchResponse response = api.percolate(index, percolateRequest);
 
         // TODO: test validations
     }

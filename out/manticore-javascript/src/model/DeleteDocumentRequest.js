@@ -23,7 +23,7 @@ class DeleteDocumentRequest {
      * Constructs a new <code>DeleteDocumentRequest</code>.
      * Payload for delete request. Documents can be deleted either one by one by specifying the document id or by providing a query object. For more information see  [Delete API](https://docs.manticoresearch.com/latest/html/http_reference/json_delete.html) 
      * @alias module:model/DeleteDocumentRequest
-     * @param index {String} 
+     * @param index {String} Index name
      */
     constructor(index) { 
         
@@ -67,16 +67,19 @@ class DeleteDocumentRequest {
 }
 
 /**
+ * Index name
  * @member {String} index
  */
 DeleteDocumentRequest.prototype['index'] = undefined;
 
 /**
+ * Document ID
  * @member {Number} id
  */
 DeleteDocumentRequest.prototype['id'] = undefined;
 
 /**
+ * Query tree object
  * @member {Object} query
  */
 DeleteDocumentRequest.prototype['query'] = undefined;

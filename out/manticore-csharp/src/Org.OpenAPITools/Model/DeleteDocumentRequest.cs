@@ -38,9 +38,9 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteDocumentRequest" /> class.
         /// </summary>
-        /// <param name="index">index (required).</param>
-        /// <param name="id">id.</param>
-        /// <param name="query">query.</param>
+        /// <param name="index">Index name (required).</param>
+        /// <param name="id">Document ID.</param>
+        /// <param name="query">Query tree object.</param>
         public DeleteDocumentRequest(string index = default(string), long id = default(long), Object query = default(Object))
         {
             // to ensure "index" is required (not null)
@@ -58,20 +58,23 @@ namespace Org.OpenAPITools.Model
         }
         
         /// <summary>
-        /// Gets or Sets Index
+        /// Index name
         /// </summary>
+        /// <value>Index name</value>
         [DataMember(Name="index", EmitDefaultValue=true)]
         public string Index { get; set; }
 
         /// <summary>
-        /// Gets or Sets Id
+        /// Document ID
         /// </summary>
+        /// <value>Document ID</value>
         [DataMember(Name="id", EmitDefaultValue=false)]
         public long Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets Query
+        /// Query tree object
         /// </summary>
+        /// <value>Query tree object</value>
         [DataMember(Name="query", EmitDefaultValue=false)]
         public Object Query { get; set; }
 

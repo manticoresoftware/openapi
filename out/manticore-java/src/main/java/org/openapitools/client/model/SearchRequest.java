@@ -25,13 +25,12 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.openapitools.client.model.OneOfstringobject;
 
 /**
  * Payload for search operation
  */
 @ApiModel(description = "Payload for search operation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T10:26:41.180Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T14:00:55.300Z[GMT]")
 public class SearchRequest {
   public static final String SERIALIZED_NAME_INDEX = "index";
   @SerializedName(SERIALIZED_NAME_INDEX)
@@ -55,7 +54,7 @@ public class SearchRequest {
 
   public static final String SERIALIZED_NAME_SORT = "sort";
   @SerializedName(SERIALIZED_NAME_SORT)
-  private List<OneOfstringobject> sort = null;
+  private List<Object> sort = null;
 
   public static final String SERIALIZED_NAME_SCRIPT_FIELDS = "script_fields";
   @SerializedName(SERIALIZED_NAME_SCRIPT_FIELDS)
@@ -67,7 +66,7 @@ public class SearchRequest {
 
   public static final String SERIALIZED_NAME_SOURCE = "_source";
   @SerializedName(SERIALIZED_NAME_SOURCE)
-  private OneOfstringobject source = null;
+  private List<String> source = null;
 
   public static final String SERIALIZED_NAME_PROFILE = "profile";
   @SerializedName(SERIALIZED_NAME_PROFILE)
@@ -190,15 +189,15 @@ public class SearchRequest {
   }
 
 
-  public SearchRequest sort(List<OneOfstringobject> sort) {
+  public SearchRequest sort(List<Object> sort) {
     
     this.sort = sort;
     return this;
   }
 
-  public SearchRequest addSortItem(OneOfstringobject sortItem) {
+  public SearchRequest addSortItem(Object sortItem) {
     if (this.sort == null) {
-      this.sort = new ArrayList<OneOfstringobject>();
+      this.sort = new ArrayList<Object>();
     }
     this.sort.add(sortItem);
     return this;
@@ -211,12 +210,12 @@ public class SearchRequest {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public List<OneOfstringobject> getSort() {
+  public List<Object> getSort() {
     return sort;
   }
 
 
-  public void setSort(List<OneOfstringobject> sort) {
+  public void setSort(List<Object> sort) {
     this.sort = sort;
   }
 
@@ -267,9 +266,17 @@ public class SearchRequest {
   }
 
 
-  public SearchRequest source(OneOfstringobject source) {
+  public SearchRequest source(List<String> source) {
     
     this.source = source;
+    return this;
+  }
+
+  public SearchRequest addSourceItem(String sourceItem) {
+    if (this.source == null) {
+      this.source = new ArrayList<String>();
+    }
+    this.source.add(sourceItem);
     return this;
   }
 
@@ -280,12 +287,12 @@ public class SearchRequest {
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
-  public OneOfstringobject getSource() {
+  public List<String> getSource() {
     return source;
   }
 
 
-  public void setSource(OneOfstringobject source) {
+  public void setSource(List<String> source) {
     this.source = source;
   }
 

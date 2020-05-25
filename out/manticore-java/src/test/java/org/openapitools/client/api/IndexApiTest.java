@@ -46,8 +46,8 @@ public class IndexApiTest {
      */
     @Test
     public void bulkTest() throws ApiException {
-        Object body = null;
-        SuccessResponse response = api.bulk(body);
+        List<Object> requestBody = null;
+        SuccessResponse response = api.bulk(requestBody);
 
         // TODO: test validations
     }

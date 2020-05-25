@@ -9,10 +9,10 @@ Name | Type | Description | Notes
 **limit** | **int** |  | [optional] 
 **offset** | **int** |  | [optional] 
 **max_matches** | **int** |  | [optional] 
-**sort** | [**list[OneOfstringobject]**](OneOfstringobject.md) |  | [optional] 
+**sort** | **list[object]** |  | [optional] 
 **script_fields** | **object** |  | [optional] 
 **highlight** | **object** |  | [optional] 
-**source** | [**OneOfstringobject**](OneOfstringobject.md) |  | [optional] 
+**source** | **list[str]** |  | [optional] 
 **profile** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

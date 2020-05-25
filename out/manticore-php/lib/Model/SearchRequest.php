@@ -63,10 +63,10 @@ class SearchRequest implements ModelInterface, ArrayAccess
         'limit' => 'int',
         'offset' => 'int',
         'max_matches' => 'int',
-        'sort' => 'OneOfStringObject[]',
+        'sort' => 'object[]',
         'script_fields' => 'object',
         'highlight' => 'object',
-        '_source' => 'OneOfStringObject',
+        '_source' => 'string[]',
         'profile' => 'bool'
     ];
 
@@ -415,7 +415,7 @@ class SearchRequest implements ModelInterface, ArrayAccess
     /**
      * Gets sort
      *
-     * @return OneOfStringObject[]|null
+     * @return object[]|null
      */
     public function getSort()
     {
@@ -425,7 +425,7 @@ class SearchRequest implements ModelInterface, ArrayAccess
     /**
      * Sets sort
      *
-     * @param OneOfStringObject[]|null $sort sort
+     * @param object[]|null $sort sort
      *
      * @return $this
      */
@@ -487,7 +487,7 @@ class SearchRequest implements ModelInterface, ArrayAccess
     /**
      * Gets _source
      *
-     * @return OneOfStringObject|null
+     * @return string[]|null
      */
     public function getSource()
     {
@@ -497,7 +497,7 @@ class SearchRequest implements ModelInterface, ArrayAccess
     /**
      * Sets _source
      *
-     * @param OneOfStringObject|null $_source _source
+     * @param string[]|null $_source _source
      *
      * @return $this
      */

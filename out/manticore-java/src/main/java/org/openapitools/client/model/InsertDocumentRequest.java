@@ -28,7 +28,7 @@ import java.io.IOException;
  * Object with document data. 
  */
 @ApiModel(description = "Object with document data. ")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T10:26:41.180Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T14:00:55.300Z[GMT]")
 public class InsertDocumentRequest {
   public static final String SERIALIZED_NAME_INDEX = "index";
   @SerializedName(SERIALIZED_NAME_INDEX)

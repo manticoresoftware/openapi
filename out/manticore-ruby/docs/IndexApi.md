@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## bulk
 
-> SuccessResponse bulk(body)
+> SuccessResponse bulk(request_body)
 
 Bulk index operations
 
@@ -25,11 +25,11 @@ Bulk index operations
 require 'openapi_client'
 
 api_instance = OpenapiClient::IndexApi.new
-body = nil # Object | 
+request_body = nil # Array<Object> | 
 
 begin
   #Bulk index operations
-  result = api_instance.bulk(body)
+  result = api_instance.bulk(request_body)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Exception when calling IndexApi->bulk: #{e}"
@@ -41,7 +41,7 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **Object**|  | 
+ **request_body** | [**Array&lt;Object&gt;**](Object.md)|  | 
 
 ### Return type
 

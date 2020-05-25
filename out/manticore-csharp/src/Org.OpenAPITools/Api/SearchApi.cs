@@ -32,9 +32,10 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="index">Name of the percolate index</param>
         /// <param name="percolateRequest"></param>
         /// <returns>SearchResponse</returns>
-        SearchResponse Percolate (PercolateRequest percolateRequest);
+        SearchResponse Percolate (string index, PercolateRequest percolateRequest);
 
         /// <summary>
         /// Perform reverse search on a percolate index
@@ -43,9 +44,10 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="index">Name of the percolate index</param>
         /// <param name="percolateRequest"></param>
         /// <returns>ApiResponse of SearchResponse</returns>
-        ApiResponse<SearchResponse> PercolateWithHttpInfo (PercolateRequest percolateRequest);
+        ApiResponse<SearchResponse> PercolateWithHttpInfo (string index, PercolateRequest percolateRequest);
         /// <summary>
         /// Performs a search
         /// </summary>
@@ -76,10 +78,11 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="index">Name of the percolate index</param>
         /// <param name="percolateRequest"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
         /// <returns>Task of SearchResponse</returns>
-        System.Threading.Tasks.Task<SearchResponse> PercolateAsync (PercolateRequest percolateRequest, CancellationToken cancellationToken = default(CancellationToken));
+        System.Threading.Tasks.Task<SearchResponse> PercolateAsync (string index, PercolateRequest percolateRequest, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Perform reverse search on a percolate index
@@ -88,10 +91,11 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="index">Name of the percolate index</param>
         /// <param name="percolateRequest"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
         /// <returns>Task of ApiResponse (SearchResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<SearchResponse>> PercolateAsyncWithHttpInfo (PercolateRequest percolateRequest, CancellationToken cancellationToken = default(CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<SearchResponse>> PercolateAsyncWithHttpInfo (string index, PercolateRequest percolateRequest, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Performs a search
         /// </summary>
@@ -230,11 +234,12 @@ namespace Org.OpenAPITools.Api
         /// Perform reverse search on a percolate index 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="index">Name of the percolate index</param>
         /// <param name="percolateRequest"></param>
         /// <returns>SearchResponse</returns>
-        public SearchResponse Percolate (PercolateRequest percolateRequest)
+        public SearchResponse Percolate (string index, PercolateRequest percolateRequest)
         {
-             ApiResponse<SearchResponse> localVarResponse = PercolateWithHttpInfo(percolateRequest);
+             ApiResponse<SearchResponse> localVarResponse = PercolateWithHttpInfo(index, percolateRequest);
              return localVarResponse.Data;
         }
 
@@ -242,15 +247,19 @@ namespace Org.OpenAPITools.Api
         /// Perform reverse search on a percolate index 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="index">Name of the percolate index</param>
         /// <param name="percolateRequest"></param>
         /// <returns>ApiResponse of SearchResponse</returns>
-        public ApiResponse<SearchResponse> PercolateWithHttpInfo (PercolateRequest percolateRequest)
+        public ApiResponse<SearchResponse> PercolateWithHttpInfo (string index, PercolateRequest percolateRequest)
         {
+            // verify the required parameter 'index' is set
+            if (index == null)
+                throw new ApiException(400, "Missing required parameter 'index' when calling SearchApi->Percolate");
             // verify the required parameter 'percolateRequest' is set
             if (percolateRequest == null)
                 throw new ApiException(400, "Missing required parameter 'percolateRequest' when calling SearchApi->Percolate");
 
-            var localVarPath = "/json/pq/search";
+            var localVarPath = "/json/pq/{index}/search";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -272,6 +281,7 @@ namespace Org.OpenAPITools.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (index != null) localVarPathParams.Add("index", this.Configuration.ApiClient.ParameterToString(index)); // path parameter
             if (percolateRequest != null && percolateRequest.GetType() != typeof(byte[]))
             {
                 localVarPostBody = this.Configuration.ApiClient.Serialize(percolateRequest); // http body (model) parameter
@@ -304,12 +314,13 @@ namespace Org.OpenAPITools.Api
         /// Perform reverse search on a percolate index 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="index">Name of the percolate index</param>
         /// <param name="percolateRequest"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
         /// <returns>Task of SearchResponse</returns>
-        public async System.Threading.Tasks.Task<SearchResponse> PercolateAsync (PercolateRequest percolateRequest, CancellationToken cancellationToken = default(CancellationToken))
+        public async System.Threading.Tasks.Task<SearchResponse> PercolateAsync (string index, PercolateRequest percolateRequest, CancellationToken cancellationToken = default(CancellationToken))
         {
-             ApiResponse<SearchResponse> localVarResponse = await PercolateAsyncWithHttpInfo(percolateRequest, cancellationToken);
+             ApiResponse<SearchResponse> localVarResponse = await PercolateAsyncWithHttpInfo(index, percolateRequest, cancellationToken);
              return localVarResponse.Data;
 
         }
@@ -318,16 +329,20 @@ namespace Org.OpenAPITools.Api
         /// Perform reverse search on a percolate index 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="index">Name of the percolate index</param>
         /// <param name="percolateRequest"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
         /// <returns>Task of ApiResponse (SearchResponse)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<SearchResponse>> PercolateAsyncWithHttpInfo (PercolateRequest percolateRequest, CancellationToken cancellationToken = default(CancellationToken))
+        public async System.Threading.Tasks.Task<ApiResponse<SearchResponse>> PercolateAsyncWithHttpInfo (string index, PercolateRequest percolateRequest, CancellationToken cancellationToken = default(CancellationToken))
         {
+            // verify the required parameter 'index' is set
+            if (index == null)
+                throw new ApiException(400, "Missing required parameter 'index' when calling SearchApi->Percolate");
             // verify the required parameter 'percolateRequest' is set
             if (percolateRequest == null)
                 throw new ApiException(400, "Missing required parameter 'percolateRequest' when calling SearchApi->Percolate");
 
-            var localVarPath = "/json/pq/search";
+            var localVarPath = "/json/pq/{index}/search";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -349,6 +364,7 @@ namespace Org.OpenAPITools.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (index != null) localVarPathParams.Add("index", this.Configuration.ApiClient.ParameterToString(index)); // path parameter
             if (percolateRequest != null && percolateRequest.GetType() != typeof(byte[]))
             {
                 localVarPostBody = this.Configuration.ApiClient.Serialize(percolateRequest); // http body (model) parameter

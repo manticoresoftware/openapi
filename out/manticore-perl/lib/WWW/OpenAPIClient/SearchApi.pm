@@ -53,9 +53,15 @@ sub new {
 #
 # Perform reverse search on a percolate index
 # 
+# @param string $index Name of the percolate index (required)
 # @param PercolateRequest $percolate_request  (required)
 {
     my $params = {
+    'index' => {
+        data_type => 'string',
+        description => 'Name of the percolate index',
+        required => '1',
+    },
     'percolate_request' => {
         data_type => 'PercolateRequest',
         description => '',
@@ -73,13 +79,18 @@ sub new {
 sub percolate {
     my ($self, %args) = @_;
 
+    # verify the required parameter 'index' is set
+    unless (exists $args{'index'}) {
+      croak("Missing the required parameter 'index' when calling percolate");
+    }
+
     # verify the required parameter 'percolate_request' is set
     unless (exists $args{'percolate_request'}) {
       croak("Missing the required parameter 'percolate_request' when calling percolate");
     }
 
     # parse inputs
-    my $_resource_path = '/json/pq/search';
+    my $_resource_path = '/json/pq/{index}/search';
 
     my $_method = 'POST';
     my $query_params = {};
@@ -92,6 +103,13 @@ sub percolate {
         $header_params->{'Accept'} = $_header_accept;
     }
     $header_params->{'Content-Type'} = $self->{api_client}->select_header_content_type('application/json');
+
+    # path params
+    if ( exists $args{'index'}) {
+        my $_base_variable = "{" . "index" . "}";
+        my $_base_value = $self->{api_client}->to_path_value($args{'index'});
+        $_resource_path =~ s/$_base_variable/$_base_value/g;
+    }
 
     my $_body_data;
     # body params

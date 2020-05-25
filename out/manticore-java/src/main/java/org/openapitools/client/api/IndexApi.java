@@ -60,7 +60,7 @@ public class IndexApi {
 
     /**
      * Build call for bulk
-     * @param body  (required)
+     * @param requestBody  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -73,8 +73,8 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Bulk index operations Documentation</a>
      */
-    public okhttp3.Call bulkCall(Object body, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = body;
+    public okhttp3.Call bulkCall(List<Object> requestBody, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = requestBody;
 
         // create path and map variables
         String localVarPath = "/json/bulk";
@@ -103,15 +103,15 @@ public class IndexApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call bulkValidateBeforeCall(Object body, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call bulkValidateBeforeCall(List<Object> requestBody, final ApiCallback _callback) throws ApiException {
         
-        // verify the required parameter 'body' is set
-        if (body == null) {
-            throw new ApiException("Missing the required parameter 'body' when calling bulk(Async)");
+        // verify the required parameter 'requestBody' is set
+        if (requestBody == null) {
+            throw new ApiException("Missing the required parameter 'requestBody' when calling bulk(Async)");
         }
         
 
-        okhttp3.Call localVarCall = bulkCall(body, _callback);
+        okhttp3.Call localVarCall = bulkCall(requestBody, _callback);
         return localVarCall;
 
     }
@@ -119,7 +119,7 @@ public class IndexApi {
     /**
      * Bulk index operations
      * 
-     * @param body  (required)
+     * @param requestBody  (required)
      * @return SuccessResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -131,15 +131,15 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Bulk index operations Documentation</a>
      */
-    public SuccessResponse bulk(Object body) throws ApiException {
-        ApiResponse<SuccessResponse> localVarResp = bulkWithHttpInfo(body);
+    public SuccessResponse bulk(List<Object> requestBody) throws ApiException {
+        ApiResponse<SuccessResponse> localVarResp = bulkWithHttpInfo(requestBody);
         return localVarResp.getData();
     }
 
     /**
      * Bulk index operations
      * 
-     * @param body  (required)
+     * @param requestBody  (required)
      * @return ApiResponse&lt;SuccessResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -151,8 +151,8 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Bulk index operations Documentation</a>
      */
-    public ApiResponse<SuccessResponse> bulkWithHttpInfo(Object body) throws ApiException {
-        okhttp3.Call localVarCall = bulkValidateBeforeCall(body, null);
+    public ApiResponse<SuccessResponse> bulkWithHttpInfo(List<Object> requestBody) throws ApiException {
+        okhttp3.Call localVarCall = bulkValidateBeforeCall(requestBody, null);
         Type localVarReturnType = new TypeToken<SuccessResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -160,7 +160,7 @@ public class IndexApi {
     /**
      * Bulk index operations (asynchronously)
      * 
-     * @param body  (required)
+     * @param requestBody  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -173,9 +173,9 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Bulk index operations Documentation</a>
      */
-    public okhttp3.Call bulkAsync(Object body, final ApiCallback<SuccessResponse> _callback) throws ApiException {
+    public okhttp3.Call bulkAsync(List<Object> requestBody, final ApiCallback<SuccessResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = bulkValidateBeforeCall(body, _callback);
+        okhttp3.Call localVarCall = bulkValidateBeforeCall(requestBody, _callback);
         Type localVarReturnType = new TypeToken<SuccessResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

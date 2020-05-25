@@ -2,7 +2,7 @@
 
 Manticore Search API
 - API version: 1.0.0
-  - Build date: 2020-05-25T10:26:41.180Z[GMT]
+  - Build date: 2020-05-25T14:00:55.300Z[GMT]
 
 This is the API for Manticore Search HTTP protocol
 
@@ -87,9 +87,9 @@ public class Example {
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
-    Object body = null; // Object | 
+    List<Object> requestBody = null; // List<Object> | 
     try {
-      SuccessResponse result = apiInstance.bulk(body);
+      SuccessResponse result = apiInstance.bulk(requestBody);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling IndexApi#bulk");
@@ -114,7 +114,7 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 *IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
-*SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
+*SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
 *SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
 *UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 

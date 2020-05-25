@@ -10,10 +10,10 @@ Name | Type | Description | Notes
 **Limit** | **int** |  | [optional] 
 **Offset** | **int** |  | [optional] 
 **MaxMatches** | **int** |  | [optional] 
-**Sort** | [**List&lt;OneOfstringobject&gt;**](OneOfstringobject.md) |  | [optional] 
+**Sort** | **List&lt;Object&gt;** |  | [optional] 
 **ScriptFields** | **Object** |  | [optional] 
 **Highlight** | **Object** |  | [optional] 
-**Source** | [**OneOfstringobject**](OneOfstringobject.md) |  | [optional] 
+**Source** | **List&lt;string&gt;** |  | [optional] 
 **Profile** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models)

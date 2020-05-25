@@ -59,10 +59,10 @@ module OpenapiClient
         :'limit' => :'Integer',
         :'offset' => :'Integer',
         :'max_matches' => :'Integer',
-        :'sort' => :'Array<OneOfstringobject>',
+        :'sort' => :'Array<Object>',
         :'script_fields' => :'Object',
         :'highlight' => :'Object',
-        :'_source' => :'OneOfstringobject',
+        :'_source' => :'Array<String>',
         :'profile' => :'Boolean'
       }
     end
@@ -123,7 +123,9 @@ module OpenapiClient
       end
 
       if attributes.key?(:'_source')
-        self._source = attributes[:'_source']
+        if (value = attributes[:'_source']).is_a?(Array)
+          self._source = value
+        end
       end
 
       if attributes.key?(:'profile')

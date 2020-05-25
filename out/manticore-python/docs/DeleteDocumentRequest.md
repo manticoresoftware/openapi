@@ -4,9 +4,9 @@ Payload for delete request. Documents can be deleted either one by one by specif
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **str** |  | 
-**id** | **int** |  | [optional] 
-**query** | **object** |  | [optional] 
+**index** | **str** | Index name | 
+**id** | **int** | Document ID | [optional] 
+**query** | **object** | Query tree object | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

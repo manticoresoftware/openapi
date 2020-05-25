@@ -120,15 +120,15 @@ class IndexApi
      *
      * Bulk index operations
      *
-     * @param  object $body body (required)
+     * @param  object[] $request_body request_body (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\SuccessResponse|\OpenAPI\Client\Model\ErrorResponse
      */
-    public function bulk($body)
+    public function bulk($request_body)
     {
-        list($response) = $this->bulkWithHttpInfo($body);
+        list($response) = $this->bulkWithHttpInfo($request_body);
         return $response;
     }
 
@@ -137,15 +137,15 @@ class IndexApi
      *
      * Bulk index operations
      *
-     * @param  object $body (required)
+     * @param  object[] $request_body (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\SuccessResponse|\OpenAPI\Client\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function bulkWithHttpInfo($body)
+    public function bulkWithHttpInfo($request_body)
     {
-        $request = $this->bulkRequest($body);
+        $request = $this->bulkRequest($request_body);
 
         try {
             $options = $this->createHttpClientOption();
@@ -245,14 +245,14 @@ class IndexApi
      *
      * Bulk index operations
      *
-     * @param  object $body (required)
+     * @param  object[] $request_body (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bulkAsync($body)
+    public function bulkAsync($request_body)
     {
-        return $this->bulkAsyncWithHttpInfo($body)
+        return $this->bulkAsyncWithHttpInfo($request_body)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -265,15 +265,15 @@ class IndexApi
      *
      * Bulk index operations
      *
-     * @param  object $body (required)
+     * @param  object[] $request_body (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bulkAsyncWithHttpInfo($body)
+    public function bulkAsyncWithHttpInfo($request_body)
     {
         $returnType = '\OpenAPI\Client\Model\SuccessResponse';
-        $request = $this->bulkRequest($body);
+        $request = $this->bulkRequest($request_body);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -312,17 +312,17 @@ class IndexApi
     /**
      * Create request for operation 'bulk'
      *
-     * @param  object $body (required)
+     * @param  object[] $request_body (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function bulkRequest($body)
+    protected function bulkRequest($request_body)
     {
-        // verify the required parameter 'body' is set
-        if ($body === null || (is_array($body) && count($body) === 0)) {
+        // verify the required parameter 'request_body' is set
+        if ($request_body === null || (is_array($request_body) && count($request_body) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $body when calling bulk'
+                'Missing the required parameter $request_body when calling bulk'
             );
         }
 
@@ -338,8 +338,8 @@ class IndexApi
 
         // body params
         $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
+        if (isset($request_body)) {
+            $_tempBody = $request_body;
         }
 
         if ($multipart) {

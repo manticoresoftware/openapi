@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## Bulk
 
-> SuccessResponse Bulk(ctx, body)
+> SuccessResponse Bulk(ctx, requestBody)
 
 Bulk index operations
 
@@ -24,7 +24,7 @@ Bulk index operations
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**body** | **map[string]interface{}**|  | 
+**requestBody** | [**[]map[string]interface{}**](map[string]interface{}.md)|  | 
 
 ### Return type
 

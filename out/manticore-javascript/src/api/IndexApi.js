@@ -48,15 +48,15 @@ export default class IndexApi {
 
     /**
      * Bulk index operations
-     * @param {Object} body 
+     * @param {Array.<Object>} requestBody 
      * @param {module:api/IndexApi~bulkCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/SuccessResponse}
      */
-    bulk(body, callback) {
-      let postBody = body;
-      // verify the required parameter 'body' is set
-      if (body === undefined || body === null) {
-        throw new Error("Missing the required parameter 'body' when calling bulk");
+    bulk(requestBody, callback) {
+      let postBody = requestBody;
+      // verify the required parameter 'requestBody' is set
+      if (requestBody === undefined || requestBody === null) {
+        throw new Error("Missing the required parameter 'requestBody' when calling bulk");
       }
 
       let pathParams = {

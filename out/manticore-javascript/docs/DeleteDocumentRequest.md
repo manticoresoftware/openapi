@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **String** |  | 
-**id** | **Number** |  | [optional] 
-**query** | **Object** |  | [optional] 
+**index** | **String** | Index name | 
+**id** | **Number** | Document ID | [optional] 
+**query** | **Object** | Query tree object | [optional] 
 
 

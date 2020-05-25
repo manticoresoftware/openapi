@@ -28,7 +28,7 @@ import java.io.IOException;
  * Payload for update document
  */
 @ApiModel(description = "Payload for update document")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T10:26:41.180Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T14:00:55.300Z[GMT]")
 public class UpdateDocumentRequest {
   public static final String SERIALIZED_NAME_INDEX = "index";
   @SerializedName(SERIALIZED_NAME_INDEX)
@@ -76,10 +76,10 @@ public class UpdateDocumentRequest {
   }
 
    /**
-   * Get doc
+   * Index name
    * @return doc
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Index name")
 
   public Object getDoc() {
     return doc;
@@ -98,12 +98,12 @@ public class UpdateDocumentRequest {
   }
 
    /**
-   * Get id
+   * Document ID
    * minimum: 1
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Document ID")
 
   public Long getId() {
     return id;
@@ -122,11 +122,11 @@ public class UpdateDocumentRequest {
   }
 
    /**
-   * Get query
+   * Query tree object
    * @return query
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Query tree object")
 
   public Object getQuery() {
     return query;

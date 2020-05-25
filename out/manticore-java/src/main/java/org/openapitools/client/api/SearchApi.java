@@ -59,6 +59,7 @@ public class SearchApi {
 
     /**
      * Build call for percolate
+     * @param index Name of the percolate index (required)
      * @param percolateRequest  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -72,11 +73,12 @@ public class SearchApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Perform reverse search on a percolate index Documentation</a>
      */
-    public okhttp3.Call percolateCall(PercolateRequest percolateRequest, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call percolateCall(String index, PercolateRequest percolateRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = percolateRequest;
 
         // create path and map variables
-        String localVarPath = "/json/pq/search";
+        String localVarPath = "/json/pq/{index}/search"
+            .replaceAll("\\{" + "index" + "\\}", localVarApiClient.escapeString(index.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -102,7 +104,12 @@ public class SearchApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call percolateValidateBeforeCall(PercolateRequest percolateRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call percolateValidateBeforeCall(String index, PercolateRequest percolateRequest, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'index' is set
+        if (index == null) {
+            throw new ApiException("Missing the required parameter 'index' when calling percolate(Async)");
+        }
         
         // verify the required parameter 'percolateRequest' is set
         if (percolateRequest == null) {
@@ -110,7 +117,7 @@ public class SearchApi {
         }
         
 
-        okhttp3.Call localVarCall = percolateCall(percolateRequest, _callback);
+        okhttp3.Call localVarCall = percolateCall(index, percolateRequest, _callback);
         return localVarCall;
 
     }
@@ -118,6 +125,7 @@ public class SearchApi {
     /**
      * Perform reverse search on a percolate index
      * 
+     * @param index Name of the percolate index (required)
      * @param percolateRequest  (required)
      * @return SearchResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -130,14 +138,15 @@ public class SearchApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Perform reverse search on a percolate index Documentation</a>
      */
-    public SearchResponse percolate(PercolateRequest percolateRequest) throws ApiException {
-        ApiResponse<SearchResponse> localVarResp = percolateWithHttpInfo(percolateRequest);
+    public SearchResponse percolate(String index, PercolateRequest percolateRequest) throws ApiException {
+        ApiResponse<SearchResponse> localVarResp = percolateWithHttpInfo(index, percolateRequest);
         return localVarResp.getData();
     }
 
     /**
      * Perform reverse search on a percolate index
      * 
+     * @param index Name of the percolate index (required)
      * @param percolateRequest  (required)
      * @return ApiResponse&lt;SearchResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -150,8 +159,8 @@ public class SearchApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Perform reverse search on a percolate index Documentation</a>
      */
-    public ApiResponse<SearchResponse> percolateWithHttpInfo(PercolateRequest percolateRequest) throws ApiException {
-        okhttp3.Call localVarCall = percolateValidateBeforeCall(percolateRequest, null);
+    public ApiResponse<SearchResponse> percolateWithHttpInfo(String index, PercolateRequest percolateRequest) throws ApiException {
+        okhttp3.Call localVarCall = percolateValidateBeforeCall(index, percolateRequest, null);
         Type localVarReturnType = new TypeToken<SearchResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -159,6 +168,7 @@ public class SearchApi {
     /**
      * Perform reverse search on a percolate index (asynchronously)
      * 
+     * @param index Name of the percolate index (required)
      * @param percolateRequest  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -172,9 +182,9 @@ public class SearchApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Perform reverse search on a percolate index Documentation</a>
      */
-    public okhttp3.Call percolateAsync(PercolateRequest percolateRequest, final ApiCallback<SearchResponse> _callback) throws ApiException {
+    public okhttp3.Call percolateAsync(String index, PercolateRequest percolateRequest, final ApiCallback<SearchResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = percolateValidateBeforeCall(percolateRequest, _callback);
+        okhttp3.Call localVarCall = percolateValidateBeforeCall(index, percolateRequest, _callback);
         Type localVarReturnType = new TypeToken<SearchResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

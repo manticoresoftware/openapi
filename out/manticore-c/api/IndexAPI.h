@@ -8,6 +8,7 @@
 #include "../model/delete_document_request.h"
 #include "../model/error_response.h"
 #include "../model/insert_document_request.h"
+#include "../model/object.h"
 #include "../model/success_response.h"
 #include "../model/update_document_request.h"
 
@@ -15,7 +16,7 @@
 // Bulk index operations
 //
 success_response_t*
-IndexAPI_bulk(apiClient_t *apiClient, object_t * body );
+IndexAPI_bulk(apiClient_t *apiClient, list_t * request_body );
 
 
 // Delete a document in an index

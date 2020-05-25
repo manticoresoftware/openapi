@@ -4,14 +4,14 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
+[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
 [**search**](SearchApi.md#search) | **POST** /json/search | Performs a search
 
 
 
 ## percolate
 
-> SearchResponse percolate(percolate_request)
+> SearchResponse percolate(index, percolate_request)
 
 Perform reverse search on a percolate index
 
@@ -22,11 +22,12 @@ Perform reverse search on a percolate index
 require 'openapi_client'
 
 api_instance = OpenapiClient::SearchApi.new
-percolate_request = OpenapiClient::PercolateRequest.new # PercolateRequest | 
+index = 'index_example' # String | Name of the percolate index
+percolate_request = {"query":{"percolate":{"document":{"title":"some text to match"}}}} # PercolateRequest | 
 
 begin
   #Perform reverse search on a percolate index
-  result = api_instance.percolate(percolate_request)
+  result = api_instance.percolate(index, percolate_request)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Exception when calling SearchApi->percolate: #{e}"
@@ -38,6 +39,7 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **index** | **String**| Name of the percolate index | 
  **percolate_request** | [**PercolateRequest**](PercolateRequest.md)|  | 
 
 ### Return type

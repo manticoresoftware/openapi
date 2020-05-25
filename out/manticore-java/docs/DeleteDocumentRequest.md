@@ -7,9 +7,9 @@ Payload for delete request. Documents can be deleted either one by one by specif
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **String** |  | 
-**id** | **Long** |  |  [optional]
-**query** | **Object** |  |  [optional]
+**index** | **String** | Index name | 
+**id** | **Long** | Document ID |  [optional]
+**query** | **Object** | Query tree object |  [optional]
 
 
 

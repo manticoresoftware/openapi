@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## Bulk
 
-> SuccessResponse Bulk (Object body)
+> SuccessResponse Bulk (List<Object> requestBody)
 
 Bulk index operations
 
@@ -35,12 +35,12 @@ namespace Example
         {
             Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
             var apiInstance = new IndexApi(Configuration.Default);
-            var body = ;  // Object | 
+            var requestBody = new List<Object>(); // List<Object> | 
 
             try
             {
                 // Bulk index operations
-                SuccessResponse result = apiInstance.Bulk(body);
+                SuccessResponse result = apiInstance.Bulk(requestBody);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
@@ -59,7 +59,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **Object**|  | 
+ **requestBody** | [**List&lt;Object&gt;**](Object.md)|  | 
 
 ### Return type
 

@@ -17,10 +17,13 @@ module OpenapiClient
   class UpdateDocumentRequest
     attr_accessor :index
 
+    # Index name
     attr_accessor :doc
 
+    # Document ID
     attr_accessor :id
 
+    # Query tree object
     attr_accessor :query
 
     # Attribute mapping from ruby-style variable name to JSON key.

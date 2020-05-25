@@ -39,10 +39,10 @@ class SearchRequest(object):
         'limit': 'int',
         'offset': 'int',
         'max_matches': 'int',
-        'sort': 'list[OneOfstringobject]',
+        'sort': 'list[object]',
         'script_fields': 'object',
         'highlight': 'object',
-        'source': 'OneOfstringobject',
+        'source': 'list[str]',
         'profile': 'bool'
     }
 
@@ -220,7 +220,7 @@ class SearchRequest(object):
 
 
         :return: The sort of this SearchRequest.  # noqa: E501
-        :rtype: list[OneOfstringobject]
+        :rtype: list[object]
         """
         return self._sort
 
@@ -230,7 +230,7 @@ class SearchRequest(object):
 
 
         :param sort: The sort of this SearchRequest.  # noqa: E501
-        :type: list[OneOfstringobject]
+        :type: list[object]
         """
 
         self._sort = sort
@@ -283,7 +283,7 @@ class SearchRequest(object):
 
 
         :return: The source of this SearchRequest.  # noqa: E501
-        :rtype: OneOfstringobject
+        :rtype: list[str]
         """
         return self._source
 
@@ -293,7 +293,7 @@ class SearchRequest(object):
 
 
         :param source: The source of this SearchRequest.  # noqa: E501
-        :type: OneOfstringobject
+        :type: list[str]
         """
 
         self._source = source

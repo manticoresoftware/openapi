@@ -43,11 +43,13 @@ class TestSearchRequest(unittest.TestCase):
                 offset = 0, 
                 max_matches = 0, 
                 sort = [
-                    null
+                    None
                     ], 
                 script_fields = None, 
                 highlight = None, 
-                source = null, 
+                source = [
+                    '0'
+                    ], 
                 profile = True
             )
         else :

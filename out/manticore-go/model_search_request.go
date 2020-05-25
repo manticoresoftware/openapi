@@ -16,9 +16,9 @@ type SearchRequest struct {
 	Limit int32 `json:"limit,omitempty"`
 	Offset int32 `json:"offset,omitempty"`
 	MaxMatches int32 `json:"max_matches,omitempty"`
-	Sort []OneOfstringobject `json:"sort,omitempty"`
+	Sort []map[string]interface{} `json:"sort,omitempty"`
 	ScriptFields map[string]interface{} `json:"script_fields,omitempty"`
 	Highlight map[string]interface{} `json:"highlight,omitempty"`
-	Source OneOfstringobject `json:"_source,omitempty"`
+	Source []string `json:"_source,omitempty"`
 	Profile bool `json:"profile,omitempty"`
 }

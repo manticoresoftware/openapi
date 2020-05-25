@@ -16,7 +16,6 @@
 typedef struct search_request_t search_request_t;
 
 #include "object.h"
-#include "one_ofstringobject.h"
 
 
 
@@ -29,7 +28,7 @@ typedef struct search_request_t {
     list_t *sort; //nonprimitive container
     object_t *script_fields; //object
     object_t *highlight; //object
-    struct one_ofstringobject_t *_source; //model
+    list_t *_source; //primitive container
     int profile; //boolean
 
 } search_request_t;
@@ -43,7 +42,7 @@ search_request_t *search_request_create(
     list_t *sort,
     object_t *script_fields,
     object_t *highlight,
-    one_ofstringobject_t *_source,
+    list_t *_source,
     int profile
 );
 

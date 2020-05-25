@@ -66,6 +66,7 @@ class DeleteDocumentRequest(object):
     def index(self):
         """Gets the index of this DeleteDocumentRequest.  # noqa: E501
 
+        Index name  # noqa: E501
 
         :return: The index of this DeleteDocumentRequest.  # noqa: E501
         :rtype: str
@@ -76,6 +77,7 @@ class DeleteDocumentRequest(object):
     def index(self, index):
         """Sets the index of this DeleteDocumentRequest.
 
+        Index name  # noqa: E501
 
         :param index: The index of this DeleteDocumentRequest.  # noqa: E501
         :type: str
@@ -89,6 +91,7 @@ class DeleteDocumentRequest(object):
     def id(self):
         """Gets the id of this DeleteDocumentRequest.  # noqa: E501
 
+        Document ID  # noqa: E501
 
         :return: The id of this DeleteDocumentRequest.  # noqa: E501
         :rtype: int
@@ -99,6 +102,7 @@ class DeleteDocumentRequest(object):
     def id(self, id):
         """Sets the id of this DeleteDocumentRequest.
 
+        Document ID  # noqa: E501
 
         :param id: The id of this DeleteDocumentRequest.  # noqa: E501
         :type: int
@@ -113,6 +117,7 @@ class DeleteDocumentRequest(object):
     def query(self):
         """Gets the query of this DeleteDocumentRequest.  # noqa: E501
 
+        Query tree object  # noqa: E501
 
         :return: The query of this DeleteDocumentRequest.  # noqa: E501
         :rtype: object
@@ -123,6 +128,7 @@ class DeleteDocumentRequest(object):
     def query(self, query):
         """Sets the query of this DeleteDocumentRequest.
 
+        Query tree object  # noqa: E501
 
         :param query: The query of this DeleteDocumentRequest.  # noqa: E501
         :type: object

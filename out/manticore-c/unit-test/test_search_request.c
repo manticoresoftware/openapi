@@ -16,7 +16,6 @@
 #include "../model/search_request.h"
 search_request_t* instantiate_search_request(int include_optional);
 
-#include "test_one_ofstringobject.c"
 
 
 search_request_t* instantiate_search_request(int include_optional) {
@@ -31,7 +30,7 @@ search_request_t* instantiate_search_request(int include_optional) {
       list_create(),
       0,
       0,
-      null,
+      list_create(),
       1
     );
   } else {
@@ -44,7 +43,7 @@ search_request_t* instantiate_search_request(int include_optional) {
       list_create(),
       0,
       0,
-      null,
+      list_create(),
       1
     );
   }

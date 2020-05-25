@@ -9,12 +9,12 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
+[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
 [**search**](SearchApi.md#search) | **POST** /json/search | Performs a search
 
 
 # **percolate**
-> SearchResponse percolate(percolate_request => $percolate_request)
+> SearchResponse percolate(index => $index, percolate_request => $percolate_request)
 
 Perform reverse search on a percolate index
 
@@ -25,10 +25,11 @@ use WWW::OpenAPIClient::SearchApi;
 my $api_instance = WWW::OpenAPIClient::SearchApi->new(
 );
 
+my $index = "index_example"; # string | Name of the percolate index
 my $percolate_request = WWW::OpenAPIClient::Object::PercolateRequest->new(); # PercolateRequest | 
 
 eval { 
-    my $result = $api_instance->percolate(percolate_request => $percolate_request);
+    my $result = $api_instance->percolate(index => $index, percolate_request => $percolate_request);
     print Dumper($result);
 };
 if ($@) {
@@ -40,6 +41,7 @@ if ($@) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **index** | **string**| Name of the percolate index | 
  **percolate_request** | [**PercolateRequest**](PercolateRequest.md)|  | 
 
 ### Return type

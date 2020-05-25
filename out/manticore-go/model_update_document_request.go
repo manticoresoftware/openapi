@@ -12,7 +12,10 @@ package openapi
 // UpdateDocumentRequest Payload for update document
 type UpdateDocumentRequest struct {
 	Index string `json:"index"`
+	// Index name
 	Doc map[string]interface{} `json:"doc"`
+	// Document ID
 	Id int64 `json:"id,omitempty"`
+	// Query tree object
 	Query map[string]interface{} `json:"query,omitempty"`
 }

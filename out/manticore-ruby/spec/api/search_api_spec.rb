@@ -34,6 +34,7 @@ describe 'SearchApi' do
 
   # unit tests for percolate
   # Perform reverse search on a percolate index
+  # @param index Name of the percolate index
   # @param percolate_request 
   # @param [Hash] opts the optional parameters
   # @return [SearchResponse]

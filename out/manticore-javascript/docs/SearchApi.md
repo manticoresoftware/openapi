@@ -4,14 +4,14 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
+[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
 [**search**](SearchApi.md#search) | **POST** /json/search | Performs a search
 
 
 
 ## percolate
 
-> SearchResponse percolate(percolateRequest)
+> SearchResponse percolate(index, percolateRequest)
 
 Perform reverse search on a percolate index
 
@@ -21,8 +21,9 @@ Perform reverse search on a percolate index
 import ManticoreSearchApi from 'manticore_search_api';
 
 let apiInstance = new ManticoreSearchApi.SearchApi();
-let percolateRequest = new ManticoreSearchApi.PercolateRequest(); // PercolateRequest | 
-apiInstance.percolate(percolateRequest, (error, data, response) => {
+let index = "index_example"; // String | Name of the percolate index
+let percolateRequest = {"query":{"percolate":{"document":{"title":"some text to match"}}}}; // PercolateRequest | 
+apiInstance.percolate(index, percolateRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -36,6 +37,7 @@ apiInstance.percolate(percolateRequest, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **index** | **String**| Name of the percolate index | 
  **percolateRequest** | [**PercolateRequest**](PercolateRequest.md)|  | 
 
 ### Return type

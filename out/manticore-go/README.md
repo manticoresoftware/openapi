@@ -39,7 +39,7 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**Insert**](docs/IndexApi.md#insert) | **Post** /json/insert | Create a new document in an index
 *IndexApi* | [**Replace**](docs/IndexApi.md#replace) | **Post** /json/replace | Replace new document in an index
 *IndexApi* | [**Update**](docs/IndexApi.md#update) | **Post** /json/update | Update a document in an index
-*SearchApi* | [**Percolate**](docs/SearchApi.md#percolate) | **Post** /json/pq/search | Perform reverse search on a percolate index
+*SearchApi* | [**Percolate**](docs/SearchApi.md#percolate) | **Post** /json/pq/{index}/search | Perform reverse search on a percolate index
 *SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /json/search | Performs a search
 *UtilsApi* | [**Sql**](docs/UtilsApi.md#sql) | **Post** /sql | Perform SQL requests
 

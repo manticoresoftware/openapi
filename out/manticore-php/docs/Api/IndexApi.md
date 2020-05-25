@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## bulk
 
-> \OpenAPI\Client\Model\SuccessResponse bulk($body)
+> \OpenAPI\Client\Model\SuccessResponse bulk($request_body)
 
 Bulk index operations
 
@@ -30,10 +30,10 @@ $apiInstance = new OpenAPI\Client\Api\IndexApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$body = new \stdClass; // object | 
+$request_body = array(new \stdClass); // object[] | 
 
 try {
-    $result = $apiInstance->bulk($body);
+    $result = $apiInstance->bulk($request_body);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling IndexApi->bulk: ', $e->getMessage(), PHP_EOL;
@@ -46,7 +46,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **object**|  |
+ **request_body** | [**object[]**](../Model/object.md)|  |
 
 ### Return type
 

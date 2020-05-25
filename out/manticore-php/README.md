@@ -67,10 +67,10 @@ $apiInstance = new OpenAPI\Client\Api\IndexApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$body = new \stdClass; // object | 
+$request_body = array(new \stdClass); // object[] | 
 
 try {
-    $result = $apiInstance->bulk($body);
+    $result = $apiInstance->bulk($request_body);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling IndexApi->bulk: ', $e->getMessage(), PHP_EOL;
@@ -90,7 +90,7 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**insert**](docs/Api/IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 *IndexApi* | [**replace**](docs/Api/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *IndexApi* | [**update**](docs/Api/IndexApi.md#update) | **POST** /json/update | Update a document in an index
-*SearchApi* | [**percolate**](docs/Api/SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
+*SearchApi* | [**percolate**](docs/Api/SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
 *SearchApi* | [**search**](docs/Api/SearchApi.md#search) | **POST** /json/search | Performs a search
 *UtilsApi* | [**sql**](docs/Api/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 

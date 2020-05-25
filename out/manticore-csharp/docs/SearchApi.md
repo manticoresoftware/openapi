@@ -4,14 +4,14 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Percolate**](SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
+[**Percolate**](SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
 [**Search**](SearchApi.md#search) | **POST** /json/search | Performs a search
 
 
 
 ## Percolate
 
-> SearchResponse Percolate (PercolateRequest percolateRequest)
+> SearchResponse Percolate (string index, PercolateRequest percolateRequest)
 
 Perform reverse search on a percolate index
 
@@ -32,12 +32,13 @@ namespace Example
         {
             Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
             var apiInstance = new SearchApi(Configuration.Default);
+            var index = index_example;  // string | Name of the percolate index
             var percolateRequest = new PercolateRequest(); // PercolateRequest | 
 
             try
             {
                 // Perform reverse search on a percolate index
-                SearchResponse result = apiInstance.Percolate(percolateRequest);
+                SearchResponse result = apiInstance.Percolate(index, percolateRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
@@ -56,6 +57,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **index** | **string**| Name of the percolate index | 
  **percolateRequest** | [**PercolateRequest**](PercolateRequest.md)|  | 
 
 ### Return type

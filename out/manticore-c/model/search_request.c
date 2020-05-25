@@ -14,7 +14,7 @@ search_request_t *search_request_create(
     list_t *sort,
     object_t *script_fields,
     object_t *highlight,
-    one_ofstringobject_t *_source,
+    list_t *_source,
     int profile
     ) {
     search_request_t *search_request_local_var = malloc(sizeof(search_request_t));
@@ -44,12 +44,15 @@ void search_request_free(search_request_t *search_request) {
     free(search_request->index);
     object_free(search_request->query);
     list_ForEach(listEntry, search_request->sort) {
-        one_ofstringobject_free(listEntry->data);
+        object_free(listEntry->data);
     }
     list_free(search_request->sort);
     object_free(search_request->script_fields);
     object_free(search_request->highlight);
-    one_ofstringobject_free(search_request->_source);
+    list_ForEach(listEntry, search_request->_source) {
+        free(listEntry->data);
+    }
+    list_free(search_request->_source);
     free(search_request);
 }
 
@@ -115,7 +118,7 @@ cJSON *search_request_convertToJSON(search_request_t *search_request) {
     listEntry_t *sortListEntry;
     if (search_request->sort) {
     list_ForEach(sortListEntry, search_request->sort) {
-    cJSON *itemLocal = one_ofstringobject_convertToJSON(sortListEntry->data);
+    cJSON *itemLocal = object_convertToJSON(sortListEntry->data);
     if(itemLocal == NULL) {
     goto fail;
     }
@@ -153,13 +156,17 @@ cJSON *search_request_convertToJSON(search_request_t *search_request) {
 
     // search_request->_source
     if(search_request->_source) { 
-    cJSON *_source_local_JSON = one_ofstringobject_convertToJSON(search_request->_source);
-    if(_source_local_JSON == NULL) {
-    goto fail; //model
+    cJSON *_source = cJSON_AddArrayToObject(item, "_source");
+    if(_source == NULL) {
+        goto fail; //primitive container
     }
-    cJSON_AddItemToObject(item, "_source", _source_local_JSON);
-    if(item->child == NULL) {
-    goto fail;
+
+    listEntry_t *_sourceListEntry;
+    list_ForEach(_sourceListEntry, search_request->_source) {
+    if(cJSON_AddStringToObject(_source, "", (char*)_sourceListEntry->data) == NULL)
+    {
+        goto fail;
+    }
     }
      } 
 
@@ -248,7 +255,7 @@ search_request_t *search_request_parseFromJSON(cJSON *search_requestJSON){
         if(!cJSON_IsObject(sort_local_nonprimitive)){
             goto end;
         }
-        one_ofstringobject_t *sortItem = one_ofstringobject_parseFromJSON(sort_local_nonprimitive);
+        object_t *sortItem = object_parseFromJSON(sort_local_nonprimitive);
 
         list_addElement(sortList, sortItem);
     }
@@ -270,9 +277,22 @@ search_request_t *search_request_parseFromJSON(cJSON *search_requestJSON){
 
     // search_request->_source
     cJSON *_source = cJSON_GetObjectItemCaseSensitive(search_requestJSON, "_source");
-    one_ofstringobject_t *_source_local_nonprim = NULL;
+    list_t *_sourceList;
     if (_source) { 
-    _source_local_nonprim = one_ofstringobject_parseFromJSON(_source); //nonprimitive
+    cJSON *_source_local;
+    if(!cJSON_IsArray(_source)) {
+        goto end;//primitive container
+    }
+    _sourceList = list_create();
+
+    cJSON_ArrayForEach(_source_local, _source)
+    {
+        if(!cJSON_IsString(_source_local))
+        {
+            goto end;
+        }
+        list_addElement(_sourceList , strdup(_source_local->valuestring));
+    }
     }
 
     // search_request->profile
@@ -294,7 +314,7 @@ search_request_t *search_request_parseFromJSON(cJSON *search_requestJSON){
         sort ? sortList : NULL,
         script_fields ? script_fields_local_object : NULL,
         highlight ? highlight_local_object : NULL,
-        _source ? _source_local_nonprim : NULL,
+        _source ? _sourceList : NULL,
         profile ? profile->valueint : 0
         );
 

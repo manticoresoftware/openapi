@@ -81,12 +81,12 @@ namespace Example
 
             Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
             var apiInstance = new IndexApi(Configuration.Default);
-            var body = ;  // Object | 
+            var requestBody = new List<Object>(); // List<Object> | 
 
             try
             {
                 // Bulk index operations
-                SuccessResponse result = apiInstance.Bulk(body);
+                SuccessResponse result = apiInstance.Bulk(requestBody);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
@@ -112,7 +112,7 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**Insert**](docs/IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 *IndexApi* | [**Replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *IndexApi* | [**Update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
-*SearchApi* | [**Percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
+*SearchApi* | [**Percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
 *SearchApi* | [**Search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
 *UtilsApi* | [**Sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 

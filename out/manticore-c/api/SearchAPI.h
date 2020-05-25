@@ -14,7 +14,7 @@
 // Perform reverse search on a percolate index
 //
 search_response_t*
-SearchAPI_percolate(apiClient_t *apiClient, percolate_request_t * percolate_request );
+SearchAPI_percolate(apiClient_t *apiClient, char * index , percolate_request_t * percolate_request );
 
 
 // Performs a search

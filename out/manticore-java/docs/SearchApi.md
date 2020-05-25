@@ -4,13 +4,13 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
+[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
 [**search**](SearchApi.md#search) | **POST** /json/search | Performs a search
 
 
 <a name="percolate"></a>
 # **percolate**
-> SearchResponse percolate(percolateRequest)
+> SearchResponse percolate(index, percolateRequest)
 
 Perform reverse search on a percolate index
 
@@ -29,9 +29,10 @@ public class Example {
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
 
     SearchApi apiInstance = new SearchApi(defaultClient);
-    PercolateRequest percolateRequest = new PercolateRequest(); // PercolateRequest | 
+    String index = "index_example"; // String | Name of the percolate index
+    PercolateRequest percolateRequest = {"query":{"percolate":{"document":{"title":"some text to match"}}}}; // PercolateRequest | 
     try {
-      SearchResponse result = apiInstance.percolate(percolateRequest);
+      SearchResponse result = apiInstance.percolate(index, percolateRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling SearchApi#percolate");
@@ -48,6 +49,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **index** | **String**| Name of the percolate index |
  **percolateRequest** | [**PercolateRequest**](PercolateRequest.md)|  |
 
 ### Return type

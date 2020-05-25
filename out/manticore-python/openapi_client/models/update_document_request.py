@@ -93,6 +93,7 @@ class UpdateDocumentRequest(object):
     def doc(self):
         """Gets the doc of this UpdateDocumentRequest.  # noqa: E501
 
+        Index name  # noqa: E501
 
         :return: The doc of this UpdateDocumentRequest.  # noqa: E501
         :rtype: object
@@ -103,6 +104,7 @@ class UpdateDocumentRequest(object):
     def doc(self, doc):
         """Sets the doc of this UpdateDocumentRequest.
 
+        Index name  # noqa: E501
 
         :param doc: The doc of this UpdateDocumentRequest.  # noqa: E501
         :type: object
@@ -116,6 +118,7 @@ class UpdateDocumentRequest(object):
     def id(self):
         """Gets the id of this UpdateDocumentRequest.  # noqa: E501
 
+        Document ID  # noqa: E501
 
         :return: The id of this UpdateDocumentRequest.  # noqa: E501
         :rtype: int
@@ -126,6 +129,7 @@ class UpdateDocumentRequest(object):
     def id(self, id):
         """Sets the id of this UpdateDocumentRequest.
 
+        Document ID  # noqa: E501
 
         :param id: The id of this UpdateDocumentRequest.  # noqa: E501
         :type: int
@@ -140,6 +144,7 @@ class UpdateDocumentRequest(object):
     def query(self):
         """Gets the query of this UpdateDocumentRequest.  # noqa: E501
 
+        Query tree object  # noqa: E501
 
         :return: The query of this UpdateDocumentRequest.  # noqa: E501
         :rtype: object
@@ -150,6 +155,7 @@ class UpdateDocumentRequest(object):
     def query(self, query):
         """Sets the query of this UpdateDocumentRequest.
 
+        Query tree object  # noqa: E501
 
         :param query: The query of this UpdateDocumentRequest.  # noqa: E501
         :type: object

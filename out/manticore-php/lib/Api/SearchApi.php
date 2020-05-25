@@ -120,15 +120,16 @@ class SearchApi
      *
      * Perform reverse search on a percolate index
      *
+     * @param  string $index Name of the percolate index (required)
      * @param  \OpenAPI\Client\Model\PercolateRequest $percolate_request percolate_request (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\SearchResponse|\OpenAPI\Client\Model\ErrorResponse
      */
-    public function percolate($percolate_request)
+    public function percolate($index, $percolate_request)
     {
-        list($response) = $this->percolateWithHttpInfo($percolate_request);
+        list($response) = $this->percolateWithHttpInfo($index, $percolate_request);
         return $response;
     }
 
@@ -137,15 +138,16 @@ class SearchApi
      *
      * Perform reverse search on a percolate index
      *
+     * @param  string $index Name of the percolate index (required)
      * @param  \OpenAPI\Client\Model\PercolateRequest $percolate_request (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\SearchResponse|\OpenAPI\Client\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function percolateWithHttpInfo($percolate_request)
+    public function percolateWithHttpInfo($index, $percolate_request)
     {
-        $request = $this->percolateRequest($percolate_request);
+        $request = $this->percolateRequest($index, $percolate_request);
 
         try {
             $options = $this->createHttpClientOption();
@@ -245,14 +247,15 @@ class SearchApi
      *
      * Perform reverse search on a percolate index
      *
+     * @param  string $index Name of the percolate index (required)
      * @param  \OpenAPI\Client\Model\PercolateRequest $percolate_request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function percolateAsync($percolate_request)
+    public function percolateAsync($index, $percolate_request)
     {
-        return $this->percolateAsyncWithHttpInfo($percolate_request)
+        return $this->percolateAsyncWithHttpInfo($index, $percolate_request)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -265,15 +268,16 @@ class SearchApi
      *
      * Perform reverse search on a percolate index
      *
+     * @param  string $index Name of the percolate index (required)
      * @param  \OpenAPI\Client\Model\PercolateRequest $percolate_request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function percolateAsyncWithHttpInfo($percolate_request)
+    public function percolateAsyncWithHttpInfo($index, $percolate_request)
     {
         $returnType = '\OpenAPI\Client\Model\SearchResponse';
-        $request = $this->percolateRequest($percolate_request);
+        $request = $this->percolateRequest($index, $percolate_request);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -312,13 +316,20 @@ class SearchApi
     /**
      * Create request for operation 'percolate'
      *
+     * @param  string $index Name of the percolate index (required)
      * @param  \OpenAPI\Client\Model\PercolateRequest $percolate_request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function percolateRequest($percolate_request)
+    protected function percolateRequest($index, $percolate_request)
     {
+        // verify the required parameter 'index' is set
+        if ($index === null || (is_array($index) && count($index) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $index when calling percolate'
+            );
+        }
         // verify the required parameter 'percolate_request' is set
         if ($percolate_request === null || (is_array($percolate_request) && count($percolate_request) === 0)) {
             throw new \InvalidArgumentException(
@@ -326,7 +337,7 @@ class SearchApi
             );
         }
 
-        $resourcePath = '/json/pq/search';
+        $resourcePath = '/json/pq/{index}/search';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -335,6 +346,14 @@ class SearchApi
 
 
 
+        // path params
+        if ($index !== null) {
+            $resourcePath = str_replace(
+                '{' . 'index' . '}',
+                ObjectSerializer::toPathValue($index),
+                $resourcePath
+            );
+        }
 
         // body params
         $_tempBody = null;

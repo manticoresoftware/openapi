@@ -34,7 +34,7 @@ describe 'IndexApi' do
 
   # unit tests for bulk
   # Bulk index operations
-  # @param body 
+  # @param request_body 
   # @param [Hash] opts the optional parameters
   # @return [SuccessResponse]
   describe 'bulk test' do

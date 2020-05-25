@@ -15,7 +15,7 @@
 // Perform reverse search on a percolate index
 //
 search_response_t*
-SearchAPI_percolate(apiClient_t *apiClient, percolate_request_t * percolate_request )
+SearchAPI_percolate(apiClient_t *apiClient, char * index , percolate_request_t * percolate_request )
 {
     list_t    *localVarQueryParameters = NULL;
     list_t    *localVarHeaderParameters = NULL;
@@ -25,10 +25,20 @@ SearchAPI_percolate(apiClient_t *apiClient, percolate_request_t * percolate_requ
     char      *localVarBodyParameters = NULL;
 
     // create the path
-    long sizeOfPath = strlen("/json/pq/search")+1;
+    long sizeOfPath = strlen("/json/pq/{index}/search")+1;
     char *localVarPath = malloc(sizeOfPath);
-    snprintf(localVarPath, sizeOfPath, "/json/pq/search");
+    snprintf(localVarPath, sizeOfPath, "/json/pq/{index}/search");
 
+
+    // Path Params
+    long sizeOfPathParams_index = strlen(index)+3 + strlen("{ index }");
+    if(index == NULL) {
+        goto end;
+    }
+    char* localVarToReplace_index = malloc(sizeOfPathParams_index);
+    sprintf(localVarToReplace_index, "{%s}", "index");
+
+    localVarPath = strReplace(localVarPath, localVarToReplace_index, index);
 
 
 
@@ -78,6 +88,7 @@ SearchAPI_percolate(apiClient_t *apiClient, percolate_request_t * percolate_requ
     list_free(localVarHeaderType);
     list_free(localVarContentType);
     free(localVarPath);
+    free(localVarToReplace_index);
     cJSON_Delete(localVarSingleItemJSON_percolate_request);
     free(localVarBodyParameters);
     return elementToReturn;

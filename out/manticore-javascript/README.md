@@ -104,7 +104,7 @@ var ManticoreSearchApi = require('manticore_search_api');
 
 
 var api = new ManticoreSearchApi.IndexApi()
-var body = null; // {Object} 
+var requestBody = [null]; // {[Object]} 
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -112,7 +112,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.bulk(body, callback);
+api.bulk(requestBody, callback);
 
 ```
 
@@ -127,7 +127,7 @@ Class | Method | HTTP request | Description
 *ManticoreSearchApi.IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 *ManticoreSearchApi.IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *ManticoreSearchApi.IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
-*ManticoreSearchApi.SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
+*ManticoreSearchApi.SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
 *ManticoreSearchApi.SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
 *ManticoreSearchApi.UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 

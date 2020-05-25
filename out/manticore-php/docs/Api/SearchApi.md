@@ -4,14 +4,14 @@ All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/Manticore
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
+[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
 [**search**](SearchApi.md#search) | **POST** /json/search | Performs a search
 
 
 
 ## percolate
 
-> \OpenAPI\Client\Model\SearchResponse percolate($percolate_request)
+> \OpenAPI\Client\Model\SearchResponse percolate($index, $percolate_request)
 
 Perform reverse search on a percolate index
 
@@ -27,10 +27,11 @@ $apiInstance = new OpenAPI\Client\Api\SearchApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$percolate_request = new \OpenAPI\Client\Model\PercolateRequest(); // \OpenAPI\Client\Model\PercolateRequest | 
+$index = 'index_example'; // string | Name of the percolate index
+$percolate_request = {"query":{"percolate":{"document":{"title":"some text to match"}}}}; // \OpenAPI\Client\Model\PercolateRequest | 
 
 try {
-    $result = $apiInstance->percolate($percolate_request);
+    $result = $apiInstance->percolate($index, $percolate_request);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SearchApi->percolate: ', $e->getMessage(), PHP_EOL;
@@ -43,6 +44,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **index** | **string**| Name of the percolate index |
  **percolate_request** | [**\OpenAPI\Client\Model\PercolateRequest**](../Model/PercolateRequest.md)|  |
 
 ### Return type

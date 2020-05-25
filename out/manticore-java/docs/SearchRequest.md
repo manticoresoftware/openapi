@@ -12,10 +12,10 @@ Name | Type | Description | Notes
 **limit** | **Integer** |  |  [optional]
 **offset** | **Integer** |  |  [optional]
 **maxMatches** | **Integer** |  |  [optional]
-**sort** | [**List&lt;OneOfstringobject&gt;**](OneOfstringobject.md) |  |  [optional]
+**sort** | **List&lt;Object&gt;** |  |  [optional]
 **scriptFields** | **Object** |  |  [optional]
 **highlight** | **Object** |  |  [optional]
-**source** | [**OneOfstringobject**](OneOfstringobject.md) |  |  [optional]
+**source** | **List&lt;String&gt;** |  |  [optional]
 **profile** | **Boolean** |  |  [optional]
 
 

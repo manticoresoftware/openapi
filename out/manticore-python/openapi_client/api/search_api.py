@@ -37,15 +37,16 @@ class SearchApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def percolate(self, percolate_request, **kwargs):  # noqa: E501
+    def percolate(self, index, percolate_request, **kwargs):  # noqa: E501
         """Perform reverse search on a percolate index  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.percolate(percolate_request, async_req=True)
+        >>> thread = api.percolate(index, percolate_request, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
+        :param str index: Name of the percolate index (required)
         :param PercolateRequest percolate_request: (required)
         :param _preload_content: if False, the urllib3.HTTPResponse object will
                                  be returned without reading/decoding response
@@ -59,17 +60,18 @@ class SearchApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        return self.percolate_with_http_info(percolate_request, **kwargs)  # noqa: E501
+        return self.percolate_with_http_info(index, percolate_request, **kwargs)  # noqa: E501
 
-    def percolate_with_http_info(self, percolate_request, **kwargs):  # noqa: E501
+    def percolate_with_http_info(self, index, percolate_request, **kwargs):  # noqa: E501
         """Perform reverse search on a percolate index  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.percolate_with_http_info(percolate_request, async_req=True)
+        >>> thread = api.percolate_with_http_info(index, percolate_request, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
+        :param str index: Name of the percolate index (required)
         :param PercolateRequest percolate_request: (required)
         :param _return_http_data_only: response data without head status code
                                        and headers
@@ -88,6 +90,7 @@ class SearchApi(object):
         local_var_params = locals()
 
         all_params = [
+            'index',
             'percolate_request'
         ]
         all_params.extend(
@@ -107,6 +110,10 @@ class SearchApi(object):
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
+        # verify the required parameter 'index' is set
+        if self.api_client.client_side_validation and ('index' not in local_var_params or  # noqa: E501
+                                                        local_var_params['index'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `index` when calling `percolate`")  # noqa: E501
         # verify the required parameter 'percolate_request' is set
         if self.api_client.client_side_validation and ('percolate_request' not in local_var_params or  # noqa: E501
                                                         local_var_params['percolate_request'] is None):  # noqa: E501
@@ -115,6 +122,8 @@ class SearchApi(object):
         collection_formats = {}
 
         path_params = {}
+        if 'index' in local_var_params:
+            path_params['index'] = local_var_params['index']  # noqa: E501
 
         query_params = []
 
@@ -138,7 +147,7 @@ class SearchApi(object):
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/json/pq/search', 'POST',
+            '/json/pq/{index}/search', 'POST',
             path_params,
             query_params,
             header_params,

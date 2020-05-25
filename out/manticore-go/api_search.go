@@ -15,6 +15,7 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
+	"strings"
 )
 
 // Linger please
@@ -28,10 +29,11 @@ type SearchApiService service
 /*
 Percolate Perform reverse search on a percolate index
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param index Name of the percolate index
  * @param percolateRequest
 @return SearchResponse
 */
-func (a *SearchApiService) Percolate(ctx _context.Context, percolateRequest PercolateRequest) (SearchResponse, *_nethttp.Response, error) {
+func (a *SearchApiService) Percolate(ctx _context.Context, index string, percolateRequest PercolateRequest) (SearchResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -42,7 +44,9 @@ func (a *SearchApiService) Percolate(ctx _context.Context, percolateRequest Perc
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/json/pq/search"
+	localVarPath := a.client.cfg.BasePath + "/json/pq/{index}/search"
+	localVarPath = strings.Replace(localVarPath, "{"+"index"+"}", _neturl.QueryEscape(parameterToString(index, "")) , -1)
+
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}

@@ -9,10 +9,10 @@ Name | Type | Description | Notes
 **limit** | **Integer** |  | [optional] 
 **offset** | **Integer** |  | [optional] 
 **max_matches** | **Integer** |  | [optional] 
-**sort** | [**Array&lt;OneOfstringobject&gt;**](OneOfstringobject.md) |  | [optional] 
+**sort** | **Array&lt;Object&gt;** |  | [optional] 
 **script_fields** | **Object** |  | [optional] 
 **highlight** | **Object** |  | [optional] 
-**_source** | [**OneOfstringobject**](OneOfstringobject.md) |  | [optional] 
+**_source** | **Array&lt;String&gt;** |  | [optional] 
 **profile** | **Boolean** |  | [optional] 
 
 ## Code Sample

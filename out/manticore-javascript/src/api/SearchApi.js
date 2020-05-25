@@ -47,18 +47,24 @@ export default class SearchApi {
 
     /**
      * Perform reverse search on a percolate index
+     * @param {String} index Name of the percolate index
      * @param {module:model/PercolateRequest} percolateRequest 
      * @param {module:api/SearchApi~percolateCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/SearchResponse}
      */
-    percolate(percolateRequest, callback) {
+    percolate(index, percolateRequest, callback) {
       let postBody = percolateRequest;
+      // verify the required parameter 'index' is set
+      if (index === undefined || index === null) {
+        throw new Error("Missing the required parameter 'index' when calling percolate");
+      }
       // verify the required parameter 'percolateRequest' is set
       if (percolateRequest === undefined || percolateRequest === null) {
         throw new Error("Missing the required parameter 'percolateRequest' when calling percolate");
       }
 
       let pathParams = {
+        'index': index
       };
       let queryParams = {
       };
@@ -72,7 +78,7 @@ export default class SearchApi {
       let accepts = ['application/json'];
       let returnType = SearchResponse;
       return this.apiClient.callApi(
-        '/json/pq/search', 'POST',
+        '/json/pq/{index}/search', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

@@ -237,7 +237,7 @@ class DeleteDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets index
      *
-     * @param string $index index
+     * @param string $index Index name
      *
      * @return $this
      */
@@ -261,7 +261,7 @@ class DeleteDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param int|null $id id
+     * @param int|null $id Document ID
      *
      * @return $this
      */
@@ -290,7 +290,7 @@ class DeleteDocumentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets query
      *
-     * @param object|null $query query
+     * @param object|null $query Query tree object
      *
      * @return $this
      */

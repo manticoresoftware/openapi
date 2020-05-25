@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 <a name="bulk"></a>
 # **bulk**
-> SuccessResponse bulk(body)
+> SuccessResponse bulk(requestBody)
 
 Bulk index operations
 
@@ -32,9 +32,9 @@ public class Example {
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
-    Object body = null; // Object | 
+    List<Object> requestBody = null; // List<Object> | 
     try {
-      SuccessResponse result = apiInstance.bulk(body);
+      SuccessResponse result = apiInstance.bulk(requestBody);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling IndexApi#bulk");
@@ -51,7 +51,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **Object**|  |
+ **requestBody** | [**List&lt;Object&gt;**](Object.md)|  |
 
 ### Return type
 

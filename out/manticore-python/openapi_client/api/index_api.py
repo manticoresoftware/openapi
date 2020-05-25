@@ -37,16 +37,16 @@ class IndexApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def bulk(self, body, **kwargs):  # noqa: E501
+    def bulk(self, request_body, **kwargs):  # noqa: E501
         """Bulk index operations  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.bulk(body, async_req=True)
+        >>> thread = api.bulk(request_body, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
-        :param object body: (required)
+        :param list[object] request_body: (required)
         :param _preload_content: if False, the urllib3.HTTPResponse object will
                                  be returned without reading/decoding response
                                  data. Default is True.
@@ -59,18 +59,18 @@ class IndexApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        return self.bulk_with_http_info(body, **kwargs)  # noqa: E501
+        return self.bulk_with_http_info(request_body, **kwargs)  # noqa: E501
 
-    def bulk_with_http_info(self, body, **kwargs):  # noqa: E501
+    def bulk_with_http_info(self, request_body, **kwargs):  # noqa: E501
         """Bulk index operations  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.bulk_with_http_info(body, async_req=True)
+        >>> thread = api.bulk_with_http_info(request_body, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
-        :param object body: (required)
+        :param list[object] request_body: (required)
         :param _return_http_data_only: response data without head status code
                                        and headers
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -88,7 +88,7 @@ class IndexApi(object):
         local_var_params = locals()
 
         all_params = [
-            'body'
+            'request_body'
         ]
         all_params.extend(
             [
@@ -107,10 +107,10 @@ class IndexApi(object):
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
-        # verify the required parameter 'body' is set
-        if self.api_client.client_side_validation and ('body' not in local_var_params or  # noqa: E501
-                                                        local_var_params['body'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `body` when calling `bulk`")  # noqa: E501
+        # verify the required parameter 'request_body' is set
+        if self.api_client.client_side_validation and ('request_body' not in local_var_params or  # noqa: E501
+                                                        local_var_params['request_body'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `request_body` when calling `bulk`")  # noqa: E501
 
         collection_formats = {}
 
@@ -124,8 +124,8 @@ class IndexApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
+        if 'request_body' in local_var_params:
+            body_params = local_var_params['request_body']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501

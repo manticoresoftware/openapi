@@ -28,7 +28,7 @@ import java.io.IOException;
  * Payload for delete request. Documents can be deleted either one by one by specifying the document id or by providing a query object. For more information see  [Delete API](https://docs.manticoresearch.com/latest/html/http_reference/json_delete.html) 
  */
 @ApiModel(description = "Payload for delete request. Documents can be deleted either one by one by specifying the document id or by providing a query object. For more information see  [Delete API](https://docs.manticoresearch.com/latest/html/http_reference/json_delete.html) ")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T10:26:41.180Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T14:00:55.300Z[GMT]")
 public class DeleteDocumentRequest {
   public static final String SERIALIZED_NAME_INDEX = "index";
   @SerializedName(SERIALIZED_NAME_INDEX)
@@ -50,10 +50,10 @@ public class DeleteDocumentRequest {
   }
 
    /**
-   * Get index
+   * Index name
    * @return index
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Index name")
 
   public String getIndex() {
     return index;
@@ -72,12 +72,12 @@ public class DeleteDocumentRequest {
   }
 
    /**
-   * Get id
+   * Document ID
    * minimum: 1
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Document ID")
 
   public Long getId() {
     return id;
@@ -96,11 +96,11 @@ public class DeleteDocumentRequest {
   }
 
    /**
-   * Get query
+   * Query tree object
    * @return query
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Query tree object")
 
   public Object getQuery() {
     return query;

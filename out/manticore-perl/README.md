@@ -277,10 +277,10 @@ use WWW::OpenAPIClient::;
 my $api_instance = WWW::OpenAPIClient::->new(
 );
 
-my $body = WWW::OpenAPIClient::Object::object->new(); # object | 
+my $request_body = [WWW::OpenAPIClient::Object::ARRAY[object]->new()]; # ARRAY[object] | 
 
 eval {
-    my $result = $api_instance->bulk(body => $body);
+    my $result = $api_instance->bulk(request_body => $request_body);
     print Dumper($result);
 };
 if ($@) {
@@ -300,7 +300,7 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /json/insert | Create a new document in an index
 *IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /json/replace | Replace new document in an index
 *IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /json/update | Update a document in an index
-*SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/search | Perform reverse search on a percolate index
+*SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
 *SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /json/search | Performs a search
 *UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 

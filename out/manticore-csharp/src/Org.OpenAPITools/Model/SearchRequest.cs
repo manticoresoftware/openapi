@@ -48,7 +48,7 @@ namespace Org.OpenAPITools.Model
         /// <param name="highlight">highlight.</param>
         /// <param name="source">source.</param>
         /// <param name="profile">profile.</param>
-        public SearchRequest(string index = default(string), Object query = default(Object), int limit = default(int), int offset = default(int), int maxMatches = default(int), List<OneOfstringobject> sort = default(List<OneOfstringobject>), Object scriptFields = default(Object), Object highlight = default(Object), OneOfstringobject source = default(OneOfstringobject), bool profile = default(bool))
+        public SearchRequest(string index = default(string), Object query = default(Object), int limit = default(int), int offset = default(int), int maxMatches = default(int), List<Object> sort = default(List<Object>), Object scriptFields = default(Object), Object highlight = default(Object), List<string> source = default(List<string>), bool profile = default(bool))
         {
             // to ensure "index" is required (not null)
             if (index == null)
@@ -114,7 +114,7 @@ namespace Org.OpenAPITools.Model
         /// Gets or Sets Sort
         /// </summary>
         [DataMember(Name="sort", EmitDefaultValue=false)]
-        public List<OneOfstringobject> Sort { get; set; }
+        public List<Object> Sort { get; set; }
 
         /// <summary>
         /// Gets or Sets ScriptFields
@@ -132,7 +132,7 @@ namespace Org.OpenAPITools.Model
         /// Gets or Sets Source
         /// </summary>
         [DataMember(Name="_source", EmitDefaultValue=false)]
-        public OneOfstringobject Source { get; set; }
+        public List<string> Source { get; set; }
 
         /// <summary>
         /// Gets or Sets Profile
@@ -235,8 +235,9 @@ namespace Org.OpenAPITools.Model
                 ) && 
                 (
                     this.Source == input.Source ||
-                    (this.Source != null &&
-                    this.Source.Equals(input.Source))
+                    this.Source != null &&
+                    input.Source != null &&
+                    this.Source.SequenceEqual(input.Source)
                 ) && 
                 (
                     this.Profile == input.Profile ||
