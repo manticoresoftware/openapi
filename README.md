@@ -12,4 +12,4 @@ In php/python there is a test.php/py file using the client.
 
 The yaml was edited with swagger and can be seen at:
 
-https://app.swaggerhub.com/apis/ManticoreSearch/ManticoreSearch/1.0.0
+https://app.swaggerhub.com/apis/adriannuta/ManticoreSeach/1.0.0
