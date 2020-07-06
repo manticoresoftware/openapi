@@ -203,9 +203,7 @@ components:
           type: boolean
         hits:
           type: object
-          additionalProperties:
-            type: object
-            properties:
+          properties:
               total:
                 type: integer
               hits:

@@ -36,7 +36,7 @@ class SearchResponse(object):
     openapi_types = {
         'took': 'int',
         'timed_out': 'bool',
-        'hits': 'dict(str, SearchResponseHits)',
+        'hits': 'SearchResponseHits',
         'profile': 'object'
     }
 
@@ -116,7 +116,7 @@ class SearchResponse(object):
 
 
         :return: The hits of this SearchResponse.  # noqa: E501
-        :rtype: dict(str, SearchResponseHits)
+        :rtype: SearchResponseHits
         """
         return self._hits
 
@@ -126,7 +126,7 @@ class SearchResponse(object):
 
 
         :param hits: The hits of this SearchResponse.  # noqa: E501
-        :type: dict(str, SearchResponseHits)
+        :type: SearchResponseHits
         """
 
         self._hits = hits
