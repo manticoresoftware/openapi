@@ -249,6 +249,17 @@ components:
         result: created
         created: true
 
+    updateResponse:
+      type: object
+      description: Success response
+      properties:
+        _index:
+          type: string
+        updated:
+          type: integer
+      example:
+        _index: test
+        updated: 29
         
     errorResponse:
       type: object
@@ -389,7 +400,7 @@ paths:
           content:
              application/json:
                schema: 
-                  $ref: '#/components/schemas/successResponse'
+                  $ref: '#/components/schemas/updateResponse'
         default:
           description: error
           content:

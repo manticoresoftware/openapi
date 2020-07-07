@@ -25,3 +25,4 @@ from openapi_client.models.search_response import SearchResponse
 from openapi_client.models.search_response_hits import SearchResponseHits
 from openapi_client.models.success_response import SuccessResponse
 from openapi_client.models.update_document_request import UpdateDocumentRequest
+from openapi_client.models.update_response import UpdateResponse

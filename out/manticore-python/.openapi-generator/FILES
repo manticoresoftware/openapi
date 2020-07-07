@@ -14,6 +14,7 @@ docs/SearchResponse.md
 docs/SearchResponseHits.md
 docs/SuccessResponse.md
 docs/UpdateDocumentRequest.md
+docs/UpdateResponse.md
 docs/UtilsApi.md
 git_push.sh
 openapi_client/__init__.py
@@ -35,10 +36,12 @@ openapi_client/models/search_response.py
 openapi_client/models/search_response_hits.py
 openapi_client/models/success_response.py
 openapi_client/models/update_document_request.py
+openapi_client/models/update_response.py
 openapi_client/rest.py
 requirements.txt
 setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_update_response.py
 tox.ini

@@ -105,6 +105,7 @@ Class | Method | HTTP request | Description
  - [SearchResponseHits](docs/SearchResponseHits.md)
  - [SuccessResponse](docs/SuccessResponse.md)
  - [UpdateDocumentRequest](docs/UpdateDocumentRequest.md)
+ - [UpdateResponse](docs/UpdateResponse.md)
 
 
 ## Documentation For Authorization
