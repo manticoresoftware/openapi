@@ -62,11 +62,14 @@ class SuccessResponse(object):
         self._found = None
         self.discriminator = None
 
-        self.index = index
-        self.id = id
+        if index is not None:
+            self.index = index
+        if id is not None:
+            self.id = id
         if created is not None:
             self.created = created
-        self.result = result
+        if result is not None:
+            self.result = result
         if found is not None:
             self.found = found
 
@@ -88,8 +91,6 @@ class SuccessResponse(object):
         :param index: The index of this SuccessResponse.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and index is None:  # noqa: E501
-            raise ValueError("Invalid value for `index`, must not be `None`")  # noqa: E501
 
         self._index = index
 
@@ -111,8 +112,6 @@ class SuccessResponse(object):
         :param id: The id of this SuccessResponse.  # noqa: E501
         :type: int
         """
-        if self.local_vars_configuration.client_side_validation and id is None:  # noqa: E501
-            raise ValueError("Invalid value for `id`, must not be `None`")  # noqa: E501
 
         self._id = id
 
@@ -155,8 +154,6 @@ class SuccessResponse(object):
         :param result: The result of this SuccessResponse.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and result is None:  # noqa: E501
-            raise ValueError("Invalid value for `result`, must not be `None`")  # noqa: E501
 
         self._result = result
 

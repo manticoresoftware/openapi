@@ -39,13 +39,10 @@ components:
           additionalProperties: true
         limit:
           type: integer
-          minimum: 0
         offset:
           type: integer
-          minimum: 0
         max_matches:
           type: integer
-          minimum: 0
         sort:
           type: array
           items:
@@ -83,7 +80,6 @@ components:
         id:  
           type: integer
           format: int64          
-          minimum: 1
           description: Document ID
         query:  
           type: object
@@ -117,7 +113,6 @@ components:
         id:  
           type: integer
           format: int64          
-          minimum: 1
           description: Document ID
         query:
           type: object
@@ -157,7 +152,6 @@ components:
         id:  
           type: integer
           format: int64          
-          minimum: 1
           description: | 
             Document ID.
         doc:
@@ -237,10 +231,6 @@ components:
     successResponse:
       type: object
       description: Success response
-      required:
-        - _index
-        - _id
-        - result
       properties:
         _index:
           type: string

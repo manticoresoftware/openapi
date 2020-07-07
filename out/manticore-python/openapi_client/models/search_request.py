@@ -160,9 +160,6 @@ class SearchRequest(object):
         :param limit: The limit of this SearchRequest.  # noqa: E501
         :type: int
         """
-        if (self.local_vars_configuration.client_side_validation and
-                limit is not None and limit < 0):  # noqa: E501
-            raise ValueError("Invalid value for `limit`, must be a value greater than or equal to `0`")  # noqa: E501
 
         self._limit = limit
 
@@ -184,9 +181,6 @@ class SearchRequest(object):
         :param offset: The offset of this SearchRequest.  # noqa: E501
         :type: int
         """
-        if (self.local_vars_configuration.client_side_validation and
-                offset is not None and offset < 0):  # noqa: E501
-            raise ValueError("Invalid value for `offset`, must be a value greater than or equal to `0`")  # noqa: E501
 
         self._offset = offset
 
@@ -208,9 +202,6 @@ class SearchRequest(object):
         :param max_matches: The max_matches of this SearchRequest.  # noqa: E501
         :type: int
         """
-        if (self.local_vars_configuration.client_side_validation and
-                max_matches is not None and max_matches < 0):  # noqa: E501
-            raise ValueError("Invalid value for `max_matches`, must be a value greater than or equal to `0`")  # noqa: E501
 
         self._max_matches = max_matches
 
