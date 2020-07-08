@@ -257,10 +257,32 @@ components:
           type: string
         updated:
           type: integer
+        _id:
+          type: integer
+          format: int64
+        result:
+          type: string
       example:
         _index: test
         updated: 29
         
+    deleteResponse:
+      type: object
+      description: Success response
+      properties:
+        _index:
+          type: string
+        deleted:
+          type: integer
+        _id:
+          type: integer
+          format: int64
+        result:
+          type: string
+      example:
+        _index: test
+        deleted: 29
+
     errorResponse:
       type: object
       description: Error response
@@ -433,7 +455,7 @@ paths:
           content:
              application/json:
                schema: 
-                  $ref: '#/components/schemas/successResponse'
+                  $ref: '#/components/schemas/deleteResponse'
         default:
           description: error
           content:
