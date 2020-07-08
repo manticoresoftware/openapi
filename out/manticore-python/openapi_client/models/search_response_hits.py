@@ -74,7 +74,7 @@ class SearchResponseHits(object):
 
 
         :param total: The total of this SearchResponseHits.  # noqa: E501
-        :type: int
+        :type total: int
         """
 
         self._total = total
@@ -95,7 +95,7 @@ class SearchResponseHits(object):
 
 
         :param hits: The hits of this SearchResponseHits.  # noqa: E501
-        :type: list[object]
+        :type hits: list[object]
         """
 
         self._hits = hits

@@ -35,15 +35,19 @@ class UpdateResponse(object):
     """
     openapi_types = {
         'index': 'str',
-        'updated': 'int'
+        'updated': 'int',
+        'id': 'int',
+        'result': 'str'
     }
 
     attribute_map = {
         'index': '_index',
-        'updated': 'updated'
+        'updated': 'updated',
+        'id': '_id',
+        'result': 'result'
     }
 
-    def __init__(self, index=None, updated=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, index=None, updated=None, id=None, result=None, local_vars_configuration=None):  # noqa: E501
         """UpdateResponse - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -51,12 +55,18 @@ class UpdateResponse(object):
 
         self._index = None
         self._updated = None
+        self._id = None
+        self._result = None
         self.discriminator = None
 
         if index is not None:
             self.index = index
         if updated is not None:
             self.updated = updated
+        if id is not None:
+            self.id = id
+        if result is not None:
+            self.result = result
 
     @property
     def index(self):
@@ -74,7 +84,7 @@ class UpdateResponse(object):
 
 
         :param index: The index of this UpdateResponse.  # noqa: E501
-        :type: str
+        :type index: str
         """
 
         self._index = index
@@ -95,10 +105,52 @@ class UpdateResponse(object):
 
 
         :param updated: The updated of this UpdateResponse.  # noqa: E501
-        :type: int
+        :type updated: int
         """
 
         self._updated = updated
+
+    @property
+    def id(self):
+        """Gets the id of this UpdateResponse.  # noqa: E501
+
+
+        :return: The id of this UpdateResponse.  # noqa: E501
+        :rtype: int
+        """
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        """Sets the id of this UpdateResponse.
+
+
+        :param id: The id of this UpdateResponse.  # noqa: E501
+        :type id: int
+        """
+
+        self._id = id
+
+    @property
+    def result(self):
+        """Gets the result of this UpdateResponse.  # noqa: E501
+
+
+        :return: The result of this UpdateResponse.  # noqa: E501
+        :rtype: str
+        """
+        return self._result
+
+    @result.setter
+    def result(self, result):
+        """Sets the result of this UpdateResponse.
+
+
+        :param result: The result of this UpdateResponse.  # noqa: E501
+        :type result: str
+        """
+
+        self._result = result
 
     def to_dict(self):
         """Returns the model properties as a dict"""

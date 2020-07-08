@@ -1,11 +1,11 @@
-# UpdateResponse
+# DeleteResponse
 
 Success response
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **str** |  | [optional] 
-**updated** | **int** |  | [optional] 
+**deleted** | **int** |  | [optional] 
 **id** | **int** |  | [optional] 
 **result** | **str** |  | [optional] 
 

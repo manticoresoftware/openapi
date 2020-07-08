@@ -96,6 +96,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
+ - [DeleteResponse](docs/DeleteResponse.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [InlineObject](docs/InlineObject.md)
  - [InsertDocumentRequest](docs/InsertDocumentRequest.md)

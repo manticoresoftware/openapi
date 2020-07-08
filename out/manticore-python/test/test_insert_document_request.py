@@ -38,7 +38,7 @@ class TestInsertDocumentRequest(unittest.TestCase):
         if include_optional :
             return InsertDocumentRequest(
                 index = '0', 
-                id = 1, 
+                id = 56, 
                 doc = { }
             )
         else :

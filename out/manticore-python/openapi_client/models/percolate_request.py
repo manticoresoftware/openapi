@@ -68,7 +68,7 @@ class PercolateRequest(object):
 
 
         :param query: The query of this PercolateRequest.  # noqa: E501
-        :type: dict(str, object)
+        :type query: dict(str, object)
         """
         if self.local_vars_configuration.client_side_validation and query is None:  # noqa: E501
             raise ValueError("Invalid value for `query`, must not be `None`")  # noqa: E501

@@ -73,7 +73,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete**
-> SuccessResponse delete(delete_document_request)
+> DeleteResponse delete(delete_document_request)
 
 Delete a document in an index
 
@@ -114,7 +114,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**DeleteResponse**](DeleteResponse.md)
 
 ### Authorization
 

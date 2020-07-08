@@ -79,7 +79,7 @@ class InsertDocumentRequest(object):
         Name of the index  # noqa: E501
 
         :param index: The index of this InsertDocumentRequest.  # noqa: E501
-        :type: str
+        :type index: str
         """
         if self.local_vars_configuration.client_side_validation and index is None:  # noqa: E501
             raise ValueError("Invalid value for `index`, must not be `None`")  # noqa: E501
@@ -104,7 +104,7 @@ class InsertDocumentRequest(object):
         Document ID.   # noqa: E501
 
         :param id: The id of this InsertDocumentRequest.  # noqa: E501
-        :type: int
+        :type id: int
         """
 
         self._id = id
@@ -127,7 +127,7 @@ class InsertDocumentRequest(object):
         Object with document data   # noqa: E501
 
         :param doc: The doc of this InsertDocumentRequest.  # noqa: E501
-        :type: dict(str, object)
+        :type doc: dict(str, object)
         """
         if self.local_vars_configuration.client_side_validation and doc is None:  # noqa: E501
             raise ValueError("Invalid value for `doc`, must not be `None`")  # noqa: E501

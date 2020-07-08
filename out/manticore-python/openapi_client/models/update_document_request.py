@@ -82,7 +82,7 @@ class UpdateDocumentRequest(object):
 
 
         :param index: The index of this UpdateDocumentRequest.  # noqa: E501
-        :type: str
+        :type index: str
         """
         if self.local_vars_configuration.client_side_validation and index is None:  # noqa: E501
             raise ValueError("Invalid value for `index`, must not be `None`")  # noqa: E501
@@ -107,7 +107,7 @@ class UpdateDocumentRequest(object):
         Index name  # noqa: E501
 
         :param doc: The doc of this UpdateDocumentRequest.  # noqa: E501
-        :type: dict(str, object)
+        :type doc: dict(str, object)
         """
         if self.local_vars_configuration.client_side_validation and doc is None:  # noqa: E501
             raise ValueError("Invalid value for `doc`, must not be `None`")  # noqa: E501
@@ -132,7 +132,7 @@ class UpdateDocumentRequest(object):
         Document ID  # noqa: E501
 
         :param id: The id of this UpdateDocumentRequest.  # noqa: E501
-        :type: int
+        :type id: int
         """
 
         self._id = id
@@ -155,7 +155,7 @@ class UpdateDocumentRequest(object):
         Query tree object  # noqa: E501
 
         :param query: The query of this UpdateDocumentRequest.  # noqa: E501
-        :type: dict(str, object)
+        :type query: dict(str, object)
         """
 
         self._query = query

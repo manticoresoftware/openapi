@@ -84,7 +84,7 @@ class SearchResponse(object):
 
 
         :param took: The took of this SearchResponse.  # noqa: E501
-        :type: int
+        :type took: int
         """
 
         self._took = took
@@ -105,7 +105,7 @@ class SearchResponse(object):
 
 
         :param timed_out: The timed_out of this SearchResponse.  # noqa: E501
-        :type: bool
+        :type timed_out: bool
         """
 
         self._timed_out = timed_out
@@ -126,7 +126,7 @@ class SearchResponse(object):
 
 
         :param hits: The hits of this SearchResponse.  # noqa: E501
-        :type: SearchResponseHits
+        :type hits: SearchResponseHits
         """
 
         self._hits = hits
@@ -147,7 +147,7 @@ class SearchResponse(object):
 
 
         :param profile: The profile of this SearchResponse.  # noqa: E501
-        :type: object
+        :type profile: object
         """
 
         self._profile = profile

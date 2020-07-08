@@ -73,7 +73,7 @@ class InlineObject(object):
 
 
         :param query: The query of this InlineObject.  # noqa: E501
-        :type: str
+        :type query: str
         """
         if self.local_vars_configuration.client_side_validation and query is None:  # noqa: E501
             raise ValueError("Invalid value for `query`, must not be `None`")  # noqa: E501
@@ -96,7 +96,7 @@ class InlineObject(object):
 
 
         :param mode: The mode of this InlineObject.  # noqa: E501
-        :type: str
+        :type mode: str
         """
 
         self._mode = mode

@@ -17,11 +17,11 @@ import unittest
 import datetime
 
 import openapi_client
-from openapi_client.models.success_response import SuccessResponse  # noqa: E501
+from openapi_client.models.delete_response import DeleteResponse  # noqa: E501
 from openapi_client.rest import ApiException
 
-class TestSuccessResponse(unittest.TestCase):
-    """SuccessResponse unit test stubs"""
+class TestDeleteResponse(unittest.TestCase):
+    """DeleteResponse unit test stubs"""
 
     def setUp(self):
         pass
@@ -30,25 +30,24 @@ class TestSuccessResponse(unittest.TestCase):
         pass
 
     def make_instance(self, include_optional):
-        """Test SuccessResponse
+        """Test DeleteResponse
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = openapi_client.models.success_response.SuccessResponse()  # noqa: E501
+        # model = openapi_client.models.delete_response.DeleteResponse()  # noqa: E501
         if include_optional :
-            return SuccessResponse(
+            return DeleteResponse(
                 index = '0', 
+                deleted = 56, 
                 id = 56, 
-                created = True, 
-                result = '0', 
-                found = True
+                result = '0'
             )
         else :
-            return SuccessResponse(
+            return DeleteResponse(
         )
 
-    def testSuccessResponse(self):
-        """Test SuccessResponse"""
+    def testDeleteResponse(self):
+        """Test DeleteResponse"""
         inst_req_only = self.make_instance(include_optional=False)
         inst_req_and_optional = self.make_instance(include_optional=True)
 

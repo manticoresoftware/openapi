@@ -38,7 +38,9 @@ class TestUpdateResponse(unittest.TestCase):
         if include_optional :
             return UpdateResponse(
                 index = '0', 
-                updated = 56
+                updated = 56, 
+                id = 56, 
+                result = '0'
             )
         else :
             return UpdateResponse(

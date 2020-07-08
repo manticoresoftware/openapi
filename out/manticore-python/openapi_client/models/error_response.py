@@ -72,7 +72,7 @@ class ErrorResponse(object):
 
 
         :param error: The error of this ErrorResponse.  # noqa: E501
-        :type: dict(str, object)
+        :type error: dict(str, object)
         """
         if self.local_vars_configuration.client_side_validation and error is None:  # noqa: E501
             raise ValueError("Invalid value for `error`, must not be `None`")  # noqa: E501
@@ -95,7 +95,7 @@ class ErrorResponse(object):
 
 
         :param status: The status of this ErrorResponse.  # noqa: E501
-        :type: int
+        :type status: int
         """
         if self.local_vars_configuration.client_side_validation and status is None:  # noqa: E501
             raise ValueError("Invalid value for `status`, must not be `None`")  # noqa: E501

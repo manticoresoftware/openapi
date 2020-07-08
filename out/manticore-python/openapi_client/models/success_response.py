@@ -89,7 +89,7 @@ class SuccessResponse(object):
 
 
         :param index: The index of this SuccessResponse.  # noqa: E501
-        :type: str
+        :type index: str
         """
 
         self._index = index
@@ -110,7 +110,7 @@ class SuccessResponse(object):
 
 
         :param id: The id of this SuccessResponse.  # noqa: E501
-        :type: int
+        :type id: int
         """
 
         self._id = id
@@ -131,7 +131,7 @@ class SuccessResponse(object):
 
 
         :param created: The created of this SuccessResponse.  # noqa: E501
-        :type: bool
+        :type created: bool
         """
 
         self._created = created
@@ -152,7 +152,7 @@ class SuccessResponse(object):
 
 
         :param result: The result of this SuccessResponse.  # noqa: E501
-        :type: str
+        :type result: str
         """
 
         self._result = result
@@ -173,7 +173,7 @@ class SuccessResponse(object):
 
 
         :param found: The found of this SuccessResponse.  # noqa: E501
-        :type: bool
+        :type found: bool
         """
 
         self._found = found

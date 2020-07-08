@@ -39,9 +39,9 @@ class TestSearchRequest(unittest.TestCase):
             return SearchRequest(
                 index = 'test', 
                 query = { }, 
-                limit = 0, 
-                offset = 0, 
-                max_matches = 0, 
+                limit = 56, 
+                offset = 56, 
+                max_matches = 56, 
                 sort = [
                     None
                     ], 

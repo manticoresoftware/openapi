@@ -112,7 +112,7 @@ class SearchRequest(object):
 
 
         :param index: The index of this SearchRequest.  # noqa: E501
-        :type: str
+        :type index: str
         """
         if self.local_vars_configuration.client_side_validation and index is None:  # noqa: E501
             raise ValueError("Invalid value for `index`, must not be `None`")  # noqa: E501
@@ -135,7 +135,7 @@ class SearchRequest(object):
 
 
         :param query: The query of this SearchRequest.  # noqa: E501
-        :type: dict(str, object)
+        :type query: dict(str, object)
         """
         if self.local_vars_configuration.client_side_validation and query is None:  # noqa: E501
             raise ValueError("Invalid value for `query`, must not be `None`")  # noqa: E501
@@ -158,7 +158,7 @@ class SearchRequest(object):
 
 
         :param limit: The limit of this SearchRequest.  # noqa: E501
-        :type: int
+        :type limit: int
         """
 
         self._limit = limit
@@ -179,7 +179,7 @@ class SearchRequest(object):
 
 
         :param offset: The offset of this SearchRequest.  # noqa: E501
-        :type: int
+        :type offset: int
         """
 
         self._offset = offset
@@ -200,7 +200,7 @@ class SearchRequest(object):
 
 
         :param max_matches: The max_matches of this SearchRequest.  # noqa: E501
-        :type: int
+        :type max_matches: int
         """
 
         self._max_matches = max_matches
@@ -221,7 +221,7 @@ class SearchRequest(object):
 
 
         :param sort: The sort of this SearchRequest.  # noqa: E501
-        :type: list[object]
+        :type sort: list[object]
         """
 
         self._sort = sort
@@ -242,7 +242,7 @@ class SearchRequest(object):
 
 
         :param script_fields: The script_fields of this SearchRequest.  # noqa: E501
-        :type: object
+        :type script_fields: object
         """
 
         self._script_fields = script_fields
@@ -263,7 +263,7 @@ class SearchRequest(object):
 
 
         :param highlight: The highlight of this SearchRequest.  # noqa: E501
-        :type: object
+        :type highlight: object
         """
 
         self._highlight = highlight
@@ -284,7 +284,7 @@ class SearchRequest(object):
 
 
         :param source: The source of this SearchRequest.  # noqa: E501
-        :type: list[str]
+        :type source: list[str]
         """
 
         self._source = source
@@ -305,7 +305,7 @@ class SearchRequest(object):
 
 
         :param profile: The profile of this SearchRequest.  # noqa: E501
-        :type: bool
+        :type profile: bool
         """
 
         self._profile = profile

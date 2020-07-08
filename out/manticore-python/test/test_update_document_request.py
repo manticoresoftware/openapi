@@ -39,7 +39,7 @@ class TestUpdateDocumentRequest(unittest.TestCase):
             return UpdateDocumentRequest(
                 index = '0', 
                 doc = {"gid":10}, 
-                id = 1, 
+                id = 56, 
                 query = {"query":{"match":{"title":"match me"}}}
             )
         else :

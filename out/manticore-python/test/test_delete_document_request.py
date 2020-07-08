@@ -38,7 +38,7 @@ class TestDeleteDocumentRequest(unittest.TestCase):
         if include_optional :
             return DeleteDocumentRequest(
                 index = '0', 
-                id = 1, 
+                id = 56, 
                 query = None
             )
         else :
