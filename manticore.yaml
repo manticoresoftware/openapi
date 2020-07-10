@@ -248,7 +248,17 @@ components:
         _id: 1
         result: created
         created: true
-
+        
+    bulkResponse:
+      type: object
+      additionalProperties: true
+      description: Success bulk response
+      properties:
+        items:
+          type: object
+        error:
+          type: boolean
+     
     updateResponse:
       type: object
       description: Success response
@@ -475,20 +485,7 @@ paths:
         content:
           application/x-ndjson:
             schema:
-             $ref: '#/components/schemas/bulkRequest'
-            example:
-              - insert:
-                index: test
-                id: 10
-                doc: 
-                  gid: 10
-                  title: doc one
-              - insert:
-                index: test
-                id: 11
-                doc:
-                  gid: 20
-                  title: dow two
+              type: string
 
       responses:
         '200':
@@ -496,7 +493,7 @@ paths:
           content:
              application/json:
                schema: 
-                  $ref: '#/components/schemas/successResponse'
+                  $ref: '#/components/schemas/bulkResponse'
         default:
           description: error
           content:
@@ -553,19 +550,9 @@ paths:
       requestBody:
         required: true
         content:
-          application/x-www-form-urlencoded:
+          text/plain:
             schema: 
-                  type: object
-                  required:
-                    - query
-                  properties:
-                    query:
-                      type: string
-                    mode:
-                      type: string
-            example: 
-              sql: SHOW THREADS
-              mode: raw
+                  type: string
       responses:
         '200':
           description: item updated
