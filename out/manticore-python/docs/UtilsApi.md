@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **sql**
-> dict(str, object) sql(query, mode=mode)
+> dict(str, object) sql(body)
 
 Perform SQL requests
 
@@ -31,12 +31,11 @@ configuration = openapi_client.Configuration(
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.UtilsApi(api_client)
-    query = 'query_example' # str | 
-mode = 'mode_example' # str |  (optional)
+    body = 'body_example' # str | 
 
     try:
         # Perform SQL requests
-        api_response = api_instance.sql(query, mode=mode)
+        api_response = api_instance.sql(body)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling UtilsApi->sql: %s\n" % e)
@@ -46,8 +45,7 @@ mode = 'mode_example' # str |  (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **str**|  | 
- **mode** | **str**|  | [optional] 
+ **body** | **str**|  | 
 
 ### Return type
 
@@ -59,7 +57,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/x-www-form-urlencoded
+ - **Content-Type**: text/plain
  - **Accept**: application/json
 
 ### HTTP response details

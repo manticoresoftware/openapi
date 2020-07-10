@@ -56,7 +56,7 @@ class SearchResponse {
                 obj['timed_out'] = ApiClient.convertToType(data['timed_out'], 'Boolean');
             }
             if (data.hasOwnProperty('hits')) {
-                obj['hits'] = ApiClient.convertToType(data['hits'], {'String': SearchResponseHits});
+                obj['hits'] = SearchResponseHits.constructFromObject(data['hits']);
             }
             if (data.hasOwnProperty('profile')) {
                 obj['profile'] = ApiClient.convertToType(data['profile'], Object);
@@ -79,7 +79,7 @@ SearchResponse.prototype['took'] = undefined;
 SearchResponse.prototype['timed_out'] = undefined;
 
 /**
- * @member {Object.<String, module:model/SearchResponseHits>} hits
+ * @member {module:model/SearchResponseHits} hits
  */
 SearchResponse.prototype['hits'] = undefined;
 

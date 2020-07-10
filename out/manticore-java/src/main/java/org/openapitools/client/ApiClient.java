@@ -88,6 +88,19 @@ public class ApiClient {
         authentications = Collections.unmodifiableMap(authentications);
     }
 
+    /*
+     * Basic constructor with custom OkHttpClient
+     */
+    public ApiClient(OkHttpClient client) {
+        init();
+
+        httpClient = client;
+
+        // Setup authentications (key: authentication name, value: authentication).
+        // Prevent the authentications from being modified.
+        authentications = Collections.unmodifiableMap(authentications);
+    }
+
     private void initHttpClient() {
         initHttpClient(Collections.<Interceptor>emptyList());
     }

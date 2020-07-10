@@ -38,7 +38,7 @@ module OpenapiClient
       {
         :'took' => :'Integer',
         :'timed_out' => :'Boolean',
-        :'hits' => :'Hash<String, SearchResponseHits>',
+        :'hits' => :'SearchResponseHits',
         :'profile' => :'Object'
       }
     end
@@ -73,9 +73,7 @@ module OpenapiClient
       end
 
       if attributes.key?(:'hits')
-        if (value = attributes[:'hits']).is_a?(Hash)
-          self.hits = value
-        end
+        self.hits = attributes[:'hits']
       end
 
       if attributes.key?(:'profile')

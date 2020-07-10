@@ -23,13 +23,13 @@ delete_document_request_t* instantiate_delete_document_request(int include_optio
   if (include_optional) {
     delete_document_request = delete_document_request_create(
       "0",
-      1,
+      56,
       0
     );
   } else {
     delete_document_request = delete_document_request_create(
       "0",
-      1,
+      56,
       0
     );
   }

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## bulk
 
-> SuccessResponse bulk(requestBody)
+> BulkResponse bulk(body)
 
 Bulk index operations
 
@@ -24,8 +24,8 @@ Bulk index operations
 import ManticoreSearchApi from 'manticore_search_api';
 
 let apiInstance = new ManticoreSearchApi.IndexApi();
-let requestBody = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}]; // [Object] | 
-apiInstance.bulk(requestBody, (error, data, response) => {
+let body = "body_example"; // String | 
+apiInstance.bulk(body, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -39,11 +39,11 @@ apiInstance.bulk(requestBody, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **requestBody** | [**[Object]**](Object.md)|  | 
+ **body** | **String**|  | 
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**BulkResponse**](BulkResponse.md)
 
 ### Authorization
 
@@ -57,7 +57,7 @@ No authorization required
 
 ## callDelete
 
-> SuccessResponse callDelete(deleteDocumentRequest)
+> DeleteResponse callDelete(deleteDocumentRequest)
 
 Delete a document in an index
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**DeleteResponse**](DeleteResponse.md)
 
 ### Authorization
 
@@ -186,7 +186,7 @@ No authorization required
 
 ## update
 
-> SuccessResponse update(updateDocumentRequest)
+> UpdateResponse update(updateDocumentRequest)
 
 Update a document in an index
 
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**UpdateResponse**](UpdateResponse.md)
 
 ### Authorization
 

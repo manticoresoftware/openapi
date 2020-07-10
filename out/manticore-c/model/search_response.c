@@ -8,7 +8,7 @@
 search_response_t *search_response_create(
     int took,
     int timed_out,
-    list_t* hits,
+    search_response_hits_t *hits,
     object_t *profile
     ) {
     search_response_t *search_response_local_var = malloc(sizeof(search_response_t));
@@ -29,12 +29,7 @@ void search_response_free(search_response_t *search_response) {
         return ;
     }
     listEntry_t *listEntry;
-    list_ForEach(listEntry, search_response->hits) {
-        keyValuePair_t *localKeyValue = (keyValuePair_t*) listEntry->data;
-        free (localKeyValue->key);
-        free (localKeyValue->value);
-    }
-    list_free(search_response->hits);
+    search_response_hits_free(search_response->hits);
     object_free(search_response->profile);
     free(search_response);
 }
@@ -60,16 +55,13 @@ cJSON *search_response_convertToJSON(search_response_t *search_response) {
 
     // search_response->hits
     if(search_response->hits) { 
-    cJSON *hits = cJSON_AddObjectToObject(item, "hits");
-    if(hits == NULL) {
-        goto fail; //primitive map container
+    cJSON *hits_local_JSON = search_response_hits_convertToJSON(search_response->hits);
+    if(hits_local_JSON == NULL) {
+    goto fail; //model
     }
-    cJSON *localMapObject = hits;
-    listEntry_t *hitsListEntry;
-    if (search_response->hits) {
-    list_ForEach(hitsListEntry, search_response->hits) {
-        keyValuePair_t *localKeyValue = (keyValuePair_t*)hitsListEntry->data;
-    }
+    cJSON_AddItemToObject(item, "hits", hits_local_JSON);
+    if(item->child == NULL) {
+    goto fail;
     }
      } 
 
@@ -118,19 +110,9 @@ search_response_t *search_response_parseFromJSON(cJSON *search_responseJSON){
 
     // search_response->hits
     cJSON *hits = cJSON_GetObjectItemCaseSensitive(search_responseJSON, "hits");
-    list_t *hitsList;
+    search_response_hits_t *hits_local_nonprim = NULL;
     if (hits) { 
-    cJSON *hits_local_map;
-    if(!cJSON_IsObject(hits)) {
-        goto end;//primitive map container
-    }
-    hitsList = list_create();
-    keyValuePair_t *localMapKeyPair;
-    cJSON_ArrayForEach(hits_local_map, hits)
-    {
-		cJSON *localMapObject = hits_local_map;
-        list_addElement(hitsList , localMapKeyPair);
-    }
+    hits_local_nonprim = search_response_hits_parseFromJSON(hits); //nonprimitive
     }
 
     // search_response->profile
@@ -144,7 +126,7 @@ search_response_t *search_response_parseFromJSON(cJSON *search_responseJSON){
     search_response_local_var = search_response_create (
         took ? took->valuedouble : 0,
         timed_out ? timed_out->valueint : 0,
-        hits ? hitsList : NULL,
+        hits ? hits_local_nonprim : NULL,
         profile ? profile_local_object : NULL
         );
 

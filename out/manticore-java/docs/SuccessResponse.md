@@ -7,10 +7,10 @@ Success response
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **String** |  | 
-**id** | **Long** |  | 
+**index** | **String** |  |  [optional]
+**id** | **Long** |  |  [optional]
 **created** | **Boolean** |  |  [optional]
-**result** | **String** |  | 
+**result** | **String** |  |  [optional]
 **found** | **Boolean** |  |  [optional]
 
 

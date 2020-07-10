@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## Sql
 
-> map[string]map[string]interface{} Sql(ctx, query, optional)
+> map[string]map[string]interface{} Sql(ctx, body)
 
 Perform SQL requests
 
@@ -20,18 +20,7 @@ Perform SQL requests
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**query** | **string**|  | 
- **optional** | ***SqlOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a SqlOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **mode** | **optional.String**|  | 
+**body** | **string**|  | 
 
 ### Return type
 
@@ -43,7 +32,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: text/plain
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

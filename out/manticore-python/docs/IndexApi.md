@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **bulk**
-> SuccessResponse bulk(request_body)
+> BulkResponse bulk(body)
 
 Bulk index operations
 
@@ -35,11 +35,11 @@ configuration = openapi_client.Configuration(
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.IndexApi(api_client)
-    request_body = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}] # list[object] | 
+    body = 'body_example' # str | 
 
     try:
         # Bulk index operations
-        api_response = api_instance.bulk(request_body)
+        api_response = api_instance.bulk(body)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling IndexApi->bulk: %s\n" % e)
@@ -49,11 +49,11 @@ with openapi_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request_body** | [**list[object]**](object.md)|  | 
+ **body** | **str**|  | 
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**BulkResponse**](BulkResponse.md)
 
 ### Authorization
 

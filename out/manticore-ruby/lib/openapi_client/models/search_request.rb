@@ -147,18 +147,6 @@ module OpenapiClient
         invalid_properties.push('invalid value for "query", query cannot be nil.')
       end
 
-      if !@limit.nil? && @limit < 0
-        invalid_properties.push('invalid value for "limit", must be greater than or equal to 0.')
-      end
-
-      if !@offset.nil? && @offset < 0
-        invalid_properties.push('invalid value for "offset", must be greater than or equal to 0.')
-      end
-
-      if !@max_matches.nil? && @max_matches < 0
-        invalid_properties.push('invalid value for "max_matches", must be greater than or equal to 0.')
-      end
-
       invalid_properties
     end
 
@@ -167,40 +155,7 @@ module OpenapiClient
     def valid?
       return false if @index.nil?
       return false if @query.nil?
-      return false if !@limit.nil? && @limit < 0
-      return false if !@offset.nil? && @offset < 0
-      return false if !@max_matches.nil? && @max_matches < 0
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] limit Value to be assigned
-    def limit=(limit)
-      if !limit.nil? && limit < 0
-        fail ArgumentError, 'invalid value for "limit", must be greater than or equal to 0.'
-      end
-
-      @limit = limit
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] offset Value to be assigned
-    def offset=(offset)
-      if !offset.nil? && offset < 0
-        fail ArgumentError, 'invalid value for "offset", must be greater than or equal to 0.'
-      end
-
-      @offset = offset
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] max_matches Value to be assigned
-    def max_matches=(max_matches)
-      if !max_matches.nil? && max_matches < 0
-        fail ArgumentError, 'invalid value for "max_matches", must be greater than or equal to 0.'
-      end
-
-      @max_matches = max_matches
     end
 
     # Checks equality by comparing each attribute.

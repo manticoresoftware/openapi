@@ -20,27 +20,25 @@ module OpenapiClient
       @api_client = api_client
     end
     # Perform SQL requests
-    # @param query [String] 
+    # @param body [String] 
     # @param [Hash] opts the optional parameters
-    # @option opts [String] :mode 
     # @return [Hash<String, Object>]
-    def sql(query, opts = {})
-      data, _status_code, _headers = sql_with_http_info(query, opts)
+    def sql(body, opts = {})
+      data, _status_code, _headers = sql_with_http_info(body, opts)
       data
     end
 
     # Perform SQL requests
-    # @param query [String] 
+    # @param body [String] 
     # @param [Hash] opts the optional parameters
-    # @option opts [String] :mode 
     # @return [Array<(Hash<String, Object>, Integer, Hash)>] Hash<String, Object> data, response status code and response headers
-    def sql_with_http_info(query, opts = {})
+    def sql_with_http_info(body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: UtilsApi.sql ...'
       end
-      # verify the required parameter 'query' is set
-      if @api_client.config.client_side_validation && query.nil?
-        fail ArgumentError, "Missing the required parameter 'query' when calling UtilsApi.sql"
+      # verify the required parameter 'body' is set
+      if @api_client.config.client_side_validation && body.nil?
+        fail ArgumentError, "Missing the required parameter 'body' when calling UtilsApi.sql"
       end
       # resource path
       local_var_path = '/sql'
@@ -53,15 +51,13 @@ module OpenapiClient
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
       # HTTP header 'Content-Type'
-      header_params['Content-Type'] = @api_client.select_header_content_type(['application/x-www-form-urlencoded'])
+      header_params['Content-Type'] = @api_client.select_header_content_type(['text/plain'])
 
       # form parameters
       form_params = opts[:form_params] || {}
-      form_params['query'] = query
-      form_params['mode'] = opts[:'mode'] if !opts[:'mode'].nil?
 
       # http body (model)
-      post_body = opts[:body] 
+      post_body = opts[:body] || @api_client.object_to_http_body(body) 
 
       # return_type
       return_type = opts[:return_type] || 'Hash<String, Object>' 

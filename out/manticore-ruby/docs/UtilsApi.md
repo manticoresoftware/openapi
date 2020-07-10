@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## sql
 
-> Hash&lt;String, Object&gt; sql(query, opts)
+> Hash&lt;String, Object&gt; sql(body)
 
 Perform SQL requests
 
@@ -21,14 +21,11 @@ Perform SQL requests
 require 'openapi_client'
 
 api_instance = OpenapiClient::UtilsApi.new
-query = 'query_example' # String | 
-opts = {
-  mode: 'mode_example' # String | 
-}
+body = 'body_example' # String | 
 
 begin
   #Perform SQL requests
-  result = api_instance.sql(query, opts)
+  result = api_instance.sql(body)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Exception when calling UtilsApi->sql: #{e}"
@@ -40,8 +37,7 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **String**|  | 
- **mode** | **String**|  | [optional] 
+ **body** | **String**|  | 
 
 ### Return type
 
@@ -53,6 +49,6 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: text/plain
 - **Accept**: application/json
 

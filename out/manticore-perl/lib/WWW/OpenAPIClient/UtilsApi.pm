@@ -53,19 +53,13 @@ sub new {
 #
 # Perform SQL requests
 # 
-# @param string $query  (required)
-# @param string $mode  (optional)
+# @param string $body  (required)
 {
     my $params = {
-    'query' => {
+    'body' => {
         data_type => 'string',
         description => '',
         required => '1',
-    },
-    'mode' => {
-        data_type => 'string',
-        description => '',
-        required => '0',
     },
     };
     __PACKAGE__->method_documentation->{ 'sql' } = { 
@@ -79,9 +73,9 @@ sub new {
 sub sql {
     my ($self, %args) = @_;
 
-    # verify the required parameter 'query' is set
-    unless (exists $args{'query'}) {
-      croak("Missing the required parameter 'query' when calling sql");
+    # verify the required parameter 'body' is set
+    unless (exists $args{'body'}) {
+      croak("Missing the required parameter 'body' when calling sql");
     }
 
     # parse inputs
@@ -97,19 +91,14 @@ sub sql {
     if ($_header_accept) {
         $header_params->{'Accept'} = $_header_accept;
     }
-    $header_params->{'Content-Type'} = $self->{api_client}->select_header_content_type('application/x-www-form-urlencoded');
+    $header_params->{'Content-Type'} = $self->{api_client}->select_header_content_type('text/plain');
 
-    # form params
-    if ( exists $args{'query'} ) {
-                $form_params->{'query'} = $self->{api_client}->to_form_value($args{'query'});
-    }
-    
-    # form params
-    if ( exists $args{'mode'} ) {
-                $form_params->{'mode'} = $self->{api_client}->to_form_value($args{'mode'});
-    }
-    
     my $_body_data;
+    # body params
+    if ( exists $args{'body'}) {
+        $_body_data = $args{'body'};
+    }
+
     # authentication setting, if any
     my $auth_settings = [qw()];
 

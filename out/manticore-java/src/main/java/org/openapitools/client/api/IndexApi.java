@@ -27,11 +27,14 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import org.openapitools.client.model.BulkResponse;
 import org.openapitools.client.model.DeleteDocumentRequest;
+import org.openapitools.client.model.DeleteResponse;
 import org.openapitools.client.model.ErrorResponse;
 import org.openapitools.client.model.InsertDocumentRequest;
 import org.openapitools.client.model.SuccessResponse;
 import org.openapitools.client.model.UpdateDocumentRequest;
+import org.openapitools.client.model.UpdateResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -60,7 +63,7 @@ public class IndexApi {
 
     /**
      * Build call for bulk
-     * @param requestBody  (required)
+     * @param body  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -73,8 +76,8 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Bulk index operations Documentation</a>
      */
-    public okhttp3.Call bulkCall(List<Object> requestBody, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = requestBody;
+    public okhttp3.Call bulkCall(String body, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = body;
 
         // create path and map variables
         String localVarPath = "/json/bulk";
@@ -103,15 +106,15 @@ public class IndexApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call bulkValidateBeforeCall(List<Object> requestBody, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call bulkValidateBeforeCall(String body, final ApiCallback _callback) throws ApiException {
         
-        // verify the required parameter 'requestBody' is set
-        if (requestBody == null) {
-            throw new ApiException("Missing the required parameter 'requestBody' when calling bulk(Async)");
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling bulk(Async)");
         }
         
 
-        okhttp3.Call localVarCall = bulkCall(requestBody, _callback);
+        okhttp3.Call localVarCall = bulkCall(body, _callback);
         return localVarCall;
 
     }
@@ -119,8 +122,8 @@ public class IndexApi {
     /**
      * Bulk index operations
      * 
-     * @param requestBody  (required)
-     * @return SuccessResponse
+     * @param body  (required)
+     * @return BulkResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -131,16 +134,16 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Bulk index operations Documentation</a>
      */
-    public SuccessResponse bulk(List<Object> requestBody) throws ApiException {
-        ApiResponse<SuccessResponse> localVarResp = bulkWithHttpInfo(requestBody);
+    public BulkResponse bulk(String body) throws ApiException {
+        ApiResponse<BulkResponse> localVarResp = bulkWithHttpInfo(body);
         return localVarResp.getData();
     }
 
     /**
      * Bulk index operations
      * 
-     * @param requestBody  (required)
-     * @return ApiResponse&lt;SuccessResponse&gt;
+     * @param body  (required)
+     * @return ApiResponse&lt;BulkResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -151,16 +154,16 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Bulk index operations Documentation</a>
      */
-    public ApiResponse<SuccessResponse> bulkWithHttpInfo(List<Object> requestBody) throws ApiException {
-        okhttp3.Call localVarCall = bulkValidateBeforeCall(requestBody, null);
-        Type localVarReturnType = new TypeToken<SuccessResponse>(){}.getType();
+    public ApiResponse<BulkResponse> bulkWithHttpInfo(String body) throws ApiException {
+        okhttp3.Call localVarCall = bulkValidateBeforeCall(body, null);
+        Type localVarReturnType = new TypeToken<BulkResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Bulk index operations (asynchronously)
      * 
-     * @param requestBody  (required)
+     * @param body  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -173,10 +176,10 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Bulk index operations Documentation</a>
      */
-    public okhttp3.Call bulkAsync(List<Object> requestBody, final ApiCallback<SuccessResponse> _callback) throws ApiException {
+    public okhttp3.Call bulkAsync(String body, final ApiCallback<BulkResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = bulkValidateBeforeCall(requestBody, _callback);
-        Type localVarReturnType = new TypeToken<SuccessResponse>(){}.getType();
+        okhttp3.Call localVarCall = bulkValidateBeforeCall(body, _callback);
+        Type localVarReturnType = new TypeToken<BulkResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -242,7 +245,7 @@ public class IndexApi {
      * Delete a document in an index
      * 
      * @param deleteDocumentRequest  (required)
-     * @return SuccessResponse
+     * @return DeleteResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -253,8 +256,8 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Delete a document in an index Documentation</a>
      */
-    public SuccessResponse delete(DeleteDocumentRequest deleteDocumentRequest) throws ApiException {
-        ApiResponse<SuccessResponse> localVarResp = deleteWithHttpInfo(deleteDocumentRequest);
+    public DeleteResponse delete(DeleteDocumentRequest deleteDocumentRequest) throws ApiException {
+        ApiResponse<DeleteResponse> localVarResp = deleteWithHttpInfo(deleteDocumentRequest);
         return localVarResp.getData();
     }
 
@@ -262,7 +265,7 @@ public class IndexApi {
      * Delete a document in an index
      * 
      * @param deleteDocumentRequest  (required)
-     * @return ApiResponse&lt;SuccessResponse&gt;
+     * @return ApiResponse&lt;DeleteResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -273,9 +276,9 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Delete a document in an index Documentation</a>
      */
-    public ApiResponse<SuccessResponse> deleteWithHttpInfo(DeleteDocumentRequest deleteDocumentRequest) throws ApiException {
+    public ApiResponse<DeleteResponse> deleteWithHttpInfo(DeleteDocumentRequest deleteDocumentRequest) throws ApiException {
         okhttp3.Call localVarCall = deleteValidateBeforeCall(deleteDocumentRequest, null);
-        Type localVarReturnType = new TypeToken<SuccessResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<DeleteResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -295,10 +298,10 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Delete a document in an index Documentation</a>
      */
-    public okhttp3.Call deleteAsync(DeleteDocumentRequest deleteDocumentRequest, final ApiCallback<SuccessResponse> _callback) throws ApiException {
+    public okhttp3.Call deleteAsync(DeleteDocumentRequest deleteDocumentRequest, final ApiCallback<DeleteResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteValidateBeforeCall(deleteDocumentRequest, _callback);
-        Type localVarReturnType = new TypeToken<SuccessResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<DeleteResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -608,7 +611,7 @@ public class IndexApi {
      * Update a document in an index
      * 
      * @param updateDocumentRequest  (required)
-     * @return SuccessResponse
+     * @return UpdateResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -619,8 +622,8 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Update a document in an index Documentation</a>
      */
-    public SuccessResponse update(UpdateDocumentRequest updateDocumentRequest) throws ApiException {
-        ApiResponse<SuccessResponse> localVarResp = updateWithHttpInfo(updateDocumentRequest);
+    public UpdateResponse update(UpdateDocumentRequest updateDocumentRequest) throws ApiException {
+        ApiResponse<UpdateResponse> localVarResp = updateWithHttpInfo(updateDocumentRequest);
         return localVarResp.getData();
     }
 
@@ -628,7 +631,7 @@ public class IndexApi {
      * Update a document in an index
      * 
      * @param updateDocumentRequest  (required)
-     * @return ApiResponse&lt;SuccessResponse&gt;
+     * @return ApiResponse&lt;UpdateResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -639,9 +642,9 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Update a document in an index Documentation</a>
      */
-    public ApiResponse<SuccessResponse> updateWithHttpInfo(UpdateDocumentRequest updateDocumentRequest) throws ApiException {
+    public ApiResponse<UpdateResponse> updateWithHttpInfo(UpdateDocumentRequest updateDocumentRequest) throws ApiException {
         okhttp3.Call localVarCall = updateValidateBeforeCall(updateDocumentRequest, null);
-        Type localVarReturnType = new TypeToken<SuccessResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<UpdateResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -661,10 +664,10 @@ public class IndexApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_update.html">Update a document in an index Documentation</a>
      */
-    public okhttp3.Call updateAsync(UpdateDocumentRequest updateDocumentRequest, final ApiCallback<SuccessResponse> _callback) throws ApiException {
+    public okhttp3.Call updateAsync(UpdateDocumentRequest updateDocumentRequest, final ApiCallback<UpdateResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updateValidateBeforeCall(updateDocumentRequest, _callback);
-        Type localVarReturnType = new TypeToken<SuccessResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<UpdateResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

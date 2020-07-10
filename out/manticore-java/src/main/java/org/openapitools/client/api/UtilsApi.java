@@ -56,8 +56,7 @@ public class UtilsApi {
 
     /**
      * Build call for sql
-     * @param query  (required)
-     * @param mode  (optional)
+     * @param body  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -70,8 +69,8 @@ public class UtilsApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/httpapi_reference.html#sql-api">Perform SQL requests Documentation</a>
      */
-    public okhttp3.Call sqlCall(String query, String mode, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
+    public okhttp3.Call sqlCall(String body, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = body;
 
         // create path and map variables
         String localVarPath = "/sql";
@@ -81,14 +80,6 @@ public class UtilsApi {
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        if (query != null) {
-            localVarFormParams.put("query", query);
-        }
-
-        if (mode != null) {
-            localVarFormParams.put("mode", mode);
-        }
-
         final String[] localVarAccepts = {
             "application/json"
         };
@@ -98,7 +89,7 @@ public class UtilsApi {
         }
 
         final String[] localVarContentTypes = {
-            "application/x-www-form-urlencoded"
+            "text/plain"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -108,15 +99,15 @@ public class UtilsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call sqlValidateBeforeCall(String query, String mode, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call sqlValidateBeforeCall(String body, final ApiCallback _callback) throws ApiException {
         
-        // verify the required parameter 'query' is set
-        if (query == null) {
-            throw new ApiException("Missing the required parameter 'query' when calling sql(Async)");
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling sql(Async)");
         }
         
 
-        okhttp3.Call localVarCall = sqlCall(query, mode, _callback);
+        okhttp3.Call localVarCall = sqlCall(body, _callback);
         return localVarCall;
 
     }
@@ -124,8 +115,7 @@ public class UtilsApi {
     /**
      * Perform SQL requests
      * 
-     * @param query  (required)
-     * @param mode  (optional)
+     * @param body  (required)
      * @return Map&lt;String, Object&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -137,16 +127,15 @@ public class UtilsApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/httpapi_reference.html#sql-api">Perform SQL requests Documentation</a>
      */
-    public Map<String, Object> sql(String query, String mode) throws ApiException {
-        ApiResponse<Map<String, Object>> localVarResp = sqlWithHttpInfo(query, mode);
+    public Map<String, Object> sql(String body) throws ApiException {
+        ApiResponse<Map<String, Object>> localVarResp = sqlWithHttpInfo(body);
         return localVarResp.getData();
     }
 
     /**
      * Perform SQL requests
      * 
-     * @param query  (required)
-     * @param mode  (optional)
+     * @param body  (required)
      * @return ApiResponse&lt;Map&lt;String, Object&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -158,8 +147,8 @@ public class UtilsApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/httpapi_reference.html#sql-api">Perform SQL requests Documentation</a>
      */
-    public ApiResponse<Map<String, Object>> sqlWithHttpInfo(String query, String mode) throws ApiException {
-        okhttp3.Call localVarCall = sqlValidateBeforeCall(query, mode, null);
+    public ApiResponse<Map<String, Object>> sqlWithHttpInfo(String body) throws ApiException {
+        okhttp3.Call localVarCall = sqlValidateBeforeCall(body, null);
         Type localVarReturnType = new TypeToken<Map<String, Object>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -167,8 +156,7 @@ public class UtilsApi {
     /**
      * Perform SQL requests (asynchronously)
      * 
-     * @param query  (required)
-     * @param mode  (optional)
+     * @param body  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -181,9 +169,9 @@ public class UtilsApi {
      * 
      * @see <a href="https://docs.manticoresearch.com/latest/html/httpapi_reference.html#sql-api">Perform SQL requests Documentation</a>
      */
-    public okhttp3.Call sqlAsync(String query, String mode, final ApiCallback<Map<String, Object>> _callback) throws ApiException {
+    public okhttp3.Call sqlAsync(String body, final ApiCallback<Map<String, Object>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = sqlValidateBeforeCall(query, mode, _callback);
+        okhttp3.Call localVarCall = sqlValidateBeforeCall(body, _callback);
         Type localVarReturnType = new TypeToken<Map<String, Object>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

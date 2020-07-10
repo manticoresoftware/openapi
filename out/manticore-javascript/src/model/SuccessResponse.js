@@ -23,13 +23,10 @@ class SuccessResponse {
      * Constructs a new <code>SuccessResponse</code>.
      * Success response
      * @alias module:model/SuccessResponse
-     * @param index {String} 
-     * @param id {Number} 
-     * @param result {String} 
      */
-    constructor(index, id, result) { 
+    constructor() { 
         
-        SuccessResponse.initialize(this, index, id, result);
+        SuccessResponse.initialize(this);
     }
 
     /**
@@ -37,10 +34,7 @@ class SuccessResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, index, id, result) { 
-        obj['_index'] = index;
-        obj['_id'] = id;
-        obj['result'] = result;
+    static initialize(obj) { 
     }
 
     /**

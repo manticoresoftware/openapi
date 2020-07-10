@@ -59,11 +59,11 @@ Please follow the [installation](#installation) procedure and then run the follo
 require 'openapi_client'
 
 api_instance = OpenapiClient::IndexApi.new
-request_body = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}] # Array<Object> | 
+body = 'body_example' # String | 
 
 begin
   #Bulk index operations
-  result = api_instance.bulk(request_body)
+  result = api_instance.bulk(body)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Exception when calling IndexApi->bulk: #{e}"
@@ -89,9 +89,10 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
+ - [OpenapiClient::BulkResponse](docs/BulkResponse.md)
  - [OpenapiClient::DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
+ - [OpenapiClient::DeleteResponse](docs/DeleteResponse.md)
  - [OpenapiClient::ErrorResponse](docs/ErrorResponse.md)
- - [OpenapiClient::InlineObject](docs/InlineObject.md)
  - [OpenapiClient::InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [OpenapiClient::PercolateRequest](docs/PercolateRequest.md)
  - [OpenapiClient::SearchRequest](docs/SearchRequest.md)
@@ -99,6 +100,7 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::SearchResponseHits](docs/SearchResponseHits.md)
  - [OpenapiClient::SuccessResponse](docs/SuccessResponse.md)
  - [OpenapiClient::UpdateDocumentRequest](docs/UpdateDocumentRequest.md)
+ - [OpenapiClient::UpdateResponse](docs/UpdateResponse.md)
 
 
 ## Documentation for Authorization

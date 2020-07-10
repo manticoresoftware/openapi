@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **sql**
-> HASH[string,object] sql(query => $query, mode => $mode)
+> HASH[string,object] sql(body => $body)
 
 Perform SQL requests
 
@@ -24,11 +24,10 @@ use WWW::OpenAPIClient::UtilsApi;
 my $api_instance = WWW::OpenAPIClient::UtilsApi->new(
 );
 
-my $query = "query_example"; # string | 
-my $mode = "mode_example"; # string | 
+my $body = WWW::OpenAPIClient::Object::string->new(); # string | 
 
 eval { 
-    my $result = $api_instance->sql(query => $query, mode => $mode);
+    my $result = $api_instance->sql(body => $body);
     print Dumper($result);
 };
 if ($@) {
@@ -40,8 +39,7 @@ if ($@) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **string**|  | 
- **mode** | **string**|  | [optional] 
+ **body** | **string**|  | 
 
 ### Return type
 
@@ -53,7 +51,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/x-www-form-urlencoded
+ - **Content-Type**: text/plain
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

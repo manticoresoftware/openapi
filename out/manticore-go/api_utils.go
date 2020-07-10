@@ -15,7 +15,6 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -26,20 +25,13 @@ var (
 // UtilsApiService UtilsApi service
 type UtilsApiService service
 
-// SqlOpts Optional parameters for the method 'Sql'
-type SqlOpts struct {
-    Mode optional.String
-}
-
 /*
 Sql Perform SQL requests
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param query
- * @param optional nil or *SqlOpts - Optional Parameters:
- * @param "Mode" (optional.String) - 
+ * @param body
 @return map[string]map[string]interface{}
 */
-func (a *UtilsApiService) Sql(ctx _context.Context, query string, localVarOptionals *SqlOpts) (map[string]map[string]interface{}, *_nethttp.Response, error) {
+func (a *UtilsApiService) Sql(ctx _context.Context, body string) (map[string]map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -56,7 +48,7 @@ func (a *UtilsApiService) Sql(ctx _context.Context, query string, localVarOption
 	localVarFormParams := _neturl.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"text/plain"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -72,10 +64,8 @@ func (a *UtilsApiService) Sql(ctx _context.Context, query string, localVarOption
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	localVarFormParams.Add("query", parameterToString(query, ""))
-	if localVarOptionals != nil && localVarOptionals.Mode.IsSet() {
-		localVarFormParams.Add("mode", parameterToString(localVarOptionals.Mode.Value(), ""))
-	}
+	// body params
+	localVarPostBody = &body
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

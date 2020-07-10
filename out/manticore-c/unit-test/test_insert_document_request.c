@@ -23,13 +23,13 @@ insert_document_request_t* instantiate_insert_document_request(int include_optio
   if (include_optional) {
     insert_document_request = insert_document_request_create(
       "0",
-      1,
+      56,
       list_create()
     );
   } else {
     insert_document_request = insert_document_request_create(
       "0",
-      1,
+      56,
       list_create()
     );
   }

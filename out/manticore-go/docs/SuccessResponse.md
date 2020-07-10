@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Index** | **string** |  | 
-**Id** | **int64** |  | 
+**Index** | **string** |  | [optional] 
+**Id** | **int64** |  | [optional] 
 **Created** | **bool** |  | [optional] 
-**Result** | **string** |  | 
+**Result** | **string** |  | [optional] 
 **Found** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

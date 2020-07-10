@@ -16,6 +16,7 @@
 #include "../model/search_response.h"
 search_response_t* instantiate_search_response(int include_optional);
 
+#include "test_search_response_hits.c"
 
 
 search_response_t* instantiate_search_response(int include_optional) {

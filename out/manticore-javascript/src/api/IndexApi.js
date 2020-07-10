@@ -13,11 +13,14 @@
 
 
 import ApiClient from "../ApiClient";
+import BulkResponse from '../model/BulkResponse';
 import DeleteDocumentRequest from '../model/DeleteDocumentRequest';
+import DeleteResponse from '../model/DeleteResponse';
 import ErrorResponse from '../model/ErrorResponse';
 import InsertDocumentRequest from '../model/InsertDocumentRequest';
 import SuccessResponse from '../model/SuccessResponse';
 import UpdateDocumentRequest from '../model/UpdateDocumentRequest';
+import UpdateResponse from '../model/UpdateResponse';
 
 /**
 * Index service.
@@ -42,21 +45,21 @@ export default class IndexApi {
      * Callback function to receive the result of the bulk operation.
      * @callback module:api/IndexApi~bulkCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/SuccessResponse} data The data returned by the service call.
+     * @param {module:model/BulkResponse} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Bulk index operations
-     * @param {Array.<Object>} requestBody 
+     * @param {String} body 
      * @param {module:api/IndexApi~bulkCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/SuccessResponse}
+     * data is of type: {@link module:model/BulkResponse}
      */
-    bulk(requestBody, callback) {
-      let postBody = requestBody;
-      // verify the required parameter 'requestBody' is set
-      if (requestBody === undefined || requestBody === null) {
-        throw new Error("Missing the required parameter 'requestBody' when calling bulk");
+    bulk(body, callback) {
+      let postBody = body;
+      // verify the required parameter 'body' is set
+      if (body === undefined || body === null) {
+        throw new Error("Missing the required parameter 'body' when calling bulk");
       }
 
       let pathParams = {
@@ -71,7 +74,7 @@ export default class IndexApi {
       let authNames = [];
       let contentTypes = ['application/x-ndjson'];
       let accepts = ['application/json'];
-      let returnType = SuccessResponse;
+      let returnType = BulkResponse;
       return this.apiClient.callApi(
         '/json/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -83,7 +86,7 @@ export default class IndexApi {
      * Callback function to receive the result of the callDelete operation.
      * @callback module:api/IndexApi~callDeleteCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/SuccessResponse} data The data returned by the service call.
+     * @param {module:model/DeleteResponse} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -91,7 +94,7 @@ export default class IndexApi {
      * Delete a document in an index
      * @param {module:model/DeleteDocumentRequest} deleteDocumentRequest 
      * @param {module:api/IndexApi~callDeleteCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/SuccessResponse}
+     * data is of type: {@link module:model/DeleteResponse}
      */
     callDelete(deleteDocumentRequest, callback) {
       let postBody = deleteDocumentRequest;
@@ -112,7 +115,7 @@ export default class IndexApi {
       let authNames = [];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = SuccessResponse;
+      let returnType = DeleteResponse;
       return this.apiClient.callApi(
         '/json/delete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -206,7 +209,7 @@ export default class IndexApi {
      * Callback function to receive the result of the update operation.
      * @callback module:api/IndexApi~updateCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/SuccessResponse} data The data returned by the service call.
+     * @param {module:model/UpdateResponse} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -214,7 +217,7 @@ export default class IndexApi {
      * Update a document in an index
      * @param {module:model/UpdateDocumentRequest} updateDocumentRequest 
      * @param {module:api/IndexApi~updateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/SuccessResponse}
+     * data is of type: {@link module:model/UpdateResponse}
      */
     update(updateDocumentRequest, callback) {
       let postBody = updateDocumentRequest;
@@ -235,7 +238,7 @@ export default class IndexApi {
       let authNames = [];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = SuccessResponse;
+      let returnType = UpdateResponse;
       return this.apiClient.callApi(
         '/json/update', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,

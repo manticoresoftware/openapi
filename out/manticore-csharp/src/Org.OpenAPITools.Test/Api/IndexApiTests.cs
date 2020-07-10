@@ -70,9 +70,9 @@ namespace Org.OpenAPITools.Test
         public void BulkTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-            //List<Object> requestBody = null;
-            //var response = instance.Bulk(requestBody);
-            //Assert.IsInstanceOf(typeof(SuccessResponse), response, "response is SuccessResponse");
+            //string body = null;
+            //var response = instance.Bulk(body);
+            //Assert.IsInstanceOf(typeof(BulkResponse), response, "response is BulkResponse");
         }
         
         /// <summary>
@@ -84,7 +84,7 @@ namespace Org.OpenAPITools.Test
             // TODO uncomment below to test the method and replace null with proper value
             //DeleteDocumentRequest deleteDocumentRequest = null;
             //var response = instance.Delete(deleteDocumentRequest);
-            //Assert.IsInstanceOf(typeof(SuccessResponse), response, "response is SuccessResponse");
+            //Assert.IsInstanceOf(typeof(DeleteResponse), response, "response is DeleteResponse");
         }
         
         /// <summary>
@@ -120,7 +120,7 @@ namespace Org.OpenAPITools.Test
             // TODO uncomment below to test the method and replace null with proper value
             //UpdateDocumentRequest updateDocumentRequest = null;
             //var response = instance.Update(updateDocumentRequest);
-            //Assert.IsInstanceOf(typeof(SuccessResponse), response, "response is SuccessResponse");
+            //Assert.IsInstanceOf(typeof(UpdateResponse), response, "response is UpdateResponse");
         }
         
     }

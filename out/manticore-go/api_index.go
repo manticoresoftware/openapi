@@ -28,17 +28,17 @@ type IndexApiService service
 /*
 Bulk Bulk index operations
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param requestBody
-@return SuccessResponse
+ * @param body
+@return BulkResponse
 */
-func (a *IndexApiService) Bulk(ctx _context.Context, requestBody []map[string]interface{}) (SuccessResponse, *_nethttp.Response, error) {
+func (a *IndexApiService) Bulk(ctx _context.Context, body string) (BulkResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SuccessResponse
+		localVarReturnValue  BulkResponse
 	)
 
 	// create path and map variables
@@ -65,7 +65,7 @@ func (a *IndexApiService) Bulk(ctx _context.Context, requestBody []map[string]in
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &requestBody
+	localVarPostBody = &body
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -113,16 +113,16 @@ func (a *IndexApiService) Bulk(ctx _context.Context, requestBody []map[string]in
 Delete Delete a document in an index
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param deleteDocumentRequest
-@return SuccessResponse
+@return DeleteResponse
 */
-func (a *IndexApiService) Delete(ctx _context.Context, deleteDocumentRequest DeleteDocumentRequest) (SuccessResponse, *_nethttp.Response, error) {
+func (a *IndexApiService) Delete(ctx _context.Context, deleteDocumentRequest DeleteDocumentRequest) (DeleteResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SuccessResponse
+		localVarReturnValue  DeleteResponse
 	)
 
 	// create path and map variables
@@ -365,16 +365,16 @@ func (a *IndexApiService) Replace(ctx _context.Context, insertDocumentRequest In
 Update Update a document in an index
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param updateDocumentRequest
-@return SuccessResponse
+@return UpdateResponse
 */
-func (a *IndexApiService) Update(ctx _context.Context, updateDocumentRequest UpdateDocumentRequest) (SuccessResponse, *_nethttp.Response, error) {
+func (a *IndexApiService) Update(ctx _context.Context, updateDocumentRequest UpdateDocumentRequest) (UpdateResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SuccessResponse
+		localVarReturnValue  UpdateResponse
 	)
 
 	// create path and map variables

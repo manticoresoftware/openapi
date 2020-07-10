@@ -2,7 +2,7 @@
 /**
  * SuccessResponse
  *
- * PHP version 7.1
+ * PHP version 7.2
  *
  * @category Class
  * @package  OpenAPI\Client
@@ -214,15 +214,6 @@ class SuccessResponse implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['_index'] === null) {
-            $invalidProperties[] = "'_index' can't be null";
-        }
-        if ($this->container['_id'] === null) {
-            $invalidProperties[] = "'_id' can't be null";
-        }
-        if ($this->container['result'] === null) {
-            $invalidProperties[] = "'result' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -241,7 +232,7 @@ class SuccessResponse implements ModelInterface, ArrayAccess
     /**
      * Gets _index
      *
-     * @return string
+     * @return string|null
      */
     public function getIndex()
     {
@@ -251,7 +242,7 @@ class SuccessResponse implements ModelInterface, ArrayAccess
     /**
      * Sets _index
      *
-     * @param string $_index _index
+     * @param string|null $_index _index
      *
      * @return $this
      */
@@ -265,7 +256,7 @@ class SuccessResponse implements ModelInterface, ArrayAccess
     /**
      * Gets _id
      *
-     * @return int
+     * @return int|null
      */
     public function getId()
     {
@@ -275,7 +266,7 @@ class SuccessResponse implements ModelInterface, ArrayAccess
     /**
      * Sets _id
      *
-     * @param int $_id _id
+     * @param int|null $_id _id
      *
      * @return $this
      */
@@ -313,7 +304,7 @@ class SuccessResponse implements ModelInterface, ArrayAccess
     /**
      * Gets result
      *
-     * @return string
+     * @return string|null
      */
     public function getResult()
     {
@@ -323,7 +314,7 @@ class SuccessResponse implements ModelInterface, ArrayAccess
     /**
      * Sets result
      *
-     * @param string $result result
+     * @param string|null $result result
      *
      * @return $this
      */

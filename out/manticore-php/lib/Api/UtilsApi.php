@@ -1,7 +1,7 @@
 <?php
 /**
  * UtilsApi
- * PHP version 7.1
+ * PHP version 7.2
  *
  * @category Class
  * @package  OpenAPI\Client
@@ -120,16 +120,15 @@ class UtilsApi
      *
      * Perform SQL requests
      *
-     * @param  string $query query (required)
-     * @param  string $mode mode (optional)
+     * @param  string $body body (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return map[string,object]|\OpenAPI\Client\Model\ErrorResponse
      */
-    public function sql($query, $mode = null)
+    public function sql($body)
     {
-        list($response) = $this->sqlWithHttpInfo($query, $mode);
+        list($response) = $this->sqlWithHttpInfo($body);
         return $response;
     }
 
@@ -138,16 +137,15 @@ class UtilsApi
      *
      * Perform SQL requests
      *
-     * @param  string $query (required)
-     * @param  string $mode (optional)
+     * @param  string $body (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of map[string,object]|\OpenAPI\Client\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sqlWithHttpInfo($query, $mode = null)
+    public function sqlWithHttpInfo($body)
     {
-        $request = $this->sqlRequest($query, $mode);
+        $request = $this->sqlRequest($body);
 
         try {
             $options = $this->createHttpClientOption();
@@ -247,15 +245,14 @@ class UtilsApi
      *
      * Perform SQL requests
      *
-     * @param  string $query (required)
-     * @param  string $mode (optional)
+     * @param  string $body (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sqlAsync($query, $mode = null)
+    public function sqlAsync($body)
     {
-        return $this->sqlAsyncWithHttpInfo($query, $mode)
+        return $this->sqlAsyncWithHttpInfo($body)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -268,16 +265,15 @@ class UtilsApi
      *
      * Perform SQL requests
      *
-     * @param  string $query (required)
-     * @param  string $mode (optional)
+     * @param  string $body (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sqlAsyncWithHttpInfo($query, $mode = null)
+    public function sqlAsyncWithHttpInfo($body)
     {
         $returnType = 'map[string,object]';
-        $request = $this->sqlRequest($query, $mode);
+        $request = $this->sqlRequest($body);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -316,18 +312,17 @@ class UtilsApi
     /**
      * Create request for operation 'sql'
      *
-     * @param  string $query (required)
-     * @param  string $mode (optional)
+     * @param  string $body (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function sqlRequest($query, $mode = null)
+    protected function sqlRequest($body)
     {
-        // verify the required parameter 'query' is set
-        if ($query === null || (is_array($query) && count($query) === 0)) {
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $query when calling sql'
+                'Missing the required parameter $body when calling sql'
             );
         }
 
@@ -341,16 +336,11 @@ class UtilsApi
 
 
 
-        // form params
-        if ($query !== null) {
-            $formParams['query'] = ObjectSerializer::toFormValue($query);
-        }
-        // form params
-        if ($mode !== null) {
-            $formParams['mode'] = ObjectSerializer::toFormValue($mode);
-        }
         // body params
         $_tempBody = null;
+        if (isset($body)) {
+            $_tempBody = $body;
+        }
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
@@ -359,7 +349,7 @@ class UtilsApi
         } else {
             $headers = $this->headerSelector->selectHeaders(
                 ['application/json'],
-                ['application/x-www-form-urlencoded']
+                ['text/plain']
             );
         }
 

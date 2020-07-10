@@ -14,11 +14,14 @@
 package org.openapitools.client.api;
 
 import org.openapitools.client.ApiException;
+import org.openapitools.client.model.BulkResponse;
 import org.openapitools.client.model.DeleteDocumentRequest;
+import org.openapitools.client.model.DeleteResponse;
 import org.openapitools.client.model.ErrorResponse;
 import org.openapitools.client.model.InsertDocumentRequest;
 import org.openapitools.client.model.SuccessResponse;
 import org.openapitools.client.model.UpdateDocumentRequest;
+import org.openapitools.client.model.UpdateResponse;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -46,8 +49,8 @@ public class IndexApiTest {
      */
     @Test
     public void bulkTest() throws ApiException {
-        List<Object> requestBody = null;
-        SuccessResponse response = api.bulk(requestBody);
+        String body = null;
+        BulkResponse response = api.bulk(body);
 
         // TODO: test validations
     }
@@ -63,7 +66,7 @@ public class IndexApiTest {
     @Test
     public void deleteTest() throws ApiException {
         DeleteDocumentRequest deleteDocumentRequest = null;
-        SuccessResponse response = api.delete(deleteDocumentRequest);
+        DeleteResponse response = api.delete(deleteDocumentRequest);
 
         // TODO: test validations
     }
@@ -111,7 +114,7 @@ public class IndexApiTest {
     @Test
     public void updateTest() throws ApiException {
         UpdateDocumentRequest updateDocumentRequest = null;
-        SuccessResponse response = api.update(updateDocumentRequest);
+        UpdateResponse response = api.update(updateDocumentRequest);
 
         // TODO: test validations
     }

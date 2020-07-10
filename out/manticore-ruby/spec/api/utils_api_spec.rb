@@ -34,9 +34,8 @@ describe 'UtilsApi' do
 
   # unit tests for sql
   # Perform SQL requests
-  # @param query 
+  # @param body 
   # @param [Hash] opts the optional parameters
-  # @option opts [String] :mode 
   # @return [Hash<String, Object>]
   describe 'sql test' do
     it 'should work' do

@@ -5,23 +5,25 @@
 #include "../external/cJSON.h"
 #include "../include/keyValuePair.h"
 #include "../include/binary.h"
+#include "../model/bulk_response.h"
 #include "../model/delete_document_request.h"
+#include "../model/delete_response.h"
 #include "../model/error_response.h"
 #include "../model/insert_document_request.h"
-#include "../model/object.h"
 #include "../model/success_response.h"
 #include "../model/update_document_request.h"
+#include "../model/update_response.h"
 
 
 // Bulk index operations
 //
-success_response_t*
-IndexAPI_bulk(apiClient_t *apiClient, list_t * request_body );
+bulk_response_t*
+IndexAPI_bulk(apiClient_t *apiClient, char * body );
 
 
 // Delete a document in an index
 //
-success_response_t*
+delete_response_t*
 IndexAPI_delete(apiClient_t *apiClient, delete_document_request_t * delete_document_request );
 
 
@@ -39,7 +41,7 @@ IndexAPI_replace(apiClient_t *apiClient, insert_document_request_t * insert_docu
 
 // Update a document in an index
 //
-success_response_t*
+update_response_t*
 IndexAPI_update(apiClient_t *apiClient, update_document_request_t * update_document_request );
 
 

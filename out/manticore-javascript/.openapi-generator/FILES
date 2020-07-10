@@ -2,10 +2,11 @@
 .openapi-generator-ignore
 .travis.yml
 README.md
+docs/BulkResponse.md
 docs/DeleteDocumentRequest.md
+docs/DeleteResponse.md
 docs/ErrorResponse.md
 docs/IndexApi.md
-docs/InlineObject.md
 docs/InsertDocumentRequest.md
 docs/PercolateRequest.md
 docs/SearchApi.md
@@ -14,6 +15,7 @@ docs/SearchResponse.md
 docs/SearchResponseHits.md
 docs/SuccessResponse.md
 docs/UpdateDocumentRequest.md
+docs/UpdateResponse.md
 docs/UtilsApi.md
 git_push.sh
 mocha.opts
@@ -23,9 +25,10 @@ src/api/IndexApi.js
 src/api/SearchApi.js
 src/api/UtilsApi.js
 src/index.js
+src/model/BulkResponse.js
 src/model/DeleteDocumentRequest.js
+src/model/DeleteResponse.js
 src/model/ErrorResponse.js
-src/model/InlineObject.js
 src/model/InsertDocumentRequest.js
 src/model/PercolateRequest.js
 src/model/SearchRequest.js
@@ -33,12 +36,14 @@ src/model/SearchResponse.js
 src/model/SearchResponseHits.js
 src/model/SuccessResponse.js
 src/model/UpdateDocumentRequest.js
+src/model/UpdateResponse.js
 test/api/IndexApi.spec.js
 test/api/SearchApi.spec.js
 test/api/UtilsApi.spec.js
+test/model/BulkResponse.spec.js
 test/model/DeleteDocumentRequest.spec.js
+test/model/DeleteResponse.spec.js
 test/model/ErrorResponse.spec.js
-test/model/InlineObject.spec.js
 test/model/InsertDocumentRequest.spec.js
 test/model/PercolateRequest.spec.js
 test/model/SearchRequest.spec.js
@@ -46,3 +51,4 @@ test/model/SearchResponse.spec.js
 test/model/SearchResponseHits.spec.js
 test/model/SuccessResponse.spec.js
 test/model/UpdateDocumentRequest.spec.js
+test/model/UpdateResponse.spec.js

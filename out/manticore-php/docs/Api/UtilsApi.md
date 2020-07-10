@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## sql
 
-> map[string,object] sql($query, $mode)
+> map[string,object] sql($body)
 
 Perform SQL requests
 
@@ -26,11 +26,10 @@ $apiInstance = new OpenAPI\Client\Api\UtilsApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$query = 'query_example'; // string | 
-$mode = 'mode_example'; // string | 
+$body = 'body_example'; // string | 
 
 try {
-    $result = $apiInstance->sql($query, $mode);
+    $result = $apiInstance->sql($body);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling UtilsApi->sql: ', $e->getMessage(), PHP_EOL;
@@ -43,8 +42,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **string**|  |
- **mode** | **string**|  | [optional]
+ **body** | **string**|  |
 
 ### Return type
 
@@ -56,7 +54,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: text/plain
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints)

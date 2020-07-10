@@ -46,9 +46,10 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [BulkResponse](docs/BulkResponse.md)
  - [DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
+ - [DeleteResponse](docs/DeleteResponse.md)
  - [ErrorResponse](docs/ErrorResponse.md)
- - [InlineObject](docs/InlineObject.md)
  - [InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [PercolateRequest](docs/PercolateRequest.md)
  - [SearchRequest](docs/SearchRequest.md)
@@ -56,6 +57,7 @@ Class | Method | HTTP request | Description
  - [SearchResponseHits](docs/SearchResponseHits.md)
  - [SuccessResponse](docs/SuccessResponse.md)
  - [UpdateDocumentRequest](docs/UpdateDocumentRequest.md)
+ - [UpdateResponse](docs/UpdateResponse.md)
 
 
 ## Documentation For Authorization

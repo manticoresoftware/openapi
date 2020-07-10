@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Index** | **string** |  | 
-**Id** | **long** |  | 
+**Index** | **string** |  | [optional] 
+**Id** | **long** |  | [optional] 
 **Created** | **bool** |  | [optional] 
-**Result** | **string** |  | 
+**Result** | **string** |  | [optional] 
 **Found** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -38,9 +38,10 @@ set(SRCS
     src/binary.c
     external/cJSON.c
     model/object.c
+    model/bulk_response.c
     model/delete_document_request.c
+    model/delete_response.c
     model/error_response.c
-    model/inline_object.c
     model/insert_document_request.c
     model/percolate_request.c
     model/search_request.c
@@ -48,6 +49,7 @@ set(SRCS
     model/search_response_hits.c
     model/success_response.c
     model/update_document_request.c
+    model/update_response.c
     api/IndexAPI.c
     api/SearchAPI.c
     api/UtilsAPI.c
@@ -61,9 +63,10 @@ set(HDRS
     include/keyValuePair.h
     external/cJSON.h
     model/object.h
+    model/bulk_response.h
     model/delete_document_request.h
+    model/delete_response.h
     model/error_response.h
-    model/inline_object.h
     model/insert_document_request.h
     model/percolate_request.h
     model/search_request.h
@@ -71,6 +74,7 @@ set(HDRS
     model/search_response_hits.h
     model/success_response.h
     model/update_document_request.h
+    model/update_response.h
     api/IndexAPI.h
     api/SearchAPI.h
     api/UtilsAPI.h

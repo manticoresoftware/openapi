@@ -231,9 +231,10 @@ use WWW::OpenAPIClient::UtilsApi;
 
 To load the models:
 ```perl
+use WWW::OpenAPIClient::Object::BulkResponse;
 use WWW::OpenAPIClient::Object::DeleteDocumentRequest;
+use WWW::OpenAPIClient::Object::DeleteResponse;
 use WWW::OpenAPIClient::Object::ErrorResponse;
-use WWW::OpenAPIClient::Object::InlineObject;
 use WWW::OpenAPIClient::Object::InsertDocumentRequest;
 use WWW::OpenAPIClient::Object::PercolateRequest;
 use WWW::OpenAPIClient::Object::SearchRequest;
@@ -241,6 +242,7 @@ use WWW::OpenAPIClient::Object::SearchResponse;
 use WWW::OpenAPIClient::Object::SearchResponseHits;
 use WWW::OpenAPIClient::Object::SuccessResponse;
 use WWW::OpenAPIClient::Object::UpdateDocumentRequest;
+use WWW::OpenAPIClient::Object::UpdateResponse;
 
 ````
 
@@ -257,9 +259,10 @@ use WWW::OpenAPIClient::SearchApi;
 use WWW::OpenAPIClient::UtilsApi;
 
 # load the models
+use WWW::OpenAPIClient::Object::BulkResponse;
 use WWW::OpenAPIClient::Object::DeleteDocumentRequest;
+use WWW::OpenAPIClient::Object::DeleteResponse;
 use WWW::OpenAPIClient::Object::ErrorResponse;
-use WWW::OpenAPIClient::Object::InlineObject;
 use WWW::OpenAPIClient::Object::InsertDocumentRequest;
 use WWW::OpenAPIClient::Object::PercolateRequest;
 use WWW::OpenAPIClient::Object::SearchRequest;
@@ -267,6 +270,7 @@ use WWW::OpenAPIClient::Object::SearchResponse;
 use WWW::OpenAPIClient::Object::SearchResponseHits;
 use WWW::OpenAPIClient::Object::SuccessResponse;
 use WWW::OpenAPIClient::Object::UpdateDocumentRequest;
+use WWW::OpenAPIClient::Object::UpdateResponse;
 
 # for displaying the API response data
 use Data::Dumper;
@@ -275,10 +279,10 @@ use WWW::OpenAPIClient::;
 my $api_instance = WWW::OpenAPIClient::->new(
 );
 
-my $request_body = [WWW::OpenAPIClient::Object::ARRAY[object]->new()]; # ARRAY[object] | 
+my $body = WWW::OpenAPIClient::Object::string->new(); # string | 
 
 eval {
-    my $result = $api_instance->bulk(request_body => $request_body);
+    my $result = $api_instance->bulk(body => $body);
     print Dumper($result);
 };
 if ($@) {
@@ -304,9 +308,10 @@ Class | Method | HTTP request | Description
 
 
 # DOCUMENTATION FOR MODELS
+ - [WWW::OpenAPIClient::Object::BulkResponse](docs/BulkResponse.md)
  - [WWW::OpenAPIClient::Object::DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
+ - [WWW::OpenAPIClient::Object::DeleteResponse](docs/DeleteResponse.md)
  - [WWW::OpenAPIClient::Object::ErrorResponse](docs/ErrorResponse.md)
- - [WWW::OpenAPIClient::Object::InlineObject](docs/InlineObject.md)
  - [WWW::OpenAPIClient::Object::InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [WWW::OpenAPIClient::Object::PercolateRequest](docs/PercolateRequest.md)
  - [WWW::OpenAPIClient::Object::SearchRequest](docs/SearchRequest.md)
@@ -314,6 +319,7 @@ Class | Method | HTTP request | Description
  - [WWW::OpenAPIClient::Object::SearchResponseHits](docs/SearchResponseHits.md)
  - [WWW::OpenAPIClient::Object::SuccessResponse](docs/SuccessResponse.md)
  - [WWW::OpenAPIClient::Object::UpdateDocumentRequest](docs/UpdateDocumentRequest.md)
+ - [WWW::OpenAPIClient::Object::UpdateResponse](docs/UpdateResponse.md)
 
 
 # DOCUMENTATION FOR AUTHORIZATION

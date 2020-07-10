@@ -147,7 +147,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/successResponse'
+                $ref: '#/components/schemas/updateResponse'
           description: item updated
         default:
           content:
@@ -181,7 +181,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/successResponse'
+                $ref: '#/components/schemas/deleteResponse'
           description: item updated
         default:
           content:
@@ -202,28 +202,15 @@ paths:
       requestBody:
         content:
           application/x-ndjson:
-            example:
-            - insert: null
-              index: test
-              id: 10
-              doc:
-                gid: 10
-                title: doc one
-            - insert: null
-              index: test
-              id: 11
-              doc:
-                gid: 20
-                title: dow two
             schema:
-              $ref: '#/components/schemas/bulkRequest'
+              type: string
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/successResponse'
+                $ref: '#/components/schemas/bulkResponse'
           description: item updated
         default:
           content:
@@ -285,21 +272,10 @@ paths:
         url: https://docs.manticoresearch.com/latest/html/httpapi_reference.html#sql-api
       operationId: sql
       requestBody:
-        $ref: '#/components/requestBodies/inline_object'
         content:
-          application/x-www-form-urlencoded:
-            example:
-              sql: SHOW THREADS
-              mode: raw
+          text/plain:
             schema:
-              properties:
-                query:
-                  type: string
-                mode:
-                  type: string
-              required:
-              - query
-              type: object
+              type: string
         required: true
       responses:
         "200":
@@ -317,16 +293,9 @@ paths:
       summary: Perform SQL requests
       tags:
       - utils
-      x-contentType: application/x-www-form-urlencoded
+      x-contentType: text/plain
       x-accepts: application/json
 components:
-  requestBodies:
-    inline_object:
-      content:
-        application/x-www-form-urlencoded:
-          schema:
-            $ref: '#/components/schemas/inline_object'
-      required: true
   schemas:
     searchRequest:
       description: Payload for search operation
@@ -341,13 +310,10 @@ components:
           additionalProperties: true
           type: object
         limit:
-          minimum: 0
           type: integer
         offset:
-          minimum: 0
           type: integer
         max_matches:
-          minimum: 0
           type: integer
         sort:
           items:
@@ -388,7 +354,6 @@ components:
         id:
           description: Document ID
           format: int64
-          minimum: 1
           type: integer
         query:
           additionalProperties: true
@@ -416,7 +381,6 @@ components:
         id:
           description: Document ID
           format: int64
-          minimum: 1
           type: integer
         query:
           description: Query tree object
@@ -458,7 +422,6 @@ components:
           description: |
             Document ID.
           format: int64
-          minimum: 1
           type: integer
         doc:
           additionalProperties: true
@@ -495,17 +458,7 @@ components:
     searchResponse:
       description: Response object of a search request
       example:
-        hits:
-          total: 2
-          hits:
-          - _id: 1
-            _score: 1
-            _source:
-              gid: 11
-          - _id: 2
-            _score: 1
-            _source:
-              gid: 20
+        hits: '{"total":2,"hits":[{"_id":1,"_score":1,"_source":{"gid":11}},{"_id":2,"_score":1,"_source":{"gid":20}}]}'
         took: 0
         profile: '{}'
         timed_out: true
@@ -515,20 +468,7 @@ components:
         timed_out:
           type: boolean
         hits:
-          additionalProperties:
-            $ref: '#/components/schemas/searchResponse_hits'
-          example:
-            total: 2
-            hits:
-            - _id: 1
-              _score: 1
-              _source:
-                gid: 11
-            - _id: 2
-              _score: 1
-              _source:
-                gid: 20
-          type: object
+          $ref: '#/components/schemas/searchResponse_hits'
         profile:
           type: object
       type: object
@@ -558,10 +498,50 @@ components:
           type: string
         found:
           type: boolean
-      required:
-      - _id
-      - _index
-      - result
+      type: object
+    bulkResponse:
+      additionalProperties: true
+      description: Success bulk response
+      example:
+        error: true
+        items: '{}'
+      properties:
+        items:
+          type: object
+        error:
+          type: boolean
+      type: object
+    updateResponse:
+      description: Success response
+      example:
+        _index: test
+        updated: 29
+      properties:
+        _index:
+          type: string
+        updated:
+          type: integer
+        _id:
+          format: int64
+          type: integer
+        result:
+          type: string
+      type: object
+    deleteResponse:
+      description: Success response
+      example:
+        _index: test
+        deleted: 29
+      properties:
+        _index:
+          type: string
+        deleted:
+          type: integer
+        _id:
+          format: int64
+          type: integer
+        result:
+          type: string
       type: object
     errorResponse:
       description: Error response
@@ -579,16 +559,8 @@ components:
       - error
       - status
       type: object
-    inline_object:
-      properties:
-        query:
-          type: string
-        mode:
-          type: string
-      required:
-      - query
-      type: object
     searchResponse_hits:
+      example: '{"total":2,"hits":[{"_id":1,"_score":1,"_source":{"gid":11}},{"_id":2,"_score":1,"_source":{"gid":20}}]}'
       properties:
         total:
           type: integer

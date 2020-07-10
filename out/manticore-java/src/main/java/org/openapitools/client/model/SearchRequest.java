@@ -32,7 +32,7 @@ import java.util.Map;
  * Payload for search operation
  */
 @ApiModel(description = "Payload for search operation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T15:19:00.920Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-07-10T12:08:10.695Z[GMT]")
 public class SearchRequest {
   public static final String SERIALIZED_NAME_INDEX = "index";
   @SerializedName(SERIALIZED_NAME_INDEX)
@@ -132,7 +132,6 @@ public class SearchRequest {
 
    /**
    * Get limit
-   * minimum: 0
    * @return limit
   **/
   @javax.annotation.Nullable
@@ -156,7 +155,6 @@ public class SearchRequest {
 
    /**
    * Get offset
-   * minimum: 0
    * @return offset
   **/
   @javax.annotation.Nullable
@@ -180,7 +178,6 @@ public class SearchRequest {
 
    /**
    * Get maxMatches
-   * minimum: 0
    * @return maxMatches
   **/
   @javax.annotation.Nullable

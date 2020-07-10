@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 <a name="bulk"></a>
 # **bulk**
-> SuccessResponse bulk(requestBody)
+> BulkResponse bulk(body)
 
 Bulk index operations
 
@@ -32,9 +32,9 @@ public class Example {
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
-    List<Object> requestBody = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}]; // List<Object> | 
+    String body = "body_example"; // String | 
     try {
-      SuccessResponse result = apiInstance.bulk(requestBody);
+      BulkResponse result = apiInstance.bulk(body);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling IndexApi#bulk");
@@ -51,11 +51,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **requestBody** | [**List&lt;Object&gt;**](Object.md)|  |
+ **body** | **String**|  |
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**BulkResponse**](BulkResponse.md)
 
 ### Authorization
 
@@ -74,7 +74,7 @@ No authorization required
 
 <a name="delete"></a>
 # **delete**
-> SuccessResponse delete(deleteDocumentRequest)
+> DeleteResponse delete(deleteDocumentRequest)
 
 Delete a document in an index
 
@@ -95,7 +95,7 @@ public class Example {
     IndexApi apiInstance = new IndexApi(defaultClient);
     DeleteDocumentRequest deleteDocumentRequest = {"index":"test","query":{"match":{"title":"apple"}}}; // DeleteDocumentRequest | 
     try {
-      SuccessResponse result = apiInstance.delete(deleteDocumentRequest);
+      DeleteResponse result = apiInstance.delete(deleteDocumentRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling IndexApi#delete");
@@ -116,7 +116,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**DeleteResponse**](DeleteResponse.md)
 
 ### Authorization
 
@@ -257,7 +257,7 @@ No authorization required
 
 <a name="update"></a>
 # **update**
-> SuccessResponse update(updateDocumentRequest)
+> UpdateResponse update(updateDocumentRequest)
 
 Update a document in an index
 
@@ -278,7 +278,7 @@ public class Example {
     IndexApi apiInstance = new IndexApi(defaultClient);
     UpdateDocumentRequest updateDocumentRequest = {"index":"test","doc":{"gid":20},"query":{"equals":{"cat_id":2}}}; // UpdateDocumentRequest | 
     try {
-      SuccessResponse result = apiInstance.update(updateDocumentRequest);
+      UpdateResponse result = apiInstance.update(updateDocumentRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling IndexApi#update");
@@ -299,7 +299,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**UpdateResponse**](UpdateResponse.md)
 
 ### Authorization
 

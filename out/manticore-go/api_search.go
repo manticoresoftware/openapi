@@ -45,7 +45,7 @@ func (a *SearchApiService) Percolate(ctx _context.Context, index string, percola
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/json/pq/{index}/search"
-	localVarPath = strings.Replace(localVarPath, "{"+"index"+"}", _neturl.QueryEscape(parameterToString(index, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"index"+"}", _neturl.PathEscape(parameterToString(index, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

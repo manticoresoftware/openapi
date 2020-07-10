@@ -5,10 +5,11 @@ README.md
 api/openapi.yaml
 build.gradle
 build.sbt
+docs/BulkResponse.md
 docs/DeleteDocumentRequest.md
+docs/DeleteResponse.md
 docs/ErrorResponse.md
 docs/IndexApi.md
-docs/InlineObject.md
 docs/InsertDocumentRequest.md
 docs/PercolateRequest.md
 docs/SearchApi.md
@@ -17,6 +18,7 @@ docs/SearchResponse.md
 docs/SearchResponseHits.md
 docs/SuccessResponse.md
 docs/UpdateDocumentRequest.md
+docs/UpdateResponse.md
 docs/UtilsApi.md
 git_push.sh
 gradle.properties
@@ -47,9 +49,10 @@ src/main/java/org/openapitools/client/auth/ApiKeyAuth.java
 src/main/java/org/openapitools/client/auth/Authentication.java
 src/main/java/org/openapitools/client/auth/HttpBasicAuth.java
 src/main/java/org/openapitools/client/auth/HttpBearerAuth.java
+src/main/java/org/openapitools/client/model/BulkResponse.java
 src/main/java/org/openapitools/client/model/DeleteDocumentRequest.java
+src/main/java/org/openapitools/client/model/DeleteResponse.java
 src/main/java/org/openapitools/client/model/ErrorResponse.java
-src/main/java/org/openapitools/client/model/InlineObject.java
 src/main/java/org/openapitools/client/model/InsertDocumentRequest.java
 src/main/java/org/openapitools/client/model/PercolateRequest.java
 src/main/java/org/openapitools/client/model/SearchRequest.java
@@ -57,12 +60,14 @@ src/main/java/org/openapitools/client/model/SearchResponse.java
 src/main/java/org/openapitools/client/model/SearchResponseHits.java
 src/main/java/org/openapitools/client/model/SuccessResponse.java
 src/main/java/org/openapitools/client/model/UpdateDocumentRequest.java
+src/main/java/org/openapitools/client/model/UpdateResponse.java
 src/test/java/org/openapitools/client/api/IndexApiTest.java
 src/test/java/org/openapitools/client/api/SearchApiTest.java
 src/test/java/org/openapitools/client/api/UtilsApiTest.java
+src/test/java/org/openapitools/client/model/BulkResponseTest.java
 src/test/java/org/openapitools/client/model/DeleteDocumentRequestTest.java
+src/test/java/org/openapitools/client/model/DeleteResponseTest.java
 src/test/java/org/openapitools/client/model/ErrorResponseTest.java
-src/test/java/org/openapitools/client/model/InlineObjectTest.java
 src/test/java/org/openapitools/client/model/InsertDocumentRequestTest.java
 src/test/java/org/openapitools/client/model/PercolateRequestTest.java
 src/test/java/org/openapitools/client/model/SearchRequestTest.java
@@ -70,3 +75,4 @@ src/test/java/org/openapitools/client/model/SearchResponseHitsTest.java
 src/test/java/org/openapitools/client/model/SearchResponseTest.java
 src/test/java/org/openapitools/client/model/SuccessResponseTest.java
 src/test/java/org/openapitools/client/model/UpdateDocumentRequestTest.java
+src/test/java/org/openapitools/client/model/UpdateResponseTest.java

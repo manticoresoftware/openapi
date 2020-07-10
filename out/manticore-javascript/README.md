@@ -104,7 +104,7 @@ var ManticoreSearchApi = require('manticore_search_api');
 
 
 var api = new ManticoreSearchApi.IndexApi()
-var requestBody = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}]; // {[Object]} 
+var body = "body_example"; // {String} 
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -112,7 +112,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.bulk(requestBody, callback);
+api.bulk(body, callback);
 
 ```
 
@@ -134,9 +134,10 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
+ - [ManticoreSearchApi.BulkResponse](docs/BulkResponse.md)
  - [ManticoreSearchApi.DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
+ - [ManticoreSearchApi.DeleteResponse](docs/DeleteResponse.md)
  - [ManticoreSearchApi.ErrorResponse](docs/ErrorResponse.md)
- - [ManticoreSearchApi.InlineObject](docs/InlineObject.md)
  - [ManticoreSearchApi.InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [ManticoreSearchApi.PercolateRequest](docs/PercolateRequest.md)
  - [ManticoreSearchApi.SearchRequest](docs/SearchRequest.md)
@@ -144,6 +145,7 @@ Class | Method | HTTP request | Description
  - [ManticoreSearchApi.SearchResponseHits](docs/SearchResponseHits.md)
  - [ManticoreSearchApi.SuccessResponse](docs/SuccessResponse.md)
  - [ManticoreSearchApi.UpdateDocumentRequest](docs/UpdateDocumentRequest.md)
+ - [ManticoreSearchApi.UpdateResponse](docs/UpdateResponse.md)
 
 
 ## Documentation for Authorization

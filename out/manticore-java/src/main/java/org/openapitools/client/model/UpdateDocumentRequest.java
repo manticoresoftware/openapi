@@ -31,7 +31,7 @@ import java.util.Map;
  * Payload for update document
  */
 @ApiModel(description = "Payload for update document")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T15:19:00.920Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-07-10T12:08:10.695Z[GMT]")
 public class UpdateDocumentRequest {
   public static final String SERIALIZED_NAME_INDEX = "index";
   @SerializedName(SERIALIZED_NAME_INDEX)
@@ -107,7 +107,6 @@ public class UpdateDocumentRequest {
 
    /**
    * Document ID
-   * minimum: 1
    * @return id
   **/
   @javax.annotation.Nullable

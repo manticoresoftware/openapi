@@ -32,10 +32,9 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="query"></param>
-        /// <param name="mode"> (optional)</param>
+        /// <param name="body"></param>
         /// <returns>Dictionary&lt;string, Object&gt;</returns>
-        Dictionary<string, Object> Sql (string query, string mode = default(string));
+        Dictionary<string, Object> Sql (string body);
 
         /// <summary>
         /// Perform SQL requests
@@ -44,10 +43,9 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="query"></param>
-        /// <param name="mode"> (optional)</param>
+        /// <param name="body"></param>
         /// <returns>ApiResponse of Dictionary&lt;string, Object&gt;</returns>
-        ApiResponse<Dictionary<string, Object>> SqlWithHttpInfo (string query, string mode = default(string));
+        ApiResponse<Dictionary<string, Object>> SqlWithHttpInfo (string body);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -57,11 +55,10 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="query"></param>
-        /// <param name="mode"> (optional)</param>
+        /// <param name="body"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
         /// <returns>Task of Dictionary&lt;string, Object&gt;</returns>
-        System.Threading.Tasks.Task<Dictionary<string, Object>> SqlAsync (string query, string mode = default(string), CancellationToken cancellationToken = default(CancellationToken));
+        System.Threading.Tasks.Task<Dictionary<string, Object>> SqlAsync (string body, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Perform SQL requests
@@ -70,11 +67,10 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="query"></param>
-        /// <param name="mode"> (optional)</param>
+        /// <param name="body"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
         /// <returns>Task of ApiResponse (Dictionary&lt;string, Object&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Dictionary<string, Object>>> SqlAsyncWithHttpInfo (string query, string mode = default(string), CancellationToken cancellationToken = default(CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Dictionary<string, Object>>> SqlAsyncWithHttpInfo (string body, CancellationToken cancellationToken = default(CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -190,12 +186,11 @@ namespace Org.OpenAPITools.Api
         /// Perform SQL requests 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="query"></param>
-        /// <param name="mode"> (optional)</param>
+        /// <param name="body"></param>
         /// <returns>Dictionary&lt;string, Object&gt;</returns>
-        public Dictionary<string, Object> Sql (string query, string mode = default(string))
+        public Dictionary<string, Object> Sql (string body)
         {
-             ApiResponse<Dictionary<string, Object>> localVarResponse = SqlWithHttpInfo(query, mode);
+             ApiResponse<Dictionary<string, Object>> localVarResponse = SqlWithHttpInfo(body);
              return localVarResponse.Data;
         }
 
@@ -203,14 +198,13 @@ namespace Org.OpenAPITools.Api
         /// Perform SQL requests 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="query"></param>
-        /// <param name="mode"> (optional)</param>
+        /// <param name="body"></param>
         /// <returns>ApiResponse of Dictionary&lt;string, Object&gt;</returns>
-        public ApiResponse<Dictionary<string, Object>> SqlWithHttpInfo (string query, string mode = default(string))
+        public ApiResponse<Dictionary<string, Object>> SqlWithHttpInfo (string body)
         {
-            // verify the required parameter 'query' is set
-            if (query == null)
-                throw new ApiException(400, "Missing required parameter 'query' when calling UtilsApi->Sql");
+            // verify the required parameter 'body' is set
+            if (body == null)
+                throw new ApiException(400, "Missing required parameter 'body' when calling UtilsApi->Sql");
 
             var localVarPath = "/sql";
             var localVarPathParams = new Dictionary<String, String>();
@@ -222,7 +216,7 @@ namespace Org.OpenAPITools.Api
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
-                "application/x-www-form-urlencoded"
+                "text/plain"
             };
             String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
@@ -234,8 +228,14 @@ namespace Org.OpenAPITools.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (query != null) localVarFormParams.Add("query", this.Configuration.ApiClient.ParameterToString(query)); // form parameter
-            if (mode != null) localVarFormParams.Add("mode", this.Configuration.ApiClient.ParameterToString(mode)); // form parameter
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
 
 
             // make the HTTP request
@@ -260,13 +260,12 @@ namespace Org.OpenAPITools.Api
         /// Perform SQL requests 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="query"></param>
-        /// <param name="mode"> (optional)</param>
+        /// <param name="body"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
         /// <returns>Task of Dictionary&lt;string, Object&gt;</returns>
-        public async System.Threading.Tasks.Task<Dictionary<string, Object>> SqlAsync (string query, string mode = default(string), CancellationToken cancellationToken = default(CancellationToken))
+        public async System.Threading.Tasks.Task<Dictionary<string, Object>> SqlAsync (string body, CancellationToken cancellationToken = default(CancellationToken))
         {
-             ApiResponse<Dictionary<string, Object>> localVarResponse = await SqlAsyncWithHttpInfo(query, mode, cancellationToken);
+             ApiResponse<Dictionary<string, Object>> localVarResponse = await SqlAsyncWithHttpInfo(body, cancellationToken);
              return localVarResponse.Data;
 
         }
@@ -275,15 +274,14 @@ namespace Org.OpenAPITools.Api
         /// Perform SQL requests 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="query"></param>
-        /// <param name="mode"> (optional)</param>
+        /// <param name="body"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
         /// <returns>Task of ApiResponse (Dictionary&lt;string, Object&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Dictionary<string, Object>>> SqlAsyncWithHttpInfo (string query, string mode = default(string), CancellationToken cancellationToken = default(CancellationToken))
+        public async System.Threading.Tasks.Task<ApiResponse<Dictionary<string, Object>>> SqlAsyncWithHttpInfo (string body, CancellationToken cancellationToken = default(CancellationToken))
         {
-            // verify the required parameter 'query' is set
-            if (query == null)
-                throw new ApiException(400, "Missing required parameter 'query' when calling UtilsApi->Sql");
+            // verify the required parameter 'body' is set
+            if (body == null)
+                throw new ApiException(400, "Missing required parameter 'body' when calling UtilsApi->Sql");
 
             var localVarPath = "/sql";
             var localVarPathParams = new Dictionary<String, String>();
@@ -295,7 +293,7 @@ namespace Org.OpenAPITools.Api
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
-                "application/x-www-form-urlencoded"
+                "text/plain"
             };
             String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
@@ -307,8 +305,14 @@ namespace Org.OpenAPITools.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (query != null) localVarFormParams.Add("query", this.Configuration.ApiClient.ParameterToString(query)); // form parameter
-            if (mode != null) localVarFormParams.Add("mode", this.Configuration.ApiClient.ParameterToString(mode)); // form parameter
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
 
 
             // make the HTTP request

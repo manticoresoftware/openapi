@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## bulk
 
-> SuccessResponse bulk(request_body)
+> BulkResponse bulk(body)
 
 Bulk index operations
 
@@ -25,11 +25,11 @@ Bulk index operations
 require 'openapi_client'
 
 api_instance = OpenapiClient::IndexApi.new
-request_body = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}] # Array<Object> | 
+body = 'body_example' # String | 
 
 begin
   #Bulk index operations
-  result = api_instance.bulk(request_body)
+  result = api_instance.bulk(body)
   p result
 rescue OpenapiClient::ApiError => e
   puts "Exception when calling IndexApi->bulk: #{e}"
@@ -41,11 +41,11 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request_body** | [**Array&lt;Object&gt;**](Object.md)|  | 
+ **body** | **String**|  | 
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**BulkResponse**](BulkResponse.md)
 
 ### Authorization
 
@@ -59,7 +59,7 @@ No authorization required
 
 ## delete
 
-> SuccessResponse delete(delete_document_request)
+> DeleteResponse delete(delete_document_request)
 
 Delete a document in an index
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**DeleteResponse**](DeleteResponse.md)
 
 ### Authorization
 
@@ -194,7 +194,7 @@ No authorization required
 
 ## update
 
-> SuccessResponse update(update_document_request)
+> UpdateResponse update(update_document_request)
 
 Update a document in an index
 
@@ -225,7 +225,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**UpdateResponse**](UpdateResponse.md)
 
 ### Authorization
 

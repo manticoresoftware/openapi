@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include "UtilsAPI.h"
 
-
+#define MAX_NUMBER_LENGTH 16
 #define MAX_BUFFER_LENGTH 4096
 #define intToStr(dst, src) \
     do {\
@@ -15,11 +15,11 @@
 // Perform SQL requests
 //
 list_t*_t*
-UtilsAPI_sql(apiClient_t *apiClient, char * query , char * mode )
+UtilsAPI_sql(apiClient_t *apiClient, char * body )
 {
     list_t    *localVarQueryParameters = NULL;
     list_t    *localVarHeaderParameters = NULL;
-    list_t    *localVarFormParameters = list_create();
+    list_t    *localVarFormParameters = NULL;
     list_t *localVarHeaderType = list_create();
     list_t *localVarContentType = list_create();
     char      *localVarBodyParameters = NULL;
@@ -32,31 +32,16 @@ UtilsAPI_sql(apiClient_t *apiClient, char * query , char * mode )
 
 
 
-    // form parameters
-    char *keyForm_query;
-    char * valueForm_query;
-    keyValuePair_t *keyPairForm_query = 0;
-    if (query != NULL)
+    // Body Param
+    cJSON *localVarSingleItemJSON_body;
+    if (body != NULL)
     {
-        keyForm_query = strdup("query");
-        valueForm_query = strdup((query));
-        keyPairForm_query = keyValuePair_create(keyForm_query,valueForm_query);
-        list_addElement(localVarFormParameters,keyPairForm_query);
-    }
-
-    // form parameters
-    char *keyForm_mode;
-    char * valueForm_mode;
-    keyValuePair_t *keyPairForm_mode = 0;
-    if (mode != NULL)
-    {
-        keyForm_mode = strdup("mode");
-        valueForm_mode = strdup((mode));
-        keyPairForm_mode = keyValuePair_create(keyForm_mode,valueForm_mode);
-        list_addElement(localVarFormParameters,keyPairForm_mode);
+        //string
+        localVarSingleItemJSON_body = char_convertToJSON(body);
+        localVarBodyParameters = cJSON_Print(localVarSingleItemJSON_body);
     }
     list_addElement(localVarHeaderType,"application/json"); //produces
-    list_addElement(localVarContentType,"application/x-www-form-urlencoded"); //consumes
+    list_addElement(localVarContentType,"text/plain"); //consumes
     apiClient_invoke(apiClient,
                     localVarPath,
                     localVarQueryParameters,
@@ -99,16 +84,12 @@ UtilsAPI_sql(apiClient_t *apiClient, char * query , char * mode )
     }
     
     
-    list_free(localVarFormParameters);
+    
     list_free(localVarHeaderType);
     list_free(localVarContentType);
     free(localVarPath);
-    free(keyForm_query);
-    free(valueForm_query);
-    free(keyPairForm_query);
-    free(keyForm_mode);
-    free(valueForm_mode);
-    free(keyPairForm_mode);
+    cJSON_Delete(localVarSingleItemJSON_body);
+    free(localVarBodyParameters);
     return elementToReturn;
 end:
     return NULL;

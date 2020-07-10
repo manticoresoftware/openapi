@@ -15,10 +15,10 @@
 from __future__ import absolute_import
 
 # import models into model package
+from openapi_client.models.bulk_response import BulkResponse
 from openapi_client.models.delete_document_request import DeleteDocumentRequest
 from openapi_client.models.delete_response import DeleteResponse
 from openapi_client.models.error_response import ErrorResponse
-from openapi_client.models.inline_object import InlineObject
 from openapi_client.models.insert_document_request import InsertDocumentRequest
 from openapi_client.models.percolate_request import PercolateRequest
 from openapi_client.models.search_request import SearchRequest

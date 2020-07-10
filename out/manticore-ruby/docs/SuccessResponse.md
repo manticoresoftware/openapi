@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_index** | **String** |  | 
-**_id** | **Integer** |  | 
+**_index** | **String** |  | [optional] 
+**_id** | **Integer** |  | [optional] 
 **created** | **Boolean** |  | [optional] 
-**result** | **String** |  | 
+**result** | **String** |  | [optional] 
 **found** | **Boolean** |  | [optional] 
 
 ## Code Sample

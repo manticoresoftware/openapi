@@ -20,25 +20,25 @@ module OpenapiClient
       @api_client = api_client
     end
     # Bulk index operations
-    # @param request_body [Array<Object>] 
+    # @param body [String] 
     # @param [Hash] opts the optional parameters
-    # @return [SuccessResponse]
-    def bulk(request_body, opts = {})
-      data, _status_code, _headers = bulk_with_http_info(request_body, opts)
+    # @return [BulkResponse]
+    def bulk(body, opts = {})
+      data, _status_code, _headers = bulk_with_http_info(body, opts)
       data
     end
 
     # Bulk index operations
-    # @param request_body [Array<Object>] 
+    # @param body [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(SuccessResponse, Integer, Hash)>] SuccessResponse data, response status code and response headers
-    def bulk_with_http_info(request_body, opts = {})
+    # @return [Array<(BulkResponse, Integer, Hash)>] BulkResponse data, response status code and response headers
+    def bulk_with_http_info(body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: IndexApi.bulk ...'
       end
-      # verify the required parameter 'request_body' is set
-      if @api_client.config.client_side_validation && request_body.nil?
-        fail ArgumentError, "Missing the required parameter 'request_body' when calling IndexApi.bulk"
+      # verify the required parameter 'body' is set
+      if @api_client.config.client_side_validation && body.nil?
+        fail ArgumentError, "Missing the required parameter 'body' when calling IndexApi.bulk"
       end
       # resource path
       local_var_path = '/json/bulk'
@@ -57,10 +57,10 @@ module OpenapiClient
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:body] || @api_client.object_to_http_body(request_body) 
+      post_body = opts[:body] || @api_client.object_to_http_body(body) 
 
       # return_type
-      return_type = opts[:return_type] || 'SuccessResponse' 
+      return_type = opts[:return_type] || 'BulkResponse' 
 
       # auth_names
       auth_names = opts[:auth_names] || []
@@ -84,7 +84,7 @@ module OpenapiClient
     # Delete a document in an index
     # @param delete_document_request [DeleteDocumentRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [SuccessResponse]
+    # @return [DeleteResponse]
     def delete(delete_document_request, opts = {})
       data, _status_code, _headers = delete_with_http_info(delete_document_request, opts)
       data
@@ -93,7 +93,7 @@ module OpenapiClient
     # Delete a document in an index
     # @param delete_document_request [DeleteDocumentRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(SuccessResponse, Integer, Hash)>] SuccessResponse data, response status code and response headers
+    # @return [Array<(DeleteResponse, Integer, Hash)>] DeleteResponse data, response status code and response headers
     def delete_with_http_info(delete_document_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: IndexApi.delete ...'
@@ -122,7 +122,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(delete_document_request) 
 
       # return_type
-      return_type = opts[:return_type] || 'SuccessResponse' 
+      return_type = opts[:return_type] || 'DeleteResponse' 
 
       # auth_names
       auth_names = opts[:auth_names] || []
@@ -270,7 +270,7 @@ module OpenapiClient
     # Update a document in an index
     # @param update_document_request [UpdateDocumentRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [SuccessResponse]
+    # @return [UpdateResponse]
     def update(update_document_request, opts = {})
       data, _status_code, _headers = update_with_http_info(update_document_request, opts)
       data
@@ -279,7 +279,7 @@ module OpenapiClient
     # Update a document in an index
     # @param update_document_request [UpdateDocumentRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(SuccessResponse, Integer, Hash)>] SuccessResponse data, response status code and response headers
+    # @return [Array<(UpdateResponse, Integer, Hash)>] UpdateResponse data, response status code and response headers
     def update_with_http_info(update_document_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: IndexApi.update ...'
@@ -308,7 +308,7 @@ module OpenapiClient
       post_body = opts[:body] || @api_client.object_to_http_body(update_document_request) 
 
       # return_type
-      return_type = opts[:return_type] || 'SuccessResponse' 
+      return_type = opts[:return_type] || 'UpdateResponse' 
 
       # auth_names
       auth_names = opts[:auth_names] || []

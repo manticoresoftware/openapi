@@ -13,9 +13,10 @@
 
 
 import ApiClient from './ApiClient';
+import BulkResponse from './model/BulkResponse';
 import DeleteDocumentRequest from './model/DeleteDocumentRequest';
+import DeleteResponse from './model/DeleteResponse';
 import ErrorResponse from './model/ErrorResponse';
-import InlineObject from './model/InlineObject';
 import InsertDocumentRequest from './model/InsertDocumentRequest';
 import PercolateRequest from './model/PercolateRequest';
 import SearchRequest from './model/SearchRequest';
@@ -23,6 +24,7 @@ import SearchResponse from './model/SearchResponse';
 import SearchResponseHits from './model/SearchResponseHits';
 import SuccessResponse from './model/SuccessResponse';
 import UpdateDocumentRequest from './model/UpdateDocumentRequest';
+import UpdateResponse from './model/UpdateResponse';
 import IndexApi from './api/IndexApi';
 import SearchApi from './api/SearchApi';
 import UtilsApi from './api/UtilsApi';
@@ -67,22 +69,28 @@ export {
     ApiClient,
 
     /**
+     * The BulkResponse model constructor.
+     * @property {module:model/BulkResponse}
+     */
+    BulkResponse,
+
+    /**
      * The DeleteDocumentRequest model constructor.
      * @property {module:model/DeleteDocumentRequest}
      */
     DeleteDocumentRequest,
 
     /**
+     * The DeleteResponse model constructor.
+     * @property {module:model/DeleteResponse}
+     */
+    DeleteResponse,
+
+    /**
      * The ErrorResponse model constructor.
      * @property {module:model/ErrorResponse}
      */
     ErrorResponse,
-
-    /**
-     * The InlineObject model constructor.
-     * @property {module:model/InlineObject}
-     */
-    InlineObject,
 
     /**
      * The InsertDocumentRequest model constructor.
@@ -125,6 +133,12 @@ export {
      * @property {module:model/UpdateDocumentRequest}
      */
     UpdateDocumentRequest,
+
+    /**
+     * The UpdateResponse model constructor.
+     * @property {module:model/UpdateResponse}
+     */
+    UpdateResponse,
 
     /**
     * The IndexApi service constructor.

@@ -33,62 +33,30 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SuccessResponse" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        protected SuccessResponse() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SuccessResponse" /> class.
-        /// </summary>
-        /// <param name="index">index (required).</param>
-        /// <param name="id">id (required).</param>
+        /// <param name="index">index.</param>
+        /// <param name="id">id.</param>
         /// <param name="created">created.</param>
-        /// <param name="result">result (required).</param>
+        /// <param name="result">result.</param>
         /// <param name="found">found.</param>
         public SuccessResponse(string index = default(string), long id = default(long), bool created = default(bool), string result = default(string), bool found = default(bool))
         {
-            // to ensure "index" is required (not null)
-            if (index == null)
-            {
-                throw new InvalidDataException("index is a required property for SuccessResponse and cannot be null");
-            }
-            else
-            {
-                this.Index = index;
-            }
-            
-            // to ensure "id" is required (not null)
-            if (id == null)
-            {
-                throw new InvalidDataException("id is a required property for SuccessResponse and cannot be null");
-            }
-            else
-            {
-                this.Id = id;
-            }
-            
-            // to ensure "result" is required (not null)
-            if (result == null)
-            {
-                throw new InvalidDataException("result is a required property for SuccessResponse and cannot be null");
-            }
-            else
-            {
-                this.Result = result;
-            }
-            
+            this.Index = index;
+            this.Id = id;
             this.Created = created;
+            this.Result = result;
             this.Found = found;
         }
         
         /// <summary>
         /// Gets or Sets Index
         /// </summary>
-        [DataMember(Name="_index", EmitDefaultValue=true)]
+        [DataMember(Name="_index", EmitDefaultValue=false)]
         public string Index { get; set; }
 
         /// <summary>
         /// Gets or Sets Id
         /// </summary>
-        [DataMember(Name="_id", EmitDefaultValue=true)]
+        [DataMember(Name="_id", EmitDefaultValue=false)]
         public long Id { get; set; }
 
         /// <summary>
@@ -100,7 +68,7 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Gets or Sets Result
         /// </summary>
-        [DataMember(Name="result", EmitDefaultValue=true)]
+        [DataMember(Name="result", EmitDefaultValue=false)]
         public string Result { get; set; }
 
         /// <summary>

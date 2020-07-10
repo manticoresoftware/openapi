@@ -34,9 +34,9 @@ describe 'IndexApi' do
 
   # unit tests for bulk
   # Bulk index operations
-  # @param request_body 
+  # @param body 
   # @param [Hash] opts the optional parameters
-  # @return [SuccessResponse]
+  # @return [BulkResponse]
   describe 'bulk test' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
@@ -47,7 +47,7 @@ describe 'IndexApi' do
   # Delete a document in an index
   # @param delete_document_request 
   # @param [Hash] opts the optional parameters
-  # @return [SuccessResponse]
+  # @return [DeleteResponse]
   describe 'delete test' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
@@ -80,7 +80,7 @@ describe 'IndexApi' do
   # Update a document in an index
   # @param update_document_request 
   # @param [Hash] opts the optional parameters
-  # @return [SuccessResponse]
+  # @return [UpdateResponse]
   describe 'update test' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers

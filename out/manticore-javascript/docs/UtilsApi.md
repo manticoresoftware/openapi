@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## sql
 
-> {String: Object} sql(query, opts)
+> {String: Object} sql(body)
 
 Perform SQL requests
 
@@ -20,11 +20,8 @@ Perform SQL requests
 import ManticoreSearchApi from 'manticore_search_api';
 
 let apiInstance = new ManticoreSearchApi.UtilsApi();
-let query = "query_example"; // String | 
-let opts = {
-  'mode': "mode_example" // String | 
-};
-apiInstance.sql(query, opts, (error, data, response) => {
+let body = "body_example"; // String | 
+apiInstance.sql(body, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -38,8 +35,7 @@ apiInstance.sql(query, opts, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **String**|  | 
- **mode** | **String**|  | [optional] 
+ **body** | **String**|  | 
 
 ### Return type
 
@@ -51,6 +47,6 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: text/plain
 - **Accept**: application/json
 

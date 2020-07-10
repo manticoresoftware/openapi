@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## Sql
 
-> Dictionary&lt;string, Object&gt; Sql (string query, string mode = null)
+> Dictionary&lt;string, Object&gt; Sql (string body)
 
 Perform SQL requests
 
@@ -31,13 +31,12 @@ namespace Example
         {
             Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
             var apiInstance = new UtilsApi(Configuration.Default);
-            var query = query_example;  // string | 
-            var mode = mode_example;  // string |  (optional) 
+            var body = body_example;  // string | 
 
             try
             {
                 // Perform SQL requests
-                Dictionary<string, Object> result = apiInstance.Sql(query, mode);
+                Dictionary<string, Object> result = apiInstance.Sql(body);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
@@ -56,8 +55,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **string**|  | 
- **mode** | **string**|  | [optional] 
+ **body** | **string**|  | 
 
 ### Return type
 
@@ -69,7 +67,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: text/plain
 - **Accept**: application/json
 
 ### HTTP response details

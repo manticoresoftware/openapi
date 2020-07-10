@@ -1,3 +1,4 @@
+.gitignore
 .openapi-generator-ignore
 .php_cs
 .travis.yml
@@ -6,9 +7,10 @@ composer.json
 docs/Api/IndexApi.md
 docs/Api/SearchApi.md
 docs/Api/UtilsApi.md
+docs/Model/BulkResponse.md
 docs/Model/DeleteDocumentRequest.md
+docs/Model/DeleteResponse.md
 docs/Model/ErrorResponse.md
-docs/Model/InlineObject.md
 docs/Model/InsertDocumentRequest.md
 docs/Model/PercolateRequest.md
 docs/Model/SearchRequest.md
@@ -16,6 +18,7 @@ docs/Model/SearchResponse.md
 docs/Model/SearchResponseHits.md
 docs/Model/SuccessResponse.md
 docs/Model/UpdateDocumentRequest.md
+docs/Model/UpdateResponse.md
 git_push.sh
 lib/Api/IndexApi.php
 lib/Api/SearchApi.php
@@ -23,9 +26,10 @@ lib/Api/UtilsApi.php
 lib/ApiException.php
 lib/Configuration.php
 lib/HeaderSelector.php
+lib/Model/BulkResponse.php
 lib/Model/DeleteDocumentRequest.php
+lib/Model/DeleteResponse.php
 lib/Model/ErrorResponse.php
-lib/Model/InlineObject.php
 lib/Model/InsertDocumentRequest.php
 lib/Model/ModelInterface.php
 lib/Model/PercolateRequest.php
@@ -34,14 +38,16 @@ lib/Model/SearchResponse.php
 lib/Model/SearchResponseHits.php
 lib/Model/SuccessResponse.php
 lib/Model/UpdateDocumentRequest.php
+lib/Model/UpdateResponse.php
 lib/ObjectSerializer.php
 phpunit.xml.dist
 test/Api/IndexApiTest.php
 test/Api/SearchApiTest.php
 test/Api/UtilsApiTest.php
+test/Model/BulkResponseTest.php
 test/Model/DeleteDocumentRequestTest.php
+test/Model/DeleteResponseTest.php
 test/Model/ErrorResponseTest.php
-test/Model/InlineObjectTest.php
 test/Model/InsertDocumentRequestTest.php
 test/Model/PercolateRequestTest.php
 test/Model/SearchRequestTest.php
@@ -49,3 +55,4 @@ test/Model/SearchResponseHitsTest.php
 test/Model/SearchResponseTest.php
 test/Model/SuccessResponseTest.php
 test/Model/UpdateDocumentRequestTest.php
+test/Model/UpdateResponseTest.php

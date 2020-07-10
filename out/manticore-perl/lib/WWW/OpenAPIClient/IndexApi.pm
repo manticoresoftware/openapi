@@ -53,11 +53,11 @@ sub new {
 #
 # Bulk index operations
 # 
-# @param ARRAY[object] $request_body  (required)
+# @param string $body  (required)
 {
     my $params = {
-    'request_body' => {
-        data_type => 'ARRAY[object]',
+    'body' => {
+        data_type => 'string',
         description => '',
         required => '1',
     },
@@ -65,17 +65,17 @@ sub new {
     __PACKAGE__->method_documentation->{ 'bulk' } = { 
         summary => 'Bulk index operations',
         params => $params,
-        returns => 'SuccessResponse',
+        returns => 'BulkResponse',
         };
 }
-# @return SuccessResponse
+# @return BulkResponse
 #
 sub bulk {
     my ($self, %args) = @_;
 
-    # verify the required parameter 'request_body' is set
-    unless (exists $args{'request_body'}) {
-      croak("Missing the required parameter 'request_body' when calling bulk");
+    # verify the required parameter 'body' is set
+    unless (exists $args{'body'}) {
+      croak("Missing the required parameter 'body' when calling bulk");
     }
 
     # parse inputs
@@ -95,8 +95,8 @@ sub bulk {
 
     my $_body_data;
     # body params
-    if ( exists $args{'request_body'}) {
-        $_body_data = $args{'request_body'};
+    if ( exists $args{'body'}) {
+        $_body_data = $args{'body'};
     }
 
     # authentication setting, if any
@@ -109,7 +109,7 @@ sub bulk {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('SuccessResponse', $response);
+    my $_response_object = $self->{api_client}->deserialize('BulkResponse', $response);
     return $_response_object;
 }
 
@@ -130,10 +130,10 @@ sub bulk {
     __PACKAGE__->method_documentation->{ 'delete' } = { 
         summary => 'Delete a document in an index',
         params => $params,
-        returns => 'SuccessResponse',
+        returns => 'DeleteResponse',
         };
 }
-# @return SuccessResponse
+# @return DeleteResponse
 #
 sub delete {
     my ($self, %args) = @_;
@@ -174,7 +174,7 @@ sub delete {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('SuccessResponse', $response);
+    my $_response_object = $self->{api_client}->deserialize('DeleteResponse', $response);
     return $_response_object;
 }
 
@@ -325,10 +325,10 @@ sub replace {
     __PACKAGE__->method_documentation->{ 'update' } = { 
         summary => 'Update a document in an index',
         params => $params,
-        returns => 'SuccessResponse',
+        returns => 'UpdateResponse',
         };
 }
-# @return SuccessResponse
+# @return UpdateResponse
 #
 sub update {
     my ($self, %args) = @_;
@@ -369,7 +369,7 @@ sub update {
     if (!$response) {
         return;
     }
-    my $_response_object = $self->{api_client}->deserialize('SuccessResponse', $response);
+    my $_response_object = $self->{api_client}->deserialize('UpdateResponse', $response);
     return $_response_object;
 }
 

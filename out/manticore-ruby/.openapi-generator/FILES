@@ -6,10 +6,11 @@
 Gemfile
 README.md
 Rakefile
+docs/BulkResponse.md
 docs/DeleteDocumentRequest.md
+docs/DeleteResponse.md
 docs/ErrorResponse.md
 docs/IndexApi.md
-docs/InlineObject.md
 docs/InsertDocumentRequest.md
 docs/PercolateRequest.md
 docs/SearchApi.md
@@ -18,6 +19,7 @@ docs/SearchResponse.md
 docs/SearchResponseHits.md
 docs/SuccessResponse.md
 docs/UpdateDocumentRequest.md
+docs/UpdateResponse.md
 docs/UtilsApi.md
 git_push.sh
 lib/openapi_client.rb
@@ -28,9 +30,10 @@ lib/openapi_client/api_client.rb
 lib/openapi_client/api_error.rb
 lib/openapi_client/configuration.rb
 lib/openapi_client/configuration.rb
+lib/openapi_client/models/bulk_response.rb
 lib/openapi_client/models/delete_document_request.rb
+lib/openapi_client/models/delete_response.rb
 lib/openapi_client/models/error_response.rb
-lib/openapi_client/models/inline_object.rb
 lib/openapi_client/models/insert_document_request.rb
 lib/openapi_client/models/percolate_request.rb
 lib/openapi_client/models/search_request.rb
@@ -38,6 +41,7 @@ lib/openapi_client/models/search_response.rb
 lib/openapi_client/models/search_response_hits.rb
 lib/openapi_client/models/success_response.rb
 lib/openapi_client/models/update_document_request.rb
+lib/openapi_client/models/update_response.rb
 lib/openapi_client/version.rb
 openapi_client.gemspec
 spec/api/index_api_spec.rb
@@ -45,9 +49,10 @@ spec/api/search_api_spec.rb
 spec/api/utils_api_spec.rb
 spec/api_client_spec.rb
 spec/configuration_spec.rb
+spec/models/bulk_response_spec.rb
 spec/models/delete_document_request_spec.rb
+spec/models/delete_response_spec.rb
 spec/models/error_response_spec.rb
-spec/models/inline_object_spec.rb
 spec/models/insert_document_request_spec.rb
 spec/models/percolate_request_spec.rb
 spec/models/search_request_spec.rb
@@ -55,4 +60,5 @@ spec/models/search_response_hits_spec.rb
 spec/models/search_response_spec.rb
 spec/models/success_response_spec.rb
 spec/models/update_document_request_spec.rb
+spec/models/update_response_spec.rb
 spec/spec_helper.rb

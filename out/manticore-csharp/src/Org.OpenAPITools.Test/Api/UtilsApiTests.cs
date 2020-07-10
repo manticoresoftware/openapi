@@ -70,9 +70,8 @@ namespace Org.OpenAPITools.Test
         public void SqlTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-            //string query = null;
-            //string mode = null;
-            //var response = instance.Sql(query, mode);
+            //string body = null;
+            //var response = instance.Sql(body);
             //Assert.IsInstanceOf(typeof(Dictionary<string, Object>), response, "response is Dictionary<string, Object>");
         }
         

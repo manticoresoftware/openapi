@@ -33,9 +33,8 @@ isa_ok($api, 'WWW::OpenAPIClient::UtilsApi');
 # sql test
 #
 {
-    my $query = undef; # replace NULL with a proper value
-    my $mode = undef; # replace NULL with a proper value
-    my $result = $api->sql(query => $query, mode => $mode);
+    my $body = undef; # replace NULL with a proper value
+    my $result = $api->sql(body => $body);
 }
 
 

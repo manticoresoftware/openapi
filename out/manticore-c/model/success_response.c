@@ -40,23 +40,19 @@ cJSON *success_response_convertToJSON(success_response_t *success_response) {
     cJSON *item = cJSON_CreateObject();
 
     // success_response->_index
-    if (!success_response->_index) {
-        goto fail;
-    }
-    
+    if(success_response->_index) { 
     if(cJSON_AddStringToObject(item, "_index", success_response->_index) == NULL) {
     goto fail; //String
     }
+     } 
 
 
     // success_response->_id
-    if (!success_response->_id) {
-        goto fail;
-    }
-    
+    if(success_response->_id) { 
     if(cJSON_AddNumberToObject(item, "_id", success_response->_id) == NULL) {
     goto fail; //Numeric
     }
+     } 
 
 
     // success_response->created
@@ -68,13 +64,11 @@ cJSON *success_response_convertToJSON(success_response_t *success_response) {
 
 
     // success_response->result
-    if (!success_response->result) {
-        goto fail;
-    }
-    
+    if(success_response->result) { 
     if(cJSON_AddStringToObject(item, "result", success_response->result) == NULL) {
     goto fail; //String
     }
+     } 
 
 
     // success_response->found
@@ -98,26 +92,20 @@ success_response_t *success_response_parseFromJSON(cJSON *success_responseJSON){
 
     // success_response->_index
     cJSON *_index = cJSON_GetObjectItemCaseSensitive(success_responseJSON, "_index");
-    if (!_index) {
-        goto end;
-    }
-
-    
+    if (_index) { 
     if(!cJSON_IsString(_index))
     {
     goto end; //String
     }
+    }
 
     // success_response->_id
     cJSON *_id = cJSON_GetObjectItemCaseSensitive(success_responseJSON, "_id");
-    if (!_id) {
-        goto end;
-    }
-
-    
+    if (_id) { 
     if(!cJSON_IsNumber(_id))
     {
     goto end; //Numeric
+    }
     }
 
     // success_response->created
@@ -131,14 +119,11 @@ success_response_t *success_response_parseFromJSON(cJSON *success_responseJSON){
 
     // success_response->result
     cJSON *result = cJSON_GetObjectItemCaseSensitive(success_responseJSON, "result");
-    if (!result) {
-        goto end;
-    }
-
-    
+    if (result) { 
     if(!cJSON_IsString(result))
     {
     goto end; //String
+    }
     }
 
     // success_response->found
@@ -152,10 +137,10 @@ success_response_t *success_response_parseFromJSON(cJSON *success_responseJSON){
 
 
     success_response_local_var = success_response_create (
-        strdup(_index->valuestring),
-        _id->valuedouble,
+        _index ? strdup(_index->valuestring) : NULL,
+        _id ? _id->valuedouble : 0,
         created ? created->valueint : 0,
-        strdup(result->valuestring),
+        result ? strdup(result->valuestring) : NULL,
         found ? found->valueint : 0
         );
 

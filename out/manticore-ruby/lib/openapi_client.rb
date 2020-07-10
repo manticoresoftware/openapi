@@ -17,9 +17,10 @@ require 'openapi_client/version'
 require 'openapi_client/configuration'
 
 # Models
+require 'openapi_client/models/bulk_response'
 require 'openapi_client/models/delete_document_request'
+require 'openapi_client/models/delete_response'
 require 'openapi_client/models/error_response'
-require 'openapi_client/models/inline_object'
 require 'openapi_client/models/insert_document_request'
 require 'openapi_client/models/percolate_request'
 require 'openapi_client/models/search_request'
@@ -27,6 +28,7 @@ require 'openapi_client/models/search_response'
 require 'openapi_client/models/search_response_hits'
 require 'openapi_client/models/success_response'
 require 'openapi_client/models/update_document_request'
+require 'openapi_client/models/update_response'
 
 # APIs
 require 'openapi_client/api/index_api'

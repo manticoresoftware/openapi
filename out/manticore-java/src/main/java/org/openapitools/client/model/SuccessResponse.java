@@ -28,7 +28,7 @@ import java.io.IOException;
  * Success response
  */
 @ApiModel(description = "Success response")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T15:19:00.920Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-07-10T12:08:10.695Z[GMT]")
 public class SuccessResponse {
   public static final String SERIALIZED_NAME_INDEX = "_index";
   @SerializedName(SERIALIZED_NAME_INDEX)
@@ -61,7 +61,8 @@ public class SuccessResponse {
    * Get index
    * @return index
   **/
-  @ApiModelProperty(required = true, value = "")
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
   public String getIndex() {
     return index;
@@ -83,7 +84,8 @@ public class SuccessResponse {
    * Get id
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "")
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
   public Long getId() {
     return id;
@@ -128,7 +130,8 @@ public class SuccessResponse {
    * Get result
    * @return result
   **/
-  @ApiModelProperty(required = true, value = "")
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
   public String getResult() {
     return result;

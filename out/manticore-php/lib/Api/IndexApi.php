@@ -1,7 +1,7 @@
 <?php
 /**
  * IndexApi
- * PHP version 7.1
+ * PHP version 7.2
  *
  * @category Class
  * @package  OpenAPI\Client
@@ -120,15 +120,15 @@ class IndexApi
      *
      * Bulk index operations
      *
-     * @param  object[] $request_body request_body (required)
+     * @param  string $body body (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\SuccessResponse|\OpenAPI\Client\Model\ErrorResponse
+     * @return \OpenAPI\Client\Model\BulkResponse|\OpenAPI\Client\Model\ErrorResponse
      */
-    public function bulk($request_body)
+    public function bulk($body)
     {
-        list($response) = $this->bulkWithHttpInfo($request_body);
+        list($response) = $this->bulkWithHttpInfo($body);
         return $response;
     }
 
@@ -137,15 +137,15 @@ class IndexApi
      *
      * Bulk index operations
      *
-     * @param  object[] $request_body (required)
+     * @param  string $body (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\SuccessResponse|\OpenAPI\Client\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\BulkResponse|\OpenAPI\Client\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function bulkWithHttpInfo($request_body)
+    public function bulkWithHttpInfo($body)
     {
-        $request = $this->bulkRequest($request_body);
+        $request = $this->bulkRequest($body);
 
         try {
             $options = $this->createHttpClientOption();
@@ -178,14 +178,14 @@ class IndexApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\OpenAPI\Client\Model\SuccessResponse' === '\SplFileObject') {
+                    if ('\OpenAPI\Client\Model\BulkResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\SuccessResponse', []),
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\BulkResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -203,7 +203,7 @@ class IndexApi
                     ];
             }
 
-            $returnType = '\OpenAPI\Client\Model\SuccessResponse';
+            $returnType = '\OpenAPI\Client\Model\BulkResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -222,7 +222,7 @@ class IndexApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\SuccessResponse',
+                        '\OpenAPI\Client\Model\BulkResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -245,14 +245,14 @@ class IndexApi
      *
      * Bulk index operations
      *
-     * @param  object[] $request_body (required)
+     * @param  string $body (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bulkAsync($request_body)
+    public function bulkAsync($body)
     {
-        return $this->bulkAsyncWithHttpInfo($request_body)
+        return $this->bulkAsyncWithHttpInfo($body)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -265,15 +265,15 @@ class IndexApi
      *
      * Bulk index operations
      *
-     * @param  object[] $request_body (required)
+     * @param  string $body (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bulkAsyncWithHttpInfo($request_body)
+    public function bulkAsyncWithHttpInfo($body)
     {
-        $returnType = '\OpenAPI\Client\Model\SuccessResponse';
-        $request = $this->bulkRequest($request_body);
+        $returnType = '\OpenAPI\Client\Model\BulkResponse';
+        $request = $this->bulkRequest($body);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -312,17 +312,17 @@ class IndexApi
     /**
      * Create request for operation 'bulk'
      *
-     * @param  object[] $request_body (required)
+     * @param  string $body (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function bulkRequest($request_body)
+    protected function bulkRequest($body)
     {
-        // verify the required parameter 'request_body' is set
-        if ($request_body === null || (is_array($request_body) && count($request_body) === 0)) {
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $request_body when calling bulk'
+                'Missing the required parameter $body when calling bulk'
             );
         }
 
@@ -338,8 +338,8 @@ class IndexApi
 
         // body params
         $_tempBody = null;
-        if (isset($request_body)) {
-            $_tempBody = $request_body;
+        if (isset($body)) {
+            $_tempBody = $body;
         }
 
         if ($multipart) {
@@ -412,7 +412,7 @@ class IndexApi
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\SuccessResponse|\OpenAPI\Client\Model\ErrorResponse
+     * @return \OpenAPI\Client\Model\DeleteResponse|\OpenAPI\Client\Model\ErrorResponse
      */
     public function delete($delete_document_request)
     {
@@ -429,7 +429,7 @@ class IndexApi
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\SuccessResponse|\OpenAPI\Client\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\DeleteResponse|\OpenAPI\Client\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteWithHttpInfo($delete_document_request)
     {
@@ -466,14 +466,14 @@ class IndexApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\OpenAPI\Client\Model\SuccessResponse' === '\SplFileObject') {
+                    if ('\OpenAPI\Client\Model\DeleteResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\SuccessResponse', []),
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\DeleteResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -491,7 +491,7 @@ class IndexApi
                     ];
             }
 
-            $returnType = '\OpenAPI\Client\Model\SuccessResponse';
+            $returnType = '\OpenAPI\Client\Model\DeleteResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -510,7 +510,7 @@ class IndexApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\SuccessResponse',
+                        '\OpenAPI\Client\Model\DeleteResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -560,7 +560,7 @@ class IndexApi
      */
     public function deleteAsyncWithHttpInfo($delete_document_request)
     {
-        $returnType = '\OpenAPI\Client\Model\SuccessResponse';
+        $returnType = '\OpenAPI\Client\Model\DeleteResponse';
         $request = $this->deleteRequest($delete_document_request);
 
         return $this->client
@@ -1276,7 +1276,7 @@ class IndexApi
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\SuccessResponse|\OpenAPI\Client\Model\ErrorResponse
+     * @return \OpenAPI\Client\Model\UpdateResponse|\OpenAPI\Client\Model\ErrorResponse
      */
     public function update($update_document_request)
     {
@@ -1293,7 +1293,7 @@ class IndexApi
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\SuccessResponse|\OpenAPI\Client\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\UpdateResponse|\OpenAPI\Client\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateWithHttpInfo($update_document_request)
     {
@@ -1330,14 +1330,14 @@ class IndexApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\OpenAPI\Client\Model\SuccessResponse' === '\SplFileObject') {
+                    if ('\OpenAPI\Client\Model\UpdateResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\SuccessResponse', []),
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\UpdateResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -1355,7 +1355,7 @@ class IndexApi
                     ];
             }
 
-            $returnType = '\OpenAPI\Client\Model\SuccessResponse';
+            $returnType = '\OpenAPI\Client\Model\UpdateResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -1374,7 +1374,7 @@ class IndexApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\SuccessResponse',
+                        '\OpenAPI\Client\Model\UpdateResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1424,7 +1424,7 @@ class IndexApi
      */
     public function updateAsyncWithHttpInfo($update_document_request)
     {
-        $returnType = '\OpenAPI\Client\Model\SuccessResponse';
+        $returnType = '\OpenAPI\Client\Model\UpdateResponse';
         $request = $this->updateRequest($update_document_request);
 
         return $this->client

@@ -2,7 +2,7 @@
 /**
  * SearchRequest
  *
- * PHP version 7.1
+ * PHP version 7.2
  *
  * @category Class
  * @package  OpenAPI\Client
@@ -250,18 +250,6 @@ class SearchRequest implements ModelInterface, ArrayAccess
         if ($this->container['query'] === null) {
             $invalidProperties[] = "'query' can't be null";
         }
-        if (!is_null($this->container['limit']) && ($this->container['limit'] < 0)) {
-            $invalidProperties[] = "invalid value for 'limit', must be bigger than or equal to 0.";
-        }
-
-        if (!is_null($this->container['offset']) && ($this->container['offset'] < 0)) {
-            $invalidProperties[] = "invalid value for 'offset', must be bigger than or equal to 0.";
-        }
-
-        if (!is_null($this->container['max_matches']) && ($this->container['max_matches'] < 0)) {
-            $invalidProperties[] = "invalid value for 'max_matches', must be bigger than or equal to 0.";
-        }
-
         return $invalidProperties;
     }
 
@@ -344,11 +332,6 @@ class SearchRequest implements ModelInterface, ArrayAccess
      */
     public function setLimit($limit)
     {
-
-        if (!is_null($limit) && ($limit < 0)) {
-            throw new \InvalidArgumentException('invalid value for $limit when calling SearchRequest., must be bigger than or equal to 0.');
-        }
-
         $this->container['limit'] = $limit;
 
         return $this;
@@ -373,11 +356,6 @@ class SearchRequest implements ModelInterface, ArrayAccess
      */
     public function setOffset($offset)
     {
-
-        if (!is_null($offset) && ($offset < 0)) {
-            throw new \InvalidArgumentException('invalid value for $offset when calling SearchRequest., must be bigger than or equal to 0.');
-        }
-
         $this->container['offset'] = $offset;
 
         return $this;
@@ -402,11 +380,6 @@ class SearchRequest implements ModelInterface, ArrayAccess
      */
     public function setMaxMatches($max_matches)
     {
-
-        if (!is_null($max_matches) && ($max_matches < 0)) {
-            throw new \InvalidArgumentException('invalid value for $max_matches when calling SearchRequest., must be bigger than or equal to 0.');
-        }
-
         $this->container['max_matches'] = $max_matches;
 
         return $this;

@@ -2,7 +2,7 @@
 /**
  * UpdateDocumentRequest
  *
- * PHP version 7.1
+ * PHP version 7.2
  *
  * @category Class
  * @package  OpenAPI\Client
@@ -214,10 +214,6 @@ class UpdateDocumentRequest implements ModelInterface, ArrayAccess
         if ($this->container['doc'] === null) {
             $invalidProperties[] = "'doc' can't be null";
         }
-        if (!is_null($this->container['id']) && ($this->container['id'] < 1)) {
-            $invalidProperties[] = "invalid value for 'id', must be bigger than or equal to 1.";
-        }
-
         return $invalidProperties;
     }
 
@@ -300,11 +296,6 @@ class UpdateDocumentRequest implements ModelInterface, ArrayAccess
      */
     public function setId($id)
     {
-
-        if (!is_null($id) && ($id < 1)) {
-            throw new \InvalidArgumentException('invalid value for $id when calling UpdateDocumentRequest., must be bigger than or equal to 1.');
-        }
-
         $this->container['id'] = $id;
 
         return $this;

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## Bulk
 
-> SuccessResponse Bulk(ctx, requestBody)
+> BulkResponse Bulk(ctx, body)
 
 Bulk index operations
 
@@ -24,11 +24,11 @@ Bulk index operations
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**requestBody** | [**[]map[string]interface{}**](map[string]interface{}.md)|  | 
+**body** | **string**|  | 
 
 ### Return type
 
-[**SuccessResponse**](successResponse.md)
+[**BulkResponse**](bulkResponse.md)
 
 ### Authorization
 
@@ -46,7 +46,7 @@ No authorization required
 
 ## Delete
 
-> SuccessResponse Delete(ctx, deleteDocumentRequest)
+> DeleteResponse Delete(ctx, deleteDocumentRequest)
 
 Delete a document in an index
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SuccessResponse**](successResponse.md)
+[**DeleteResponse**](deleteResponse.md)
 
 ### Authorization
 
@@ -142,7 +142,7 @@ No authorization required
 
 ## Update
 
-> SuccessResponse Update(ctx, updateDocumentRequest)
+> UpdateResponse Update(ctx, updateDocumentRequest)
 
 Update a document in an index
 
@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SuccessResponse**](successResponse.md)
+[**UpdateResponse**](updateResponse.md)
 
 ### Authorization
 

@@ -13,6 +13,6 @@ package openapi
 type SearchResponse struct {
 	Took int32 `json:"took,omitempty"`
 	TimedOut bool `json:"timed_out,omitempty"`
-	Hits map[string]SearchResponseHits `json:"hits,omitempty"`
+	Hits SearchResponseHits `json:"hits,omitempty"`
 	Profile map[string]interface{} `json:"profile,omitempty"`
 }

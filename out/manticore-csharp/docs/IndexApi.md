@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## Bulk
 
-> SuccessResponse Bulk (List<Object> requestBody)
+> BulkResponse Bulk (string body)
 
 Bulk index operations
 
@@ -35,12 +35,12 @@ namespace Example
         {
             Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
             var apiInstance = new IndexApi(Configuration.Default);
-            var requestBody = new List<Object>(); // List<Object> | 
+            var body = body_example;  // string | 
 
             try
             {
                 // Bulk index operations
-                SuccessResponse result = apiInstance.Bulk(requestBody);
+                BulkResponse result = apiInstance.Bulk(body);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
@@ -59,11 +59,11 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **requestBody** | [**List&lt;Object&gt;**](Object.md)|  | 
+ **body** | **string**|  | 
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**BulkResponse**](BulkResponse.md)
 
 ### Authorization
 
@@ -88,7 +88,7 @@ No authorization required
 
 ## Delete
 
-> SuccessResponse Delete (DeleteDocumentRequest deleteDocumentRequest)
+> DeleteResponse Delete (DeleteDocumentRequest deleteDocumentRequest)
 
 Delete a document in an index
 
@@ -114,7 +114,7 @@ namespace Example
             try
             {
                 // Delete a document in an index
-                SuccessResponse result = apiInstance.Delete(deleteDocumentRequest);
+                DeleteResponse result = apiInstance.Delete(deleteDocumentRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**DeleteResponse**](DeleteResponse.md)
 
 ### Authorization
 
@@ -310,7 +310,7 @@ No authorization required
 
 ## Update
 
-> SuccessResponse Update (UpdateDocumentRequest updateDocumentRequest)
+> UpdateResponse Update (UpdateDocumentRequest updateDocumentRequest)
 
 Update a document in an index
 
@@ -336,7 +336,7 @@ namespace Example
             try
             {
                 // Update a document in an index
-                SuccessResponse result = apiInstance.Update(updateDocumentRequest);
+                UpdateResponse result = apiInstance.Update(updateDocumentRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
@@ -359,7 +359,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+[**UpdateResponse**](UpdateResponse.md)
 
 ### Authorization
 

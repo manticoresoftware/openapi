@@ -44,18 +44,15 @@ export default class UtilsApi {
 
     /**
      * Perform SQL requests
-     * @param {String} query 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.mode 
+     * @param {String} body 
      * @param {module:api/UtilsApi~sqlCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object.<String, {String: Object}>}
      */
-    sql(query, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'query' is set
-      if (query === undefined || query === null) {
-        throw new Error("Missing the required parameter 'query' when calling sql");
+    sql(body, callback) {
+      let postBody = body;
+      // verify the required parameter 'body' is set
+      if (body === undefined || body === null) {
+        throw new Error("Missing the required parameter 'body' when calling sql");
       }
 
       let pathParams = {
@@ -65,12 +62,10 @@ export default class UtilsApi {
       let headerParams = {
       };
       let formParams = {
-        'query': query,
-        'mode': opts['mode']
       };
 
       let authNames = [];
-      let contentTypes = ['application/x-www-form-urlencoded'];
+      let contentTypes = ['text/plain'];
       let accepts = ['application/json'];
       let returnType = {'String': Object};
       return this.apiClient.callApi(

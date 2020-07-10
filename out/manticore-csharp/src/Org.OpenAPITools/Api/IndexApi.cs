@@ -32,9 +32,9 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="requestBody"></param>
-        /// <returns>SuccessResponse</returns>
-        SuccessResponse Bulk (List<Object> requestBody);
+        /// <param name="body"></param>
+        /// <returns>BulkResponse</returns>
+        BulkResponse Bulk (string body);
 
         /// <summary>
         /// Bulk index operations
@@ -43,9 +43,9 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="requestBody"></param>
-        /// <returns>ApiResponse of SuccessResponse</returns>
-        ApiResponse<SuccessResponse> BulkWithHttpInfo (List<Object> requestBody);
+        /// <param name="body"></param>
+        /// <returns>ApiResponse of BulkResponse</returns>
+        ApiResponse<BulkResponse> BulkWithHttpInfo (string body);
         /// <summary>
         /// Delete a document in an index
         /// </summary>
@@ -54,8 +54,8 @@ namespace Org.OpenAPITools.Api
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="deleteDocumentRequest"></param>
-        /// <returns>SuccessResponse</returns>
-        SuccessResponse Delete (DeleteDocumentRequest deleteDocumentRequest);
+        /// <returns>DeleteResponse</returns>
+        DeleteResponse Delete (DeleteDocumentRequest deleteDocumentRequest);
 
         /// <summary>
         /// Delete a document in an index
@@ -65,8 +65,8 @@ namespace Org.OpenAPITools.Api
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="deleteDocumentRequest"></param>
-        /// <returns>ApiResponse of SuccessResponse</returns>
-        ApiResponse<SuccessResponse> DeleteWithHttpInfo (DeleteDocumentRequest deleteDocumentRequest);
+        /// <returns>ApiResponse of DeleteResponse</returns>
+        ApiResponse<DeleteResponse> DeleteWithHttpInfo (DeleteDocumentRequest deleteDocumentRequest);
         /// <summary>
         /// Create a new document in an index
         /// </summary>
@@ -117,8 +117,8 @@ namespace Org.OpenAPITools.Api
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="updateDocumentRequest"></param>
-        /// <returns>SuccessResponse</returns>
-        SuccessResponse Update (UpdateDocumentRequest updateDocumentRequest);
+        /// <returns>UpdateResponse</returns>
+        UpdateResponse Update (UpdateDocumentRequest updateDocumentRequest);
 
         /// <summary>
         /// Update a document in an index
@@ -128,8 +128,8 @@ namespace Org.OpenAPITools.Api
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="updateDocumentRequest"></param>
-        /// <returns>ApiResponse of SuccessResponse</returns>
-        ApiResponse<SuccessResponse> UpdateWithHttpInfo (UpdateDocumentRequest updateDocumentRequest);
+        /// <returns>ApiResponse of UpdateResponse</returns>
+        ApiResponse<UpdateResponse> UpdateWithHttpInfo (UpdateDocumentRequest updateDocumentRequest);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -139,10 +139,10 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="requestBody"></param>
+        /// <param name="body"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of SuccessResponse</returns>
-        System.Threading.Tasks.Task<SuccessResponse> BulkAsync (List<Object> requestBody, CancellationToken cancellationToken = default(CancellationToken));
+        /// <returns>Task of BulkResponse</returns>
+        System.Threading.Tasks.Task<BulkResponse> BulkAsync (string body, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Bulk index operations
@@ -151,10 +151,10 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="requestBody"></param>
+        /// <param name="body"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of ApiResponse (SuccessResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<SuccessResponse>> BulkAsyncWithHttpInfo (List<Object> requestBody, CancellationToken cancellationToken = default(CancellationToken));
+        /// <returns>Task of ApiResponse (BulkResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<BulkResponse>> BulkAsyncWithHttpInfo (string body, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Delete a document in an index
         /// </summary>
@@ -164,8 +164,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="deleteDocumentRequest"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of SuccessResponse</returns>
-        System.Threading.Tasks.Task<SuccessResponse> DeleteAsync (DeleteDocumentRequest deleteDocumentRequest, CancellationToken cancellationToken = default(CancellationToken));
+        /// <returns>Task of DeleteResponse</returns>
+        System.Threading.Tasks.Task<DeleteResponse> DeleteAsync (DeleteDocumentRequest deleteDocumentRequest, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Delete a document in an index
@@ -176,8 +176,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="deleteDocumentRequest"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of ApiResponse (SuccessResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<SuccessResponse>> DeleteAsyncWithHttpInfo (DeleteDocumentRequest deleteDocumentRequest, CancellationToken cancellationToken = default(CancellationToken));
+        /// <returns>Task of ApiResponse (DeleteResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<DeleteResponse>> DeleteAsyncWithHttpInfo (DeleteDocumentRequest deleteDocumentRequest, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Create a new document in an index
         /// </summary>
@@ -233,8 +233,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="updateDocumentRequest"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of SuccessResponse</returns>
-        System.Threading.Tasks.Task<SuccessResponse> UpdateAsync (UpdateDocumentRequest updateDocumentRequest, CancellationToken cancellationToken = default(CancellationToken));
+        /// <returns>Task of UpdateResponse</returns>
+        System.Threading.Tasks.Task<UpdateResponse> UpdateAsync (UpdateDocumentRequest updateDocumentRequest, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Update a document in an index
@@ -245,8 +245,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="updateDocumentRequest"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of ApiResponse (SuccessResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<SuccessResponse>> UpdateAsyncWithHttpInfo (UpdateDocumentRequest updateDocumentRequest, CancellationToken cancellationToken = default(CancellationToken));
+        /// <returns>Task of ApiResponse (UpdateResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<UpdateResponse>> UpdateAsyncWithHttpInfo (UpdateDocumentRequest updateDocumentRequest, CancellationToken cancellationToken = default(CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -362,11 +362,11 @@ namespace Org.OpenAPITools.Api
         /// Bulk index operations 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="requestBody"></param>
-        /// <returns>SuccessResponse</returns>
-        public SuccessResponse Bulk (List<Object> requestBody)
+        /// <param name="body"></param>
+        /// <returns>BulkResponse</returns>
+        public BulkResponse Bulk (string body)
         {
-             ApiResponse<SuccessResponse> localVarResponse = BulkWithHttpInfo(requestBody);
+             ApiResponse<BulkResponse> localVarResponse = BulkWithHttpInfo(body);
              return localVarResponse.Data;
         }
 
@@ -374,13 +374,13 @@ namespace Org.OpenAPITools.Api
         /// Bulk index operations 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="requestBody"></param>
-        /// <returns>ApiResponse of SuccessResponse</returns>
-        public ApiResponse<SuccessResponse> BulkWithHttpInfo (List<Object> requestBody)
+        /// <param name="body"></param>
+        /// <returns>ApiResponse of BulkResponse</returns>
+        public ApiResponse<BulkResponse> BulkWithHttpInfo (string body)
         {
-            // verify the required parameter 'requestBody' is set
-            if (requestBody == null)
-                throw new ApiException(400, "Missing required parameter 'requestBody' when calling IndexApi->Bulk");
+            // verify the required parameter 'body' is set
+            if (body == null)
+                throw new ApiException(400, "Missing required parameter 'body' when calling IndexApi->Bulk");
 
             var localVarPath = "/json/bulk";
             var localVarPathParams = new Dictionary<String, String>();
@@ -404,13 +404,13 @@ namespace Org.OpenAPITools.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (requestBody != null && requestBody.GetType() != typeof(byte[]))
+            if (body != null && body.GetType() != typeof(byte[]))
             {
-                localVarPostBody = this.Configuration.ApiClient.Serialize(requestBody); // http body (model) parameter
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
             }
             else
             {
-                localVarPostBody = requestBody; // byte array
+                localVarPostBody = body; // byte array
             }
 
 
@@ -427,21 +427,21 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<SuccessResponse>(localVarStatusCode,
+            return new ApiResponse<BulkResponse>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (SuccessResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(SuccessResponse)));
+                (BulkResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(BulkResponse)));
         }
 
         /// <summary>
         /// Bulk index operations 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="requestBody"></param>
+        /// <param name="body"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of SuccessResponse</returns>
-        public async System.Threading.Tasks.Task<SuccessResponse> BulkAsync (List<Object> requestBody, CancellationToken cancellationToken = default(CancellationToken))
+        /// <returns>Task of BulkResponse</returns>
+        public async System.Threading.Tasks.Task<BulkResponse> BulkAsync (string body, CancellationToken cancellationToken = default(CancellationToken))
         {
-             ApiResponse<SuccessResponse> localVarResponse = await BulkAsyncWithHttpInfo(requestBody, cancellationToken);
+             ApiResponse<BulkResponse> localVarResponse = await BulkAsyncWithHttpInfo(body, cancellationToken);
              return localVarResponse.Data;
 
         }
@@ -450,14 +450,14 @@ namespace Org.OpenAPITools.Api
         /// Bulk index operations 
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="requestBody"></param>
+        /// <param name="body"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of ApiResponse (SuccessResponse)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<SuccessResponse>> BulkAsyncWithHttpInfo (List<Object> requestBody, CancellationToken cancellationToken = default(CancellationToken))
+        /// <returns>Task of ApiResponse (BulkResponse)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<BulkResponse>> BulkAsyncWithHttpInfo (string body, CancellationToken cancellationToken = default(CancellationToken))
         {
-            // verify the required parameter 'requestBody' is set
-            if (requestBody == null)
-                throw new ApiException(400, "Missing required parameter 'requestBody' when calling IndexApi->Bulk");
+            // verify the required parameter 'body' is set
+            if (body == null)
+                throw new ApiException(400, "Missing required parameter 'body' when calling IndexApi->Bulk");
 
             var localVarPath = "/json/bulk";
             var localVarPathParams = new Dictionary<String, String>();
@@ -481,13 +481,13 @@ namespace Org.OpenAPITools.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (requestBody != null && requestBody.GetType() != typeof(byte[]))
+            if (body != null && body.GetType() != typeof(byte[]))
             {
-                localVarPostBody = this.Configuration.ApiClient.Serialize(requestBody); // http body (model) parameter
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
             }
             else
             {
-                localVarPostBody = requestBody; // byte array
+                localVarPostBody = body; // byte array
             }
 
 
@@ -504,9 +504,9 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<SuccessResponse>(localVarStatusCode,
+            return new ApiResponse<BulkResponse>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (SuccessResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(SuccessResponse)));
+                (BulkResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(BulkResponse)));
         }
 
         /// <summary>
@@ -514,10 +514,10 @@ namespace Org.OpenAPITools.Api
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="deleteDocumentRequest"></param>
-        /// <returns>SuccessResponse</returns>
-        public SuccessResponse Delete (DeleteDocumentRequest deleteDocumentRequest)
+        /// <returns>DeleteResponse</returns>
+        public DeleteResponse Delete (DeleteDocumentRequest deleteDocumentRequest)
         {
-             ApiResponse<SuccessResponse> localVarResponse = DeleteWithHttpInfo(deleteDocumentRequest);
+             ApiResponse<DeleteResponse> localVarResponse = DeleteWithHttpInfo(deleteDocumentRequest);
              return localVarResponse.Data;
         }
 
@@ -526,8 +526,8 @@ namespace Org.OpenAPITools.Api
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="deleteDocumentRequest"></param>
-        /// <returns>ApiResponse of SuccessResponse</returns>
-        public ApiResponse<SuccessResponse> DeleteWithHttpInfo (DeleteDocumentRequest deleteDocumentRequest)
+        /// <returns>ApiResponse of DeleteResponse</returns>
+        public ApiResponse<DeleteResponse> DeleteWithHttpInfo (DeleteDocumentRequest deleteDocumentRequest)
         {
             // verify the required parameter 'deleteDocumentRequest' is set
             if (deleteDocumentRequest == null)
@@ -578,9 +578,9 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<SuccessResponse>(localVarStatusCode,
+            return new ApiResponse<DeleteResponse>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (SuccessResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(SuccessResponse)));
+                (DeleteResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(DeleteResponse)));
         }
 
         /// <summary>
@@ -589,10 +589,10 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="deleteDocumentRequest"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of SuccessResponse</returns>
-        public async System.Threading.Tasks.Task<SuccessResponse> DeleteAsync (DeleteDocumentRequest deleteDocumentRequest, CancellationToken cancellationToken = default(CancellationToken))
+        /// <returns>Task of DeleteResponse</returns>
+        public async System.Threading.Tasks.Task<DeleteResponse> DeleteAsync (DeleteDocumentRequest deleteDocumentRequest, CancellationToken cancellationToken = default(CancellationToken))
         {
-             ApiResponse<SuccessResponse> localVarResponse = await DeleteAsyncWithHttpInfo(deleteDocumentRequest, cancellationToken);
+             ApiResponse<DeleteResponse> localVarResponse = await DeleteAsyncWithHttpInfo(deleteDocumentRequest, cancellationToken);
              return localVarResponse.Data;
 
         }
@@ -603,8 +603,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="deleteDocumentRequest"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of ApiResponse (SuccessResponse)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<SuccessResponse>> DeleteAsyncWithHttpInfo (DeleteDocumentRequest deleteDocumentRequest, CancellationToken cancellationToken = default(CancellationToken))
+        /// <returns>Task of ApiResponse (DeleteResponse)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<DeleteResponse>> DeleteAsyncWithHttpInfo (DeleteDocumentRequest deleteDocumentRequest, CancellationToken cancellationToken = default(CancellationToken))
         {
             // verify the required parameter 'deleteDocumentRequest' is set
             if (deleteDocumentRequest == null)
@@ -655,9 +655,9 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<SuccessResponse>(localVarStatusCode,
+            return new ApiResponse<DeleteResponse>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (SuccessResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(SuccessResponse)));
+                (DeleteResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(DeleteResponse)));
         }
 
         /// <summary>
@@ -967,10 +967,10 @@ namespace Org.OpenAPITools.Api
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="updateDocumentRequest"></param>
-        /// <returns>SuccessResponse</returns>
-        public SuccessResponse Update (UpdateDocumentRequest updateDocumentRequest)
+        /// <returns>UpdateResponse</returns>
+        public UpdateResponse Update (UpdateDocumentRequest updateDocumentRequest)
         {
-             ApiResponse<SuccessResponse> localVarResponse = UpdateWithHttpInfo(updateDocumentRequest);
+             ApiResponse<UpdateResponse> localVarResponse = UpdateWithHttpInfo(updateDocumentRequest);
              return localVarResponse.Data;
         }
 
@@ -979,8 +979,8 @@ namespace Org.OpenAPITools.Api
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="updateDocumentRequest"></param>
-        /// <returns>ApiResponse of SuccessResponse</returns>
-        public ApiResponse<SuccessResponse> UpdateWithHttpInfo (UpdateDocumentRequest updateDocumentRequest)
+        /// <returns>ApiResponse of UpdateResponse</returns>
+        public ApiResponse<UpdateResponse> UpdateWithHttpInfo (UpdateDocumentRequest updateDocumentRequest)
         {
             // verify the required parameter 'updateDocumentRequest' is set
             if (updateDocumentRequest == null)
@@ -1031,9 +1031,9 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<SuccessResponse>(localVarStatusCode,
+            return new ApiResponse<UpdateResponse>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (SuccessResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(SuccessResponse)));
+                (UpdateResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(UpdateResponse)));
         }
 
         /// <summary>
@@ -1042,10 +1042,10 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="updateDocumentRequest"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of SuccessResponse</returns>
-        public async System.Threading.Tasks.Task<SuccessResponse> UpdateAsync (UpdateDocumentRequest updateDocumentRequest, CancellationToken cancellationToken = default(CancellationToken))
+        /// <returns>Task of UpdateResponse</returns>
+        public async System.Threading.Tasks.Task<UpdateResponse> UpdateAsync (UpdateDocumentRequest updateDocumentRequest, CancellationToken cancellationToken = default(CancellationToken))
         {
-             ApiResponse<SuccessResponse> localVarResponse = await UpdateAsyncWithHttpInfo(updateDocumentRequest, cancellationToken);
+             ApiResponse<UpdateResponse> localVarResponse = await UpdateAsyncWithHttpInfo(updateDocumentRequest, cancellationToken);
              return localVarResponse.Data;
 
         }
@@ -1056,8 +1056,8 @@ namespace Org.OpenAPITools.Api
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="updateDocumentRequest"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel request (optional) </param>
-        /// <returns>Task of ApiResponse (SuccessResponse)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<SuccessResponse>> UpdateAsyncWithHttpInfo (UpdateDocumentRequest updateDocumentRequest, CancellationToken cancellationToken = default(CancellationToken))
+        /// <returns>Task of ApiResponse (UpdateResponse)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<UpdateResponse>> UpdateAsyncWithHttpInfo (UpdateDocumentRequest updateDocumentRequest, CancellationToken cancellationToken = default(CancellationToken))
         {
             // verify the required parameter 'updateDocumentRequest' is set
             if (updateDocumentRequest == null)
@@ -1108,9 +1108,9 @@ namespace Org.OpenAPITools.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<SuccessResponse>(localVarStatusCode,
+            return new ApiResponse<UpdateResponse>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (SuccessResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(SuccessResponse)));
+                (UpdateResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(UpdateResponse)));
         }
 
     }

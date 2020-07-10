@@ -6,12 +6,11 @@
 #include "../include/keyValuePair.h"
 #include "../include/binary.h"
 #include "../model/error_response.h"
-#include "../model/object.h"
 
 
 // Perform SQL requests
 //
 list_t*_t*
-UtilsAPI_sql(apiClient_t *apiClient, char * query , char * mode );
+UtilsAPI_sql(apiClient_t *apiClient, char * body );
 
 

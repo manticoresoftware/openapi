@@ -287,30 +287,6 @@ namespace Org.OpenAPITools.Model
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-
-            
-            // Limit (int) minimum
-            if(this.Limit < (int)0)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Limit, must be a value greater than or equal to 0.", new [] { "Limit" });
-            }
-
-
-            
-            // Offset (int) minimum
-            if(this.Offset < (int)0)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Offset, must be a value greater than or equal to 0.", new [] { "Offset" });
-            }
-
-
-            
-            // MaxMatches (int) minimum
-            if(this.MaxMatches < (int)0)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for MaxMatches, must be a value greater than or equal to 0.", new [] { "MaxMatches" });
-            }
-
             yield break;
         }
     }

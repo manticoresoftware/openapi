@@ -11,7 +11,7 @@ For more information, please visit [https://manticoresearch.com/contact-us/](htt
 
 ## Requirements
 
-PHP 7.1 and later
+PHP 7.2 and later
 
 ## Installation & Usage
 
@@ -67,10 +67,10 @@ $apiInstance = new OpenAPI\Client\Api\IndexApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$request_body = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}]; // object[] | 
+$body = 'body_example'; // string | 
 
 try {
-    $result = $apiInstance->bulk($request_body);
+    $result = $apiInstance->bulk($body);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling IndexApi->bulk: ', $e->getMessage(), PHP_EOL;
@@ -97,9 +97,10 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [BulkResponse](docs/Model/BulkResponse.md)
  - [DeleteDocumentRequest](docs/Model/DeleteDocumentRequest.md)
+ - [DeleteResponse](docs/Model/DeleteResponse.md)
  - [ErrorResponse](docs/Model/ErrorResponse.md)
- - [InlineObject](docs/Model/InlineObject.md)
  - [InsertDocumentRequest](docs/Model/InsertDocumentRequest.md)
  - [PercolateRequest](docs/Model/PercolateRequest.md)
  - [SearchRequest](docs/Model/SearchRequest.md)
@@ -107,6 +108,7 @@ Class | Method | HTTP request | Description
  - [SearchResponseHits](docs/Model/SearchResponseHits.md)
  - [SuccessResponse](docs/Model/SuccessResponse.md)
  - [UpdateDocumentRequest](docs/Model/UpdateDocumentRequest.md)
+ - [UpdateResponse](docs/Model/UpdateResponse.md)
 
 
 ## Documentation For Authorization

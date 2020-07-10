@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include "IndexAPI.h"
 
-
+#define MAX_NUMBER_LENGTH 16
 #define MAX_BUFFER_LENGTH 4096
 #define intToStr(dst, src) \
     do {\
@@ -14,8 +14,8 @@
 
 // Bulk index operations
 //
-success_response_t*
-IndexAPI_bulk(apiClient_t *apiClient, list_t * request_body )
+bulk_response_t*
+IndexAPI_bulk(apiClient_t *apiClient, char * body )
 {
     list_t    *localVarQueryParameters = NULL;
     list_t    *localVarHeaderParameters = NULL;
@@ -33,32 +33,12 @@ IndexAPI_bulk(apiClient_t *apiClient, list_t * request_body )
 
 
     // Body Param
-    //notstring
-    cJSON *localVar_request_body;
-    cJSON *localVarItemJSON_request_body;
-    cJSON *localVarSingleItemJSON_request_body;
-    if (request_body != NULL)
+    cJSON *localVarSingleItemJSON_body;
+    if (body != NULL)
     {
-        localVarItemJSON_request_body = cJSON_CreateObject();
-        localVarSingleItemJSON_request_body = cJSON_AddArrayToObject(localVarItemJSON_request_body, "request_body");
-        if (localVarSingleItemJSON_request_body == NULL)
-        {
-            // nonprimitive container
-
-            goto end;
-        }
-    }
-
-    listEntry_t *request_bodyBodyListEntry;
-    list_ForEach(request_bodyBodyListEntry, request_body)
-    {
-        localVar_request_body = _convertToJSON(request_bodyBodyListEntry->data);
-        if(localVar_request_body == NULL)
-        {
-            goto end;
-        }
-        cJSON_AddItemToArray(localVarSingleItemJSON_request_body, localVar_request_body);
-        localVarBodyParameters = cJSON_Print(localVarItemJSON_request_body);
+        //string
+        localVarSingleItemJSON_body = char_convertToJSON(body);
+        localVarBodyParameters = cJSON_Print(localVarSingleItemJSON_body);
     }
     list_addElement(localVarHeaderType,"application/json"); //produces
     list_addElement(localVarContentType,"application/x-ndjson"); //consumes
@@ -80,7 +60,7 @@ IndexAPI_bulk(apiClient_t *apiClient, list_t * request_body )
     }
     //nonprimitive not container
     cJSON *IndexAPIlocalVarJSON = cJSON_Parse(apiClient->dataReceived);
-    success_response_t *elementToReturn = success_response_parseFromJSON(IndexAPIlocalVarJSON);
+    bulk_response_t *elementToReturn = bulk_response_parseFromJSON(IndexAPIlocalVarJSON);
     cJSON_Delete(IndexAPIlocalVarJSON);
     if(elementToReturn == NULL) {
         // return 0;
@@ -98,9 +78,7 @@ IndexAPI_bulk(apiClient_t *apiClient, list_t * request_body )
     list_free(localVarHeaderType);
     list_free(localVarContentType);
     free(localVarPath);
-    cJSON_Delete(localVarItemJSON_request_body);
-    cJSON_Delete(localVarSingleItemJSON_request_body);
-    cJSON_Delete(localVar_request_body);
+    cJSON_Delete(localVarSingleItemJSON_body);
     free(localVarBodyParameters);
     return elementToReturn;
 end:
@@ -110,7 +88,7 @@ end:
 
 // Delete a document in an index
 //
-success_response_t*
+delete_response_t*
 IndexAPI_delete(apiClient_t *apiClient, delete_document_request_t * delete_document_request )
 {
     list_t    *localVarQueryParameters = NULL;
@@ -156,7 +134,7 @@ IndexAPI_delete(apiClient_t *apiClient, delete_document_request_t * delete_docum
     }
     //nonprimitive not container
     cJSON *IndexAPIlocalVarJSON = cJSON_Parse(apiClient->dataReceived);
-    success_response_t *elementToReturn = success_response_parseFromJSON(IndexAPIlocalVarJSON);
+    delete_response_t *elementToReturn = delete_response_parseFromJSON(IndexAPIlocalVarJSON);
     cJSON_Delete(IndexAPIlocalVarJSON);
     if(elementToReturn == NULL) {
         // return 0;
@@ -332,7 +310,7 @@ end:
 
 // Update a document in an index
 //
-success_response_t*
+update_response_t*
 IndexAPI_update(apiClient_t *apiClient, update_document_request_t * update_document_request )
 {
     list_t    *localVarQueryParameters = NULL;
@@ -378,7 +356,7 @@ IndexAPI_update(apiClient_t *apiClient, update_document_request_t * update_docum
     }
     //nonprimitive not container
     cJSON *IndexAPIlocalVarJSON = cJSON_Parse(apiClient->dataReceived);
-    success_response_t *elementToReturn = success_response_parseFromJSON(IndexAPIlocalVarJSON);
+    update_response_t *elementToReturn = update_response_parseFromJSON(IndexAPIlocalVarJSON);
     cJSON_Delete(IndexAPIlocalVarJSON);
     if(elementToReturn == NULL) {
         // return 0;

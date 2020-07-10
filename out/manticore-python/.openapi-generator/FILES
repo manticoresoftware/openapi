@@ -3,11 +3,11 @@
 .openapi-generator-ignore
 .travis.yml
 README.md
+docs/BulkResponse.md
 docs/DeleteDocumentRequest.md
 docs/DeleteResponse.md
 docs/ErrorResponse.md
 docs/IndexApi.md
-docs/InlineObject.md
 docs/InsertDocumentRequest.md
 docs/PercolateRequest.md
 docs/SearchApi.md
@@ -28,10 +28,10 @@ openapi_client/api_client.py
 openapi_client/configuration.py
 openapi_client/exceptions.py
 openapi_client/models/__init__.py
+openapi_client/models/bulk_response.py
 openapi_client/models/delete_document_request.py
 openapi_client/models/delete_response.py
 openapi_client/models/error_response.py
-openapi_client/models/inline_object.py
 openapi_client/models/insert_document_request.py
 openapi_client/models/percolate_request.py
 openapi_client/models/search_request.py
@@ -46,11 +46,11 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_bulk_response.py
 test/test_delete_document_request.py
 test/test_delete_response.py
 test/test_error_response.py
 test/test_index_api.py
-test/test_inline_object.py
 test/test_insert_document_request.py
 test/test_percolate_request.py
 test/test_search_api.py

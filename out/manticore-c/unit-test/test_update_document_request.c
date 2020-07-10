@@ -24,14 +24,14 @@ update_document_request_t* instantiate_update_document_request(int include_optio
     update_document_request = update_document_request_create(
       "0",
       {"gid":10},
-      1,
+      56,
       {"query":{"match":{"title":"match me"}}}
     );
   } else {
     update_document_request = update_document_request_create(
       "0",
       {"gid":10},
-      1,
+      56,
       {"query":{"match":{"title":"match me"}}}
     );
   }

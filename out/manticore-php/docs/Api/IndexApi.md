@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## bulk
 
-> \OpenAPI\Client\Model\SuccessResponse bulk($request_body)
+> \OpenAPI\Client\Model\BulkResponse bulk($body)
 
 Bulk index operations
 
@@ -30,10 +30,10 @@ $apiInstance = new OpenAPI\Client\Api\IndexApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$request_body = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}]; // object[] | 
+$body = 'body_example'; // string | 
 
 try {
-    $result = $apiInstance->bulk($request_body);
+    $result = $apiInstance->bulk($body);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling IndexApi->bulk: ', $e->getMessage(), PHP_EOL;
@@ -46,11 +46,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request_body** | [**object[]**](../Model/object.md)|  |
+ **body** | **string**|  |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\SuccessResponse**](../Model/SuccessResponse.md)
+[**\OpenAPI\Client\Model\BulkResponse**](../Model/BulkResponse.md)
 
 ### Authorization
 
@@ -68,7 +68,7 @@ No authorization required
 
 ## delete
 
-> \OpenAPI\Client\Model\SuccessResponse delete($delete_document_request)
+> \OpenAPI\Client\Model\DeleteResponse delete($delete_document_request)
 
 Delete a document in an index
 
@@ -104,7 +104,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\OpenAPI\Client\Model\SuccessResponse**](../Model/SuccessResponse.md)
+[**\OpenAPI\Client\Model\DeleteResponse**](../Model/DeleteResponse.md)
 
 ### Authorization
 
@@ -230,7 +230,7 @@ No authorization required
 
 ## update
 
-> \OpenAPI\Client\Model\SuccessResponse update($update_document_request)
+> \OpenAPI\Client\Model\UpdateResponse update($update_document_request)
 
 Update a document in an index
 
@@ -266,7 +266,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\OpenAPI\Client\Model\SuccessResponse**](../Model/SuccessResponse.md)
+[**\OpenAPI\Client\Model\UpdateResponse**](../Model/UpdateResponse.md)
 
 ### Authorization
 

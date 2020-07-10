@@ -81,12 +81,12 @@ namespace Example
 
             Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
             var apiInstance = new IndexApi(Configuration.Default);
-            var requestBody = new List<Object>(); // List<Object> | 
+            var body = body_example;  // string | 
 
             try
             {
                 // Bulk index operations
-                SuccessResponse result = apiInstance.Bulk(requestBody);
+                BulkResponse result = apiInstance.Bulk(body);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
@@ -119,9 +119,10 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
+ - [Model.BulkResponse](docs/BulkResponse.md)
  - [Model.DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
+ - [Model.DeleteResponse](docs/DeleteResponse.md)
  - [Model.ErrorResponse](docs/ErrorResponse.md)
- - [Model.InlineObject](docs/InlineObject.md)
  - [Model.InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [Model.PercolateRequest](docs/PercolateRequest.md)
  - [Model.SearchRequest](docs/SearchRequest.md)
@@ -129,6 +130,7 @@ Class | Method | HTTP request | Description
  - [Model.SearchResponseHits](docs/SearchResponseHits.md)
  - [Model.SuccessResponse](docs/SuccessResponse.md)
  - [Model.UpdateDocumentRequest](docs/UpdateDocumentRequest.md)
+ - [Model.UpdateResponse](docs/UpdateResponse.md)
 
 
 ## Documentation for Authorization

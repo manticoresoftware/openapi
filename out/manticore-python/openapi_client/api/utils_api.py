@@ -37,19 +37,17 @@ class UtilsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def sql(self, query, **kwargs):  # noqa: E501
+    def sql(self, body, **kwargs):  # noqa: E501
         """Perform SQL requests  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.sql(query, async_req=True)
+        >>> thread = api.sql(body, async_req=True)
         >>> result = thread.get()
 
-        :param query: (required)
-        :type query: str
-        :param mode:
-        :type mode: str
+        :param body: (required)
+        :type body: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -66,21 +64,19 @@ class UtilsApi(object):
         :rtype: dict(str, object)
         """
         kwargs['_return_http_data_only'] = True
-        return self.sql_with_http_info(query, **kwargs)  # noqa: E501
+        return self.sql_with_http_info(body, **kwargs)  # noqa: E501
 
-    def sql_with_http_info(self, query, **kwargs):  # noqa: E501
+    def sql_with_http_info(self, body, **kwargs):  # noqa: E501
         """Perform SQL requests  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.sql_with_http_info(query, async_req=True)
+        >>> thread = api.sql_with_http_info(body, async_req=True)
         >>> result = thread.get()
 
-        :param query: (required)
-        :type query: str
-        :param mode:
-        :type mode: str
+        :param body: (required)
+        :type body: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -107,8 +103,7 @@ class UtilsApi(object):
         local_var_params = locals()
 
         all_params = [
-            'query',
-            'mode'
+            'body'
         ]
         all_params.extend(
             [
@@ -128,10 +123,10 @@ class UtilsApi(object):
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
-        # verify the required parameter 'query' is set
-        if self.api_client.client_side_validation and ('query' not in local_var_params or  # noqa: E501
-                                                        local_var_params['query'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `query` when calling `sql`")  # noqa: E501
+        # verify the required parameter 'body' is set
+        if self.api_client.client_side_validation and ('body' not in local_var_params or  # noqa: E501
+                                                        local_var_params['body'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `body` when calling `sql`")  # noqa: E501
 
         collection_formats = {}
 
@@ -143,19 +138,17 @@ class UtilsApi(object):
 
         form_params = []
         local_var_files = {}
-        if 'query' in local_var_params:
-            form_params.append(('query', local_var_params['query']))  # noqa: E501
-        if 'mode' in local_var_params:
-            form_params.append(('mode', local_var_params['mode']))  # noqa: E501
 
         body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/x-www-form-urlencoded'])  # noqa: E501
+            ['text/plain'])  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501

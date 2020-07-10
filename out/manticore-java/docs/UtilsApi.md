@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="sql"></a>
 # **sql**
-> Map&lt;String, Object&gt; sql(query, mode)
+> Map&lt;String, Object&gt; sql(body)
 
 Perform SQL requests
 
@@ -28,10 +28,9 @@ public class Example {
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
 
     UtilsApi apiInstance = new UtilsApi(defaultClient);
-    String query = "query_example"; // String | 
-    String mode = "mode_example"; // String | 
+    String body = "body_example"; // String | 
     try {
-      Map<String, Object> result = apiInstance.sql(query, mode);
+      Map<String, Object> result = apiInstance.sql(body);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling UtilsApi#sql");
@@ -48,8 +47,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **String**|  |
- **mode** | **String**|  | [optional]
+ **body** | **String**|  |
 
 ### Return type
 
@@ -61,7 +59,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/x-www-form-urlencoded
+ - **Content-Type**: text/plain
  - **Accept**: application/json
 
 ### HTTP response details

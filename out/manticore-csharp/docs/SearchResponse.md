@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Took** | **int** |  | [optional] 
 **TimedOut** | **bool** |  | [optional] 
-**Hits** | [**Dictionary&lt;string, SearchResponseHits&gt;**](SearchResponseHits.md) |  | [optional] 
+**Hits** | [**SearchResponseHits**](SearchResponseHits.md) |  | [optional] 
 **Profile** | **Object** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models)

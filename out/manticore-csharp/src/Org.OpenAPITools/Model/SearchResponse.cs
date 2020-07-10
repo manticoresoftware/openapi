@@ -37,7 +37,7 @@ namespace Org.OpenAPITools.Model
         /// <param name="timedOut">timedOut.</param>
         /// <param name="hits">hits.</param>
         /// <param name="profile">profile.</param>
-        public SearchResponse(int took = default(int), bool timedOut = default(bool), Dictionary<string, SearchResponseHits> hits = default(Dictionary<string, SearchResponseHits>), Object profile = default(Object))
+        public SearchResponse(int took = default(int), bool timedOut = default(bool), SearchResponseHits hits = default(SearchResponseHits), Object profile = default(Object))
         {
             this.Took = took;
             this.TimedOut = timedOut;
@@ -61,7 +61,7 @@ namespace Org.OpenAPITools.Model
         /// Gets or Sets Hits
         /// </summary>
         [DataMember(Name="hits", EmitDefaultValue=false)]
-        public Dictionary<string, SearchResponseHits> Hits { get; set; }
+        public SearchResponseHits Hits { get; set; }
 
         /// <summary>
         /// Gets or Sets Profile
@@ -127,9 +127,8 @@ namespace Org.OpenAPITools.Model
                 ) && 
                 (
                     this.Hits == input.Hits ||
-                    this.Hits != null &&
-                    input.Hits != null &&
-                    this.Hits.SequenceEqual(input.Hits)
+                    (this.Hits != null &&
+                    this.Hits.Equals(input.Hits))
                 ) && 
                 (
                     this.Profile == input.Profile ||

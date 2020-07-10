@@ -23,16 +23,13 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.openapitools.client.model.SearchResponseHits;
 
 /**
  * Response object of a search request
  */
 @ApiModel(description = "Response object of a search request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-25T15:19:00.920Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-07-10T12:08:10.695Z[GMT]")
 public class SearchResponse {
   public static final String SERIALIZED_NAME_TOOK = "took";
   @SerializedName(SERIALIZED_NAME_TOOK)
@@ -44,7 +41,7 @@ public class SearchResponse {
 
   public static final String SERIALIZED_NAME_HITS = "hits";
   @SerializedName(SERIALIZED_NAME_HITS)
-  private Map<String, SearchResponseHits> hits = null;
+  private SearchResponseHits hits;
 
   public static final String SERIALIZED_NAME_PROFILE = "profile";
   @SerializedName(SERIALIZED_NAME_PROFILE)
@@ -97,17 +94,9 @@ public class SearchResponse {
   }
 
 
-  public SearchResponse hits(Map<String, SearchResponseHits> hits) {
+  public SearchResponse hits(SearchResponseHits hits) {
     
     this.hits = hits;
-    return this;
-  }
-
-  public SearchResponse putHitsItem(String key, SearchResponseHits hitsItem) {
-    if (this.hits == null) {
-      this.hits = new HashMap<String, SearchResponseHits>();
-    }
-    this.hits.put(key, hitsItem);
     return this;
   }
 
@@ -116,14 +105,14 @@ public class SearchResponse {
    * @return hits
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "{\"total\":2,\"hits\":[{\"_id\":1,\"_score\":1,\"_source\":{\"gid\":11}},{\"_id\":2,\"_score\":1,\"_source\":{\"gid\":20}}]}", value = "")
+  @ApiModelProperty(value = "")
 
-  public Map<String, SearchResponseHits> getHits() {
+  public SearchResponseHits getHits() {
     return hits;
   }
 
 
-  public void setHits(Map<String, SearchResponseHits> hits) {
+  public void setHits(SearchResponseHits hits) {
     this.hits = hits;
   }
 

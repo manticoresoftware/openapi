@@ -2,7 +2,7 @@
 
 Manticore Search API
 - API version: 1.0.0
-  - Build date: 2020-05-25T15:19:00.920Z[GMT]
+  - Build date: 2020-07-10T12:08:10.695Z[GMT]
 
 This is the API for Manticore Search HTTP protocol
 
@@ -87,9 +87,9 @@ public class Example {
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
-    List<Object> requestBody = [{"insert":null,"index":"test","id":10,"doc":{"gid":10,"title":"doc one"}},{"insert":null,"index":"test","id":11,"doc":{"gid":20,"title":"dow two"}}]; // List<Object> | 
+    String body = "body_example"; // String | 
     try {
-      SuccessResponse result = apiInstance.bulk(requestBody);
+      BulkResponse result = apiInstance.bulk(body);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling IndexApi#bulk");
@@ -121,9 +121,10 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
+ - [BulkResponse](docs/BulkResponse.md)
  - [DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
+ - [DeleteResponse](docs/DeleteResponse.md)
  - [ErrorResponse](docs/ErrorResponse.md)
- - [InlineObject](docs/InlineObject.md)
  - [InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [PercolateRequest](docs/PercolateRequest.md)
  - [SearchRequest](docs/SearchRequest.md)
@@ -131,6 +132,7 @@ Class | Method | HTTP request | Description
  - [SearchResponseHits](docs/SearchResponseHits.md)
  - [SuccessResponse](docs/SuccessResponse.md)
  - [UpdateDocumentRequest](docs/UpdateDocumentRequest.md)
+ - [UpdateResponse](docs/UpdateResponse.md)
 
 
 ## Documentation for Authorization

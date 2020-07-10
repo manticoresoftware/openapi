@@ -11,9 +11,9 @@
 package openapi
 // SuccessResponse Success response
 type SuccessResponse struct {
-	Index string `json:"_index"`
-	Id int64 `json:"_id"`
+	Index string `json:"_index,omitempty"`
+	Id int64 `json:"_id,omitempty"`
 	Created bool `json:"created,omitempty"`
-	Result string `json:"result"`
+	Result string `json:"result,omitempty"`
 	Found bool `json:"found,omitempty"`
 }
