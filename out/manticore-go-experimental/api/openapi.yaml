@@ -1,0 +1,554 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: info@manticoresearch.com
+    name: Manticore Software Ltd.
+    url: https://manticoresearch.com/contact-us/
+  description: |
+    This is the API for Manticore Search HTTP protocol
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Manticore Search API
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Manticore Search
+  url: https://manticoresearch.com/
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0
+tags:
+- description: Operations regarding adding, updating or deleting documents
+  name: Index
+- description: Operations about performing searches over indexes
+  name: Search
+- description: Various operations
+  name: Utils
+paths:
+  /json/search:
+    post:
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html
+      operationId: search
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/searchRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchResponse'
+          description: Ok
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+          description: error
+      summary: Performs a search
+      tags:
+      - Search
+  /json/insert:
+    post:
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html
+      operationId: insert
+      requestBody:
+        content:
+          application/json:
+            example:
+              index: test
+              id: 1
+              doc:
+                title: sample title
+                gid: 10
+            schema:
+              $ref: '#/components/schemas/insertDocumentRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/successResponse'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+          description: error
+      summary: Create a new document in an index
+      tags:
+      - Index
+  /json/replace:
+    post:
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html
+      operationId: replace
+      requestBody:
+        content:
+          application/json:
+            example:
+              index: test
+              id: 1
+              doc:
+                title: updated title
+                gid: 15
+            schema:
+              $ref: '#/components/schemas/insertDocumentRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/successResponse'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+          description: error
+      summary: Replace new document in an index
+      tags:
+      - Index
+  /json/update:
+    post:
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_update.html
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            example:
+              index: test
+              doc:
+                gid: 20
+              query:
+                equals:
+                  cat_id: 2
+            schema:
+              $ref: '#/components/schemas/updateDocumentRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateResponse'
+          description: item updated
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+          description: error
+      summary: Update a document in an index
+      tags:
+      - Index
+  /json/delete:
+    post:
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_update.html
+      operationId: delete
+      requestBody:
+        content:
+          application/json:
+            example:
+              index: test
+              query:
+                match:
+                  title: apple
+            schema:
+              $ref: '#/components/schemas/deleteDocumentRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteResponse'
+          description: item updated
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+          description: error
+      summary: Delete a document in an index
+      tags:
+      - Index
+  /json/bulk:
+    post:
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_update.html
+      operationId: bulk
+      requestBody:
+        content:
+          application/x-ndjson:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bulkResponse'
+          description: item updated
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+          description: error
+      summary: Bulk index operations
+      tags:
+      - Index
+  /json/pq/{index}/search:
+    post:
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/http_reference/json_update.html
+      operationId: percolate
+      parameters:
+      - description: Name of the percolate index
+        explode: false
+        in: path
+        name: index
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              query:
+                percolate:
+                  document:
+                    title: some text to match
+            schema:
+              $ref: '#/components/schemas/percolateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchResponse'
+          description: items found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+          description: error
+      summary: Perform reverse search on a percolate index
+      tags:
+      - Search
+  /sql:
+    post:
+      externalDocs:
+        url: https://docs.manticoresearch.com/latest/html/httpapi_reference.html#sql-api
+      operationId: sql
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sqlResponse'
+          description: item updated
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+          description: error
+      summary: Perform SQL requests
+      tags:
+      - utils
+components:
+  schemas:
+    searchRequest:
+      description: Payload for search operation
+      example:
+        index: test
+        query: query_string:"find me"
+      properties:
+        index:
+          example: test
+          type: string
+        query:
+          additionalProperties: true
+          type: object
+        limit:
+          type: integer
+        offset:
+          type: integer
+        max_matches:
+          type: integer
+        sort:
+          items:
+            type: object
+          type: array
+        script_fields:
+          type: object
+        highlight:
+          type: object
+        _source:
+          items:
+            type: string
+          type: array
+        profile:
+          type: boolean
+      required:
+      - index
+      - query
+      type: object
+    updateDocumentRequest:
+      description: Payload for update document
+      example:
+        index: test
+        doc:
+          price: 1000
+        query:
+          match:
+            '*': apple
+      properties:
+        index:
+          type: string
+        doc:
+          additionalProperties: true
+          description: Index name
+          example:
+            gid: 10
+          type: object
+        id:
+          description: Document ID
+          format: int64
+          type: integer
+        query:
+          additionalProperties: true
+          description: Query tree object
+          example:
+            query:
+              match:
+                title: match me
+          type: object
+      required:
+      - doc
+      - index
+      type: object
+    deleteDocumentRequest:
+      description: "Payload for delete request.\nDocuments can be deleted either one\
+        \ by one by specifying the document id\nor by providing a query object.\n\
+        For more information see \n[Delete API](https://docs.manticoresearch.com/latest/html/http_reference/json_delete.html)\n"
+      example:
+        index: test
+        id: 1
+      properties:
+        index:
+          description: Index name
+          type: string
+        id:
+          description: Document ID
+          format: int64
+          type: integer
+        query:
+          description: Query tree object
+          type: object
+      required:
+      - index
+      type: object
+    bulkRequest:
+      description: list of operations
+      example:
+      - insert: null
+        index: test
+        id: 1
+        doc:
+          gid: 10
+          content: doc one
+      - insert: null
+        index: test
+        id: 2
+        doc:
+          gid: 20
+          content: doc two
+      items:
+        type: object
+      type: array
+    insertDocumentRequest:
+      description: |
+        Object with document data.
+      example:
+        index: test
+        doc:
+          title: This is some title
+          gid: 100
+      properties:
+        index:
+          description: Name of the index
+          type: string
+        id:
+          description: |
+            Document ID.
+          format: int64
+          type: integer
+        doc:
+          additionalProperties: true
+          description: |
+            Object with document data
+          type: object
+      required:
+      - doc
+      - index
+      type: object
+    percolateRequest:
+      description: Object with documents to percolate
+      example:
+        query:
+          percolate:
+            document:
+              title: some text to match
+      properties:
+        query:
+          additionalProperties: true
+          example:
+            percolate:
+              document:
+                title: some text to match
+          properties:
+            percolate:
+              type: object
+          required:
+          - percolate
+          type: object
+      required:
+      - query
+      type: object
+    searchResponse:
+      description: Response object of a search request
+      example:
+        hits: '{"total":2,"hits":[{"_id":1,"_score":1,"_source":{"gid":11}},{"_id":2,"_score":1,"_source":{"gid":20}}]}'
+        took: 0
+        profile: '{}'
+        timed_out: true
+      properties:
+        took:
+          type: integer
+        timed_out:
+          type: boolean
+        hits:
+          $ref: '#/components/schemas/searchResponse_hits'
+        profile:
+          type: object
+      type: object
+    sqlResponse:
+      additionalProperties: true
+      description: Response from sql depends on the query executed.
+      example:
+        total: 0
+        error: null
+      type: object
+    successResponse:
+      description: Success response
+      example:
+        _index: test
+        _id: 1
+        result: created
+        created: true
+      properties:
+        _index:
+          type: string
+        _id:
+          format: int64
+          type: integer
+        created:
+          type: boolean
+        result:
+          type: string
+        found:
+          type: boolean
+      type: object
+    bulkResponse:
+      additionalProperties: true
+      description: Success bulk response
+      example:
+        error: true
+        items: '{}'
+      properties:
+        items:
+          type: object
+        error:
+          type: boolean
+      type: object
+    updateResponse:
+      description: Success response
+      example:
+        _index: test
+        updated: 29
+      properties:
+        _index:
+          type: string
+        updated:
+          type: integer
+        _id:
+          format: int64
+          type: integer
+        result:
+          type: string
+      type: object
+    deleteResponse:
+      description: Success response
+      example:
+        _index: test
+        deleted: 29
+      properties:
+        _index:
+          type: string
+        deleted:
+          type: integer
+        _id:
+          format: int64
+          type: integer
+        result:
+          type: string
+      type: object
+    errorResponse:
+      description: Error response
+      example:
+        status: 500
+        error: an error occured
+      properties:
+        error:
+          additionalProperties: true
+          type: object
+        status:
+          example: 500
+          type: integer
+      required:
+      - error
+      - status
+      type: object
+    searchResponse_hits:
+      example: '{"total":2,"hits":[{"_id":1,"_score":1,"_source":{"gid":11}},{"_id":2,"_score":1,"_source":{"gid":20}}]}'
+      properties:
+        total:
+          type: integer
+        hits:
+          items:
+            type: object
+          type: array
