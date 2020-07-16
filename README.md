@@ -37,5 +37,9 @@ be url encoded. Fix is to use `text/plain` and user needs to provide
 
 ### Java
 
-* the client seems to throw exception on any content type that is not json, form or multipart - it will need patch
-to have `bulk` and `sql` work
+* the client seems to throw exception on any content type that is not json, form or multipart 
+* another problem is the http client forces addition of charset=utf-8 in `Content-Type`, this breaks
+`bulk` even if x-ndjson is set (seems we do an exact check on content-type) (there's a 2017 ticket on the 
+http client about this as seems it breaks compat with apis like ones from aws or dropbox since most do exact matching 
+on content-type). 
+Both these 2 issues need patches.
