@@ -5,7 +5,11 @@ client.basePath="http://127.0.0.1:6368"
 var api = new ManticoreSearchApi.IndexApi(client) 
 var utilsapi = new ManticoreSearchApi.UtilsApi(client)
 var searchapi = new ManticoreSearchApi.SearchApi(client)
-let insertDocumentRequest = {
+
+
+/* test insert */
+
+api.insert( {
                 'index': 'movies',
 
                 'doc' : {
@@ -19,8 +23,7 @@ let insertDocumentRequest = {
                     'meta': '{"keywords":{"travel","ice"},"genre":{"adventure"}}',
                     'language':[2,3]
                 }
-        }
-api.insert(insertDocumentRequest, (error, data, response) => {
+        }, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -28,7 +31,9 @@ api.insert(insertDocumentRequest, (error, data, response) => {
 	console.log(data);
   }
 });
-		
+
+/* test replace */
+
 api.replace({
                 'index': 'movies',
 				'id':1400,
@@ -52,6 +57,8 @@ api.replace({
   }
 });
 		
+/* test delete */
+		
 api.callDelete({
                 'index': 'movies',
                 'id':1400
@@ -64,14 +71,22 @@ api.callDelete({
   }
 });
 		
-api.bulk('{"insert": {"index": "movies", "doc": {"plot": "A secret team goes to North Pole", "rating": 9.5, "language": [2, 3], "title": "This is an older movie", "lon": 51.99, "meta": {"keywords":["travel","ice"],"genre":["adventure"]}, "year": 1950, "lat": 60.4, "advise": "PG-13"}}}'+"\n"+'{"delete": {"index": "movies","id":1400}}', (error, data, response) => {
+/* test bulk */
+let bulk = [{"insert": {"index": "movies", "doc": {"plot": "A secret team goes to North Pole", "rating": 9.5, "language": [2, 3], "title": "This is an older movie", "lon": 51.99, "meta": {"keywords":["travel","ice"],"genre":["adventure"]}, "year": 1950, "lat": 60.4, "advise": "PG-13"}}},{"delete": {"index": "movies","id":1400}}];
+let bulk_nd = "";
+for (const item of bulk) {
+		bulk_nd += JSON.stringify(item) + "\n";
+}	
+api.bulk(bulk_nd, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
-    console.log('bulk: ' );
+    console.log('BULK: ' );
 	console.log(data);
   }
 });	
+
+/* test sql -  normal select */
 
 utilsapi.sql('query=select * from movies',  (error, data, response) => {
   if (error) {
@@ -81,6 +96,9 @@ utilsapi.sql('query=select * from movies',  (error, data, response) => {
 	console.log(data);
   }
 });
+
+/* test sql - non-select */
+
 utilsapi.sql('mode=raw&query=SHOW TABLES',  (error, data, response) => {
   if (error) {
     console.error(error);
@@ -89,20 +107,8 @@ utilsapi.sql('mode=raw&query=SHOW TABLES',  (error, data, response) => {
 	console.log(data);
   }
 });
-searchapi.search({
-            'index':'movies',
-            'query':{'bool':{'must':[{'query_string':' movie'}]}},
-            'script_fields':{'myexpr':{'script':{'inline':'IF(rating>8,1,0)'}}},
-             'sort':[{'myexpr':'desc'},{'_score':'desc'}],
-             'profile': true
-            },  (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('Search: ');
-	console.log(data);
-  }
-});
+
+/* test search */
 
 searchapi.search({
             'index':'movies',
@@ -118,6 +124,8 @@ searchapi.search({
 	console.log(data);
   }
 });
+
+/* test percolate */
 
 searchapi.percolate('test_pq',{
             
