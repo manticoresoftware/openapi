@@ -24,7 +24,7 @@ use WWW::OpenAPIClient::UtilsApi;
 my $api_instance = WWW::OpenAPIClient::UtilsApi->new(
 );
 
-my $body = WWW::OpenAPIClient::Object::string->new(); # string | 
+my $body = WWW::OpenAPIClient::Object::string->new(); # string | Expects is a query parameters string that can be in two modes: - Select only query as \"query=SELECT * FROM myindex\". The query string MUST be URL encoded - any type of query in format \"mode=raw&query=SHOW TABLES\". The string must be as is (no URL encoding) and `mode` must be first. 
 
 eval { 
     my $result = $api_instance->sql(body => $body);
@@ -39,7 +39,7 @@ if ($@) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **string**|  | 
+ **body** | **string**| Expects is a query parameters string that can be in two modes: - Select only query as \&quot;query&#x3D;SELECT * FROM myindex\&quot;. The query string MUST be URL encoded - any type of query in format \&quot;mode&#x3D;raw&amp;query&#x3D;SHOW TABLES\&quot;. The string must be as is (no URL encoding) and &#x60;mode&#x60; must be first.  | 
 
 ### Return type
 

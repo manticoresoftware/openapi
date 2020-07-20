@@ -28,7 +28,7 @@ type UtilsApiService service
 /*
 Sql Perform SQL requests
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param body
+ * @param body Expects is a query parameters string that can be in two modes: - Select only query as \"query=SELECT * FROM myindex\". The query string MUST be URL encoded - any type of query in format \"mode=raw&query=SHOW TABLES\". The string must be as is (no URL encoding) and `mode` must be first. 
 @return map[string]map[string]interface{}
 */
 func (a *UtilsApiService) Sql(ctx _context.Context, body string) (map[string]map[string]interface{}, *_nethttp.Response, error) {

@@ -44,7 +44,7 @@ export default class UtilsApi {
 
     /**
      * Perform SQL requests
-     * @param {String} body 
+     * @param {String} body Expects is a query parameters string that can be in two modes: - Select only query as \"query=SELECT * FROM myindex\". The query string MUST be URL encoded - any type of query in format \"mode=raw&query=SHOW TABLES\". The string must be as is (no URL encoding) and `mode` must be first. 
      * @param {module:api/UtilsApi~sqlCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object.<String, {String: Object}>}
      */

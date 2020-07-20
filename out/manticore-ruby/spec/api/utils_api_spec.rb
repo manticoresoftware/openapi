@@ -34,7 +34,7 @@ describe 'UtilsApi' do
 
   # unit tests for sql
   # Perform SQL requests
-  # @param body 
+  # @param body Expects is a query parameters string that can be in two modes: - Select only query as \&quot;query&#x3D;SELECT * FROM myindex\&quot;. The query string MUST be URL encoded - any type of query in format \&quot;mode&#x3D;raw&amp;query&#x3D;SHOW TABLES\&quot;. The string must be as is (no URL encoding) and &#x60;mode&#x60; must be first. 
   # @param [Hash] opts the optional parameters
   # @return [Hash<String, Object>]
   describe 'sql test' do

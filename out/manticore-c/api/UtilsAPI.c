@@ -53,7 +53,7 @@ UtilsAPI_sql(apiClient_t *apiClient, char * body )
                     "POST");
 
     if (apiClient->response_code == 200) {
-        printf("%s\n","item updated");
+        printf("%s\n","In case of SELECT-only in mode none the response schema is the same as of &#x60;search&#x60;. In case of &#x60;mode&#x3D;raw&#x60; the response depends on the query executed. ");
     }
     if (apiClient->response_code == 0) {
         printf("%s\n","error");

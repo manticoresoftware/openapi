@@ -549,13 +549,24 @@ paths:
         url: https://docs.manticoresearch.com/latest/html/httpapi_reference.html#sql-api
       requestBody:
         required: true
+        description: |
+          Expects is a query parameters string that can be in two modes:
+          - Select only query as "query=SELECT * FROM myindex". The query string
+          MUST be URL encoded
+          - any type of query in format "mode=raw&query=SHOW TABLES". The string
+          must be as is (no URL encoding) and `mode` must be first.
         content:
           text/plain:
             schema: 
                   type: string
+            example:
+            - mode=raw&query=SHOW TABLES
       responses:
         '200':
-          description: item updated
+          description: |
+            In case of SELECT-only in mode none the response schema is the same
+            as of `search`.
+            In case of `mode=raw` the response depends on the query executed.
           content:
              application/json:
                schema: 

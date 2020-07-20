@@ -20,7 +20,7 @@ module OpenapiClient
       @api_client = api_client
     end
     # Perform SQL requests
-    # @param body [String] 
+    # @param body [String] Expects is a query parameters string that can be in two modes: - Select only query as \&quot;query&#x3D;SELECT * FROM myindex\&quot;. The query string MUST be URL encoded - any type of query in format \&quot;mode&#x3D;raw&amp;query&#x3D;SHOW TABLES\&quot;. The string must be as is (no URL encoding) and &#x60;mode&#x60; must be first. 
     # @param [Hash] opts the optional parameters
     # @return [Hash<String, Object>]
     def sql(body, opts = {})
@@ -29,7 +29,7 @@ module OpenapiClient
     end
 
     # Perform SQL requests
-    # @param body [String] 
+    # @param body [String] Expects is a query parameters string that can be in two modes: - Select only query as \&quot;query&#x3D;SELECT * FROM myindex\&quot;. The query string MUST be URL encoded - any type of query in format \&quot;mode&#x3D;raw&amp;query&#x3D;SHOW TABLES\&quot;. The string must be as is (no URL encoding) and &#x60;mode&#x60; must be first. 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Hash<String, Object>, Integer, Hash)>] Hash<String, Object> data, response status code and response headers
     def sql_with_http_info(body, opts = {})
