@@ -711,7 +711,7 @@ public class ApiClient {
      *   or matches "any", JSON will be used.
      */
     public String selectHeaderContentType(String[] contentTypes) {
-        if (contentTypes.length == 0 || contentTypes[0].equals("*/*")) {
+        if (contentTypes.length == 0) {
             return "application/json";
         }
         for (String contentType : contentTypes) {
@@ -822,8 +822,11 @@ public class ApiClient {
                 content = null;
             }
             return RequestBody.create(MediaType.parse(contentType), content);
-        } else {
-            throw new ApiException("Content type \"" + contentType + "\" is not supported");
+        } else if(obj instanceof String){
+            String content = (String) obj;
+            return RequestBody.create(MediaType.parse(contentType), content.getBytes() );
+        }else{
+            throw new ApiException("Content  \"" + contentType + "\" is not supported"+obj.getClass());
         }
     }
 

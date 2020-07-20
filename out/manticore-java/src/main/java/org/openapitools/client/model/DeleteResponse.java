@@ -28,7 +28,7 @@ import java.io.IOException;
  * Success response
  */
 @ApiModel(description = "Success response")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-07-13T18:50:45.640Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-07-20T05:42:19.040Z[GMT]")
 public class DeleteResponse {
   public static final String SERIALIZED_NAME_INDEX = "_index";
   @SerializedName(SERIALIZED_NAME_INDEX)
