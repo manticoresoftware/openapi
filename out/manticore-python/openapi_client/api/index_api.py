@@ -580,7 +580,7 @@ class IndexApi(object):
     def update(self, update_document_request, **kwargs):  # noqa: E501
         """Update a document in an index  # noqa: E501
 
-        Update one or several documents. <br/>  The update can be made by passing the id or by using a match query in case multiple documents can be updated. <br/> For example update a document using document id: <br/> <code> {'index':'movies','doc':{'rating':9.49},'id':100} <code/> <br/> And update by using a match query: <br/> ``` {'index':'movies','doc':{'rating':9.49},'query':{'bool':{'must':[{'query_string':'new movie'}]}}} ```  <br/> The match query has same syntax as for searching.   # noqa: E501
+        Update one or several documents. <br/>  The update can be made by passing the id or by using a match query in case multiple documents can be updated. <br/> For example update a document using document id: <br/> <code> {'index':'movies','doc':{'rating':9.49},'id':100} </code> <br/> And update by using a match query: <br/> ``` {'index':'movies','doc':{'rating':9.49},'query':{'bool':{'must':[{'query_string':'new movie'}]}}} ```  <br/> The match query has same syntax as for searching.   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -610,7 +610,7 @@ class IndexApi(object):
     def update_with_http_info(self, update_document_request, **kwargs):  # noqa: E501
         """Update a document in an index  # noqa: E501
 
-        Update one or several documents. <br/>  The update can be made by passing the id or by using a match query in case multiple documents can be updated. <br/> For example update a document using document id: <br/> <code> {'index':'movies','doc':{'rating':9.49},'id':100} <code/> <br/> And update by using a match query: <br/> ``` {'index':'movies','doc':{'rating':9.49},'query':{'bool':{'must':[{'query_string':'new movie'}]}}} ```  <br/> The match query has same syntax as for searching.   # noqa: E501
+        Update one or several documents. <br/>  The update can be made by passing the id or by using a match query in case multiple documents can be updated. <br/> For example update a document using document id: <br/> <code> {'index':'movies','doc':{'rating':9.49},'id':100} </code> <br/> And update by using a match query: <br/> ``` {'index':'movies','doc':{'rating':9.49},'query':{'bool':{'must':[{'query_string':'new movie'}]}}} ```  <br/> The match query has same syntax as for searching.   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 

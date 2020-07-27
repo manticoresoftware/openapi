@@ -426,7 +426,7 @@ paths:
           For example update a document using document id: <br/>
           <code>
           {'index':'movies','doc':{'rating':9.49},'id':100}
-          <code/>
+          </code>
           <br/>
           And update by using a match query: <br/>
           ```

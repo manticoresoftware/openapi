@@ -268,7 +268,7 @@ No authorization required
 
 Update a document in an index
 
-Update one or several documents. <br/>  The update can be made by passing the id or by using a match query in case multiple documents can be updated. <br/> For example update a document using document id: <br/> <code> {'index':'movies','doc':{'rating':9.49},'id':100} <code/> <br/> And update by using a match query: <br/> ``` {'index':'movies','doc':{'rating':9.49},'query':{'bool':{'must':[{'query_string':'new movie'}]}}} ```  <br/> The match query has same syntax as for searching. 
+Update one or several documents. <br/>  The update can be made by passing the id or by using a match query in case multiple documents can be updated. <br/> For example update a document using document id: <br/> <code> {'index':'movies','doc':{'rating':9.49},'id':100} </code> <br/> And update by using a match query: <br/> ``` {'index':'movies','doc':{'rating':9.49},'query':{'bool':{'must':[{'query_string':'new movie'}]}}} ```  <br/> The match query has same syntax as for searching. 
 
 ### Example
 
