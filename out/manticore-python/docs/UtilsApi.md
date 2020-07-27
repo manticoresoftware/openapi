@@ -12,6 +12,8 @@ Method | HTTP request | Description
 
 Perform SQL requests
 
+Run a query in SQL format.  Expects is a query parameters string that can be in two modes:  * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first.       
+
 ### Example
 
 ```python
@@ -31,7 +33,7 @@ configuration = openapi_client.Configuration(
 with openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = openapi_client.UtilsApi(api_client)
-    body = ["mode=raw&query=SHOW TABLES"] # str | Expects is a query parameters string that can be in two modes: - Select only query as \"query=SELECT * FROM myindex\". The query string MUST be URL encoded - any type of query in format \"mode=raw&query=SHOW TABLES\". The string must be as is (no URL encoding) and `mode` must be first. 
+    body = ["mode=raw&query=SHOW TABLES"] # str | Expects is a query parameters string that can be in two modes: - Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded - any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. 
 
     try:
         # Perform SQL requests
@@ -45,7 +47,7 @@ with openapi_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **str**| Expects is a query parameters string that can be in two modes: - Select only query as \&quot;query&#x3D;SELECT * FROM myindex\&quot;. The query string MUST be URL encoded - any type of query in format \&quot;mode&#x3D;raw&amp;query&#x3D;SHOW TABLES\&quot;. The string must be as is (no URL encoding) and &#x60;mode&#x60; must be first.  | 
+ **body** | **str**| Expects is a query parameters string that can be in two modes: - Select only query as &#x60;query&#x3D;SELECT * FROM myindex&#x60;. The query string MUST be URL encoded - any type of query in format &#x60;mode&#x3D;raw&amp;query&#x3D;SHOW TABLES&#x60;. The string must be as is (no URL encoding) and &#x60;mode&#x60; must be first.  | 
 
 ### Return type
 

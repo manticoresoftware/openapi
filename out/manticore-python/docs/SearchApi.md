@@ -13,6 +13,8 @@ Method | HTTP request | Description
 
 Perform reverse search on a percolate index
 
+Performs a percolate search. This method must be used only on percolate indexes.  Expects the index name and an object with array of documents to be tested. 
+
 ### Example
 
 ```python

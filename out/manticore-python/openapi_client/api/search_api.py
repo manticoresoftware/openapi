@@ -40,6 +40,7 @@ class SearchApi(object):
     def percolate(self, index, percolate_request, **kwargs):  # noqa: E501
         """Perform reverse search on a percolate index  # noqa: E501
 
+        Performs a percolate search. This method must be used only on percolate indexes.  Expects the index name and an object with array of documents to be tested.   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -71,6 +72,7 @@ class SearchApi(object):
     def percolate_with_http_info(self, index, percolate_request, **kwargs):  # noqa: E501
         """Perform reverse search on a percolate index  # noqa: E501
 
+        Performs a percolate search. This method must be used only on percolate indexes.  Expects the index name and an object with array of documents to be tested.   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
