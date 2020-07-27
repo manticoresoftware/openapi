@@ -32,7 +32,7 @@ import java.util.Map;
  * Payload for search operation
  */
 @ApiModel(description = "Payload for search operation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-07-20T05:52:51.351Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-07-27T06:17:11.052Z[GMT]")
 public class SearchRequest {
   public static final String SERIALIZED_NAME_INDEX = "index";
   @SerializedName(SERIALIZED_NAME_INDEX)

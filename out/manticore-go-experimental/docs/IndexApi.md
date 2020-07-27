@@ -18,6 +18,8 @@ Method | HTTP request | Description
 
 Bulk index operations
 
+
+
 ### Example
 
 ```go
@@ -81,6 +83,8 @@ No authorization required
 > DeleteResponse Delete(ctx).DeleteDocumentRequest(deleteDocumentRequest).Execute()
 
 Delete a document in an index
+
+
 
 ### Example
 
@@ -146,6 +150,8 @@ No authorization required
 
 Create a new document in an index
 
+
+
 ### Example
 
 ```go
@@ -210,6 +216,8 @@ No authorization required
 
 Replace new document in an index
 
+
+
 ### Example
 
 ```go
@@ -273,6 +281,8 @@ No authorization required
 > UpdateResponse Update(ctx).UpdateDocumentRequest(updateDocumentRequest).Execute()
 
 Update a document in an index
+
+
 
 ### Example
 

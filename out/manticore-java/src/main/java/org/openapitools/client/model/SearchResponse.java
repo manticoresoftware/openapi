@@ -29,7 +29,7 @@ import org.openapitools.client.model.SearchResponseHits;
  * Response object of a search request
  */
 @ApiModel(description = "Response object of a search request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-07-20T05:52:51.351Z[GMT]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-07-27T06:17:11.052Z[GMT]")
 public class SearchResponse {
   public static final String SERIALIZED_NAME_TOOK = "took";
   @SerializedName(SERIALIZED_NAME_TOOK)

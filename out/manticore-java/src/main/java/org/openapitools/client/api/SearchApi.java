@@ -124,7 +124,7 @@ public class SearchApi {
 
     /**
      * Perform reverse search on a percolate index
-     * 
+     * Performs a percolate search. &lt;br/&gt; This method must be used only on percolate indexes. &lt;br/&gt;  Expects two paramenters: the index name and an object with array of documents to be tested. &lt;br/&gt;  An example of the documents object: &lt;br/&gt;  &#x60;&#x60;&#x60;{\&quot;query\&quot;:{\&quot;percolate\&quot;:{\&quot;document\&quot;:{\&quot;content\&quot;:\&quot;sample content\&quot;}}}}&#x60;&#x60;&#x60; &lt;br/&gt;  Responds with an object with matched stored queries: &lt;br/&gt; &#x60;&#x60;&#x60; {&#39;timed_out&#39;:false,&#39;hits&#39;:{&#39;total&#39;:2,&#39;max_score&#39;:1,&#39;hits&#39;:[{&#39;_index&#39;:&#39;idx_pq_1&#39;,&#39;_type&#39;:&#39;doc&#39;,&#39;_id&#39;:&#39;2&#39;,&#39;_score&#39;:&#39;1&#39;,&#39;_source&#39;:{&#39;query&#39;:{&#39;match&#39;:{&#39;title&#39;:&#39;some&#39;},}}},{&#39;_index&#39;:&#39;idx_pq_1&#39;,&#39;_type&#39;:&#39;doc&#39;,&#39;_id&#39;:&#39;5&#39;,&#39;_score&#39;:&#39;1&#39;,&#39;_source&#39;:{&#39;query&#39;:{&#39;ql&#39;:&#39;some | none&#39;}}}]}} &#x60;&#x60;&#x60; 
      * @param index Name of the percolate index (required)
      * @param percolateRequest  (required)
      * @return SearchResponse
@@ -145,7 +145,7 @@ public class SearchApi {
 
     /**
      * Perform reverse search on a percolate index
-     * 
+     * Performs a percolate search. &lt;br/&gt; This method must be used only on percolate indexes. &lt;br/&gt;  Expects two paramenters: the index name and an object with array of documents to be tested. &lt;br/&gt;  An example of the documents object: &lt;br/&gt;  &#x60;&#x60;&#x60;{\&quot;query\&quot;:{\&quot;percolate\&quot;:{\&quot;document\&quot;:{\&quot;content\&quot;:\&quot;sample content\&quot;}}}}&#x60;&#x60;&#x60; &lt;br/&gt;  Responds with an object with matched stored queries: &lt;br/&gt; &#x60;&#x60;&#x60; {&#39;timed_out&#39;:false,&#39;hits&#39;:{&#39;total&#39;:2,&#39;max_score&#39;:1,&#39;hits&#39;:[{&#39;_index&#39;:&#39;idx_pq_1&#39;,&#39;_type&#39;:&#39;doc&#39;,&#39;_id&#39;:&#39;2&#39;,&#39;_score&#39;:&#39;1&#39;,&#39;_source&#39;:{&#39;query&#39;:{&#39;match&#39;:{&#39;title&#39;:&#39;some&#39;},}}},{&#39;_index&#39;:&#39;idx_pq_1&#39;,&#39;_type&#39;:&#39;doc&#39;,&#39;_id&#39;:&#39;5&#39;,&#39;_score&#39;:&#39;1&#39;,&#39;_source&#39;:{&#39;query&#39;:{&#39;ql&#39;:&#39;some | none&#39;}}}]}} &#x60;&#x60;&#x60; 
      * @param index Name of the percolate index (required)
      * @param percolateRequest  (required)
      * @return ApiResponse&lt;SearchResponse&gt;
@@ -167,7 +167,7 @@ public class SearchApi {
 
     /**
      * Perform reverse search on a percolate index (asynchronously)
-     * 
+     * Performs a percolate search. &lt;br/&gt; This method must be used only on percolate indexes. &lt;br/&gt;  Expects two paramenters: the index name and an object with array of documents to be tested. &lt;br/&gt;  An example of the documents object: &lt;br/&gt;  &#x60;&#x60;&#x60;{\&quot;query\&quot;:{\&quot;percolate\&quot;:{\&quot;document\&quot;:{\&quot;content\&quot;:\&quot;sample content\&quot;}}}}&#x60;&#x60;&#x60; &lt;br/&gt;  Responds with an object with matched stored queries: &lt;br/&gt; &#x60;&#x60;&#x60; {&#39;timed_out&#39;:false,&#39;hits&#39;:{&#39;total&#39;:2,&#39;max_score&#39;:1,&#39;hits&#39;:[{&#39;_index&#39;:&#39;idx_pq_1&#39;,&#39;_type&#39;:&#39;doc&#39;,&#39;_id&#39;:&#39;2&#39;,&#39;_score&#39;:&#39;1&#39;,&#39;_source&#39;:{&#39;query&#39;:{&#39;match&#39;:{&#39;title&#39;:&#39;some&#39;},}}},{&#39;_index&#39;:&#39;idx_pq_1&#39;,&#39;_type&#39;:&#39;doc&#39;,&#39;_id&#39;:&#39;5&#39;,&#39;_score&#39;:&#39;1&#39;,&#39;_source&#39;:{&#39;query&#39;:{&#39;ql&#39;:&#39;some | none&#39;}}}]}} &#x60;&#x60;&#x60; 
      * @param index Name of the percolate index (required)
      * @param percolateRequest  (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -202,7 +202,7 @@ public class SearchApi {
         <tr><td> 0 </td><td> error </td><td>  -  </td></tr>
      </table>
      * 
-     * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html">Performs a search Documentation</a>
+     * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_search.html">Performs a search Documentation</a>
      */
     public okhttp3.Call searchCall(SearchRequest searchRequest, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = searchRequest;
@@ -249,7 +249,7 @@ public class SearchApi {
 
     /**
      * Performs a search
-     * 
+     * Performs a search. &lt;br/&gt; Expects an object with mandatory properties: &lt;br/&gt; - the index name &lt;br/&gt; - the match query object &lt;br/&gt;  Example : &lt;br/&gt; &lt;code&gt; {&#39;index&#39;:&#39;movies&#39;,&#39;query&#39;:{&#39;bool&#39;:{&#39;must&#39;:[{&#39;query_string&#39;:&#39; movie&#39;}]}},&#39;script_fields&#39;:{&#39;myexpr&#39;:{&#39;script&#39;:{&#39;inline&#39;:&#39;IF(rating&gt;8,1,0)&#39;}}},&#39;sort&#39;:[{&#39;myexpr&#39;:&#39;desc&#39;},{&#39;_score&#39;:&#39;desc&#39;}],&#39;profile&#39;:true} &lt;/code&gt; &lt;br/&gt;  It responds with an object with &lt;br/&gt; - time of execution &lt;br/&gt; - if the query timed out &lt;br/&gt; - an array with hits (matched documents) &lt;br/&gt; - additional, if profiling is enabled, an array with profiling information is attached &lt;br/&gt;   &#x60;&#x60;&#x60;{&#39;took&#39;:10,&#39;timed_out&#39;:false,&#39;hits&#39;:{&#39;total&#39;:2,&#39;hits&#39;:[{&#39;_id&#39;:&#39;1&#39;,&#39;_score&#39;:1,&#39;_source&#39;:{&#39;gid&#39;:11}},{&#39;_id&#39;:&#39;2&#39;,&#39;_score&#39;:1,&#39;_source&#39;:{&#39;gid&#39;:12}}]}}&#x60;&#x60;&#x60; &lt;br/&gt;  For more information about the match query syntax, additional paramaters that can be set to the input and response, please check: https://docs.manticoresearch.com/latest/html/http_reference/json_search.html. 
      * @param searchRequest  (required)
      * @return SearchResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -260,7 +260,7 @@ public class SearchApi {
         <tr><td> 0 </td><td> error </td><td>  -  </td></tr>
      </table>
      * 
-     * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html">Performs a search Documentation</a>
+     * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_search.html">Performs a search Documentation</a>
      */
     public SearchResponse search(SearchRequest searchRequest) throws ApiException {
         ApiResponse<SearchResponse> localVarResp = searchWithHttpInfo(searchRequest);
@@ -269,7 +269,7 @@ public class SearchApi {
 
     /**
      * Performs a search
-     * 
+     * Performs a search. &lt;br/&gt; Expects an object with mandatory properties: &lt;br/&gt; - the index name &lt;br/&gt; - the match query object &lt;br/&gt;  Example : &lt;br/&gt; &lt;code&gt; {&#39;index&#39;:&#39;movies&#39;,&#39;query&#39;:{&#39;bool&#39;:{&#39;must&#39;:[{&#39;query_string&#39;:&#39; movie&#39;}]}},&#39;script_fields&#39;:{&#39;myexpr&#39;:{&#39;script&#39;:{&#39;inline&#39;:&#39;IF(rating&gt;8,1,0)&#39;}}},&#39;sort&#39;:[{&#39;myexpr&#39;:&#39;desc&#39;},{&#39;_score&#39;:&#39;desc&#39;}],&#39;profile&#39;:true} &lt;/code&gt; &lt;br/&gt;  It responds with an object with &lt;br/&gt; - time of execution &lt;br/&gt; - if the query timed out &lt;br/&gt; - an array with hits (matched documents) &lt;br/&gt; - additional, if profiling is enabled, an array with profiling information is attached &lt;br/&gt;   &#x60;&#x60;&#x60;{&#39;took&#39;:10,&#39;timed_out&#39;:false,&#39;hits&#39;:{&#39;total&#39;:2,&#39;hits&#39;:[{&#39;_id&#39;:&#39;1&#39;,&#39;_score&#39;:1,&#39;_source&#39;:{&#39;gid&#39;:11}},{&#39;_id&#39;:&#39;2&#39;,&#39;_score&#39;:1,&#39;_source&#39;:{&#39;gid&#39;:12}}]}}&#x60;&#x60;&#x60; &lt;br/&gt;  For more information about the match query syntax, additional paramaters that can be set to the input and response, please check: https://docs.manticoresearch.com/latest/html/http_reference/json_search.html. 
      * @param searchRequest  (required)
      * @return ApiResponse&lt;SearchResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -280,7 +280,7 @@ public class SearchApi {
         <tr><td> 0 </td><td> error </td><td>  -  </td></tr>
      </table>
      * 
-     * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html">Performs a search Documentation</a>
+     * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_search.html">Performs a search Documentation</a>
      */
     public ApiResponse<SearchResponse> searchWithHttpInfo(SearchRequest searchRequest) throws ApiException {
         okhttp3.Call localVarCall = searchValidateBeforeCall(searchRequest, null);
@@ -290,7 +290,7 @@ public class SearchApi {
 
     /**
      * Performs a search (asynchronously)
-     * 
+     * Performs a search. &lt;br/&gt; Expects an object with mandatory properties: &lt;br/&gt; - the index name &lt;br/&gt; - the match query object &lt;br/&gt;  Example : &lt;br/&gt; &lt;code&gt; {&#39;index&#39;:&#39;movies&#39;,&#39;query&#39;:{&#39;bool&#39;:{&#39;must&#39;:[{&#39;query_string&#39;:&#39; movie&#39;}]}},&#39;script_fields&#39;:{&#39;myexpr&#39;:{&#39;script&#39;:{&#39;inline&#39;:&#39;IF(rating&gt;8,1,0)&#39;}}},&#39;sort&#39;:[{&#39;myexpr&#39;:&#39;desc&#39;},{&#39;_score&#39;:&#39;desc&#39;}],&#39;profile&#39;:true} &lt;/code&gt; &lt;br/&gt;  It responds with an object with &lt;br/&gt; - time of execution &lt;br/&gt; - if the query timed out &lt;br/&gt; - an array with hits (matched documents) &lt;br/&gt; - additional, if profiling is enabled, an array with profiling information is attached &lt;br/&gt;   &#x60;&#x60;&#x60;{&#39;took&#39;:10,&#39;timed_out&#39;:false,&#39;hits&#39;:{&#39;total&#39;:2,&#39;hits&#39;:[{&#39;_id&#39;:&#39;1&#39;,&#39;_score&#39;:1,&#39;_source&#39;:{&#39;gid&#39;:11}},{&#39;_id&#39;:&#39;2&#39;,&#39;_score&#39;:1,&#39;_source&#39;:{&#39;gid&#39;:12}}]}}&#x60;&#x60;&#x60; &lt;br/&gt;  For more information about the match query syntax, additional paramaters that can be set to the input and response, please check: https://docs.manticoresearch.com/latest/html/http_reference/json_search.html. 
      * @param searchRequest  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -302,7 +302,7 @@ public class SearchApi {
         <tr><td> 0 </td><td> error </td><td>  -  </td></tr>
      </table>
      * 
-     * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html">Performs a search Documentation</a>
+     * @see <a href="https://docs.manticoresearch.com/latest/html/http_reference/json_search.html">Performs a search Documentation</a>
      */
     public okhttp3.Call searchAsync(SearchRequest searchRequest, final ApiCallback<SearchResponse> _callback) throws ApiException {
 

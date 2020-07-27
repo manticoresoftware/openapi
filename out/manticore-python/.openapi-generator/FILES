@@ -1,5 +1,6 @@
 .gitignore
 .gitlab-ci.yml
+.openapi-generator-ignore
 .travis.yml
 README.md
 docs/BulkResponse.md
@@ -45,4 +46,19 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_bulk_response.py
+test/test_delete_document_request.py
+test/test_delete_response.py
+test/test_error_response.py
+test/test_index_api.py
+test/test_insert_document_request.py
+test/test_percolate_request.py
+test/test_search_api.py
+test/test_search_request.py
+test/test_search_response.py
+test/test_search_response_hits.py
+test/test_success_response.py
+test/test_update_document_request.py
+test/test_update_response.py
+test/test_utils_api.py
 tox.ini

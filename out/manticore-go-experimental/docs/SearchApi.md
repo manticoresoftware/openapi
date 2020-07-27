@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 Perform reverse search on a percolate index
 
+
+
 ### Example
 
 ```go
@@ -84,6 +86,8 @@ No authorization required
 > SearchResponse Search(ctx).SearchRequest(searchRequest).Execute()
 
 Performs a search
+
+
 
 ### Example
 
