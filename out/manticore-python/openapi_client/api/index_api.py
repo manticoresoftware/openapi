@@ -40,7 +40,7 @@ class IndexApi(object):
     def bulk(self, body, **kwargs):  # noqa: E501
         """Bulk index operations  # noqa: E501
 
-        Sends multiple operatons like inserts, updates, replaces or deletes.   The method expects a string as the batch in NDJSON.  Each operation object needs to be serialized to   JSON and separated by endline (\\n).     # noqa: E501
+        Sends multiple operatons like inserts, updates, replaces or deletes. <br/>  For each operation it's object must have same format as in their dedicated method. <br/>  The method expects a raw string as the batch in NDJSON.  Each operation object needs to be serialized to   JSON and separated by endline (\\n). <br/>     An example of raw input:      `{\"insert\": {\"index\": \"movies\", \"doc\": {\"plot\": \"A secret team goes to North Pole\", \"rating\": 9.5, \"language\": [2, 3], \"title\": \"This is an older movie\", \"lon\": 51.99, \"meta\": {\"keywords\":[\"travel\",\"ice\"],\"genre\":[\"adventure\"]}, \"year\": 1950, \"lat\": 60.4, \"advise\": \"PG-13\"}}}\\n{\"delete\": {\"index\": \"movies\",\"id\":700}}`      Responds with an object telling whenever any errors occured and an array with status for each operation:<br/>   ```   {\"items\":[{\"update\":{\"_index\":\"products\",\"_id\":1,\"result\":\"updated\"}},{\"update\":{\"_index\":\"products\",\"_id\":2,\"result\":\"updated\"}}],\"errors\":false}   ```     # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -70,7 +70,7 @@ class IndexApi(object):
     def bulk_with_http_info(self, body, **kwargs):  # noqa: E501
         """Bulk index operations  # noqa: E501
 
-        Sends multiple operatons like inserts, updates, replaces or deletes.   The method expects a string as the batch in NDJSON.  Each operation object needs to be serialized to   JSON and separated by endline (\\n).     # noqa: E501
+        Sends multiple operatons like inserts, updates, replaces or deletes. <br/>  For each operation it's object must have same format as in their dedicated method. <br/>  The method expects a raw string as the batch in NDJSON.  Each operation object needs to be serialized to   JSON and separated by endline (\\n). <br/>     An example of raw input:      `{\"insert\": {\"index\": \"movies\", \"doc\": {\"plot\": \"A secret team goes to North Pole\", \"rating\": 9.5, \"language\": [2, 3], \"title\": \"This is an older movie\", \"lon\": 51.99, \"meta\": {\"keywords\":[\"travel\",\"ice\"],\"genre\":[\"adventure\"]}, \"year\": 1950, \"lat\": 60.4, \"advise\": \"PG-13\"}}}\\n{\"delete\": {\"index\": \"movies\",\"id\":700}}`      Responds with an object telling whenever any errors occured and an array with status for each operation:<br/>   ```   {\"items\":[{\"update\":{\"_index\":\"products\",\"_id\":1,\"result\":\"updated\"}},{\"update\":{\"_index\":\"products\",\"_id\":2,\"result\":\"updated\"}}],\"errors\":false}   ```     # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -175,7 +175,7 @@ class IndexApi(object):
     def delete(self, delete_document_request, **kwargs):  # noqa: E501
         """Delete a document in an index  # noqa: E501
 
-        Delete one or several documents.  The method has 2 ways of deleting: either by id, in case only one document is deleted or by using a  match query, in which case multiple documents can be delete . The match query has same syntax as in for searching.   # noqa: E501
+        Delete one or several documents. <br/>  The method has 2 ways of deleting: either by id, in case only one document is deleted or by using a  match query, in which case multiple documents can be delete . <br/> Example of input to delete by id: <br/> ```{'index':'movies','id':100}``` <br/> Example of input to delete using a query: ```{'index':'movies','query':{'bool':{'must':[{'query_string':'new movie'}]}}}``` <br/> The match query has same syntax as in for searching. <br/> Responds with an object telling how many documents got deleted: <br/>  ```{\"_index\":\"products\",\"updated\":1}```   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -205,7 +205,7 @@ class IndexApi(object):
     def delete_with_http_info(self, delete_document_request, **kwargs):  # noqa: E501
         """Delete a document in an index  # noqa: E501
 
-        Delete one or several documents.  The method has 2 ways of deleting: either by id, in case only one document is deleted or by using a  match query, in which case multiple documents can be delete . The match query has same syntax as in for searching.   # noqa: E501
+        Delete one or several documents. <br/>  The method has 2 ways of deleting: either by id, in case only one document is deleted or by using a  match query, in which case multiple documents can be delete . <br/> Example of input to delete by id: <br/> ```{'index':'movies','id':100}``` <br/> Example of input to delete using a query: ```{'index':'movies','query':{'bool':{'must':[{'query_string':'new movie'}]}}}``` <br/> The match query has same syntax as in for searching. <br/> Responds with an object telling how many documents got deleted: <br/>  ```{\"_index\":\"products\",\"updated\":1}```   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -310,7 +310,7 @@ class IndexApi(object):
     def insert(self, insert_document_request, **kwargs):  # noqa: E501
         """Create a new document in an index  # noqa: E501
 
-        Insert a document. <br/> Expects an object like: <br/>  ```{'index':'movies','id':701,'doc':{'title':'This is an old movie','plot':'A secret team goes to North Pole','year':1950,'rating':9.5,'lat':60.4,'lon':51.99,'advise':'PG-13','meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}','language':[2,3]}}```. <br/>  The document id can also be missing, in which case an autogenerated one will be used: <br/> ```{'index':'movies','doc':{'title':'This is a new movie','plot':'A secret team goes to North Pole','year':2020,'rating':9.5,'lat':60.4,'lon':51.99,'advise':'PG-13','meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}','language':[2,3]}}```   # noqa: E501
+        Insert a document. <br/> Expects an object like: <br/>  ```{'index':'movies','id':701,'doc':{'title':'This is an old movie','plot':'A secret team goes to North Pole','year':1950,'rating':9.5,'lat':60.4,'lon':51.99,'advise':'PG-13','meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}','language':[2,3]}}```. <br/>  The document id can also be missing, in which case an autogenerated one will be used: <br/> ```{'index':'movies','doc':{'title':'This is a new movie','plot':'A secret team goes to North Pole','year':2020,'rating':9.5,'lat':60.4,'lon':51.99,'advise':'PG-13','meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}','language':[2,3]}}```  In respons with an object in format: <br/> ```{\"_index\":\"products\",\"_id\":701,\"created\":true,\"result\":\"created\",\"status\":201}```   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -340,7 +340,7 @@ class IndexApi(object):
     def insert_with_http_info(self, insert_document_request, **kwargs):  # noqa: E501
         """Create a new document in an index  # noqa: E501
 
-        Insert a document. <br/> Expects an object like: <br/>  ```{'index':'movies','id':701,'doc':{'title':'This is an old movie','plot':'A secret team goes to North Pole','year':1950,'rating':9.5,'lat':60.4,'lon':51.99,'advise':'PG-13','meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}','language':[2,3]}}```. <br/>  The document id can also be missing, in which case an autogenerated one will be used: <br/> ```{'index':'movies','doc':{'title':'This is a new movie','plot':'A secret team goes to North Pole','year':2020,'rating':9.5,'lat':60.4,'lon':51.99,'advise':'PG-13','meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}','language':[2,3]}}```   # noqa: E501
+        Insert a document. <br/> Expects an object like: <br/>  ```{'index':'movies','id':701,'doc':{'title':'This is an old movie','plot':'A secret team goes to North Pole','year':1950,'rating':9.5,'lat':60.4,'lon':51.99,'advise':'PG-13','meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}','language':[2,3]}}```. <br/>  The document id can also be missing, in which case an autogenerated one will be used: <br/> ```{'index':'movies','doc':{'title':'This is a new movie','plot':'A secret team goes to North Pole','year':2020,'rating':9.5,'lat':60.4,'lon':51.99,'advise':'PG-13','meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}','language':[2,3]}}```  In respons with an object in format: <br/> ```{\"_index\":\"products\",\"_id\":701,\"created\":true,\"result\":\"created\",\"status\":201}```   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -445,7 +445,7 @@ class IndexApi(object):
     def replace(self, insert_document_request, **kwargs):  # noqa: E501
         """Replace new document in an index  # noqa: E501
 
-        Replace an existing document. Input has same format as `insert` operation.   # noqa: E501
+        Replace an existing document. Input has same format as `insert` operation. <br/>  Responds with an object in format: <br/>  ```{\"_index\":\"products\",\"_id\":1,\"created\":false,\"result\":\"updated\",\"status\":200}```   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -475,7 +475,7 @@ class IndexApi(object):
     def replace_with_http_info(self, insert_document_request, **kwargs):  # noqa: E501
         """Replace new document in an index  # noqa: E501
 
-        Replace an existing document. Input has same format as `insert` operation.   # noqa: E501
+        Replace an existing document. Input has same format as `insert` operation. <br/>  Responds with an object in format: <br/>  ```{\"_index\":\"products\",\"_id\":1,\"created\":false,\"result\":\"updated\",\"status\":200}```   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -580,7 +580,7 @@ class IndexApi(object):
     def update(self, update_document_request, **kwargs):  # noqa: E501
         """Update a document in an index  # noqa: E501
 
-        Update one or several documents. <br/>  The update can be made by passing the id or by using a match query in case multiple documents can be updated. <br/> For example update a document using document id: <br/> <code> {'index':'movies','doc':{'rating':9.49},'id':100} </code> <br/> And update by using a match query: <br/> ``` {'index':'movies','doc':{'rating':9.49},'query':{'bool':{'must':[{'query_string':'new movie'}]}}} ```  <br/> The match query has same syntax as for searching.   # noqa: E501
+        Update one or several documents. <br/>  The update can be made by passing the id or by using a match query in case multiple documents can be updated. <br/> For example update a document using document id: <br/> <code> {'index':'movies','doc':{'rating':9.49},'id':100} </code> <br/> And update by using a match query: <br/> ``` {'index':'movies','doc':{'rating':9.49},'query':{'bool':{'must':[{'query_string':'new movie'}]}}} ```  <br/> The match query has same syntax as for searching.  Responds with an object that tells how many documents where updated in format: <br/> ```{\"_index\":\"products\",\"updated\":1}```   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -610,7 +610,7 @@ class IndexApi(object):
     def update_with_http_info(self, update_document_request, **kwargs):  # noqa: E501
         """Update a document in an index  # noqa: E501
 
-        Update one or several documents. <br/>  The update can be made by passing the id or by using a match query in case multiple documents can be updated. <br/> For example update a document using document id: <br/> <code> {'index':'movies','doc':{'rating':9.49},'id':100} </code> <br/> And update by using a match query: <br/> ``` {'index':'movies','doc':{'rating':9.49},'query':{'bool':{'must':[{'query_string':'new movie'}]}}} ```  <br/> The match query has same syntax as for searching.   # noqa: E501
+        Update one or several documents. <br/>  The update can be made by passing the id or by using a match query in case multiple documents can be updated. <br/> For example update a document using document id: <br/> <code> {'index':'movies','doc':{'rating':9.49},'id':100} </code> <br/> And update by using a match query: <br/> ``` {'index':'movies','doc':{'rating':9.49},'query':{'bool':{'must':[{'query_string':'new movie'}]}}} ```  <br/> The match query has same syntax as for searching.  Responds with an object that tells how many documents where updated in format: <br/> ```{\"_index\":\"products\",\"updated\":1}```   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
