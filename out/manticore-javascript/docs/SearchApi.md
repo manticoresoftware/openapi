@@ -81,7 +81,8 @@ Performs a search
 
 Performs a search. 
 Expects an object with mandatory properties:
-- the index name <br/> - the match query object <br/>
+* the index name
+* the match query object
 Example :
 
   ```
@@ -89,7 +90,10 @@ Example :
   ```
 
 It responds with an object with:
-- time of execution - if the query timed out - an array with hits (matched documents) - additional, if profiling is enabled, an array with profiling information is attached
+- time of execution
+- if the query timed out
+- an array with hits (matched documents)
+- additional, if profiling is enabled, an array with profiling information is attached
 
 
   ```

@@ -15,7 +15,25 @@ The yaml was edited with swagger and can be seen at:
 https://app.swaggerhub.com/apis/adriannuta/ManticoreSeach/1.0.0
 
 
+## Clients
 
+* PHP - tested, but are not interested in it, as we have already a client
+
+* CSharp - not tested
+
+* Python - tested
+
+* Javascript - tested
+
+* Java - tested
+
+* Perl - not tested
+
+* Ruby - not tested
+
+* Swift - not tested
+
+* Go -  not tested
 
 ## Specific client issues
 
@@ -43,3 +61,4 @@ be url encoded. Fix is to use `text/plain` and user needs to provide
 http client about this as seems it breaks compat with apis like ones from aws or dropbox since most do exact matching 
 on content-type). 
 Both these 2 issues need patches.
+

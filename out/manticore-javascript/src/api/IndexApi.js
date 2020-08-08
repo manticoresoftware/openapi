@@ -190,7 +190,7 @@
 
     /**
      * Replace new document in an index
-     * Replace an existing document. Input has same format as `insert` operation. <br/> Responds with an object in format: <br/> ``` {'_index':'products','_id':1,'created':false,'result':'updated','status':200} ``` 
+     * Replace an existing document. Input has same format as `insert` operation. <br/> Responds with an object in format: <br/>    ```   {'_index':'products','_id':1,'created':false,'result':'updated','status':200}   ``` 
      * @param {module:model/InsertDocumentRequest} insertDocumentRequest 
      * @param {module:api/IndexApi~replaceCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/SuccessResponse}
@@ -234,7 +234,7 @@
 
     /**
      * Update a document in an index
-     * Update one or several documents. The update can be made by passing the id or by using a match query in case multiple documents can be updated.  For example update a document using document id: ``` {'index':'movies','doc':{'rating':9.49},'id':100} ``` And update by using a match query: ``` {'index':'movies','doc':{'rating':9.49},'query':{'bool':{'must':[{'query_string':'new movie'}]}}} ```  The match query has same syntax as for searching. Responds with an object that tells how many documents where updated in format:  ``` {'_index':'products','updated':1} ``` 
+     * Update one or several documents. The update can be made by passing the id or by using a match query in case multiple documents can be updated.  For example update a document using document id:    ```   {'index':'movies','doc':{'rating':9.49},'id':100}   ```  And update by using a match query:    ```   {'index':'movies','doc':{'rating':9.49},'query':{'bool':{'must':[{'query_string':'new movie'}]}}}   ```   The match query has same syntax as for searching. Responds with an object that tells how many documents where updated in format:     ```   {'_index':'products','updated':1}   ``` 
      * @param {module:model/UpdateDocumentRequest} updateDocumentRequest 
      * @param {module:api/IndexApi~updateCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/UpdateResponse}

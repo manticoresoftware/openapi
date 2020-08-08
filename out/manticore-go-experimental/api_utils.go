@@ -31,17 +31,16 @@ type apiSqlRequest struct {
 	body *string
 }
 
-
 func (r apiSqlRequest) Body(body string) apiSqlRequest {
 	r.body = &body
 	return r
 }
-
 /*
 Sql Perform SQL requests
-Run a query in SQL format. <br/>
-Expects is a query parameters string that can be in two modes: <br/>
-* Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded <br/> * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. <br/>
+Run a query in SQL format.
+Expects is a query parameters string that can be in two modes:
+* Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded
+* any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first.
 The response object depends on the query executed. In select mode the response has same format as `/search` operation.
 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -56,7 +55,7 @@ func (a *UtilsApiService) Sql(ctx _context.Context) apiSqlRequest {
 
 /*
 Execute executes the request
- @return map[string]map[string]interface{}
+@return map[string]map[string]interface{}
 */
 func (r apiSqlRequest) Execute() (map[string]map[string]interface{}, *_nethttp.Response, error) {
 	var (
@@ -78,7 +77,6 @@ func (r apiSqlRequest) Execute() (map[string]map[string]interface{}, *_nethttp.R
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}

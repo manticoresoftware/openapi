@@ -40,14 +40,14 @@ class UtilsApi(object):
     def sql(self, body, **kwargs):  # noqa: E501
         """Perform SQL requests  # noqa: E501
 
-        Run a query in SQL format. <br/> Expects is a query parameters string that can be in two modes: <br/> * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded <br/> * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. <br/> The response object depends on the query executed. In select mode the response has same format as `/search` operation.   # noqa: E501
+        Run a query in SQL format. Expects is a query parameters string that can be in two modes: * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. The response object depends on the query executed. In select mode the response has same format as `/search` operation.   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
         >>> thread = api.sql(body, async_req=True)
         >>> result = thread.get()
 
-        :param body: Expects is a query parameters string that can be in two modes: - Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded - any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first.  (required)
+        :param body: Expects is a query parameters string that can be in two modes:    * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded    * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first.  (required)
         :type body: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -70,14 +70,14 @@ class UtilsApi(object):
     def sql_with_http_info(self, body, **kwargs):  # noqa: E501
         """Perform SQL requests  # noqa: E501
 
-        Run a query in SQL format. <br/> Expects is a query parameters string that can be in two modes: <br/> * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded <br/> * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. <br/> The response object depends on the query executed. In select mode the response has same format as `/search` operation.   # noqa: E501
+        Run a query in SQL format. Expects is a query parameters string that can be in two modes: * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. The response object depends on the query executed. In select mode the response has same format as `/search` operation.   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
         >>> thread = api.sql_with_http_info(body, async_req=True)
         >>> result = thread.get()
 
-        :param body: Expects is a query parameters string that can be in two modes: - Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded - any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first.  (required)
+        :param body: Expects is a query parameters string that can be in two modes:    * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded    * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first.  (required)
         :type body: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional

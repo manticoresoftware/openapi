@@ -33,19 +33,27 @@ type apiPercolateRequest struct {
 	percolateRequest *PercolateRequest
 }
 
-
 func (r apiPercolateRequest) PercolateRequest(percolateRequest PercolateRequest) apiPercolateRequest {
 	r.percolateRequest = &percolateRequest
 	return r
 }
-
 /*
 Percolate Perform reverse search on a percolate index
-Performs a percolate search. <br/> This method must be used only on percolate indexes. <br/>
-Expects two paramenters: the index name and an object with array of documents to be tested. <br/>
-An example of the documents object: <br/>
-``` {"query":{"percolate":{"document":{"content":"sample content"}}}} ``` <br/>
-Responds with an object with matched stored queries: <br/> ``` {'timed_out':false,'hits':{'total':2,'max_score':1,'hits':[{'_index':'idx_pq_1','_type':'doc','_id':'2','_score':'1','_source':{'query':{'match':{'title':'some'},}}},{'_index':'idx_pq_1','_type':'doc','_id':'5','_score':'1','_source':{'query':{'ql':'some | none'}}}]}} ```
+Performs a percolate search. 
+This method must be used only on percolate indexes.
+
+Expects two paramenters: the index name and an object with array of documents to be tested.
+An example of the documents object:
+
+  ```
+  {"query":{"percolate":{"document":{"content":"sample content"}}}}
+  ```
+
+Responds with an object with matched stored queries: 
+
+  ```
+  {'timed_out':false,'hits':{'total':2,'max_score':1,'hits':[{'_index':'idx_pq_1','_type':'doc','_id':'2','_score':'1','_source':{'query':{'match':{'title':'some'},}}},{'_index':'idx_pq_1','_type':'doc','_id':'5','_score':'1','_source':{'query':{'ql':'some | none'}}}]}}
+  ```
 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param index Name of the percolate index
@@ -61,7 +69,7 @@ func (a *SearchApiService) Percolate(ctx _context.Context, index string) apiPerc
 
 /*
 Execute executes the request
- @return SearchResponse
+@return SearchResponse
 */
 func (r apiPercolateRequest) Execute() (SearchResponse, *_nethttp.Response, error) {
 	var (
@@ -84,8 +92,6 @@ func (r apiPercolateRequest) Execute() (SearchResponse, *_nethttp.Response, erro
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	
-	
 	if r.percolateRequest == nil {
 		return localVarReturnValue, nil, reportError("percolateRequest is required and must be specified")
 	}
@@ -157,19 +163,33 @@ type apiSearchRequest struct {
 	searchRequest *SearchRequest
 }
 
-
 func (r apiSearchRequest) SearchRequest(searchRequest SearchRequest) apiSearchRequest {
 	r.searchRequest = &searchRequest
 	return r
 }
-
 /*
 Search Performs a search
-Performs a search. <br/> Expects an object with mandatory properties: <br/> - the index name <br/> - the match query object <br/>
-Example : <br/> <code> {'index':'movies','query':{'bool':{'must':[{'query_string':' movie'}]}},'script_fields':{'myexpr':{'script':{'inline':'IF(rating>8,1,0)'}}},'sort':[{'myexpr':'desc'},{'_score':'desc'}],'profile':true} </code> <br/>
-It responds with an object with <br/> - time of execution <br/> - if the query timed out <br/> - an array with hits (matched documents) <br/> - additional, if profiling is enabled, an array with profiling information is attached <br/>
+Performs a search. 
+Expects an object with mandatory properties:
+* the index name
+* the match query object
+Example :
 
-``` {'took':10,'timed_out':false,'hits':{'total':2,'hits':[{'_id':'1','_score':1,'_source':{'gid':11}},{'_id':'2','_score':1,'_source':{'gid':12}}]}} ``` <br/>
+  ```
+  {'index':'movies','query':{'bool':{'must':[{'query_string':' movie'}]}},'script_fields':{'myexpr':{'script':{'inline':'IF(rating>8,1,0)'}}},'sort':[{'myexpr':'desc'},{'_score':'desc'}],'profile':true}
+  ```
+
+It responds with an object with:
+- time of execution
+- if the query timed out
+- an array with hits (matched documents)
+- additional, if profiling is enabled, an array with profiling information is attached
+
+
+  ```
+  {'took':10,'timed_out':false,'hits':{'total':2,'hits':[{'_id':'1','_score':1,'_source':{'gid':11}},{'_id':'2','_score':1,'_source':{'gid':12}}]}}
+  ```
+
 For more information about the match query syntax, additional paramaters that can be set to the input and response, please check: https://docs.manticoresearch.com/latest/html/http_reference/json_search.html.
 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -184,7 +204,7 @@ func (a *SearchApiService) Search(ctx _context.Context) apiSearchRequest {
 
 /*
 Execute executes the request
- @return SearchResponse
+@return SearchResponse
 */
 func (r apiSearchRequest) Execute() (SearchResponse, *_nethttp.Response, error) {
 	var (
@@ -206,7 +226,6 @@ func (r apiSearchRequest) Execute() (SearchResponse, *_nethttp.Response, error) 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	
 	if r.searchRequest == nil {
 		return localVarReturnValue, nil, reportError("searchRequest is required and must be specified")
 	}
