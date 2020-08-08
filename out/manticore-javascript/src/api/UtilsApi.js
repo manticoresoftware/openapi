@@ -1,6 +1,6 @@
 /**
  * Manticore Search API
- * This is the API for Manticore Search HTTP protocol 
+ * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -44,7 +44,7 @@ export default class UtilsApi {
 
     /**
      * Perform SQL requests
-     * Run a query in SQL format. <br/>  Expects is a query parameters string that can be in two modes: <br/>  * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded <br/> * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. <br/>  The response object depends on the query executed. In select mode the response has same format as `/search` operation. 
+     * Run a query in SQL format. <br/> Expects is a query parameters string that can be in two modes: <br/> * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded <br/> * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. <br/> The response object depends on the query executed. In select mode the response has same format as `/search` operation. 
      * @param {String} body Expects is a query parameters string that can be in two modes: - Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded - any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. 
      * @param {module:api/UtilsApi~sqlCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object.<String, {String: Object}>}

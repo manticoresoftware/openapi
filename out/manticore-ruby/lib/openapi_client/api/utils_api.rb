@@ -1,7 +1,7 @@
 =begin
 #Manticore Search API
 
-#This is the API for Manticore Search HTTP protocol 
+#This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@manticoresearch.com
@@ -20,7 +20,7 @@ module OpenapiClient
       @api_client = api_client
     end
     # Perform SQL requests
-    # Run a query in SQL format. <br/>  Expects is a query parameters string that can be in two modes: <br/>  * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded <br/> * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. <br/>  The response object depends on the query executed. In select mode the response has same format as `/search` operation. 
+    # Run a query in SQL format. <br/> Expects is a query parameters string that can be in two modes: <br/> * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded <br/> * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. <br/> The response object depends on the query executed. In select mode the response has same format as `/search` operation. 
     # @param body [String] Expects is a query parameters string that can be in two modes: - Select only query as &#x60;query&#x3D;SELECT * FROM myindex&#x60;. The query string MUST be URL encoded - any type of query in format &#x60;mode&#x3D;raw&amp;query&#x3D;SHOW TABLES&#x60;. The string must be as is (no URL encoding) and &#x60;mode&#x60; must be first. 
     # @param [Hash] opts the optional parameters
     # @return [Hash<String, Object>]
@@ -30,7 +30,7 @@ module OpenapiClient
     end
 
     # Perform SQL requests
-    # Run a query in SQL format. &lt;br/&gt;  Expects is a query parameters string that can be in two modes: &lt;br/&gt;  * Select only query as &#x60;query&#x3D;SELECT * FROM myindex&#x60;. The query string MUST be URL encoded &lt;br/&gt; * any type of query in format &#x60;mode&#x3D;raw&amp;query&#x3D;SHOW TABLES&#x60;. The string must be as is (no URL encoding) and &#x60;mode&#x60; must be first. &lt;br/&gt;  The response object depends on the query executed. In select mode the response has same format as &#x60;/search&#x60; operation. 
+    # Run a query in SQL format. &lt;br/&gt; Expects is a query parameters string that can be in two modes: &lt;br/&gt; * Select only query as &#x60;query&#x3D;SELECT * FROM myindex&#x60;. The query string MUST be URL encoded &lt;br/&gt; * any type of query in format &#x60;mode&#x3D;raw&amp;query&#x3D;SHOW TABLES&#x60;. The string must be as is (no URL encoding) and &#x60;mode&#x60; must be first. &lt;br/&gt; The response object depends on the query executed. In select mode the response has same format as &#x60;/search&#x60; operation. 
     # @param body [String] Expects is a query parameters string that can be in two modes: - Select only query as &#x60;query&#x3D;SELECT * FROM myindex&#x60;. The query string MUST be URL encoded - any type of query in format &#x60;mode&#x3D;raw&amp;query&#x3D;SHOW TABLES&#x60;. The string must be as is (no URL encoding) and &#x60;mode&#x60; must be first. 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Hash<String, Object>, Integer, Hash)>] Hash<String, Object> data, response status code and response headers

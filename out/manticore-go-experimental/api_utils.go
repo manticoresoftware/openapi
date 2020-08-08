@@ -1,7 +1,7 @@
 /*
  * Manticore Search API
  *
- * This is the API for Manticore Search HTTP protocol 
+ * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * API version: 1.0.0
  * Contact: info@manticoresearch.com
@@ -40,14 +40,8 @@ func (r apiSqlRequest) Body(body string) apiSqlRequest {
 /*
 Sql Perform SQL requests
 Run a query in SQL format. <br/>
-
 Expects is a query parameters string that can be in two modes: <br/>
-
-* Select only query as `query=SELECT * FROM myindex`. The query string
-MUST be URL encoded <br/>
-* any type of query in format `mode=raw&query=SHOW TABLES`. The string
-must be as is (no URL encoding) and `mode` must be first. <br/>
-
+* Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded <br/> * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. <br/>
 The response object depends on the query executed. In select mode the response has same format as `/search` operation.
 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

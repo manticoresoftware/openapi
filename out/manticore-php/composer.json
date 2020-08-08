@@ -1,6 +1,6 @@
 {
     "name": "GIT_USER_ID/GIT_REPO_ID",
-    "description": "This is the API for Manticore Search HTTP protocol",
+    "description": "This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/.",
     "keywords": [
         "openapitools",
         "openapi-generator",

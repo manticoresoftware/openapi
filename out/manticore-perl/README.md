@@ -2,7 +2,8 @@
 
 WWW::OpenAPIClient::Role - a Moose role for the Manticore Search API
 
-This is the API for Manticore Search HTTP protocol
+This is the API for Manticore Search HTTP protocol.
+For full documentation of the API methods consult https://manual.manticoresearch.com/.
 
 
 # VERSION

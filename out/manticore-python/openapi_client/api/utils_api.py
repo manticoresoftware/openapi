@@ -3,7 +3,7 @@
 """
     Manticore Search API
 
-    This is the API for Manticore Search HTTP protocol   # noqa: E501
+    This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: info@manticoresearch.com
@@ -40,7 +40,7 @@ class UtilsApi(object):
     def sql(self, body, **kwargs):  # noqa: E501
         """Perform SQL requests  # noqa: E501
 
-        Run a query in SQL format. <br/>  Expects is a query parameters string that can be in two modes: <br/>  * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded <br/> * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. <br/>  The response object depends on the query executed. In select mode the response has same format as `/search` operation.   # noqa: E501
+        Run a query in SQL format. <br/> Expects is a query parameters string that can be in two modes: <br/> * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded <br/> * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. <br/> The response object depends on the query executed. In select mode the response has same format as `/search` operation.   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -70,7 +70,7 @@ class UtilsApi(object):
     def sql_with_http_info(self, body, **kwargs):  # noqa: E501
         """Perform SQL requests  # noqa: E501
 
-        Run a query in SQL format. <br/>  Expects is a query parameters string that can be in two modes: <br/>  * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded <br/> * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. <br/>  The response object depends on the query executed. In select mode the response has same format as `/search` operation.   # noqa: E501
+        Run a query in SQL format. <br/> Expects is a query parameters string that can be in two modes: <br/> * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded <br/> * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. <br/> The response object depends on the query executed. In select mode the response has same format as `/search` operation.   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 

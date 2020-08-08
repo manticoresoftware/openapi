@@ -1,7 +1,7 @@
 /*
  * Manticore Search API
  *
- * This is the API for Manticore Search HTTP protocol 
+ * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * API version: 1.0.0
  * Contact: info@manticoresearch.com
@@ -37,7 +37,7 @@ import (
 )
 
 var (
-	jsonCheck = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?json)`)
+	jsonCheck = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?(?:problem\+)?json)`)
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 

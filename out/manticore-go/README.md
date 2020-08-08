@@ -1,6 +1,7 @@
 # Go API client for openapi
 
-This is the API for Manticore Search HTTP protocol
+This is the API for Manticore Search HTTP protocol.
+For full documentation of the API methods consult https://manual.manticoresearch.com/.
 
 
 ## Overview

@@ -1,6 +1,6 @@
 /*
  * Manticore Search API
- * This is the API for Manticore Search HTTP protocol 
+ * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -423,7 +423,9 @@ public class ApiClient {
                 loggingInterceptor.setLevel(Level.BODY);
                 httpClient = httpClient.newBuilder().addInterceptor(loggingInterceptor).build();
             } else {
-                httpClient.interceptors().remove(loggingInterceptor);
+                final OkHttpClient.Builder builder = httpClient.newBuilder();
+                builder.interceptors().remove(loggingInterceptor);
+                httpClient = builder.build();
                 loggingInterceptor = null;
             }
         }

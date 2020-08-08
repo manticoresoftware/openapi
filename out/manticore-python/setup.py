@@ -3,7 +3,7 @@
 """
     Manticore Search API
 
-    This is the API for Manticore Search HTTP protocol   # noqa: E501
+    This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: info@manticoresearch.com
@@ -37,6 +37,6 @@ setup(
     include_package_data=True,
     license="Apache 2.0",
     long_description="""\
-    This is the API for Manticore Search HTTP protocol   # noqa: E501
+    This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/.   # noqa: E501
     """
 )

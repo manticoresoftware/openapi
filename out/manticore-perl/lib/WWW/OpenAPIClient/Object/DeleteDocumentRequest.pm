@@ -2,7 +2,7 @@
 
 Manticore Search API
 
-This is the API for Manticore Search HTTP protocol 
+This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@manticoresearch.com
@@ -44,7 +44,7 @@ use base ("Class::Accessor", "Class::Data::Inheritable");
 
 Manticore Search API
 
-This is the API for Manticore Search HTTP protocol 
+This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@manticoresearch.com

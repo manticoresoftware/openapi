@@ -3,7 +3,7 @@
 =begin
 #Manticore Search API
 
-#This is the API for Manticore Search HTTP protocol 
+#This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@manticoresearch.com
@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.email       = ["info@manticoresearch.com"]
   s.homepage    = "https://openapi-generator.tech"
   s.summary     = "Manticore Search API Ruby Gem"
-  s.description = "This is the API for Manticore Search HTTP protocol "
+  s.description = "This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. "
   s.license     = "Unlicense"
   s.required_ruby_version = ">= 1.9"
 

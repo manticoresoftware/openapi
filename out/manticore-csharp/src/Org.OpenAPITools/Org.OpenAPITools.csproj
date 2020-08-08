@@ -2,7 +2,7 @@
 <!--
 Manticore Search API
 
-This is the API for Manticore Search HTTP protocol 
+This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@manticoresearch.com
@@ -12,7 +12,7 @@ Contact: info@manticoresearch.com
     
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C9EA40AA-4DA7-47D9-82DB-79886AE26C29}</ProjectGuid>
+    <ProjectGuid>{C677B231-581F-4D1A-8F77-AAAD7445C286}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Org.OpenAPITools</RootNamespace>

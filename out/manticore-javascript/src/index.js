@@ -1,6 +1,6 @@
 /**
  * Manticore Search API
- * This is the API for Manticore Search HTTP protocol 
+ * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -31,7 +31,7 @@ import UtilsApi from './api/UtilsApi';
 
 
 /**
-* This_is_the_API_for_Manticore_Search_HTTP_protocol.<br>
+* This_is_the_API_for_Manticore_Search_HTTP_protocol_For_full_documentation_of_the_API_methods_consult_https__manual_manticoresearch_com__.<br>
 * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:

@@ -1,0 +1,780 @@
+{
+  "openapi" : "3.0.2",
+  "info" : {
+    "title" : "Manticore Search API",
+    "description" : "This is the API for Manticore Search HTTP protocol.\nFor full documentation of the API methods consult https://manual.manticoresearch.com/.\n",
+    "version" : "1.0.0",
+    "contact" : {
+      "name" : "Manticore Software Ltd.",
+      "email" : "info@manticoresearch.com",
+      "url" : "https://manticoresearch.com/contact-us/"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "Index",
+    "description" : "Operations regarding adding, updating or deleting documents"
+  }, {
+    "name" : "Search",
+    "description" : "Operations about performing searches over indexes"
+  }, {
+    "name" : "Utils",
+    "description" : "Various operations"
+  } ],
+  "externalDocs" : {
+    "description" : "Find out more about Manticore Search",
+    "url" : "https://manticoresearch.com/"
+  },
+  "components" : {
+    "schemas" : {
+      "searchRequest" : {
+        "type" : "object",
+        "description" : "Payload for search operation",
+        "required" : [ "index", "query" ],
+        "properties" : {
+          "index" : {
+            "type" : "string",
+            "example" : "test"
+          },
+          "query" : {
+            "type" : "object",
+            "additionalProperties" : true
+          },
+          "limit" : {
+            "type" : "integer"
+          },
+          "offset" : {
+            "type" : "integer"
+          },
+          "max_matches" : {
+            "type" : "integer"
+          },
+          "sort" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object"
+            }
+          },
+          "script_fields" : {
+            "type" : "object"
+          },
+          "highlight" : {
+            "type" : "object"
+          },
+          "_source" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "profile" : {
+            "type" : "boolean"
+          }
+        },
+        "example" : {
+          "index" : "test",
+          "query" : "query_string:\"find me\""
+        }
+      },
+      "updateDocumentRequest" : {
+        "type" : "object",
+        "description" : "Payload for update document",
+        "required" : [ "index", "doc" ],
+        "properties" : {
+          "index" : {
+            "type" : "string"
+          },
+          "doc" : {
+            "type" : "object",
+            "description" : "Index name",
+            "additionalProperties" : true,
+            "example" : {
+              "gid" : 10
+            }
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64",
+            "description" : "Document ID"
+          },
+          "query" : {
+            "type" : "object",
+            "additionalProperties" : true,
+            "description" : "Query tree object",
+            "example" : {
+              "query" : {
+                "match" : {
+                  "title" : "match me"
+                }
+              }
+            }
+          }
+        },
+        "example" : {
+          "index" : "test",
+          "doc" : {
+            "price" : 1000
+          },
+          "query" : {
+            "match" : {
+              "*" : "apple"
+            }
+          }
+        }
+      },
+      "deleteDocumentRequest" : {
+        "type" : "object",
+        "description" : "Payload for delete request. Documents can be deleted either one by one by specifying the document id or by providing a query object. For more information see  [Delete API](https://docs.manticoresearch.com/latest/html/http_reference/json_delete.html)\n",
+        "required" : [ "index" ],
+        "properties" : {
+          "index" : {
+            "type" : "string",
+            "description" : "Index name"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64",
+            "description" : "Document ID"
+          },
+          "query" : {
+            "type" : "object",
+            "description" : "Query tree object"
+          }
+        },
+        "example" : {
+          "index" : "test",
+          "id" : 1
+        }
+      },
+      "insertDocumentRequest" : {
+        "type" : "object",
+        "description" : "Object with document data.\n",
+        "required" : [ "index", "doc" ],
+        "properties" : {
+          "index" : {
+            "type" : "string",
+            "description" : "Name of the index"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64",
+            "description" : "Document ID.\n"
+          },
+          "doc" : {
+            "type" : "object",
+            "additionalProperties" : true,
+            "description" : "Object with document data\n"
+          }
+        },
+        "example" : {
+          "index" : "test",
+          "doc" : {
+            "title" : "This is some title",
+            "gid" : 100
+          }
+        }
+      },
+      "percolateRequest" : {
+        "type" : "object",
+        "description" : "Object with documents to percolate",
+        "required" : [ "query" ],
+        "properties" : {
+          "query" : {
+            "type" : "object",
+            "additionalProperties" : true,
+            "required" : [ "percolate" ],
+            "properties" : {
+              "percolate" : {
+                "type" : "object"
+              }
+            },
+            "example" : {
+              "percolate" : {
+                "document" : {
+                  "title" : "some text to match"
+                }
+              }
+            }
+          }
+        },
+        "example" : {
+          "query" : {
+            "percolate" : {
+              "document" : {
+                "title" : "some text to match"
+              }
+            }
+          }
+        }
+      },
+      "searchResponse" : {
+        "type" : "object",
+        "description" : "Response object of a search request",
+        "properties" : {
+          "took" : {
+            "type" : "integer"
+          },
+          "timed_out" : {
+            "type" : "boolean"
+          },
+          "hits" : {
+            "type" : "object",
+            "properties" : {
+              "total" : {
+                "type" : "integer"
+              },
+              "hits" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "object"
+                }
+              }
+            },
+            "example" : {
+              "total" : 2,
+              "hits" : [ {
+                "_id" : 1,
+                "_score" : 1,
+                "_source" : {
+                  "gid" : 11
+                }
+              }, {
+                "_id" : 2,
+                "_score" : 1,
+                "_source" : {
+                  "gid" : 20
+                }
+              } ]
+            }
+          },
+          "profile" : {
+            "type" : "object"
+          }
+        }
+      },
+      "sqlResponse" : {
+        "type" : "object",
+        "description" : "Response from sql depends on the query executed.",
+        "additionalProperties" : true,
+        "example" : {
+          "total" : 0,
+          "error" : null
+        }
+      },
+      "successResponse" : {
+        "type" : "object",
+        "description" : "Success response",
+        "properties" : {
+          "_index" : {
+            "type" : "string"
+          },
+          "_id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "created" : {
+            "type" : "boolean"
+          },
+          "result" : {
+            "type" : "string"
+          },
+          "found" : {
+            "type" : "boolean"
+          }
+        },
+        "example" : {
+          "_index" : "test",
+          "_id" : 1,
+          "result" : "created",
+          "created" : true
+        }
+      },
+      "bulkResponse" : {
+        "type" : "object",
+        "additionalProperties" : true,
+        "description" : "Success bulk response",
+        "properties" : {
+          "items" : {
+            "type" : "object"
+          },
+          "error" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "updateResponse" : {
+        "type" : "object",
+        "description" : "Success response",
+        "properties" : {
+          "_index" : {
+            "type" : "string"
+          },
+          "updated" : {
+            "type" : "integer"
+          },
+          "_id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "result" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "_index" : "test",
+          "updated" : 29
+        }
+      },
+      "deleteResponse" : {
+        "type" : "object",
+        "description" : "Success response",
+        "properties" : {
+          "_index" : {
+            "type" : "string"
+          },
+          "deleted" : {
+            "type" : "integer"
+          },
+          "_id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "result" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "_index" : "test",
+          "deleted" : 29
+        }
+      },
+      "errorResponse" : {
+        "type" : "object",
+        "description" : "Error response",
+        "required" : [ "error", "status" ],
+        "properties" : {
+          "error" : {
+            "type" : "object",
+            "additionalProperties" : true
+          },
+          "status" : {
+            "type" : "integer",
+            "example" : 500
+          }
+        },
+        "example" : {
+          "status" : 500,
+          "error" : "an error occured"
+        }
+      }
+    }
+  },
+  "paths" : {
+    "/json/search" : {
+      "post" : {
+        "summary" : "Performs a search",
+        "description" : "Performs a search. <br/> Expects an object with mandatory properties: <br/> - the index name <br/> - the match query object <br/>\nExample : <br/> <code> {'index':'movies','query':{'bool':{'must':[{'query_string':' movie'}]}},'script_fields':{'myexpr':{'script':{'inline':'IF(rating>8,1,0)'}}},'sort':[{'myexpr':'desc'},{'_score':'desc'}],'profile':true} </code> <br/>\nIt responds with an object with <br/> - time of execution <br/> - if the query timed out <br/> - an array with hits (matched documents) <br/> - additional, if profiling is enabled, an array with profiling information is attached <br/>\n\n``` {'took':10,'timed_out':false,'hits':{'total':2,'hits':[{'_id':'1','_score':1,'_source':{'gid':11}},{'_id':'2','_score':1,'_source':{'gid':12}}]}} ``` <br/>\nFor more information about the match query syntax, additional paramaters that can be set to the input and response, please check: https://docs.manticoresearch.com/latest/html/http_reference/json_search.html.\n",
+        "operationId" : "search",
+        "tags" : [ "Search" ],
+        "externalDocs" : {
+          "url" : "https://docs.manticoresearch.com/latest/html/http_reference/json_search.html"
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/searchRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/searchResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json/insert" : {
+      "post" : {
+        "summary" : "Create a new document in an index",
+        "operationId" : "insert",
+        "description" : "Insert a document. <br/> Expects an object like: <br/>\n```{'index':'movies','id':701,'doc':{'title':'This is an old movie','plot':'A secret team goes to North Pole','year':1950,'rating':9.5,'lat':60.4,'lon':51.99,'advise':'PG-13','meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}','language':[2,3]}}```. <br/>\nThe document id can also be missing, in which case an autogenerated one will be used: <br/> ```{'index':'movies','doc':{'title':'This is a new movie','plot':'A secret team goes to North Pole','year':2020,'rating':9.5,'lat':60.4,'lon':51.99,'advise':'PG-13','meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}','language':[2,3]}}``` <br/>\nIt responds with an object in format: <br/>\n```{'_index':'products','_id':701,'created':true,'result':'created','status':201}```\n",
+        "tags" : [ "Index" ],
+        "externalDocs" : {
+          "url" : "https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html"
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/insertDocumentRequest"
+              },
+              "example" : {
+                "index" : "test",
+                "id" : 1,
+                "doc" : {
+                  "title" : "sample title",
+                  "gid" : 10
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/successResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json/replace" : {
+      "post" : {
+        "summary" : "Replace new document in an index",
+        "operationId" : "replace",
+        "description" : "Replace an existing document. Input has same format as `insert` operation. <br/>\nResponds with an object in format: <br/>\n``` {'_index':'products','_id':1,'created':false,'result':'updated','status':200} ```\n",
+        "tags" : [ "Index" ],
+        "externalDocs" : {
+          "url" : "https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html"
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/insertDocumentRequest"
+              },
+              "example" : {
+                "index" : "test",
+                "id" : 1,
+                "doc" : {
+                  "title" : "updated title",
+                  "gid" : 15
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/successResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json/update" : {
+      "post" : {
+        "summary" : "Update a document in an index",
+        "operationId" : "update",
+        "description" : "Update one or several documents. <br/>\nThe update can be made by passing the id or by using a match query in case multiple documents can be updated. <br/> For example update a document using document id: <br/> <code> {'index':'movies','doc':{'rating':9.49},'id':100} </code> <br/> And update by using a match query: <br/> ``` {'index':'movies','doc':{'rating':9.49},'query':{'bool':{'must':[{'query_string':'new movie'}]}}} ```  <br/> The match query has same syntax as for searching.\nResponds with an object that tells how many documents where updated in format: <br/> ``` {'_index':'products','updated':1} ```\n",
+        "tags" : [ "Index" ],
+        "externalDocs" : {
+          "url" : "https://docs.manticoresearch.com/latest/html/http_reference/json_update.html"
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/updateDocumentRequest"
+              },
+              "example" : {
+                "index" : "test",
+                "doc" : {
+                  "gid" : 20
+                },
+                "query" : {
+                  "equals" : {
+                    "cat_id" : 2
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "item updated",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/updateResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json/delete" : {
+      "post" : {
+        "summary" : "Delete a document in an index",
+        "operationId" : "delete",
+        "description" : "Delete one or several documents. <br/>\nThe method has 2 ways of deleting: either by id, in case only one document is deleted or by using a  match query, in which case multiple documents can be delete . <br/> Example of input to delete by id: <br/> ``` {'index':'movies','id':100} ``` <br/> Example of input to delete using a query: ``` {'index':'movies','query':{'bool':{'must':[{'query_string':'new movie'}]}}} ``` <br/> The match query has same syntax as in for searching. <br/> Responds with an object telling how many documents got deleted: <br/>\n``` {'_index':'products','updated':1} ```\n",
+        "tags" : [ "Index" ],
+        "externalDocs" : {
+          "url" : "https://docs.manticoresearch.com/latest/html/http_reference/json_update.html"
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteDocumentRequest"
+              },
+              "example" : {
+                "index" : "test",
+                "query" : {
+                  "match" : {
+                    "title" : "apple"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "item updated",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/deleteResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json/bulk" : {
+      "post" : {
+        "summary" : "Bulk index operations",
+        "description" : "Sends multiple operatons like inserts, updates, replaces or deletes. <br/>\nFor each operation it's object must have same format as in their dedicated method. <br/>\nThe method expects a raw string as the batch in NDJSON.\n Each operation object needs to be serialized to \n JSON and separated by endline (\\n). <br/>\n \n  An example of raw input:\n  \n  `{\"insert\": {\"index\": \"movies\", \"doc\": {\"plot\": \"A secret team goes to North Pole\", \"rating\": 9.5, \"language\": [2, 3], \"title\": \"This is an older movie\", \"lon\": 51.99, \"meta\": {\"keywords\":[\"travel\",\"ice\"],\"genre\":[\"adventure\"]}, \"year\": 1950, \"lat\": 60.4, \"advise\": \"PG-13\"}}}\\n{\"delete\": {\"index\": \"movies\",\"id\":700}}`\n  \n  Responds with an object telling whenever any errors occured and an array with status for each operation:<br/>\n  ```\n  {'items':[{'update':{'_index':'products','_id':1,'result':'updated'}},{'update':{'_index':'products','_id':2,'result':'updated'}}],'errors':false}\n  ```\n \n",
+        "operationId" : "bulk",
+        "tags" : [ "Index" ],
+        "externalDocs" : {
+          "url" : "https://docs.manticoresearch.com/latest/html/http_reference/json_update.html"
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/x-ndjson" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "item updated",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/bulkResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json/pq/{index}/search" : {
+      "post" : {
+        "summary" : "Perform reverse search on a percolate index",
+        "operationId" : "percolate",
+        "description" : "Performs a percolate search. <br/> This method must be used only on percolate indexes. <br/>\nExpects two paramenters: the index name and an object with array of documents to be tested. <br/>\nAn example of the documents object: <br/>\n``` {\"query\":{\"percolate\":{\"document\":{\"content\":\"sample content\"}}}} ``` <br/>\nResponds with an object with matched stored queries: <br/> ``` {'timed_out':false,'hits':{'total':2,'max_score':1,'hits':[{'_index':'idx_pq_1','_type':'doc','_id':'2','_score':'1','_source':{'query':{'match':{'title':'some'},}}},{'_index':'idx_pq_1','_type':'doc','_id':'5','_score':'1','_source':{'query':{'ql':'some | none'}}}]}} ```\n",
+        "tags" : [ "Search" ],
+        "externalDocs" : {
+          "url" : "https://docs.manticoresearch.com/latest/html/http_reference/json_update.html"
+        },
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "index",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true,
+          "description" : "Name of the percolate index"
+        } ],
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/percolateRequest"
+              },
+              "example" : {
+                "query" : {
+                  "percolate" : {
+                    "document" : {
+                      "title" : "some text to match"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "items found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/searchResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sql" : {
+      "post" : {
+        "summary" : "Perform SQL requests",
+        "description" : "Run a query in SQL format. <br/>\nExpects is a query parameters string that can be in two modes: <br/>\n* Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded <br/> * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. <br/>\nThe response object depends on the query executed. In select mode the response has same format as `/search` operation.\n",
+        "operationId" : "sql",
+        "tags" : [ "utils" ],
+        "externalDocs" : {
+          "url" : "https://docs.manticoresearch.com/latest/html/httpapi_reference.html#sql-api"
+        },
+        "requestBody" : {
+          "required" : true,
+          "description" : "Expects is a query parameters string that can be in two modes: - Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded - any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first.\n",
+          "content" : {
+            "text/plain" : {
+              "schema" : {
+                "type" : "string"
+              },
+              "example" : [ "mode=raw&query=SHOW TABLES" ]
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "In case of SELECT-only in mode none the response schema is the same as of `search`. In case of `mode=raw` the response depends on the query executed.\n",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/sqlResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers" : [ {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0"
+  } ]
+}
