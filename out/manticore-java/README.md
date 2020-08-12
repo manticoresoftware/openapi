@@ -2,7 +2,7 @@
 
 Manticore Search API
 - API version: 1.0.0
-  - Build date: 2020-08-08T13:02:22.834Z[GMT]
+  - Build date: 2020-08-12T11:42:06.474Z[GMT]
 
 This is the API for Manticore Search HTTP protocol.
 For full documentation of the API methods consult https://manual.manticoresearch.com/.
