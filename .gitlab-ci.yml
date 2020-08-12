@@ -2,7 +2,7 @@ stages:
   - test
 
 python_testing:
-  image: python_testing
+  image: registry.gitlab.com/manticoresearch/openapi/python_testing
   stage: test
   only:
     changes:
