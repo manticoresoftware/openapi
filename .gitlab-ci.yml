@@ -12,5 +12,6 @@ python_testing:
     - pip3 install -U setuptools 
     - pip3 install -r requirements.txt
     - python3 setup.py install
+    - bash /prep.sh
     - python3 test/test.py
     
