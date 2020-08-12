@@ -1,0 +1,16 @@
+stages:
+  - test
+
+python_testing:
+  image: python_testing
+  stage: test
+  only:
+    changes:
+      - out/manticore-python/*
+  script:
+    - cd out/manticore-python
+    - pip3 install -U setuptools 
+    - pip3 install -r requirements.txt
+    - python3 setup.py install
+    - python3 test/test.py
+    

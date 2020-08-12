@@ -1,35 +1,92 @@
 #!/bin/bash
-sudo rm out/* -rf
-#for w in go-experimental  ruby php csharp c java perl
-#do
-#   echo "doing $w"
-#  docker run --rm -v ${PWD}:/local  -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g $w -o /local/out/manticore-$w
-#done
-echo "go-experimental"
-docker run --rm -v ${PWD}:/local  -e JAVA_OPTS="-Dlog.level=warn"  openapitools/openapi-generator-cli generate -i /local/manticore.yml -g go-experimental  -o /local/out/manticore-go-experimental -t /local/templates/go-experimental
+set -e
 
-echo "csharp"
-docker run --rm -v ${PWD}:/local   -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g csharp  -o /local/out/manticore-csharp -t /local/templates/csharp
+do_python() {
+  echo "Building Python ..."
+  rm out/manticore-python -rf
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"   -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g python -o /local/out/manticore-python -t /local/templates/python
+  git apply python_bulk.patch
+  rm out/manticore-python/test/* -rf
+  cp -R test/python/* out/manticore-python/test/ 
+  # replace test with our test
+  echo "Python done."
+}
 
-echo "java"
-docker run --rm -v ${PWD}:/local   -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g java  -o /local/out/manticore-java -t /local/templates/Java
+do_java() {
+  echo "Building Java ..."
+  rm out/manticore-java -rf
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g java  -o /local/out/manticore-java -t /local/templates/Java
+  git apply java.patch
+  echo "Java done."
+}
 
-echo "perl"
-docker run --rm -v ${PWD}:/local   -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g perl  -o /local/out/manticore-perl -t /local/templates/perl
+do_javascript() {
+  echo "Building Javascript ..."
+  rm out/manticore-javascript -rf
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g javascript -o /local/out/manticore-javascript -t /local/templates/Javascript
+  echo "Javascript done."
+}
 
-echo  "python"
-docker run --rm -v ${PWD}:/local   -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g python  -o /local/out/manticore-python -t /local/templates/python
+do_csharp() {
+  echo "Building CSharp ..."
+  rm out/manticore-csharp -rf
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g csharp  -o /local/out/manticore-csharp -t /local/templates/csharp
+  echo "CSharp done."
+}
 
-echo "javascript"
-docker run --rm -v ${PWD}:/local   -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g javascript -o /local/out/manticore-javascript -t /local/templates/Javascript
+do_ruby() {
+  echo "Building Ruby ..."
+  rm out/manticore-ruby -rf
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"   -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g ruby -o /local/out/manticore-ruby -t /local/templates/ruby-client
+  echo "Ruby done."
+}
 
-echo "ruby"
-docker run --rm -v ${PWD}:/local   -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g ruby -o /local/out/manticore-ruby -t /local/templates/ruby-client
+do_swift() {
+  echo "Building Swift ..."
+  rm out/manticore-swift5 -rf
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"   -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g swift5 -o /local/out/manticore-swift5 -t /local/templates/swift5
+  echo "Swift done."
+}
 
+do_perl() {
+  echo "Building Perl ..."
+  rm out/manticore-perl -rf
+  docker run --rm -v ${PWD}:/local   -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g perl  -o /local/out/manticore-perl -t /local/templates/perl
+  echo "Perl done." -u "$(id -u):$(id -g)" 
+}
 
-echo "swift5"
-docker run --rm -v ${PWD}:/local   -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g swift5 -o /local/out/manticore-swift5 -t /local/templates/swift5
- 
-
-sudo git apply python_bulk.patch
-sudo git apply java.patch
+case $1 in
+ python)
+   do_python
+  ;;
+ java)
+   do_java
+  ;;
+ javascript)
+   do_javascript
+  ;;
+ csharp)
+   do_csharp
+  ;;
+ ruby)
+   do_ruby
+  ;;
+ swift)
+   do_swift
+  ;;
+ perl)
+   do_perl
+  ;;
+ all)
+   do_python
+   do_java
+   do_javascript
+   do_csharp
+   do_ruby
+   do_swift
+   do_perl
+  ;;
+*)
+  echo -n "unknown"
+  ;;
+esac
