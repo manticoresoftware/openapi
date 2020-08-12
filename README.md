@@ -1,31 +1,55 @@
 # OpenAPI Tryout
 
-The OpenAPI file is `manticore.yaml`.
+The OpenAPI file is `manticore.yaml`. 
 
-To generate code for a language:
+## Editing the OpenAPI spec
+
+You can use an online editor line Swagger (https://swagger.io/).
+
+
+
+## Building
+
+To generate code for a language (simple form):
 
 `docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/manticore.yaml -g php -o /local/out/php`
 
 
-In php/python there is a test.php/py file using the client.
+The script `build.sh`  is made to perform building for several languages.
 
+You can use it like:
 
-The yaml was edited with swagger and can be seen at:
+```
+./build.sh java
 
-https://app.swaggerhub.com/apis/adriannuta/ManticoreSeach/1.0.0
+```
+
+I suggest to `docker pull  openapitools/openapi-generator-cli` first.
+
+## Folders
+
+- out - generated code clients. Each is in a folder named `manticore-X`
+
+- patches - contains patch files for various clients
+
+- docker - docker images for CI/testing
+
+- test - hand-made tests (desirable to copy them into `manticore-X` test folder
+
+- templates -  mustache templates taken from https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator/src/main/resources; These should be updated from time to time
 
 
 ## Clients
 
-* PHP - tested, but are not interested in it, as we have already a client
+* PHP - works, but are not interested in it, as we have already a client
 
 * CSharp - not tested
 
-* Python - tested
+* Python - works, has testing suite
 
-* Javascript - tested
+* Javascript - works
 
-* Java - tested
+* Java - works
 
 * Perl - not tested
 
@@ -33,11 +57,14 @@ https://app.swaggerhub.com/apis/adriannuta/ManticoreSeach/1.0.0
 
 * Swift - not tested
 
-* Go -  not tested
+* Go -  tried to test it, seems smth broken or need more go knowledge
 
 ## Specific client issues
 
 ### Python
+
+Solved (with patches):
+
 
 * problem with `bulk` as the client regex for `json` in `Content-Type` header
 and ends up JSON encoding the bulk payload. One fix is to patch regex to be specific
@@ -50,15 +77,17 @@ be url encoded. Fix is to use `text/plain` and user needs to provide
 
 ### Javascript
 
+Unresolved(can't fix?):
+
 * delete() is renamed to `callDelete` because `delete()` is a reserved method
 
-
 ### Java
+
+Solved (with patches):
 
 * the client seems to throw exception on any content type that is not json, form or multipart 
 * another problem is the http client forces addition of charset=utf-8 in `Content-Type`, this breaks
 `bulk` even if x-ndjson is set (seems we do an exact check on content-type) (there's a 2017 ticket on the 
 http client about this as seems it breaks compat with apis like ones from aws or dropbox since most do exact matching 
 on content-type). 
-Both these 2 issues need patches.
 

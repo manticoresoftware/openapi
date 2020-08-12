@@ -1,4 +1,4 @@
-# ManticoreSearchApi.DeleteDocumentRequest
+# ManticoreSearchClient.DeleteDocumentRequest
 
 ## Properties
 

@@ -1,6 +1,6 @@
 # Org.OpenAPITools.Api.IndexApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0*
+All URIs are relative to *http://127.0.0.1:9308*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -55,7 +55,7 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
+            Configuration.Default.BasePath = "http://127.0.0.1:9308";
             var apiInstance = new IndexApi(Configuration.Default);
             var body = body_example;  // string | 
 
@@ -151,7 +151,7 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
+            Configuration.Default.BasePath = "http://127.0.0.1:9308";
             var apiInstance = new IndexApi(Configuration.Default);
             var deleteDocumentRequest = new DeleteDocumentRequest(); // DeleteDocumentRequest | 
 
@@ -245,7 +245,7 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
+            Configuration.Default.BasePath = "http://127.0.0.1:9308";
             var apiInstance = new IndexApi(Configuration.Default);
             var insertDocumentRequest = new InsertDocumentRequest(); // InsertDocumentRequest | 
 
@@ -327,7 +327,7 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
+            Configuration.Default.BasePath = "http://127.0.0.1:9308";
             var apiInstance = new IndexApi(Configuration.Default);
             var insertDocumentRequest = new InsertDocumentRequest(); // InsertDocumentRequest | 
 
@@ -422,7 +422,7 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
+            Configuration.Default.BasePath = "http://127.0.0.1:9308";
             var apiInstance = new IndexApi(Configuration.Default);
             var updateDocumentRequest = new UpdateDocumentRequest(); // UpdateDocumentRequest | 
 

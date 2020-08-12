@@ -1,6 +1,6 @@
 /**
- * Manticore Search API
- * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+ * Manticore Search Client
+ * Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -23,16 +23,16 @@
     factory(require('expect.js'), require(process.cwd()+'/src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.ManticoreSearchApi);
+    factory(root.expect, root.ManticoreSearchClient);
   }
-}(this, function(expect, ManticoreSearchApi) {
+}(this, function(expect, ManticoreSearchClient) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
     // create a new instance
-    //instance = new ManticoreSearchApi.BulkResponse();
+    //instance = new ManticoreSearchClient.BulkResponse();
   });
 
   var getProperty = function(object, getter, property) {
@@ -54,19 +54,19 @@
   describe('BulkResponse', function() {
     it('should create an instance of BulkResponse', function() {
       // uncomment below and update the code to test BulkResponse
-      //var instance = new ManticoreSearchApi.BulkResponse();
-      //expect(instance).to.be.a(ManticoreSearchApi.BulkResponse);
+      //var instance = new ManticoreSearchClient.BulkResponse();
+      //expect(instance).to.be.a(ManticoreSearchClient.BulkResponse);
     });
 
     it('should have the property items (base name: "items")', function() {
       // uncomment below and update the code to test the property items
-      //var instance = new ManticoreSearchApi.BulkResponse();
+      //var instance = new ManticoreSearchClient.BulkResponse();
       //expect(instance).to.be();
     });
 
     it('should have the property error (base name: "error")', function() {
       // uncomment below and update the code to test the property error
-      //var instance = new ManticoreSearchApi.BulkResponse();
+      //var instance = new ManticoreSearchClient.BulkResponse();
       //expect(instance).to.be();
     });
 

@@ -1,6 +1,6 @@
 /**
- * Manticore Search API
- * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+ * Manticore Search Client
+ * Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -23,16 +23,16 @@
     factory(require('expect.js'), require(process.cwd()+'/src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.ManticoreSearchApi);
+    factory(root.expect, root.ManticoreSearchClient);
   }
-}(this, function(expect, ManticoreSearchApi) {
+}(this, function(expect, ManticoreSearchClient) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
     // create a new instance
-    //instance = new ManticoreSearchApi.SearchResponse();
+    //instance = new ManticoreSearchClient.SearchResponse();
   });
 
   var getProperty = function(object, getter, property) {
@@ -54,31 +54,31 @@
   describe('SearchResponse', function() {
     it('should create an instance of SearchResponse', function() {
       // uncomment below and update the code to test SearchResponse
-      //var instance = new ManticoreSearchApi.SearchResponse();
-      //expect(instance).to.be.a(ManticoreSearchApi.SearchResponse);
+      //var instance = new ManticoreSearchClient.SearchResponse();
+      //expect(instance).to.be.a(ManticoreSearchClient.SearchResponse);
     });
 
     it('should have the property took (base name: "took")', function() {
       // uncomment below and update the code to test the property took
-      //var instance = new ManticoreSearchApi.SearchResponse();
+      //var instance = new ManticoreSearchClient.SearchResponse();
       //expect(instance).to.be();
     });
 
     it('should have the property timedOut (base name: "timed_out")', function() {
       // uncomment below and update the code to test the property timedOut
-      //var instance = new ManticoreSearchApi.SearchResponse();
+      //var instance = new ManticoreSearchClient.SearchResponse();
       //expect(instance).to.be();
     });
 
     it('should have the property hits (base name: "hits")', function() {
       // uncomment below and update the code to test the property hits
-      //var instance = new ManticoreSearchApi.SearchResponse();
+      //var instance = new ManticoreSearchClient.SearchResponse();
       //expect(instance).to.be();
     });
 
     it('should have the property profile (base name: "profile")', function() {
       // uncomment below and update the code to test the property profile
-      //var instance = new ManticoreSearchApi.SearchResponse();
+      //var instance = new ManticoreSearchClient.SearchResponse();
       //expect(instance).to.be();
     });
 

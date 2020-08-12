@@ -1,8 +1,8 @@
 =begin comment
 
-Manticore Search API
+Manticore Search Client
 
-This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@manticoresearch.com
@@ -84,7 +84,7 @@ String. The OAuth access token.
 
 String. The base URL of the API
 
-default: https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0
+default: http://127.0.0.1:9308
 
 =back
 
@@ -110,7 +110,7 @@ sub new {
     $p{access_token} //= '';
 
     # base_url
-    $p{base_url} //= 'https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0';
+    $p{base_url} //= 'http://127.0.0.1:9308';
 
     return bless \%p => $self;
 }

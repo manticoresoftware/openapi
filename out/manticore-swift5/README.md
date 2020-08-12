@@ -1,6 +1,6 @@
 # Swift5 API client for OpenAPIClient
 
-This is the API for Manticore Search HTTP protocol.
+Please note that this client is experimental.
 For full documentation of the API methods consult https://manual.manticoresearch.com/.
 
 
@@ -24,7 +24,7 @@ Run `pod install`
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0*
+All URIs are relative to *http://127.0.0.1:9308*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------

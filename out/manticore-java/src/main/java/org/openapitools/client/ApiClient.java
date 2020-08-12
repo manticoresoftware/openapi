@@ -1,6 +1,6 @@
 /*
- * Manticore Search API
- * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+ * Manticore Search Client
+ * Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -54,7 +54,7 @@ import org.openapitools.client.auth.ApiKeyAuth;
 
 public class ApiClient {
 
-    private String basePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
+    private String basePath = "http://127.0.0.1:9308";
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private Map<String, String> defaultCookieMap = new HashMap<String, String>();
@@ -138,7 +138,7 @@ public class ApiClient {
     /**
      * Set base path
      *
-     * @param basePath Base path of the URL (e.g https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0
+     * @param basePath Base path of the URL (e.g http://127.0.0.1:9308
      * @return An instance of OkHttpClient
      */
     public ApiClient setBasePath(String basePath) {

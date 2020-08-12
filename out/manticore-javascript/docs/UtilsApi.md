@@ -1,6 +1,6 @@
-# ManticoreSearchApi.UtilsApi
+# ManticoreSearchClient.UtilsApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0*
+All URIs are relative to *http://127.0.0.1:9308*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -24,9 +24,9 @@ The response object depends on the query executed. In select mode the response h
 ### Example
 
 ```javascript
-var ManticoreSearchApi = require('manticore_search_api');
+var ManticoreSearchClient = require('manticore_search_client');
 
-var apiInstance = new ManticoreSearchApi.UtilsApi();
+var apiInstance = new ManticoreSearchClient.UtilsApi();
 var body = ["mode=raw&query=SHOW TABLES"]; // String | Expects is a query parameters string that can be in two modes:    * Select only query as `query=SELECT * FROM myindex`. The query string MUST be URL encoded    * any type of query in format `mode=raw&query=SHOW TABLES`. The string must be as is (no URL encoding) and `mode` must be first. 
 var callback = function(error, data, response) {
   if (error) {

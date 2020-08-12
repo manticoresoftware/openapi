@@ -1,6 +1,6 @@
 /**
- * Manticore Search API
- * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+ * Manticore Search Client
+ * Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -23,15 +23,15 @@
     factory(require('expect.js'), require(process.cwd()+'/src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.ManticoreSearchApi);
+    factory(root.expect, root.ManticoreSearchClient);
   }
-}(this, function(expect, ManticoreSearchApi) {
+}(this, function(expect, ManticoreSearchClient) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new ManticoreSearchApi.SearchApi();
+    instance = new ManticoreSearchClient.SearchApi();
   });
 
   var getProperty = function(object, getter, property) {

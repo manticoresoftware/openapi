@@ -1,4 +1,4 @@
-# ManticoreSearchApi.UpdateResponse
+# ManticoreSearchClient.UpdateResponse
 
 ## Properties
 

@@ -1,6 +1,6 @@
 /**
- * Manticore Search API
- * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+ * Manticore Search Client
+ * Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -23,16 +23,16 @@
     factory(require('expect.js'), require(process.cwd()+'/src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.ManticoreSearchApi);
+    factory(root.expect, root.ManticoreSearchClient);
   }
-}(this, function(expect, ManticoreSearchApi) {
+}(this, function(expect, ManticoreSearchClient) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
     // create a new instance
-    //instance = new ManticoreSearchApi.SearchResponseHits();
+    //instance = new ManticoreSearchClient.SearchResponseHits();
   });
 
   var getProperty = function(object, getter, property) {
@@ -54,19 +54,19 @@
   describe('SearchResponseHits', function() {
     it('should create an instance of SearchResponseHits', function() {
       // uncomment below and update the code to test SearchResponseHits
-      //var instance = new ManticoreSearchApi.SearchResponseHits();
-      //expect(instance).to.be.a(ManticoreSearchApi.SearchResponseHits);
+      //var instance = new ManticoreSearchClient.SearchResponseHits();
+      //expect(instance).to.be.a(ManticoreSearchClient.SearchResponseHits);
     });
 
     it('should have the property total (base name: "total")', function() {
       // uncomment below and update the code to test the property total
-      //var instance = new ManticoreSearchApi.SearchResponseHits();
+      //var instance = new ManticoreSearchClient.SearchResponseHits();
       //expect(instance).to.be();
     });
 
     it('should have the property hits (base name: "hits")', function() {
       // uncomment below and update the code to test the property hits
-      //var instance = new ManticoreSearchApi.SearchResponseHits();
+      //var instance = new ManticoreSearchClient.SearchResponseHits();
       //expect(instance).to.be();
     });
 

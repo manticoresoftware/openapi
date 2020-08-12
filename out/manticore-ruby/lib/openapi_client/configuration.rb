@@ -1,7 +1,7 @@
 =begin
-#Manticore Search API
+#Manticore Search Client
 
-#This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+#Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@manticoresearch.com
@@ -126,9 +126,9 @@ module OpenapiClient
     attr_accessor :force_ending_format
 
     def initialize
-      @scheme = 'https'
-      @host = 'virtserver.swaggerhub.com'
-      @base_path = '/adriannuta/ManticoreSeach/1.0.0'
+      @scheme = 'http'
+      @host = '127.0.0.1'
+      @base_path = ''
       @api_key = {}
       @api_key_prefix = {}
       @timeout = 0
@@ -200,8 +200,8 @@ module OpenapiClient
     def server_settings
       [
         {
-          url: "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0",
-          description: "SwaggerHub API Auto Mocking",
+          url: "http://127.0.0.1:9308/",
+          description: "Default Manticore Search HTTP",
         }
       ]
     end

@@ -19,4 +19,4 @@ for module_name in ['test_index_api', 'test_search_api']:
                 if p_class.__name__ == 'TestCase':
                     suite.addTest(ParametrizedTestCase.parametrize(obj, {'configuration': configuration}))
 result = unittest.TextTestRunner(verbosity=2).run(suite)                    
-sys.exit(not result.wasSuccessful())             
+sys.exit(not result.wasSuccessful())

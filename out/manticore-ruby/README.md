@@ -1,8 +1,8 @@
 # openapi_client
 
-OpenapiClient - the Ruby gem for the Manticore Search API
+OpenapiClient - the Ruby gem for the Manticore Search Client
 
-This is the API for Manticore Search HTTP protocol.
+Please note that this client is experimental.
 For full documentation of the API methods consult https://manual.manticoresearch.com/.
 
 
@@ -39,9 +39,9 @@ Finally add this to the Gemfile:
 
 ### Install from Git
 
-If the Ruby gem is hosted at a git repository: https://github.com/GIT_USER_ID/GIT_REPO_ID, then add the following in the Gemfile:
+If the Ruby gem is hosted at a git repository: https://github.com/manticoresoftware/manticoresearch-ruby, then add the following in the Gemfile:
 
-    gem 'openapi_client', :git => 'https://github.com/GIT_USER_ID/GIT_REPO_ID.git'
+    gem 'openapi_client', :git => 'https://github.com/manticoresoftware/manticoresearch-ruby.git'
 
 ### Include the Ruby code directly
 
@@ -74,7 +74,7 @@ end
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0*
+All URIs are relative to *http://127.0.0.1:9308*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------

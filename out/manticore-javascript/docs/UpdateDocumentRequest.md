@@ -1,4 +1,4 @@
-# ManticoreSearchApi.UpdateDocumentRequest
+# ManticoreSearchClient.UpdateDocumentRequest
 
 ## Properties
 

@@ -1,7 +1,7 @@
 /* 
- * Manticore Search API
+ * Manticore Search Client
  *
- * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+ * Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -115,7 +115,7 @@ namespace Org.OpenAPITools.Client
         public Configuration()
         {
             UserAgent = "OpenAPI-Generator/1.0.0/csharp";
-            BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
+            BasePath = "http://127.0.0.1:9308";
             DefaultHeader = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
             ApiKeyPrefix = new ConcurrentDictionary<string, string>();
@@ -131,7 +131,7 @@ namespace Org.OpenAPITools.Client
             IDictionary<string, string> defaultHeader,
             IDictionary<string, string> apiKey,
             IDictionary<string, string> apiKeyPrefix,
-            string basePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0") : this()
+            string basePath = "http://127.0.0.1:9308") : this()
         {
             if (string.IsNullOrWhiteSpace(basePath))
                 throw new ArgumentException("The provided basePath is invalid.", "basePath");

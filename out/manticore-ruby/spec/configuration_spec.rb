@@ -1,7 +1,7 @@
 =begin
-#Manticore Search API
+#Manticore Search Client
 
-#This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+#Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@manticoresearch.com
@@ -18,7 +18,7 @@ describe OpenapiClient::Configuration do
   before(:each) do
     # uncomment below to setup host and base_path
     # require 'URI'
-    # uri = URI.parse("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0")
+    # uri = URI.parse("http://127.0.0.1:9308")
     # OpenapiClient.configure do |c|
     #   c.host = uri.host
     #   c.base_path = uri.path
@@ -28,14 +28,14 @@ describe OpenapiClient::Configuration do
   describe '#base_url' do
     it 'should have the default value' do
       # uncomment below to test default value of the base path
-      # expect(config.base_url).to eq("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0")
+      # expect(config.base_url).to eq("http://127.0.0.1:9308")
     end
 
     it 'should remove trailing slashes' do
       [nil, '', '/', '//'].each do |base_path|
         config.base_path = base_path
         # uncomment below to test trailing slashes
-        # expect(config.base_url).to eq("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0")
+        # expect(config.base_url).to eq("http://127.0.0.1:9308")
       end
     end
   end

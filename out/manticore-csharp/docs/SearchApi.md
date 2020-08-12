@@ -1,6 +1,6 @@
 # Org.OpenAPITools.Api.SearchApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0*
+All URIs are relative to *http://127.0.0.1:9308*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -47,7 +47,7 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
+            Configuration.Default.BasePath = "http://127.0.0.1:9308";
             var apiInstance = new SearchApi(Configuration.Default);
             var index = index_example;  // string | Name of the percolate index
             var percolateRequest = new PercolateRequest(); // PercolateRequest | 
@@ -147,7 +147,7 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
+            Configuration.Default.BasePath = "http://127.0.0.1:9308";
             var apiInstance = new SearchApi(Configuration.Default);
             var searchRequest = new SearchRequest(); // SearchRequest | 
 

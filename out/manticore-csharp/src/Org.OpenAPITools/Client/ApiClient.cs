@@ -1,7 +1,7 @@
 /* 
- * Manticore Search API
+ * Manticore Search Client
  *
- * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+ * Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -54,12 +54,12 @@ namespace Org.OpenAPITools.Client
         public ApiClient()
         {
             Configuration = Org.OpenAPITools.Client.Configuration.Default;
-            RestClient = new RestClient("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
+            RestClient = new RestClient("http://127.0.0.1:9308");
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class
-        /// with default base path (https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0).
+        /// with default base path (http://127.0.0.1:9308).
         /// </summary>
         /// <param name="config">An instance of Configuration.</param>
         public ApiClient(Configuration config)
@@ -74,7 +74,7 @@ namespace Org.OpenAPITools.Client
         /// with default configuration.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(String basePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0")
+        public ApiClient(String basePath = "http://127.0.0.1:9308")
         {
            if (String.IsNullOrEmpty(basePath))
                 throw new ArgumentException("basePath cannot be empty");

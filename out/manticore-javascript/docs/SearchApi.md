@@ -1,6 +1,6 @@
-# ManticoreSearchApi.SearchApi
+# ManticoreSearchClient.SearchApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0*
+All URIs are relative to *http://127.0.0.1:9308*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -35,9 +35,9 @@ Responds with an object with matched stored queries:
 ### Example
 
 ```javascript
-var ManticoreSearchApi = require('manticore_search_api');
+var ManticoreSearchClient = require('manticore_search_client');
 
-var apiInstance = new ManticoreSearchApi.SearchApi();
+var apiInstance = new ManticoreSearchClient.SearchApi();
 var index = "index_example"; // String | Name of the percolate index
 var percolateRequest = {"query":{"percolate":{"document":{"title":"some text to match"}}}}; // PercolateRequest | 
 var callback = function(error, data, response) {
@@ -106,10 +106,10 @@ For more information about the match query syntax, additional paramaters that ca
 ### Example
 
 ```javascript
-var ManticoreSearchApi = require('manticore_search_api');
+var ManticoreSearchClient = require('manticore_search_client');
 
-var apiInstance = new ManticoreSearchApi.SearchApi();
-var searchRequest = new ManticoreSearchApi.SearchRequest(); // SearchRequest | 
+var apiInstance = new ManticoreSearchClient.SearchApi();
+var searchRequest = new ManticoreSearchClient.SearchRequest(); // SearchRequest | 
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);

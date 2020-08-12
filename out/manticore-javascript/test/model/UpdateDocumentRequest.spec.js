@@ -1,6 +1,6 @@
 /**
- * Manticore Search API
- * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+ * Manticore Search Client
+ * Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -23,16 +23,16 @@
     factory(require('expect.js'), require(process.cwd()+'/src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.ManticoreSearchApi);
+    factory(root.expect, root.ManticoreSearchClient);
   }
-}(this, function(expect, ManticoreSearchApi) {
+}(this, function(expect, ManticoreSearchClient) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
     // create a new instance
-    //instance = new ManticoreSearchApi.UpdateDocumentRequest();
+    //instance = new ManticoreSearchClient.UpdateDocumentRequest();
   });
 
   var getProperty = function(object, getter, property) {
@@ -54,31 +54,31 @@
   describe('UpdateDocumentRequest', function() {
     it('should create an instance of UpdateDocumentRequest', function() {
       // uncomment below and update the code to test UpdateDocumentRequest
-      //var instance = new ManticoreSearchApi.UpdateDocumentRequest();
-      //expect(instance).to.be.a(ManticoreSearchApi.UpdateDocumentRequest);
+      //var instance = new ManticoreSearchClient.UpdateDocumentRequest();
+      //expect(instance).to.be.a(ManticoreSearchClient.UpdateDocumentRequest);
     });
 
     it('should have the property index (base name: "index")', function() {
       // uncomment below and update the code to test the property index
-      //var instance = new ManticoreSearchApi.UpdateDocumentRequest();
+      //var instance = new ManticoreSearchClient.UpdateDocumentRequest();
       //expect(instance).to.be();
     });
 
     it('should have the property doc (base name: "doc")', function() {
       // uncomment below and update the code to test the property doc
-      //var instance = new ManticoreSearchApi.UpdateDocumentRequest();
+      //var instance = new ManticoreSearchClient.UpdateDocumentRequest();
       //expect(instance).to.be();
     });
 
     it('should have the property id (base name: "id")', function() {
       // uncomment below and update the code to test the property id
-      //var instance = new ManticoreSearchApi.UpdateDocumentRequest();
+      //var instance = new ManticoreSearchClient.UpdateDocumentRequest();
       //expect(instance).to.be();
     });
 
     it('should have the property query (base name: "query")', function() {
       // uncomment below and update the code to test the property query
-      //var instance = new ManticoreSearchApi.UpdateDocumentRequest();
+      //var instance = new ManticoreSearchClient.UpdateDocumentRequest();
       //expect(instance).to.be();
     });
 

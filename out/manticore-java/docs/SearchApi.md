@@ -1,6 +1,6 @@
 # SearchApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0*
+All URIs are relative to *http://127.0.0.1:9308*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -28,7 +28,7 @@ import org.openapitools.client.api.SearchApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
+    defaultClient.setBasePath("http://127.0.0.1:9308");
 
     SearchApi apiInstance = new SearchApi(defaultClient);
     String index = "index_example"; // String | Name of the percolate index
@@ -93,7 +93,7 @@ import org.openapitools.client.api.SearchApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
+    defaultClient.setBasePath("http://127.0.0.1:9308");
 
     SearchApi apiInstance = new SearchApi(defaultClient);
     SearchRequest searchRequest = new SearchRequest(); // SearchRequest | 

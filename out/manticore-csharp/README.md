@@ -1,6 +1,6 @@
-# Org.OpenAPITools - the C# library for the Manticore Search API
+# Org.OpenAPITools - the C# library for the Manticore Search Client
 
-This is the API for Manticore Search HTTP protocol.
+Please note that this client is experimental.
 For full documentation of the API methods consult https://manual.manticoresearch.com/.
 
 
@@ -80,7 +80,7 @@ namespace Example
         public static void Main()
         {
 
-            Configuration.Default.BasePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0";
+            Configuration.Default.BasePath = "http://127.0.0.1:9308";
             var apiInstance = new IndexApi(Configuration.Default);
             var body = body_example;  // string | 
 
@@ -104,7 +104,7 @@ namespace Example
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0*
+All URIs are relative to *http://127.0.0.1:9308*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------

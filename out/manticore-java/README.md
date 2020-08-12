@@ -1,10 +1,10 @@
 # openapi-java-client
 
-Manticore Search API
+Manticore Search Client
 - API version: 1.0.0
-  - Build date: 2020-08-12T11:42:06.474Z[GMT]
+  - Build date: 2020-08-12T12:40:20.327Z[GMT]
 
-This is the API for Manticore Search HTTP protocol.
+Please note that this client is experimental.
 For full documentation of the API methods consult https://manual.manticoresearch.com/.
 
 
@@ -85,7 +85,7 @@ import org.openapitools.client.api.IndexApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
+    defaultClient.setBasePath("http://127.0.0.1:9308");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
     String body = "body_example"; // String | 
@@ -106,7 +106,7 @@ public class Example {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0*
+All URIs are relative to *http://127.0.0.1:9308*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------

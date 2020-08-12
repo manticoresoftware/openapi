@@ -5,19 +5,19 @@ info:
     name: Manticore Software Ltd.
     url: https://manticoresearch.com/contact-us/
   description: |
-    This is the API for Manticore Search HTTP protocol.
+    Please note that this client is experimental.
     For full documentation of the API methods consult https://manual.manticoresearch.com/.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  title: Manticore Search API
+  title: Manticore Search Client
   version: 1.0.0
 externalDocs:
   description: Find out more about Manticore Search
   url: https://manticoresearch.com/
 servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0
+- description: Default Manticore Search HTTP
+  url: http://127.0.0.1:9308/
 tags:
 - description: Operations regarding adding, updating or deleting documents
   name: Index

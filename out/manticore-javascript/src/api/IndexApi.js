@@ -1,6 +1,6 @@
 /**
- * Manticore Search API
- * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+ * Manticore Search Client
+ * Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -23,10 +23,10 @@
     module.exports = factory(require('../ApiClient'), require('../model/BulkResponse'), require('../model/DeleteDocumentRequest'), require('../model/DeleteResponse'), require('../model/ErrorResponse'), require('../model/InsertDocumentRequest'), require('../model/SuccessResponse'), require('../model/UpdateDocumentRequest'), require('../model/UpdateResponse'));
   } else {
     // Browser globals (root is window)
-    if (!root.ManticoreSearchApi) {
-      root.ManticoreSearchApi = {};
+    if (!root.ManticoreSearchClient) {
+      root.ManticoreSearchClient = {};
     }
-    root.ManticoreSearchApi.IndexApi = factory(root.ManticoreSearchApi.ApiClient, root.ManticoreSearchApi.BulkResponse, root.ManticoreSearchApi.DeleteDocumentRequest, root.ManticoreSearchApi.DeleteResponse, root.ManticoreSearchApi.ErrorResponse, root.ManticoreSearchApi.InsertDocumentRequest, root.ManticoreSearchApi.SuccessResponse, root.ManticoreSearchApi.UpdateDocumentRequest, root.ManticoreSearchApi.UpdateResponse);
+    root.ManticoreSearchClient.IndexApi = factory(root.ManticoreSearchClient.ApiClient, root.ManticoreSearchClient.BulkResponse, root.ManticoreSearchClient.DeleteDocumentRequest, root.ManticoreSearchClient.DeleteResponse, root.ManticoreSearchClient.ErrorResponse, root.ManticoreSearchClient.InsertDocumentRequest, root.ManticoreSearchClient.SuccessResponse, root.ManticoreSearchClient.UpdateDocumentRequest, root.ManticoreSearchClient.UpdateResponse);
   }
 }(this, function(ApiClient, BulkResponse, DeleteDocumentRequest, DeleteResponse, ErrorResponse, InsertDocumentRequest, SuccessResponse, UpdateDocumentRequest, UpdateResponse) {
   'use strict';

@@ -1,8 +1,8 @@
 # coding: utf-8
 """
-    Manticore Search API
+    Manticore Search Client
 
-    This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/.   # noqa: E501
+    Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: info@manticoresearch.com

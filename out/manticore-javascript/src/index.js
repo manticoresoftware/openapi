@@ -1,6 +1,6 @@
 /**
- * Manticore Search API
- * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+ * Manticore Search Client
+ * Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -26,14 +26,14 @@
   'use strict';
 
   /**
-   * This_is_the_API_for_Manticore_Search_HTTP_protocol_For_full_documentation_of_the_API_methods_consult_https__manual_manticoresearch_com__.<br>
+   * Please_note_that_this_client_is_experimental_For_full_documentation_of_the_API_methods_consult_https__manual_manticoresearch_com__.<br>
    * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
    * <p>
    * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
    * <pre>
-   * var ManticoreSearchApi = require('index'); // See note below*.
-   * var xxxSvc = new ManticoreSearchApi.XxxApi(); // Allocate the API class we're going to use.
-   * var yyyModel = new ManticoreSearchApi.Yyy(); // Construct a model instance.
+   * var ManticoreSearchClient = require('index'); // See note below*.
+   * var xxxSvc = new ManticoreSearchClient.XxxApi(); // Allocate the API class we're going to use.
+   * var yyyModel = new ManticoreSearchClient.Yyy(); // Construct a model instance.
    * yyyModel.someProperty = 'someValue';
    * ...
    * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -45,8 +45,8 @@
    * <p>
    * A non-AMD browser application (discouraged) might do something like this:
    * <pre>
-   * var xxxSvc = new ManticoreSearchApi.XxxApi(); // Allocate the API class we're going to use.
-   * var yyy = new ManticoreSearchApi.Yyy(); // Construct a model instance.
+   * var xxxSvc = new ManticoreSearchClient.XxxApi(); // Allocate the API class we're going to use.
+   * var yyy = new ManticoreSearchClient.Yyy(); // Construct a model instance.
    * yyyModel.someProperty = 'someValue';
    * ...
    * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.

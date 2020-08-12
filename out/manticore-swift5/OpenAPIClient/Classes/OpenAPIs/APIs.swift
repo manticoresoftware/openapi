@@ -7,7 +7,7 @@
 import Foundation
 
 open class OpenAPIClientAPI {
-    public static var basePath = "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0"
+    public static var basePath = "http://127.0.0.1:9308"
     public static var credential: URLCredential?
     public static var customHeaders: [String:String] = [:]
     public static var requestBuilderFactory: RequestBuilderFactory = URLSessionRequestBuilderFactory()

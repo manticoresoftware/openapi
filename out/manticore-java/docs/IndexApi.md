@@ -1,6 +1,6 @@
 # IndexApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0*
+All URIs are relative to *http://127.0.0.1:9308*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -31,7 +31,7 @@ import org.openapitools.client.api.IndexApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
+    defaultClient.setBasePath("http://127.0.0.1:9308");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
     String body = "body_example"; // String | 
@@ -94,7 +94,7 @@ import org.openapitools.client.api.IndexApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
+    defaultClient.setBasePath("http://127.0.0.1:9308");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
     DeleteDocumentRequest deleteDocumentRequest = {"index":"test","query":{"match":{"title":"apple"}}}; // DeleteDocumentRequest | 
@@ -157,7 +157,7 @@ import org.openapitools.client.api.IndexApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
+    defaultClient.setBasePath("http://127.0.0.1:9308");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
     InsertDocumentRequest insertDocumentRequest = {"index":"test","id":1,"doc":{"title":"sample title","gid":10}}; // InsertDocumentRequest | 
@@ -220,7 +220,7 @@ import org.openapitools.client.api.IndexApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
+    defaultClient.setBasePath("http://127.0.0.1:9308");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
     InsertDocumentRequest insertDocumentRequest = {"index":"test","id":1,"doc":{"title":"updated title","gid":15}}; // InsertDocumentRequest | 
@@ -283,7 +283,7 @@ import org.openapitools.client.api.IndexApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0");
+    defaultClient.setBasePath("http://127.0.0.1:9308");
 
     IndexApi apiInstance = new IndexApi(defaultClient);
     UpdateDocumentRequest updateDocumentRequest = {"index":"test","doc":{"gid":20},"query":{"equals":{"cat_id":2}}}; // UpdateDocumentRequest | 

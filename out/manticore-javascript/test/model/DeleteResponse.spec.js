@@ -1,6 +1,6 @@
 /**
- * Manticore Search API
- * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+ * Manticore Search Client
+ * Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -23,16 +23,16 @@
     factory(require('expect.js'), require(process.cwd()+'/src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.ManticoreSearchApi);
+    factory(root.expect, root.ManticoreSearchClient);
   }
-}(this, function(expect, ManticoreSearchApi) {
+}(this, function(expect, ManticoreSearchClient) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
     // create a new instance
-    //instance = new ManticoreSearchApi.DeleteResponse();
+    //instance = new ManticoreSearchClient.DeleteResponse();
   });
 
   var getProperty = function(object, getter, property) {
@@ -54,31 +54,31 @@
   describe('DeleteResponse', function() {
     it('should create an instance of DeleteResponse', function() {
       // uncomment below and update the code to test DeleteResponse
-      //var instance = new ManticoreSearchApi.DeleteResponse();
-      //expect(instance).to.be.a(ManticoreSearchApi.DeleteResponse);
+      //var instance = new ManticoreSearchClient.DeleteResponse();
+      //expect(instance).to.be.a(ManticoreSearchClient.DeleteResponse);
     });
 
     it('should have the property index (base name: "_index")', function() {
       // uncomment below and update the code to test the property index
-      //var instance = new ManticoreSearchApi.DeleteResponse();
+      //var instance = new ManticoreSearchClient.DeleteResponse();
       //expect(instance).to.be();
     });
 
     it('should have the property deleted (base name: "deleted")', function() {
       // uncomment below and update the code to test the property deleted
-      //var instance = new ManticoreSearchApi.DeleteResponse();
+      //var instance = new ManticoreSearchClient.DeleteResponse();
       //expect(instance).to.be();
     });
 
     it('should have the property id (base name: "_id")', function() {
       // uncomment below and update the code to test the property id
-      //var instance = new ManticoreSearchApi.DeleteResponse();
+      //var instance = new ManticoreSearchClient.DeleteResponse();
       //expect(instance).to.be();
     });
 
     it('should have the property result (base name: "result")', function() {
       // uncomment below and update the code to test the property result
-      //var instance = new ManticoreSearchApi.DeleteResponse();
+      //var instance = new ManticoreSearchClient.DeleteResponse();
       //expect(instance).to.be();
     });
 

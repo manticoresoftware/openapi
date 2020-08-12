@@ -1,6 +1,6 @@
 /**
- * Manticore Search API
- * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+ * Manticore Search Client
+ * Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: info@manticoresearch.com
@@ -23,10 +23,10 @@
     module.exports = factory(require('superagent'), require('querystring'));
   } else {
     // Browser globals (root is window)
-    if (!root.ManticoreSearchApi) {
-      root.ManticoreSearchApi = {};
+    if (!root.ManticoreSearchClient) {
+      root.ManticoreSearchClient = {};
     }
-    root.ManticoreSearchApi.ApiClient = factory(root.superagent, root.querystring);
+    root.ManticoreSearchClient.ApiClient = factory(root.superagent, root.querystring);
   }
 }(this, function(superagent, querystring) {
   'use strict';
@@ -47,9 +47,9 @@
     /**
      * The base URL against which to resolve every API call's (relative) path.
      * @type {String}
-     * @default https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0
+     * @default http://127.0.0.1:9308
      */
-    this.basePath = 'https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0'.replace(/\/+$/, '');
+    this.basePath = 'http://127.0.0.1:9308'.replace(/\/+$/, '');
 
     /**
      * The authentication methods to be included for all API calls.
@@ -601,8 +601,8 @@
     exports.hostSettings = function() {
         return [
             {
-              'url': "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0",
-              'description': "SwaggerHub API Auto Mocking",
+              'url': "http://127.0.0.1:9308/",
+              'description': "Default Manticore Search HTTP",
             }
       ];
     };

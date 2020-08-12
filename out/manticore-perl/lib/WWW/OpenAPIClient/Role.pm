@@ -1,8 +1,8 @@
 =begin comment
 
-Manticore Search API
+Manticore Search Client
 
-This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@manticoresearch.com
@@ -54,7 +54,7 @@ has _cfg => ( is => 'ro',
 has version_info => ( is => 'ro',
                       isa => 'HashRef',
                       default => sub { {
-                          app_name => 'Manticore Search API',
+                          app_name => 'Manticore Search Client',
                           app_version => '1.0.0',
                           generator_class => 'org.openapitools.codegen.languages.PerlClientCodegen',
                       } },
@@ -111,9 +111,9 @@ sub _build_af {
 
 =head1 NAME
 
-WWW::OpenAPIClient::Role - a Moose role for the Manticore Search API
+WWW::OpenAPIClient::Role - a Moose role for the Manticore Search Client
 
-=head2 Manticore Search API version: 1.0.0
+=head2 Manticore Search Client version: 1.0.0
 
 =head1 VERSION
 
