@@ -1,3 +1,4 @@
+import sys
 import openapi_client
 import unittest
 import importlib
@@ -17,4 +18,5 @@ for module_name in ['test_index_api', 'test_search_api']:
             for p_class in inspect.getmro(obj):
                 if p_class.__name__ == 'TestCase':
                     suite.addTest(ParametrizedTestCase.parametrize(obj, {'configuration': configuration}))
-unittest.TextTestRunner(verbosity=2).run(suite)                    
+result = unittest.TextTestRunner(verbosity=2).run(suite)                    
+sys.exit(not result.wasSuccessful())             
