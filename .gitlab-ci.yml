@@ -14,4 +14,14 @@ python_testing:
     - python3 setup.py install
     - bash /prep.sh
     - python3 test/test.py
-    
+
+javascript_testing:
+  image: node
+  stage: test
+  only:
+    changes:
+      - out/manticore-javascript/*
+  script:
+    - cd out/manticore-javascript
+    - npm install --dev
+    - npm test
