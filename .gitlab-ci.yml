@@ -2,13 +2,16 @@ stages:
   - test
 services:
   - manticoresearch/manticore
+before_script:
+  - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw;query=CREATE TABLE test(content text, name text attribute, cat integer)"
+  - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw;query=CREATE TABLE test_pq(content text, name text attribute, cat integer) type='pq'"  
 
 python_testing:
   image: registry.gitlab.com/manticoresearch/openapi/python_testing
   stage: test
   only:
     changes:
-      - out/manticore-python/*
+      - out/manticore-python/**/*
   script:
     - cd out/manticore-python
     - pip3 install -U setuptools 
@@ -22,7 +25,7 @@ javascript_testing:
   stage: test
   only:
     changes:
-      - out/manticore-javascript/*
+      - out/manticore-javascript/**/*
   script:
     - cd out/manticore-javascript
     - npm install --dev
