@@ -3,8 +3,8 @@ stages:
 services:
   - manticoresearch/manticore
 before_script:
-  - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw;query=CREATE TABLE test(content text, name text attribute, cat integer)"
-  - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw;query=CREATE TABLE test_pq(content text, name text attribute, cat integer) type='pq'"  
+  - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test(content text, name text attribute, cat integer)"
+  - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test_pq(content text, name text attribute, cat integer) type='pq'"  
 
 python_testing:
   image: registry.gitlab.com/manticoresearch/openapi/python_testing
