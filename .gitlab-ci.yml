@@ -7,18 +7,17 @@ before_script:
   - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test_pq(content text, name text attribute, cat integer) type='pq'"  
 
 python_testing:
-  image: registry.gitlab.com/manticoresearch/openapi/python_testing
+  image: python
   stage: test
   only:
     changes:
       - out/manticore-python/**/*
   script:
     - cd out/manticore-python
-    - pip3 install -U setuptools 
-    - pip3 install -r requirements.txt
-    - python3 setup.py install
-    - bash /prep.sh
-    - python3 test/test.py
+    - pip install -U setuptools 
+    - pip install -r requirements.txt
+    - python setup.py install
+    - python test/test.py
 
 javascript_testing:
   image: node
@@ -28,5 +27,5 @@ javascript_testing:
       - out/manticore-javascript/**/*
   script:
     - cd out/manticore-javascript
-    - npm install --dev
+    - npm install --only=dev
     - npm test
