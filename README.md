@@ -32,8 +32,6 @@ I suggest to `docker pull  openapitools/openapi-generator-cli` first.
 
 - patches - contains patch files for various clients
 
-- docker - docker images for CI/testing
-
 - test - hand-made tests (desirable to copy them into `manticore-X` test folder
 
 - templates -  mustache templates taken from https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator/src/main/resources; These should be updated from time to time
