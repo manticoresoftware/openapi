@@ -1,5 +1,7 @@
 stages:
   - test
+services:
+  - manticoresearch/manticore
 
 python_testing:
   image: registry.gitlab.com/manticoresearch/openapi/python_testing
