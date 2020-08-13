@@ -31,7 +31,9 @@
   var instance;
 
   beforeEach(function() {
-    instance = new ManticoreSearchClient.IndexApi();
+    var client= new ManticoreSearchClient.ApiClient()
+    client.basePath="http://manticoresearch-manticore:9308"
+    instance = new ManticoreSearchClient.IndexApi(client);
   });
 
   var getProperty = function(object, getter, property) {
@@ -53,31 +55,39 @@
   describe('IndexApi', function() {
     describe('bulk', function() {
       it('should call bulk successfully', function(done) {
-        //uncomment below and update the code to test bulk
-        //instance.bulk(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
+        
+        let bulk = [{"insert": {"index": "test", "doc": {"content":"some test","name":"another test",'cat':21}}},
+{"delete": {"index": "test","id":1}}];
+        let bulk_nd = "";
+        for (const item of bulk) {
+            bulk_nd += JSON.stringify(item) + "\n";
+        }	
+        instance.bulk(bulk_nd, function(error) {
+            if(error) throw error;
+            expect().to.be();
+        }
+        );	
         done();
       });
     });
     describe('callDelete', function() {
       it('should call callDelete successfully', function(done) {
-        //uncomment below and update the code to test callDelete
-        //instance.callDelete(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
+        instance.callDelete({
+                'index': 'test',
+                'id':1400
+        }, function(error) {
+            if(error) throw error;
+            expect().to.be();
+        });
         done();
       });
     });
     describe('insert', function() {
       it('should call insert successfully', function(done) {
-        //uncomment below and update the code to test insert
-        //instance.insert(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
+        instance.insert({"index": "test", "doc": {"content":"some test","name":"another test",'cat':21}},function(error) {
+            if (error) throw error;
+            expect().to.be();
+        });
         done();
       });
     });
