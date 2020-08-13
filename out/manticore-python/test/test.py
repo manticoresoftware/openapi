@@ -6,7 +6,7 @@ import inspect
 from parametrized_test_case import ParametrizedTestCase
 
 configuration = openapi_client.Configuration(
-    host = "manticoresearch-manticore:9308"
+    host = "http://manticoresearch-manticore:9308"
 )
 
 print
