@@ -1,21 +1,18 @@
 # OpenAPI Tryout
 
-The OpenAPI file is `manticore.yaml`. 
-
-## Editing the OpenAPI spec
-
-You can use an online editor line Swagger (https://swagger.io/).
-
-
+The OpenAPI file is `manticore.yaml`.  You can use an online editor like Swagger (https://swagger.io/) to edit and validate it.
 
 ## Building
+
+I suggest to `docker pull  openapitools/openapi-generator-cli` first.
 
 To generate code for a language (simple form):
 
 `docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/manticore.yaml -g php -o /local/out/php`
 
+Depending on language, there could be patches to be applied or some files to overwrite, like tests.
 
-The script `build.sh`  is made to perform building for several languages.
+The better is to use the  `build.sh` , which has for every language all the steps required (and also you should update this if you do work for a client)
 
 You can use it like:
 
@@ -24,7 +21,12 @@ You can use it like:
 
 ```
 
-I suggest to `docker pull  openapitools/openapi-generator-cli` first.
+You can also rebuild all with
+
+```
+./build.sh all
+```
+
 
 ## Folders
 
@@ -32,20 +34,20 @@ I suggest to `docker pull  openapitools/openapi-generator-cli` first.
 
 - patches - contains patch files for various clients
 
-- test - hand-made tests (desirable to copy them into `manticore-X` test folder
+- test - hand-made or modified generated tests (desirable to copy them into `manticore-X` test folder)
 
 - templates -  mustache templates taken from https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator/src/main/resources; These should be updated from time to time
 
 
 ## Clients
 
-* PHP - works, but are not interested in it, as we have already a client
+* PHP - not included - we have hand-made client already
 
 * CSharp - not tested
 
-* Python - works, has testing suite
+* Python - works, has testing suite (coverage is not complete)
 
-* Javascript - works
+* Javascript - works, has testing suite (coverage is poor)
 
 * Java - works
 
@@ -75,9 +77,9 @@ be url encoded. Fix is to use `text/plain` and user needs to provide
 
 ### Javascript
 
-Unresolved(can't fix?):
+Unresolved:
 
-* delete() is renamed to `callDelete` because `delete()` is a reserved method
+* delete() is renamed to `callDelete` because `delete()` is a reserved method - the only fix is to rename doc operations to something else (like deleteDocuments())
 
 ### Java
 
@@ -89,3 +91,8 @@ Solved (with patches):
 http client about this as seems it breaks compat with apis like ones from aws or dropbox since most do exact matching 
 on content-type). 
 
+## CI testing
+
+Right now only added for javascript and python. There's a manticore service that can be used (use `manticoresearch-manticore` as hostname).
+
+CI jobs run for each client only if a change was made in their folder.
