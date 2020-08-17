@@ -35,6 +35,7 @@ javascript_testing:
 python_push:
   stage: push
   script:
-    - git subtree push --prefix=out/manticoresearch-python https://GITHUB_USERNAME:GITHUB_PYTHON_TOKEN@github.com:manticoresoftware/manticoresearch-python.git master
+    - git subtree push --prefix=out/manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_PYTHON_TOKEN@github.com:manticoresoftware/manticoresearch-python.git master
   dependencies:
-    - python_testing    
+    - python_testing
+  needs: [python_testing]
