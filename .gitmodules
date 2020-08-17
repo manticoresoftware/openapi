@@ -1,0 +1,3 @@
+[submodule "out/manticoresearch-python"]
+	path = out/manticoresearch-python
+	url = git@github.com:manticoresoftware/manticoresearch-python.git
