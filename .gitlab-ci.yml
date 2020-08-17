@@ -1,5 +1,6 @@
 stages:
   - test
+  - push
 
 services:
   - manticoresearch/manticore
@@ -13,9 +14,9 @@ python_testing:
   stage: test
   only:
     changes:
-      - out/manticore-python/**/*
+      - out/manticoresearch-python/**/*
   script:
-    - cd out/manticore-python
+    - cd out/manticoresearch-python
     - pip install -r requirements.txt
     - python setup.py install
     - python test/test.py
@@ -30,3 +31,12 @@ javascript_testing:
     - cd out/manticore-javascript
     - npm install --only=dev
     - npm test
+    
+python_push:
+  stage: push
+  tags:
+    - dev-host
+  script:
+    - git subtree push --prefix=out/manticoresearch-python git@github.com:manticoresoftware/manticoresearch-python.git master
+  dependencies:
+    - python_testing    

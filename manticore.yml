@@ -288,8 +288,7 @@ paths:
     post:
       summary: Performs a search
       description: >
-        Performs a search. 
-        
+       
         Expects an object with mandatory properties:
         
         * the index name
