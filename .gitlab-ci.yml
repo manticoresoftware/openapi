@@ -40,7 +40,10 @@ javascript_testing:
 python_push:
   stage: push
   before_script:
-    - apt-get install -y git  
+    - apt-get install -y git
+  only:
+    changes:
+      - out/manticoresearch-python/**/*    
   script:
     - git subtree push --prefix=out/manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_PYTHON_TOKEN@github.com/manticoresoftware/manticoresearch-python.git master
   dependencies:
