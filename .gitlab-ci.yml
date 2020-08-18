@@ -28,11 +28,11 @@ javascript_testing:
   stage: test
   only:
     changes:
-      - out/manticore-javascript/**/*
+      - out/manticoresearch-javascript/**/*
   before_script:
     - *init_sqls      
   script:
-    - cd out/manticore-javascript
+    - cd out/manticoresearch-javascript
     - npm install --only=dev
     - npm test
     
@@ -58,4 +58,4 @@ javscript_push:
   script:
     - git subtree push --prefix=out/manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git master
   dependencies:
-    - python_testing
+    - javascript_testing
