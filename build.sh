@@ -22,9 +22,9 @@ do_java() {
 do_javascript() {
   echo "Building Javascript ..."
   rm out/manticore-javascript -rf
-  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g javascript -o /local/out/manticore-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware
-  rm out/manticore-javascript/test/* -rf
-  cp -R test/javascript/* out/manticore-javascript/test/ 
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware
+  rm out/manticoresearch-javascript/test/* -rf
+  cp -R test/javascript/* out/manticoresearch-javascript/test/ 
   echo "Javascript done."
 }
 
