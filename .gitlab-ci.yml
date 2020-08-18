@@ -52,7 +52,7 @@ java_testing:
 python_push:
   stage: push
   before_script:
-    - apt-get install -y git
+    - apt-get update && apt-get install -y git
   only:
     changes:
       - out/manticoresearch-python/**/*    
@@ -64,7 +64,7 @@ python_push:
 javascript_push:
   stage: push
   before_script:
-    - apt-get install -y git
+    - apt-get update && apt-get install -y git
   only:
     changes:
       - out/manticoresearch-javascript/**/*
@@ -76,7 +76,7 @@ javascript_push:
 java_push:
   stage: push
   before_script:
-    - apt-get install -y git
+    - apt-get update && apt-get install -y git
   only:
     changes:
       - out/manticoresearch-java/**/*
