@@ -5,7 +5,8 @@ stages:
 services:
   - manticoresearch/manticore
 
-before_script:
+
+.init_sqls: &init_sqls
   - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test(content text, name text attribute, cat integer)"
   - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test_pq(content text, name text attribute, cat integer) type='pq'"  
 
@@ -15,6 +16,8 @@ python_testing:
   only:
     changes:
       - out/manticoresearch-python/**/*
+  before_script:
+    - *init_sqls
   script:
     - cd out/manticoresearch-python
     - pip install -r requirements.txt
@@ -27,6 +30,8 @@ javascript_testing:
   only:
     changes:
       - out/manticore-javascript/**/*
+  before_script:
+    - *init_sqls      
   script:
     - cd out/manticore-javascript
     - npm install --only=dev
