@@ -96,3 +96,26 @@ on content-type).
 Right now only added for javascript and python. There's a manticore service that can be used (use `manticoresearch-manticore` as hostname).
 
 CI jobs run for each client only if a change was made in their folder.
+
+## Pushing to github repositories
+
+The current setup is making use of git subtrees to push the output folders with code to individual github repositories - so it's  a one-way thing.
+
+Adding a new push for a language:
+
+- create the repository on github, add a dummy readme
+
+- back on this repository do `git remote  add manticoresearch-XXX git@github.com:manticoresoftware/manticoresearch-XXX.git`
+
+- the `manticoresearch-XXX` must not exists in `out` folder - if it's the case deleted (and commit)
+
+- `git subtree add --prefix=out/manticoresearch-XXX/ manticoresearch-XXX master`
+
+- you can not use `build.sh` script to write in the `out/manticoresearch-XXX` folder (careful as some early outputs are in `manticore-XXX` format)
+
+Pushing is made during CI using
+`git subtree push --prefix=out/manticoresearch-XXX https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-XXX.git master`
+
+Pushing is made only if there's a change in `manticoresearch-XXX` folder. 
+
+
