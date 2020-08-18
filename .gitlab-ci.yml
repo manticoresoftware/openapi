@@ -34,6 +34,7 @@ javascript_testing:
   script:
     - cd out/manticoresearch-javascript
     - npm install --only=dev
+    - npm install inherits
     - npm test
     
 python_push:
