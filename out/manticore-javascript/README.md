@@ -49,11 +49,11 @@ You should now be able to `require('manticore_search_client')` in javascript fil
 
 ### git
 
-If the library is hosted at a git repository, e.g. https://github.com/manticoresoftware/manticoresearch-java
+If the library is hosted at a git repository, e.g. https://github.com/manticoresoftware/manticoresearch-javascript
 then install it via:
 
 ```shell
-    npm install manticoresoftware/manticoresearch-java --save
+    npm install manticoresoftware/manticoresearch-javascript --save
 ```
 
 ### For browser
