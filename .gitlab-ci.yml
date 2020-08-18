@@ -47,7 +47,7 @@ java_testing:
     - *init_sqls
   script:
     - cd out/manticoresearch-java
-    - maven test
+    - mvn test
 
 python_push:
   stage: push
