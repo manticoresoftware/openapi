@@ -83,4 +83,4 @@ java_push:
   script:
     - git subtree push --prefix=out/manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git master
   dependencies:
-    - javascript_test
+    - java_testing
