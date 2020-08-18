@@ -5,7 +5,6 @@ stages:
 services:
   - manticoresearch/manticore
 
-
 .init_sqls: &init_sqls
   - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test(content text, name text attribute, cat integer)"
   - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test_pq(content text, name text attribute, cat integer) type='pq'"  
@@ -45,6 +44,18 @@ python_push:
     changes:
       - out/manticoresearch-python/**/*    
   script:
-    - git subtree push --prefix=out/manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_PYTHON_TOKEN@github.com/manticoresoftware/manticoresearch-python.git master
+    - git subtree push --prefix=out/manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git master
+  dependencies:
+    - python_testing
+
+javscript_push:
+  stage: push
+  before_script:
+    - apt-get install -y git
+  only:
+    changes:
+      - out/manticoresearch-javascript/**/*    
+  script:
+    - git subtree push --prefix=out/manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git master
   dependencies:
     - python_testing
