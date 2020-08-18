@@ -36,7 +36,19 @@ javascript_testing:
     - npm install --only=dev
     - npm install inherits
     - npm test
-    
+
+java_testing:
+  image: maven
+  stage: test
+  only:
+    changes:
+      - out/manticoresearch-java/**/*
+  before_script:
+    - *init_sqls
+  script:
+    - cd out/manticoresearch-java
+    - maven test
+
 python_push:
   stage: push
   before_script:
@@ -49,14 +61,26 @@ python_push:
   dependencies:
     - python_testing
 
-javscript_push:
+javascript_push:
   stage: push
   before_script:
     - apt-get install -y git
   only:
     changes:
-      - out/manticoresearch-javascript/**/*    
+      - out/manticoresearch-javascript/**/*
   script:
     - git subtree push --prefix=out/manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git master
   dependencies:
     - javascript_testing
+
+java_push:
+  stage: push
+  before_script:
+    - apt-get install -y git
+  only:
+    changes:
+      - out/manticoresearch-java/**/*
+  script:
+    - git subtree push --prefix=out/manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git master
+  dependencies:
+    - javascript_test
