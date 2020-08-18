@@ -1,0 +1,12 @@
+diff --git a/out/manticoresearch-javascript/package.json b/out/manticoresearch-javascript/package.json
+index 05bd88d..79c9551 100644
+--- a/out/manticoresearch-javascript/package.json
++++ b/out/manticoresearch-javascript/package.json
+@@ -11,6 +11,7 @@
+     "fs": false
+   },
+   "dependencies": {
++    "inherits": "^2.0.4",
+     "superagent": "5.1.0"
+   },
+   "devDependencies": {
