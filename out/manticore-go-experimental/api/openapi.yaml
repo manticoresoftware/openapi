@@ -5,19 +5,19 @@ info:
     name: Manticore Software Ltd.
     url: https://manticoresearch.com/contact-us/
   description: |
-    This is the API for Manticore Search HTTP protocol.
+    Please note that this client is experimental.
     For full documentation of the API methods consult https://manual.manticoresearch.com/.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  title: Manticore Search API
+  title: Manticore Search Client
   version: 1.0.0
 externalDocs:
   description: Find out more about Manticore Search
   url: https://manticoresearch.com/
 servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0
+- description: Default Manticore Search HTTP
+  url: http://127.0.0.1:9308/
 tags:
 - description: Operations regarding adding, updating or deleting documents
   name: Index
@@ -28,15 +28,29 @@ tags:
 paths:
   /json/search:
     post:
-      description: "Performs a search. \nExpects an object with mandatory properties:\n\
-        * the index name\n* the match query object\nExample :\n\n  ```\n  {'index':'movies','query':{'bool':{'must':[{'query_string':'\
-        \ movie'}]}},'script_fields':{'myexpr':{'script':{'inline':'IF(rating>8,1,0)'}}},'sort':[{'myexpr':'desc'},{'_score':'desc'}],'profile':true}\n\
-        \  ```\n\nIt responds with an object with:\n- time of execution\n- if the\
-        \ query timed out\n- an array with hits (matched documents)\n- additional,\
-        \ if profiling is enabled, an array with profiling information is attached\n\
-        \n\n  ```\n  {'took':10,'timed_out':false,'hits':{'total':2,'hits':[{'_id':'1','_score':1,'_source':{'gid':11}},{'_id':'2','_score':1,'_source':{'gid':12}}]}}\n\
-        \  ```\n\nFor more information about the match query syntax, additional paramaters\
-        \ that can be set to the input and response, please check: https://docs.manticoresearch.com/latest/html/http_reference/json_search.html.\n"
+      description: |2
+
+        Expects an object with mandatory properties:
+        * the index name
+        * the match query object
+        Example :
+
+          ```
+          {'index':'movies','query':{'bool':{'must':[{'query_string':' movie'}]}},'script_fields':{'myexpr':{'script':{'inline':'IF(rating>8,1,0)'}}},'sort':[{'myexpr':'desc'},{'_score':'desc'}],'profile':true}
+          ```
+
+        It responds with an object with:
+        - time of execution
+        - if the query timed out
+        - an array with hits (matched documents)
+        - additional, if profiling is enabled, an array with profiling information is attached
+
+
+          ```
+          {'took':10,'timed_out':false,'hits':{'total':2,'hits':[{'_id':'1','_score':1,'_source':{'gid':11}},{'_id':'2','_score':1,'_source':{'gid':12}}]}}
+          ```
+
+        For more information about the match query syntax, additional paramaters that can be set to the input and response, please check: https://docs.manticoresearch.com/latest/html/http_reference/json_search.html.
       externalDocs:
         url: https://docs.manticoresearch.com/latest/html/http_reference/json_search.html
       operationId: search

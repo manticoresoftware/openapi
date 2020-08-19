@@ -1,6 +1,11 @@
-# \IndexApi
+# ::IndexApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0*
+## Load the API package
+```perl
+use ::Object::IndexApi;
+```
+
+All URIs are relative to *http://127.0.0.1:9308*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -11,10 +16,8 @@ Method | HTTP request | Description
 [**Update**](IndexApi.md#Update) | **Post** /json/update | Update a document in an index
 
 
-
-## Bulk
-
-> BulkResponse Bulk(ctx).Body(body).Execute()
+# **Bulk**
+> BulkResponse Bulk(body => $body)
 
 Bulk index operations
 
@@ -40,45 +43,29 @@ The method expects a raw string as the batch in NDJSON.
  
 
 
-### Example
+### Example 
+```perl
+use Data::Dumper;
+use ::IndexApi;
+my $api_instance = ::IndexApi->new(
+);
 
-```go
-package main
+my $body = ::Object::string->new(); # string | 
 
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    body := "body_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IndexApi.Bulk(context.Background(), body).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IndexApi.Bulk``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Bulk`: BulkResponse
-    fmt.Fprintf(os.Stdout, "Response from `IndexApi.Bulk`: %v\n", resp)
+eval { 
+    my $result = $api_instance->Bulk(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling IndexApi->Bulk: $@\n";
 }
 ```
 
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiBulkRequest struct via the builder pattern
-
+### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **string** |  | 
+ **body** | **string**|  | 
 
 ### Return type
 
@@ -90,17 +77,13 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-ndjson
-- **Accept**: application/json
+ - **Content-Type**: application/x-ndjson
+ - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## Delete
-
-> DeleteResponse Delete(ctx).DeleteDocumentRequest(deleteDocumentRequest).Execute()
+# **Delete**
+> DeleteResponse Delete(deleteDocumentRequest => $deleteDocumentRequest)
 
 Delete a document in an index
 
@@ -126,45 +109,29 @@ Responds with an object telling how many documents got deleted:
   ```
 
 
-### Example
+### Example 
+```perl
+use Data::Dumper;
+use ::IndexApi;
+my $api_instance = ::IndexApi->new(
+);
 
-```go
-package main
+my $deleteDocumentRequest = ::Object::DeleteDocumentRequest->new(); # DeleteDocumentRequest | 
 
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    deleteDocumentRequest := openapiclient.deleteDocumentRequest{Index: "Index_example", Id: int64(123), Query: 123} // DeleteDocumentRequest | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IndexApi.Delete(context.Background(), deleteDocumentRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IndexApi.Delete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Delete`: DeleteResponse
-    fmt.Fprintf(os.Stdout, "Response from `IndexApi.Delete`: %v\n", resp)
+eval { 
+    my $result = $api_instance->Delete(deleteDocumentRequest => $deleteDocumentRequest);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling IndexApi->Delete: $@\n";
 }
 ```
 
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteRequest struct via the builder pattern
-
+### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deleteDocumentRequest** | [**DeleteDocumentRequest**](DeleteDocumentRequest.md) |  | 
+ **deleteDocumentRequest** | [**DeleteDocumentRequest**](DeleteDocumentRequest.md)|  | 
 
 ### Return type
 
@@ -176,17 +143,13 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: application/json
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## Insert
-
-> SuccessResponse Insert(ctx).InsertDocumentRequest(insertDocumentRequest).Execute()
+# **Insert**
+> SuccessResponse Insert(insertDocumentRequest => $insertDocumentRequest)
 
 Create a new document in an index
 
@@ -210,45 +173,29 @@ It responds with an object in format:
   ```
 
 
-### Example
+### Example 
+```perl
+use Data::Dumper;
+use ::IndexApi;
+my $api_instance = ::IndexApi->new(
+);
 
-```go
-package main
+my $insertDocumentRequest = ::Object::InsertDocumentRequest->new(); # InsertDocumentRequest | 
 
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    insertDocumentRequest := openapiclient.insertDocumentRequest{Index: "Index_example", Id: int64(123), Doc: map[string]string{ "Key" = "Value" }} // InsertDocumentRequest | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IndexApi.Insert(context.Background(), insertDocumentRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IndexApi.Insert``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Insert`: SuccessResponse
-    fmt.Fprintf(os.Stdout, "Response from `IndexApi.Insert`: %v\n", resp)
+eval { 
+    my $result = $api_instance->Insert(insertDocumentRequest => $insertDocumentRequest);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling IndexApi->Insert: $@\n";
 }
 ```
 
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiInsertRequest struct via the builder pattern
-
+### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **insertDocumentRequest** | [**InsertDocumentRequest**](InsertDocumentRequest.md) |  | 
+ **insertDocumentRequest** | [**InsertDocumentRequest**](InsertDocumentRequest.md)|  | 
 
 ### Return type
 
@@ -260,17 +207,13 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: application/json
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## Replace
-
-> SuccessResponse Replace(ctx).InsertDocumentRequest(insertDocumentRequest).Execute()
+# **Replace**
+> SuccessResponse Replace(insertDocumentRequest => $insertDocumentRequest)
 
 Replace new document in an index
 
@@ -282,45 +225,29 @@ Responds with an object in format: <br/>
   ```
 
 
-### Example
+### Example 
+```perl
+use Data::Dumper;
+use ::IndexApi;
+my $api_instance = ::IndexApi->new(
+);
 
-```go
-package main
+my $insertDocumentRequest = ::Object::InsertDocumentRequest->new(); # InsertDocumentRequest | 
 
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    insertDocumentRequest := openapiclient.insertDocumentRequest{Index: "Index_example", Id: int64(123), Doc: map[string]string{ "Key" = "Value" }} // InsertDocumentRequest | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IndexApi.Replace(context.Background(), insertDocumentRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IndexApi.Replace``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Replace`: SuccessResponse
-    fmt.Fprintf(os.Stdout, "Response from `IndexApi.Replace`: %v\n", resp)
+eval { 
+    my $result = $api_instance->Replace(insertDocumentRequest => $insertDocumentRequest);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling IndexApi->Replace: $@\n";
 }
 ```
 
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiReplaceRequest struct via the builder pattern
-
+### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **insertDocumentRequest** | [**InsertDocumentRequest**](InsertDocumentRequest.md) |  | 
+ **insertDocumentRequest** | [**InsertDocumentRequest**](InsertDocumentRequest.md)|  | 
 
 ### Return type
 
@@ -332,17 +259,13 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: application/json
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-
-## Update
-
-> UpdateResponse Update(ctx).UpdateDocumentRequest(updateDocumentRequest).Execute()
+# **Update**
+> UpdateResponse Update(updateDocumentRequest => $updateDocumentRequest)
 
 Update a document in an index
 
@@ -367,45 +290,29 @@ Responds with an object that tells how many documents where updated in format:
   ```
 
 
-### Example
+### Example 
+```perl
+use Data::Dumper;
+use ::IndexApi;
+my $api_instance = ::IndexApi->new(
+);
 
-```go
-package main
+my $updateDocumentRequest = ::Object::UpdateDocumentRequest->new(); # UpdateDocumentRequest | 
 
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    updateDocumentRequest := openapiclient.updateDocumentRequest{Index: "Index_example", Doc: map[string]string{ "Key" = "Value" }, Id: int64(123), Query: map[string]string{ "Key" = "Value" }} // UpdateDocumentRequest | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IndexApi.Update(context.Background(), updateDocumentRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IndexApi.Update``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Update`: UpdateResponse
-    fmt.Fprintf(os.Stdout, "Response from `IndexApi.Update`: %v\n", resp)
+eval { 
+    my $result = $api_instance->Update(updateDocumentRequest => $updateDocumentRequest);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling IndexApi->Update: $@\n";
 }
 ```
 
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateRequest struct via the builder pattern
-
+### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updateDocumentRequest** | [**UpdateDocumentRequest**](UpdateDocumentRequest.md) |  | 
+ **updateDocumentRequest** | [**UpdateDocumentRequest**](UpdateDocumentRequest.md)|  | 
 
 ### Return type
 
@@ -417,10 +324,8 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: application/json
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

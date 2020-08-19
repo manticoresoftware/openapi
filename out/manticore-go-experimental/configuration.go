@@ -1,7 +1,7 @@
 /*
- * Manticore Search API
+ * Manticore Search Client
  *
- * This is the API for Manticore Search HTTP protocol. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
+ * Please note that this client is experimental. For full documentation of the API methods consult https://manual.manticoresearch.com/. 
  *
  * API version: 1.0.0
  * Contact: info@manticoresearch.com
@@ -105,8 +105,8 @@ func NewConfiguration() *Configuration {
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
-				URL: "https://virtserver.swaggerhub.com/adriannuta/ManticoreSeach/1.0.0",
-				Description: "SwaggerHub API Auto Mocking",
+				URL: "http://127.0.0.1:9308/",
+				Description: "Default Manticore Search HTTP",
 			},
 		},
 		OperationServers: map[string]ServerConfigurations{
