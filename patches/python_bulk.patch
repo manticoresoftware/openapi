@@ -1,7 +1,7 @@
-diff --git a/out/manticoresearch-python/openapi_client/rest.py b/out/manticoresearch-python/openapi_client/rest.py
+diff --git a/out/manticoresearch-python/manticoresearch/rest.py b/out/manticoresearch-python/manticoresearch/rest.py
 index a470462..325cb83 100644
---- a/out/manticoresearch-python/openapi_client/rest.py
-+++ b/out/manticoresearch-python/openapi_client/rest.py
+--- a/out/manticoresearch-python/manticoresearch/rest.py
++++ b/out/manticoresearch-python/manticoresearch/rest.py
 @@ -157,7 +157,7 @@ class RESTClientObject(object):
              if method in ['POST', 'PUT', 'PATCH', 'OPTIONS', 'DELETE']:
                  if query_params:
