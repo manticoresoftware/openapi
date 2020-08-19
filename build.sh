@@ -14,7 +14,7 @@ do_python() {
 do_java() {
   echo "Building Java ..."
   rm out/manticoresearch-java -rf
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g java  -o /local/out/manticoresearch-java -t /local/templates/Java --git-repo-id manticoresearch-java --git-user-id manticoresoftware
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  openapitools/openapi-generator-cli generate -i /local/manticore.yml -g java  -o /local/out/manticoresearch-java -t /local/templates/Java --git-repo-id manticoresearch-java --git-user-id manticoresoftware --model-package org.manticoresearch.api --api-package org.manticoresearch.model
   #git apply patches/java.patch
   echo "Java done."
 }
@@ -57,6 +57,13 @@ do_perl() {
   echo "Perl done." 
 }
 
+do_go() {
+  echo "Building Go ..."
+  rm out/manticore-go -rf
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g go-experimental  -o /local/out/manticore-go-experimental -t /local/templates/perl --git-repo-id manticoresearch-go --git-user-id manticoresoftware
+  echo "Perl done." 
+}
+
 case $1 in
  python)
    do_python
@@ -79,6 +86,9 @@ case $1 in
  perl)
    do_perl
   ;;
+ go)
+   do_go
+  ;;  
  all)
    do_python
    do_java
