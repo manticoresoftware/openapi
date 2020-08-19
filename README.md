@@ -59,6 +59,20 @@ You can also rebuild all with
 
 * Go -  tried to test it, seems smth broken or need more go knowledge
 
+## Custom overrides
+
+By default the generators use crap package names (like openapi_client). These needs to be changes at building time (as  this is not part of OpenAPI spec how you name the package for a language).
+
+Package or Project names have specific variables for each language (there are some general variables for api/model package, but some generators don't use these!). There are also other variables that may have an use to set a custom value for them. To see these, run
+
+```
+docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)" -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli config-help -g XXX
+```
+
+where `XXX` is the name of the generator (language).
+
+Adding one of these specific variables, is made adding ` --additional-properties NAME=VALUE` to the docker run command (see build.sh for examples).
+
 ## Specific client issues
 
 ### Python
