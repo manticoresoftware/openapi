@@ -14,7 +14,7 @@ do_python() {
 do_java() {
   echo "Building Java ..."
   rm out/manticoresearch-java -rf
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)" -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g java  -o /local/out/manticoresearch-java -t /local/templates/Java --git-repo-id manticoresearch-java --git-user-id manticoresoftware --model-package org.manticoresearch.api --api-package org.manticoresearch.model
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)" -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g java  -o /local/out/manticoresearch-java -t /local/templates/Java --git-repo-id manticoresearch-java --git-user-id manticoresoftware     --additional-properties apiPackage=org.manticoresearch.api --additional-properties modelPackage=org.manticoresearch.model 
   #git apply patches/java.patch
   echo "Java done."
 }
