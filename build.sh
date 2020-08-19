@@ -14,7 +14,7 @@ do_python() {
 do_java() {
   echo "Building Java ..."
   rm out/manticoresearch-java -rf
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  openapitools/openapi-generator-cli generate -i /local/manticore.yml -g java  -o /local/out/manticoresearch-java -t /local/templates/Java --git-repo-id manticoresearch-java --git-user-id manticoresoftware --model-package org.manticoresearch.api --api-package org.manticoresearch.model
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)" -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g java  -o /local/out/manticoresearch-java -t /local/templates/Java --git-repo-id manticoresearch-java --git-user-id manticoresoftware --model-package org.manticoresearch.api --api-package org.manticoresearch.model
   #git apply patches/java.patch
   echo "Java done."
 }
@@ -22,7 +22,7 @@ do_java() {
 do_javascript() {
   echo "Building Javascript ..."
   rm out/manticoresearch-javascript -rf
-  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"   openapitools/openapi-generator-cli generate -i /local/manticore.yml -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch
   git apply patches/javascript.package.patch
   rm out/manticoresearch-javascript/test/* -rf
   cp -R test/javascript/* out/manticoresearch-javascript/test/ 
