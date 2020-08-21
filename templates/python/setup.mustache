@@ -2,7 +2,8 @@
 
 {{>partial_header}}
 
-from setuptools import setup, find_packages  # noqa: H301
+from setuptools import setup, find_packages
+from os import path
 
 NAME = "{{{projectName}}}"
 VERSION = "{{packageVersion}}"
@@ -23,11 +24,18 @@ REQUIRES.append("aiohttp >= 3.0.0")
 {{#tornado}}
 REQUIRES.append("tornado>=4.2,<5")
 {{/tornado}}
-
+long_description = ""
+with open(path.join(path.dirname(__file__), "README.md"), encoding="utf8") as f:
+    for line in f:
+      if '## Documentation for API Endpoints' in line:
+        break
+      long_description +=line
 setup(
     name=NAME,
     version=VERSION,
     description="{{appName}}",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     author="{{#infoName}}{{infoName}}{{/infoName}}{{^infoName}}OpenAPI Generator community{{/infoName}}",
     author_email="{{#infoEmail}}{{infoEmail}}{{/infoEmail}}{{^infoEmail}}team@openapitools.org{{/infoEmail}}",
     url="{{packageUrl}}",
@@ -36,9 +44,7 @@ setup(
     packages=find_packages(exclude=["test", "tests"]),
     include_package_data=True,
     {{#licenseInfo}}license="{{licenseInfo}}",
-    {{/licenseInfo}}long_description="""\
-    {{appDescription}}  # noqa: E501
-    """
+    {{/licenseInfo}}
 )
 {{/hasMore}}
 {{/apis}}
