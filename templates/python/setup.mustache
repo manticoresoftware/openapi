@@ -25,7 +25,7 @@ REQUIRES.append("aiohttp >= 3.0.0")
 REQUIRES.append("tornado>=4.2,<5")
 {{/tornado}}
 long_description = ""
-with open(path.join(path.dirname(__file__), "README.md"), encoding="utf8") as f:
+with open(path.join(path.dirname(__file__), "README.md")) as f:
     for line in f:
       if '## Documentation for API Endpoints' in line:
         break
