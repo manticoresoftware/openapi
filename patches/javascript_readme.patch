@@ -1,0 +1,24 @@
+diff --git a/out/manticoresearch-javascript/README.md b/out/manticoresearch-javascript/README.md
+index d1d54bd..8f5b06c 100644
+--- a/out/manticoresearch-javascript/README.md
++++ b/out/manticoresearch-javascript/README.md
+@@ -28,8 +28,8 @@ Please follow the [installation](#installation) instruction and execute the foll
+ var Manticoresearch = require('manticoresearch');
+ 
+ 
+-var api = new Manticoresearch.IndexApi()
+-var body = "body_example"; // {String} 
++var api = new Manticoresearch.SearchApi()
++var body = {"index":"test","query":{"match":{"content":"sample"}}};
+ 
+ var callback = function(error, data, response) {
+   if (error) {
+@@ -38,7 +38,7 @@ var callback = function(error, data, response) {
+     console.log('API called successfully. Returned data: ' + data);
+   }
+ };
+-api.bulk(body, callback);
++api.search(body, callback);
+ 
+ ```
+ 

@@ -25,6 +25,7 @@ do_javascript() {
   rm out/manticoresearch-javascript -rf
   docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"   openapitools/openapi-generator-cli generate -i /local/manticore.yml -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch
   git apply patches/javascript.package.patch
+  git apply patches/javascript_readme.patch
   rm out/manticoresearch-javascript/test/* -rf
   cp -R test/javascript/* out/manticoresearch-javascript/test/ 
   echo "Javascript done."
