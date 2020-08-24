@@ -1,7 +1,7 @@
 {
   "name": "{{{projectName}}}",
   "version": "{{{projectVersion}}}",
-  "description": "{{{projectDescription}}}",
+  "description": "Javascript client for Manticore Search",
   "license": "{{licenseName}}",
   "main": "{{sourceFolder}}{{#invokerPackage}}/{{invokerPackage}}{{/invokerPackage}}/index.js",
   "scripts": {
@@ -10,6 +10,13 @@
   "browser": {
     "fs": false
   },
+  "keywords": [
+    "manticoresearch",
+    "REST",
+    "search",
+    "client",
+    "index"
+  ],  
 {{#npmRepository}}
   "publishConfig":{
     "registry":"{{npmRepository}}"
