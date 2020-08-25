@@ -1,6 +1,7 @@
 stages:
   - test
   - push
+  - publish
 
 services:
   - manticoresearch/manticore
@@ -84,3 +85,27 @@ java_push:
     - git subtree push --prefix=out/manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git master
   dependencies:
     - java_testing
+    
+javascript_npmjs:
+  stage: publish
+  when: manual
+  image: node
+  allow_failure: true
+  script:
+    - cp $NPMRC  ~/.npmrc
+    - cd out/manticoresearch-javascript
+    - npm publish
+
+python_pypi:
+  stage: publish
+  image: python
+  when: manual
+  allow_failure: true
+  script:
+    - cd out/manticoresearch-python
+    - cp $PYPIRC  ~/.pypirc
+    - python -m pip install --user --upgrade twine
+    - python setup.py sdist bdist_wheel
+    - python -m twine upload dist/*
+    
+  
