@@ -132,4 +132,17 @@ Pushing is made during CI using
 
 Pushing is made only if there's a change in `manticoresearch-XXX` folder. 
 
+## Publishing  and versions
+
+In `versions` folder there is a file with the version of the respective package. The version should be increased whenever we want to publish a new version. 
+Please note that some (or all) package systems don't allow reuploading a version (at least pypi doesn't), so even for some readme change we need to push a new version.
+
+The Gitlab CI has manual jobs for publishing a package. 
+So the workflow is:
+
+- make changes, increase version in version file, commit
+- wait until testing and push pipeline finish
+- go to Gitlab pipeline and run the manual job (e.g. python_pypi) to publish the package.
+
+
 
