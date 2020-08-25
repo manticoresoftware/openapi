@@ -58,6 +58,7 @@ python_push:
     changes:
       - out/manticoresearch-python/**/*    
   script:
+    - git subtree pull --prefix=out/manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git master
     - git subtree push --prefix=out/manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git master
   dependencies:
     - python_testing
