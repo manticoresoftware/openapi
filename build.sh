@@ -3,7 +3,7 @@ set -e
 do_python() {
   echo "Building Python ..."
   rm out/manticoresearch-python -rf
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  openapitools/openapi-generator-cli generate -i /local/manticore.yml -g python -o /local/out/manticoresearch-python -t /local/templates/python --git-repo-id manticoresearch-python --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties projectVersion=`cat versions/python`
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  openapitools/openapi-generator-cli generate -i /local/manticore.yml -g python -o /local/out/manticoresearch-python -t /local/templates/python --git-repo-id manticoresearch-python --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/python`
   rm out/manticoresearch-python/test/* -rf
   cp -R test/python/* out/manticoresearch-python/test/   
   git apply patches/python_bulk.patch
