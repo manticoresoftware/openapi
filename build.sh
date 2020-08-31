@@ -15,7 +15,7 @@ do_python() {
 do_java() {
   echo "Building Java ..."
   rm out/manticoresearch-java -rf
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)" -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g java  -o /local/out/manticoresearch-java -t /local/templates/Java --git-repo-id manticoresearch-java --git-user-id manticoresoftware     --additional-properties apiPackage=org.manticoresearch.api --additional-properties modelPackage=org.manticoresearch.model 
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)" -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g java  -o /local/out/manticoresearch-java -t /local/templates/Java --git-repo-id manticoresearch-java --git-user-id manticoresoftware     --additional-properties apiPackage=org.manticoresearch.api --additional-properties modelPackage=org.manticoresearch.model  --additional-properties artifactId=manticoresearch  --additional-properties developerName="Manticore Software"  --additional-properties developerEmail=info@manticosearch.com  --additional-properties  developerOrganization=manticoresearch.com --additional-properties developerOrganizationUrl=https://github.com/manticoresoftware/manticoresearch-java  --additional-properties artifactVersionn=`cat versions/java`
   #git apply patches/java.patch
   echo "Java done."
 }
