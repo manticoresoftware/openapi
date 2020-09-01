@@ -73,6 +73,8 @@ where `XXX` is the name of the generator (language).
 
 Adding one of these specific variables, is made adding ` --additional-properties NAME=VALUE` to the docker run command (see build.sh for examples).
 
+Please note that for Java the library used is `okhttp-gson` , some of the templates (like the readme) must be edited in folder `templates/Java/libraries/okhttp-gson/`.
+
 ## Specific client issues
 
 ### Python
