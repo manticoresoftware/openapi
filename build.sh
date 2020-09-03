@@ -62,10 +62,15 @@ do_perl() {
 do_go() {
   echo "Building Go ..."
   rm out/manticore-go -rf
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g go-experimental  -o /local/out/manticore-go-experimental -t /local/templates/perl --git-repo-id manticoresearch-go --git-user-id manticoresoftware
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" openapitools/openapi-generator-cli generate -i /local/manticore.yml -g go-experimental  -o /local/out/manticore-go-experimental -t /local/templates/go --git-repo-id manticoresearch-go --git-user-id manticoresoftware
   echo "Perl done." 
 }
-
+do_elixir() {
+  echo "Building Elixir ..."
+  rm out/manticore-elixir -rf
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"   openapitools/openapi-generator-cli generate -i /local/manticore.yml -g elixir  -o /local/out/manticore-elixir -t /local/templates/elixir --git-repo-id manticoresearch-elixir --git-user-id manticoresoftware  --additional-properties packageName="manticoresearch" --additional-properties invokerPackage="Manticoresearch"
+  echo "Elixir done." 
+}
 case $1 in
  python)
    do_python
@@ -91,6 +96,9 @@ case $1 in
  go)
    do_go
   ;;  
+ elixir)
+   do_elixir
+  ;;    
  all)
    do_python
    do_java
@@ -99,6 +107,7 @@ case $1 in
    do_ruby
    do_swift
    do_perl
+   do_elixir
   ;;
 *)
   echo -n "unknown"
