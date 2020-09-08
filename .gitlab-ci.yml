@@ -61,6 +61,7 @@ elixir_testing:
     - *init_sqls
   script:
     - cd out/manticoresearch-elixir
+    - mix local.hex --force
     - mix do deps.get
     - MIX_ENV=test mix test
     
