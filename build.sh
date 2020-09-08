@@ -70,6 +70,8 @@ do_elixir() {
   rm out/manticoresearch-elixir -rf
   docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"   openapitools/openapi-generator-cli generate -i /local/manticore.yml -g elixir  -o /local/out/manticoresearch-elixir -t /local/templates/elixir --git-repo-id manticoresearch-elixir --git-user-id manticoresoftware  --additional-properties packageName="manticoresearch" --additional-properties invokerPackage="Manticoresearch"
   cp test/elixir/api_index_test.exs out/manticoresearch-elixir/test/
+  cp patches/test.exs out/manticoresearch-elixir/config/
+  cp patches/prod.exs out/manticoresearch-elixir/config/
   echo "Elixir done." 
 }
 case $1 in
