@@ -67,8 +67,9 @@ do_go() {
 }
 do_elixir() {
   echo "Building Elixir ..."
-  rm out/manticore-elixir -rf
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"   openapitools/openapi-generator-cli generate -i /local/manticore.yml -g elixir  -o /local/out/manticore-elixir -t /local/templates/elixir --git-repo-id manticoresearch-elixir --git-user-id manticoresoftware  --additional-properties packageName="manticoresearch" --additional-properties invokerPackage="Manticoresearch"
+  rm out/manticoresearch-elixir -rf
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"   openapitools/openapi-generator-cli generate -i /local/manticore.yml -g elixir  -o /local/out/manticoresearch-elixir -t /local/templates/elixir --git-repo-id manticoresearch-elixir --git-user-id manticoresoftware  --additional-properties packageName="manticoresearch" --additional-properties invokerPackage="Manticoresearch"
+  cp test/elixir/api_index_test.exs out/manticoresearch-elixir/test/
   echo "Elixir done." 
 }
 case $1 in

@@ -51,6 +51,18 @@ java_testing:
     - cd out/manticoresearch-java
     - mvn test
 
+elixir_testing:
+  image: elixir
+  stage: test
+  only:
+    changes:
+      - out/manticoresearch-elixir/**/*
+  before_script:
+    - *init_sqls
+  script:
+    - cd out/manticoresearch-elixir
+    - MIX_ENV=test mix test
+    
 python_push:
   stage: push
   before_script:
@@ -86,6 +98,18 @@ java_push:
     - git subtree push --prefix=out/manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git master
   dependencies:
     - java_testing
+
+elixir_push:
+  stage: push
+  before_script:
+    - apt-get update && apt-get install -y git
+  only:
+    changes:
+      - out/manticoresearch-elixir/**/*
+  script:
+    - git subtree push --prefix=out/manticoresearch-elixir https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-elixir.git master
+  dependencies:
+    - elixir_testing
     
 javascript_npmjs:
   stage: publish
