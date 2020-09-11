@@ -73,6 +73,8 @@ python_push:
     changes:
       - out/manticoresearch-python/**/*    
   script:
+    - git remote add manticoresearch-python git@github.com:manticoresoftware/manticoresearch-python.git
+    - git fetch manticoresearch-python  
     - git subtree push --prefix=out/manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git master
   dependencies:
     - python_testing
@@ -85,6 +87,8 @@ javascript_push:
     changes:
       - out/manticoresearch-javascript/**/*
   script:
+    - git remote add manticoresearch-javascript git@github.com:manticoresoftware/manticoresearch-javascript.git
+    - git fetch manticoresearch-javascript  
     - git subtree push --prefix=out/manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git master
   dependencies:
     - javascript_testing
@@ -97,6 +101,8 @@ java_push:
     changes:
       - out/manticoresearch-java/**/*
   script:
+    - git remote add manticoresearch-java git@github.com:manticoresoftware/manticoresearch-java.git
+    - git fetch manticoresearch-java  
     - git subtree push --prefix=out/manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git master
   dependencies:
     - java_testing
@@ -109,6 +115,8 @@ elixir_push:
     changes:
       - out/manticoresearch-elixir/**/*
   script:
+    - git remote add manticoresearch-elixir git@github.com:manticoresoftware/manticoresearch-elixir.git
+    - git fetch manticoresearch-elixir
     - git subtree push --prefix=out/manticoresearch-elixir https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-elixir.git master
   dependencies:
     - elixir_testing
@@ -135,4 +143,25 @@ python_pypi:
     - python setup.py sdist bdist_wheel
     - python -m twine upload dist/*
     
-  
+elixir_hex:
+  stage: publish
+  image: elixir
+  when: manual
+  allow_failure: true
+  script:
+    - cd out/manticoresearch-elixir
+    - mix local.hex --force
+    - mix do deps.get    
+    - HEX_API_KEY=$HEXAPIKEY mix hex.publish
+
+
+java_maven:
+  stage: publish
+  image: maven
+  when: manual
+  allow_failure: true
+  script:
+    - cd out/manticoresearch-java
+    - mkdir ~/.m2
+    - cp $MVNSETTINGS ~/.m2/settings.xml
+    - maven clean deploy
