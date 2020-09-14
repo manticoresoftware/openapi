@@ -162,7 +162,7 @@ java_maven:
   allow_failure: true
   script:
     - cd out/manticoresearch-java
-    - mkdir ~/.m2
+    - mkdir -p ~/.m2
     - export GPG_TTY=$(tty)
     - cp $MVNSETTINGS ~/.m2/settings.xml
     - gpg2 --import --batch $PRIVATEKEY
