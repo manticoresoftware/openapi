@@ -152,7 +152,7 @@ elixir_hex:
     - cd out/manticoresearch-elixir
     - mix local.hex --force
     - mix do deps.get    
-    - HEX_API_KEY=$HEXAPIKEY mix hex.publish
+    - HEX_API_KEY=$HEXAPIKEY mix hex.publish --yes
 
 
 java_maven:
@@ -163,5 +163,8 @@ java_maven:
   script:
     - cd out/manticoresearch-java
     - mkdir ~/.m2
+    - export GPG_TTY=$(tty)
     - cp $MVNSETTINGS ~/.m2/settings.xml
+    - gpg2 --import --batch $PRIVATEKEY
+    - mvn verify -Dgpg.passphrase=GPGKEY
     - maven clean deploy
