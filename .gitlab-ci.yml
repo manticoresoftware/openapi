@@ -73,7 +73,7 @@ python_push:
     changes:
       - out/manticoresearch-python/**/*    
   script:
-    - git remote add manticoresearch-python git@github.com:manticoresoftware/manticoresearch-python.git
+    - git remote add manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git
     - git fetch manticoresearch-python  
     - git subtree push --prefix=out/manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git master
   dependencies:
@@ -87,7 +87,7 @@ javascript_push:
     changes:
       - out/manticoresearch-javascript/**/*
   script:
-    - git remote add manticoresearch-javascript git@github.com:manticoresoftware/manticoresearch-javascript.git
+    - git remote add manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git
     - git fetch manticoresearch-javascript  
     - git subtree push --prefix=out/manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git master
   dependencies:
@@ -101,7 +101,7 @@ java_push:
     changes:
       - out/manticoresearch-java/**/*
   script:
-    - git remote add manticoresearch-java git@github.com:manticoresoftware/manticoresearch-java.git
+    - git remote add manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git
     - git fetch manticoresearch-java  
     - git subtree push --prefix=out/manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git master
   dependencies:
@@ -115,7 +115,7 @@ elixir_push:
     changes:
       - out/manticoresearch-elixir/**/*
   script:
-    - git remote add manticoresearch-elixir git@github.com:manticoresoftware/manticoresearch-elixir.git
+    - git remote add manticoresearch-elixir https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-elixir.git
     - git fetch manticoresearch-elixir
     - git subtree push --prefix=out/manticoresearch-elixir https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-elixir.git master
   dependencies:
