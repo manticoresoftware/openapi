@@ -167,4 +167,4 @@ java_maven:
     - cp $MVNSETTINGS ~/.m2/settings.xml
     - gpg2 --import --batch $PRIVATEKEY
     - mvn verify -Dgpg.passphrase=$GPGKEY
-    - maven clean deploy
+    - mvn clean deploy
