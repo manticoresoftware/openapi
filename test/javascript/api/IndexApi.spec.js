@@ -22,7 +22,7 @@
 
   beforeEach(function() {
     var client= new Manticoresearch.ApiClient()
-    client.basePath="http://manticoresearch-manticore:9308"
+    client.basePath="http://manticoresearch-manticore:9308";
     instance = new Manticoresearch.IndexApi(client);
   });
 

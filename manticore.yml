@@ -3,7 +3,6 @@ info:
   title: Manticore Search Client
   description: |
     Experimental low-level client for Manticore Search.
-
   version: 1.0.0
   contact:
     name: Manticore Software Ltd.
@@ -620,7 +619,7 @@ paths:
         This method must be used only on percolate indexes.
         
 
-        Expects two paramenters: the index name and an object with
+        Expects two parameters: the index name and an object with
         array of documents to be tested.
 
         An example of the documents object:
@@ -675,7 +674,7 @@ paths:
       description: >
         Run a query in SQL format.
 
-        Expects is a query parameters string that can be in two modes:
+        Expects a query parameters string that can be in two modes:
 
         * Select only query as `query=SELECT * FROM myindex`. The query string
         MUST be URL encoded

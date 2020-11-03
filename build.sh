@@ -23,11 +23,12 @@ do_java() {
 do_javascript() {
   echo "Building Javascript ..."
   rm out/manticoresearch-javascript -rf
-  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"   openapitools/openapi-generator-cli generate -i /local/manticore.yml -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch  --additional-properties projectVersion=`cat versions/javascript`
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"   openapitools/openapi-generator-cli generate -i /local/manticore.yml -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch  --additional-properties projectVersion=`cat versions/javascript`   --additional-properties  usePromises=true
   git apply patches/javascript.package.patch
-  git apply patches/javascript_readme.patch
-  rm out/manticoresearch-javascript/test/* -rf
-  cp -R test/javascript/* out/manticoresearch-javascript/test/ 
+  cp docs/javascript/README.md out/manticoresearch-javascript/README.md
+  cp docs/javascript/docs/* out/manticoresearch-javascript/docs/
+  rm out/manticoresearch-javascript/test/api/* -rf
+  cp -R test/javascript/api/Manual.spec.js out/manticoresearch-javascript/test/api/Manual.spec.js
   echo "Javascript done."
 }
 
