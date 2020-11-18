@@ -19,7 +19,10 @@ do_java() {
   #git apply patches/java.patch
   cp docs/java/README.md out/manticoresearch-java/README.md
   cp docs/java/docs/* out/manticoresearch-java/docs/
-  rm -rf out/manticoresearch-java/openapi-generator
+  git apply patches/java/ApiClient.java
+  git apply patches/java/SuccessResponse.java
+  rm -rf out/manticoresearch-java/.openapi-generator
+  rm -rf out/manticoresearch-java/api
   echo "Java done."
 }
 
