@@ -15,10 +15,21 @@
       <scope>test</scope>
     </dependency>
 <dependency>
-  <groupId>org.openapitools</groupId>
-  <artifactId>openapi-java-client</artifactId>
-  <version>1.0.1</version>
+ <groupId>com.manticoresearch</groupId>
+  <artifactId>manticoresearch</artifactId>
+  <version>1.0.2</version>
   <scope>compile</scope>
+</dependency>
+       <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.1</version>
+        </dependency>
+
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20090211</version>
 </dependency>
   </dependencies>
 <build>

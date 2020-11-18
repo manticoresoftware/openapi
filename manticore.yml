@@ -50,7 +50,7 @@ components:
           type: array
           items:
             type: object
-        script_fields:
+        expressions:
           type: object
         highlight:
           type: object
@@ -113,6 +113,9 @@ components:
         index:
           type: string
           description: Index name
+        cluster:
+          type: string
+          description: cluster name
         id:
           type: integer
           format: int64
@@ -134,6 +137,9 @@ components:
         index:
           type: string
           description: Name of the index
+        cluster:
+          type: string
+          description: cluster name
         id:
           type: integer
           format: int64
@@ -183,6 +189,8 @@ components:
         hits:
           type: object
           properties:
+            max_score:
+              type: integer
             total:
               type: integer
             hits:
