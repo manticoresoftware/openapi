@@ -47,9 +47,8 @@ components:
           items:
             type: object
         aggs:
-          type: array
-          items:
-            type: object
+          type: object
+          additionalProperties: true
         expressions:
           type: object
         highlight:
@@ -186,6 +185,9 @@ components:
           type: integer
         timed_out:
           type: boolean
+        aggregations:
+          type: object
+          additionalProperties: true        
         hits:
           type: object
           properties:
@@ -197,10 +199,7 @@ components:
               type: array
               items:
                 type: object
-            aggregations:
-              type: array
-              items:
-                type: object
+
           example:
             total: 2
             hits:
