@@ -11,7 +11,7 @@ configuration = manticoresearch.Configuration(
 
 print
 suite = unittest.TestSuite()
-for module_name in ['test_index_api', 'test_search_api']:
+for module_name in ['test_manual']:
     test = importlib.import_module(module_name)
     for name, obj in inspect.getmembers(test):
         if inspect.isclass(obj) and obj.__name__ != 'ParametrizedTestCase':

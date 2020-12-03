@@ -57,6 +57,11 @@ public class App
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.setIndex("products");
         searchRequest.setQuery(query);
+        HashMap<String,Object> highlight = new HashMap<String,Object>(){{
+            put("fields",new String[] {"title"});
+            
+        }};
+        searchRequest.setHighlight(highlight);
         SearchResponse searchResponse = searchApi.search(searchRequest);
         System.out.println(searchResponse.toString() );
         
@@ -495,6 +500,273 @@ PercolateRequest percolateRequest = new PercolateRequest();
       
        BulkResponse result = indexApi.bulk(body);
        System.out.println(result); */
+        sqlresult =   utilsApi.sql("mode=raw&query=SHOW THREADS");
+        System.out.println(sqlresult);  
+        sqlresult = utilsApi.sql("mode=raw&query=DROP TABLE IF  EXISTS books");
+        System.out.println(sqlresult);      
+        sqlresult = utilsApi.sql("mode=raw&query=CREATE TABLE IF NOT EXISTS books (title text, content text)");
+        System.out.println(sqlresult);      
+        
+        
+        body = "{\"insert\": {\"index\" : \"books\", \"id\" : 4, \"doc\" : {\"title\" : \"Book four\", \"content\" : \"Don`t try to compete in childishness, said Bliss.\"}}}" +"\n"+
+    "{\"insert\": {\"index\" : \"books\", \"id\" : 3, \"doc\" : {\"title\" : \"Book three\", \"content\" :\"Trevize whispered, \\\"It gets infantile pleasure out of display. I`d love to knock it down.\\\"\"}}}"+"\n"+
+    "{\"insert\": {\"index\" : \"books\", \"id\" : 5, \"doc\" : {\"title\" : \"Books two\", \"content\" :\"A door opened before them, revealing a small room. Bander said, \\\"Come, half-humans, I want to show you how we live.\\\"\"}}}"+"\n"+
+    "{\"insert\": {\"index\" : \"books\", \"id\" : 1, \"doc\" : {\"title\" : \"Books one\", \"content\" :\"They followed Bander. The robots remained at a polite distance, but their presence was a constantly felt threat. Bander ushered all three into the room. One of the robots followed as well. Bander gestured the other robots away and entered itself. The door closed behind it. \"}}}"+"\n";
+         bulkresult = indexApi.bulk(body);
+        System.out.println(bulkresult);
+        
+        
+        searchRequest = new SearchRequest();
+        searchRequest.setIndex("books");
+        query = new HashMap<String,Object>();
+        query.put("match",new HashMap<String,Object>(){{
+            put("*","try");
+        }});        
+        searchRequest.setQuery(query);
+        highlight = new HashMap<String,Object>(){{
+           
+            
+        }};
+        searchRequest.setHighlight(highlight);
+        searchResponse = searchApi.search(searchRequest);
+        System.out.println(searchResponse.toString() );   
+        
+        
+        searchRequest = new SearchRequest();
+        searchRequest.setIndex("books");
+        query = new HashMap<String,Object>();
+        query.put("match",new HashMap<String,Object>(){{
+            put("*","try|gets|down|said");
+        }});        
+        searchRequest.setQuery(query);
+        highlight = new HashMap<String,Object>(){{
+           put("limit",50);
+            
+        }};
+        searchRequest.setHighlight(highlight);
+        searchResponse = searchApi.search(searchRequest);
+        System.out.println(searchResponse.toString() );   
+        
+        
+        searchRequest = new SearchRequest();
+        searchRequest.setIndex("books");
+        query = new HashMap<String,Object>();
+        query.put("match",new HashMap<String,Object>(){{
+            put("*","one|robots");
+        }});        
+        searchRequest.setQuery(query);
+        highlight = new HashMap<String,Object>(){{
+           put("fields",new String[] {"content"});
+          
+            
+        }};
+        searchRequest.setHighlight(highlight);
+        searchResponse = searchApi.search(searchRequest);
+        System.out.println(searchResponse.toString() );   
+
+        
+        searchRequest = new SearchRequest();
+        searchRequest.setIndex("books");
+        query = new HashMap<String,Object>();
+        query.put("match",new HashMap<String,Object>(){{
+            put("*","one|robots");
+        }});        
+        searchRequest.setQuery(query);
+        highlight = new HashMap<String,Object>(){{
+                     
+        }};
+        searchRequest.setHighlight(highlight);
+        searchResponse = searchApi.search(searchRequest);
+        System.out.println(searchResponse.toString() );   
+
+        searchRequest = new SearchRequest();
+        searchRequest.setIndex("books");
+        query = new HashMap<String,Object>();
+        query.put("match",new HashMap<String,Object>(){{
+            put("*","one|robots");
+        }});        
+        searchRequest.setQuery(query);
+        highlight = new HashMap<String,Object>(){{
+            put("fields",new String[] {"content","title"});
+            put("highlight_query", 
+                      new HashMap<String,Object>(){{
+                                  put("match", new HashMap<String,Object>(){{
+                                    put("*","polite distance");
+                            }});
+                       }});
+        }};
+        searchRequest.setHighlight(highlight);
+        searchResponse = searchApi.search(searchRequest);
+        System.out.println(searchResponse.toString() );   
+        
+        HashMap<String,Object> aggs = new HashMap<String,Object>(){{
+            put("release_year", new HashMap<String,Object>(){{ 
+                put("terms", new HashMap<String,Object>(){{ 
+                        put("field","release_year");
+                        put("size",100);
+                }});
+            }});
+        }};
+        
+        searchRequest = new SearchRequest();
+        searchRequest.setIndex("films");        
+        searchRequest.setLimit(0);
+        query = new HashMap<String,Object>();
+        query.put("match_all",null);
+        searchRequest.setQuery(query);
+        searchRequest.setAggs(aggs);
+        searchResponse = searchApi.search(searchRequest);
+        System.out.println(searchResponse.toString() );           
+        
+        
+        
+   
+        
+       aggs = new HashMap<String,Object>(){{
+            put("color", new HashMap<String,Object>(){{ 
+                put("sizes", new HashMap<String,Object>(){{ 
+                        put("field","meta.color");
+                        put("size",100);
+
+                }});
+            }});
+        }};
+        
+        searchRequest = new SearchRequest();
+        searchRequest.setIndex("products2");        
+        searchRequest.setLimit(0);
+        query = new HashMap<String,Object>();
+        query.put("match_all",null);
+        searchRequest.setQuery(query);
+        searchRequest.setAggs(aggs);
+        searchResponse = searchApi.search(searchRequest);
+        System.out.println(searchResponse.toString() );  
+        
+        aggs = new HashMap<String,Object>(){{
+            put("color", new HashMap<String,Object>(){{ 
+                put("sizes", new HashMap<String,Object>(){{ 
+                        put("field","meta.color");
+                        put("size",100);
+
+                }});
+            }});
+        }};
+        
+        searchRequest = new SearchRequest();
+        searchRequest.setIndex("products2");        
+        searchRequest.setLimit(0);
+        query = new HashMap<String,Object>();
+        query.put("match_all",null);
+        searchRequest.setQuery(query);
+        searchRequest.setAggs(aggs);
+        searchResponse = searchApi.search(searchRequest);
+        System.out.println(searchResponse.toString() );  
+        
+        
+        aggs = new HashMap<String,Object>(){{
+            put("group_property", new HashMap<String,Object>(){{ 
+                put("sizes", new HashMap<String,Object>(){{ 
+                        put("field","price");
+                       
+
+                }});
+            }});
+            put("group_brand_id", new HashMap<String,Object>(){{ 
+                put("sizes", new HashMap<String,Object>(){{ 
+                        put("field","brand_id");
+                       
+
+                }});
+            }});            
+        }};
+        
+        searchRequest = new SearchRequest();
+        searchRequest.setIndex("facetdemo2");        
+        searchRequest.setLimit(5);
+        query = new HashMap<String,Object>();
+        query.put("match_all",null);
+        searchRequest.setQuery(query);
+        searchRequest.setAggs(aggs);
+        searchResponse = searchApi.search(searchRequest);
+        System.out.println(searchResponse.toString() );  
+        
+        
+        searchRequest = new SearchRequest();
+        expressions = new HashMap<String,Object>(){{
+            put("price_range","INTERVAL(price,200,400,600,800)");
+        }};
+        searchRequest.setExpressions(expressions);
+        aggs = new HashMap<String,Object>(){{
+            put("group_property", new HashMap<String,Object>(){{ 
+                put("sizes", new HashMap<String,Object>(){{ 
+                        put("field","price_range");
+                       
+
+                }});
+            }});
+   
+        }};
+        searchRequest.setIndex("facetdemo2");        
+        searchRequest.setLimit(5);
+        query = new HashMap<String,Object>();
+        query.put("match_all",null);
+        searchRequest.setQuery(query);
+        searchRequest.setAggs(aggs);
+        searchResponse = searchApi.search(searchRequest);
+        System.out.println(searchResponse.toString() );  
+        
+        
+        searchRequest = new SearchRequest();
+        aggs = new HashMap<String,Object>(){{
+            put("group_property", new HashMap<String,Object>(){{ 
+                put("sizes", new HashMap<String,Object>(){{ 
+                        put("field","price");
+                        put("size",1);
+                       
+
+                }});
+            }});
+            put("group_brand_id", new HashMap<String,Object>(){{ 
+                put("sizes", new HashMap<String,Object>(){{ 
+                        put("field","brand_id");
+                        put("size",3);
+                       
+
+                }});
+            }});            
+        }};
+        searchRequest.setIndex("facetdemo2");        
+        searchRequest.setLimit(5);
+        query = new HashMap<String,Object>();
+        query.put("match_all",null);
+        searchRequest.setQuery(query);
+        searchRequest.setAggs(aggs);
+        searchResponse = searchApi.search(searchRequest);
+        System.out.println(searchResponse.toString() );  
+        
+        
+        /*
+        searchRequest = new SearchRequest();
+        searchRequest.setIndex("books");
+        query = new HashMap<String,Object>();
+        query.put("match",new HashMap<String,Object>(){{
+            put("content","and first");
+        }});        
+        searchRequest.setQuery(query);
+        highlight = new HashMap<String,Object>(){{
+            put("fields",new String[] {"content","title"});
+            put("highlight_query", 
+                      new HashMap<String,Object>(){{
+                                  put("match", new HashMap<String,Object>(){{
+                                    put("*","into three five");
+                            }});
+                       }});
+        }};
+        searchRequest.setHighlight(highlight);
+        searchResponse = searchApi.search(searchRequest);
+        System.out.println(searchResponse.toString() );   
+        */
+        
     } catch (ApiException e) {
       System.err.println("Exception when calling IndexApi#bulk");
       System.err.println("Status code: " + e.getCode());
