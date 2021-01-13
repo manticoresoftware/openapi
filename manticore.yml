@@ -2,7 +2,7 @@ openapi: 3.0.2
 info:
   title: Manticore Search Client
   description: |
-    Experimental low-level client for Manticore Search.
+    Low-level client for Manticore Search.
   version: 1.0.0
   contact:
     name: Manticore Software Ltd.
