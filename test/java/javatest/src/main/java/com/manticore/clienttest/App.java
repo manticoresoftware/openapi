@@ -1,3 +1,10 @@
+/*
+ * Manticore Search Client
+ * Copyright (c) 2020-2021, Manticore Software LTD (https://manticoresearch.com)
+ *
+ * All rights reserved
+ */
+ 
 package com.manticore.clienttest;
 import com.manticoresearch.client.ApiClient;
 import com.manticoresearch.client.ApiException;

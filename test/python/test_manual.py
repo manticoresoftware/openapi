@@ -1,4 +1,9 @@
 # coding: utf-8
+# Manticore Search Client
+# Copyright (c) 2020-2021, Manticore Software LTD (https://manticoresearch.com)
+#
+# All rights reserved
+
 from __future__ import absolute_import
 from pprint import pprint
 import unittest

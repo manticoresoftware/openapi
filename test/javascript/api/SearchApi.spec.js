@@ -1,7 +1,8 @@
-/**
+/*
  * Manticore Search Client
- * Experimental low-level client for Manticore Search.
- * Contact: info@manticoresearch.com
+ * Copyright (c) 2020-2021, Manticore Software LTD (https://manticoresearch.com)
+ *
+ * All rights reserved
  */
 
 (function(root, factory) {

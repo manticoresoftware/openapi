@@ -9,8 +9,8 @@ info:
     email: info@manticoresearch.com
     url: 'https://manticoresearch.com/contact-us/'
   license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    name: MIT
+    url: 'http://opensource.org/licenses/MIT'
 tags:
   - name: Index
     description: 'Operations regarding adding, updating or deleting documents'
