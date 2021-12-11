@@ -1,32 +1,30 @@
-# Manticoresearch OpenAPI 
+# Manticoresearch OpenAPI clients generator
 
 The project allows you to automatically generate Manticoresearch clients for different languages.
 
-For this purpose, *OpenApi Generator* tool is used. More info on it can be found (https://github.com/OpenAPITools/openapi-generator)[here].
+For this purpose, *OpenApi Generator* tool is used. More info on it can be found [here](https://github.com/OpenAPITools/openapi-generator).
 
 To generate a client, OpenApi generator needs a config file describing the structure of API. You
-can look at it in `manticore.yaml`.  To edit and validate the config, you can use an online editor like Swagger (https://swagger.io/) .
+can look at it in `manticore.yaml`.  To edit and validate the config, you can use an online editor like [Swagger](https://swagger.io/).
 
 
-## Supported clients
+## Generated clients
 
-* Python - works, has a testing suite (coverage is not complete)
+* [Python](https://github.com/manticoresoftware/manticoresearch-python) - it also has a testing suite with incomplete coverage
 
-* Javascript - works, has a testing suite (coverage is poor)
+* [Javascript](https://github.com/manticoresoftware/manticoresearch-javascript) - it also has a testing suite with incomplete coverage
 
-* Java - works
+* [Java](https://github.com/manticoresoftware/manticoresearch-java)
 
-* Elixir - works
+* [Elixir](https://github.com/manticoresoftware/manticoresearch-elixir)
 
 
 ## Building
 
 The simplest way to make a build for a specific language, e.g., for Java, is to use our build script:
 
-
 ```
 ./build.sh java
-
 ```
 
 You can also build versions for all supported languages at once:
