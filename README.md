@@ -5,7 +5,7 @@ The project allows you to automatically generate Manticoresearch clients for dif
 For this purpose, *OpenApi Generator* tool is used. More info on it can be found [here](https://github.com/OpenAPITools/openapi-generator).
 
 To generate a client, OpenApi generator needs a config file describing the structure of API. You
-can look at it in `manticore.yaml`.  To edit and validate the config, you can use an online editor like [Swagger](https://swagger.io/).
+can look at it in `manticore.yml`.  To edit and validate the config, you can use an online editor like [Swagger](https://swagger.io/).
 
 
 ## Generated clients
