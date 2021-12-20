@@ -213,6 +213,9 @@ components:
                   gid: 20
         profile:
           type: object
+        warning:
+          type: object
+          additionalProperties: true
     sqlResponse:
       type: object
       description: Response from sql depends on the query executed.
