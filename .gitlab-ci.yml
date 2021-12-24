@@ -164,6 +164,7 @@ java_maven:
     - cd out/manticoresearch-java
     - mkdir -p ~/.m2
     - export GPG_TTY=$(tty)
+    - export MAVEN_OPTS="--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
     - cp $MVNSETTINGS ~/.m2/settings.xml
     - gpg2 --import --batch $PRIVATEKEY
     - mvn verify -Dgpg.passphrase=$GPGKEY
