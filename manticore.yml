@@ -681,6 +681,7 @@ paths:
   /sql:
     post:
       summary: Perform SQL requests
+      x-is_sql: true
       description: >
         Run a query in SQL format.
 
@@ -714,6 +715,13 @@ paths:
               type: string
             example:
               - mode=raw&query=SHOW TABLES
+      parameters:
+        - in: query
+          name: raw_response  
+          required: false 
+          schema:
+            type: boolean
+            default: false
       responses:
         '200':
           description: >

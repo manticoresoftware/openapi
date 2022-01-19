@@ -30,7 +30,7 @@ public class App
     public static void main( String[] args )
     {
     ApiClient client = Configuration.getDefaultApiClient();
-    client.setBasePath("http://127.0.0.1:6368");
+    client.setBasePath("http://manticoresearch-manticore:6368");
 
 
     IndexApi indexApi = new IndexApi(client);
@@ -39,16 +39,22 @@ public class App
   /*  String body = "{\"insert\": {\"index\": \"movies\", \"id\": 0,\"doc\": {\"plot\": \"A secret team goes to North Pole\", \"rating\": 9.5, \"language\": [2, 3], \"title\": \"This is an older movie\", \"lon\": 51.99, \"meta\": {\"keywords\":[\"travel\",\"ice\"],\"genre\":[\"adventure\"]}, \"year\": 1950, \"lat\": 60.4, \"advise\": \"PG-13\"}}}" +"\n"+"{\"insert\": {\"index\": \"movies\", \"id\": 564343,\"doc\": {\"plot\": \" team goes to North Pole\", \"rating\": 9.5, \"language\": [2, 3], \"title\": \"This is a newer movie\", \"lon\": 51.99, \"meta\": {\"keywords\":[\"travel\",\"ice\"],\"genre\":[\"adventure\"]}, \"year\": 1950, \"lat\": 60.4, \"advise\": \"PG-13\"}}}" +"\n"+"{\"delete\":{\"index\" : \"movies\", \"id\" : 701}}"+"\n"; 
   */
     try {
-        String sql ="mode=raw&query=DROP TABLE IF EXISTS products";
-        Object sqlresult = utilsApi.sql(sql);
+        String sql ="DROP TABLE IF EXISTS products";
+        Object sqlresult = utilsApi.sql(sql, true);
         System.out.println(sqlresult);
         
-        sqlresult = utilsApi.sql("mode=raw&query=CREATE TABLE IF NOT EXISTS products (title text, price float, sizes multi, meta json, coeff float, tags1 multi, tags2 multi)");
+        sqlresult = utilsApi.sql("CREATE TABLE IF NOT EXISTS products (title text, price float, sizes multi, meta json, coeff float, tags1 multi, tags2 multi)", true);
+        System.out.println(sqlresult);        
+
+        sql ="SELECT * FROM products";
+        sqlresult = utilsApi.sql(sql, false);
+        System.out.println(sqlresult);        
+
+        
+        sql ="TRUNCATE TABLE products";
+        sqlresult = utilsApi.sql(sql, true);
         System.out.println(sqlresult);        
         
-          sql ="mode=raw&query=TRUNCATE TABLE products";
-        sqlresult = utilsApi.sql(sql);
-        System.out.println(sqlresult);        
         
         
                 
@@ -72,7 +78,7 @@ public class App
         SearchResponse searchResponse = searchApi.search(searchRequest);
         System.out.println(searchResponse.toString() );
         
-        sql ="mode=raw&query=TRUNCATE TABLE products";
+        sql ="TRUNCATE TABLE products";
         sqlresult = utilsApi.sql(sql);
         System.out.println(sqlresult); 
         
@@ -262,9 +268,9 @@ public class App
         System.out.println(bulkresult);
         
         
-        sql ="mode=raw&query=DROP TABLE IF EXISTS test_pq";
+        sql ="DROP TABLE IF EXISTS test_pq";
         sqlresult = utilsApi.sql(sql);
-        sqlresult =   utilsApi.sql("mode=raw&query=create table test_pq(title text, price integer) type='pq'");
+        sqlresult =   utilsApi.sql("create table test_pq(title text, price integer) type='pq'");
         System.out.println(sqlresult);    
         doc = new HashMap<String,Object>(){{
             put("query",new HashMap<String,Object >(){{
@@ -285,7 +291,7 @@ public class App
         sqlresult = indexApi.delete(deleteRequest);
         System.out.println(sqlresult);      
         
-        sqlresult =  utilsApi.sql("mode=raw&query=SHOW TABLES");
+        sqlresult =  utilsApi.sql("SHOW TABLES");
         System.out.println(sqlresult);  
         
         query = new HashMap<String,Object>();
@@ -318,9 +324,9 @@ body = "{\"replace\": {\"index\" : \"products\", \"id\" : 1, \"doc\" : {\"title\
         
         
 /* percolate */
-        sql ="mode=raw&query=DROP TABLE IF EXISTS products";
+        sql ="DROP TABLE IF EXISTS products";
         sqlresult = utilsApi.sql(sql);
-        sqlresult =   utilsApi.sql("mode=raw&query=create table products(title text, color string) type='pq'");
+        sqlresult =   utilsApi.sql("create table products(title text, color string) type='pq'");
          System.out.println(sqlresult);
         doc = new HashMap<String,Object>(){{
             put("query",     "@title bag"               );
@@ -405,7 +411,7 @@ PercolateRequest percolateRequest = new PercolateRequest();
  
  
         /*
-      String sql ="mode=raw&query=SHOW TABLES";
+      String sql ="SHOW TABLES";
      Object sqlresult = utilsApi.sql(sql);
       System.out.println(sqlresult);
       InsertDocumentRequest newdoc = new InsertDocumentRequest();
@@ -507,11 +513,11 @@ PercolateRequest percolateRequest = new PercolateRequest();
       
        BulkResponse result = indexApi.bulk(body);
        System.out.println(result); */
-        sqlresult =   utilsApi.sql("mode=raw&query=SHOW THREADS");
+        sqlresult =   utilsApi.sql("SHOW THREADS");
         System.out.println(sqlresult);  
-        sqlresult = utilsApi.sql("mode=raw&query=DROP TABLE IF  EXISTS books");
+        sqlresult = utilsApi.sql("DROP TABLE IF  EXISTS books");
         System.out.println(sqlresult);      
-        sqlresult = utilsApi.sql("mode=raw&query=CREATE TABLE IF NOT EXISTS books (title text, content text)");
+        sqlresult = utilsApi.sql("CREATE TABLE IF NOT EXISTS books (title text, content text)");
         System.out.println(sqlresult);      
         
         
