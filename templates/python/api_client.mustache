@@ -318,8 +318,11 @@ class ApiClient(object):
             return None
 
         if type(klass) == str:
-            if klass.startswith('list['):
-                sub_kls = re.match(r'list\[(.*)\]', klass).group(1)
+            if klass.startswith('{str:'):
+                klass = 'object'
+
+            if klass.startswith('list[') or klass.startswith('['):
+                sub_kls = re.match(r'(|list)\[(.*)\]', klass).group(2)
                 return [self.__deserialize(sub_data, sub_kls)
                         for sub_data in data]
 
@@ -713,3 +716,4 @@ class ApiClient(object):
             if klass_name:
                 instance = self.__deserialize(data, klass_name)
         return instance
+
