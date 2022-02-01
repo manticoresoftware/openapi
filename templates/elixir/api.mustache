@@ -39,7 +39,7 @@ defmodule {{moduleName}}.Api.{{classname}} do
 {{#-first}}
     optional_params = %{
 {{/-first}}
-      :"{{baseName}}" => {{#isBodyParam}}:body{{/isBodyParam}}{{#isFormParam}}:form{{/isFormParam}}{{#isQueryParam}}:query{{/isQueryParam}}{{#isHeaderParam}}:headers{{/isHeaderParam}}{{#hasMore}},{{/hasMore}}
+      :"{{baseName}}" => {{#isBodyParam}}:body{{/isBodyParam}}{{#isFormParam}}:form{{/isFormParam}}{{#isQueryParam}}:query{{/isQueryParam}}{{#isHeaderParam}}:headers{{/isHeaderParam}}{{^-last}},{{/-last}}
 {{#-last}}
     }
 {{/-last}}
@@ -61,7 +61,7 @@ defmodule {{moduleName}}.Api.{{classname}} do
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response({{#responses}}{{#-first}}[
 {{/-first}}
-      { {{& codeMappingKey}}, {{decodedStruct}}}{{#hasMore}},{{/hasMore}}
+      { {{& codeMappingKey}}, {{decodedStruct}}}{{^-last}},{{/-last}}
 {{#-last}}    ]{{/-last}}{{/responses}})
   end
   {{/operation}}
