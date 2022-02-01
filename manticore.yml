@@ -105,7 +105,7 @@ components:
         or by providing a query object.
         
         For more information see 
-        [Delete API](https://docs.manticoresearch.com/latest/html/http_reference/json_delete.html)
+        [Delete API](https://manual.manticoresearch.com/Deleting_documents)
       required:
         - index
       properties:
@@ -334,12 +334,12 @@ paths:
           ```
 
         For more information about the match query syntax, additional paramaters that can be set to the
-        input and response, please check: https://docs.manticoresearch.com/latest/html/http_reference/json_search.html.
+        input and response, please check: https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP.
       operationId: search
       tags:
         - Search
       externalDocs:
-        url: 'https://docs.manticoresearch.com/latest/html/http_reference/json_search.html'
+        url: 'https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP'
       requestBody:
         required: true
         content:
@@ -386,7 +386,7 @@ paths:
       tags:
         - Index
       externalDocs:
-        url: 'https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html'
+        url: 'https://manual.manticoresearch.com/Adding_documents_to_an_index/Adding_documents_to_a_real-time_index#Adding-documents-to-a-real-time-index'
       requestBody:
         required: true
         content:
@@ -427,7 +427,7 @@ paths:
       tags:
         - Index
       externalDocs:
-        url: 'https://docs.manticoresearch.com/latest/html/http_reference/json_insert.html'
+        url: 'https://manual.manticoresearch.com/Adding_documents_to_an_index/Adding_documents_to_a_real-time_index#Adding-documents-to-a-real-time-index'
       requestBody:
         required: true
         content:
@@ -483,7 +483,7 @@ paths:
       tags:
         - Index
       externalDocs:
-        url: 'https://docs.manticoresearch.com/latest/html/http_reference/json_update.html'
+        url: 'https://manual.manticoresearch.com/Updating_documents/UPDATE'
       requestBody:
         required: true
         content:
@@ -544,7 +544,7 @@ paths:
       tags:
         - Index
       externalDocs:
-        url: 'https://docs.manticoresearch.com/latest/html/http_reference/json_update.html'
+        url: 'https://manual.manticoresearch.com/Updating_documents/UPDATE'
       requestBody:
         required: true
         content:
@@ -599,7 +599,7 @@ paths:
       tags:
         - Index
       externalDocs:
-        url: 'https://docs.manticoresearch.com/latest/html/http_reference/json_update.html'
+        url: 'https://manual.manticoresearch.com/Updating_documents/UPDATE'
       requestBody:
         required: true
         content:
@@ -646,7 +646,7 @@ paths:
       tags:
         - Search
       externalDocs:
-        url: 'https://docs.manticoresearch.com/latest/html/http_reference/json_update.html'
+        url: 'https://manual.manticoresearch.com/Updating_documents/UPDATE'
       parameters:
         - in: path
           name: index
@@ -685,43 +685,43 @@ paths:
       description: >
         Run a query in SQL format.
 
-        Expects a query parameters string that can be in two modes:
+        Expects a query string passed through `body` parameter and optional `raw_response` parameter that defines a format of response.
 
-        * Select only query as `query=SELECT * FROM myindex`. The query string
-        MUST be URL encoded
+        `raw_response` can be set to `False` for Select queries only, e.g., `SELECT * FROM myindex`
         
-        * any type of query in format `mode=raw&query=SHOW TABLES`. The string
-        must be as is (no URL encoding) and `mode` must be first.
+        The query string must be URL encoded if `raw_response` parameter is set to False
+        
+        The query string must be as is (no URL encoding) if `raw_response` parameter is set to True or omitted.
 
         The response object depends on the query executed. In select mode the response has same format as `/search` operation.
       operationId: sql
       tags:
         - utils
       externalDocs:
-        url: 'https://docs.manticoresearch.com/latest/html/httpapi_reference.html#sql-api'
+        url: 'https://manual.manticoresearch.com/Connecting_to_the_server/HTTP#sql-api'
       requestBody:
         required: true
         description: >
-          Expects is a query parameters string that can be in two modes:
+          A query parameter string.
           
-            * Select only query as `query=SELECT * FROM myindex`. The query string
-          MUST be URL encoded
+          The query string must be URL encoded if `raw_response` parameter is set to False
           
-            * any type of query in format `mode=raw&query=SHOW TABLES`. The string
-          must be as is (no URL encoding) and `mode` must be first.
+          The query string must be as is (no URL encoding) if `raw_response` parameter is set to True or omitted.
         content:
           text/plain:
             schema:
               type: string
             example:
-              - mode=raw&query=SHOW TABLES
+              - SHOW TABLES
       parameters:
         - in: query
           name: raw_response  
-          required: false 
+          required: false
+          description: >
+           Optional parameter, defines a format of response. Can be set to `False` for Select only queries and set to `True` or omitted for any type of queries:
           schema:
             type: boolean
-            default: false
+            default: true
       responses:
         '200':
           description: >

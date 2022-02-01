@@ -235,10 +235,22 @@ class {{classname}}(object):
 {{/formParams}}
 
         body_params = None
-{{#bodyParam}}
+{{#vendorExtensions.x-is_sql}}
+    {{#bodyParam}}
+        if '{{paramName}}' in local_var_params:
+          if  'raw_response' in local_var_params and not local_var_params['raw_response']:
+              body_params = 'query=' + quote( str( local_var_params['{{paramName}}'] ) ) 
+          else:
+              body_params = 'mode=raw&query=' + str( local_var_params['{{paramName}}'] )
+    {{/bodyParam}}
+{{/vendorExtensions.x-is_sql}}
+{{^vendorExtensions.x-is_sql}}
+    {{#bodyParam}}
         if '{{paramName}}' in local_var_params:
             body_params = local_var_params['{{paramName}}']
-{{/bodyParam}}
+    {{/bodyParam}}
+{{/vendorExtensions.x-is_sql}}
+
         {{#hasProduces}}
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(

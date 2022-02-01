@@ -55,6 +55,16 @@
 </emitJSDoc>    this.<operationId><#usePromises>WithHttpInfo</usePromises> = function(<vendorExtensions.x-codegen-arg-list>) {<#hasOptionalParams>
       opts = opts || {};</hasOptionalParams>
       var postBody = <#bodyParam><#required><paramName></required><^required>opts['<paramName>']</required></bodyParam><^bodyParam>null</bodyParam>;
+
+      <#vendorExtensions.x-is_sql>
+      if (postBody) {
+        if  ('rawResponse' in opts && !opts.rawResponse)
+          postBody = 'query=' + encodeURIComponent( String( postBody ) );
+        else if ( !('rawResponse' in opts) || opts.rawResponse)
+          postBody = 'mode=raw&query=' + String( postBody );
+      }
+      </vendorExtensions.x-is_sql>
+
 <#allParams>
 <#required>
       // verify the required parameter '<paramName>' is set

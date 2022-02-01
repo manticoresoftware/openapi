@@ -122,6 +122,15 @@ public class {{classname}} {
     {{^bodyParam}}
       Object localVarPostBody = null;
     {{/bodyParam}}
+    {{#vendorExtensions.x-is_sql}}
+      if  (localVarPostBody != null) {
+        if  (!rawResponse) {
+          localVarPostBody = "query=" + apiClient.escapeString( localVarPostBody.toString() ); 
+        } else {
+          localVarPostBody = "mode=raw&query=" + localVarPostBody.toString();
+        }
+      }
+    {{/vendorExtensions.x-is_sql}}
     {{#allParams}}{{#required}}
     // verify the required parameter '{{paramName}}' is set
     if ({{paramName}} == null) {
