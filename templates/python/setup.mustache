@@ -9,7 +9,7 @@ NAME = "{{{projectName}}}"
 VERSION = "{{packageVersion}}"
 {{#apiInfo}}
 {{#apis}}
-{{^hasMore}}
+{{#-last}}
 # To install the library, run the following
 #
 # python setup.py install
@@ -68,6 +68,6 @@ setup(
     {{#licenseInfo}}license="{{licenseInfo}}",
     {{/licenseInfo}}
 )
-{{/hasMore}}
+{{/-last}}
 {{/apis}}
 {{/apiInfo}}
