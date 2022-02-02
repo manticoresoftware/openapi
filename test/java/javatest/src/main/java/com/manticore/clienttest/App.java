@@ -49,7 +49,10 @@ public class App
         sql ="SELECT * FROM products";
         sqlresult = utilsApi.sql(sql, false);
         System.out.println(sqlresult);        
-
+        
+        sql ="SELECT * FROM products";
+        sqlresult = utilsApi.sql(sql, false);
+        System.out.println(sqlresult);
         
         sql ="TRUNCATE TABLE products";
         sqlresult = utilsApi.sql(sql, true);

@@ -217,12 +217,13 @@ components:
           type: object
           additionalProperties: true
     sqlResponse:
-      type: object
-      description: Response from sql depends on the query executed.
-      additionalProperties: true
+      type: array
+      items:
+        type: object
+      description: List containing Response object from sql that depends on the query executed as its item.
       example:
-        total: 0
-        error: null
+        - total: 0
+          error: null
     successResponse:
       type: object
       description: Success response
@@ -681,6 +682,7 @@ paths:
   /sql:
     post:
       summary: Perform SQL requests
+      x-is_test: true
       x-is_sql: true
       description: >
         Run a query in SQL format.
@@ -689,10 +691,8 @@ paths:
 
         `raw_response` can be set to `False` for Select queries only, e.g., `SELECT * FROM myindex`
         
-        The query string must be URL encoded if `raw_response` parameter is set to False
+        The query string must stay as it is, no URL encoding is needed.
         
-        The query string must be as is (no URL encoding) if `raw_response` parameter is set to True or omitted.
-
         The response object depends on the query executed. In select mode the response has same format as `/search` operation.
       operationId: sql
       tags:
@@ -703,10 +703,6 @@ paths:
         required: true
         description: >
           A query parameter string.
-          
-          The query string must be URL encoded if `raw_response` parameter is set to False
-          
-          The query string must be as is (no URL encoding) if `raw_response` parameter is set to True or omitted.
         content:
           text/plain:
             schema:

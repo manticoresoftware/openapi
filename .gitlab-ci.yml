@@ -9,7 +9,7 @@ services:
 
 .init_sqls: &init_sqls
   - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test(content text, name text attribute, cat integer)"
-  - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test_pq(content text, name text attribute, cat integer) type='pq'"  
+  - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test_pq(content text, name text attribute, cat integer) type=\'pq\'"  
 
 python_testing:
   image: python
@@ -88,8 +88,8 @@ javascript_push:
       - out/manticoresearch-javascript/**/*
   script:
     - git remote add manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git
-    - git fetch manticoresearch-javascript
-    - git push https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git `git subtree split --prefix=out/manticoresearch-javascript`:master --force
+    - git fetch manticoresearch-javascript  
+    - git subtree push --prefix=out/manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git master
   dependencies:
     - javascript_testing
 

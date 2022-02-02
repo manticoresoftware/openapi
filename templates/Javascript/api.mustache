@@ -61,7 +61,7 @@
         if  ('rawResponse' in opts && !opts.rawResponse)
           postBody = 'query=' + encodeURIComponent( String( postBody ) );
         else if ( !('rawResponse' in opts) || opts.rawResponse)
-          postBody = 'mode=raw&query=' + String( postBody );
+          postBody = 'mode=raw&query=' + encodeURIComponent( String( postBody ) );
       }
       </vendorExtensions.x-is_sql>
 
@@ -97,6 +97,10 @@
       var contentTypes = [<#consumes>'<& mediaType>'<#hasMore>, </hasMore></consumes>];
       var accepts = [<#produces>'<& mediaType>'<#hasMore>, </hasMore></produces>];
       var returnType = <#vendorExtensions.x-return-type><&vendorExtensions.x-return-type></vendorExtensions.x-return-type><^vendorExtensions.x-return-type>null</vendorExtensions.x-return-type>;
+      <#vendorExtensions.x-is_sql>
+      if ('rawResponse' in opts && !opts.rawResponse) 
+        returnType = Object;
+      </vendorExtensions.x-is_sql>
       <#servers.0>
       let basePaths = [<#servers>'<url>'<^-last>, </-last></servers>];
       let basePath = basePaths[0]; // by default use the first one in "servers" defined in OpenAPI
@@ -112,7 +116,14 @@
         '<&path>', '<httpMethod>',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, <#servers.0>basePath</servers.0><^servers.0>null</servers.0><^usePromises>, callback</usePromises>
-      );
+      ).then( function(res) {
+        console.log(res);
+        <#vendorExtensions.x-is_sql>
+        if ('rawResponse' in opts && !opts.rawResponse)
+          res['data'] = [ res['data'] ];
+        </vendorExtensions.x-is_sql>
+        return res;
+      });
     }
 <#usePromises>
     <#emitJSDoc>

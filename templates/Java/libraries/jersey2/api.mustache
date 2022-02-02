@@ -127,7 +127,7 @@ public class {{classname}} {
         if  (!rawResponse) {
           localVarPostBody = "query=" + apiClient.escapeString( localVarPostBody.toString() ); 
         } else {
-          localVarPostBody = "mode=raw&query=" + localVarPostBody.toString();
+          localVarPostBody = "mode=raw&query=" + apiClient.escapeString( localVarPostBody.toString() );
         }
       }
     {{/vendorExtensions.x-is_sql}}
@@ -177,11 +177,21 @@ public class {{classname}} {
 
     {{#returnType}}
     GenericType<{{{returnType}}}> localVarReturnType = new GenericType<{{{returnType}}}>() {};
-
     {{/returnType}}
+
+    {{#vendorExtensions.x-is_sql}}
+    if (!rawResponse) {
+    	ApiResponse<Map<String, Object>> res = apiClient.invokeAPI("{{classname}}.{{operationId}}", localVarPath, "{{httpMethod}}", localVarQueryParams, localVarPostBody,
+            localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+        	localVarAuthNames, new GenericType<Map<String, Object>>() {}, {{#bodyParam}}{{#isNullable}}true{{/isNullable}}{{^isNullable}}false{{/isNullable}}{{/bodyParam}}{{^bodyParam}}false{{/bodyParam}});
+        List<Object> resList = new ArrayList<Object>();
+        resList.add(res.getData());
+    	return new ApiResponse<List<Object>>(res.getStatusCode(), res.getHeaders(), resList);
+    } 
+    {{/vendorExtensions.x-is_sql}}
     return apiClient.invokeAPI("{{classname}}.{{operationId}}", localVarPath, "{{httpMethod}}", localVarQueryParams, localVarPostBody,
-                               localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
-                               localVarAuthNames, {{#returnType}}localVarReturnType{{/returnType}}{{^returnType}}null{{/returnType}}, {{#bodyParam}}{{#isNullable}}true{{/isNullable}}{{^isNullable}}false{{/isNullable}}{{/bodyParam}}{{^bodyParam}}false{{/bodyParam}});
+    	localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType,
+        localVarAuthNames, {{#returnType}}localVarReturnType{{/returnType}}{{^returnType}}null{{/returnType}}, {{#bodyParam}}{{#isNullable}}true{{/isNullable}}{{^isNullable}}false{{/isNullable}}{{/bodyParam}}{{^bodyParam}}false{{/bodyParam}});
   }
   {{#vendorExtensions.x-group-parameters}}
 
