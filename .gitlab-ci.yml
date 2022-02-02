@@ -89,7 +89,7 @@ javascript_push:
   script:
     - git remote add manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git
     - git fetch manticoresearch-javascript
-    - git push https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git `git subtree split --prefix out/manticoresearch-javascript master`:master --force
+    - git push https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git `git subtree split --prefix=out/manticoresearch-javascript`:master --force
   dependencies:
     - javascript_testing
 
