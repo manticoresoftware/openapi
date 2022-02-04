@@ -53,6 +53,7 @@ java_testing:
 
 elixir_testing:
   image: elixir
+  when: manual
   stage: test
   only:
     changes:
@@ -67,6 +68,7 @@ elixir_testing:
     
 python_push:
   stage: push
+  when: manual
   before_script:
     - apt-get update && apt-get install -y git
   only:
@@ -81,6 +83,7 @@ python_push:
 
 javascript_push:
   stage: push
+  when: manual
   before_script:
     - apt-get update && apt-get install -y git
   only:
@@ -95,6 +98,7 @@ javascript_push:
 
 java_push:
   stage: push
+  when: manual
   before_script:
     - apt-get update && apt-get install -y git
   only:
