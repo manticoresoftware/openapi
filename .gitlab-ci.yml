@@ -67,6 +67,7 @@ elixir_testing:
     
 python_push:
   stage: push
+  when: manual
   before_script:
     - apt-get update && apt-get install -y git
   only:
