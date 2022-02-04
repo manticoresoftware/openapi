@@ -13,7 +13,7 @@ services:
 
 python_testing:
   image: python
-  stage: push
+  stage: test
   only:
     changes:
       - out/manticoresearch-python/**/*
@@ -66,8 +66,7 @@ elixir_testing:
     - MIX_ENV=test mix test
     
 python_push:
-  stage: test
-  when: manual
+  stage: push
   before_script:
     - apt-get update && apt-get install -y git
   only:
@@ -77,6 +76,8 @@ python_push:
     - git remote add manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git
     - git fetch manticoresearch-python  
     - git subtree push --prefix=out/manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git master
+  dependencies:
+    - python_testing
 
 javascript_push:
   stage: push
