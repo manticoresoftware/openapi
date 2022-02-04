@@ -53,7 +53,6 @@ java_testing:
 
 elixir_testing:
   image: elixir
-  when: manual
   stage: test
   only:
     changes:
@@ -68,7 +67,6 @@ elixir_testing:
     
 python_push:
   stage: push
-  when: manual
   before_script:
     - apt-get update && apt-get install -y git
   only:
@@ -78,12 +76,9 @@ python_push:
     - git remote add manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git
     - git fetch manticoresearch-python  
     - git subtree push --prefix=out/manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git master
-  dependencies:
-    - python_testing
 
 javascript_push:
   stage: push
-  when: manual
   before_script:
     - apt-get update && apt-get install -y git
   only:
@@ -98,7 +93,6 @@ javascript_push:
 
 java_push:
   stage: push
-  when: manual
   before_script:
     - apt-get update && apt-get install -y git
   only:
