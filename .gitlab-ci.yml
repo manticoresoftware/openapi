@@ -113,8 +113,6 @@ elixir_push:
     - git remote add manticoresearch-elixir https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-elixir.git
     - git fetch manticoresearch-elixir
     - git subtree push --prefix=out/manticoresearch-elixir https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-elixir.git master
-  dependencies:
-    - elixir_testing
     
 javascript_npmjs:
   stage: publish
