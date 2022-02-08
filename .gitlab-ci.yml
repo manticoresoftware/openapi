@@ -1,6 +1,6 @@
 stages:
-  - test
   - push
+  - test
   - publish
 variables:
   GIT_STRATEGY: clone
@@ -104,8 +104,6 @@ java_push:
     - git remote add manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git
     - git fetch manticoresearch-java  
     - git subtree push --prefix=out/manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git master
-  dependencies:
-    - java_testing
 
 elixir_push:
   stage: push
