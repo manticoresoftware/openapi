@@ -76,8 +76,7 @@ python_push:
     - git remote add manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git
     - git fetch manticoresearch-python  
     - git subtree push --prefix=out/manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git master
-  dependencies:
-    - python_testing
+
 
 javascript_push:
   stage: push
@@ -90,8 +89,6 @@ javascript_push:
     - git remote add manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git
     - git fetch manticoresearch-javascript  
     - git subtree push --prefix=out/manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git master
-  dependencies:
-    - javascript_testing
 
 java_push:
   stage: push
