@@ -22,6 +22,10 @@ externalDocs:
   description: Find out more about Manticore Search
   url: 'https://manticoresearch.com/'
 components:
+  examples:
+    objectExample:
+      value: www
+      summary: A sample object
   schemas:
     searchRequest:
       type: object
@@ -35,7 +39,10 @@ components:
           example: test
         query:
           type: object
-          additionalProperties: true
+          items: 
+             type: object
+          example: 
+             match_all: {}
         limit:
           type: integer
         offset:
@@ -46,6 +53,7 @@ components:
           type: array
           items:
             type: object
+          example: [{ "test":"asc" }, "id"]
         aggs:
           type: object
           additionalProperties: true
@@ -60,8 +68,8 @@ components:
         profile:
           type: boolean
       example:
-        index: test
-        query: 'query_string:"find me"'
+        index:
+          $ref: '#/components/examples/objectExample'
     updateDocumentRequest:
       type: object
       description: Payload for update document
@@ -607,6 +615,7 @@ paths:
           application/x-ndjson:
             schema:
               type: string
+              example: '''{"insert": {"index": "test", "id": 1, "doc": {"title": "Title 1"}}},\n{"insert": {"index": "test", "id": 2, "doc": {"title": "Title 2"}}}'''
       responses:
         '200':
           description: item updated
