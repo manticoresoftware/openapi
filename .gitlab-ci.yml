@@ -1,6 +1,5 @@
 stages:
   - push
-  - test
   - publish
 variables:
   GIT_STRATEGY: clone
@@ -100,7 +99,7 @@ java_push:
   script:
     - git remote add manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git
     - git fetch manticoresearch-java  
-    - git subtree push --prefix=out/manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git master
+    - git push https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git `git subtree split --prefix=out/manticoresearch-java`:master --force
 
 elixir_push:
   stage: push

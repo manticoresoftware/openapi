@@ -39,8 +39,6 @@ components:
           example: test
         query:
           type: object
-          items: 
-             type: object
           example: 
              match_all: {}
         limit:
@@ -65,6 +63,9 @@ components:
           type: array
           items:
             type: string
+        options:
+           type: object
+           additionalProperties: true
         profile:
           type: boolean
       example:
@@ -614,8 +615,9 @@ paths:
         content:
           application/x-ndjson:
             schema:
-              type: string
-              example: '''{"insert": {"index": "test", "id": 1, "doc": {"title": "Title 1"}}},\n{"insert": {"index": "test", "id": 2, "doc": {"title": "Title 2"}}}'''
+              type: string 
+            example: 
+              - '''{"insert": {"index": "test", "id": 1, "doc": {"title": "Title 1"}}},\n{"insert": {"index": "test", "id": 2, "doc": {"title": "Title 2"}}}'''
       responses:
         '200':
           description: item updated

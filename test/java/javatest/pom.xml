@@ -4,9 +4,13 @@
   <groupId>com.manticore.clienttest</groupId>
   <artifactId>javatest</artifactId>
   <packaging>jar</packaging>
-  <version>1.0</version>
+  <version>1.1</version>
   <name>javatest</name>
   <url>http://maven.apache.org</url>
+  <properties>
+     <maven.compiler.source>1.8</maven.compiler.source>
+     <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -14,27 +18,25 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-<dependency>
- <groupId>com.manticoresearch</groupId>
-  <artifactId>manticoresearch</artifactId>
-  <version>1.0.2</version>
-  <scope>compile</scope>
-</dependency>
-       <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-            <version>4.1</version>
-        </dependency>
-
-<dependency>
-    <groupId>org.json</groupId>
-    <artifactId>json</artifactId>
-    <version>20090211</version>
-</dependency>
+	<dependency>
+	 <groupId>com.manticoresearch</groupId>
+	  <artifactId>manticoresearch</artifactId>
+	  <version>3.0.1</version>
+	  <scope>compile</scope>
+	</dependency>
+    <dependency>
+         <groupId>org.apache.commons</groupId>
+         <artifactId>commons-collections4</artifactId>
+         <version>4.1</version>
+     </dependency>
+	<dependency>
+	    <groupId>org.json</groupId>
+	    <artifactId>json</artifactId>
+	    <version>20090211</version>
+	</dependency>
   </dependencies>
-<build>
+	<build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -46,7 +48,7 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
- <configuration>
+ 						<configuration>
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">

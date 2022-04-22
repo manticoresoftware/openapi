@@ -177,6 +177,20 @@ public class App
         BulkResponse bulkresult = indexApi.bulk(body);
         System.out.println(bulkresult);
         
+        // Search options test
+        searchRequest = new SearchRequest();
+        searchRequest.setIndex("products");
+        query = new HashMap<String,Object>();
+        query.put("match_all",null);
+        searchRequest.setQuery(query);
+        Object options = new HashMap<String,Object>(){{
+			put("max_matches", 2);
+		}};
+		searchRequest.setOptions(options);
+		sqlresult = searchApi.search(searchRequest);
+ 		System.out.println(sqlresult);
+        
+        
         doc = new HashMap<String,Object>(){{
             put("title","Yellow bag");
             put("sizes",new int[]{40,41,42,43});
