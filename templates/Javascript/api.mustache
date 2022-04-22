@@ -117,7 +117,6 @@
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, <#servers.0>basePath</servers.0><^servers.0>null</servers.0><^usePromises>, callback</usePromises>
       ).then( function(res) {
-        console.log(res);
         <#vendorExtensions.x-is_sql>
         if ('rawResponse' in opts && !opts.rawResponse)
           res['data'] = [ res['data'] ];

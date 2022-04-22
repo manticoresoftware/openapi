@@ -34,7 +34,7 @@ do_javascript() {
   docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch  --additional-properties projectVersion=`cat versions/javascript`   --additional-properties  usePromises=true
   git apply patches/javascript.package.patch
   cp LICENSE.txt out/manticoresearch-javascript/LICENSE.txt
-  cp docs/javascript/README.md out/manticoresearch-javascript/README.md
+  #cp docs/javascript/README.md out/manticoresearch-javascript/README.md
   cp docs/javascript/docs/* out/manticoresearch-javascript/docs/
   rm -rf out/manticoresearch-javascript/test/api/* 
   cp -R test/javascript/api/Manual.spec.js out/manticoresearch-javascript/test/api/Manual.spec.js
