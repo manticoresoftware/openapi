@@ -204,6 +204,8 @@ components:
               type: integer
             total:
               type: integer
+            total_relation:
+              type: string
             hits:
               type: array
               items:

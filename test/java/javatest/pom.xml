@@ -21,8 +21,7 @@
 	<dependency>
 	 <groupId>com.manticoresearch</groupId>
 	  <artifactId>manticoresearch</artifactId>
-	  <version>3.0.1</version>
-	  <scope>compile</scope>
+	  <version>2.0.3</version>
 	</dependency>
     <dependency>
          <groupId>org.apache.commons</groupId>
