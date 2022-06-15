@@ -720,8 +720,7 @@ paths:
           text/plain:
             schema:
               type: string
-            example:
-              - SHOW TABLES
+            example: SHOW TABLES
       parameters:
         - in: query
           name: raw_response  
