@@ -10,6 +10,19 @@ services:
   - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test(content text, name text attribute, cat integer)"
   - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test_pq(content text, name text attribute, cat integer) type=\'pq\'"  
 
+
+csharp_push:
+  stage: push
+  before_script:
+    - apt-get update && apt-get install -y git
+  only:
+    changes:
+      - out/manticoresearch-csharp/**/*
+  script:
+    - git remote add manticoresearch-net https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-net.git
+    - git fetch manticoresearch-net
+    - git subtree push --prefix=out/manticoresearch-csharp https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-net.git master
+
    
 python_push:
   stage: push
@@ -60,6 +73,16 @@ elixir_push:
     - git remote add manticoresearch-elixir https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-elixir.git
     - git fetch manticoresearch-elixir
     - git subtree push --prefix=out/manticoresearch-elixir https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-elixir.git master
+
+
+csharp_publish:
+  stage: publish
+  when: manual
+  image: csharp
+  allow_failure: true
+  script:
+    - cd out/manticoresearch-csharp
+
     
 javascript_npmjs:
   stage: publish
