@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Manticore Search Client
+
+Low-level client for Manticore Search. 
+
+The version of the OpenAPI document: 1.0.0
+Contact: info@manticoresearch.com
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ManticoreSearch.Test</RootNamespace>
+    <AssemblyName>ManticoreSearch.Test</AssemblyName>
+    <TargetFramework></TargetFramework>
+    <IsPackable>false</IsPackable>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.2" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ManticoreSearch\ManticoreSearch.csproj">
+      <Project>{B8044553-37A9-4DA4-AD05-FF9202EFAB75}</Project>
+      <Name>ManticoreSearch</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
