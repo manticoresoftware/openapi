@@ -44,8 +44,8 @@ do_javascript() {
 
 do_csharp() {
   echo "Building CSharp ..."
-  rm -rf out/manticore-csharp 
-  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp  -o /local/out/manticore-csharp -t /local/templates/csharp-netcore --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties=packageName=ManticoreSearch --additional-properties  library="httpclient"
+  rm -rf out/manticoresearch-csharp 
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp-netcore  -o /local/out/manticoresearch-csharp -t /local/templates/csharp-netcore --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient
   echo "CSharp done."
 }
 
