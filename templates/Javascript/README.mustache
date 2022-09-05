@@ -40,6 +40,14 @@ Please follow the [installation](#installation) instruction and execute the foll
 var {{{moduleName}}} = require('{{{projectName}}}');
 var client = {{{moduleName}}}.ApiClient();
 client.basePath="http://localhost:9308";
+/*
+If a custom http agent is needed, e.g., to enable keep-alive connections, the 'requestAgent' option can be set to override 'superagent' agent instance used by default:
+client.requestAgent = new http.Agent({
+  keepAlive: true,
+  maxSockets: 1,
+  keepAliveMsecs: 1000
+});
+*/
 {{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}
 {{#hasAuthMethods}}
 var defaultClient = {{{moduleName}}}.ApiClient.instance;
