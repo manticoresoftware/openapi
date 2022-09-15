@@ -10,6 +10,7 @@ using System.Net.Mime;
 using {{packageName}}.Client;
 {{#hasImport}}using {{packageName}}.{{modelPackage}};
 {{/hasImport}}
+using System.Web;
 
 namespace {{packageName}}.{{apiPackage}}
 {
@@ -463,6 +464,21 @@ namespace {{packageName}}.{{apiPackage}}
             {{#bodyParam}}
             localVarRequestOptions.Data = {{paramName}};
             {{/bodyParam}}
+		    {{^bodyParam}}
+		    localVarRequestOptions.Data = null;
+		    {{/bodyParam}}
+		    {{#vendorExtensions.x-is_sql}}
+			if  (localVarRequestOptions.Data != null) 
+			{
+			  if  (rawResponse == false) 
+			  {
+			    localVarRequestOptions.Data = "query=" + HttpUtility.UrlEncode( body.ToString() ).Replace("+", "%20");
+			  } else 
+			  {
+			    localVarRequestOptions.Data = "mode=raw&query=" + HttpUtility.UrlEncode( body.ToString() ).Replace("+", "%20");
+			  }
+			}
+		    {{/vendorExtensions.x-is_sql}}
 
             {{#authMethods}}
             // authentication ({{name}}) required
@@ -528,8 +544,23 @@ namespace {{packageName}}.{{apiPackage}}
             {{/authMethods}}
 
             // make the HTTP request
+            {{#vendorExtensions.x-is_sql}}
+            var localVarResponse = new {{packageName}}.Client.ApiResponse<List<Object>>( new HttpStatusCode(), null);
+            if  (rawResponse == false) 
+            {
+                var res = this.Client.{{#lambda.titlecase}}{{#lambda.lowercase}}{{httpMethod}}{{/lambda.lowercase}}{{/lambda.titlecase}}<Object>("{{{path}}}", localVarRequestOptions, this.Configuration);
+                List<Object> resList = new List<Object>();
+                resList.Add( res.Data );
+                localVarResponse = new {{packageName}}.Client.ApiResponse<{{{returnType}}}{{^returnType}}Object{{/returnType}}>(res.StatusCode, res.Headers, resList);
+            } else 
+            {
+                localVarResponse = this.Client.{{#lambda.titlecase}}{{#lambda.lowercase}}{{httpMethod}}{{/lambda.lowercase}}{{/lambda.titlecase}}<{{{returnType}}}{{^returnType}}Object{{/returnType}}>("{{{path}}}", localVarRequestOptions, this.Configuration);
+            }
+            {{/vendorExtensions.x-is_sql}}
+            {{^vendorExtensions.x-is_sql}}
             var localVarResponse = this.Client.{{#lambda.titlecase}}{{#lambda.lowercase}}{{httpMethod}}{{/lambda.lowercase}}{{/lambda.titlecase}}<{{{returnType}}}{{^returnType}}Object{{/returnType}}>("{{{path}}}", localVarRequestOptions, this.Configuration);
-
+			{{/vendorExtensions.x-is_sql}}
+			
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("{{operationId}}", localVarResponse);
