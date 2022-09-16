@@ -12,6 +12,8 @@ To edit and validate the config, you can use an online editor such as [Swagger](
 
 * [Python](https://github.com/manticoresoftware/manticoresearch-python) - it also has a testing suite with incomplete coverage
 
+* [.Net](https://github.com/manticoresoftware/manticoresearch-net) - it also has a testing suite with incomplete coverage
+
 * [Javascript](https://github.com/manticoresoftware/manticoresearch-javascript) - it also has a testing suite with incomplete coverage
 
 * [Java](https://github.com/manticoresoftware/manticoresearch-java)
