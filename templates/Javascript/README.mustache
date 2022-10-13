@@ -2,10 +2,6 @@
 
 {{#appDescriptionWithNewLines}}{{{appDescriptionWithNewLines}}}{{/appDescriptionWithNewLines}}
 
-{{#infoUrl}}
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-javascript/tree/3.2.0
-{{/infoUrl}}
-
 ## Requirements
 
 Node v8.
@@ -38,7 +34,7 @@ Please follow the [installation](#installation) instruction and execute the foll
 
 ```javascript
 var {{{moduleName}}} = require('{{{projectName}}}');
-var client = {{{moduleName}}}.ApiClient();
+var client = new {{{moduleName}}}.ApiClient();
 client.basePath="http://localhost:9308";
 /*
 If a custom http agent is needed, e.g., to enable keep-alive connections, the 'requestAgent' option can be set to override 'superagent' agent instance used by default:
