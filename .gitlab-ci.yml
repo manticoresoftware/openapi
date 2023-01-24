@@ -10,8 +10,8 @@ services:
   - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test(content text, name text attribute, cat integer)"
   - curl -X POST http://manticoresearch-manticore:9308/sql -d "mode=raw&query=CREATE TABLE test_pq(content text, name text attribute, cat integer) type=\'pq\'"  
 
-
 csharp_push:
+  image: ubuntu:latest
   stage: push
   before_script:
     - apt-get update && apt-get install -y git
@@ -25,6 +25,7 @@ csharp_push:
 
    
 python_push:
+  image: ubuntu:latest
   stage: push
   before_script:
     - apt-get update && apt-get install -y git
@@ -38,6 +39,7 @@ python_push:
 
 
 javascript_push:
+  image: ubuntu:latest
   stage: push
   before_script:
     - apt-get update && apt-get install -y git
@@ -50,6 +52,7 @@ javascript_push:
     - git subtree push --prefix=out/manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git master
 
 java_push:
+  image: ubuntu:latest
   stage: push
   before_script:
     - apt-get update && apt-get install -y git
@@ -63,6 +66,7 @@ java_push:
     
 
 elixir_push:
+  image: ubuntu:latest
   stage: push
   before_script:
     - apt-get update && apt-get install -y git
