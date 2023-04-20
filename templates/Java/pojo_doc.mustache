@@ -3,20 +3,66 @@
 {{#description}}{{&description}}
 {{/description}}
 {{^vendorExtensions.x-is-one-of-interface}}
+
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-{{#vars}}**{{name}}** | {{#isEnum}}[**{{datatypeWithEnum}}**](#{{datatypeWithEnum}}){{/isEnum}}{{^isEnum}}{{#isPrimitiveType}}**{{dataType}}**{{/isPrimitiveType}}{{^isPrimitiveType}}[**{{dataType}}**]({{complexType}}.md){{/isPrimitiveType}}{{/isEnum}} | {{description}} | {{^required}} [optional]{{/required}}{{#isReadOnly}} [readonly]{{/isReadOnly}}
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+{{#vars}}|**{{name}}** | {{#isEnum}}[**{{datatypeWithEnum}}**](#{{datatypeWithEnum}}){{/isEnum}}{{^isEnum}}{{#isContainer}}{{#isArray}}{{#items}}{{#isModel}}[{{/isModel}}{{/items}}**{{baseType}}{{#items}}&lt;{{dataType}}&gt;**{{#isModel}}]({{^baseType}}{{dataType}}{{/baseType}}{{baseType}}.md){{/isModel}}{{/items}}{{/isArray}}{{#isMap}}{{#items}}{{#isModel}}[{{/isModel}}**Map&lt;String, {{dataType}}&gt;**{{#isModel}}]({{^baseType}}{{dataType}}{{/baseType}}{{baseType}}.md){{/isModel}}{{/items}}{{/isMap}}{{/isContainer}}{{^isContainer}}{{#isModel}}[{{/isModel}}**{{dataType}}**{{#isModel}}]({{^baseType}}{{dataType}}{{/baseType}}{{baseType}}.md){{/isModel}}{{/isContainer}}{{/isEnum}} | {{description}} | {{^required}} [optional]{{/required}}{{#isReadOnly}} [readonly]{{/isReadOnly}} |
 {{/vars}}
 {{#vars}}{{#isEnum}}
 
+{{#vendorExtensions.x-is_search_req}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_search_req}}
+{{#vendorExtensions.x-is_match_filter}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_match_filter}}
+{{#vendorExtensions.x-is_match_phrase_filter}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_match_phrase_filter}}
+{{#vendorExtensions.x-is_match_op_filter}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_match_op_filter}}
+{{#vendorExtensions.x-is_bool_filter}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_bool_filter}}
+{{#vendorExtensions.x-is_geo_filter}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_geo_filter}}
+{{#vendorExtensions.x-is_range_filter}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_range_filter}}
+{{#vendorExtensions.x-is_in_filter}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_in_filter}}
+{{#vendorExtensions.x-is_equals_filter}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_equals_filter}}
+{{#vendorExtensions.x-is_req_highlight}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_req_highlight}}
+{{#vendorExtensions.x-is_highlight_field}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_highlight_field}}
+{{#vendorExtensions.x-is_req_agg}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_req_agg}}
+{{#vendorExtensions.x-is_sort_order}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_sort_order}}
+{{#vendorExtensions.x-is_sort_mva}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_sort_mva}}
+{{#vendorExtensions.x-is_source_by_rules}}
+[[Using in search requests]](SearchApi.md#{{classname}})
+{{/vendorExtensions.x-is_source_by_rules}}
 
 ## Enum: {{datatypeWithEnum}}
 
-Name | Value
----- | -----{{#allowableValues}}{{#enumVars}}
-{{name}} | {{value}}{{/enumVars}}{{/allowableValues}}
+| Name | Value |
+|---- | -----|{{#allowableValues}}{{#enumVars}}
+| {{name}} | {{value}} |{{/enumVars}}{{/allowableValues}}
 {{/isEnum}}{{/vars}}
 {{#vendorExtensions.x-implements.0}}
 
