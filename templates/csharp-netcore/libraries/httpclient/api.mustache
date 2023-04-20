@@ -12,6 +12,12 @@ using {{packageName}}.Client;
 {{/hasImport}}
 using System.Web;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
+using System.Dynamic;
+
+
 namespace {{packageName}}.{{apiPackage}}
 {
     {{#operations}}
@@ -353,6 +359,144 @@ namespace {{packageName}}.{{apiPackage}}
         {{/isDeprecated}}
         public {{packageName}}.Client.ApiResponse<{{{returnType}}}{{^returnType}}Object{{/returnType}}> {{operationId}}WithHttpInfo({{#allParams}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default({{{dataType}}}){{/optionalMethodArgument}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}})
         {
+        	{{#vendorExtensions.x-is_modify}}
+        	{{#allParams}}
+        	{{#-first}}
+        	var dict = JsonConvert.DeserializeObject<JObject>(JsonConvert.SerializeObject({{paramName}}));
+        	if (dict.ContainsKey("id") && dict.ContainsKey("query"))
+	 		{
+	 			dict.Remove("query");
+	 		}
+	 		{{/-first}}
+	 		{{/allParams}}
+        	{{/vendorExtensions.x-is_modify}}
+        	
+			{{#vendorExtensions.x-is_search}}
+            JObject RestructObj(JObject obj, string objType)
+ 			{
+ 			    if (!obj.ContainsKey("attr") && !obj.ContainsKey("name") && !obj.ContainsKey("query_fields") && !obj.ContainsKey("value") && !obj.ContainsKey("values")
+ 			        && !obj.ContainsKey("field") && !obj.ContainsKey("location_anchor") && !obj.ContainsKey("must") && !obj.ContainsKey("must_not") && !obj.ContainsKey("should"))
+ 			    {
+ 			        return obj;
+ 			    }
+ 			    
+ 			    var newObj = new JObject();
+ 			    string keyPropVal;
+ 			    
+ 			    if (objType == "fulltext_filter")
+				{
+				    if (obj.ContainsKey("query_fields"))
+				    {
+				        keyPropVal = (string)obj["query_fields"];
+				        if (obj.ContainsKey("query_phrase"))
+				        {
+				            var matchPhraseObj = new JObject();
+				            matchPhraseObj[keyPropVal] = obj["query_phrase"];
+				            newObj["match_phrase"] = matchPhraseObj;
+				        }
+				        else
+				        {
+				            var matchObj = new JObject();
+				            matchObj[keyPropVal] = obj.ContainsKey("operator")
+				                ? new JObject { { "query", obj["query_string"] }, { "operator", obj["operator"] } }
+				                : obj["query_string"];
+				            newObj["match"] = matchObj;
+				        }
+				    }
+				    else
+				    {
+				        newObj = obj;
+				    }
+				}
+				else if (objType == "attr_filter")
+			    {
+			        if (obj.ContainsKey("field"))
+			        {
+			            keyPropVal = (string)obj["field"];
+			            if (obj.ContainsKey("value"))
+			            {
+			                var equalsObj = new JObject();
+			                equalsObj[keyPropVal] = obj["value"];
+			                newObj["equals"] = equalsObj;
+			            }
+			            else if (obj.ContainsKey("values"))
+			            {
+			                var inObj = new JObject();
+			                inObj[keyPropVal] = obj["values"];
+			                newObj["in"] = inObj;
+			            }
+			            else
+			            {
+			            	obj.Remove("field");
+			                newObj[keyPropVal] = obj;
+			                newObj = new JObject { { "range", newObj } };
+			            }
+			        }
+			        else 
+			        {
+			        	if (!obj.ContainsKey("must") && !obj.ContainsKey("must_not") && !obj.ContainsKey("should")) 
+			        	{
+							newObj["geo_distance"] = obj;
+						} else 
+						{
+							JObject RestructFilter(JObject filter)
+							{
+								return (filter.ContainsKey("query_fields") || filter.ContainsKey("query_string"))
+									? RestructObj(filter, "fulltext_filter")
+									: RestructObj(filter, "attr_filter");
+							}
+
+							new[] {"must", "must_not", "should"}.ToList().ForEach(propName =>
+							{
+								if (obj.ContainsKey(propName) && obj[propName] != null) {
+									
+									newObj[propName] = JArray.FromObject(
+										obj[propName].Select( filter => RestructFilter((JObject)filter) )
+									);
+								}
+							});
+							
+							newObj = new JObject { { "bool", newObj } };
+						}
+			        }
+			    } 
+				else {
+	 			    var keyPropName = obj.ContainsKey("attr") ? "attr" : "name";
+	 		        keyPropVal = (string)obj[keyPropName];
+	 		        obj.Remove(keyPropName);
+	 		        if (objType == "aggs")
+	 		        {
+	 		            newObj[keyPropVal] = JObject.FromObject(new { terms = obj } );
+	 		        }
+	 		        else
+	 		        {
+			        	newObj[keyPropVal] = obj;
+	 		        }
+	 		    }
+ 		        
+ 		        return newObj;
+ 			}
+ 			
+ 			JObject RestructNestedObj(List<JContainer> nestedObj, List<string> propNames)
+			{
+			    var newProp = new JObject();
+			    foreach (JObject propVal in (JArray)nestedObj[nestedObj.Count - 1])
+			    {
+			        var oldProp = RestructObj(propVal, propNames[propNames.Count - 1]);
+			        newProp.Merge(oldProp);
+			        //newProp = newProp.Concat(oldProp).ToDictionary(x => x.Key, x => x.Value);
+			    }
+			    nestedObj[nestedObj.Count - 1] = newProp;
+			
+			    for (int i = propNames.Count - 1; i >= 0; i--)
+			    {
+			        nestedObj[i][propNames[i]] = nestedObj[i + 1];
+			    }
+			    
+			    return (JObject)nestedObj[0];
+			}
+            {{/vendorExtensions.x-is_search}}
+
             {{#allParams}}
             {{#required}}
             {{^vendorExtensions.x-csharp-value-type}}
@@ -461,9 +605,88 @@ namespace {{packageName}}.{{apiPackage}}
             }
             {{/required}}
             {{/formParams}}
+            {{#vendorExtensions.x-is_search}}
+            {{#bodyParam}}
+            var dict = JsonConvert.DeserializeObject<JObject>(JsonConvert.SerializeObject(searchRequest));
+			
+			if (dict.ContainsKey("source")) 
+			{
+ 				dict["_source"] = dict["source"];
+ 				dict.Remove("source");
+ 			}
+ 
+ 			if (dict.ContainsKey("sort"))
+ 			{
+	 		    var sortList = new JArray();
+	 		    foreach (object sort in (JArray)dict["sort"])
+	 		    {
+	 		    	if (sort is JObject)
+	 		    	{
+	 		        	sortList.Add(RestructObj((JObject)sort, "sort"));
+	 		        }
+	 		        else
+	 		        {
+	 		        	sortList.Add(sort);
+	 		        } 
+	 		    }
+	 		    dict["sort"] = sortList;
+	 		}
+	 		
+	 		if (dict.ContainsKey("highlight"))
+	 		{
+	 			var highlightDict = (JObject)dict["highlight"];
+	 			if (highlightDict.ContainsKey("highlight_query"))
+	 			{
+	 				highlightDict.Remove("highlight_query");
+	 			}
+	 		}
+ 		    
+ 		    if (dict.ContainsKey("fulltext_filter") || dict.ContainsKey("attr_filter")) {
+				var query = new JObject();
+				var filterObj = new JObject();
+				
+				new[] { "fulltext_filter", "attr_filter" }.ToList().ForEach(propName => 
+				{
+					if (dict.ContainsKey(propName)) {
+						filterObj = RestructObj((JObject)dict[propName], propName);
+						query.Merge(filterObj);
+						dict.Remove(propName);
+					}
+				});
+				
+				dict["query"] = query;
+			}
+ 		    
+ 		    new[] { "expressions", "aggs", "highlight.fields" }.ToList().ForEach(propSign =>
+			{
+			    var propNames = propSign.Split('.').ToList();
+			    var nestedObj = new List<JContainer> { dict };
+			    for (int i = 0; i < propNames.Count; i++)
+			    {
+		        	var subObj =  (JObject)nestedObj[i];
+		        	if (!subObj.ContainsKey(propNames[i]))
+		            	return;
+					nestedObj.Add((JContainer)nestedObj[i][propNames[i]]);
+			    }
+			
+			    dict = RestructNestedObj(nestedObj, propNames);
+			});
+						
+			localVarRequestOptions.Data = dict;
+            {{/bodyParam}}
+            {{/vendorExtensions.x-is_search}}
+            {{#vendorExtensions.x-is_modify}}
+            {{#bodyParam}}
+            localVarRequestOptions.Data = dict;
+            {{/bodyParam}}
+            {{/vendorExtensions.x-is_modify}}
+            {{^vendorExtensions.x-is_search}}
+            {{^vendorExtensions.x-is_modify}}
             {{#bodyParam}}
             localVarRequestOptions.Data = {{paramName}};
             {{/bodyParam}}
+            {{/vendorExtensions.x-is_modify}}
+            {{/vendorExtensions.x-is_search}}
 		    {{^bodyParam}}
 		    localVarRequestOptions.Data = null;
 		    {{/bodyParam}}

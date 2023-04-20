@@ -35,6 +35,11 @@
     {{#required}}
     _this['{{baseName}}'] = {{name}};
     {{/required}}
+    {{^required}}
+    {{#defaultValue}}
+    _this['{{baseName}}'] = this.{{name}};
+    {{/defaultValue}}
+    {{/required}}
     {{/vars}}
     {{#parent}}
     {{^parentModel}}
@@ -78,7 +83,12 @@
       {{/useInheritance}}
       {{#vars}}
       if (data.hasOwnProperty('{{baseName}}')) {
+        {{#vendorExtensions.x-is_req_source}}
+		obj['_source']{{{defaultValueWithParam}}}
+		{{/vendorExtensions.x-is_req_source}}
+		{{^vendorExtensions.x-is_req_source}}
         obj['{{baseName}}']{{{defaultValueWithParam}}}
+        {{/vendorExtensions.x-is_req_source}}
       }
       {{/vars}}
     }
@@ -97,7 +107,12 @@
    * @default {{{defaultValue}}}{{/defaultValue}}
    */
 {{/emitJSDoc}}
+  {{#vendorExtensions.x-is_req_source}}
+  exports.prototype['_source'] = {{#defaultValue}}{{{defaultValue}}}{{/defaultValue}}{{^defaultValue}}undefined{{/defaultValue}};
+  {{/vendorExtensions.x-is_req_source}}
+  {{^vendorExtensions.x-is_req_source}}
   exports.prototype['{{baseName}}'] = {{#defaultValue}}{{{defaultValue}}}{{/defaultValue}}{{^defaultValue}}undefined{{/defaultValue}};
+  {{/vendorExtensions.x-is_req_source}}
 {{/vars}}{{#useInheritance}}{{#interfaceModels}}
   // Implement {{classname}} interface:{{#allVars}}
 {{#emitJSDoc}}

@@ -21,7 +21,7 @@ csharp_push:
   script:
     - git remote add manticoresearch-net https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-net.git
     - git fetch manticoresearch-net
-    - git subtree push --prefix=out/manticoresearch-csharp https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-net.git master
+    - git subtree push --prefix=out/manticoresearch-csharp https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-net.git $CI_COMMIT_BRANCH
 
    
 python_push:
@@ -49,7 +49,7 @@ javascript_push:
   script:
     - git remote add manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git
     - git fetch manticoresearch-javascript  
-    - git subtree push --prefix=out/manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git master
+    - git subtree push --prefix=out/manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git $CI_COMMIT_BRANCH
 
 java_push:
   image: ubuntu:latest
@@ -62,7 +62,7 @@ java_push:
   script:
     - git remote add manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git
     - git fetch manticoresearch-java  
-    - git subtree push --prefix=out/manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git master
+    - git subtree push --prefix=out/manticoresearch-java https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-java.git $CI_COMMIT_BRANCH
     
 
 elixir_push:
@@ -76,7 +76,7 @@ elixir_push:
   script:
     - git remote add manticoresearch-elixir https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-elixir.git
     - git fetch manticoresearch-elixir
-    - git subtree push --prefix=out/manticoresearch-elixir https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-elixir.git master
+    - git subtree push --prefix=out/manticoresearch-elixir https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-elixir.git $CI_COMMIT_BRANCH
 
 
 csharp_publish:

@@ -204,6 +204,9 @@
         {{#vars}}
         {{^isInherited}}
         {{^isEnum}}
+        {{#vendorExtensions.x-is_req_query}}
+        {{{dataType}}} _{{name}};
+        {{/vendorExtensions.x-is_req_query}}
         /// <summary>
         /// {{description}}{{^description}}Gets or Sets {{{name}}}{{/description}}
         /// </summary>{{#description}}
@@ -216,7 +219,16 @@
         {{#deprecated}}
         [Obsolete]
         {{/deprecated}}
+        {{#vendorExtensions.x-is_req_query}}
+        public {{{dataType}}} Query 
+        {
+         	get { return _{{name}}; } 
+        	set { _{{name}} = value; this.FulltextFilter = null; this.AttrFilter = null; }  
+        }
+        {{/vendorExtensions.x-is_req_query}}
+        {{^vendorExtensions.x-is_req_query}}
         public {{{dataType}}} {{name}} { get; {{#isReadOnly}}private {{/isReadOnly}}set; }
+        {{/vendorExtensions.x-is_req_query}}
 
         {{#isReadOnly}}
         /// <summary>
