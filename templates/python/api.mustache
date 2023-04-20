@@ -251,6 +251,11 @@ class {{classname}}(object):
             body_params = local_var_params['{{paramName}}']
     {{/bodyParam}}
 {{/vendorExtensions.x-is_sql}}
+{{#vendorExtensions.x-is_search}}
+            if type(body_params) != dict:
+                body_params = body_params.to_dict()
+            body_params = dict(filter(lambda item: item[1] is not None, body_params.items() )) 
+{{/vendorExtensions.x-is_search}}
 
         {{#hasProduces}}
         # HTTP header `Accept`

@@ -33,13 +33,9 @@ python_push:
     changes:
       - out/manticoresearch-python/**/*    
   script:
-    - echo $CI_COMMIT_BRANCH
-    - git remote add manticoresearch-python https://$GITHUB_TEST_USERNAME:$GITHUB_TEST_TOKEN@github.com/Nick-S-2018/python-client-draft.git
+    - git remote add manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git
     - git fetch manticoresearch-python  
-    - git subtree push --prefix=out/manticoresearch-python https://$GITHUB_TEST_USERNAME:$GITHUB_TEST_TOKEN@github.com/Nick-S-2018/python-client-draft.git $CI_COMMIT_BRANCH
-    #- git remote add manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git
-    #- git fetch manticoresearch-python  
-    #- git subtree push --prefix=out/manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git $CI_COMMIT_BRANCH
+    - git subtree push --prefix=out/manticoresearch-python https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-python.git $CI_COMMIT_BRANCH
 
 
 javascript_push:

@@ -9,7 +9,6 @@ import six
 
 from {{packageName}}.configuration import Configuration
 
-
 {{#models}}
 {{#model}}
 class {{classname}}(object):
@@ -96,8 +95,12 @@ class {{classname}}(object):
         :return: The {{name}} of this {{classname}}.  # noqa: E501
         :rtype: {{dataType}}
         """
+{{#vendorExtensions.x-is_query}}
+        return self._{{name}}.to_dict()
+{{/vendorExtensions.x-is_query}}
+{{^vendorExtensions.x-is_query}}
         return self._{{name}}
-
+{{/vendorExtensions.x-is_query}}
     @{{name}}.setter
     def {{name}}(self, {{name}}):
         """Sets the {{name}} of this {{classname}}.
@@ -187,8 +190,16 @@ class {{classname}}(object):
 {{/isEnum}}
 
         self._{{name}} = {{name}}
+        
+        {{#vendorExtensions.x-is_req_query}}
+        if self.fulltext_filter is not None:
+        	self.fulltext_filter = None;
+       	if self.attr_filter is not None:
+        	self.attr_filter = None;
+		{{/vendorExtensions.x-is_req_query}}
 
 {{/vars}}
+
 {{#discriminator}}
     def get_real_child_model(self, data):
         """Returns the real base class specified by the discriminator"""
@@ -199,8 +210,41 @@ class {{classname}}(object):
 {{/discriminator}}
     def to_dict(self):
         """Returns the model properties as a dict"""
-        result = {}
+		{{#vendorExtensions.x-is_sort_order}}
+        result = { self._attr: {'order': self._order} }
+		{{/vendorExtensions.x-is_sort_order}}
+		{{#vendorExtensions.x-is_sort_mva}}
+        result = { self._attr: {'order': self._order, 'mode': self._mode} }
+		{{/vendorExtensions.x-is_sort_mva}}
+		{{#vendorExtensions.x-is_match_filter}}
+        result = { 'match': {self._query_fields: self._query_string} }
+		{{/vendorExtensions.x-is_match_filter}}
+		{{#vendorExtensions.x-is_match_phrase_filter}}
+        result = { 'match_phrase': {self._query_fields: self._query_phrase} }
+		{{/vendorExtensions.x-is_match_phrase_filter}}
+		{{#vendorExtensions.x-is_match_op_filter}}
+        result = { 'match': {self._query_fields: {'query': self._query_string, 'operator': self._operator } } }
+		{{/vendorExtensions.x-is_match_op_filter}}
+		{{#vendorExtensions.x-is_equals_filter}}
+        result = { 'equals': {self._field: self._value } }
+		{{/vendorExtensions.x-is_equals_filter}}
+		{{#vendorExtensions.x-is_in_filter}}
+        result = { 'in': {self._field: self._values } }
+		{{/vendorExtensions.x-is_in_filter}}
+		{{#vendorExtensions.x-is_range_filter}}
+        result = { 'range': {self._field: { 'gte': self._gte, 'lte': self._lte, 'gt': self._gt, 'lt': self._lt } } }
+        result['range'][self._field] = {k:v for k,v in result['range'][self._field].items() if v is not None}
+		{{/vendorExtensions.x-is_range_filter}}
 
+		{{^vendorExtensions.x-is_range_filter}}
+		{{^vendorExtensions.x-is_in_filter}}
+		{{^vendorExtensions.x-is_equals_filter}}
+		{{^vendorExtensions.x-is_match_op_filter}}
+		{{^vendorExtensions.x-is_match_phrase_filter}}
+		{{^vendorExtensions.x-is_match_filter}}
+		{{^vendorExtensions.x-is_sort_order}}
+		{{^vendorExtensions.x-is_sort_mva}}
+        result = {}		
         for attr, _ in six.iteritems(self.openapi_types):
             value = getattr(self, attr)
             if isinstance(value, list):
@@ -218,6 +262,55 @@ class {{classname}}(object):
                 ))
             else:
                 result[attr] = value
+        {{/vendorExtensions.x-is_sort_mva}}
+        {{/vendorExtensions.x-is_sort_order}}
+        {{/vendorExtensions.x-is_match_filter}}
+        {{/vendorExtensions.x-is_match_phrase_filter}}
+        {{/vendorExtensions.x-is_match_op_filter}}
+        {{/vendorExtensions.x-is_equals_filter}}
+        {{/vendorExtensions.x-is_in_filter}}
+        {{/vendorExtensions.x-is_range_filter}}
+
+        {{#vendorExtensions.x-is_geo_filter}}
+        result = { 'geo_distance': result }
+		{{/vendorExtensions.x-is_geo_filter}}
+        {{#vendorExtensions.x-is_bool_filter}}
+        result = { "bool": {k:v for k,v in result.items() if v is not None } }
+		{{/vendorExtensions.x-is_bool_filter}}
+        {{#vendorExtensions.x-is_highlight_field}}
+        result = { result['name']: {k:v for k,v in result.items() if k != 'name' and v is not None} }
+        {{/vendorExtensions.x-is_highlight_field}}
+        {{#vendorExtensions.x-is_req_highlight}}
+        if result['fields'] is not None:
+            result['fields'] = {k:v for i in result['fields'] for k,v in i.items() if v is not None}
+        {{/vendorExtensions.x-is_req_highlight}}
+
+        {{#vendorExtensions.x-is_search_req}}
+        result['_source'] = result['source']
+        del result['source']
+        if result['expressions'] is not None:
+        	result['expressions'] = {k:v for i in result['expressions'] for k,v in i.items() }
+        if result['aggs'] is not None:
+        	result['aggs'] = {
+        	    i['name']: { 'terms': { 'field': i['field'], 'size': i['size'] } } for i in result['aggs']
+        	}
+        if result['highlight'] is not None:
+	        if result['highlight']['fields'] is None: 	
+	            result['highlight']['fields'] = result['highlight']['fieldnames']
+	        result['highlight']['fieldnames'] = None
+	        result['highlight'] = {k:v for k,v in result['highlight'].items() if v is not None}
+        
+        if result['fulltext_filter'] is not None or result['attr_filter'] is not None:
+            result['query'] = {}
+        if result['fulltext_filter'] is not None:
+            for k,v in result['fulltext_filter'].items():
+                result['query'][k] = v
+            del result['fulltext_filter']
+        if result['attr_filter'] is not None:
+            for k,v in result['attr_filter'].items():
+                result['query'][k] = v
+            del result['attr_filter']
+        {{/vendorExtensions.x-is_search_req}}
 
         return result
 

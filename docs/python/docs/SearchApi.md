@@ -1,84 +1,182 @@
-{{#vendorExtensions.x-is_search}}
-### SearchRequest
-{{/vendorExtensions.x-is_search}}
+# manticoresearch.SearchApi
+
+All URIs are relative to *http://127.0.0.1:9308*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**percolate**](SearchApi.md#percolate) | **POST** /json/pq/{index}/search | Perform reverse search on a percolate index
+[**search**](SearchApi.md#search) | **POST** /json/search | Performs a search
+
+
+## **search**
+> SearchResponse search(search_request)
+
+Performs a search
+
+
+Expects an object with mandatory properties:
+* the index name
+* the match query object
+Example :
+
+  ```
+  {
+    'index':'movies',
+    'query':
+    {
+      'bool':
+      {
+        'must':
+        [
+          {'query_string':' movie'}
+        ]
+      }
+    },
+    'script_fields':
+    {
+      'myexpr':
+      {
+        'script':
+        {
+          'inline':'IF(rating>8,1,0)'
+        }
+      }
+    },
+    'sort':
+    [
+      {'myexpr':'desc'},
+      {'_score':'desc'}
+    ],
+    'profile':true
+  }
+  ```
+
+It responds with an object with:
+- an array with hits (matched documents) found
+- if the query is timed out
+- time of execution
+- if profiling is enabled, an additional array with profiling information attached
+
+
+  ```
+  {
+    'took':10,
+    'timed_out':false,
+    'hits':
+    {
+      'total':2,
+      'hits':
+      [
+        {
+          '_id':'1',
+          '_score':1,
+          '_source':{'gid':11}
+        },
+        {
+          '_id':'2',
+          '_score':1,
+          '_source':{'gid':12}
+        }
+      ]
+    }
+  }
+  ```
+
+Alternatively, you can use auxiliary query objects to build your search queries as it's shown in the example below.
+For more information about the match query syntax and additional parameters that can be added to  request and response, please check: https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP.
+
+
+### Example
+
+#### SearchRequest
 ```python
-import {{{packageName}}}
-from {{apiPackage}} import {{classVarName}}
-{{#imports}}
-{{{.}}}
-{{/imports}}
+import manticoresearch
+from manticoresearch.api import search_api
+from manticoresearch.model.search_request import SearchRequest
+from manticoresearch.model.error_response import ErrorResponse
+from manticoresearch.model.search_response import SearchResponse
 from pprint import pprint
 
-{{> python_doc_auth_partial}}
-# Enter a context with an instance of the API client
-{{^hasAuthMethods}}
-with {{{packageName}}}.ApiClient(configuration) as api_client:
-{{/hasAuthMethods}}
+#### Defining the host is optional and defaults to http://127.0.0.1:9308
+#### See configuration.py for a list of all supported configuration parameters.
+configuration = manticoresearch.Configuration(
+    host = "http://127.0.0.1:9308"
+)
+
+
+#### Enter a context with an instance of the API client
+with manticoresearch.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = {{classVarName}}.{{{classname}}}(api_client)
+    api_instance = search_api.SearchApi(api_client)
 
-{{#requiredParams}}
-{{^defaultValue}}
-    {{paramName}} = {{{example}}} # {{{dataType}}} {{#description}} |( {{{description}}} {{/description}} 
-{{/defaultValue}}
-{{/requiredParams}}
-{{#optionalParams}}
-    {{paramName}} = {{{example}}} # {{{dataType}}} {{#description}} | {{{description}}}{{^required}} (optional){{/required}}{{#defaultValue}} if omitted the server will use the default value of {{{defaultValue}}}{{/defaultValue}} {{/description}}
-{{/optionalParams}}
-{{#requiredParams}}
-{{#-last}}
+    search_request = SearchRequest(
+        index="test",
+        query={},
+        fulltext_filter={},
+        attr_filter={},
+        limit=1,
+        offset=1,
+        max_matches=1,
+        sort=[],
+        sort_old=[{"test":"asc"},"id"],
+        aggs=[
+            Aggregation(
+                name="agg1",
+                field="field1",
+                size=10,
+            ),
+        ],
+        expressions=[
+            {},
+        ],
+        highlight=Highlight(
+            fieldnames=["title","content"],
+            fields=[
+                HighlightField(
+                    name="name_example",
+                    limit=256,
+                    limit_words=0,
+                    limit_snippets=0,
+                ),
+            ],
+            encoder="default",
+            highlight_query={},
+            pre_tags="<strong>",
+            post_tags="</strong>",
+            no_match_size=0,
+            fragment_size=256,
+            number_of_fragments=0,
+            limit=256,
+            limit_words=0,
+            limit_snippets=0,
+            limits_per_field=False,
+            use_boundaries=False,
+            force_all_words=False,
+            allow_empty=False,
+            emit_zones=False,
+            force_snippets=False,
+            around=5,
+            start_snippet_id=1,
+            html_strip_mode="none",
+            snippet_boundary="sentence",
+        ),
+        source={},
+        options={},
+        profile=True,
+        track_scores=True,
+    ) # SearchRequest  
 
     # example passing only required values which don't have defaults set
     try:
-{{#summary}}
-        # {{{.}}}
-{{/summary}}
-        {{#returnType}}api_response = {{/returnType}}api_instance.{{{operationId}}}({{#requiredParams}}{{^defaultValue}}{{paramName}}{{^-last}}, {{/-last}}{{/defaultValue}}{{/requiredParams}})
-{{#returnType}}
+        # Performs a search
+        api_response = api_instance.search(search_request)
         pprint(api_response)
-{{/returnType}}
-    except {{{packageName}}}.ApiException as e:
-        print("Exception when calling {{classname}}->{{operationId}}: %s\n" % e)
-{{/-last}}
-{{/requiredParams}}
-{{#optionalParams}}
-{{#-last}}
-
-    # example passing only required values which don't have defaults set
-    # and optional values
-    try:
-{{#summary}}
-        # {{{.}}}
-{{/summary}}
-        {{#returnType}}api_response = {{/returnType}}api_instance.{{{operationId}}}({{#requiredParams}}{{^defaultValue}}{{paramName}}, {{/defaultValue}}{{/requiredParams}}{{#optionalParams}}{{paramName}}={{paramName}}{{^-last}}, {{/-last}}{{/optionalParams}})
-{{#returnType}}
-        pprint(api_response)
-{{/returnType}}
-    except {{{packageName}}}.ApiException as e:
-        print("Exception when calling {{classname}}->{{operationId}}: %s\n" % e)
-{{/-last}}
-{{/optionalParams}}
+    except manticoresearch.ApiException as e:
+        print("Exception when calling SearchApi->search: %s\n" % e)
 
 
-{{^requiredParams}}
-{{^optionalParams}}
-
-    # example, this endpoint has no required or optional parameters
-    try:
-{{#summary}}
-        # {{{.}}}
-{{/summary}}
-        {{#returnType}}api_response = {{/returnType}}api_instance.{{{operationId}}}()
-{{#returnType}}
-        pprint(api_response)
-{{/returnType}}
-    except {{{packageName}}}.ApiException as e:
-        print("Exception when calling {{classname}}->{{operationId}}: %s\n" % e)
-{{/optionalParams}}
-{{/requiredParams}}
 ```
-{{#vendorExtensions.x-is_search}}
-### Building a search request with auxiliary objects
+#### Building a search request with auxiliary objects
 
 [[Docs on search options in Manticore Search Manual]](https://manual.manticoresearch.com/Searching/Options#Search-options)
 ```python
@@ -118,7 +216,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-### SourceByRules
+##### SourceByRules
 
 [[SourceByRules - input parameters]](SourceByRules.md)
 
@@ -134,7 +232,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     api_response = api_instance.search(search_req)
     pprint(api_response)
 
-### Sort
+##### Sort
 ```python
     #Setting the `sort` property:
     search_req = manticoresearch.model.SearchRequest(index='test')
@@ -145,8 +243,8 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-### SortOrder
-### SortMVA
+##### SortOrder
+##### SortMVA
 
 [[SortOrder - input parameters]](SortOrder.md)
 [[SortMVA - input parameters]](SortMVA.md)
@@ -165,7 +263,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-### Expressions
+##### Expressions
 
 [[Docs on expressions in Manticore Search Manual]](https://manual.manticoresearch.com/Searching/Expressions#Expressions-in-HTTP-JSON)
 ```python    
@@ -180,7 +278,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-### Aggregation
+##### Aggregation
 
 [[Aggregation - input parameters]](Aggregation.md)
 
@@ -196,7 +294,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-### Highlight
+##### Highlight
 
 [[Highlight - input parameters]](Highlight.md)
 
@@ -216,7 +314,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response) 
 ```
 
-#### HighlightField
+###### HighlightField
 
 [[HighlightField - input parameters]](HighlightField.md)
 
@@ -234,7 +332,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response) 
 ```
 
-### FulltextFilter
+##### FulltextFilter
 
 [[Docs on fulltext filters in Manticore Search Manual]](https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP)
 ```python
@@ -243,7 +341,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     search_req = manticoresearch.model.SearchRequest(index='test')
 ```
 
-#### QueryFilter
+###### QueryFilter
 
 [[QueryFilter - input parameters]](QueryFilter.md)
 ```python    
@@ -254,7 +352,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-#### MatchFilter
+###### MatchFilter
 
 [[MatchFilter - input parameters]](MatchFilter.md)
 ```python    
@@ -267,7 +365,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-#### MatchPhraseFilter
+###### MatchPhraseFilter
 
 [[MatchPhraseFilter - input parameters]](MatchPhraseFilter.md)
 ```python    
@@ -280,7 +378,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-#### MatchOpFilter
+###### MatchOpFilter
 
 [[MatchOpFilter - input parameters]](MatchOpFilter.md)
 ```python    
@@ -291,8 +389,8 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-### AttrFilter
-#### EqualsFilter
+##### AttrFilter
+###### EqualsFilter
 
 [[EqualsFilter - input parameters]](EqualsFilter.md)
 
@@ -309,7 +407,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-#### InFilter
+###### InFilter
 
 [[InFilter - input parameters]](InFilter.md)
 
@@ -326,7 +424,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-#### RangeFilter
+###### RangeFilter
 
 [[RangeFilter - input parameters]](RangeFilter.md)
 
@@ -345,7 +443,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-#### GeoDistanceFilter
+###### GeoDistanceFilter
 
 [[GeoDistanceFilter - input parameters]](GeoDistanceFilter.md)
 
@@ -364,7 +462,7 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-#### BoolFilter
+###### BoolFilter
 
 [[BoolFilter - input parameters]](BoolFilter.md)
 
@@ -400,12 +498,175 @@ with {{{packageName}}}.ApiClient(configuration) as api_client:
     pprint(api_response)
 ```
 
-### Example of how to build search requests using the alternative way with a single dictionary object 
+#### Example of how to build search requests using the alternative way with a single dictionary object 
 ```python
     search_req = '{"index":"hn_small","query":{"query_string":"@comment_text \"find joe fast \"/2"}, "_source": ["story_author","comment_author"], "limit":1}'
 
     api_response = api_instance.search(search_req)
     pprint(api_response)
 ```
-{{/vendorExtensions.x-is_search}}
 
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **search_request** | [**SearchRequest**](SearchRequest.md)|  | 
+
+### Return type
+
+[**SearchResponse**](SearchResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Ok |  -  |
+**0** | error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## **percolate**
+> SearchResponse percolate(index,percolate_request)
+
+Perform reverse search on a percolate index
+
+Performs a percolate search. 
+This method must be used only on percolate indexes.
+
+Expects two parameters: the index name and an object with array of documents to be tested.
+An example of the documents object:
+
+  ```
+  {
+    "query":
+    {
+      "percolate":
+      {
+        "document":
+        {
+          "content":"sample content"
+        }
+      }
+    }
+  }
+  ```
+
+Responds with an object with matched stored queries: 
+
+  ```
+  {
+    'timed_out':false,
+    'hits':
+    {
+      'total':2,
+      'max_score':1,
+      'hits':
+      [
+        {
+          '_index':'idx_pq_1',
+          '_type':'doc',
+          '_id':'2',
+          '_score':'1',
+          '_source':
+          {
+            'query':
+            {
+              'match':{'title':'some'}
+            }
+          }
+        },
+        {
+          '_index':'idx_pq_1',
+          '_type':'doc',
+          '_id':'5',
+          '_score':'1',
+          '_source':
+          {
+            'query':
+            {
+              'ql':'some | none'
+            }
+          }
+        }
+      ]
+    }
+  }
+  ```
+
+
+### Example
+
+```python
+import manticoresearch
+from manticoresearch.api import search_api
+from manticoresearch.model.error_response import ErrorResponse
+from manticoresearch.model.search_response import SearchResponse
+from manticoresearch.model.percolate_request import PercolateRequest
+from pprint import pprint
+
+#### Defining the host is optional and defaults to http://127.0.0.1:9308
+#### See configuration.py for a list of all supported configuration parameters.
+configuration = manticoresearch.Configuration(
+    host = "http://127.0.0.1:9308"
+)
+
+
+#### Enter a context with an instance of the API client
+with manticoresearch.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = search_api.SearchApi(api_client)
+
+    index = "index_example" # str  |( Name of the percolate index  
+    percolate_request = PercolateRequest(
+        query=PercolateRequestQuery(),
+    ) # PercolateRequest  
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Perform reverse search on a percolate index
+        api_response = api_instance.percolate(index, percolate_request)
+        pprint(api_response)
+    except manticoresearch.ApiException as e:
+        print("Exception when calling SearchApi->percolate: %s\n" % e)
+
+
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **index** | **str**| Name of the percolate index | 
+ **percolate_request** | [**PercolateRequest**](PercolateRequest.md)|  | 
+
+### Return type
+
+[**SearchResponse**](SearchResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | items found |  -  |
+**0** | error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

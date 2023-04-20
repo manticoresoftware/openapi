@@ -7,6 +7,7 @@ do_python() {
   rm -rf out/manticoresearch-python/test/* 
   cp LICENSE.txt out/manticoresearch-python/LICENSE.txt
   cp -R test/python/* out/manticoresearch-python/test/   
+  cp -r docs/python/docs/SearchApi.md out/manticoresearch-python/docs/SearchApi.md
   git apply patches/python_bulk.patch
   #git apply patches/python_readme.patch
   # replace test with our test
@@ -45,8 +46,9 @@ do_javascript() {
 do_csharp() {
   echo "Building CSharp ..."
   rm -rf out/manticoresearch-csharp 
-  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp-netcore  -o /local/out/manticoresearch-csharp -t /local/templates/csharp-netcore --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp-netcore  -o /local/out/manticoresearch-csharp -t /local/templates/csharp-netcore --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp`
   cp -r gh-actions/csharp/. out/manticoresearch-csharp
+  cp -r docs/csharp/docs/SearchApi.md out/manticoresearch-csharp/docs/SearchApi.md
   echo "CSharp done."
 }
 
