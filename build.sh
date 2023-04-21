@@ -19,7 +19,7 @@ do_python() {
 do_java() {
   echo "Building Java ...$version"
   rm -rf out/manticoresearch-java 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)" -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g java  -o /local/out/manticoresearch-java -t /local/templates/Java --git-repo-id manticoresearch-java --git-user-id manticoresoftware     --additional-properties apiPackage=com.manticoresearch.client.api --additional-properties modelPackage=com.manticoresearch.client.model  --additional-properties artifactId=manticoresearch  --additional-properties developerName="Manticore Software"  --additional-properties developerEmail="info@manticosearch.com"  --additional-properties  developerOrganization="manticoresearch.com" --additional-properties developerOrganizationUrl="https://github.com/manticoresoftware/manticoresearch-java"  --additional-properties artifactVersion=`cat versions/java` --additional-properties groupId="com.manticoresearch"  --additional-properties artifactUrl=https://github.com/manticoresoftware/manticoresearch-java --additional-properties licenseName="Apache 2.0" --additional-properties artifactDescription="Client for Manticore Search"  --additional-properties  library="jersey2" 
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)" -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g java  -o /local/out/manticoresearch-java -t /local/templates/Java --git-repo-id manticoresearch-java --git-user-id manticoresoftware     --additional-properties apiPackage=com.manticoresearch.client.api --additional-properties modelPackage=com.manticoresearch.client.model  --additional-properties artifactId=manticoresearch  --additional-properties developerName="Manticore Software"  --additional-properties developerEmail="info@manticosearch.com"  --additional-properties  developerOrganization="manticoresearch.com" --additional-properties developerOrganizationUrl="https://github.com/manticoresoftware/manticoresearch-java"  --additional-properties artifactVersion=`cat versions/java` --additional-properties groupId="com.manticoresearch"  --additional-properties artifactUrl=https://github.com/manticoresoftware/manticoresearch-java --additional-properties licenseName="Apache 2.0" --additional-properties artifactDescription="Client for Manticore Search"  --additional-properties  library="jersey2" $build_to_branch 
   cp LICENSE.txt out/manticoresearch-java/LICENSE.txt
   #cp docs/java/README.md out/manticoresearch-java/README.md
   cp docs/java/docs/* out/manticoresearch-java/docs/
@@ -34,7 +34,7 @@ do_java() {
 do_javascript() {
   echo "Building Javascript ..."
   rm -rf out/manticoresearch-javascript 
-  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch  --additional-properties projectVersion=`cat versions/javascript`   --additional-properties  usePromises=true
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch  --additional-properties projectVersion=`cat versions/javascript`   --additional-properties  usePromises=true $build_to_branch
   git apply patches/javascript.package.patch
   git apply patches/javascript.jsonbig.patch
   cp LICENSE.txt out/manticoresearch-javascript/LICENSE.txt
@@ -48,7 +48,7 @@ do_javascript() {
 do_csharp() {
   echo "Building CSharp ..."
   rm -rf out/manticoresearch-csharp 
-  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp-netcore  -o /local/out/manticoresearch-csharp -t /local/templates/csharp-netcore --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp`
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp-netcore  -o /local/out/manticoresearch-csharp -t /local/templates/csharp-netcore --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp` $build_to_branch
   cp -r gh-actions/csharp/. out/manticoresearch-csharp
   cp -r docs/csharp/docs/SearchApi.md out/manticoresearch-csharp/docs/SearchApi.md
   echo "CSharp done."

@@ -2,9 +2,11 @@
 
 {{#appDescriptionWithNewLines}}{{{appDescriptionWithNewLines}}}{{/appDescriptionWithNewLines}}
 
+{{^outBranch}}
 {{#infoUrl}}
 ❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-javascript/tree/{{projectVersion}}
 {{/infoUrl}}
+{{/outBranch}}
 
 ## Requirements
 
@@ -24,12 +26,6 @@ Minimum Manticore Search version is 2.5.1 with HTTP protocol enabled.
 ```shell
 npm install {{{projectName}}} 
 ```
-
-## Documentation
-
-Full documentation is available in  [docs](https://github.com/manticoresoftware/manticoresearch-javascript/tree/master/docs) folder.
-
-Manticore Search server documentation: https://manual.manticoresearch.com.
 
 ## Getting Started
 
@@ -101,6 +97,19 @@ api.{{{operationId}}}({{#requiredParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{
   console.error(error);
 });
 
+var searchApi = new {{{moduleName}}}.SearchApi(client);
+
+// Create SearchRequest
+var searchRequest = new {{{moduleName}}}.SearchRequest();
+searchRequest.index = "test";
+searchRequest.fulltext_filter = new {{{moduleName}}}.QueryFilter('Star Trek 2');
+
+// Perform a search
+async function(){
+    var res = await searchApi.search(searchRequest);
+    console.log(JSON.stringify(res, null, 4));
+}
+
 {{/usePromises}}{{^usePromises}}
 var callback = function(error, data, response) {
   if (error) {
@@ -112,6 +121,12 @@ var callback = function(error, data, response) {
 api.{{{operationId}}}({{#requiredParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#optionalParams}}{{#-last}}{{#hasRequiredParams}}, {{/hasRequiredParams}}opts{{/-last}}{{/optionalParams}}{{#hasParams}}, {{/hasParams}}callback);
 {{/usePromises}}{{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
 ```
+
+## Documentation
+
+Full documentation on the API Endpoints and Models used is available in  [docs](https://github.com/manticoresoftware/manticoresearch-javascript/tree/{{projectVersion}}/docs) folder as listed below.
+
+Manticore Search server documentation: https://manual.manticoresearch.com.
 
 ## Documentation for API Endpoints
 
