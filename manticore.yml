@@ -895,7 +895,7 @@ components:
         status: 500
         error: an error occured
 paths:
-  '/json/pq/{index}/search':
+  '/pq/{index}/search':
     post:
       summary: Perform reverse search on a percolate index
       operationId: percolate
@@ -1001,7 +1001,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorResponse'
-  /json/search:
+  /search:
     post:
       summary: Performs a search
       x-is_search: true
@@ -1041,6 +1041,9 @@ paths:
           }
           ```
 
+        Alternatively, you can use auxiliary objects to build your search query. For details, see the documentation on [**SearchRequest**](SearchRequest.md)
+
+
         It responds with an object with:
         
         - an array with hits (matched documents) found
@@ -1068,16 +1071,13 @@ paths:
           }
           ```
 
-        Alternatively, you can use auxiliary query objects to build your search queries as it's shown in the example below.
-
-        For more information about the match query syntax and additional parameters that can be added to 
-        request and response, please check: https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP.
+        For more information about the match query syntax and additional parameters that can be added to request and response, please check: https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP-JSON.
 
       operationId: search
       tags:
         - Search
       externalDocs:
-        url: 'https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP'
+        url: 'https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP-JSON'
       requestBody:
         required: true
         content:
@@ -1097,7 +1097,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorResponse'
-  /json/insert:
+  /insert:
     post:
       summary: Create a new document in an index
       operationId: insert
@@ -1179,7 +1179,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorResponse'
-  /json/replace:
+  /replace:
     post:
       summary: Replace new document in an index
       operationId: replace
@@ -1220,7 +1220,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorResponse'
-  /json/update:
+  /update:
     post:
       summary: Update a document in an index
       x-is_modify: true
@@ -1291,7 +1291,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorResponse'
-  /json/delete:
+  /delete:
     post:
       summary: Delete a document in an index
       x-is_modify: true
@@ -1363,7 +1363,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorResponse'
-  /json/bulk:
+  /bulk:
     post:
       summary: Bulk index operations
       description: >
