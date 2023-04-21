@@ -92,17 +92,19 @@ do_elixir() {
   echo "Elixir done." 
 }
 
-if [ ! -z $2 ]; then
+if [ ! -z $2 -a $2 != 'v0' ]; then
 version=":$2"
 else
 version=''
 fi
+
 
 if [ ! -z $3 ]; then
 build_to_branch="--additional-properties outBranch=$3"
 else
 build_to_branch=''
 fi
+
 
 case $1 in
  python)

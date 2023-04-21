@@ -122,14 +122,13 @@ No authorization required
 
 > SearchResponse percolate(index, percolateRequest)
 
-Perform reverse search on a percolate index
+Perform a reverse search on a percolate index
 
 Performs a percolate search. 
 This method must be used only on percolate indexes.
 
-Expects two parameters: the index name and an object with array of documents to be tested.
-An example of the documents object:
-
+Expects two parameters: the index name and an object with an array of documents to search with.
+Here is an example of the document object:
 ```
 {
   "query":

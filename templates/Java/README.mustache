@@ -1,8 +1,10 @@
 # {{artifactId}}
 
+{{^outBranch}}
 {{#infoUrl}}
 ❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-java/tree/{{artifactVersion}}
 {{/infoUrl}}
+{{/outBranch}}
 
 {{appName}}
 
@@ -92,7 +94,7 @@ Then manually install the following JARs:
 {{#jersey2}}
 ## Usage
 
-To add a HTTP proxy for the API client, use `ClientConfig`:
+To add an HTTP proxy for the API client, use `ClientConfig`:
 ```java
 {{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}
 import org.glassfish.jersey.apache.connector.ApacheConnectorProvider;
@@ -126,8 +128,9 @@ import {{{invokerPackage}}}.*;
 import {{{invokerPackage}}}.auth.*;
 import {{{modelPackage}}}.*;
 import {{{package}}}.{{{classname}}};
+import {{{package}}}.{{{SearchApi}}};
 
-public class {{{classname}}}Example {
+public class ApiExample {
 
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -177,6 +180,26 @@ public class {{{classname}}}Example {
             System.out.println(result);{{/returnType}}
         } catch (ApiException e) {
             System.err.println("Exception when calling {{{classname}}}#{{{operationId}}}");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+        
+        SearchApi searchApi = new SearchApi(client);
+        try {
+            // Create SearchRequest
+            SearchRequest searchRequest = new SearchRequest();
+            searchRequest.setIndex("test");
+            QueryFilter queryFilter = new QueryFilter();
+			queryFilter.setQueryString("Title 1");								
+			searchRequest.setFulltextFilter(queryFilter);
+			
+			// Perform a search
+			SearchResponse searchResponse = searchApi.search(searchRequest);
+			System.out.println( searchResponse.toString() );
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SearchApi#search");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
