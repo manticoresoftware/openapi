@@ -54,7 +54,7 @@
      */
 </emitJSDoc>    this.<operationId><#usePromises>WithHttpInfo</usePromises> = function(<vendorExtensions.x-codegen-arg-list>) {<#hasOptionalParams>
       opts = opts || {};</hasOptionalParams>
-      var postBody = <#bodyParam><#required><paramName></required><^required>opts['<paramName>']</required></bodyParam><^bodyParam>null</bodyParam>;
+      var postBody = <#bodyParam>JSON.parse(JSON.stringify(<#required><paramName></required><^required>opts['<paramName>']</required>))</bodyParam><^bodyParam>null</bodyParam>;
 
       <#vendorExtensions.x-is_sql>
       if (postBody) {
