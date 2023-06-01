@@ -44,7 +44,7 @@ build.sh Java v5.0.0
 where `v5.0.0` is a tag of the generator's Docker image you need.
 
 
-Original versions we used were 'v4.3.1' for Python and 'v5.0.0.' for the rest of the clients.
+The current versions used are 'v6.6.0' for Java and 'v6.1.0.' for the rest of the clients.
 
 
 Note that you can also use Docker and run the OpenApi generator Docker image directly:

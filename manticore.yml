@@ -93,12 +93,16 @@ components:
           type: string
         lte:
           type: number
+          nullable: true
         gte:
           type: number
+          nullable: true
         lt:
           type: number
+          nullable: true
         gt:
           type: number
+          nullable: true
       example: {'field1': {'gte': 10, 'lte': 20} }
     geoDistanceFilter:
       type: object
@@ -111,10 +115,10 @@ components:
           properties:
             lat:
               description: Geo latitude of pin point in degrees
-              type: integer
+              type: number
             lon:
               description: Geo longitude pf pin point in degrees
-              type: integer
+              type: number
         location_source:
           description: Attribute containing latitude and longitude data
           type: string
@@ -618,11 +622,6 @@ components:
             #  - $ref: '#/components/schemas/sortOrder'
             #  - $ref: '#/components/schemas/sortMVA'
           example: []
-        sort_old:
-          type: array
-          items:
-            type: object
-          example: [{ "test":"asc" }, "id"]
         aggs:
           type: array
           items:
