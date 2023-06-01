@@ -52,7 +52,9 @@ public class App
 	        searchRequest.setQuery(query);
 			searchRequest.setLimit(10);
 			searchRequest.setTrackScores(false);
-			
+
+			SearchResponse searchResponse = searchApi.search(searchRequest);
+
 			Map<String,Object> options = new HashMap<String,Object>();
 			options.put("cutoff", 5);
 			options.put("ranker", "bm25");
@@ -60,7 +62,7 @@ public class App
 			
 			searchRequest.setSource("title");
 			
-			SearchResponse searchResponse = searchApi.search(searchRequest);
+			searchResponse = searchApi.search(searchRequest);
 	        
 	        List<String> includes = new ArrayList<String>( Arrays.asList("title", "year", "rating") );
 			List<String> excludes = Arrays.asList("code");
@@ -69,6 +71,8 @@ public class App
 			source.setExcludes(excludes);
 			searchRequest.setSource(source);
 			
+			searchResponse = searchApi.search(searchRequest);
+
 			List<Object> sort = new ArrayList<Object>( Arrays.asList("year") );
 			SortOrder sort2 = new SortOrder();
 			sort2.setAttr("rating");
@@ -80,6 +84,8 @@ public class App
 			sort3.setMode(SortMVA.ModeEnum.MAX);
 			sort.add(sort3);
 			searchRequest.setSort(sort);
+
+			searchResponse = searchApi.search(searchRequest);
 			
 			Map<String,String> expr = new HashMap<String,String>();
 			expr.put("expr1", "min(year,2900)");
@@ -92,17 +98,23 @@ public class App
 				}}
         	);
         	searchRequest.setExpressions(expressions);
+
+        	searchResponse = searchApi.search(searchRequest);
         	
         	source = (SourceByRules)searchRequest.getSource();
         	includes.addAll( Arrays.asList("expr1", "expr2") );
         	source.setIncludes(includes);
         	searchRequest.setSource(source);
+
+        	searchResponse = searchApi.search(searchRequest);
         				        					
 	        Aggregation agg = new Aggregation();
 	        agg.setName("agg1");
 	        agg.setField("year");
         	agg.setSize(10);
 			searchRequest.setAggs( new ArrayList<Aggregation>( Arrays.asList(agg) ) );
+
+			searchResponse = searchApi.search(searchRequest);
 			
 			agg = new Aggregation();
 	        agg.setName("agg2");
@@ -110,6 +122,8 @@ public class App
 			List<Aggregation> aggs = searchRequest.getAggs();
 			aggs.add(agg);
 			searchRequest.setAggs(aggs);
+
+			searchResponse = searchApi.search(searchRequest);
 			
 			Highlight highlight = new Highlight();
         	highlight.setFieldnames( Arrays.asList("title") );
@@ -117,13 +131,17 @@ public class App
     	    highlight.setEncoder(Highlight.EncoderEnum.DEFAULT);
 	        highlight.setSnippetBoundary(Highlight.SnippetBoundaryEnum.SENTENCE);
         	searchRequest.setHighlight(highlight);
-			
+
+        	searchResponse = searchApi.search(searchRequest);
+
 			HighlightField highlightField = new HighlightField();
 			highlightField.setName("title");
 			highlightField.setLimit(5);
 			List<HighlightField> highlightFields = new ArrayList<HighlightField>( Arrays.asList(highlightField) );
 			highlight.setFields(highlightFields);
 			searchRequest.setHighlight(highlight);
+
+			searchResponse = searchApi.search(searchRequest);
 			
 			highlightField = new HighlightField();
 			highlightField.setName("plot");
@@ -133,52 +151,85 @@ public class App
         	highlight.setFields(highlightFields);
         	
         	searchRequest.setHighlight(highlight);
+
+        	searchResponse = searchApi.search(searchRequest);
+
+        	HashMap<String,Object> highlightQuery = new HashMap<String,Object>(){{
+	            put("match", new HashMap<String,Object>(){{
+	            	put("*","Star");
+	        	}});
+	        }};
+        	highlight.setHighlightQuery(highlightQuery);
+
+        	searchResponse = searchApi.search(searchRequest);
 						
 			QueryFilter queryFilter = new QueryFilter();
 			queryFilter.setQueryString("Star Trek 2");								
 			searchRequest.setFulltextFilter(queryFilter);
+
+			searchResponse = searchApi.search(searchRequest);
 			
 			MatchFilter matchFilter = new MatchFilter();
 			matchFilter.setQueryString("Nemesis");
 			matchFilter.setQueryFields("title");	
 			searchRequest.setFulltextFilter(matchFilter);
+
+			searchResponse = searchApi.search(searchRequest);
 			
 			MatchPhraseFilter matchPhraseFilter = new MatchPhraseFilter();
 			matchPhraseFilter.setQueryPhrase("Star Trek 2");
 			matchPhraseFilter.setQueryFields("title");
 			searchRequest.setFulltextFilter(matchPhraseFilter);
+
+			searchResponse = searchApi.search(searchRequest);
 			
 			MatchOpFilter matchOpFilter = new MatchOpFilter();
 			matchOpFilter.setQueryString("Enterprise test");
 			matchOpFilter.setQueryFields("title,plot");
 			matchOpFilter.setOperator(MatchOpFilter.OperatorEnum.OR);
 			searchRequest.setFulltextFilter(matchOpFilter);
+
+			searchResponse = searchApi.search(searchRequest);
 			
 			EqualsFilter equalsFilter = new EqualsFilter();
 			equalsFilter.setField("year");
 			equalsFilter.setValue(2003);
 			searchRequest.setAttrFilter(equalsFilter);
+
+			searchResponse = searchApi.search(searchRequest);
 			
 			InFilter inFilter = new InFilter();
 			inFilter.setField("year");
 			inFilter.setValues( Arrays.asList(2001, 2002) );
 	        searchRequest.setAttrFilter(inFilter);
+
+	        searchResponse = searchApi.search(searchRequest);
 			
 			RangeFilter rangeFilter = new RangeFilter();
 			rangeFilter.setField("year");
 			rangeFilter.setLte(BigDecimal.valueOf(2001));
-			rangeFilter.setGte(BigDecimal.valueOf(1000));
+			rangeFilter.setGte(BigDecimal.valueOf(0));
 			searchRequest.setAttrFilter(rangeFilter);
-			
+
+			searchResponse = searchApi.search(searchRequest);
+
+			rangeFilter.setField("rating");
+			rangeFilter.setGt(BigDecimal.valueOf(1.5));
+			searchRequest.setAttrFilter(rangeFilter);
+
+			searchResponse = searchApi.search(searchRequest);
+
 			GeoDistanceFilter geoFilter = new GeoDistanceFilter();
 			GeoDistanceFilterLocationAnchor locAnchor = new GeoDistanceFilterLocationAnchor();
-			locAnchor.setLat(10);
-			locAnchor.setLon(20);
+			locAnchor.setLat(BigDecimal.valueOf(10));
+			locAnchor.setLon(BigDecimal.valueOf(20));
 			geoFilter.setLocationAnchor(locAnchor);
-			geoFilter.setLocationSource("field3,field4");
+			geoFilter.setLocationSource("year,rating");
 			geoFilter.setDistanceType(GeoDistanceFilter.DistanceTypeEnum.ADAPTIVE);
 			geoFilter.setDistance("100km");
-			//searchRequest.setAttrFilter(geoFilter);
+			searchRequest.setAttrFilter(geoFilter);
+
+			searchResponse = searchApi.search(searchRequest);
 			
 			BoolFilter boolFilter = new BoolFilter();
 			equalsFilter = new EqualsFilter();
@@ -193,11 +244,15 @@ public class App
 			boolFilter.setMust(mustFilter);
 			searchRequest.setAttrFilter(boolFilter);
 
+			searchResponse = searchApi.search(searchRequest);
+
 			equalsFilter = new EqualsFilter();
 			equalsFilter.setField("year");
 			equalsFilter.setValue(2001);
 			boolFilter.setMustNot( Arrays.asList(equalsFilter) );
 			searchRequest.setAttrFilter(boolFilter);
+
+			searchResponse = searchApi.search(searchRequest);
 			
 			boolFilter = new BoolFilter();
 			
@@ -213,7 +268,8 @@ public class App
 			searchRequest.setAttrFilter(boolFilter);
 											
 			searchResponse = searchApi.search(searchRequest);
-	        System.out.println(searchResponse.toString() );
+	  
+	        System.out.println("Search tests finished");
 	        
 		} catch (ApiException e) {
 	      System.err.println("Exception when testing a build of searchRequest");
@@ -227,13 +283,11 @@ public class App
     public static void main( String[] args )
     {
 	    ApiClient client = Configuration.getDefaultApiClient();
-	    client.setBasePath("http://manticoresearch-manticore:6368");
-	
+	    client.setBasePath("http://manticoresearch-manticore:9308");
 	    IndexApi indexApi = new IndexApi(client);
 	    SearchApi searchApi = new SearchApi(client);
 	    UtilsApi utilsApi = new UtilsApi(client);
-	  /*  String body = "{\"insert\": {\"index\": \"movies\", \"id\": 0,\"doc\": {\"plot\": \"A secret team goes to North Pole\", \"rating\": 9.5, \"language\": [2, 3], \"title\": \"This is an older movie\", \"lon\": 51.99, \"meta\": {\"keywords\":[\"travel\",\"ice\"],\"genre\":[\"adventure\"]}, \"year\": 1950, \"lat\": 60.4, \"advise\": \"PG-13\"}}}" +"\n"+"{\"insert\": {\"index\": \"movies\", \"id\": 564343,\"doc\": {\"plot\": \" team goes to North Pole\", \"rating\": 9.5, \"language\": [2, 3], \"title\": \"This is a newer movie\", \"lon\": 51.99, \"meta\": {\"keywords\":[\"travel\",\"ice\"],\"genre\":[\"adventure\"]}, \"year\": 1950, \"lat\": 60.4, \"advise\": \"PG-13\"}}}" +"\n"+"{\"delete\":{\"index\" : \"movies\", \"id\" : 701}}"+"\n"; 
-	  */
+
 		try {
 			if (true) {
 				testSearchRequestBuild(client, indexApi, searchApi, utilsApi);
@@ -634,7 +688,7 @@ public class App
 	        
 		    percolateRequestQuery.setPercolate(query);
 			percolateRequest.query(percolateRequestQuery);
-		    sqlresult =    searchApi.percolate("products",percolateRequest);
+		    sqlresult = searchApi.percolate("products",percolateRequest);
 		 	System.out.println(sqlresult);  
 	 
 	 		percolateRequest = new PercolateRequest();
@@ -674,7 +728,7 @@ public class App
 		    percolateRequestQuery.setPercolate(query);
 			percolateRequest.query(percolateRequestQuery);
 	    
-			sqlresult =    searchApi.percolate("pq",percolateRequest);
+			sqlresult = searchApi.percolate("products",percolateRequest);
 			System.out.println(sqlresult);  
 	 
 	 
@@ -990,9 +1044,8 @@ public class App
 			);
 	        searchRequest.setHighlight(highlight);
 	        searchResponse = searchApi.search(searchRequest);
-	        System.out.println(searchResponse.toString() );   
 	        
-	        
+	        System.out.println("Tests finished");
 	    } catch (ApiException e) {
 	      System.err.println("Exception when calling IndexApi#bulk");
 	      System.err.println("Status code: " + e.getCode());

@@ -1,6 +1,8 @@
 package {{invokerPackage}};
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.openapitools.jackson.nullable.JsonNullableModule;
 
 import {{javaxPackage}}.ws.rs.client.Client;
 import {{javaxPackage}}.ws.rs.client.ClientBuilder;
@@ -1016,12 +1018,15 @@ public class ApiClient{{#jsr310}} extends JavaTimeFormatter{{/jsr310}} {
           entity = Entity.entity(obj == null ? "null" : obj, contentType);
         }
       } else {
-           if (obj instanceof SearchRequest) {
-        	ObjectMapper oMapper = new ObjectMapper();
-        	Map<String, Object> map = oMapper.convertValue(obj, Map.class);
-			entity = Entity.entity(map, contentType);
+        if (obj instanceof SearchRequest) {
+           ObjectMapper oMapper = new ObjectMapper();
+           oMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+           oMapper.registerModule(new JsonNullableModule());
+
+           Map<String, Object> map = oMapper.convertValue(obj, Map.class);
+           entity = Entity.entity(map, contentType);
 			
-			class SearchRequestRestruct {
+           class SearchRequestRestruct {
 				public Map<String, Object> restructObj(Map<String, Object> obj, String objType)
 	 			{
 	 			    if (!obj.containsKey("attr") && !obj.containsKey("name") && !obj.containsKey("query_fields") && !obj.containsKey("value") && !obj.containsKey("values")
@@ -1134,7 +1139,7 @@ public class ApiClient{{#jsr310}} extends JavaTimeFormatter{{/jsr310}} {
 
 	                return (Map<String, Object>) nestedObj.get(0);
 	            }
-        	};
+            };
 
 			SearchRequestRestruct restruct = new SearchRequestRestruct();
 			        	
@@ -1154,7 +1159,7 @@ public class ApiClient{{#jsr310}} extends JavaTimeFormatter{{/jsr310}} {
 	 		        } 
 	 		    }
 	 		    map.put("sort", restrSortList);
-	 		}
+            }
 	 		
 	 		Boolean hasFilterSet = (map.containsKey("fulltext_filter") && map.get("fulltext_filter") != null) ||
 	 			(map.containsKey("attr_filter") && map.get("attr_filter") != null);
