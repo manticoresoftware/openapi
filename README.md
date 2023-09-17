@@ -16,6 +16,8 @@ To edit and validate the config, you can use an online editor such as [Swagger](
 
 * [Javascript](https://github.com/manticoresoftware/manticoresearch-javascript) - it also has a testing suite with incomplete coverage
 
+* [Typescript](https://github.com/manticoresoftware/manticoresearch-typrscript)
+
 * [Java](https://github.com/manticoresoftware/manticoresearch-java)
 
 * [Elixir](https://github.com/manticoresoftware/manticoresearch-elixir)
