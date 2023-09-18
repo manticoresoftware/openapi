@@ -29,7 +29,7 @@ import { UtilsApi } from 'manticoresearch-ts'
 
 const utilsApi = new UtilsApi()
 utilsApi
-  .sql('SHOW TABLES')
+  .sql('SHOW TABLES', true)
   .then((res) => console.log(JSON.stringify(res, null, 2)))
 
 ```

@@ -49,7 +49,7 @@ import { Configuration, IndexApi, SearchApi, ResponseError } from 'manticoresear
     })
     console.info('Search response:', JSON.stringify(searchResponse, null, 2))
   } catch (error) {
-    const errorResponse = await (<ResponseError>error).response.json()
+    const errorResponse = error instanceof ResponseError ? await error.response.json() : error
     console.error('Error response:', JSON.stringify(errorResponse, null, 2))
   }
 })()
