@@ -34,8 +34,8 @@ export class UtilsApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters.rawResponse !== undefined) {
-            queryParameters['raw_response'] = requestParameters.rawResponse;
+        if (requestParameters.rawResponse) {
+            queryParameters['mode'] = 'raw'
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -47,7 +47,7 @@ export class UtilsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
+            body: 'query=' + encodeURIComponent(requestParameters.body)
         }, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
