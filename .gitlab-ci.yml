@@ -30,7 +30,7 @@ typescript_npmjs:
   allow_failure: true
   script:
     - cp $NPMRC  ~/.npmrc
-    - apt update && apt install -y typescript
+    - npm install -g typescript
     - cd out/manticoresearch-typescript
     - npm publish
 
