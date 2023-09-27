@@ -51,6 +51,19 @@ javascript_push:
     - git fetch manticoresearch-javascript  
     - git subtree push --prefix=out/manticoresearch-javascript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-javascript.git $CI_COMMIT_BRANCH
 
+typescript_push:
+  image: ubuntu:latest
+  stage: push
+  before_script:
+    - apt-get update && apt-get install -y git
+  only:
+    changes:
+      - out/manticoresearch-typescript/**/*
+  script:
+    - git remote add manticoresearch-typescript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-typescript.git
+    - git fetch manticoresearch-typescript
+    - git subtree push --prefix=out/manticoresearch-typescript https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/manticoresoftware/manticoresearch-typescript.git $CI_COMMIT_BRANCH
+
 java_push:
   image: ubuntu:latest
   stage: push
@@ -96,6 +109,16 @@ javascript_npmjs:
   script:
     - cp $NPMRC  ~/.npmrc
     - cd out/manticoresearch-javascript
+    - npm publish
+
+typescript_npmjs:
+  stage: publish
+  when: manual
+  image: node
+  allow_failure: true
+  script:
+    - cp $NPMRC  ~/.npmrc
+    - cd out/manticoresearch-typescript
     - npm publish
 
 python_pypi:
