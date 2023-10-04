@@ -1,0 +1,34 @@
+{
+  "name": "{{{npmName}}}",
+  "version": "{{{npmVersion}}}",
+  "description": "Typescript client for Manticore Search",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+{{#npmRepository}}
+  "publishConfig":{
+    "registry":"{{npmRepository}}"
+  },
+{{/npmRepository}}
+  "browser": {
+    "fs": false
+  },
+  "keywords": [
+    "manticoresearch",
+    "typescript",
+    "REST",
+    "search",
+    "client",
+    "index"
+  ],  
+  "devDependencies": {
+    "typescript": "^4.0"
+  }
+}

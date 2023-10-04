@@ -843,8 +843,10 @@ components:
       properties:
         items:
           type: object
-        error:
+        errors:
           type: boolean
+        error:
+          type: string
     updateResponse:
       type: object
       description: Success response

@@ -1,4 +1,4 @@
-# {{packageName}} - the C# library for the {{appName}}
+# Manticore .Net client
 
 {{^outBranch}}
 ❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-net/tree/{{packageVersion}}
@@ -37,6 +37,12 @@
 {{/validatable}}
 
 The DLLs included in the package may not be the latest version. We recommend using [NuGet](https://docs.nuget.org/consume/installing-nuget) to obtain the latest version of the packages:
+
+| Manticore Search  | manticoresearch-net     |
+| ----------------- | ----------------------- |
+| >= 6.2.0          | 3.3.1                   |
+| >= 2.5.1          | 1.0.x                   |
+
 ```
 {{#useRestSharp}}
 Install-Package RestSharp

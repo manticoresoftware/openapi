@@ -45,6 +45,38 @@ do_javascript() {
   echo "Javascript done."
 }
 
+do_typescript() {
+  echo "Building Typescript ..."
+  rm -rf out/manticoresearch-typescript
+  docker run \
+    --rm \
+    -v ${PWD}:/local \
+    -u "$(id -u):$(id -g)" \
+    -e JAVA_OPTS="-Dlog.level=warn" \
+    "openapitools/openapi-generator-cli$version" generate \
+    -i /local/manticore.yml \
+    -g typescript-fetch \
+    -o /local/out/manticoresearch-typescript \
+    -t /local/templates/Typescript \
+    --git-repo-id manticoresearch-typescript \
+    --git-user-id manticoresoftware \
+    --reserved-words-mappings delete=delete \
+    --additional-properties npmName=manticoresearch-ts \
+    --additional-properties npmVersion=`cat versions/typescript` \
+    --additional-properties withoutRuntimeChecks=true \
+    --additional-properties stringEnums=true \
+    --additional-properties enumPropertyNaming=camelCase \
+    --additional-properties modelPropertyNaming=original \
+    --additional-properties useSingleRequestParameter=false \
+    --additional-properties moduleName=Manticoresearch \
+    --additional-properties apiDocPath=docs/ \
+    $build_to_branch
+  cat LICENSE.txt > out/manticoresearch-typescript/LICENSE.txt
+  mkdir out/manticoresearch-typescript/test/ && cp -R test/typescript/* out/manticoresearch-typescript/test/
+  cp -r docs/typescript/docs out/manticoresearch-typescript/
+  echo "Typescript done."
+}
+
 do_csharp() {
   echo "Building CSharp ..."
   rm -rf out/manticoresearch-csharp 
@@ -116,6 +148,9 @@ case $1 in
  javascript)
    do_javascript 
   ;;
+ typescript)
+   do_typescript
+  ;;
  csharp)
    do_csharp
   ;;
@@ -138,6 +173,7 @@ case $1 in
    do_python
    do_java
    do_javascript
+   do_typescript
    do_csharp
    do_ruby
    do_swift
