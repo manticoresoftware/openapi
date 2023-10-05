@@ -1,5 +1,4 @@
 stages:
-  - push
   - publish
 variables:
   GIT_STRATEGY: clone
@@ -118,7 +117,9 @@ typescript_npmjs:
   allow_failure: true
   script:
     - cp $NPMRC  ~/.npmrc
+    - npm install -g typescript
     - cd out/manticoresearch-typescript
+    - npm install --save-dev @types/chai @types/mocha chai mocha
     - npm publish
 
 python_pypi:
