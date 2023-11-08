@@ -231,4 +231,27 @@ describe("Search Api Tests", () => {
       expect(e).to.be.null;
     }
   });
+  it('Testing search aggregation', async function () {
+    try {
+      const query: Manticoresearch.SearchRequest = {
+        index: 'test',
+        query: {
+          match_all: {},
+        },
+        aggs: [
+          {
+            name: 'cat',
+            field: 'cat',
+          },
+        ],
+      };
+
+      const result = await searchApi.search(query);
+      expect(result).to.deep.nested.property('hits.total', 5);
+    } catch (err) {
+      const errorResponse = err instanceof Manticoresearch.ResponseError ? await err.response.json() : err;
+      console.error('Error response:', JSON.stringify(errorResponse, null, 2));
+      expect(err).to.be.null;
+    }
+  });
 });
