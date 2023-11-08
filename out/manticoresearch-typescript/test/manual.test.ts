@@ -238,16 +238,19 @@ describe("Search Api Tests", () => {
         query: {
           match_all: {},
         },
-        aggs: [
-          {
-            name: 'cat',
-            field: 'cat',
-          },
-        ],
+        aggs: {
+          categories: {
+            terms: {
+              field: 'cat',
+              size: 3
+            }
+          }
+        }
       };
 
       const result = await searchApi.search(query);
-      expect(result).to.deep.nested.property('hits.total', 5);
+      expect(result).to.have.nested.property('aggregations.categories.buckets');
+      expect(result.aggregations!.categories.buckets).to.have.lengthOf(3)
     } catch (err) {
       const errorResponse = err instanceof Manticoresearch.ResponseError ? await err.response.json() : err;
       console.error('Error response:', JSON.stringify(errorResponse, null, 2));

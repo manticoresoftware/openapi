@@ -38,22 +38,29 @@ components:
       additionalProperties: true
     aggregation:
       type: object
-      description: Query aggregation object
       x-is_req_agg: true
-      required:
-        - name
-        - field
+      description: Aggregation Alias
       properties:
-        name:
-          type: string
-          example: agg1
-        field:
-          type: string
-          example: field1
-        size:
-          type: integer
-          default: 20
-          example: 10
+        terms:
+          type: object
+          properties:
+            field:
+              type: string
+              description: Attribute Name to Aggregate
+              example: field1
+            size:
+              type: integer
+              description: Maximum Number of Buckets in the Result
+              example: 1000
+        sort:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: object
+              properties:
+                order:
+                  type: string
     equalsFilter:
       type: object
       description: Equals attribute filter
@@ -623,9 +630,17 @@ components:
             #  - $ref: '#/components/schemas/sortMVA'
           example: []
         aggs:
-          type: array
-          items:
+          type: object
+          additionalProperties:
             $ref: '#/components/schemas/aggregation'
+          example:
+            agg1:
+              terms:
+                field: field1
+                size: 1000
+              sort:
+                - 'field1':
+                  order: asc
         expressions:
           type: array
           items:
