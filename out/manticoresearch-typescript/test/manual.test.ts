@@ -30,7 +30,9 @@ describe("Utils Api Tests", () => {
       res = await utilsApi.sql("SELECT * FROM test", false);
       expect(res).to.deep.nested.property("hits.total", 0);
     } catch (e) {
-      console.error(e);
+      const errorResponse = e instanceof Manticoresearch.ResponseError ? await e.response.json() : e;
+      console.error('Error response:', JSON.stringify(errorResponse, null, 2));
+      expect(e).to.be.null;
     }
   });
 });
@@ -141,7 +143,9 @@ describe("Index API Tests", () => {
       });
       expect(res).to.property("deleted", 1);
     } catch (e) {
-      console.error(e);
+      const errorResponse = e instanceof Manticoresearch.ResponseError ? await e.response.json() : e;
+      console.error('Error response:', JSON.stringify(errorResponse, null, 2));
+      expect(e).to.be.null;
     }
   });
 });
@@ -222,7 +226,9 @@ describe("Search Api Tests", () => {
       });
       expect(res).to.deep.nested.property("hits.total", 0);
     } catch (e) {
-      console.error(e);
+      const errorResponse = e instanceof Manticoresearch.ResponseError ? await e.response.json() : e;
+      console.error('Error response:', JSON.stringify(errorResponse, null, 2));
+      expect(e).to.be.null;
     }
   });
 });
