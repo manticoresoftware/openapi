@@ -1,53 +1,27 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Aggregation Alias
+ * Query aggregation object
  * @export
  * @interface Aggregation
  */
 export interface Aggregation {
     /**
      * 
-     * @type {AggregationTerms}
+     * @type {string}
      * @memberof Aggregation
      */
-    terms?: AggregationTerms;
-    /**
-     * 
-     * @type {Array<{ [key: string]: AggregationSortInnerValue; }>}
-     * @memberof Aggregation
-     */
-    sort?: Array<{ [key: string]: AggregationSortInnerValue; }>;
-}
-/**
- * 
- * @export
- * @interface AggregationSortInnerValue
- */
-export interface AggregationSortInnerValue {
+    name: string;
     /**
      * 
      * @type {string}
-     * @memberof AggregationSortInnerValue
+     * @memberof Aggregation
      */
-    order?: string;
-}
-/**
- * 
- * @export
- * @interface AggregationTerms
- */
-export interface AggregationTerms {
+    field: string;
     /**
-     * Attribute Name to Aggregate
-     * @type {string}
-     * @memberof AggregationTerms
-     */
-    field?: string;
-    /**
-     * Maximum Number of Buckets in the Result
+     * 
      * @type {number}
-     * @memberof AggregationTerms
+     * @memberof Aggregation
      */
     size?: number;
 }
@@ -106,7 +80,6 @@ export interface BulkResponse {
  * Payload for delete request.
  * Documents can be deleted either one by one by specifying the document id or by providing a query object.
  * For more information see  [Delete API](https://manual.manticoresearch.com/Deleting_documents)
- * 
  * @export
  * @interface DeleteDocumentRequest
  */
@@ -593,7 +566,6 @@ export interface InFilter {
 }
 /**
  * Object with document data.
- * 
  * @export
  * @interface InsertDocumentRequest
  */
@@ -612,14 +584,12 @@ export interface InsertDocumentRequest {
     cluster?: string;
     /**
      * Document ID.
-     * 
      * @type {number}
      * @memberof InsertDocumentRequest
      */
     id?: number;
     /**
      * Object with document data
-     * 
      * @type {{ [key: string]: any; }}
      * @memberof InsertDocumentRequest
      */
@@ -919,10 +889,10 @@ export interface SearchRequest {
     sort?: Array<object>;
     /**
      * 
-     * @type {{ [key: string]: Aggregation; }}
+     * @type {Array<Aggregation>}
      * @memberof SearchRequest
      */
-    aggs?: { [key: string]: Aggregation; };
+    aggs?: Array<Aggregation>;
     /**
      * 
      * @type {Array<object>}
