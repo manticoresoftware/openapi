@@ -264,10 +264,15 @@ describe("Search Api Tests", () => {
         query: {
           match_all: {},
         },
-        expressions: []
+        expressions: {
+          title_len: 'crc32(name)'
+        }
       };
 
       const result = await searchApi.search(query);
+      expect(result).to.have.nested.property('hits.hits[0]._source.title_len')
+      expect((result.hits!.hits?.at(0) as any)._source!.name).to.equal('Doc 1')
+      expect((result.hits!.hits?.at(0) as any)._source!.title_len).to.equal(2262810400) // === crc32("Doc 1")
     } catch (err) {
       const errorResponse = err instanceof Manticoresearch.ResponseError ? await err.response.json() : err;
       console.error('Error response:', JSON.stringify(errorResponse, null, 2));

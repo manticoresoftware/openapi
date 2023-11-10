@@ -642,9 +642,11 @@ components:
                 - 'field1':
                   order: asc
         expressions:
-          type: array
-          items:
-            type: object
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            title_len: "crc32(title)"
         highlight:
           $ref: '#/components/schemas/highlight'
         source:
