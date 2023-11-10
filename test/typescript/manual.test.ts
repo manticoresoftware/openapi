@@ -257,4 +257,21 @@ describe("Search Api Tests", () => {
       expect(err).to.be.null;
     }
   });
+  it('Testing search expressions', async function () {
+    try {
+      const query: Manticoresearch.SearchRequest = {
+        index: 'test',
+        query: {
+          match_all: {},
+        },
+        expressions: []
+      };
+
+      const result = await searchApi.search(query);
+    } catch (err) {
+      const errorResponse = err instanceof Manticoresearch.ResponseError ? await err.response.json() : err;
+      console.error('Error response:', JSON.stringify(errorResponse, null, 2));
+      expect(err).to.be.null;
+    }
+  });
 });
