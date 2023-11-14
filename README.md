@@ -85,6 +85,8 @@ Please note that for Java, the library used is `okhttp-gson`, and some of its te
 
 - `templates` -  contains mustache templates taken from https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator/src/main/resources; These should be updated from time to time
 
+- `docs` - contains the documentation parts for generated clients which cannot be correctly generated in auto mode.
+
 
 ## Specific client issues
 
@@ -92,8 +94,4 @@ Please note that for Java, the library used is `okhttp-gson`, and some of its te
 
 
 * `delete()` is renamed to `callDelete` because `delete()` is a reserved method - the only appropriate fix is to rename doc operations to something else (like `deleteDocuments()`)
-
-
-
-
 
