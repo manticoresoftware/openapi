@@ -18,7 +18,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.manticoresearch.client.model.AggregationSortInnerValue;
+import com.manticoresearch.client.model.AggregationTerms;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -39,27 +44,19 @@ public class AggregationTest {
     }
 
     /**
-     * Test the property 'name'
+     * Test the property 'terms'
      */
     @Test
-    public void nameTest() {
-        // TODO: test name
+    public void termsTest() {
+        // TODO: test terms
     }
 
     /**
-     * Test the property 'field'
+     * Test the property 'sort'
      */
     @Test
-    public void fieldTest() {
-        // TODO: test field
-    }
-
-    /**
-     * Test the property 'size'
-     */
-    @Test
-    public void sizeTest() {
-        // TODO: test size
+    public void sortTest() {
+        // TODO: test sort
     }
 
 }

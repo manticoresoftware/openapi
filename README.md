@@ -16,10 +16,17 @@ To edit and validate the config, you can use an online editor such as [Swagger](
 
 * [Javascript](https://github.com/manticoresoftware/manticoresearch-javascript) - it also has a testing suite with incomplete coverage
 
-* [Java](https://github.com/manticoresoftware/manticoresearch-java)
+* [Java](https://github.com/manticoresoftware/manticoresearch-java) - it also has a testing suite with incomplete coverage
 
-* [Elixir](https://github.com/manticoresoftware/manticoresearch-elixir)
+* [Elixir](https://github.com/manticoresoftware/manticoresearch-net) - it also has a testing suite with incomplete coverage
 
+* [Typescript](https://github.com/manticoresoftware/manticoresearch-typescript) - it also has a testing suite with incomplete coverage
+
+
+## Contributing
+
+When proposing a Pull Request (PR) for a client, please ensure that your PR modifies only the corresponding client templates, not the client code itself, which is stored in the 'out' folder. The client code is generated automatically via GitHub CI, so it is not necessary to add it explicitly.
+ 
 
 ## Building
 

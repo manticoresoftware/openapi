@@ -2,8 +2,7 @@
 
 Сlient for Manticore Search.
 
-
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-javascript/tree/3.3.1
+❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-javascript/tree/4.0.0
 
 ## Requirements
 
@@ -11,6 +10,7 @@ Minimum Manticore Search version is 2.5.1 with HTTP protocol enabled.
 
 | Manticore Search  | manticoresearch-javascript   |     Node      |
 | ----------------- | ---------------------------- | ------------- |
+| >= 6.2.0          | 4.0.0                        | >= 10.0       |
 | >= 6.2.0          | 3.3.1                        | >= 10.0       |
 | >= 4.2.1          | 3.0.x                        | >= 10.0       |
 | >= 4.0.2          | 2.0.3                        | >= 10.0       |
@@ -67,7 +67,7 @@ async function(){
 
 ## Documentation
 
-Full documentation on the API Endpoints and Models used is available in  [docs](https://github.com/manticoresoftware/manticoresearch-javascript/tree/3.3.1/docs) folder as listed below.
+Full documentation on the API Endpoints and Models used is available in  [docs](https://github.com/manticoresoftware/manticoresearch-javascript/tree/4.0.0/docs) folder as listed below.
 
 Manticore Search server documentation: https://manual.manticoresearch.com.
 
@@ -90,6 +90,8 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [Manticoresearch.Aggregation](docs/Aggregation.md)
+ - [Manticoresearch.AggregationSortInnerValue](docs/AggregationSortInnerValue.md)
+ - [Manticoresearch.AggregationTerms](docs/AggregationTerms.md)
  - [Manticoresearch.BoolFilter](docs/BoolFilter.md)
  - [Manticoresearch.BulkResponse](docs/BulkResponse.md)
  - [Manticoresearch.DeleteDocumentRequest](docs/DeleteDocumentRequest.md)

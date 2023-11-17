@@ -288,12 +288,10 @@ class {{classname}}(object):
         {{#vendorExtensions.x-is_search_req}}
         result['_source'] = result['source']
         del result['source']
-        if result['expressions'] is not None:
-        	result['expressions'] = {k:v for i in result['expressions'] for k,v in i.items() }
         if result['aggs'] is not None:
-        	result['aggs'] = {
-        	    i['name']: { 'terms': { 'field': i['field'], 'size': i['size'] } } for i in result['aggs']
-        	}
+        	for k,v in result['aggs'].items():
+        		if v['sort'] is None:
+        			result['aggs'][k]['sort'] = []
         if result['highlight'] is not None:
 	        if result['highlight']['fields'] is None: 	
 	            result['highlight']['fields'] = result['highlight']['fieldnames']

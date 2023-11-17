@@ -1,12 +1,11 @@
 # Aggregation
 
-Query aggregation object
+Aggregation Alias
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | 
-**field** | **str** |  | 
-**size** | **int** |  | [optional] [default to 20]
+**terms** | [**AggregationTerms**](AggregationTerms.md) |  | [optional] 
+**sort** | [**[{str: (AggregationSortInnerValue,)}]**](AggregationSortInnerValue.md) |  | [optional] 
 
 [[Using in search requests]](SearchApi.md#Aggregation)
 

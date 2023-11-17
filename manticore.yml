@@ -916,6 +916,7 @@ paths:
   '/pq/{index}/search':
     post:
       summary: Perform reverse search on a percolate index
+      x-is_percolate: true
       operationId: percolate
       description: >
         Performs a percolate search. 
@@ -1093,6 +1094,8 @@ paths:
   /insert:
     post:
       summary: Create a new document in an index
+      x-is_indexapi: true
+      x-is_insert: true
       operationId: insert
       description: >
         Insert a document. 
@@ -1175,6 +1178,8 @@ paths:
   /replace:
     post:
       summary: Replace new document in an index
+      x-is_indexapi: true
+      x-is_replace: true
       operationId: replace
       description: >
         Replace an existing document. Input has same format as `insert` operation. <br/>
@@ -1216,6 +1221,8 @@ paths:
   /update:
     post:
       summary: Update a document in an index
+      x-is_indexapi: true
+      x-is_update: true
       x-is_modify: true
       operationId: update
       description: >
@@ -1287,6 +1294,8 @@ paths:
   /delete:
     post:
       summary: Delete a document in an index
+      x-is_indexapi: true
+      x-is_delete: true
       x-is_modify: true
       operationId: delete
       description: >
@@ -1359,6 +1368,8 @@ paths:
   /bulk:
     post:
       summary: Bulk index operations
+      x-is_indexapi: true
+      x-is_bulk: true
       description: >
         Sends multiple operatons like inserts, updates, replaces or deletes. 
 
@@ -1422,7 +1433,6 @@ paths:
   /sql:
     post:
       summary: Perform SQL requests
-      x-is_test: true
       x-is_sql: true
       description: >
         Run a query in SQL format.

@@ -30,98 +30,70 @@ class Aggregation(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'name': 'str',
-        'field': 'str',
-        'size': 'int'
+        'terms': 'AggregationTerms',
+        'sort': '[{str: (AggregationSortInnerValue,)}]'
     }
 
     attribute_map = {
-        'name': 'name',
-        'field': 'field',
-        'size': 'size'
+        'terms': 'terms',
+        'sort': 'sort'
     }
 
-    def __init__(self, name=None, field=None, size=20, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, terms=None, sort=None, local_vars_configuration=None):  # noqa: E501
         """Aggregation - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
-        self._name = None
-        self._field = None
-        self._size = None
+        self._terms = None
+        self._sort = None
         self.discriminator = None
 
-        self.name = name
-        self.field = field
-        if size is not None:
-            self.size = size
+        if terms is not None:
+            self.terms = terms
+        if sort is not None:
+            self.sort = sort
 
     @property
-    def name(self):
-        """Gets the name of this Aggregation.  # noqa: E501
+    def terms(self):
+        """Gets the terms of this Aggregation.  # noqa: E501
 
 
-        :return: The name of this Aggregation.  # noqa: E501
-        :rtype: str
+        :return: The terms of this Aggregation.  # noqa: E501
+        :rtype: AggregationTerms
         """
-        return self._name
-    @name.setter
-    def name(self, name):
-        """Sets the name of this Aggregation.
+        return self._terms
+    @terms.setter
+    def terms(self, terms):
+        """Sets the terms of this Aggregation.
 
 
-        :param name: The name of this Aggregation.  # noqa: E501
-        :type name: str
+        :param terms: The terms of this Aggregation.  # noqa: E501
+        :type terms: AggregationTerms
         """
-        if self.local_vars_configuration.client_side_validation and name is None:  # noqa: E501
-            raise ValueError("Invalid value for `name`, must not be `None`")  # noqa: E501
 
-        self._name = name
+        self._terms = terms
         
 
     @property
-    def field(self):
-        """Gets the field of this Aggregation.  # noqa: E501
+    def sort(self):
+        """Gets the sort of this Aggregation.  # noqa: E501
 
 
-        :return: The field of this Aggregation.  # noqa: E501
-        :rtype: str
+        :return: The sort of this Aggregation.  # noqa: E501
+        :rtype: [{str: (AggregationSortInnerValue,)}]
         """
-        return self._field
-    @field.setter
-    def field(self, field):
-        """Sets the field of this Aggregation.
+        return self._sort
+    @sort.setter
+    def sort(self, sort):
+        """Sets the sort of this Aggregation.
 
 
-        :param field: The field of this Aggregation.  # noqa: E501
-        :type field: str
-        """
-        if self.local_vars_configuration.client_side_validation and field is None:  # noqa: E501
-            raise ValueError("Invalid value for `field`, must not be `None`")  # noqa: E501
-
-        self._field = field
-        
-
-    @property
-    def size(self):
-        """Gets the size of this Aggregation.  # noqa: E501
-
-
-        :return: The size of this Aggregation.  # noqa: E501
-        :rtype: int
-        """
-        return self._size
-    @size.setter
-    def size(self, size):
-        """Sets the size of this Aggregation.
-
-
-        :param size: The size of this Aggregation.  # noqa: E501
-        :type size: int
+        :param sort: The sort of this Aggregation.  # noqa: E501
+        :type sort: [{str: (AggregationSortInnerValue,)}]
         """
 
-        self._size = size
+        self._sort = sort
         
 
 

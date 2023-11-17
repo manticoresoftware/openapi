@@ -1177,7 +1177,7 @@ public class ApiClient{{#jsr310}} extends JavaTimeFormatter{{/jsr310}} {
 				map.put("query", query);
 			}
         	
-			List<String> propSignList = Arrays.asList("expressions", "aggs", "highlight.fields");
+			List<String> propSignList = Arrays.asList("highlight.fields");
 			propSignList.forEach(propSign -> {
 			    List<String> propNames = Arrays.asList(propSign.split("\\."));
 			    List<Object> nestedObj = new ArrayList<>();

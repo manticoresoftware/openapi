@@ -49,20 +49,14 @@
       //expect(instance).to.be.a(Manticoresearch.Aggregation);
     });
 
-    it('should have the property name (base name: "name")', function() {
-      // uncomment below and update the code to test the property name
+    it('should have the property terms (base name: "terms")', function() {
+      // uncomment below and update the code to test the property terms
       //var instance = new Manticoresearch.Aggregation();
       //expect(instance).to.be();
     });
 
-    it('should have the property field (base name: "field")', function() {
-      // uncomment below and update the code to test the property field
-      //var instance = new Manticoresearch.Aggregation();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property size (base name: "size")', function() {
-      // uncomment below and update the code to test the property size
+    it('should have the property sort (base name: "sort")', function() {
+      // uncomment below and update the code to test the property sort
       //var instance = new Manticoresearch.Aggregation();
       //expect(instance).to.be();
     });
