@@ -19,16 +19,39 @@ do_python() {
 do_java() {
   echo "Building Java ...$version"
   rm -rf out/manticoresearch-java 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)" -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g java  -o /local/out/manticoresearch-java -t /local/templates/Java --git-repo-id manticoresearch-java --git-user-id manticoresoftware     --additional-properties apiPackage=com.manticoresearch.client.api --additional-properties modelPackage=com.manticoresearch.client.model  --additional-properties artifactId=manticoresearch  --additional-properties developerName="Manticore Software"  --additional-properties developerEmail="info@manticosearch.com"  --additional-properties  developerOrganization="manticoresearch.com" --additional-properties developerOrganizationUrl="https://github.com/manticoresoftware/manticoresearch-java"  --additional-properties artifactVersion=`cat versions/java` --additional-properties groupId="com.manticoresearch"  --additional-properties artifactUrl=https://github.com/manticoresoftware/manticoresearch-java --additional-properties licenseName="Apache 2.0" --additional-properties artifactDescription="Client for Manticore Search"  --additional-properties  library="jersey2" --additional-properties useJakartaEe=true $build_to_branch 
+  docker run \
+    --rm \
+    -v ${PWD}:/local \
+    -u "$(id -u):$(id -g)" \
+    -e JAVA_OPTS="-Dlog.level=warn" \
+    "openapitools/openapi-generator-cli$version" generate \
+    -i /local/manticore.yml \
+    -g java  \
+    -o /local/out/manticoresearch-java \
+    -t /local/templates/Java \
+    --git-repo-id manticoresearch-java \
+    --git-user-id manticoresoftware \
+    --additional-properties apiPackage=com.manticoresearch.client.api \
+    --additional-properties modelPackage=com.manticoresearch.client.model  \
+    --additional-properties artifactId=manticoresearch \
+    --additional-properties developerName="Manticore Software" \
+    --additional-properties developerEmail="info@manticosearch.com" \
+    --additional-properties  developerOrganization="manticoresearch.com" \
+    --additional-properties developerOrganizationUrl="https://github.com/manticoresoftware/manticoresearch-java" \
+    --additional-properties artifactVersion=`cat versions/java` \
+    --additional-properties groupId="com.manticoresearch" \
+    --additional-properties artifactUrl=https://github.com/manticoresoftware/manticoresearch-java \
+    --additional-properties licenseName="Apache 2.0" \
+    --additional-properties artifactDescription="Client for Manticore Search" \
+    --additional-properties library="jersey3" \
+    --additional-properties useJakartaEe=true \
+    $build_to_branch
   cp LICENSE.txt out/manticoresearch-java/LICENSE.txt
-  #cp docs/java/README.md out/manticoresearch-java/README.md
   cp docs/java/docs/* out/manticoresearch-java/docs/
-  #git apply patches/java.patch
-  #git apply patches/java/ApiClient.java
-  #git apply patches/java/SuccessResponse.java
   rm -rf out/manticoresearch-java/.openapi-generator
   rm -rf out/manticoresearch-java/api
   echo "Java done."
+
 }
 
 do_javascript() {

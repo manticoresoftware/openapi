@@ -3,9 +3,9 @@
 
 Manticore Search Client
 
-- API version: 4.0.0
+- API version: 5.0.0
 
-- Build date: 2023-11-16T16:10:26.238505Z[Etc/UTC]
+- Build date: 2023-12-18T11:24:55.908019234Z[Etc/UTC]
 
 Сlient for Manticore Search.
 
@@ -14,8 +14,8 @@ Manticore Search Client
 
 Building the API client library requires:
 
-1. Java 1.8+
-2. Maven (3.8.3+)/Gradle (7.2+)
+1. Java 17+
+2. Maven/Gradle
 
 | Manticore Search  | manticoresearch-java    |
 | ----------------- | ----------------------- |
@@ -47,7 +47,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.manticoresearch</groupId>
   <artifactId>manticoresearch</artifactId>
-  <version>4.0.0</version>
+  <version>5.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -63,7 +63,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.manticoresearch:manticoresearch:4.0.0"
+     implementation "com.manticoresearch:manticoresearch:5.0.0"
   }
 ```
 
@@ -77,33 +77,8 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/manticoresearch-4.0.0.jar`
+- `target/manticoresearch-5.0.0.jar`
 - `target/lib/*.jar`
-
-## Usage
-
-To add an HTTP proxy for the API client, use `ClientConfig`:
-```java
-
-import org.glassfish.jersey.apache.connector.ApacheConnectorProvider;
-import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.client.ClientProperties;
-import com.manticoresearch.client.*;
-import com.manticoresearch.client.api.IndexApi;
-
-...
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-ClientConfig clientConfig = defaultClient.getClientConfig();
-clientConfig.connectorProvider(new ApacheConnectorProvider());
-clientConfig.property(ClientProperties.PROXY_URI, "http://proxy_url_here");
-clientConfig.property(ClientProperties.PROXY_USERNAME, "proxy_username");
-clientConfig.property(ClientProperties.PROXY_PASSWORD, "proxy_password");
-defaultClient.setClientConfig(clientConfig);
-
-IndexApi apiInstance = new IndexApi(defaultClient);
-
-```
 
 ## Getting Started
 
