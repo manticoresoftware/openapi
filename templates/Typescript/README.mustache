@@ -15,6 +15,7 @@ Minimum Manticore Search version is 4.2.1 with HTTP protocol enabled.
 {{^outBranch}}
 | Manticore Search | manticoresearch-typescript | Node      |
 | ---------------- | -------------------------- | --------- |
+| >= 6.2.0         | 4.0.x                      | >= 18.0.0 |
 | >= 6.2.0         | 3.3.1                      | >= 18.0.0 |
 | >= 4.2.1         | >= 1.0.x                   | >= 18.0.0 |
 {{/outBranch}}
@@ -43,7 +44,7 @@ import {
       basePath: 'http://localhost:9308',
       // fetchApi: <your own fetch API> // use node-fetch with node version < 18
     })
-    const indexApi = new IndexApi(config)
+    const indexApi = new IndexApi(config);
     */
     const indexApi = new IndexApi();
     const docs = [

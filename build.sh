@@ -94,9 +94,11 @@ do_typescript() {
     --additional-properties moduleName=Manticoresearch \
     --additional-properties apiDocPath=docs/ \
     $build_to_branch
-  cat LICENSE.txt > out/manticoresearch-typescript/LICENSE.txt
+  cp LICENSE.txt out/manticoresearch-typescript/LICENSE.txt
   mkdir out/manticoresearch-typescript/test/ && cp -R test/typescript/* out/manticoresearch-typescript/test/
   cp -r docs/typescript/docs out/manticoresearch-typescript/
+  # Adding a custom tsup config we use for package build
+  cp misc/typescript/tsup.config.ts out/manticoresearch-typescript/tsup.config.ts
   echo "Typescript done."
 }
 
