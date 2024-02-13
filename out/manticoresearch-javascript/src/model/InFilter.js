@@ -27,7 +27,7 @@
   /**
    * The InFilter model module.
    * @module model/InFilter
-   * @version 4.0.0
+   * @version 4.1.0
    */
 
   /**

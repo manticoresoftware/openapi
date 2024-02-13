@@ -13,12 +13,14 @@ defmodule Manticoresearch.Model.BulkResponse do
   @derive [Poison.Encoder]
   defstruct [
     :"items",
+    :"errors",
     :"error"
   ]
 
   @type t :: %__MODULE__{
-    :"items" => map() | nil,
-    :"error" => boolean() | nil
+    :"items" => Map | nil,
+    :"errors" => boolean() | nil,
+    :"error" => String.t | nil
   }
 end
 

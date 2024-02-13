@@ -1,6 +1,6 @@
 # Manticoresearch
 
-Low-level client for Manticore Search. 
+Сlient for Manticore Search. 
 
 ### Building
 

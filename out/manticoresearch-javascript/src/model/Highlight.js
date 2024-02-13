@@ -27,7 +27,7 @@
   /**
    * The Highlight model module.
    * @module model/Highlight
-   * @version 4.0.0
+   * @version 4.1.0
    */
 
   /**

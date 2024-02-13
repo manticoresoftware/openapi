@@ -22,7 +22,6 @@
 {{#isClassnameSanitized}}
 @JsonTypeName("{{name}}")
 {{/isClassnameSanitized}}
-@JsonIgnoreProperties(ignoreUnknown = true)
 {{/jackson}}
 {{>additionalModelTypeAnnotations}}{{>generatedAnnotation}}{{#discriminator}}{{>typeInfoAnnotation}}{{/discriminator}}{{>xmlAnnotation}}
 {{#vendorExtensions.x-class-extra-annotation}}
@@ -285,10 +284,6 @@ public class {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{{#vendorExtens
     {{/vendorExtensions.x-is-jackson-optional-nullable}}
     {{^vendorExtensions.x-is-jackson-optional-nullable}}
     this.{{name}} = {{name}};
-    {{#vendorExtensions.x-is_req_query}}
-    this.fulltextFilter = null; 
-    this.attrFilter = null;
-    {{/vendorExtensions.x-is_req_query}}
     {{/vendorExtensions.x-is-jackson-optional-nullable}}
   }
   {{/isReadOnly}}

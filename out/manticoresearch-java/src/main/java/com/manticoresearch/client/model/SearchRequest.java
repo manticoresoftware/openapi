@@ -23,6 +23,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.manticoresearch.client.model.Aggregation;
 import com.manticoresearch.client.model.Highlight;
+import com.manticoresearch.client.model.KnnSearchRequestByDocId;
+import com.manticoresearch.client.model.KnnSearchRequestByVector;
+import com.manticoresearch.client.model.SearchRequest;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,555 +36,273 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.manticoresearch.client.JSON;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 
-/**
- * Request object for search operation
- */
-@JsonPropertyOrder({
-  SearchRequest.JSON_PROPERTY_INDEX,
-  SearchRequest.JSON_PROPERTY_QUERY,
-  SearchRequest.JSON_PROPERTY_FULLTEXT_FILTER,
-  SearchRequest.JSON_PROPERTY_ATTR_FILTER,
-  SearchRequest.JSON_PROPERTY_LIMIT,
-  SearchRequest.JSON_PROPERTY_OFFSET,
-  SearchRequest.JSON_PROPERTY_MAX_MATCHES,
-  SearchRequest.JSON_PROPERTY_SORT,
-  SearchRequest.JSON_PROPERTY_AGGS,
-  SearchRequest.JSON_PROPERTY_EXPRESSIONS,
-  SearchRequest.JSON_PROPERTY_HIGHLIGHT,
-  SearchRequest.JSON_PROPERTY_SOURCE,
-  SearchRequest.JSON_PROPERTY_OPTIONS,
-  SearchRequest.JSON_PROPERTY_PROFILE,
-  SearchRequest.JSON_PROPERTY_TRACK_SCORES
-})
-@JsonTypeName("searchRequest")
-@JsonIgnoreProperties(ignoreUnknown = true)
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-18T11:24:55.908019234Z[Etc/UTC]")
-public class SearchRequest {
-  public static final String JSON_PROPERTY_INDEX = "index";
-  private String index = "";
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
-  public static final String JSON_PROPERTY_QUERY = "query";
-  private Object query;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import com.manticoresearch.client.JSON;
 
-  public static final String JSON_PROPERTY_FULLTEXT_FILTER = "fulltext_filter";
-  private Object fulltextFilter;
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-01-30T07:42:09.809929621Z[Etc/UTC]")
+@JsonDeserialize(using = SearchRequest.SearchRequestDeserializer.class)
+@JsonSerialize(using = SearchRequest.SearchRequestSerializer.class)
+public class SearchRequest extends AbstractOpenApiSchema {
+    private static final Logger log = Logger.getLogger(SearchRequest.class.getName());
 
-  public static final String JSON_PROPERTY_ATTR_FILTER = "attr_filter";
-  private Object attrFilter;
+    public static class SearchRequestSerializer extends StdSerializer<SearchRequest> {
+        public SearchRequestSerializer(Class<SearchRequest> t) {
+            super(t);
+        }
 
-  public static final String JSON_PROPERTY_LIMIT = "limit";
-  private Integer limit;
+        public SearchRequestSerializer() {
+            this(null);
+        }
 
-  public static final String JSON_PROPERTY_OFFSET = "offset";
-  private Integer offset;
-
-  public static final String JSON_PROPERTY_MAX_MATCHES = "max_matches";
-  private Integer maxMatches;
-
-  public static final String JSON_PROPERTY_SORT = "sort";
-  private List<Object> sort;
-
-  public static final String JSON_PROPERTY_AGGS = "aggs";
-  private Map<String, Aggregation> aggs = new HashMap<>();
-
-  public static final String JSON_PROPERTY_EXPRESSIONS = "expressions";
-  private Map<String, String> expressions = new HashMap<>();
-
-  public static final String JSON_PROPERTY_HIGHLIGHT = "highlight";
-  private Highlight highlight;
-
-  public static final String JSON_PROPERTY_SOURCE = "source";
-  private Object source;
-
-  public static final String JSON_PROPERTY_OPTIONS = "options";
-  private Map<String, Object> options = new HashMap<>();
-
-  public static final String JSON_PROPERTY_PROFILE = "profile";
-  private Boolean profile;
-
-  public static final String JSON_PROPERTY_TRACK_SCORES = "track_scores";
-  private Boolean trackScores;
-
-  public SearchRequest() { 
-  }
-
-  public SearchRequest index(String index) {
-    this.index = index;
-    return this;
-  }
-
-   /**
-   * Get index
-   * @return index
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INDEX)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getIndex() {
-    return index;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_INDEX)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIndex(String index) {
-    this.index = index;
-  }
-
-
-  public SearchRequest query(Object query) {
-    this.query = query;
-    return this;
-  }
-
-   /**
-   * Get query
-   * @return query
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_QUERY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Object getQuery() {
-    return query;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_QUERY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setQuery(Object query) {
-    this.query = query;
-    this.fulltextFilter = null; 
-    this.attrFilter = null;
-  }
-
-
-  public SearchRequest fulltextFilter(Object fulltextFilter) {
-    this.fulltextFilter = fulltextFilter;
-    return this;
-  }
-
-   /**
-   * Get fulltextFilter
-   * @return fulltextFilter
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FULLTEXT_FILTER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Object getFulltextFilter() {
-    return fulltextFilter;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FULLTEXT_FILTER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFulltextFilter(Object fulltextFilter) {
-    this.fulltextFilter = fulltextFilter;
-  }
-
-
-  public SearchRequest attrFilter(Object attrFilter) {
-    this.attrFilter = attrFilter;
-    return this;
-  }
-
-   /**
-   * Get attrFilter
-   * @return attrFilter
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ATTR_FILTER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Object getAttrFilter() {
-    return attrFilter;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ATTR_FILTER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAttrFilter(Object attrFilter) {
-    this.attrFilter = attrFilter;
-  }
-
-
-  public SearchRequest limit(Integer limit) {
-    this.limit = limit;
-    return this;
-  }
-
-   /**
-   * Get limit
-   * @return limit
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LIMIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getLimit() {
-    return limit;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LIMIT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLimit(Integer limit) {
-    this.limit = limit;
-  }
-
-
-  public SearchRequest offset(Integer offset) {
-    this.offset = offset;
-    return this;
-  }
-
-   /**
-   * Get offset
-   * @return offset
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OFFSET)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getOffset() {
-    return offset;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_OFFSET)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOffset(Integer offset) {
-    this.offset = offset;
-  }
-
-
-  public SearchRequest maxMatches(Integer maxMatches) {
-    this.maxMatches = maxMatches;
-    return this;
-  }
-
-   /**
-   * Get maxMatches
-   * @return maxMatches
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MAX_MATCHES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Integer getMaxMatches() {
-    return maxMatches;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MAX_MATCHES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMaxMatches(Integer maxMatches) {
-    this.maxMatches = maxMatches;
-  }
-
-
-  public SearchRequest sort(List<Object> sort) {
-    this.sort = sort;
-    return this;
-  }
-
-  public SearchRequest addSortItem(Object sortItem) {
-    if (this.sort == null) {
-      this.sort = new ArrayList<>();
+        @Override
+        public void serialize(SearchRequest value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+            jgen.writeObject(value.getActualInstance());
+        }
     }
-    this.sort.add(sortItem);
-    return this;
-  }
 
-   /**
-   * Get sort
-   * @return sort
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SORT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public static class SearchRequestDeserializer extends StdDeserializer<SearchRequest> {
+        public SearchRequestDeserializer() {
+            this(SearchRequest.class);
+        }
 
-  public List<Object> getSort() {
-    return sort;
-  }
+        public SearchRequestDeserializer(Class<?> vc) {
+            super(vc);
+        }
 
+        @Override
+        public SearchRequest deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+            JsonNode tree = jp.readValueAsTree();
+            Object deserialized = null;
+            boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
+            int match = 0;
+            JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+            // deserialize KnnSearchRequestByDocId
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (KnnSearchRequestByDocId.class.equals(Integer.class) || KnnSearchRequestByDocId.class.equals(Long.class) || KnnSearchRequestByDocId.class.equals(Float.class) || KnnSearchRequestByDocId.class.equals(Double.class) || KnnSearchRequestByDocId.class.equals(Boolean.class) || KnnSearchRequestByDocId.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |= ((KnnSearchRequestByDocId.class.equals(Integer.class) || KnnSearchRequestByDocId.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((KnnSearchRequestByDocId.class.equals(Float.class) || KnnSearchRequestByDocId.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (KnnSearchRequestByDocId.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (KnnSearchRequestByDocId.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(KnnSearchRequestByDocId.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'KnnSearchRequestByDocId'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'KnnSearchRequestByDocId'", e);
+            }
 
-  @JsonProperty(JSON_PROPERTY_SORT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSort(List<Object> sort) {
-    this.sort = sort;
-  }
+            // deserialize KnnSearchRequestByVector
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (KnnSearchRequestByVector.class.equals(Integer.class) || KnnSearchRequestByVector.class.equals(Long.class) || KnnSearchRequestByVector.class.equals(Float.class) || KnnSearchRequestByVector.class.equals(Double.class) || KnnSearchRequestByVector.class.equals(Boolean.class) || KnnSearchRequestByVector.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |= ((KnnSearchRequestByVector.class.equals(Integer.class) || KnnSearchRequestByVector.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((KnnSearchRequestByVector.class.equals(Float.class) || KnnSearchRequestByVector.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (KnnSearchRequestByVector.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (KnnSearchRequestByVector.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(KnnSearchRequestByVector.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'KnnSearchRequestByVector'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'KnnSearchRequestByVector'", e);
+            }
 
+            // deserialize SearchRequest
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (SearchRequest.class.equals(Integer.class) || SearchRequest.class.equals(Long.class) || SearchRequest.class.equals(Float.class) || SearchRequest.class.equals(Double.class) || SearchRequest.class.equals(Boolean.class) || SearchRequest.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |= ((SearchRequest.class.equals(Integer.class) || SearchRequest.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((SearchRequest.class.equals(Float.class) || SearchRequest.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (SearchRequest.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (SearchRequest.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(SearchRequest.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'SearchRequest'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'SearchRequest'", e);
+            }
 
-  public SearchRequest aggs(Map<String, Aggregation> aggs) {
-    this.aggs = aggs;
-    return this;
-  }
+            if (match == 1) {
+                SearchRequest ret = new SearchRequest();
+                ret.setActualInstance(deserialized);
+                return ret;
+            }
+            throw new IOException(String.format("Failed deserialization for SearchRequest: %d classes match result, expected 1", match));
+        }
 
-  public SearchRequest putAggsItem(String key, Aggregation aggsItem) {
-    if (this.aggs == null) {
-      this.aggs = new HashMap<>();
+        /**
+         * Handle deserialization of the 'null' value.
+         */
+        @Override
+        public SearchRequest getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+            throw new JsonMappingException(ctxt.getParser(), "SearchRequest cannot be null");
+        }
     }
-    this.aggs.put(key, aggsItem);
-    return this;
-  }
 
-   /**
-   * Get aggs
-   * @return aggs
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_AGGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    // store a list of schema names defined in oneOf
+    public static final Map<String, GenericType> schemas = new HashMap<>();
 
-  public Map<String, Aggregation> getAggs() {
-    return aggs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AGGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAggs(Map<String, Aggregation> aggs) {
-    this.aggs = aggs;
-  }
-
-
-  public SearchRequest expressions(Map<String, String> expressions) {
-    this.expressions = expressions;
-    return this;
-  }
-
-  public SearchRequest putExpressionsItem(String key, String expressionsItem) {
-    if (this.expressions == null) {
-      this.expressions = new HashMap<>();
+    public SearchRequest() {
+        super("oneOf", Boolean.FALSE);
     }
-    this.expressions.put(key, expressionsItem);
-    return this;
-  }
 
-   /**
-   * Get expressions
-   * @return expressions
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXPRESSIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Map<String, String> getExpressions() {
-    return expressions;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EXPRESSIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExpressions(Map<String, String> expressions) {
-    this.expressions = expressions;
-  }
-
-
-  public SearchRequest highlight(Highlight highlight) {
-    this.highlight = highlight;
-    return this;
-  }
-
-   /**
-   * Get highlight
-   * @return highlight
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_HIGHLIGHT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Highlight getHighlight() {
-    return highlight;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_HIGHLIGHT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHighlight(Highlight highlight) {
-    this.highlight = highlight;
-  }
-
-
-  public SearchRequest source(Object source) {
-    this.source = source;
-    return this;
-  }
-
-   /**
-   * Get source
-   * @return source
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SOURCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Object getSource() {
-    return source;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SOURCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSource(Object source) {
-    this.source = source;
-  }
-
-
-  public SearchRequest options(Map<String, Object> options) {
-    this.options = options;
-    return this;
-  }
-
-  public SearchRequest putOptionsItem(String key, Object optionsItem) {
-    if (this.options == null) {
-      this.options = new HashMap<>();
+    public SearchRequest(KnnSearchRequestByDocId o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
     }
-    this.options.put(key, optionsItem);
-    return this;
-  }
 
-   /**
-   * Get options
-   * @return options
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OPTIONS)
-  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Map<String, Object> getOptions() {
-    return options;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_OPTIONS)
-  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOptions(Map<String, Object> options) {
-    this.options = options;
-  }
-
-
-  public SearchRequest profile(Boolean profile) {
-    this.profile = profile;
-    return this;
-  }
-
-   /**
-   * Get profile
-   * @return profile
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROFILE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getProfile() {
-    return profile;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PROFILE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setProfile(Boolean profile) {
-    this.profile = profile;
-  }
-
-
-  public SearchRequest trackScores(Boolean trackScores) {
-    this.trackScores = trackScores;
-    return this;
-  }
-
-   /**
-   * Get trackScores
-   * @return trackScores
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRACK_SCORES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getTrackScores() {
-    return trackScores;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TRACK_SCORES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTrackScores(Boolean trackScores) {
-    this.trackScores = trackScores;
-  }
-
-
-  /**
-   * Return true if this searchRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public SearchRequest(KnnSearchRequestByVector o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public SearchRequest(SearchRequest o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
     }
-    SearchRequest searchRequest = (SearchRequest) o;
-    return Objects.equals(this.index, searchRequest.index) &&
-        Objects.equals(this.query, searchRequest.query) &&
-        Objects.equals(this.fulltextFilter, searchRequest.fulltextFilter) &&
-        Objects.equals(this.attrFilter, searchRequest.attrFilter) &&
-        Objects.equals(this.limit, searchRequest.limit) &&
-        Objects.equals(this.offset, searchRequest.offset) &&
-        Objects.equals(this.maxMatches, searchRequest.maxMatches) &&
-        Objects.equals(this.sort, searchRequest.sort) &&
-        Objects.equals(this.aggs, searchRequest.aggs) &&
-        Objects.equals(this.expressions, searchRequest.expressions) &&
-        Objects.equals(this.highlight, searchRequest.highlight) &&
-        Objects.equals(this.source, searchRequest.source) &&
-        Objects.equals(this.options, searchRequest.options) &&
-        Objects.equals(this.profile, searchRequest.profile) &&
-        Objects.equals(this.trackScores, searchRequest.trackScores);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(index, query, fulltextFilter, attrFilter, limit, offset, maxMatches, sort, aggs, expressions, highlight, source, options, profile, trackScores);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SearchRequest {\n");
-    sb.append("    index: ").append(toIndentedString(index)).append("\n");
-    sb.append("    query: ").append(toIndentedString(query)).append("\n");
-    sb.append("    fulltextFilter: ").append(toIndentedString(fulltextFilter)).append("\n");
-    sb.append("    attrFilter: ").append(toIndentedString(attrFilter)).append("\n");
-    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
-    sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
-    sb.append("    maxMatches: ").append(toIndentedString(maxMatches)).append("\n");
-    sb.append("    sort: ").append(toIndentedString(sort)).append("\n");
-    sb.append("    aggs: ").append(toIndentedString(aggs)).append("\n");
-    sb.append("    expressions: ").append(toIndentedString(expressions)).append("\n");
-    sb.append("    highlight: ").append(toIndentedString(highlight)).append("\n");
-    sb.append("    source: ").append(toIndentedString(source)).append("\n");
-    sb.append("    options: ").append(toIndentedString(options)).append("\n");
-    sb.append("    profile: ").append(toIndentedString(profile)).append("\n");
-    sb.append("    trackScores: ").append(toIndentedString(trackScores)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    static {
+        schemas.put("KnnSearchRequestByDocId", new GenericType<KnnSearchRequestByDocId>() {
+        });
+        schemas.put("KnnSearchRequestByVector", new GenericType<KnnSearchRequestByVector>() {
+        });
+        schemas.put("SearchRequest", new GenericType<SearchRequest>() {
+        });
+        JSON.registerDescendants(SearchRequest.class, Collections.unmodifiableMap(schemas));
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    @Override
+    public Map<String, GenericType> getSchemas() {
+        return SearchRequest.schemas;
+    }
+
+    /**
+     * Set the instance that matches the oneOf child schema, check
+     * the instance parameter is valid against the oneOf child schemas:
+     * KnnSearchRequestByDocId, KnnSearchRequestByVector, SearchRequest
+     *
+     * It could be an instance of the 'oneOf' schemas.
+     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
+     */
+    @Override
+    public void setActualInstance(Object instance) {
+        if (JSON.isInstanceOf(KnnSearchRequestByDocId.class, instance, new HashSet<>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(KnnSearchRequestByVector.class, instance, new HashSet<>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(SearchRequest.class, instance, new HashSet<>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        throw new RuntimeException("Invalid instance type. Must be KnnSearchRequestByDocId, KnnSearchRequestByVector, SearchRequest");
+    }
+
+    /**
+     * Get the actual instance, which can be the following:
+     * KnnSearchRequestByDocId, KnnSearchRequestByVector, SearchRequest
+     *
+     * @return The actual instance (KnnSearchRequestByDocId, KnnSearchRequestByVector, SearchRequest)
+     */
+    @Override
+    public Object getActualInstance() {
+        return super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `KnnSearchRequestByDocId`. If the actual instance is not `KnnSearchRequestByDocId`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `KnnSearchRequestByDocId`
+     * @throws ClassCastException if the instance is not `KnnSearchRequestByDocId`
+     */
+    public KnnSearchRequestByDocId getKnnSearchRequestByDocId() throws ClassCastException {
+        return (KnnSearchRequestByDocId)super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `KnnSearchRequestByVector`. If the actual instance is not `KnnSearchRequestByVector`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `KnnSearchRequestByVector`
+     * @throws ClassCastException if the instance is not `KnnSearchRequestByVector`
+     */
+    public KnnSearchRequestByVector getKnnSearchRequestByVector() throws ClassCastException {
+        return (KnnSearchRequestByVector)super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `SearchRequest`. If the actual instance is not `SearchRequest`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `SearchRequest`
+     * @throws ClassCastException if the instance is not `SearchRequest`
+     */
+    public SearchRequest getSearchRequest() throws ClassCastException {
+        return (SearchRequest)super.getActualInstance();
+    }
 
 }
 

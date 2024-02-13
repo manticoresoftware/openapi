@@ -37,7 +37,7 @@ import com.manticoresearch.client.JSON;
 })
 @JsonTypeName("notFilterString")
 @JsonIgnoreProperties(ignoreUnknown = true)
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-18T11:24:55.908019234Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-01-30T07:42:09.809929621Z[Etc/UTC]")
 public class NotFilterString {
   public static final String JSON_PROPERTY_FILTER_FIELD = "filter_field";
   private String filterField;

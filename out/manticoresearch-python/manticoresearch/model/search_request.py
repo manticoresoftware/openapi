@@ -31,7 +31,9 @@ class SearchRequest(object):
     """
     openapi_types = {
         'index': 'str',
-        'query': '{str: (bool, date, datetime, dict, float, int, list, str, none_type)}',
+        'field': 'str',
+        'query_vector': '[float]',
+        'k': 'int',
         'fulltext_filter': '{str: (bool, date, datetime, dict, float, int, list, str, none_type)}',
         'attr_filter': '{str: (bool, date, datetime, dict, float, int, list, str, none_type)}',
         'limit': 'int',
@@ -44,12 +46,16 @@ class SearchRequest(object):
         'source': '{str: (bool, date, datetime, dict, float, int, list, str, none_type)}',
         'options': '{str: (bool, date, datetime, dict, float, int, list, str, none_type)}',
         'profile': 'bool',
-        'track_scores': 'bool'
+        'track_scores': 'bool',
+        'doc_id': 'int',
+        'query': '{str: (bool, date, datetime, dict, float, int, list, str, none_type)}'
     }
 
     attribute_map = {
         'index': 'index',
-        'query': 'query',
+        'field': 'field',
+        'query_vector': 'query_vector',
+        'k': 'k',
         'fulltext_filter': 'fulltext_filter',
         'attr_filter': 'attr_filter',
         'limit': 'limit',
@@ -62,17 +68,21 @@ class SearchRequest(object):
         'source': 'source',
         'options': 'options',
         'profile': 'profile',
-        'track_scores': 'track_scores'
+        'track_scores': 'track_scores',
+        'doc_id': 'doc_id',
+        'query': 'query'
     }
 
-    def __init__(self, index="", query=None, fulltext_filter=None, attr_filter=None, limit=None, offset=None, max_matches=None, sort=None, aggs=None, expressions=None, highlight=None, source=None, options=None, profile=None, track_scores=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, index="", field="", query_vector=None, k=None, fulltext_filter=None, attr_filter=None, limit=None, offset=None, max_matches=None, sort=None, aggs=None, expressions=None, highlight=None, source=None, options=None, profile=None, track_scores=None, doc_id=None, query=None, local_vars_configuration=None):  # noqa: E501
         """SearchRequest - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
         self._index = None
-        self._query = None
+        self._field = None
+        self._query_vector = None
+        self._k = None
         self._fulltext_filter = None
         self._attr_filter = None
         self._limit = None
@@ -86,11 +96,14 @@ class SearchRequest(object):
         self._options = None
         self._profile = None
         self._track_scores = None
+        self._doc_id = None
+        self._query = None
         self.discriminator = None
 
         self.index = index
-        if query is not None:
-            self.query = query
+        self.field = field
+        self.query_vector = query_vector
+        self.k = k
         if fulltext_filter is not None:
             self.fulltext_filter = fulltext_filter
         if attr_filter is not None:
@@ -117,6 +130,9 @@ class SearchRequest(object):
             self.profile = profile
         if track_scores is not None:
             self.track_scores = track_scores
+        self.doc_id = doc_id
+        if query is not None:
+            self.query = query
 
     @property
     def index(self):
@@ -142,29 +158,73 @@ class SearchRequest(object):
         
 
     @property
-    def query(self):
-        """Gets the query of this SearchRequest.  # noqa: E501
+    def field(self):
+        """Gets the field of this SearchRequest.  # noqa: E501
 
 
-        :return: The query of this SearchRequest.  # noqa: E501
-        :rtype: {str: (bool, date, datetime, dict, float, int, list, str, none_type)}
+        :return: The field of this SearchRequest.  # noqa: E501
+        :rtype: str
         """
-        return self._query
-    @query.setter
-    def query(self, query):
-        """Sets the query of this SearchRequest.
+        return self._field
+    @field.setter
+    def field(self, field):
+        """Sets the field of this SearchRequest.
 
 
-        :param query: The query of this SearchRequest.  # noqa: E501
-        :type query: {str: (bool, date, datetime, dict, float, int, list, str, none_type)}
+        :param field: The field of this SearchRequest.  # noqa: E501
+        :type field: str
         """
+        if self.local_vars_configuration.client_side_validation and field is None:  # noqa: E501
+            raise ValueError("Invalid value for `field`, must not be `None`")  # noqa: E501
 
-        self._query = query
+        self._field = field
         
-        if self.fulltext_filter is not None:
-        	self.fulltext_filter = None;
-       	if self.attr_filter is not None:
-        	self.attr_filter = None;
+
+    @property
+    def query_vector(self):
+        """Gets the query_vector of this SearchRequest.  # noqa: E501
+
+
+        :return: The query_vector of this SearchRequest.  # noqa: E501
+        :rtype: [float]
+        """
+        return self._query_vector
+    @query_vector.setter
+    def query_vector(self, query_vector):
+        """Sets the query_vector of this SearchRequest.
+
+
+        :param query_vector: The query_vector of this SearchRequest.  # noqa: E501
+        :type query_vector: [float]
+        """
+        if self.local_vars_configuration.client_side_validation and query_vector is None:  # noqa: E501
+            raise ValueError("Invalid value for `query_vector`, must not be `None`")  # noqa: E501
+
+        self._query_vector = query_vector
+        
+
+    @property
+    def k(self):
+        """Gets the k of this SearchRequest.  # noqa: E501
+
+
+        :return: The k of this SearchRequest.  # noqa: E501
+        :rtype: int
+        """
+        return self._k
+    @k.setter
+    def k(self, k):
+        """Sets the k of this SearchRequest.
+
+
+        :param k: The k of this SearchRequest.  # noqa: E501
+        :type k: int
+        """
+        if self.local_vars_configuration.client_side_validation and k is None:  # noqa: E501
+            raise ValueError("Invalid value for `k`, must not be `None`")  # noqa: E501
+
+        self._k = k
+        
 
     @property
     def fulltext_filter(self):
@@ -439,6 +499,54 @@ class SearchRequest(object):
         self._track_scores = track_scores
         
 
+    @property
+    def doc_id(self):
+        """Gets the doc_id of this SearchRequest.  # noqa: E501
+
+
+        :return: The doc_id of this SearchRequest.  # noqa: E501
+        :rtype: int
+        """
+        return self._doc_id
+    @doc_id.setter
+    def doc_id(self, doc_id):
+        """Sets the doc_id of this SearchRequest.
+
+
+        :param doc_id: The doc_id of this SearchRequest.  # noqa: E501
+        :type doc_id: int
+        """
+        if self.local_vars_configuration.client_side_validation and doc_id is None:  # noqa: E501
+            raise ValueError("Invalid value for `doc_id`, must not be `None`")  # noqa: E501
+
+        self._doc_id = doc_id
+        
+
+    @property
+    def query(self):
+        """Gets the query of this SearchRequest.  # noqa: E501
+
+
+        :return: The query of this SearchRequest.  # noqa: E501
+        :rtype: {str: (bool, date, datetime, dict, float, int, list, str, none_type)}
+        """
+        return self._query
+    @query.setter
+    def query(self, query):
+        """Sets the query of this SearchRequest.
+
+
+        :param query: The query of this SearchRequest.  # noqa: E501
+        :type query: {str: (bool, date, datetime, dict, float, int, list, str, none_type)}
+        """
+
+        self._query = query
+        
+        if self.fulltext_filter is not None:
+        	self.fulltext_filter = None;
+       	if self.attr_filter is not None:
+        	self.attr_filter = None;
+
 
     def to_dict(self):
         """Returns the model properties as a dict"""
@@ -463,28 +571,6 @@ class SearchRequest(object):
                 result[attr] = value
 
 
-        result['_source'] = result['source']
-        del result['source']
-        if result['aggs'] is not None:
-        	for k,v in result['aggs'].items():
-        		if v['sort'] is None:
-        			result['aggs'][k]['sort'] = []
-        if result['highlight'] is not None:
-	        if result['highlight']['fields'] is None: 	
-	            result['highlight']['fields'] = result['highlight']['fieldnames']
-	        result['highlight']['fieldnames'] = None
-	        result['highlight'] = {k:v for k,v in result['highlight'].items() if v is not None}
-        
-        if result['fulltext_filter'] is not None or result['attr_filter'] is not None:
-            result['query'] = {}
-        if result['fulltext_filter'] is not None:
-            for k,v in result['fulltext_filter'].items():
-                result['query'][k] = v
-            del result['fulltext_filter']
-        if result['attr_filter'] is not None:
-            for k,v in result['attr_filter'].items():
-                result['query'][k] = v
-            del result['attr_filter']
 
         return result
 

@@ -23,6 +23,8 @@ docs/HighlightField.md
 docs/InFilter.md
 docs/IndexApi.md
 docs/InsertDocumentRequest.md
+docs/KnnSearchRequestByDocId.md
+docs/KnnSearchRequestByVector.md
 docs/MatchFilter.md
 docs/MatchOp.md
 docs/MatchOpFilter.md
@@ -73,6 +75,8 @@ src/model/Highlight.js
 src/model/HighlightField.js
 src/model/InFilter.js
 src/model/InsertDocumentRequest.js
+src/model/KnnSearchRequestByDocId.js
+src/model/KnnSearchRequestByVector.js
 src/model/MatchFilter.js
 src/model/MatchOp.js
 src/model/MatchOpFilter.js
@@ -116,6 +120,8 @@ test/model/Highlight.spec.js
 test/model/HighlightField.spec.js
 test/model/InFilter.spec.js
 test/model/InsertDocumentRequest.spec.js
+test/model/KnnSearchRequestByDocId.spec.js
+test/model/KnnSearchRequestByVector.spec.js
 test/model/MatchFilter.spec.js
 test/model/MatchOp.spec.js
 test/model/MatchOpFilter.spec.js

@@ -115,21 +115,6 @@ public class {{classname}} {
   @Deprecated
   {{/isDeprecated}}
   public{{/vendorExtensions.x-group-parameters}}{{#vendorExtensions.x-group-parameters}}private{{/vendorExtensions.x-group-parameters}} ApiResponse<{{{returnType}}}{{^returnType}}Void{{/returnType}}> {{operationId}}WithHttpInfo({{#allParams}}{{{dataType}}} {{paramName}}{{^-last}}, {{/-last}}{{/allParams}}) throws ApiException {
-    {{#bodyParam}}
-      Object localVarPostBody = {{paramName}};
-    {{/bodyParam}}
-    {{^bodyParam}}
-      Object localVarPostBody = null;
-    {{/bodyParam}}
-    {{#vendorExtensions.x-is_sql}}
-      if  (localVarPostBody != null) {
-        if  (!rawResponse) {
-          localVarPostBody = "query=" + apiClient.escapeString( localVarPostBody.toString() ); 
-        } else {
-          localVarPostBody = "mode=raw&query=" + apiClient.escapeString( localVarPostBody.toString() );
-        }
-      }
-    {{/vendorExtensions.x-is_sql}}
     {{#hasRequiredParams}}
     // Check required parameters
     {{#allParams}}
@@ -205,17 +190,7 @@ public class {{classname}} {
     {{#returnType}}
     GenericType<{{{returnType}}}> localVarReturnType = new GenericType<{{{returnType}}}>() {};
     {{/returnType}}
-    {{#vendorExtensions.x-is_sql}}
-    if (!rawResponse) {
-    	ApiResponse<Map<String, Object>> res = apiClient.invokeAPI("{{classname}}.{{operationId}}", {{#hasPathParams}}localVarPath{{/hasPathParams}}{{^hasPathParams}}"{{path}}"{{/hasPathParams}}, "{{httpMethod}}", {{#queryParams}}{{#-first}}localVarQueryParams{{/-first}}{{/queryParams}}{{^queryParams}}new ArrayList<>(){{/queryParams}}, localVarPostBody,
-            {{#headerParams}}{{#-first}}localVarHeaderParams{{/-first}}{{/headerParams}}{{^headerParams}}new LinkedHashMap<>(){{/headerParams}}, {{#cookieParams}}{{#-first}}localVarCookieParams{{/-first}}{{/cookieParams}}{{^cookieParams}}new LinkedHashMap<>(){{/cookieParams}}, {{#formParams}}{{#-first}}localVarFormParams{{/-first}}{{/formParams}}{{^formParams}}new LinkedHashMap<>(){{/formParams}}, localVarAccept, localVarContentType,
-        	{{#hasAuthMethods}}localVarAuthNames{{/hasAuthMethods}}{{^hasAuthMethods}}null{{/hasAuthMethods}}, new GenericType<Map<String, Object>>() {}, {{#bodyParam}}{{#isNullable}}true{{/isNullable}}{{^isNullable}}false{{/isNullable}}{{/bodyParam}}{{^bodyParam}}false{{/bodyParam}});
-        List<Object> resList = new ArrayList<Object>();
-        resList.add(res.getData());
-    	return new ApiResponse<List<Object>>(res.getStatusCode(), res.getHeaders(), resList);
-    } 
-    {{/vendorExtensions.x-is_sql}}
-    return apiClient.invokeAPI("{{classname}}.{{operationId}}", {{#hasPathParams}}localVarPath{{/hasPathParams}}{{^hasPathParams}}"{{path}}"{{/hasPathParams}}, "{{httpMethod}}", {{#queryParams}}{{#-first}}localVarQueryParams{{/-first}}{{/queryParams}}{{^queryParams}}new ArrayList<>(){{/queryParams}}, localVarPostBody,
+    return apiClient.invokeAPI("{{classname}}.{{operationId}}", {{#hasPathParams}}localVarPath{{/hasPathParams}}{{^hasPathParams}}"{{path}}"{{/hasPathParams}}, "{{httpMethod}}", {{#queryParams}}{{#-first}}localVarQueryParams{{/-first}}{{/queryParams}}{{^queryParams}}new ArrayList<>(){{/queryParams}}, {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}},
                                {{#headerParams}}{{#-first}}localVarHeaderParams{{/-first}}{{/headerParams}}{{^headerParams}}new LinkedHashMap<>(){{/headerParams}}, {{#cookieParams}}{{#-first}}localVarCookieParams{{/-first}}{{/cookieParams}}{{^cookieParams}}new LinkedHashMap<>(){{/cookieParams}}, {{#formParams}}{{#-first}}localVarFormParams{{/-first}}{{/formParams}}{{^formParams}}new LinkedHashMap<>(){{/formParams}}, localVarAccept, localVarContentType,
                                {{#hasAuthMethods}}localVarAuthNames{{/hasAuthMethods}}{{^hasAuthMethods}}null{{/hasAuthMethods}}, {{#returnType}}localVarReturnType{{/returnType}}{{^returnType}}null{{/returnType}}, {{#bodyParam}}{{#isNullable}}true{{/isNullable}}{{^isNullable}}false{{/isNullable}}{{/bodyParam}}{{^bodyParam}}false{{/bodyParam}});
   }

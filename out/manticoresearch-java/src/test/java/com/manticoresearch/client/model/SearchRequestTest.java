@@ -20,6 +20,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.manticoresearch.client.model.Aggregation;
 import com.manticoresearch.client.model.Highlight;
+import com.manticoresearch.client.model.KnnSearchRequestByDocId;
+import com.manticoresearch.client.model.KnnSearchRequestByVector;
+import com.manticoresearch.client.model.SearchRequest;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -53,11 +57,27 @@ public class SearchRequestTest {
     }
 
     /**
-     * Test the property 'query'
+     * Test the property 'field'
      */
     @Test
-    public void queryTest() {
-        // TODO: test query
+    public void fieldTest() {
+        // TODO: test field
+    }
+
+    /**
+     * Test the property 'queryVector'
+     */
+    @Test
+    public void queryVectorTest() {
+        // TODO: test queryVector
+    }
+
+    /**
+     * Test the property 'k'
+     */
+    @Test
+    public void kTest() {
+        // TODO: test k
     }
 
     /**
@@ -162,6 +182,22 @@ public class SearchRequestTest {
     @Test
     public void trackScoresTest() {
         // TODO: test trackScores
+    }
+
+    /**
+     * Test the property 'docId'
+     */
+    @Test
+    public void docIdTest() {
+        // TODO: test docId
+    }
+
+    /**
+     * Test the property 'query'
+     */
+    @Test
+    public void queryTest() {
+        // TODO: test query
     }
 
 }

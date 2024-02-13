@@ -66,12 +66,28 @@ namespace ManticoreSearch.Test.Model
             // TODO unit test for the property 'Index'
         }
         /// <summary>
-        /// Test the property 'Query'
+        /// Test the property 'Field'
         /// </summary>
         [Fact]
-        public void QueryTest()
+        public void FieldTest()
         {
-            // TODO unit test for the property 'Query'
+            // TODO unit test for the property 'Field'
+        }
+        /// <summary>
+        /// Test the property 'QueryVector'
+        /// </summary>
+        [Fact]
+        public void QueryVectorTest()
+        {
+            // TODO unit test for the property 'QueryVector'
+        }
+        /// <summary>
+        /// Test the property 'K'
+        /// </summary>
+        [Fact]
+        public void KTest()
+        {
+            // TODO unit test for the property 'K'
         }
         /// <summary>
         /// Test the property 'FulltextFilter'
@@ -176,6 +192,22 @@ namespace ManticoreSearch.Test.Model
         public void TrackScoresTest()
         {
             // TODO unit test for the property 'TrackScores'
+        }
+        /// <summary>
+        /// Test the property 'DocId'
+        /// </summary>
+        [Fact]
+        public void DocIdTest()
+        {
+            // TODO unit test for the property 'DocId'
+        }
+        /// <summary>
+        /// Test the property 'Query'
+        /// </summary>
+        [Fact]
+        public void QueryTest()
+        {
+            // TODO unit test for the property 'Query'
         }
 
     }

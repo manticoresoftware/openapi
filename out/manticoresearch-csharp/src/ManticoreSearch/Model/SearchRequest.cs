@@ -24,156 +24,115 @@ using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
 using FileParameter = ManticoreSearch.Client.FileParameter;
 using OpenAPIDateConverter = ManticoreSearch.Client.OpenAPIDateConverter;
+using System.Reflection;
 
 namespace ManticoreSearch.Model
 {
     /// <summary>
-    /// Request object for search operation
+    /// SearchRequest
     /// </summary>
-    [DataContract(Name = "searchRequest")]
-    public partial class SearchRequest : IEquatable<SearchRequest>, IValidatableObject
+    [JsonConverter(typeof(SearchRequestJsonConverter))]
+    [DataContract(Name = "search_request")]
+    public partial class SearchRequest : AbstractOpenAPISchema, IEquatable<SearchRequest>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SearchRequest" /> class.
+        /// Initializes a new instance of the <see cref="SearchRequest" /> class
+        /// with the <see cref="KnnSearchRequestByVector" /> class
         /// </summary>
-        [JsonConstructorAttribute]
-        protected SearchRequest() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SearchRequest" /> class.
-        /// </summary>
-        /// <param name="index">index (required) (default to &quot;&quot;).</param>
-        /// <param name="query">query.</param>
-        /// <param name="fulltextFilter">fulltextFilter.</param>
-        /// <param name="attrFilter">attrFilter.</param>
-        /// <param name="limit">limit.</param>
-        /// <param name="offset">offset.</param>
-        /// <param name="maxMatches">maxMatches.</param>
-        /// <param name="sort">sort.</param>
-        /// <param name="aggs">aggs.</param>
-        /// <param name="expressions">expressions.</param>
-        /// <param name="highlight">highlight.</param>
-        /// <param name="source">source.</param>
-        /// <param name="options">options.</param>
-        /// <param name="profile">profile.</param>
-        /// <param name="trackScores">trackScores.</param>
-        public SearchRequest(string index = "", Object query = default(Object), Object fulltextFilter = default(Object), Object attrFilter = default(Object), int limit = default(int), int offset = default(int), int maxMatches = default(int), List<Object> sort = default(List<Object>), Dictionary<string, Aggregation> aggs = default(Dictionary<string, Aggregation>), Dictionary<string, string> expressions = default(Dictionary<string, string>), Highlight highlight = default(Highlight), Object source = default(Object), Dictionary<string, Object> options = default(Dictionary<string, Object>), bool profile = default(bool), bool trackScores = default(bool))
+        /// <param name="actualInstance">An instance of KnnSearchRequestByVector.</param>
+        public SearchRequest(KnnSearchRequestByVector actualInstance)
         {
-            // to ensure "index" is required (not null)
-            if (index == null)
+            this.IsNullable = false;
+            this.SchemaType= "oneOf";
+            this.ActualInstance = actualInstance ?? throw new ArgumentException("Invalid instance found. Must not be null.");
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SearchRequest" /> class
+        /// with the <see cref="KnnSearchRequestByDocId" /> class
+        /// </summary>
+        /// <param name="actualInstance">An instance of KnnSearchRequestByDocId.</param>
+        public SearchRequest(KnnSearchRequestByDocId actualInstance)
+        {
+            this.IsNullable = false;
+            this.SchemaType= "oneOf";
+            this.ActualInstance = actualInstance ?? throw new ArgumentException("Invalid instance found. Must not be null.");
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SearchRequest" /> class
+        /// with the <see cref="SearchRequest" /> class
+        /// </summary>
+        /// <param name="actualInstance">An instance of SearchRequest.</param>
+        public SearchRequest(SearchRequest actualInstance)
+        {
+            this.IsNullable = false;
+            this.SchemaType= "oneOf";
+            this.ActualInstance = actualInstance ?? throw new ArgumentException("Invalid instance found. Must not be null.");
+        }
+
+
+        private Object _actualInstance;
+
+        /// <summary>
+        /// Gets or Sets ActualInstance
+        /// </summary>
+        public override Object ActualInstance
+        {
+            get
             {
-                throw new ArgumentNullException("index is a required property for SearchRequest and cannot be null");
+                return _actualInstance;
             }
-            this.Index = index;
-            this.Query = query;
-            this.FulltextFilter = fulltextFilter;
-            this.AttrFilter = attrFilter;
-            this.Limit = limit;
-            this.Offset = offset;
-            this.MaxMatches = maxMatches;
-            this.Sort = sort;
-            this.Aggs = aggs;
-            this.Expressions = expressions;
-            this.Highlight = highlight;
-            this.Source = source;
-            this.Options = options;
-            this.Profile = profile;
-            this.TrackScores = trackScores;
+            set
+            {
+                if (value.GetType() == typeof(KnnSearchRequestByDocId))
+                {
+                    this._actualInstance = value;
+                }
+                else if (value.GetType() == typeof(KnnSearchRequestByVector))
+                {
+                    this._actualInstance = value;
+                }
+                else if (value.GetType() == typeof(SearchRequest))
+                {
+                    this._actualInstance = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid instance found. Must be the following types: KnnSearchRequestByDocId, KnnSearchRequestByVector, SearchRequest");
+                }
+            }
         }
 
         /// <summary>
-        /// Gets or Sets Index
+        /// Get the actual instance of `KnnSearchRequestByVector`. If the actual instance is not `KnnSearchRequestByVector`,
+        /// the InvalidClassException will be thrown
         /// </summary>
-        [DataMember(Name = "index", IsRequired = true, EmitDefaultValue = false)]
-        public string Index { get; set; }
-
-        Object _Query;
-        /// <summary>
-        /// Gets or Sets Query
-        /// </summary>
-        [DataMember(Name = "query", EmitDefaultValue = false)]
-        public Object Query 
+        /// <returns>An instance of KnnSearchRequestByVector</returns>
+        public KnnSearchRequestByVector GetKnnSearchRequestByVector()
         {
-         	get { return _Query; } 
-        	set { _Query = value; this.FulltextFilter = null; this.AttrFilter = null; }  
+            return (KnnSearchRequestByVector)this.ActualInstance;
         }
 
         /// <summary>
-        /// Gets or Sets FulltextFilter
+        /// Get the actual instance of `KnnSearchRequestByDocId`. If the actual instance is not `KnnSearchRequestByDocId`,
+        /// the InvalidClassException will be thrown
         /// </summary>
-        [DataMember(Name = "fulltext_filter", EmitDefaultValue = false)]
-        public Object FulltextFilter { get; set; }
+        /// <returns>An instance of KnnSearchRequestByDocId</returns>
+        public KnnSearchRequestByDocId GetKnnSearchRequestByDocId()
+        {
+            return (KnnSearchRequestByDocId)this.ActualInstance;
+        }
 
         /// <summary>
-        /// Gets or Sets AttrFilter
+        /// Get the actual instance of `SearchRequest`. If the actual instance is not `SearchRequest`,
+        /// the InvalidClassException will be thrown
         /// </summary>
-        [DataMember(Name = "attr_filter", EmitDefaultValue = false)]
-        public Object AttrFilter { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Limit
-        /// </summary>
-        [DataMember(Name = "limit", EmitDefaultValue = false)]
-        public int Limit { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Offset
-        /// </summary>
-        [DataMember(Name = "offset", EmitDefaultValue = false)]
-        public int Offset { get; set; }
-
-        /// <summary>
-        /// Gets or Sets MaxMatches
-        /// </summary>
-        [DataMember(Name = "max_matches", EmitDefaultValue = false)]
-        public int MaxMatches { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Sort
-        /// </summary>
-        [DataMember(Name = "sort", EmitDefaultValue = false)]
-        public List<Object> Sort { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Aggs
-        /// </summary>
-        [DataMember(Name = "aggs", EmitDefaultValue = false)]
-        public Dictionary<string, Aggregation> Aggs { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Expressions
-        /// </summary>
-        [DataMember(Name = "expressions", EmitDefaultValue = false)]
-        public Dictionary<string, string> Expressions { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Highlight
-        /// </summary>
-        [DataMember(Name = "highlight", EmitDefaultValue = false)]
-        public Highlight Highlight { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Source
-        /// </summary>
-        [DataMember(Name = "source", EmitDefaultValue = false)]
-        public Object Source { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Options
-        /// </summary>
-        [DataMember(Name = "options", EmitDefaultValue = false)]
-        public Dictionary<string, Object> Options { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Profile
-        /// </summary>
-        [DataMember(Name = "profile", EmitDefaultValue = true)]
-        public bool Profile { get; set; }
-
-        /// <summary>
-        /// Gets or Sets TrackScores
-        /// </summary>
-        [DataMember(Name = "track_scores", EmitDefaultValue = true)]
-        public bool TrackScores { get; set; }
+        /// <returns>An instance of SearchRequest</returns>
+        public SearchRequest GetSearchRequest()
+        {
+            return (SearchRequest)this.ActualInstance;
+        }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -181,23 +140,9 @@ namespace ManticoreSearch.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class SearchRequest {\n");
-            sb.Append("  Index: ").Append(Index).Append("\n");
-            sb.Append("  Query: ").Append(Query).Append("\n");
-            sb.Append("  FulltextFilter: ").Append(FulltextFilter).Append("\n");
-            sb.Append("  AttrFilter: ").Append(AttrFilter).Append("\n");
-            sb.Append("  Limit: ").Append(Limit).Append("\n");
-            sb.Append("  Offset: ").Append(Offset).Append("\n");
-            sb.Append("  MaxMatches: ").Append(MaxMatches).Append("\n");
-            sb.Append("  Sort: ").Append(Sort).Append("\n");
-            sb.Append("  Aggs: ").Append(Aggs).Append("\n");
-            sb.Append("  Expressions: ").Append(Expressions).Append("\n");
-            sb.Append("  Highlight: ").Append(Highlight).Append("\n");
-            sb.Append("  Source: ").Append(Source).Append("\n");
-            sb.Append("  Options: ").Append(Options).Append("\n");
-            sb.Append("  Profile: ").Append(Profile).Append("\n");
-            sb.Append("  TrackScores: ").Append(TrackScores).Append("\n");
+            sb.Append("  ActualInstance: ").Append(this.ActualInstance).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -206,9 +151,98 @@ namespace ManticoreSearch.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public virtual string ToJson()
+        public override string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeObject(this.ActualInstance, SearchRequest.SerializerSettings);
+        }
+
+        /// <summary>
+        /// Converts the JSON string into an instance of SearchRequest
+        /// </summary>
+        /// <param name="jsonString">JSON string</param>
+        /// <returns>An instance of SearchRequest</returns>
+        public static SearchRequest FromJson(string jsonString)
+        {
+            SearchRequest newSearchRequest = null;
+
+            if (string.IsNullOrEmpty(jsonString))
+            {
+                return newSearchRequest;
+            }
+            int match = 0;
+            List<string> matchedTypes = new List<string>();
+
+            try
+            {
+                // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
+                if (typeof(KnnSearchRequestByDocId).GetProperty("AdditionalProperties") == null)
+                {
+                    newSearchRequest = new SearchRequest(JsonConvert.DeserializeObject<KnnSearchRequestByDocId>(jsonString, SearchRequest.SerializerSettings));
+                }
+                else
+                {
+                    newSearchRequest = new SearchRequest(JsonConvert.DeserializeObject<KnnSearchRequestByDocId>(jsonString, SearchRequest.AdditionalPropertiesSerializerSettings));
+                }
+                matchedTypes.Add("KnnSearchRequestByDocId");
+                match++;
+            }
+            catch (Exception exception)
+            {
+                // deserialization failed, try the next one
+                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into KnnSearchRequestByDocId: {1}", jsonString, exception.ToString()));
+            }
+
+            try
+            {
+                // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
+                if (typeof(KnnSearchRequestByVector).GetProperty("AdditionalProperties") == null)
+                {
+                    newSearchRequest = new SearchRequest(JsonConvert.DeserializeObject<KnnSearchRequestByVector>(jsonString, SearchRequest.SerializerSettings));
+                }
+                else
+                {
+                    newSearchRequest = new SearchRequest(JsonConvert.DeserializeObject<KnnSearchRequestByVector>(jsonString, SearchRequest.AdditionalPropertiesSerializerSettings));
+                }
+                matchedTypes.Add("KnnSearchRequestByVector");
+                match++;
+            }
+            catch (Exception exception)
+            {
+                // deserialization failed, try the next one
+                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into KnnSearchRequestByVector: {1}", jsonString, exception.ToString()));
+            }
+
+            try
+            {
+                // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
+                if (typeof(SearchRequest).GetProperty("AdditionalProperties") == null)
+                {
+                    newSearchRequest = new SearchRequest(JsonConvert.DeserializeObject<SearchRequest>(jsonString, SearchRequest.SerializerSettings));
+                }
+                else
+                {
+                    newSearchRequest = new SearchRequest(JsonConvert.DeserializeObject<SearchRequest>(jsonString, SearchRequest.AdditionalPropertiesSerializerSettings));
+                }
+                matchedTypes.Add("SearchRequest");
+                match++;
+            }
+            catch (Exception exception)
+            {
+                // deserialization failed, try the next one
+                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into SearchRequest: {1}", jsonString, exception.ToString()));
+            }
+
+            if (match == 0)
+            {
+                throw new InvalidDataException("The JSON string `" + jsonString + "` cannot be deserialized into any schema defined.");
+            }
+            else if (match > 1)
+            {
+                throw new InvalidDataException("The JSON string `" + jsonString + "` incorrectly matches more than one schema (should be exactly one match): " + matchedTypes);
+            }
+
+            // deserialization is considered successful at this point if no exception has been thrown.
+            return newSearchRequest;
         }
 
         /// <summary>
@@ -229,84 +263,9 @@ namespace ManticoreSearch.Model
         public bool Equals(SearchRequest input)
         {
             if (input == null)
-            {
                 return false;
-            }
-            return 
-                (
-                    this.Index == input.Index ||
-                    (this.Index != null &&
-                    this.Index.Equals(input.Index))
-                ) && 
-                (
-                    this.Query == input.Query ||
-                    (this.Query != null &&
-                    this.Query.Equals(input.Query))
-                ) && 
-                (
-                    this.FulltextFilter == input.FulltextFilter ||
-                    (this.FulltextFilter != null &&
-                    this.FulltextFilter.Equals(input.FulltextFilter))
-                ) && 
-                (
-                    this.AttrFilter == input.AttrFilter ||
-                    (this.AttrFilter != null &&
-                    this.AttrFilter.Equals(input.AttrFilter))
-                ) && 
-                (
-                    this.Limit == input.Limit ||
-                    this.Limit.Equals(input.Limit)
-                ) && 
-                (
-                    this.Offset == input.Offset ||
-                    this.Offset.Equals(input.Offset)
-                ) && 
-                (
-                    this.MaxMatches == input.MaxMatches ||
-                    this.MaxMatches.Equals(input.MaxMatches)
-                ) && 
-                (
-                    this.Sort == input.Sort ||
-                    this.Sort != null &&
-                    input.Sort != null &&
-                    this.Sort.SequenceEqual(input.Sort)
-                ) && 
-                (
-                    this.Aggs == input.Aggs ||
-                    this.Aggs != null &&
-                    input.Aggs != null &&
-                    this.Aggs.SequenceEqual(input.Aggs)
-                ) && 
-                (
-                    this.Expressions == input.Expressions ||
-                    this.Expressions != null &&
-                    input.Expressions != null &&
-                    this.Expressions.SequenceEqual(input.Expressions)
-                ) && 
-                (
-                    this.Highlight == input.Highlight ||
-                    (this.Highlight != null &&
-                    this.Highlight.Equals(input.Highlight))
-                ) && 
-                (
-                    this.Source == input.Source ||
-                    (this.Source != null &&
-                    this.Source.Equals(input.Source))
-                ) && 
-                (
-                    this.Options == input.Options ||
-                    this.Options != null &&
-                    input.Options != null &&
-                    this.Options.SequenceEqual(input.Options)
-                ) && 
-                (
-                    this.Profile == input.Profile ||
-                    this.Profile.Equals(input.Profile)
-                ) && 
-                (
-                    this.TrackScores == input.TrackScores ||
-                    this.TrackScores.Equals(input.TrackScores)
-                );
+
+            return this.ActualInstance.Equals(input.ActualInstance);
         }
 
         /// <summary>
@@ -318,51 +277,8 @@ namespace ManticoreSearch.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Index != null)
-                {
-                    hashCode = (hashCode * 59) + this.Index.GetHashCode();
-                }
-                if (this.Query != null)
-                {
-                    hashCode = (hashCode * 59) + this.Query.GetHashCode();
-                }
-                if (this.FulltextFilter != null)
-                {
-                    hashCode = (hashCode * 59) + this.FulltextFilter.GetHashCode();
-                }
-                if (this.AttrFilter != null)
-                {
-                    hashCode = (hashCode * 59) + this.AttrFilter.GetHashCode();
-                }
-                hashCode = (hashCode * 59) + this.Limit.GetHashCode();
-                hashCode = (hashCode * 59) + this.Offset.GetHashCode();
-                hashCode = (hashCode * 59) + this.MaxMatches.GetHashCode();
-                if (this.Sort != null)
-                {
-                    hashCode = (hashCode * 59) + this.Sort.GetHashCode();
-                }
-                if (this.Aggs != null)
-                {
-                    hashCode = (hashCode * 59) + this.Aggs.GetHashCode();
-                }
-                if (this.Expressions != null)
-                {
-                    hashCode = (hashCode * 59) + this.Expressions.GetHashCode();
-                }
-                if (this.Highlight != null)
-                {
-                    hashCode = (hashCode * 59) + this.Highlight.GetHashCode();
-                }
-                if (this.Source != null)
-                {
-                    hashCode = (hashCode * 59) + this.Source.GetHashCode();
-                }
-                if (this.Options != null)
-                {
-                    hashCode = (hashCode * 59) + this.Options.GetHashCode();
-                }
-                hashCode = (hashCode * 59) + this.Profile.GetHashCode();
-                hashCode = (hashCode * 59) + this.TrackScores.GetHashCode();
+                if (this.ActualInstance != null)
+                    hashCode = hashCode * 59 + this.ActualInstance.GetHashCode();
                 return hashCode;
             }
         }
@@ -372,9 +288,53 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <param name="validationContext">Validation context</param>
         /// <returns>Validation Result</returns>
-        public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
             yield break;
+        }
+    }
+
+    /// <summary>
+    /// Custom JSON converter for SearchRequest
+    /// </summary>
+    public class SearchRequestJsonConverter : JsonConverter
+    {
+        /// <summary>
+        /// To write the JSON string
+        /// </summary>
+        /// <param name="writer">JSON writer</param>
+        /// <param name="value">Object to be converted into a JSON string</param>
+        /// <param name="serializer">JSON Serializer</param>
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            writer.WriteRawValue((string)(typeof(SearchRequest).GetMethod("ToJson").Invoke(value, null)));
+        }
+
+        /// <summary>
+        /// To convert a JSON string into an object
+        /// </summary>
+        /// <param name="reader">JSON reader</param>
+        /// <param name="objectType">Object type</param>
+        /// <param name="existingValue">Existing value</param>
+        /// <param name="serializer">JSON Serializer</param>
+        /// <returns>The object converted from the JSON string</returns>
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            if(reader.TokenType != JsonToken.Null)
+            {
+                return SearchRequest.FromJson(JObject.Load(reader).ToString(Formatting.None));
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Check if the object can be converted
+        /// </summary>
+        /// <param name="objectType">Object type</param>
+        /// <returns>True if the object can be converted</returns>
+        public override bool CanConvert(Type objectType)
+        {
+            return false;
         }
     }
 

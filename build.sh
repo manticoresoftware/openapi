@@ -105,39 +105,19 @@ do_typescript() {
 do_csharp() {
   echo "Building CSharp ..."
   rm -rf out/manticoresearch-csharp 
-  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp-netcore  -o /local/out/manticoresearch-csharp -t /local/templates/csharp-netcore --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp` $build_to_branch
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp  -o /local/out/manticoresearch-csharp -t /local/templates/csharp --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp` $build_to_branch
   cp -r gh-actions/csharp/. out/manticoresearch-csharp
   cp -r docs/csharp/docs/SearchApi.md out/manticoresearch-csharp/docs/SearchApi.md
   echo "CSharp done."
 }
 
-do_ruby() {
-  echo "Building Ruby ..."
-  rm -rf out/manticore-ruby 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"   -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g ruby -o /local/out/manticore-ruby -t /local/templates/ruby-client --git-repo-id manticoresearch-ruby --git-user-id manticoresoftware
-  echo "Ruby done."
-}
-
-do_swift() {
-  echo "Building Swift ..."
-  rm -rf out/manticore-swift5 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"   -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g swift5 -o /local/out/manticore-swift5 -t /local/templates/swift5 --git-repo-id manticoresearch-swift --git-user-id manticoresoftware
-  echo "Swift done." 
-}
-
-do_perl() {
-  echo "Building Perl ..."
-  rm -rf out/manticore-perl 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g perl  -o /local/out/manticore-perl -t /local/templates/perl --git-repo-id manticoresearch-perl --git-user-id manticoresoftware
-  echo "Perl done." 
-}
-
 do_go() {
   echo "Building Go ..."
   rm -rf out/manticore-go 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g go  -o /local/out/manticore-go-experimental -t /local/templates/go --git-repo-id manticoresearch-go --git-user-id manticoresoftware
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g go  -o /local/out/manticore-go -t /local/templates/go --git-repo-id manticoresearch-go --git-user-id manticoresoftware
   echo "Go done." 
 }
+
 do_elixir() {
   echo "Building Elixir ..."
   rm -rf out/manticoresearch-elixir 
@@ -179,15 +159,6 @@ case $1 in
  csharp)
    do_csharp
   ;;
- ruby)
-   do_ruby
-  ;;
- swift)
-   do_swift
-  ;;
- perl)
-   do_perl
-  ;;
  go)
    do_go
   ;;  
@@ -200,9 +171,7 @@ case $1 in
    do_javascript
    do_typescript
    do_csharp
-   do_ruby
-   do_swift
-   do_perl
+   do_go
    do_elixir
   ;;
 *)

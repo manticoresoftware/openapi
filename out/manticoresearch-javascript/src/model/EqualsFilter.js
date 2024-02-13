@@ -27,7 +27,7 @@
   /**
    * The EqualsFilter model module.
    * @module model/EqualsFilter
-   * @version 4.0.0
+   * @version 4.1.0
    */
 
   /**

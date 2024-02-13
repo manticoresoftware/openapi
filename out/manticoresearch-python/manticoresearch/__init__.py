@@ -15,7 +15,7 @@
 
 from __future__ import absolute_import
 
-__version__ = "4.0.0"
+__version__ = "4.1.0"
 
 # import apis into sdk package
 from manticoresearch.api.index_api import IndexApi
@@ -53,6 +53,8 @@ from manticoresearch.model.highlight import Highlight
 from manticoresearch.model.highlight_field import HighlightField
 from manticoresearch.model.in_filter import InFilter
 from manticoresearch.model.insert_document_request import InsertDocumentRequest
+from manticoresearch.model.knn_search_request_by_doc_id import KnnSearchRequestByDocId
+from manticoresearch.model.knn_search_request_by_vector import KnnSearchRequestByVector
 from manticoresearch.model.match_filter import MatchFilter
 from manticoresearch.model.match_op import MatchOp
 from manticoresearch.model.match_op_filter import MatchOpFilter

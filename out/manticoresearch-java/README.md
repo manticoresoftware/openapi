@@ -3,9 +3,9 @@
 
 Manticore Search Client
 
-- API version: 5.0.0
+- API version: 5.1.0
 
-- Build date: 2023-12-18T11:24:55.908019234Z[Etc/UTC]
+- Build date: 2024-01-30T07:42:09.809929621Z[Etc/UTC]
 
 Сlient for Manticore Search.
 
@@ -14,13 +14,8 @@ Manticore Search Client
 
 Building the API client library requires:
 
-1. Java 17+
+1. Java 1.8+
 2. Maven/Gradle
-
-| Manticore Search  | manticoresearch-java    |
-| ----------------- | ----------------------- |
-| >= 6.2.0          | 3.3.1                   |
-| >= 2.5.1          | 2.0.2                   |
 
 
 ## Installation
@@ -47,7 +42,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.manticoresearch</groupId>
   <artifactId>manticoresearch</artifactId>
-  <version>5.0.0</version>
+  <version>5.1.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -63,7 +58,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.manticoresearch:manticoresearch:5.0.0"
+     implementation "com.manticoresearch:manticoresearch:5.1.0"
   }
 ```
 
@@ -77,7 +72,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/manticoresearch-5.0.0.jar`
+- `target/manticoresearch-5.1.0.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -171,6 +166,8 @@ Class | Method | HTTP request | Description
  - [HighlightField](docs/HighlightField.md)
  - [InFilter](docs/InFilter.md)
  - [InsertDocumentRequest](docs/InsertDocumentRequest.md)
+ - [KnnSearchRequestByDocId](docs/KnnSearchRequestByDocId.md)
+ - [KnnSearchRequestByVector](docs/KnnSearchRequestByVector.md)
  - [MatchFilter](docs/MatchFilter.md)
  - [MatchOp](docs/MatchOp.md)
  - [MatchOpFilter](docs/MatchOpFilter.md)

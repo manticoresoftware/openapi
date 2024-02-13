@@ -61,7 +61,7 @@ import {
 
 ## Documentation
 
-Full documentation on the API Endpoints and Models used is available in [docs](https://github.com/manticoresoftware/manticoresearch-typescript/tree/4.1.0/docs) folder as listed below.
+Full documentation on the API Endpoints and Models used is available in [docs](https://github.com/manticoresoftware/manticoresearch-typescript/tree/4.2.0/docs) folder as listed below.
 
 Manticore Search server documentation: https://manual.manticoresearch.com.
 

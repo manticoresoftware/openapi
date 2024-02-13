@@ -626,6 +626,224 @@ export interface InsertDocumentRequest {
     doc: { [key: string]: any; };
 }
 /**
+ * Request object for knn search operation
+ * @export
+ * @interface KnnSearchRequestByDocId
+ */
+export interface KnnSearchRequestByDocId {
+    /**
+     * 
+     * @type {string}
+     * @memberof KnnSearchRequestByDocId
+     */
+    index: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof KnnSearchRequestByDocId
+     */
+    field: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof KnnSearchRequestByDocId
+     */
+    doc_id: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof KnnSearchRequestByDocId
+     */
+    k: number;
+    /**
+     * 
+     * @type {object}
+     * @memberof KnnSearchRequestByDocId
+     */
+    fulltext_filter?: object;
+    /**
+     * 
+     * @type {object}
+     * @memberof KnnSearchRequestByDocId
+     */
+    attr_filter?: object;
+    /**
+     * 
+     * @type {number}
+     * @memberof KnnSearchRequestByDocId
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof KnnSearchRequestByDocId
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof KnnSearchRequestByDocId
+     */
+    max_matches?: number;
+    /**
+     * 
+     * @type {Array<object>}
+     * @memberof KnnSearchRequestByDocId
+     */
+    sort?: Array<object>;
+    /**
+     * 
+     * @type {{ [key: string]: Aggregation; }}
+     * @memberof KnnSearchRequestByDocId
+     */
+    aggs?: { [key: string]: Aggregation; };
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof KnnSearchRequestByDocId
+     */
+    expressions?: { [key: string]: string; };
+    /**
+     * 
+     * @type {Highlight}
+     * @memberof KnnSearchRequestByDocId
+     */
+    highlight?: Highlight;
+    /**
+     * 
+     * @type {object}
+     * @memberof KnnSearchRequestByDocId
+     */
+    source?: object;
+    /**
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof KnnSearchRequestByDocId
+     */
+    options?: { [key: string]: any; };
+    /**
+     * 
+     * @type {boolean}
+     * @memberof KnnSearchRequestByDocId
+     */
+    profile?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof KnnSearchRequestByDocId
+     */
+    track_scores?: boolean;
+}
+/**
+ * Request object for knn search operation
+ * @export
+ * @interface KnnSearchRequestByVector
+ */
+export interface KnnSearchRequestByVector {
+    /**
+     * 
+     * @type {string}
+     * @memberof KnnSearchRequestByVector
+     */
+    index: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof KnnSearchRequestByVector
+     */
+    field: string;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof KnnSearchRequestByVector
+     */
+    query_vector: Array<number>;
+    /**
+     * 
+     * @type {number}
+     * @memberof KnnSearchRequestByVector
+     */
+    k: number;
+    /**
+     * 
+     * @type {object}
+     * @memberof KnnSearchRequestByVector
+     */
+    fulltext_filter?: object;
+    /**
+     * 
+     * @type {object}
+     * @memberof KnnSearchRequestByVector
+     */
+    attr_filter?: object;
+    /**
+     * 
+     * @type {number}
+     * @memberof KnnSearchRequestByVector
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof KnnSearchRequestByVector
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof KnnSearchRequestByVector
+     */
+    max_matches?: number;
+    /**
+     * 
+     * @type {Array<object>}
+     * @memberof KnnSearchRequestByVector
+     */
+    sort?: Array<object>;
+    /**
+     * 
+     * @type {{ [key: string]: Aggregation; }}
+     * @memberof KnnSearchRequestByVector
+     */
+    aggs?: { [key: string]: Aggregation; };
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof KnnSearchRequestByVector
+     */
+    expressions?: { [key: string]: string; };
+    /**
+     * 
+     * @type {Highlight}
+     * @memberof KnnSearchRequestByVector
+     */
+    highlight?: Highlight;
+    /**
+     * 
+     * @type {object}
+     * @memberof KnnSearchRequestByVector
+     */
+    source?: object;
+    /**
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof KnnSearchRequestByVector
+     */
+    options?: { [key: string]: any; };
+    /**
+     * 
+     * @type {boolean}
+     * @memberof KnnSearchRequestByVector
+     */
+    profile?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof KnnSearchRequestByVector
+     */
+    track_scores?: boolean;
+}
+/**
  * Query match filter
  * @export
  * @interface MatchFilter
@@ -864,102 +1082,11 @@ export interface RangeFilter {
     gt?: number | null;
 }
 /**
- * Request object for search operation
+ * @type SearchRequest
+ * 
  * @export
- * @interface SearchRequest
  */
-export interface SearchRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof SearchRequest
-     */
-    index: string;
-    /**
-     * 
-     * @type {object}
-     * @memberof SearchRequest
-     */
-    query?: object;
-    /**
-     * 
-     * @type {object}
-     * @memberof SearchRequest
-     */
-    fulltext_filter?: object;
-    /**
-     * 
-     * @type {object}
-     * @memberof SearchRequest
-     */
-    attr_filter?: object;
-    /**
-     * 
-     * @type {number}
-     * @memberof SearchRequest
-     */
-    limit?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SearchRequest
-     */
-    offset?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SearchRequest
-     */
-    max_matches?: number;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof SearchRequest
-     */
-    sort?: Array<object>;
-    /**
-     * 
-     * @type {{ [key: string]: Aggregation; }}
-     * @memberof SearchRequest
-     */
-    aggs?: { [key: string]: Aggregation; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof SearchRequest
-     */
-    expressions?: { [key: string]: string; };
-    /**
-     * 
-     * @type {Highlight}
-     * @memberof SearchRequest
-     */
-    highlight?: Highlight;
-    /**
-     * 
-     * @type {object}
-     * @memberof SearchRequest
-     */
-    source?: object;
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof SearchRequest
-     */
-    options?: { [key: string]: any; };
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SearchRequest
-     */
-    profile?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SearchRequest
-     */
-    track_scores?: boolean;
-}
+export type SearchRequest = KnnSearchRequestByDocId | KnnSearchRequestByVector | SearchRequest;
 /**
  * Response object of a search request
  * @export

@@ -27,7 +27,7 @@
   /**
    * The AggregationSortInnerValue model module.
    * @module model/AggregationSortInnerValue
-   * @version 4.0.0
+   * @version 4.1.0
    */
 
   /**

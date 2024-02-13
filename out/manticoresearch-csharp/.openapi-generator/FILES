@@ -23,6 +23,8 @@ docs/HighlightField.md
 docs/InFilter.md
 docs/IndexApi.md
 docs/InsertDocumentRequest.md
+docs/KnnSearchRequestByDocId.md
+docs/KnnSearchRequestByVector.md
 docs/MatchFilter.md
 docs/MatchOp.md
 docs/MatchOpFilter.md
@@ -70,6 +72,8 @@ src/ManticoreSearch.Test/Model/HighlightFieldTests.cs
 src/ManticoreSearch.Test/Model/HighlightTests.cs
 src/ManticoreSearch.Test/Model/InFilterTests.cs
 src/ManticoreSearch.Test/Model/InsertDocumentRequestTests.cs
+src/ManticoreSearch.Test/Model/KnnSearchRequestByDocIdTests.cs
+src/ManticoreSearch.Test/Model/KnnSearchRequestByVectorTests.cs
 src/ManticoreSearch.Test/Model/MatchFilterTests.cs
 src/ManticoreSearch.Test/Model/MatchOpFilterTests.cs
 src/ManticoreSearch.Test/Model/MatchOpTests.cs
@@ -132,6 +136,8 @@ src/ManticoreSearch/Model/Highlight.cs
 src/ManticoreSearch/Model/HighlightField.cs
 src/ManticoreSearch/Model/InFilter.cs
 src/ManticoreSearch/Model/InsertDocumentRequest.cs
+src/ManticoreSearch/Model/KnnSearchRequestByDocId.cs
+src/ManticoreSearch/Model/KnnSearchRequestByVector.cs
 src/ManticoreSearch/Model/MatchFilter.cs
 src/ManticoreSearch/Model/MatchOp.cs
 src/ManticoreSearch/Model/MatchOpFilter.cs

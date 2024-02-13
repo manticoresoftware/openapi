@@ -27,15 +27,6 @@ components:
       value: www
       summary: A sample object
   schemas:
-    fulltextFilter:
-      x-is_fulltext_filter: true
-      type: object
-      additionalProperties: true
-      example: 
-         id: 1
-    attrFilter:
-      type: object
-      additionalProperties: true
     aggregation:
       type: object
       x-is_req_agg: true
@@ -416,7 +407,7 @@ components:
     highlightField:
       type: object
       x-is_highlight_field: true
-      description: Query Highlight field with options set
+      description: Query Highlight field with defined options
       required:
         - name
       properties:
@@ -614,6 +605,8 @@ components:
           #allOf:
           #  - $ref: '#/components/schemas/attrFilter'
           #  - x-is_attr_filter: true
+        _source:
+          type: string
         limit:
           type: integer
         offset:
@@ -668,12 +661,147 @@ components:
       example:
         index:
           $ref: '#/components/examples/objectExample'
-    updateDocumentRequest:
+    knnSearchRequestByVector:
       type: object
-      description: Payload for update document
+      x-is_knn_req: true
+      x-is_knn_by_vec: true
+      description: Request object for knn search operation
+      required:
+        - index
+        - field
+        - query_vector
+        - k
+      properties:
+        index:
+          type: string
+          default: ''
+          example: test
+        field:
+          type: string
+          default: ''
+        query_vector:
+          type: array
+          items:
+           type: number
+        k:
+         type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        max_matches:
+          type: integer
+        sort:
+          type: array
+          items:
+            type: object
+          example: []
+        aggs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/aggregation'
+          example:
+            agg1:
+              terms:
+                field: field1
+                size: 1000
+              sort:
+                - 'field1':
+                  order: asc
+        expressions:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            title_len: "crc32(title)"
+        highlight:
+          $ref: '#/components/schemas/highlight'
+        source:
+          x-is_req_source: true
+          type: object
+          example: {}
+        options:
+           type: object
+           additionalProperties: true
+        profile:
+          type: boolean
+        track_scores:
+          type: boolean
+      example: {}
+    knnSearchRequestByDocId:
+      type: object
+      x-is_knn_req: true
+      x-is_knn_by_doc: true
+      description: Request object for knn search operation
+      required:
+        - index
+        - field
+        - doc_id
+        - k
+      properties:
+        index:
+          type: string
+          default: ''
+          example: test
+        field:
+          type: string
+          default: ''
+        doc_id:
+          type: integer
+        k:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        max_matches:
+          type: integer
+        sort:
+          type: array
+          items:
+            type: object
+          example: []
+        aggs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/aggregation'
+          example:
+            agg1:
+              terms:
+                field: field1
+                size: 1000
+              sort:
+                - 'field1':
+                  order: asc
+        expressions:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            title_len: "crc32(title)"
+        highlight:
+          $ref: '#/components/schemas/highlight'
+        source:
+          x-is_req_source: true
+          type: object
+          example: {}
+        options:
+           type: object
+           additionalProperties: true
+        profile:
+          type: boolean
+        track_scores:
+          type: boolean
+      example:
+        index:
+          $ref: '#/components/examples/objectExample'          
+    updateDocumentByIdRequest:
+      type: object
+      description: Request object for update document
       required:
         - index
         - doc
+        - id
       properties:
         index:
           type: string
@@ -687,6 +815,27 @@ components:
           type: integer
           format: int64
           description: Document ID
+      example:
+        index: test
+        doc:
+          price: 1000
+        id: 2
+    updateDocumentByQueryRequest:
+      type: object
+      description: Request object for update document
+      required:
+        - index
+        - doc
+        - query
+      properties:
+        index:
+          type: string
+        doc:
+          type: object
+          description: Index name
+          additionalProperties: true
+          example:
+            gid: 10
         query:
           type: object
           additionalProperties: true
@@ -703,10 +852,10 @@ components:
         query:
           match:
             '*': apple
-    deleteDocumentRequest:
+    deleteDocumentByIdRequest:
       type: object
       description: >
-        Payload for delete request.
+        Request object for delete operation.
         
         Documents can be deleted either one by one by specifying the document id
         or by providing a query object.
@@ -715,6 +864,7 @@ components:
         [Delete API](https://manual.manticoresearch.com/Deleting_documents)
       required:
         - index
+        - id
       properties:
         index:
           type: string
@@ -726,6 +876,29 @@ components:
           type: integer
           format: int64
           description: Document ID
+      example:
+        index: test
+        id: 1
+    deleteDocumentByQueryRequest:
+      type: object
+      description: >
+        Request object for delete operation.
+        
+        Documents can be deleted either one by one by specifying the document id
+        or by providing a query object.
+        
+        For more information see 
+        [Delete API](https://manual.manticoresearch.com/Deleting_documents)
+      required:
+        - index
+        - query
+      properties:
+        index:
+          type: string
+          description: Index name
+        cluster:
+          type: string
+          description: cluster name
         query:
           type: object
           description: Query tree object
@@ -735,7 +908,7 @@ components:
     insertDocumentRequest:
       type: object
       description: |
-        Object with document data.
+        Request object for insert operation.
       required:
         - index
         - doc
@@ -763,7 +936,7 @@ components:
           gid: 100
     percolateRequest:
       type: object
-      description: Object with documents to percolate
+      description: Request object with documents to percolate
       required:
         - query
       properties:
@@ -829,7 +1002,7 @@ components:
       type: array
       items:
         type: object
-      description: List containing Response object from sql that depends on the query executed as its item.
+      description: Response object from sql request.
       example:
         - total: 0
           error: null
@@ -856,22 +1029,26 @@ components:
     bulkResponse:
       type: object
       additionalProperties: true
-      description: Success bulk response
+      description: Bulk response
       properties:
         items:
-          type: object
+          type: array
+          items:
+            type: object
         errors:
           type: boolean
         error:
           type: string
-    updateResponse:
+    updateByIdResponse:
       type: object
-      description: Success response
+      description: Response for update by id request
+      required:
+        - _index
+        - _id
+        - result
       properties:
         _index:
           type: string
-        updated:
-          type: integer
         _id:
           type: integer
           format: int64
@@ -879,20 +1056,56 @@ components:
           type: string
       example:
         _index: test
-        updated: 29
-    deleteResponse:
+        _id: 10
+        result: "updated"
+    updateByQueryResponse:
       type: object
-      description: Success response
+      description: Response for update by query request
+      required:
+        - _index
+        - updated
+      properties:
+        _index:
+          type: string
+        updated:
+          type: integer
+      example:
+        _index: test
+        updated: 29
+    deleteByIdResponse:
+      type: object
+      description: Response for delete by id request
+      required:
+        - _index
+        - _id
+        - found
+        - result
+      properties:
+        _index:
+          type: string
+        _id:
+          type: integer
+          format: int64
+        found:
+          type: boolean
+        result:
+          type: string
+      example:
+        _index: test
+        _id: 10
+        found: false
+        result: "not found"
+    deleteByQueryResponse:
+      type: object
+      description: Response for delete by query request
+      required:
+        - _index
+        - deleted
       properties:
         _index:
           type: string
         deleted:
           type: integer
-        _id:
-          type: integer
-          format: int64
-        result:
-          type: string
       example:
         _index: test
         deleted: 29
@@ -901,7 +1114,6 @@ components:
       description: Error response
       required:
         - error
-        - status
       properties:
         error:
           type: object
@@ -912,10 +1124,20 @@ components:
       example:
         status: 500
         error: an error occured
+    errorResponseString:
+      type: object
+      description: Error response
+      required:
+        - error
+      properties:
+        error:
+          type: string
+      example:
+        error: an error occured
 paths:
   '/pq/{index}/search':
     post:
-      summary: Perform reverse search on a percolate index
+      summary: Performs reverse search on a percolate index
       x-is_percolate: true
       operationId: percolate
       description: >
@@ -1077,7 +1299,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/searchRequest'
+              oneOf:
+                - $ref: '#/components/schemas/searchRequest'
+                - $ref: '#/components/schemas/knnSearchRequestByVector'
+                - $ref: '#/components/schemas/knnSearchRequestByDocId'
       responses:
         '200':
           description: Ok
@@ -1269,8 +1494,9 @@ paths:
         required: true
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/updateDocumentRequest'
+            oneOf:
+              - $ref: '#/components/schemas/updateDocumentByIdRequest'
+              - $ref: '#/components/schemas/updateDocumentByQueryRequest'
             example:
               index: test
               doc:
@@ -1346,7 +1572,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/deleteDocumentRequest'
+              oneOf:
+                - $ref: '#/components/schemas/deleteDocumentByIdRequest'
+                - $ref: '#/components/schemas/deleteDocumentByQueryRequest'
             example:
               index: test
               query:
@@ -1358,7 +1586,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/deleteResponse'
+                oneOf:
+                  - $ref: '#/components/schemas/deleteByIdResponse'
+                  - $ref: '#/components/schemas/deleteByQueryResponse'
         default:
           description: error
           content:
@@ -1483,7 +1713,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorResponse'
+                oneOf:
+                - $ref: '#/components/schemas/errorResponse'
+                - $ref: '#/components/schemas/errorResponseString'
 servers:
   - description: Default Manticore Search HTTP 
     url: http://127.0.0.1:9308/
