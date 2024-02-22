@@ -1,10 +1,9 @@
 # Manticore .Net client
 
+Сlient for Manticore Search.
 
-- API version: 3.3.1
-- Build package: org.openapitools.codegen.languages.CSharpNetCoreClientCodegen
-    For more information, please visit [https://manticoresearch.com/contact-us/](https://manticoresearch.com/contact-us/)
 
+❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-typescript/tree/4.0.0
 
 ## Frameworks supported
 - .NET Core >=1.0
@@ -20,6 +19,11 @@
 
 The DLLs included in the package may not be the latest version. We recommend using [NuGet](https://docs.nuget.org/consume/installing-nuget) to obtain the latest version of the packages:
 
+| Manticore Search  | manticoresearch-net     |
+| ----------------- | ----------------------- |
+| >= 6.2.0          | 4.0.0                   |
+| >= 6.2.0          | 3.3.1                   |
+| >= 2.5.1          | 1.0.x                   |
 
 ```
 Install-Package Newtonsoft.Json
@@ -92,7 +96,7 @@ namespace Example
         {
 
             Configuration config = new Configuration();
-            config.BasePath = "http://127.0.0.1:9308";
+            config.BasePath = "http://localhost:9408";
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
@@ -138,7 +142,7 @@ namespace Example
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://127.0.0.1:9308*
+All URIs are relative to *http://localhost:9408*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -173,8 +177,6 @@ Class | Method | HTTP request | Description
  - [Model.HighlightField](docs/HighlightField.md)
  - [Model.InFilter](docs/InFilter.md)
  - [Model.InsertDocumentRequest](docs/InsertDocumentRequest.md)
- - [Model.KnnQueryByDocId](docs/KnnQueryByDocId.md)
- - [Model.KnnQueryByVector](docs/KnnQueryByVector.md)
  - [Model.MatchFilter](docs/MatchFilter.md)
  - [Model.MatchOp](docs/MatchOp.md)
  - [Model.MatchOpFilter](docs/MatchOpFilter.md)
@@ -187,7 +189,6 @@ Class | Method | HTTP request | Description
  - [Model.QueryFilter](docs/QueryFilter.md)
  - [Model.RangeFilter](docs/RangeFilter.md)
  - [Model.SearchRequest](docs/SearchRequest.md)
- - [Model.SearchRequestKnn](docs/SearchRequestKnn.md)
  - [Model.SearchResponse](docs/SearchResponse.md)
  - [Model.SearchResponseHits](docs/SearchResponseHits.md)
  - [Model.SortMVA](docs/SortMVA.md)

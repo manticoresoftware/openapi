@@ -23,16 +23,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.manticoresearch.client.model.Aggregation;
 import com.manticoresearch.client.model.Highlight;
-import com.manticoresearch.client.model.SearchRequestKnn;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.manticoresearch.client.JSON;
@@ -43,7 +38,6 @@ import com.manticoresearch.client.JSON;
  */
 @JsonPropertyOrder({
   SearchRequest.JSON_PROPERTY_INDEX,
-  SearchRequest.JSON_PROPERTY_KNN,
   SearchRequest.JSON_PROPERTY_QUERY,
   SearchRequest.JSON_PROPERTY_FULLTEXT_FILTER,
   SearchRequest.JSON_PROPERTY_ATTR_FILTER,
@@ -57,20 +51,14 @@ import com.manticoresearch.client.JSON;
   SearchRequest.JSON_PROPERTY_SOURCE,
   SearchRequest.JSON_PROPERTY_OPTIONS,
   SearchRequest.JSON_PROPERTY_PROFILE,
-  SearchRequest.JSON_PROPERTY_TRACK_SCORES,
-  SearchRequest.JSON_PROPERTY_QUERY_VECTOR,
-  SearchRequest.JSON_PROPERTY_DOC_ID,
-  SearchRequest.JSON_PROPERTY_K
+  SearchRequest.JSON_PROPERTY_TRACK_SCORES
 })
 @JsonTypeName("searchRequest")
 @JsonIgnoreProperties(ignoreUnknown = true)
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-22T08:36:02.662182043Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-18T11:24:55.908019234Z[Etc/UTC]")
 public class SearchRequest {
   public static final String JSON_PROPERTY_INDEX = "index";
   private String index = "";
-
-  public static final String JSON_PROPERTY_KNN = "knn";
-  private SearchRequestKnn knn;
 
   public static final String JSON_PROPERTY_QUERY = "query";
   private Object query;
@@ -114,15 +102,6 @@ public class SearchRequest {
   public static final String JSON_PROPERTY_TRACK_SCORES = "track_scores";
   private Boolean trackScores;
 
-  public static final String JSON_PROPERTY_QUERY_VECTOR = "query_vector";
-  private JsonNullable<Object> queryVector = JsonNullable.<Object>of(null);
-
-  public static final String JSON_PROPERTY_DOC_ID = "doc_id";
-  private JsonNullable<Object> docId = JsonNullable.<Object>of(null);
-
-  public static final String JSON_PROPERTY_K = "k";
-  private JsonNullable<Object> k = JsonNullable.<Object>of(null);
-
   public SearchRequest() { 
   }
 
@@ -148,31 +127,6 @@ public class SearchRequest {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setIndex(String index) {
     this.index = index;
-  }
-
-
-  public SearchRequest knn(SearchRequestKnn knn) {
-    this.knn = knn;
-    return this;
-  }
-
-   /**
-   * Get knn
-   * @return knn
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_KNN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public SearchRequestKnn getKnn() {
-    return knn;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_KNN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setKnn(SearchRequestKnn knn) {
-    this.knn = knn;
   }
 
 
@@ -560,105 +514,6 @@ public class SearchRequest {
   }
 
 
-  public SearchRequest queryVector(Object queryVector) {
-    this.queryVector = JsonNullable.<Object>of(queryVector);
-    return this;
-  }
-
-   /**
-   * Get queryVector
-   * @return queryVector
-  **/
-  @jakarta.annotation.Nullable
-  @JsonIgnore
-
-  public Object getQueryVector() {
-        return queryVector.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_QUERY_VECTOR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<Object> getQueryVector_JsonNullable() {
-    return queryVector;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_QUERY_VECTOR)
-  public void setQueryVector_JsonNullable(JsonNullable<Object> queryVector) {
-    this.queryVector = queryVector;
-  }
-
-  public void setQueryVector(Object queryVector) {
-    this.queryVector = JsonNullable.<Object>of(queryVector);
-  }
-
-
-  public SearchRequest docId(Object docId) {
-    this.docId = JsonNullable.<Object>of(docId);
-    return this;
-  }
-
-   /**
-   * Get docId
-   * @return docId
-  **/
-  @jakarta.annotation.Nullable
-  @JsonIgnore
-
-  public Object getDocId() {
-        return docId.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_DOC_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<Object> getDocId_JsonNullable() {
-    return docId;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_DOC_ID)
-  public void setDocId_JsonNullable(JsonNullable<Object> docId) {
-    this.docId = docId;
-  }
-
-  public void setDocId(Object docId) {
-    this.docId = JsonNullable.<Object>of(docId);
-  }
-
-
-  public SearchRequest k(Object k) {
-    this.k = JsonNullable.<Object>of(k);
-    return this;
-  }
-
-   /**
-   * Get k
-   * @return k
-  **/
-  @jakarta.annotation.Nullable
-  @JsonIgnore
-
-  public Object getK() {
-        return k.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_K)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<Object> getK_JsonNullable() {
-    return k;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_K)
-  public void setK_JsonNullable(JsonNullable<Object> k) {
-    this.k = k;
-  }
-
-  public void setK(Object k) {
-    this.k = JsonNullable.<Object>of(k);
-  }
-
-
   /**
    * Return true if this searchRequest object is equal to o.
    */
@@ -672,7 +527,6 @@ public class SearchRequest {
     }
     SearchRequest searchRequest = (SearchRequest) o;
     return Objects.equals(this.index, searchRequest.index) &&
-        Objects.equals(this.knn, searchRequest.knn) &&
         Objects.equals(this.query, searchRequest.query) &&
         Objects.equals(this.fulltextFilter, searchRequest.fulltextFilter) &&
         Objects.equals(this.attrFilter, searchRequest.attrFilter) &&
@@ -686,26 +540,12 @@ public class SearchRequest {
         Objects.equals(this.source, searchRequest.source) &&
         Objects.equals(this.options, searchRequest.options) &&
         Objects.equals(this.profile, searchRequest.profile) &&
-        Objects.equals(this.trackScores, searchRequest.trackScores) &&
-        equalsNullable(this.queryVector, searchRequest.queryVector) &&
-        equalsNullable(this.docId, searchRequest.docId) &&
-        equalsNullable(this.k, searchRequest.k);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+        Objects.equals(this.trackScores, searchRequest.trackScores);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(index, knn, query, fulltextFilter, attrFilter, limit, offset, maxMatches, sort, aggs, expressions, highlight, source, options, profile, trackScores, hashCodeNullable(queryVector), hashCodeNullable(docId), hashCodeNullable(k));
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+    return Objects.hash(index, query, fulltextFilter, attrFilter, limit, offset, maxMatches, sort, aggs, expressions, highlight, source, options, profile, trackScores);
   }
 
   @Override
@@ -713,7 +553,6 @@ public class SearchRequest {
     StringBuilder sb = new StringBuilder();
     sb.append("class SearchRequest {\n");
     sb.append("    index: ").append(toIndentedString(index)).append("\n");
-    sb.append("    knn: ").append(toIndentedString(knn)).append("\n");
     sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb.append("    fulltextFilter: ").append(toIndentedString(fulltextFilter)).append("\n");
     sb.append("    attrFilter: ").append(toIndentedString(attrFilter)).append("\n");
@@ -728,9 +567,6 @@ public class SearchRequest {
     sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("    profile: ").append(toIndentedString(profile)).append("\n");
     sb.append("    trackScores: ").append(toIndentedString(trackScores)).append("\n");
-    sb.append("    queryVector: ").append(toIndentedString(queryVector)).append("\n");
-    sb.append("    docId: ").append(toIndentedString(docId)).append("\n");
-    sb.append("    k: ").append(toIndentedString(k)).append("\n");
     sb.append("}");
     return sb.toString();
   }

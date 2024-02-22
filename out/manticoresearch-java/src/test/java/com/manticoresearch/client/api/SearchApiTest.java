@@ -78,7 +78,6 @@ public class SearchApiTest {
 	    void TestSearchFulltextFilters(SearchRequest searchRequest) throws ApiException;
 	    void TestSearchAttrFilters(SearchRequest searchRequest) throws ApiException;
 	    void TestSearchBoolFilter(SearchRequest searchRequest) throws ApiException;
-	    void TestKnnSearchByVector(SearchRequest searchRequest) throws ApiException;	        
     }
 
     /**
@@ -194,13 +193,13 @@ public class SearchApiTest {
 	        SearchSubTests subTests = new SearchSubTests() {
 	            public void BuildSearchRequestData() throws ApiException
 	            {
-	                utilsApi.sql("CREATE TABLE IF NOT EXISTS movies (title text, plot text, _year integer, rating float, code multi, type_vector float_vector knn_type='hnsw' knn_dims='3' hnsw_similarity='l2' )", true);
+	                utilsApi.sql("CREATE TABLE IF NOT EXISTS movies (title text, plot text, year integer, rating float, code multi)", true);
     
 				    List<String> docs = Arrays.asList(
-						"{\"insert\": {\"index\" : \"movies\", \"id\" : 1, \"doc\" : {\"title\" : \"Star Trek 2: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"_year\": 2002, \"rating\": 6.4, \"code\": [1,2,3], \"type_vector\": [0.2, 1.4, -2.3]}}}",
-				        "{\"insert\": {\"index\" : \"movies\", \"id\" : 2, \"doc\" : {\"title\" : \"Star Trek 1: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"_year\": 2001, \"rating\": 6.5, \"code\": [1,12,3], \"type_vector\": [0.8, 0.4, 1.3]}}}",
-				        "{\"insert\": {\"index\" : \"movies\", \"id\" : 3, \"doc\" : {\"title\" : \"Star Trek 3: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"_year\": 2003, \"rating\": 6.6, \"code\": [11,2,3], \"type_vector\": [1.5, -1.0, 1.6]}}}",
-				        "{\"insert\": {\"index\" : \"movies\", \"id\" : 4, \"doc\" : {\"title\" : \"Star Trek 4: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"_year\": 2003, \"rating\": 6, \"code\": [1,2,4], \"type_vector\": [0.4, 2.4, 0.9]}}}"					        	
+						"{\"insert\": {\"index\" : \"movies\", \"id\" : 1, \"doc\" : {\"title\" : \"Star Trek 2: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"year\": 2002, \"rating\": 6.4, \"code\": [1,2,3]}}}",
+				        "{\"insert\": {\"index\" : \"movies\", \"id\" : 2, \"doc\" : {\"title\" : \"Star Trek 1: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"year\": 2001, \"rating\": 6.5, \"code\": [1,12,3]}}}",
+				        "{\"insert\": {\"index\" : \"movies\", \"id\" : 3, \"doc\" : {\"title\" : \"Star Trek 3: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"year\": 2003, \"rating\": 6.6, \"code\": [11,2,3]}}}",
+				        "{\"insert\": {\"index\" : \"movies\", \"id\" : 4, \"doc\" : {\"title\" : \"Star Trek 4: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"year\": 2003, \"rating\": 6, \"code\": [1,2,4]}}}"					        	
 				    );
 			
 					BulkResponse res = indexApi.bulk( String.join("\n", docs) );
@@ -211,7 +210,7 @@ public class SearchApiTest {
 				{
 					BoolFilter boolFilter = new BoolFilter();
 					EqualsFilter equalsFilter = new EqualsFilter();
-					equalsFilter.setField("_year");
+					equalsFilter.setField("year");
 					equalsFilter.setValue(2003);
 					boolFilter.setMust( new ArrayList<Object>( Arrays.asList(equalsFilter) ) );
 					RangeFilter rangeFilter = new RangeFilter();
@@ -226,7 +225,7 @@ public class SearchApiTest {
 					System.out.println(searchResponse);
 			
 					equalsFilter = new EqualsFilter();
-					equalsFilter.setField("_year");
+					equalsFilter.setField("year");
 					equalsFilter.setValue(2001);
 					boolFilter.setMustNot( Arrays.asList(equalsFilter) );
 					searchRequest.setAttrFilter(boolFilter);
@@ -254,7 +253,7 @@ public class SearchApiTest {
 			    public void TestSearchAttrFilters(SearchRequest searchRequest) throws ApiException
 			    {
 			    	EqualsFilter equalsFilter = new EqualsFilter();
-					equalsFilter.setField("_year");
+					equalsFilter.setField("year");
 					equalsFilter.setValue(2003);
 					searchRequest.setAttrFilter(equalsFilter);
 			
@@ -262,7 +261,7 @@ public class SearchApiTest {
 					System.out.println(searchResponse);
 					
 					InFilter inFilter = new InFilter();
-					inFilter.setField("_year");
+					inFilter.setField("year");
 					inFilter.setValues( Arrays.asList(2001, 2002) );
 			        searchRequest.setAttrFilter(inFilter);
 			
@@ -270,7 +269,7 @@ public class SearchApiTest {
 			        System.out.println(searchResponse);
 					
 					RangeFilter rangeFilter = new RangeFilter();
-					rangeFilter.setField("_year");
+					rangeFilter.setField("year");
 					rangeFilter.setLte(BigDecimal.valueOf(2001));
 					rangeFilter.setGte(BigDecimal.valueOf(0));
 					searchRequest.setAttrFilter(rangeFilter);
@@ -290,7 +289,7 @@ public class SearchApiTest {
 					locAnchor.setLat(BigDecimal.valueOf(10));
 					locAnchor.setLon(BigDecimal.valueOf(20));
 					geoFilter.setLocationAnchor(locAnchor);
-					geoFilter.setLocationSource("_year,rating");
+					geoFilter.setLocationSource("year,rating");
 					geoFilter.setDistanceType(GeoDistanceFilter.DistanceTypeEnum.ADAPTIVE);
 					geoFilter.setDistance("100km");
 					searchRequest.setAttrFilter(geoFilter);
@@ -373,7 +372,7 @@ public class SearchApiTest {
 			    public void TestSearchAggregations(SearchRequest searchRequest) throws ApiException
 			    {
 			    	AggregationTerms terms = new AggregationTerms();
-			    	terms.setField("_year");
+			    	terms.setField("year");
 			    	terms.setSize(10);
 			    	Aggregation agg = new Aggregation();
 			    	agg.setTerms(terms);
@@ -405,7 +404,7 @@ public class SearchApiTest {
 			    public void TestSearchExpressions(SearchRequest searchRequest) throws ApiException
 			    {
 			    	Map<String,String> expressions = new HashMap<String,String>();
-			    	expressions.put("expr2", "max(_year,2100)");
+			    	expressions.put("expr2", "max(year,2100)");
 			    	searchRequest.setExpressions(expressions);
 			
 			        SourceByRules source = (SourceByRules)searchRequest.getSource();
@@ -419,7 +418,7 @@ public class SearchApiTest {
 			
 			    public void TestSearchSort(SearchRequest searchRequest) throws ApiException
 			    {
-			        List<Object> sort = new ArrayList<Object>( Arrays.asList("_year") );
+			        List<Object> sort = new ArrayList<Object>( Arrays.asList("year") );
 					SortOrder sort2 = new SortOrder();
 					sort2.setAttr("rating");
 					sort2.setOrder(SortOrder.OrderEnum.ASC);
@@ -458,68 +457,13 @@ public class SearchApiTest {
 					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 			        
-			        List<String> includes = new ArrayList<String>( Arrays.asList("title", "_year", "rating") );
+			        List<String> includes = new ArrayList<String>( Arrays.asList("title", "year", "rating") );
 					List<String> excludes = Arrays.asList("code");
 					SourceByRules source = new SourceByRules();
 					source.setIncludes(includes);
 					source.setExcludes(excludes);
 					searchRequest.setSource(source);
 					
-					searchResponse = searchApi.search(searchRequest);
-					System.out.println(searchResponse);
-			    }
-
-			    public void TestKnnSearchByVector(SearchRequest searchRequest) throws ApiException
-			    {
-			    	
-			    	searchRequest.setIndex("movies");
-			    	List<BigDecimal> queryVector = Arrays.asList(new BigDecimal[]{BigDecimal.valueOf(1.5), BigDecimal.valueOf(-1.0), BigDecimal.valueOf(1.6)});
-					//Map<String,Object> query = new HashMap<String,Object>();
-					KnnQueryByVector knnQueryByVector = new KnnQueryByVector();
-			        knnQueryByVector.setField("type_vector");
-			        knnQueryByVector.setQueryVector(queryVector);
-			        knnQueryByVector.setK(5);
-
-			        SearchRequestKnn searchRequestKnn = new SearchRequestKnn();
-					searchRequestKnn.setActualInstance(knnQueryByVector);
-					searchRequest.setKnn(searchRequestKnn);
-					SearchResponse searchResponse = searchApi.search(searchRequest);
-					System.out.println(searchResponse);
-					
-					KnnQueryByDocId knnQueryByDocId = new KnnQueryByDocId();
-			        knnQueryByDocId.setField("type_vector");
-			        knnQueryByDocId.setDocId(2);
-			        knnQueryByDocId.setK(5);
-			        searchRequestKnn.setActualInstance(knnQueryByDocId);
-					searchRequest.setKnn(searchRequestKnn);
-					searchResponse = searchApi.search(searchRequest);
-					System.out.println(searchResponse);
-
-					
-					Map<String,Object> equalsFilter = new HashMap<String,Object>();
-					equalsFilter.put(
-						"equals",
-						new HashMap<String,Object>(){{
-			            	put("id", 3);
-			        	}}
-			        );
-					Map<String,Object> boolFilter = new HashMap<String,Object>(){{
-		            	put(
-		            		"bool", 
-		            		new HashMap<String,Object>(){{
-		            			put("must", new ArrayList<Object>( Arrays.asList(equalsFilter) ));
-		        			}}
-		        		);
-			        }};
-					knnQueryByVector.setFilter(boolFilter);
-			        searchRequestKnn.setActualInstance(knnQueryByVector);
-					searchRequest.setKnn(searchRequestKnn);
-					searchResponse = searchApi.search(searchRequest);
-					System.out.println(searchResponse);
-
-					knnQueryByDocId.setFilter(boolFilter);
-			        searchRequestKnn.setActualInstance(knnQueryByDocId);
-					searchRequest.setKnn(searchRequestKnn);
 					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 			    }
@@ -536,10 +480,8 @@ public class SearchApiTest {
 	        subTests.TestSearchFulltextFilters(searchRequest);
 	        subTests.TestSearchAttrFilters(searchRequest);
 	        subTests.TestSearchBoolFilter(searchRequest);
-	        searchRequest = new SearchRequest();
-	        subTests.TestKnnSearchByVector(searchRequest);
-
-	        System.out.println("\nSearch tests finished\n");
+	        
+	        System.out.println("Search tests finished");
         } catch (ApiException e) {
 	      e.printStackTrace();
 	      fail("Test failed: " + e.getResponseBody());

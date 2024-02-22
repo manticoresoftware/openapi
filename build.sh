@@ -47,7 +47,7 @@ do_java() {
     --additional-properties useJakartaEe=true \
     $build_to_branch
   cp LICENSE.txt out/manticoresearch-java/LICENSE.txt
-  #cp docs/java/docs/* out/manticoresearch-java/docs/
+  cp docs/java/docs/* out/manticoresearch-java/docs/
   rm -rf out/manticoresearch-java/.openapi-generator
   rm -rf out/manticoresearch-java/api
   echo "Java done."
