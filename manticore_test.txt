@@ -1,0 +1,1721 @@
+openapi: 3.0.2
+info:
+  title: Manticore Search Client
+  description: |
+    Сlient for Manticore Search.
+  version: 3.3.1
+  contact:
+    name: Manticore Software Ltd.
+    email: info@manticoresearch.com
+    url: 'https://manticoresearch.com/contact-us/'
+  license:
+    name: MIT
+    url: 'http://opensource.org/licenses/MIT'
+tags:
+  - name: Index
+    description: 'Operations regarding adding, updating or deleting documents'
+  - name: Search
+    description: Operations about performing searches over indexes
+  - name: Utils
+    description: Various operations
+externalDocs:
+  description: Find out more about Manticore Search
+  url: 'https://manticoresearch.com/'
+components:
+  examples:
+    objectExample:
+      value: www
+      summary: A sample object
+  schemas:
+    aggregation:
+      type: object
+      x-is_req_agg: true
+      description: Aggregation Alias
+      properties:
+        terms:
+          type: object
+          properties:
+            field:
+              type: string
+              description: Attribute Name to Aggregate
+              example: field1
+            size:
+              type: integer
+              description: Maximum Number of Buckets in the Result
+              example: 1000
+        sort:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: object
+              properties:
+                order:
+                  type: string
+    equalsFilter:
+      type: object
+      description: Equals attribute filter
+      x-is_equals_filter: true
+      required:
+        - field
+        - value
+      properties:
+        field:
+          type: string
+        value:
+          type: object
+      example: {'field1': 1}
+    inFilter:
+      type: object
+      description: In attribute filter
+      x-is_in_filter: true
+      required:
+        - field
+        - values
+      properties:
+        field:
+          type: string
+        values:
+          type: array
+          items:
+            type: object
+      example: {'field1': ['a','b']}
+    rangeFilter:
+      type: object
+      description: Range attribute filter
+      x-is_range_filter: true
+      required:
+        - field
+      properties:
+        field:
+          type: string
+        lte:
+          type: number
+          nullable: true
+        gte:
+          type: number
+          nullable: true
+        lt:
+          type: number
+          nullable: true
+        gt:
+          type: number
+          nullable: true
+      example: {'field1': {'gte': 10, 'lte': 20} }
+    geoDistanceFilter:
+      type: object
+      description: Geo distance attribute filter
+      x-is_geo_filter: true
+      properties:
+        location_anchor:
+          description: Geo pin point object
+          type: object
+          properties:
+            lat:
+              description: Geo latitude of pin point in degrees
+              type: number
+            lon:
+              description: Geo longitude pf pin point in degrees
+              type: number
+        location_source:
+          description: Attribute containing latitude and longitude data
+          type: string
+          example: 'attr_with_lat,attr_with_lon'
+        distance_type:
+          type: string
+          enum:
+            - adaptive
+            - haversine
+        distance:
+          type: string
+          example: '100 km'
+      example: {'field1': {'gte': 10, 'lte': 20} }
+    boolFilter:
+      type: object
+      x-is_bool_filter: true
+      description: Boolean attribute filter
+      properties:
+        should:
+          type: array
+          items:
+            type: object
+            #anyOf:
+            #  - $ref: '#/components/schemas/fulltextFilter' 
+            #  - $ref: '#/components/schemas/attrFilter'
+        must:
+          type: array
+          items:
+            type: object
+            #anyOf:
+            #  - $ref: '#/components/schemas/fulltextFilter' 
+            #  - $ref: '#/components/schemas/attrFilter'
+        must_not:
+          type: array
+          items:
+            type: object
+            #anyOf:
+            #  - $ref: '#/components/schemas/fulltextFilter' 
+            #  - $ref: '#/components/schemas/attrFilter'
+    queryFilter:
+      type: object
+      description: Query string filter
+      required:
+        - query_string
+      properties:
+        query_string:
+          type: string
+    matchFilter:
+      type: object
+      description: Query match filter
+      x-is_match_filter: true
+      required:
+        - query_string
+        - query_fields
+      properties:
+        query_string:
+          type: string
+          default: ''
+          example: query
+        query_fields:
+          type: string
+          default: '*'
+          example: field1,field2
+    matchPhraseFilter:
+      type: object
+      description: Query match expression
+      x-is_match_phrase_filter: true
+      required:
+        - query_phrase
+        - query_fields
+      properties:
+        query_phrase:
+          type: string
+          example: 'query phrase'
+        query_fields:
+          type: string
+          example: field1,field2
+    matchOpFilter:
+      type: object
+      description: Query match expression
+      x-is_match_op_filter: true
+      required:
+        - query_string
+        - query_fields
+        - operator
+      properties:
+        query_string:
+          type: string
+          example: query
+        query_fields:
+          type: string
+          example: field1,field2
+        operator:
+          type: string
+          enum:
+            - 'or'
+            - 'and'
+    sort:
+      type: string
+      description: Query sort attribute name
+      x-is_sort: true
+#     query:
+#       type: object
+#       description: Query expression
+#       required:
+#         - match
+#       properties:
+#         match:
+#           $ref: '#/components/schemas/match'
+    matchOp:
+      type: object
+      description: Query match expression with logical operator
+      required:
+        - query_info
+      properties:
+        query_info:
+          type: object
+          required:
+            - query
+            - operator
+          example: {'query': 'another query', 'operator': 'and'}
+    offset:
+      type: integer
+      description: Query offset parameter
+    limit:
+      type: integer
+      description: Query offset parameter
+    maxMatches:
+      type: integer
+      description: Query max matches parameter
+    filterNumber:
+      type: object
+      description: Query filter
+      required:
+        - filter_field
+        - operation
+        - filter_value
+      properties:
+        filter_field:
+          type: string
+          example: test
+        operation:
+          type: string
+          example: equals 
+        filter_value:
+          type: number
+          example: 1
+    filterString:
+      type: object
+      description: Query filter
+      required:
+        - filter_field
+        - operation
+        - filter_value
+      properties:
+        filter_field:
+          type: string
+          example: test
+        operation:
+          type: string
+          example: equals 
+        filter_value:
+          type: string
+          example: test
+    filterBoolean:
+      type: object
+      description: Query filter
+      required:
+        - filter_field
+        - operation
+        - filter_value
+      properties:
+        filter_field:
+          type: string
+          example: test
+        operation:
+          type: string
+          example: equals 
+        filter_value:
+          type: boolean
+          example: false
+    notFilterNumber:
+      type: object
+      description: Query filter
+      required:
+        - filter_field
+        - operation
+        - filter_value
+      properties:
+        filter_field:
+          type: string
+          example: test
+        operation:
+          type: string
+          example: equals 
+        filter_value:
+          type: number
+          example: 1
+    notFilterString:
+      type: object
+      description: Query filter
+      required:
+        - filter_field
+        - operation
+        - filter_value
+      properties:
+        filter_field:
+          type: string
+          example: test
+        operation:
+          type: string
+          example: equals 
+        filter_value:
+          type: string
+          example: test
+    notFilterBoolean:
+      type: object
+      description: Query filter
+      required:
+        - filter_field
+        - operation
+        - filter_value
+      properties:
+        filter_field:
+          type: string
+          example: test
+        operation:
+          type: string
+          example: equals 
+        filter_value:
+          type: boolean
+          example: false
+    sortOrder:
+      type: object
+      x-is_sort_order: true
+      description: Query sort expression
+      required:
+        - attr
+        - order
+      properties:
+        attr:
+          type: string
+          example: test
+        order:
+          type: string
+          enum:
+            - asc
+            - desc
+          example: asc
+    sortMVA:
+      type: object
+      x-is_sort_mva: true
+      description: Query sort expression for MVA attributes
+      required:
+        - attr
+        - order
+        - mode
+      properties:
+        attr:
+          type: string
+          example: test
+        order:
+          type: string
+          enum:
+            - asc
+            - desc
+          example: asc
+        mode:
+          type: string
+          enum:
+            - min
+            - max
+          example: max
+    sortMultiple:
+      type: object
+      description: Query sort expression for multiple attributes
+      required:
+        - attrs
+        - replace
+      properties:
+        attrs:
+          type: object
+          additionalProperties: true
+          example: {"name": "desc", "title": "asc"}
+        replace:
+          type: boolean
+          example: tru
+    highlightField:
+      type: object
+      x-is_highlight_field: true
+      description: Query Highlight field with defined options
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        limit:
+          type: integer
+          default: 256
+        limit_words:
+          type: integer
+          default: 0
+        limit_snippets:
+          type: integer
+          default: 0      
+    highlight:
+      type: object
+      x-is_req_highlight: true
+      description: Query HIGHLIGHT expression
+      properties:
+        fieldnames:
+          type: array
+          items:
+            type: string
+          example: ['title','content']
+        fields: 
+          type: array
+          items:
+            $ref: '#/components/schemas/highlightField'
+        encoder:
+          type: string
+          enum:
+            - default
+            - html
+        highlight_query:
+          #$ref: '#/components/schemas/queryFilter'
+          type: object
+          additionalProperties: true
+          nullable: true
+        pre_tags:
+          type: string
+          default: '<strong>' 
+        post_tags:
+          type: string
+          default: '</strong>'
+        no_match_size:
+          type: integer
+          #default: 1
+          enum:
+            - 0
+            - 1
+        fragment_size:
+          type: integer
+          default: 256
+        number_of_fragments:
+          type: integer
+          default: 0
+        limit:
+          type: integer
+          default: 256
+        limit_words:
+          type: integer
+          default: 0
+        limit_snippets:
+          type: integer
+          default: 0
+        limits_per_field:
+          type: boolean
+          default: false
+        use_boundaries:
+          type: boolean
+          default: false
+        force_all_words:
+          type: boolean
+          default: false
+        allow_empty:
+          type: boolean
+          default: false
+        emit_zones:
+          type: boolean
+          default: false
+        force_snippets:
+          type: boolean
+          default: false
+        around:
+          type: integer
+          default: 5
+        start_snippet_id:
+          type: integer
+          default: 1
+        html_strip_mode:
+          type: string
+          enum:
+           - 'none'
+           - 'strip'
+           - 'index'
+           - 'retain'
+        snippet_boundary:
+          type: string
+          enum:
+            - 'sentence'    
+            - 'paragraph'
+            - 'zone'
+      example: {"fields": ["title"], "pre_tags": "<i>", "post_tags": "</i>"}
+    source:
+      type: string
+      description: Query fields to be returned
+      example: attr*
+    sourceMultiple:
+      type: array
+      description: Query fields to be returned
+      items:
+        type: string
+      example: ['attr1','attr2']
+    sourceByRules:
+      x-is_source_by_rules: true
+      type: object
+      description: Query fields to be included/excluded to/from response
+      required:
+        - includes
+        - excludes
+      properties:
+        includes:
+          type: array
+          default: []
+          items:
+            type: string
+        excludes:
+          type: array
+          default: ['']
+          items:
+            type: string
+      example: {"includes": ["attr1","attri*"], "excludes": ["desc*"]}
+    facet:
+      type: object
+      description: Query FACET expression
+      required:
+        - attr
+      properties:
+        attr:
+          type: string
+          description: The name of an attribute to facet
+        alias:
+          type: string
+          description: Facet alias
+        limit:
+          type: integer
+          description: The number of facet values to return
+      example: {"attr": "title", "alias": "some_facet", "limit": 1}
+    option:
+      type: object
+      description: Query OPTION expression
+      additionalProperties: true
+      example: {"cutoff": 1, "retry_count": 3, "field_weights": {"title": 10, "description": 20}}
+    trackScores:
+      type: boolean
+      description: Enables weight calculation for the query
+    profile:
+      type: boolean
+      description: Enables query profiling
+    reset:
+      type: boolean
+      description: Clears all search conditions
+    searchRequest:
+      type: object
+      x-is_search_req: true
+      description: Request object for search operation
+      required:
+        - index
+        #- query
+      properties:
+        index:
+          type: string
+          default: ''
+          example: test
+        query:
+           type: object
+           x-is_req_query: true
+#           allOf:
+#             - $ref: '#/components/schemas/query'
+#             - x-is_req_query: true
+           example: 
+             match_all: {}
+        fulltext_filter:
+          x-is_fulltext_filter: true
+          type: object
+          example: {}
+          #$ref: '#/components/schemas/fulltextFilter'
+          #allOf:
+            #- $ref: '#/components/schemas/fulltextFilter'
+            #- x-is_fulltext_filter: true
+        attr_filter:
+          x-is_attr_filter: true
+          example: {}
+          type: object
+          #allOf:
+          #  - $ref: '#/components/schemas/attrFilter'
+          #  - x-is_attr_filter: true
+        _source:
+          type: string
+        limit:
+          type: integer
+        offset:
+          type: integer
+        max_matches:
+          type: integer
+        sort:
+          type: array
+          items:
+            type: object
+            #oneOf:
+            #  - $ref: '#/components/schemas/sort'
+            #  - $ref: '#/components/schemas/sortOrder'
+            #  - $ref: '#/components/schemas/sortMVA'
+          example: []
+        aggs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/aggregation'
+          example:
+            agg1:
+              terms:
+                field: field1
+                size: 1000
+              sort:
+                - 'field1':
+                  order: asc
+        expressions:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            title_len: "crc32(title)"
+        highlight:
+          $ref: '#/components/schemas/highlight'
+        source:
+          x-is_req_source: true
+          type: object
+          example: {}
+          #oneOf:
+          #  - type: object
+          #  - type: string
+          #  - $ref: '#/components/schemas/source'
+          #  - $ref: '#/components/schemas/sourceByRules'
+        options:
+           type: object
+           additionalProperties: true
+        profile:
+          type: boolean
+        track_scores:
+          type: boolean
+      example:
+        index:
+          $ref: '#/components/examples/objectExample'
+    knnSearchRequestByVector:
+      type: object
+      x-is_knn_req: true
+      x-is_knn_by_vec: true
+      description: Request object for knn search operation
+      required:
+        - index
+        - field
+        - query_vector
+        - k
+      properties:
+        index:
+          type: string
+          default: ''
+          example: test
+        field:
+          type: string
+          default: ''
+        query_vector:
+          type: array
+          items:
+           type: number
+        k:
+         type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        max_matches:
+          type: integer
+        sort:
+          type: array
+          items:
+            type: object
+          example: []
+        aggs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/aggregation'
+          example:
+            agg1:
+              terms:
+                field: field1
+                size: 1000
+              sort:
+                - 'field1':
+                  order: asc
+        expressions:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            title_len: "crc32(title)"
+        highlight:
+          $ref: '#/components/schemas/highlight'
+        source:
+          x-is_req_source: true
+          type: object
+          example: {}
+        options:
+           type: object
+           additionalProperties: true
+        profile:
+          type: boolean
+        track_scores:
+          type: boolean
+      example: {}
+    knnSearchRequestByDocId:
+      type: object
+      x-is_knn_req: true
+      x-is_knn_by_doc: true
+      description: Request object for knn search operation
+      required:
+        - index
+        - field
+        - doc_id
+        - k
+      properties:
+        index:
+          type: string
+          default: ''
+          example: test
+        field:
+          type: string
+          default: ''
+        doc_id:
+          type: integer
+        k:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        max_matches:
+          type: integer
+        sort:
+          type: array
+          items:
+            type: object
+          example: []
+        aggs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/aggregation'
+          example:
+            agg1:
+              terms:
+                field: field1
+                size: 1000
+              sort:
+                - 'field1':
+                  order: asc
+        expressions:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            title_len: "crc32(title)"
+        highlight:
+          $ref: '#/components/schemas/highlight'
+        source:
+          x-is_req_source: true
+          type: object
+          example: {}
+        options:
+           type: object
+           additionalProperties: true
+        profile:
+          type: boolean
+        track_scores:
+          type: boolean
+      example:
+        index:
+          $ref: '#/components/examples/objectExample'          
+    updateDocumentByIdRequest:
+      type: object
+      description: Request object for update document
+      required:
+        - index
+        - doc
+        - id
+      properties:
+        index:
+          type: string
+        doc:
+          type: object
+          description: Index name
+          additionalProperties: true
+          example:
+            gid: 10
+        id:
+          type: integer
+          format: int64
+          description: Document ID
+      example:
+        index: test
+        doc:
+          price: 1000
+        id: 2
+    updateDocumentByQueryRequest:
+      type: object
+      description: Request object for update document
+      required:
+        - index
+        - doc
+        - query
+      properties:
+        index:
+          type: string
+        doc:
+          type: object
+          description: Index name
+          additionalProperties: true
+          example:
+            gid: 10
+        query:
+          type: object
+          additionalProperties: true
+          nullable: true
+          description: Query tree object
+          example:
+            query:
+              match:
+                title: match me
+      example:
+        index: test
+        doc:
+          price: 1000
+        query:
+          match:
+            '*': apple
+    deleteDocumentByIdRequest:
+      type: object
+      description: >
+        Request object for delete operation.
+        
+        Documents can be deleted either one by one by specifying the document id
+        or by providing a query object.
+        
+        For more information see 
+        [Delete API](https://manual.manticoresearch.com/Deleting_documents)
+      required:
+        - index
+        - id
+      properties:
+        index:
+          type: string
+          description: Index name
+        cluster:
+          type: string
+          description: cluster name
+        id:
+          type: integer
+          format: int64
+          description: Document ID
+      example:
+        index: test
+        id: 1
+    deleteDocumentByQueryRequest:
+      type: object
+      description: >
+        Request object for delete operation.
+        
+        Documents can be deleted either one by one by specifying the document id
+        or by providing a query object.
+        
+        For more information see 
+        [Delete API](https://manual.manticoresearch.com/Deleting_documents)
+      required:
+        - index
+        - query
+      properties:
+        index:
+          type: string
+          description: Index name
+        cluster:
+          type: string
+          description: cluster name
+        query:
+          type: object
+          description: Query tree object
+      example:
+        index: test
+        id: 1
+    insertDocumentRequest:
+      type: object
+      description: |
+        Request object for insert operation.
+      required:
+        - index
+        - doc
+      properties:
+        index:
+          type: string
+          description: Name of the index
+        cluster:
+          type: string
+          description: cluster name
+        id:
+          type: integer
+          format: int64
+          description: |
+            Document ID.
+        doc:
+          type: object
+          additionalProperties: true
+          description: |
+            Object with document data
+      example:
+        index: test
+        doc:
+          title: This is some title
+          gid: 100
+    percolateRequest:
+      type: object
+      description: Request object with documents to percolate
+      required:
+        - query
+      properties:
+        query:
+          type: object
+          additionalProperties: true
+          required:
+            - percolate
+          properties:
+            percolate:
+              type: object
+          example:
+            percolate:
+              document:
+                title: some text to match
+      example:
+        query:
+          percolate:
+            document:
+              title: some text to match
+    searchResponse:
+      type: object
+      description: Response object of a search request
+      properties:
+        took:
+          type: integer
+        timed_out:
+          type: boolean
+        aggregations:
+          type: object
+          additionalProperties: true        
+        hits:
+          type: object
+          properties:
+            max_score:
+              type: integer
+            total:
+              type: integer
+            total_relation:
+              type: string
+            hits:
+              type: array
+              items:
+                type: object
+
+          example:
+            total: 2
+            hits:
+              - _id: 1
+                _score: 1
+                _source:
+                  gid: 11
+              - _id: 2
+                _score: 1
+                _source:
+                  gid: 20
+        profile:
+          type: object
+        warning:
+          type: object
+          additionalProperties: true
+    sqlResponse:
+      type: array
+      items:
+        type: object
+      description: Response object from sql request.
+      example:
+        - total: 0
+          error: null
+    successResponse:
+      type: object
+      description: Success response
+      properties:
+        _index:
+          type: string
+        _id:
+          type: integer
+          format: int64
+        created:
+          type: boolean
+        result:
+          type: string
+        found:
+          type: boolean
+      example:
+        _index: test
+        _id: 1
+        result: created
+        created: true
+    bulkResponse:
+      type: object
+      additionalProperties: true
+      description: Bulk response
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        errors:
+          type: boolean
+        error:
+          type: string
+    updateByIdResponse:
+      type: object
+      description: Response for update by id request
+      required:
+        - _index
+        - _id
+        - result
+      properties:
+        _index:
+          type: string
+        _id:
+          type: integer
+          format: int64
+        result:
+          type: string
+      example:
+        _index: test
+        _id: 10
+        result: "updated"
+    updateByQueryResponse:
+      type: object
+      description: Response for update by query request
+      required:
+        - _index
+        - updated
+      properties:
+        _index:
+          type: string
+        updated:
+          type: integer
+      example:
+        _index: test
+        updated: 29
+    deleteByIdResponse:
+      type: object
+      description: Response for delete by id request
+      required:
+        - _index
+        - _id
+        - found
+        - result
+      properties:
+        _index:
+          type: string
+        _id:
+          type: integer
+          format: int64
+        found:
+          type: boolean
+        result:
+          type: string
+      example:
+        _index: test
+        _id: 10
+        found: false
+        result: "not found"
+    deleteByQueryResponse:
+      type: object
+      description: Response for delete by query request
+      required:
+        - _index
+        - deleted
+      properties:
+        _index:
+          type: string
+        deleted:
+          type: integer
+      example:
+        _index: test
+        deleted: 29
+    errorResponse:
+      type: object
+      description: Error response
+      required:
+        - error
+      properties:
+        error:
+          type: object
+          additionalProperties: true
+        status:
+          type: integer
+          example: 500
+      example:
+        status: 500
+        error: an error occured
+    errorResponseString:
+      type: object
+      description: Error response
+      required:
+        - error
+      properties:
+        error:
+          type: string
+      example:
+        error: an error occured
+paths:
+  '/pq/{index}/search':
+    post:
+      summary: Performs reverse search on a percolate index
+      x-is_percolate: true
+      operationId: percolate
+      description: >
+        Performs a percolate search. 
+        
+        This method must be used only on percolate indexes.
+        
+
+        Expects two parameters: the index name and an object with
+        array of documents to be tested.
+
+        An example of the documents object:
+
+          ```
+          {
+            "query":
+            {
+              "percolate":
+              {
+                "document":
+                {
+                  "content":"sample content"
+                }
+              }
+            }
+          }
+          ```
+
+        Responds with an object with matched stored queries: 
+        
+          ```
+          {
+            'timed_out':false,
+            'hits':
+            {
+              'total':2,
+              'max_score':1,
+              'hits':
+              [
+                {
+                  '_index':'idx_pq_1',
+                  '_type':'doc',
+                  '_id':'2',
+                  '_score':'1',
+                  '_source':
+                  {
+                    'query':
+                    {
+                      'match':{'title':'some'}
+                    }
+                  }
+                },
+                {
+                  '_index':'idx_pq_1',
+                  '_type':'doc',
+                  '_id':'5',
+                  '_score':'1',
+                  '_source':
+                  {
+                    'query':
+                    {
+                      'ql':'some | none'
+                    }
+                  }
+                }
+              ]
+            }
+          }
+          ```
+      tags:
+        - Search
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Updating_documents/UPDATE'
+      parameters:
+        - in: path
+          name: index
+          schema:
+            type: string
+          required: true
+          description: Name of the percolate index
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/percolateRequest'
+            example:
+              query:
+                percolate:
+                  document:
+                    title: some text to match
+      responses:
+        '200':
+          description: items found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /search:
+    post:
+      summary: Performs a search on an index
+      x-is_search: true
+      description: >
+       
+        The method expects an object with the following mandatory properties:
+        
+        * the name of the index to search
+        
+        * the match query object
+
+        For details, see the documentation on [**SearchRequest**](SearchRequest.md)
+
+        The method returns an object with the following properties:
+        
+        - took: the time taken to execute the search query.
+        - timed_out: a boolean indicating whether the query timed out.
+        - hits: an object with the following properties:
+           - total: the total number of hits found.
+           - hits: an array of hit objects, where each hit object represents a matched document. Each hit object has the following properties:
+             - _id: the ID of the matched document.
+             - _score: the score of the matched document.
+             - _source: the source data of the matched document.
+        
+        In addition, if profiling is enabled, the response will include an additional array with profiling information attached.
+
+        Here is an example search response:
+        
+          ```
+          {
+            'took':10,
+            'timed_out':false,
+            'hits':
+            {
+              'total':2,
+              'hits':
+              [
+                {'_id':'1','_score':1,'_source':{'gid':11}},
+                {'_id':'2','_score':1,'_source':{'gid':12}}
+              ]
+            }
+          }
+          ```
+
+        For more information about the match query syntax and additional parameters that can be added to request and response, please see the documentation [here](https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP-JSON).
+
+      operationId: search
+      tags:
+        - Search
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP-JSON'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/searchRequest'
+                - $ref: '#/components/schemas/knnSearchRequestByVector'
+                - $ref: '#/components/schemas/knnSearchRequestByDocId'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /insert:
+    post:
+      summary: Create a new document in an index
+      x-is_indexapi: true
+      x-is_insert: true
+      operationId: insert
+      description: >
+        Insert a document. 
+        
+        Expects an object like:
+         
+          ```
+          {
+            'index':'movies',
+            'id':701,
+            'doc':
+            {
+              'title':'This is an old movie',
+              'plot':'A secret team goes to North Pole',
+              'year':1950,
+              'rating':9.5,
+              'lat':60.4,
+              'lon':51.99,
+              'advise':'PG-13',
+              'meta':'{"keywords":{"travel","ice"},"genre":{"adventure"}}',
+              'language':[2,3]
+            }
+          }
+          ```
+         
+        The document id can also be missing, in which case an autogenerated one will be used:
+                 
+          ```
+          {
+            'index':'movies',
+            'doc':
+            {
+              'title':'This is a new movie',
+              'plot':'A secret team goes to North Pole',
+              'year':2020,
+              'rating':9.5,
+              'lat':60.4,
+              'lon':51.99,
+              'advise':'PG-13',
+              'meta':'{"keywords":{"travel","ice"},"genre":{"adventure"}}',
+              'language':[2,3]
+            }
+          }
+          ```
+         
+        It responds with an object in format:
+          
+          ```
+          {'_index':'products','_id':701,'created':true,'result':'created','status':201}
+          ```
+      tags:
+        - Index
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Adding_documents_to_an_index/Adding_documents_to_a_real-time_index#Adding-documents-to-a-real-time-index'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/insertDocumentRequest'
+            example:
+              index: test
+              id: 1
+              doc:
+                title: sample title
+                gid: 10
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/successResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /replace:
+    post:
+      summary: Replace new document in an index
+      x-is_indexapi: true
+      x-is_replace: true
+      operationId: replace
+      description: >
+        Replace an existing document. Input has same format as `insert` operation. <br/>
+
+        Responds with an object in format: <br/>
+
+          ```
+          {'_index':'products','_id':1,'created':false,'result':'updated','status':200}
+          ```
+      tags:
+        - Index
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Adding_documents_to_an_index/Adding_documents_to_a_real-time_index#Adding-documents-to-a-real-time-index'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/insertDocumentRequest'
+            example:
+              index: test
+              id: 1
+              doc:
+                title: updated title
+                gid: 15
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/successResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /update:
+    post:
+      summary: Update a document in an index
+      x-is_indexapi: true
+      x-is_update: true
+      x-is_modify: true
+      operationId: update
+      description: >
+        Update one or several documents.
+
+        The update can be made by passing the id or by using a match query in case multiple documents can be updated. 
+        For example update a document using document id:
+        
+          ```
+          {'index':'movies','doc':{'rating':9.49},'id':100}
+          ```
+        
+        And update by using a match query:
+        
+          ```
+          {
+            'index':'movies',
+            'doc':{'rating':9.49},
+            'query':
+            {
+              'bool':
+              {
+                'must':
+                [
+                  {'query_string':'new movie'}
+                ]
+              }
+            }
+          }
+          ``` 
+        
+        The match query has same syntax as for searching.
+
+        Responds with an object that tells how many documents where updated in format: 
+        
+          ```
+          {'_index':'products','updated':1}
+          ```
+      tags:
+        - Index
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Updating_documents/UPDATE'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            oneOf:
+              - $ref: '#/components/schemas/updateDocumentByIdRequest'
+              - $ref: '#/components/schemas/updateDocumentByQueryRequest'
+            example:
+              index: test
+              doc:
+                gid: 20
+              query:
+                equals:
+                  cat_id: 2
+      responses:
+        '200':
+          description: item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /delete:
+    post:
+      summary: Delete a document in an index
+      x-is_indexapi: true
+      x-is_delete: true
+      x-is_modify: true
+      operationId: delete
+      description: >
+        Delete one or several documents.
+
+        The method has 2 ways of deleting: either by id,
+        in case only one document is deleted or by using a 
+        match query, in which case multiple documents can be delete
+        .
+        
+        Example of input to delete by id:
+        
+          ```
+          {'index':'movies','id':100}
+          ```
+        
+        Example of input to delete using a query:
+        
+          ```
+          {
+            'index':'movies',
+            'query':
+            {
+              'bool':
+              {
+                'must':
+                [
+                  {'query_string':'new movie'}
+                ]
+              }
+            }
+          }
+          ```
+        
+        The match query has same syntax as in for searching.
+        
+        Responds with an object telling how many documents got deleted: 
+
+          ```
+          {'_index':'products','updated':1}
+          ```
+      tags:
+        - Index
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Updating_documents/UPDATE'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/deleteDocumentByIdRequest'
+                - $ref: '#/components/schemas/deleteDocumentByQueryRequest'
+            example:
+              index: test
+              query:
+                match:
+                  title: apple
+      responses:
+        '200':
+          description: item updated
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/deleteByIdResponse'
+                  - $ref: '#/components/schemas/deleteByQueryResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /bulk:
+    post:
+      summary: Bulk index operations
+      x-is_indexapi: true
+      x-is_bulk: true
+      description: >
+        Sends multiple operatons like inserts, updates, replaces or deletes. 
+
+        For each operation it's object must have same format as in their dedicated method. 
+
+        The method expects a raw string as the batch in NDJSON.
+         Each operation object needs to be serialized to 
+         JSON and separated by endline (\n). 
+         
+          An example of raw input:
+          
+          ```
+          {"insert": {"index": "movies", "doc": {"plot": "A secret team goes to North Pole", "rating": 9.5, "language": [2, 3], "title": "This is an older movie", "lon": 51.99, "meta": {"keywords":["travel","ice"],"genre":["adventure"]}, "year": 1950, "lat": 60.4, "advise": "PG-13"}}}
+          \n
+          {"delete": {"index": "movies","id":700}}
+          ```
+          
+          Responds with an object telling whenever any errors occured and an array with status for each operation:
+          
+          ```
+          {
+            'items':
+            [
+              {
+                'update':{'_index':'products','_id':1,'result':'updated'}
+              },
+              {
+                'update':{'_index':'products','_id':2,'result':'updated'}
+              }
+            ],
+            'errors':false
+          }
+          ```
+         
+      operationId: bulk
+      tags:
+        - Index
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Updating_documents/UPDATE'
+      requestBody:
+        required: true
+        content:
+          application/x-ndjson:
+            schema:
+              type: string 
+            example: 
+              - '''{"insert": {"index": "test", "id": 1, "doc": {"title": "Title 1"}}},\n{"insert": {"index": "test", "id": 2, "doc": {"title": "Title 2"}}}'''
+      responses:
+        '200':
+          description: item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bulkResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /sql:
+    post:
+      summary: Perform SQL requests
+      x-is_sql: true
+      description: >
+        Run a query in SQL format.
+
+        Expects a query string passed through `body` parameter and optional `raw_response` parameter that defines a format of response.
+
+        `raw_response` can be set to `False` for Select queries only, e.g., `SELECT * FROM myindex`
+        
+        The query string must stay as it is, no URL encoding is needed.
+        
+        The response object depends on the query executed. In select mode the response has same format as `/search` operation.
+      operationId: sql
+      tags:
+        - utils
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Connecting_to_the_server/HTTP#sql-api'
+      requestBody:
+        required: true
+        description: >
+          A query parameter string.
+        content:
+          text/plain:
+            schema:
+              type: string
+            example: SHOW TABLES
+      parameters:
+        - in: query
+          name: raw_response  
+          required: false
+          description: >
+           Optional parameter, defines a format of response. Can be set to `False` for Select only queries and set to `True` or omitted for any type of queries:
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: >
+            In case of SELECT-only in mode none the response schema is the same
+            as of `search`.
+            
+            In case of `mode=raw` the response depends on the query executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sqlResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/errorResponse'
+                - $ref: '#/components/schemas/errorResponseString'
+servers:
+  - description: Default Manticore Search HTTP 
+    url: http://127.0.0.1:9308/

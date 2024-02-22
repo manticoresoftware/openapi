@@ -5,7 +5,7 @@ Manticore Search Client
 
 - API version: 5.0.0
 
-- Build date: 2023-12-18T11:24:55.908019234Z[Etc/UTC]
+- Build date: 2024-02-22T08:36:02.662182043Z[Etc/UTC]
 
 Сlient for Manticore Search.
 
@@ -14,13 +14,8 @@ Manticore Search Client
 
 Building the API client library requires:
 
-1. Java 17+
+1. Java 1.8+
 2. Maven/Gradle
-
-| Manticore Search  | manticoresearch-java    |
-| ----------------- | ----------------------- |
-| >= 6.2.0          | 3.3.1                   |
-| >= 2.5.1          | 2.0.2                   |
 
 
 ## Installation
@@ -171,6 +166,8 @@ Class | Method | HTTP request | Description
  - [HighlightField](docs/HighlightField.md)
  - [InFilter](docs/InFilter.md)
  - [InsertDocumentRequest](docs/InsertDocumentRequest.md)
+ - [KnnQueryByDocId](docs/KnnQueryByDocId.md)
+ - [KnnQueryByVector](docs/KnnQueryByVector.md)
  - [MatchFilter](docs/MatchFilter.md)
  - [MatchOp](docs/MatchOp.md)
  - [MatchOpFilter](docs/MatchOpFilter.md)
@@ -183,6 +180,7 @@ Class | Method | HTTP request | Description
  - [QueryFilter](docs/QueryFilter.md)
  - [RangeFilter](docs/RangeFilter.md)
  - [SearchRequest](docs/SearchRequest.md)
+ - [SearchRequestKnn](docs/SearchRequestKnn.md)
  - [SearchResponse](docs/SearchResponse.md)
  - [SearchResponseHits](docs/SearchResponseHits.md)
  - [SortMVA](docs/SortMVA.md)

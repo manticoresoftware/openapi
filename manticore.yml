@@ -143,6 +143,7 @@ components:
       type: object
       x-is_bool_filter: true
       description: Boolean attribute filter
+      default: {}
       properties:
         should:
           type: array
@@ -581,6 +582,7 @@ components:
       description: Clears all search conditions
     searchRequest:
       type: object
+      additionalProperties: false
       x-is_search_req: true
       description: Request object for search operation
       required:
@@ -591,6 +593,10 @@ components:
           type: string
           default: ''
           example: test
+        knn:      
+          oneOf:
+            - $ref: '#/components/schemas/knnQueryByVector'
+            - $ref: '#/components/schemas/knnQueryByDocId'
         query:
            type: object
            x-is_req_query: true
@@ -665,9 +671,65 @@ components:
           type: boolean
         track_scores:
           type: boolean
+        query_vector:
+          type: null
+        doc_id:
+          type: null
+        k:
+          type: null
       example:
         index:
           $ref: '#/components/examples/objectExample'
+    knnQueryByVector:
+      type: object
+      x-is_knn_req: true
+      x-is_knn_by_vec: true
+      description: Request object for knn search operation
+      required:
+        - field
+        - query_vector
+        - k
+      properties:
+        field:
+          type: string
+          default: ''
+        query_vector:
+          type: array
+          items:
+           type: number
+        k:
+         type: integer
+        filter:
+          type: object
+          nullable: false
+          default: {}
+          additionalProperties: true
+          #$ref: '#/components/schemas/boolFilter'
+      example: {}
+    knnQueryByDocId:
+      type: object
+      x-is_knn_req: true
+      x-is_knn_by_doc: true
+      description: Request object for knn search operation
+      required:
+        - field
+        - doc_id
+        - k
+      properties:
+        field:
+          type: string
+          default: ''
+        doc_id:
+          type: integer
+        k:
+          type: integer
+        filter:
+          type: object
+          nullable: false
+          default: {}
+          additionalProperties: true
+          #$ref: '#/components/schemas/boolFilter'
+      example: {}
     updateDocumentRequest:
       type: object
       description: Payload for update document
@@ -1078,6 +1140,10 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/searchRequest'
+              #oneOf:
+                #- $ref: '#/components/schemas/knnSearchRequestByVector'
+                #- $ref: '#/components/schemas/knnSearchRequestByDocId'
+                #- $ref: '#/components/schemas/searchRequest'
       responses:
         '200':
           description: Ok
