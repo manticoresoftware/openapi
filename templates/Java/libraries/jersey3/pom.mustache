@@ -2,10 +2,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>{{groupId}}</groupId>
+{{#devBranch}}
+    <artifactId>{{artifactId}}-dev</artifactId>
+    <packaging>jar</packaging>
+    <name>{{artifactId}}-dev</name>
+    <version>{{artifactVersion}}-dev</version>
+{{/devBranch}}
+{{^devBranch}}
     <artifactId>{{artifactId}}</artifactId>
     <packaging>jar</packaging>
     <name>{{artifactId}}</name>
     <version>{{artifactVersion}}</version>
+{{/devBranch}}
     <url>{{artifactUrl}}</url>
     <description>{{artifactDescription}}</description>
     <scm>

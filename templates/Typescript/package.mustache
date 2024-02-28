@@ -1,6 +1,12 @@
 {
+{{#devBranch}}
+  "name": "{{{npmName}}}-dev",
+  "version": "{{{npmVersion}}}-dev",
+{{/devBranch}}
+{{^devBranch}}
   "name": "{{{npmName}}}",
   "version": "{{{npmVersion}}}",
+{{/devBranch}}  
   "description": "Typescript client for Manticore Search",
   "license": "MIT",
   "main": "dist/index.js",

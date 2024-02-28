@@ -5,8 +5,15 @@
 from setuptools import setup, find_packages
 from os import path
 
+{{#devBranch}}
+NAME = "{{{projectName}}}-dev"
+VERSION = "{{packageVersion}}-dev"
+{{/devBranch}}
+{{^devBranch}}
 NAME = "{{{projectName}}}"
 VERSION = "{{packageVersion}}"
+{{/devBranch}}
+
 {{#apiInfo}}
 {{#apis}}
 {{#-last}}

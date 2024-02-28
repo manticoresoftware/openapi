@@ -157,7 +157,11 @@ fi
 
 
 if [ ! -z $3 ]; then
-build_to_branch="--additional-properties outBranch=$3"
+	if [ $3 != 'dev' ]; then
+		build_to_branch="--additional-properties outBranch=1"
+	else
+		build_to_branch="--additional-properties devBranch=1"
+	fi
 else
 build_to_branch=''
 fi
