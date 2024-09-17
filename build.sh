@@ -11,7 +11,7 @@ do_python() {
   # replace test with our test
   cp -R test/python/* out/manticoresearch-python/test/   
   cp -r docs/python/docs/SearchApi.md out/manticoresearch-python/docs/SearchApi.md
-  #git apply patches/python_bulk.patch
+  git apply patches/python_bulk.patch
   #git apply patches/python_readme.patch
   echo "Python done."
 }
