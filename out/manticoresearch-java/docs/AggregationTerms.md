@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**field** | **String** | Attribute Name to Aggregate |  [optional] |
-|**size** | **Integer** | Maximum Number of Buckets in the Result |  [optional] |
+|**field** | **String** | Name of attribute to aggregate by |  [optional] |
+|**size** | **Integer** | Maximum number of buckets in the result |  [optional] |
 
 
 

@@ -2,12 +2,9 @@ diff --git a/out/manticoresearch-python/manticoresearch/rest.py b/out/manticores
 index a470462..325cb83 100644
 --- a/out/manticoresearch-python/manticoresearch/rest.py
 +++ b/out/manticoresearch-python/manticoresearch/rest.py
-@@ -157,7 +157,7 @@ class RESTClientObject(object):
-             if method in ['POST', 'PUT', 'PATCH', 'OPTIONS', 'DELETE']:
-                 if query_params:
-                     url += '?' + urlencode(query_params)
--                if re.search('json', headers['Content-Type'], re.IGNORECASE):
-+                if headers['Content-Type'] == 'application/json':
-                     request_body = None
-                     if body is not None:
-                         request_body = json.dumps(body)
+@@ -178,5 +178,5 @@ class RESTClientObject:
+                content_type = headers.get('Content-Type')
+                if (
+                    not content_type
+-                   or re.search('json', content_type, re.IGNORECASE)
++                   or headers['Content-Type'] == 'application/json'

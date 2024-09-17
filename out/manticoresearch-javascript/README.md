@@ -2,6 +2,7 @@
 
 Сlient for Manticore Search.
 
+
 ❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-javascript/tree/4.0.0
 
 ## Requirements
@@ -10,11 +11,10 @@ Minimum Manticore Search version is 2.5.1 with HTTP protocol enabled.
 
 | Manticore Search  | manticoresearch-javascript   |     Node      |
 | ----------------- | ---------------------------- | ------------- |
-| >= 6.2.0          | 4.0.0                        | >= 10.0       |
-| >= 6.2.0          | 3.3.1                        | >= 10.0       |
-| >= 4.2.1          | 3.0.x                        | >= 10.0       |
-| >= 4.0.2          | 2.0.3                        | >= 10.0       |
-| >= 2.5.1          | 2.0.2                        | >= 8.0        |
+| >= 6.2.0          | >= 3.3.1                     | >= 10.0       |
+| >= 4.2.1          | >= 3.0.x                     | >= 10.0       |
+| >= 4.0.2          | >= 2.0.3                     | >= 10.0       |
+| >= 2.5.1          | >= 2.0.2                     | >= 8.0        |
 
 
 ## Installation
@@ -82,6 +82,7 @@ Class | Method | HTTP request | Description
 *Manticoresearch.IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /insert | Create a new document in an index
 *Manticoresearch.IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /replace | Replace new document in an index
 *Manticoresearch.IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /update | Update a document in an index
+*Manticoresearch.IndexApi* | [**update_0**](docs/IndexApi.md#update_0) | **POST** /{index}/_update/{id} | Partially replaces a document in an index
 *Manticoresearch.SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{index}/search | Perform reverse search on a percolate index
 *Manticoresearch.SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /search | Performs a search on an index
 *Manticoresearch.UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
@@ -90,6 +91,9 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [Manticoresearch.Aggregation](docs/Aggregation.md)
+ - [Manticoresearch.AggregationComposite](docs/AggregationComposite.md)
+ - [Manticoresearch.AggregationCompositeSourcesInnerValue](docs/AggregationCompositeSourcesInnerValue.md)
+ - [Manticoresearch.AggregationCompositeSourcesInnerValueTerms](docs/AggregationCompositeSourcesInnerValueTerms.md)
  - [Manticoresearch.AggregationSortInnerValue](docs/AggregationSortInnerValue.md)
  - [Manticoresearch.AggregationTerms](docs/AggregationTerms.md)
  - [Manticoresearch.BoolFilter](docs/BoolFilter.md)
@@ -119,6 +123,8 @@ Class | Method | HTTP request | Description
  - [Manticoresearch.PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [Manticoresearch.QueryFilter](docs/QueryFilter.md)
  - [Manticoresearch.RangeFilter](docs/RangeFilter.md)
+ - [Manticoresearch.RangeFilterLte](docs/RangeFilterLte.md)
+ - [Manticoresearch.ReplaceDocumentRequest](docs/ReplaceDocumentRequest.md)
  - [Manticoresearch.SearchRequest](docs/SearchRequest.md)
  - [Manticoresearch.SearchResponse](docs/SearchResponse.md)
  - [Manticoresearch.SearchResponseHits](docs/SearchResponseHits.md)

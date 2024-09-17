@@ -73,6 +73,14 @@ namespace ManticoreSearch.Test.Model
         {
             // TODO unit test for the property 'Sort'
         }
+        /// <summary>
+        /// Test the property 'Composite'
+        /// </summary>
+        [Fact]
+        public void CompositeTest()
+        {
+            // TODO unit test for the property 'Composite'
+        }
 
     }
 

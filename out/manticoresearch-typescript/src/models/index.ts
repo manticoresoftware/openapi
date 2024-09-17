@@ -18,6 +18,57 @@ export interface Aggregation {
      * @memberof Aggregation
      */
     sort?: Array<{ [key: string]: AggregationSortInnerValue; }>;
+    /**
+     * 
+     * @type {AggregationComposite}
+     * @memberof Aggregation
+     */
+    composite?: AggregationComposite;
+}
+/**
+ * Composite aggregation
+ * @export
+ * @interface AggregationComposite
+ */
+export interface AggregationComposite {
+    /**
+     * Maximum number of composite buckets in the result
+     * @type {number}
+     * @memberof AggregationComposite
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<{ [key: string]: AggregationCompositeSourcesInnerValue; }>}
+     * @memberof AggregationComposite
+     */
+    sources?: Array<{ [key: string]: AggregationCompositeSourcesInnerValue; }>;
+}
+/**
+ * 
+ * @export
+ * @interface AggregationCompositeSourcesInnerValue
+ */
+export interface AggregationCompositeSourcesInnerValue {
+    /**
+     * 
+     * @type {AggregationCompositeSourcesInnerValueTerms}
+     * @memberof AggregationCompositeSourcesInnerValue
+     */
+    terms?: AggregationCompositeSourcesInnerValueTerms;
+}
+/**
+ * 
+ * @export
+ * @interface AggregationCompositeSourcesInnerValueTerms
+ */
+export interface AggregationCompositeSourcesInnerValueTerms {
+    /**
+     * Name of attribute to aggregate by
+     * @type {string}
+     * @memberof AggregationCompositeSourcesInnerValueTerms
+     */
+    field?: string;
 }
 /**
  * 
@@ -39,13 +90,13 @@ export interface AggregationSortInnerValue {
  */
 export interface AggregationTerms {
     /**
-     * Attribute Name to Aggregate
+     * Name of attribute to aggregate by
      * @type {string}
      * @memberof AggregationTerms
      */
     field?: string;
     /**
-     * Maximum Number of Buckets in the Result
+     * Maximum number of buckets in the result
      * @type {number}
      * @memberof AggregationTerms
      */
@@ -840,28 +891,49 @@ export interface RangeFilter {
     field: string;
     /**
      * 
-     * @type {number}
+     * @type {RangeFilterLte}
      * @memberof RangeFilter
      */
-    lte?: number | null;
+    lte?: RangeFilterLte | null;
     /**
      * 
-     * @type {number}
+     * @type {RangeFilterLte}
      * @memberof RangeFilter
      */
-    gte?: number | null;
+    gte?: RangeFilterLte | null;
     /**
      * 
-     * @type {number}
+     * @type {RangeFilterLte}
      * @memberof RangeFilter
      */
-    lt?: number | null;
+    lt?: RangeFilterLte | null;
     /**
      * 
-     * @type {number}
+     * @type {RangeFilterLte}
      * @memberof RangeFilter
      */
-    gt?: number | null;
+    gt?: RangeFilterLte | null;
+}
+/**
+ * @type RangeFilterLte
+ * 
+ * @export
+ */
+export type RangeFilterLte = number | string;
+/**
+ * Object with document data.
+ * 
+ * @export
+ * @interface ReplaceDocumentRequest
+ */
+export interface ReplaceDocumentRequest {
+    /**
+     * Object with document data
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof ReplaceDocumentRequest
+     */
+    doc: { [key: string]: any; };
 }
 /**
  * Request object for search operation
@@ -940,7 +1012,7 @@ export interface SearchRequest {
      * @type {object}
      * @memberof SearchRequest
      */
-    source?: object;
+    _source?: object;
     /**
      * 
      * @type {{ [key: string]: any; }}

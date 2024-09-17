@@ -1,31 +1,27 @@
 # coding: utf-8
 
-{{>licenseInfo}}
-
-from __future__ import absolute_import
+{{>partial_header}}
 
 import unittest
 
-import {{packageName}}
-from {{apiPackage}}.{{classVarName}} import {{classname}}  # noqa: E501
-from {{packageName}}.rest import ApiException
+from {{apiPackage}}.{{classFilename}} import {{classname}}
 
 
 class {{#operations}}Test{{classname}}(unittest.TestCase):
     """{{classname}} unit test stubs"""
 
-    def setUp(self):
-        self.api = {{apiPackage}}.{{classVarName}}.{{classname}}()  # noqa: E501
+    def setUp(self) -> None:
+        self.api = {{classname}}()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         pass
 
    {{#operation}}
-    def test_{{operationId}}(self):
+    def test_{{operationId}}(self) -> None:
         """Test case for {{{operationId}}}
 
 {{#summary}}
-        {{{summary}}}  # noqa: E501
+        {{{.}}}
 {{/summary}}
         """
         pass

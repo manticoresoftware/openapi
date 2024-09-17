@@ -18,7 +18,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
+import com.manticoresearch.client.model.RangeFilterGte;
+import com.manticoresearch.client.model.RangeFilterLtx;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -52,11 +53,11 @@ public class RangeFilterTest {
     }
 
     /**
-     * Test the property 'lte'
+     * Test the property 'ltx'
      */
     @Test
-    public void lteTest() {
-        // TODO: test lte
+    public void ltxTest() {
+        // TODO: test ltx
     }
 
     /**

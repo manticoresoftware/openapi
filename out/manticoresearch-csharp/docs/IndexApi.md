@@ -1,6 +1,6 @@
 # ManticoreSearch.Api.IndexApi
 
-All URIs are relative to *http://localhost:9408*
+All URIs are relative to *http://127.0.0.1:9308*
 
 | Method | HTTP request | Description |
 |--------|--------------|-------------|
@@ -9,6 +9,7 @@ All URIs are relative to *http://localhost:9408*
 | [**Insert**](IndexApi.md#insert) | **POST** /insert | Create a new document in an index |
 | [**Replace**](IndexApi.md#replace) | **POST** /replace | Replace new document in an index |
 | [**Update**](IndexApi.md#update) | **POST** /update | Update a document in an index |
+| [**Update_0**](IndexApi.md#update_0) | **POST** /{index}/_update/{id} | Partially replaces a document in an index |
 
 <a name="bulk"></a>
 # **Bulk**
@@ -34,7 +35,7 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:9408";
+            config.BasePath = "http://127.0.0.1:9308";
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
@@ -130,7 +131,7 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:9408";
+            config.BasePath = "http://127.0.0.1:9308";
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
@@ -226,7 +227,7 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:9408";
+            config.BasePath = "http://127.0.0.1:9308";
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
@@ -322,7 +323,7 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:9408";
+            config.BasePath = "http://127.0.0.1:9308";
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
@@ -418,7 +419,7 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:9408";
+            config.BasePath = "http://127.0.0.1:9308";
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
@@ -467,6 +468,106 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **updateDocumentRequest** | [**UpdateDocumentRequest**](UpdateDocumentRequest.md) |  |  |
+
+### Return type
+
+[**UpdateResponse**](UpdateResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | item updated |  -  |
+| **0** | error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="update_0"></a>
+# **Update_0**
+> UpdateResponse Update_0 (string index, decimal id, ReplaceDocumentRequest replaceDocumentRequest)
+
+Partially replaces a document in an index
+
+Partially replaces a document with given id in an index Responds with an object of the following format:     ```   {'_index':'products','updated':1}   ``` 
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using ManticoreSearch.Api;
+using ManticoreSearch.Client;
+using ManticoreSearch.Model;
+
+namespace Example
+{
+    public class Update_0Example
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "http://127.0.0.1:9308";
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new IndexApi(httpClient, config, httpClientHandler);
+            var index = "index_example";  // string | Name of the percolate index
+            var id = 8.14D;  // decimal | Id of the document to replace
+            var replaceDocumentRequest = new ReplaceDocumentRequest(); // ReplaceDocumentRequest | 
+
+            try
+            {
+                // Partially replaces a document in an index
+                UpdateResponse result = apiInstance.Update_0(index, id, replaceDocumentRequest);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling IndexApi.Update_0: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the Update_0WithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Partially replaces a document in an index
+    ApiResponse<UpdateResponse> response = apiInstance.Update_0WithHttpInfo(index, id, replaceDocumentRequest);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling IndexApi.Update_0WithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **index** | **string** | Name of the percolate index |  |
+| **id** | **decimal** | Id of the document to replace |  |
+| **replaceDocumentRequest** | [**ReplaceDocumentRequest**](ReplaceDocumentRequest.md) |  |  |
 
 ### Return type
 

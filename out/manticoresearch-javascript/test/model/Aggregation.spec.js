@@ -61,6 +61,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property composite (base name: "composite")', function() {
+      // uncomment below and update the code to test the property composite
+      //var instance = new Manticoresearch.Aggregation();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

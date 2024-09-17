@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.manticoresearch.client.model.AggregationComposite;
 import com.manticoresearch.client.model.AggregationSortInnerValue;
 import com.manticoresearch.client.model.AggregationTerms;
 import java.util.ArrayList;
@@ -57,6 +58,14 @@ public class AggregationTest {
     @Test
     public void sortTest() {
         // TODO: test sort
+    }
+
+    /**
+     * Test the property 'composite'
+     */
+    @Test
+    public void compositeTest() {
+        // TODO: test composite
     }
 
 }

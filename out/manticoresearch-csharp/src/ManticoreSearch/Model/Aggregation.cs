@@ -38,10 +38,12 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <param name="terms">terms.</param>
         /// <param name="sort">sort.</param>
-        public Aggregation(AggregationTerms terms = default(AggregationTerms), List<Dictionary<string, AggregationSortInnerValue>> sort = default(List<Dictionary<string, AggregationSortInnerValue>>))
+        /// <param name="composite">composite.</param>
+        public Aggregation(AggregationTerms terms = default(AggregationTerms), List<Dictionary<string, AggregationSortInnerValue>> sort = default(List<Dictionary<string, AggregationSortInnerValue>>), AggregationComposite composite = default(AggregationComposite))
         {
             this.Terms = terms;
             this.Sort = sort;
+            this.Composite = composite;
         }
 
         /// <summary>
@@ -57,6 +59,12 @@ namespace ManticoreSearch.Model
         public List<Dictionary<string, AggregationSortInnerValue>> Sort { get; set; }
 
         /// <summary>
+        /// Gets or Sets Composite
+        /// </summary>
+        [DataMember(Name = "composite", EmitDefaultValue = false)]
+        public AggregationComposite Composite { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -66,6 +74,7 @@ namespace ManticoreSearch.Model
             sb.Append("class Aggregation {\n");
             sb.Append("  Terms: ").Append(Terms).Append("\n");
             sb.Append("  Sort: ").Append(Sort).Append("\n");
+            sb.Append("  Composite: ").Append(Composite).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -111,6 +120,11 @@ namespace ManticoreSearch.Model
                     this.Sort != null &&
                     input.Sort != null &&
                     this.Sort.SequenceEqual(input.Sort)
+                ) && 
+                (
+                    this.Composite == input.Composite ||
+                    (this.Composite != null &&
+                    this.Composite.Equals(input.Composite))
                 );
         }
 
@@ -130,6 +144,10 @@ namespace ManticoreSearch.Model
                 if (this.Sort != null)
                 {
                     hashCode = (hashCode * 59) + this.Sort.GetHashCode();
+                }
+                if (this.Composite != null)
+                {
+                    hashCode = (hashCode * 59) + this.Composite.GetHashCode();
                 }
                 return hashCode;
             }

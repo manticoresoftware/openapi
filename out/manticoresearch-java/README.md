@@ -1,11 +1,12 @@
 # Manticore Java client
 
+❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-java/tree/5.0.0
 
 Manticore Search Client
 
 - API version: 5.0.0
 
-- Build date: 2023-12-18T11:24:55.908019234Z[Etc/UTC]
+- Build date: 2024-08-07T13:45:53.763550451Z[Etc/UTC]
 
 Сlient for Manticore Search.
 
@@ -14,14 +15,13 @@ Manticore Search Client
 
 Building the API client library requires:
 
-1. Java 17+
+1. Java 1.8+
 2. Maven/Gradle
 
 | Manticore Search  | manticoresearch-java    |
 | ----------------- | ----------------------- |
-| >= 6.2.0          | 3.3.1                   |
-| >= 2.5.1          | 2.0.2                   |
-
+| >= 6.2.0          | >= 3.3.1                |
+| >= 2.5.1          | >= 2.0.2                |
 
 ## Installation
 
@@ -145,6 +145,7 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /insert | Create a new document in an index
 *IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /replace | Replace new document in an index
 *IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /update | Update a document in an index
+*IndexApi* | [**update_0**](docs/IndexApi.md#update_0) | **POST** /{index}/_update/{id} | Partially replaces a document in an index
 *SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{index}/search | Perform reverse search on a percolate index
 *SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /search | Performs a search on an index
 *UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
@@ -153,6 +154,9 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [Aggregation](docs/Aggregation.md)
+ - [AggregationComposite](docs/AggregationComposite.md)
+ - [AggregationCompositeSourcesInnerValue](docs/AggregationCompositeSourcesInnerValue.md)
+ - [AggregationCompositeSourcesInnerValueTerms](docs/AggregationCompositeSourcesInnerValueTerms.md)
  - [AggregationSortInnerValue](docs/AggregationSortInnerValue.md)
  - [AggregationTerms](docs/AggregationTerms.md)
  - [BoolFilter](docs/BoolFilter.md)
@@ -182,6 +186,10 @@ Class | Method | HTTP request | Description
  - [PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [QueryFilter](docs/QueryFilter.md)
  - [RangeFilter](docs/RangeFilter.md)
+ - [RangeFilterGte](docs/RangeFilterGte.md)
+ - [RangeFilterLtx](docs/RangeFilterLtx.md)
+ - [RangeFilterValue](docs/RangeFilterValue.md)
+ - [ReplaceDocumentRequest](docs/ReplaceDocumentRequest.md)
  - [SearchRequest](docs/SearchRequest.md)
  - [SearchResponse](docs/SearchResponse.md)
  - [SearchResponseHits](docs/SearchResponseHits.md)

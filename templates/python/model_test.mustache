@@ -1,17 +1,12 @@
 # coding: utf-8
 
-{{>licenseInfo}}
-
-from __future__ import absolute_import
+{{>partial_header}}
 
 import unittest
-import datetime
 
 {{#models}}
 {{#model}}
-import {{packageName}}
-from {{modelPackage}}.{{classFilename}} import {{classname}}  # noqa: E501
-from {{packageName}}.rest import ApiException
+from {{modelPackage}}.{{classFilename}} import {{classname}}
 
 class Test{{classname}}(unittest.TestCase):
     """{{classname}} unit test stubs"""
@@ -21,33 +16,42 @@ class Test{{classname}}(unittest.TestCase):
 
     def tearDown(self):
         pass
+{{^isEnum}}
 
-    def make_instance(self, include_optional):
+    def make_instance(self, include_optional) -> {{classname}}:
         """Test {{classname}}
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = {{packageName}}.models.{{classFilename}}.{{classname}}()  # noqa: E501
-        if include_optional :
+        # uncomment below to create an instance of `{{{classname}}}`
+        """
+        model = {{classname}}()
+        if include_optional:
             return {{classname}}(
-{{#vars}}
-                {{name}} = {{#example}}{{{.}}}{{/example}}{{^example}}None{{/example}}{{#hasMore}}, {{/hasMore}}
-{{/vars}}
+                {{#vars}}
+                {{name}} = {{{example}}}{{^example}}None{{/example}}{{^-last}},{{/-last}}
+                {{/vars}}
             )
-        else :
+        else:
             return {{classname}}(
-{{#vars}}
-{{#required}}
-                {{name}} = {{#example}}{{{.}}}{{/example}}{{^example}}None{{/example}},
-{{/required}}
-{{/vars}}
+                {{#vars}}
+                {{#required}}
+                {{name}} = {{{example}}}{{^example}}None{{/example}},
+                {{/required}}
+                {{/vars}}
         )
+        """
+{{/isEnum}}
 
     def test{{classname}}(self):
         """Test {{classname}}"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
-
+{{^isEnum}}
+        # inst_req_only = self.make_instance(include_optional=False)
+        # inst_req_and_optional = self.make_instance(include_optional=True)
+{{/isEnum}}
+{{#isEnum}}
+        # inst = {{{classname}}}()
+{{/isEnum}}
 {{/model}}
 {{/models}}
 

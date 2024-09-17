@@ -8,18 +8,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/BulkResponse', 'model/DeleteDocumentRequest', 'model/DeleteResponse', 'model/ErrorResponse', 'model/InsertDocumentRequest', 'model/SuccessResponse', 'model/UpdateDocumentRequest', 'model/UpdateResponse'], factory);
+    define(['ApiClient', 'model/BulkResponse', 'model/DeleteDocumentRequest', 'model/DeleteResponse', 'model/ErrorResponse', 'model/InsertDocumentRequest', 'model/ReplaceDocumentRequest', 'model/SuccessResponse', 'model/UpdateDocumentRequest', 'model/UpdateResponse'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/BulkResponse'), require('../model/DeleteDocumentRequest'), require('../model/DeleteResponse'), require('../model/ErrorResponse'), require('../model/InsertDocumentRequest'), require('../model/SuccessResponse'), require('../model/UpdateDocumentRequest'), require('../model/UpdateResponse'));
+    module.exports = factory(require('../ApiClient'), require('../model/BulkResponse'), require('../model/DeleteDocumentRequest'), require('../model/DeleteResponse'), require('../model/ErrorResponse'), require('../model/InsertDocumentRequest'), require('../model/ReplaceDocumentRequest'), require('../model/SuccessResponse'), require('../model/UpdateDocumentRequest'), require('../model/UpdateResponse'));
   } else {
     // Browser globals (root is window)
     if (!root.Manticoresearch) {
       root.Manticoresearch = {};
     }
-    root.Manticoresearch.IndexApi = factory(root.Manticoresearch.ApiClient, root.Manticoresearch.BulkResponse, root.Manticoresearch.DeleteDocumentRequest, root.Manticoresearch.DeleteResponse, root.Manticoresearch.ErrorResponse, root.Manticoresearch.InsertDocumentRequest, root.Manticoresearch.SuccessResponse, root.Manticoresearch.UpdateDocumentRequest, root.Manticoresearch.UpdateResponse);
+    root.Manticoresearch.IndexApi = factory(root.Manticoresearch.ApiClient, root.Manticoresearch.BulkResponse, root.Manticoresearch.DeleteDocumentRequest, root.Manticoresearch.DeleteResponse, root.Manticoresearch.ErrorResponse, root.Manticoresearch.InsertDocumentRequest, root.Manticoresearch.ReplaceDocumentRequest, root.Manticoresearch.SuccessResponse, root.Manticoresearch.UpdateDocumentRequest, root.Manticoresearch.UpdateResponse);
   }
-}(this, function(ApiClient, BulkResponse, DeleteDocumentRequest, DeleteResponse, ErrorResponse, InsertDocumentRequest, SuccessResponse, UpdateDocumentRequest, UpdateResponse) {
+}(this, function(ApiClient, BulkResponse, DeleteDocumentRequest, DeleteResponse, ErrorResponse, InsertDocumentRequest, ReplaceDocumentRequest, SuccessResponse, UpdateDocumentRequest, UpdateResponse) {
   'use strict';
 
   /**
@@ -299,6 +299,73 @@
      */
     this.update = function(updateDocumentRequest) {
       return this.updateWithHttpInfo(updateDocumentRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Partially replaces a document in an index
+     * Partially replaces a document with given id in an index Responds with an object of the following format:     ```   {'_index':'products','updated':1}   ``` 
+     * @param {String} index Name of the percolate index
+     * @param {Number} id Id of the document to replace
+     * @param {module:model/ReplaceDocumentRequest} replaceDocumentRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UpdateResponse} and HTTP response
+     */
+    this.update_0WithHttpInfo = function(index, id, replaceDocumentRequest) {
+      var postBody = JSON.parse(JSON.stringify(replaceDocumentRequest));
+
+
+      // verify the required parameter 'index' is set
+      if (index === undefined || index === null) {
+        throw new Error("Missing the required parameter 'index' when calling update_0");
+      }
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling update_0");
+      }
+      // verify the required parameter 'replaceDocumentRequest' is set
+      if (replaceDocumentRequest === undefined || replaceDocumentRequest === null) {
+        throw new Error("Missing the required parameter 'replaceDocumentRequest' when calling update_0");
+      }
+
+      var pathParams = {
+        'index': index
+        'id': id
+      };
+      var queryParams = {
+      };
+      var collectionQueryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = [];
+      var contentTypes = ['application/json'];
+      var accepts = ['application/json'];
+      var returnType = UpdateResponse;
+      return this.apiClient.callApi(
+        '/{index}/_update/{id}', 'POST',
+        pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      ).then( function(res) {
+        return res;
+      });
+    }
+
+    /**
+     * Partially replaces a document in an index
+     * Partially replaces a document with given id in an index Responds with an object of the following format:     ```   {'_index':'products','updated':1}   ``` 
+     * @param {String} index Name of the percolate index
+     * @param {Number} id Id of the document to replace
+     * @param {module:model/ReplaceDocumentRequest} replaceDocumentRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UpdateResponse}
+     */
+    this.update_0 = function(index, id, replaceDocumentRequest) {
+      return this.update_0WithHttpInfo(index, id, replaceDocumentRequest)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

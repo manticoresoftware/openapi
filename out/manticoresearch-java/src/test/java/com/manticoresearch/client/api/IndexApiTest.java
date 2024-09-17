@@ -16,11 +16,13 @@ package com.manticoresearch.client.api;
 import com.manticoresearch.client.*;
 import com.manticoresearch.client.auth.*;
 import com.manticoresearch.client.model.*;
+import java.math.BigDecimal;
 import com.manticoresearch.client.model.BulkResponse;
 import com.manticoresearch.client.model.DeleteDocumentRequest;
 import com.manticoresearch.client.model.DeleteResponse;
 import com.manticoresearch.client.model.ErrorResponse;
 import com.manticoresearch.client.model.InsertDocumentRequest;
+import com.manticoresearch.client.model.ReplaceDocumentRequest;
 import com.manticoresearch.client.model.SuccessResponse;
 import com.manticoresearch.client.model.UpdateDocumentRequest;
 import com.manticoresearch.client.model.UpdateResponse;
@@ -250,6 +252,88 @@ public class IndexApiTest {
     public void updateTest() throws ApiException {
         //UpdateDocumentRequest updateDocumentRequest = null;
         //UpdateResponse response = api.update(updateDocumentRequest);
+        // TODO: test validations
+        
+        Object indexSqlresult = utilsApi.sql("CREATE TABLE IF NOT EXISTS products (title text, price float, sizes multi, meta json, coeff float, tags1 multi, tags2 multi)", true);
+    	System.out.println(indexSqlresult);
+    	
+	    InsertDocumentRequest indexNewdoc = new InsertDocumentRequest();
+        HashMap<String,Object> indexDoc = new HashMap<String,Object>(){{
+            put("title","first");
+            put("tags1",new int[] {4,2,1,3});
+        }};
+        indexNewdoc.index("products").id(1L).setDoc(indexDoc); 
+        indexSqlresult = indexApi.insert(indexNewdoc);
+        
+        indexDoc = new HashMap<String,Object>();
+        indexNewdoc.index("products").id(2L).setDoc(indexDoc); 
+        indexSqlresult = indexApi.insert(indexNewdoc);
+        System.out.println(indexSqlresult);              
+        
+        indexDoc = new HashMap<String,Object>();
+        indexNewdoc.index("products").id(0L).setDoc(indexDoc); 
+        indexSqlresult = indexApi.insert(indexNewdoc);
+        System.out.println(indexSqlresult);
+	    
+        UpdateDocumentRequest updatedoc = new UpdateDocumentRequest();
+	    HashMap<String,Object> doc = new HashMap<String,Object >();
+	    updatedoc.index("products").id(1L).setDoc(doc); 
+	    Object sqlresult = indexApi.update(updatedoc);
+	    System.out.println(sqlresult);
+	        
+	    updatedoc = new UpdateDocumentRequest();
+	    doc = new HashMap<String,Object >(){{
+            put("price",10);
+            put("coeff",3465.23);
+            put("tags1",new int[]{3,6,4});
+            put("tags2",new int[]{});
+ 	    }};
+        updatedoc.index("products").id(1L).setDoc(doc); 
+        sqlresult = indexApi.update(updatedoc);
+        System.out.println(sqlresult);              
+         
+        doc = new HashMap<String,Object>(){{
+            put("title","title");
+            put("meta", 
+                 new HashMap<String,Object>(){{
+                     put("tags",new int[]{1,2,3});
+                }}
+            );
+        }};
+        InsertDocumentRequest newdoc = new InsertDocumentRequest();
+        newdoc.index("products").id(100L).setDoc(doc);        
+        sqlresult = indexApi.insert(newdoc);
+        System.out.println(sqlresult);       
+        
+        updatedoc = new UpdateDocumentRequest();
+        doc = new HashMap<String,Object >();
+        updatedoc.index("products").id(100L).setDoc(doc); 
+        sqlresult =  indexApi.update(updatedoc);
+        System.out.println(sqlresult);        
+        
+        updatedoc = new UpdateDocumentRequest();
+        doc = new HashMap<String,Object>(){{
+            put("tags1",new int[]{});
+        }};
+        updatedoc.index("products").id(1L).setDoc(doc); 
+        sqlresult =  indexApi.update(updatedoc);
+        System.out.println(sqlresult);      
+
+    }
+
+    /**
+     * Partially replaces a document in an index
+     *
+     * Partially replaces a document with given id in an index Responds with an object of the following format:     &#x60;&#x60;&#x60;   {&#39;_index&#39;:&#39;products&#39;,&#39;updated&#39;:1}   &#x60;&#x60;&#x60; 
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void update_0Test() throws ApiException {
+        //String index = null;
+        //BigDecimal id = null;
+        //ReplaceDocumentRequest replaceDocumentRequest = null;
+        //UpdateResponse response = api.update_0(index, id, replaceDocumentRequest);
         // TODO: test validations
         
         Object indexSqlresult = utilsApi.sql("CREATE TABLE IF NOT EXISTS products (title text, price float, sizes multi, meta json, coeff float, tags1 multi, tags2 multi)", true);

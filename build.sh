@@ -5,13 +5,13 @@ set -e
 do_python() {
   echo "Building Python ..."
   rm -rf out/manticoresearch-python 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g python -o /local/out/manticoresearch-python -t /local/templates/python --git-repo-id manticoresearch-python --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/python` $build_to_branch
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore_new.yml -g python -o /local/out/manticoresearch-python -t /local/templates/python --git-repo-id manticoresearch-python --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/python` $build_to_branch
   rm -rf out/manticoresearch-python/test/* 
   cp LICENSE.txt out/manticoresearch-python/LICENSE.txt
   # replace test with our test
   cp -R test/python/* out/manticoresearch-python/test/   
   cp -r docs/python/docs/SearchApi.md out/manticoresearch-python/docs/SearchApi.md
-  git apply patches/python_bulk.patch
+  #git apply patches/python_bulk.patch
   #git apply patches/python_readme.patch
   echo "Python done."
 }

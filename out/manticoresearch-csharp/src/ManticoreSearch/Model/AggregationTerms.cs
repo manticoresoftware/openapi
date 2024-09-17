@@ -36,8 +36,8 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AggregationTerms" /> class.
         /// </summary>
-        /// <param name="field">Attribute Name to Aggregate.</param>
-        /// <param name="size">Maximum Number of Buckets in the Result.</param>
+        /// <param name="field">Name of attribute to aggregate by.</param>
+        /// <param name="size">Maximum number of buckets in the result.</param>
         public AggregationTerms(string field = default(string), int size = default(int))
         {
             this.Field = field;
@@ -45,16 +45,16 @@ namespace ManticoreSearch.Model
         }
 
         /// <summary>
-        /// Attribute Name to Aggregate
+        /// Name of attribute to aggregate by
         /// </summary>
-        /// <value>Attribute Name to Aggregate</value>
+        /// <value>Name of attribute to aggregate by</value>
         [DataMember(Name = "field", EmitDefaultValue = false)]
         public string Field { get; set; }
 
         /// <summary>
-        /// Maximum Number of Buckets in the Result
+        /// Maximum number of buckets in the result
         /// </summary>
-        /// <value>Maximum Number of Buckets in the Result</value>
+        /// <value>Maximum number of buckets in the result</value>
         [DataMember(Name = "size", EmitDefaultValue = false)]
         public int Size { get; set; }
 

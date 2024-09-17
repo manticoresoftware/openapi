@@ -115,7 +115,7 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property source (base name: "source")', function() {
+    it('should have the property source (base name: "_source")', function() {
       // uncomment below and update the code to test the property source
       //var instance = new Manticoresearch.SearchRequest();
       //expect(instance).to.be();

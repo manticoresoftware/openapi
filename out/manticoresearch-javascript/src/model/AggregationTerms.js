@@ -61,12 +61,12 @@
   }
 
   /**
-   * Attribute Name to Aggregate
+   * Name of attribute to aggregate by
    * @member {String} field
    */
   exports.prototype['field'] = undefined;
   /**
-   * Maximum Number of Buckets in the Result
+   * Maximum number of buckets in the result
    * @member {Number} size
    */
   exports.prototype['size'] = undefined;

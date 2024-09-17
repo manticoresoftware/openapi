@@ -86,8 +86,8 @@
       if (data.hasOwnProperty('highlight')) {
         obj['highlight'] = Highlight.constructFromObject(data['highlight']);
       }
-      if (data.hasOwnProperty('source')) {
-		obj['_source'] = ApiClient.convertToType(data['source'], Object);
+      if (data.hasOwnProperty('_source')) {
+		obj['_source'] = ApiClient.convertToType(data['_source'], Object);
       }
       if (data.hasOwnProperty('options')) {
         obj['options'] = ApiClient.convertToType(data['options'], {'String': Object});
@@ -148,7 +148,7 @@
    */
   exports.prototype['highlight'] = undefined;
   /**
-   * @member {Object} source
+   * @member {Object} _source
    */
   exports.prototype['_source'] = undefined;
   /**

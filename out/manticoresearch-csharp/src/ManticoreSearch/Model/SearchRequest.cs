@@ -154,7 +154,7 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Gets or Sets Source
         /// </summary>
-        [DataMember(Name = "source", EmitDefaultValue = false)]
+        [DataMember(Name = "_source", EmitDefaultValue = false)]
         public Object Source { get; set; }
 
         /// <summary>

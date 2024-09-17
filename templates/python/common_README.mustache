@@ -1,60 +1,40 @@
 ```python
-from __future__ import print_function
-{{#apiInfo}}{{#apis}}{{^hasMore}}{{#hasHttpSignatureMethods}}import datetime{{/hasHttpSignatureMethods}}{{/hasMore}}{{/apis}}{{/apiInfo}}
-import time
+{{#apiInfo}}{{#apis}}{{#-last}}{{#hasHttpSignatureMethods}}import datetime{{/hasHttpSignatureMethods}}{{/-last}}{{/apis}}{{/apiInfo}}
 import {{{packageName}}}
-from {{{packageName}}} import *
 from {{{packageName}}}.rest import ApiException
 from pprint import pprint
 {{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}
 {{> python_doc_auth_partial}}
 
 # Enter a context with an instance of the API client
-with {{{packageName}}}.ApiClient(configuration) as api_client:
-    # Create an instance of the {{{classname}}} API class
+{{#asyncio}}async {{/asyncio}}with {{{packageName}}}.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
     api_instance = {{{packageName}}}.{{{classname}}}(api_client)
-    {{#allParams}}{{paramName}} = {{{example}}} # {{{dataType}}} | {{{description}}}{{^required}} (optional){{/required}}{{#defaultValue}} (default to {{{.}}}){{/defaultValue}}
+    {{#allParams}}
+    {{paramName}} = {{{example}}} # {{{dataType}}} | {{{description}}}{{^required}} (optional){{/required}}{{#defaultValue}} (default to {{{.}}}){{/defaultValue}}
     {{/allParams}}
 
     try:
-    {{#summary}}    # {{{.}}}
-    {{/summary}}    {{#returnType}}api_response = {{/returnType}}api_instance.{{{operationId}}}({{#allParams}}{{#required}}{{paramName}}{{/required}}{{^required}}{{paramName}}={{paramName}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/allParams}}){{#returnType}}
-        pprint(api_response){{/returnType}}
+        {{#summary}}
+        # {{{.}}}
+        {{/summary}}
+        {{#returnType}}api_response = {{/returnType}}{{#asyncio}}await {{/asyncio}}api_instance.{{{operationId}}}({{#allParams}}{{#required}}{{paramName}}{{/required}}{{^required}}{{paramName}}={{paramName}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}})
+        {{#returnType}}
+        print("The response of {{classname}}->{{operationId}}:\n")
+        pprint(api_response)
+        {{/returnType}}
     except ApiException as e:
         print("Exception when calling {{classname}}->{{operationId}}: %s\n" % e)
-    {{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
-    
-    # Create an instance of the Search API class
-    api_instance = {{{packageName}}}.SearchApi(api_client)
-
-    # Create SearchRequest
-    search_request = SearchRequest()
-    search_request.index='test'
-    search_request.fullltext_filter=QueryFilter('Title 1') 
-    
-    # The example passes only required values which don't have defaults set
-    try:
-        # Perform a search
-        api_response = api_instance.search(search_request)
-        pprint(api_response)
-    except manticoresearch.ApiException as e:
-        print("Exception when calling SearchApi->search: %s\n" % e)
+{{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
 ```
-
-# Documentation
-
-
-Full documentation on the API Endpoints and Models used is available in  [docs](https://github.com/manticoresoftware/manticoresearch-python/tree/master/docs) folder as listed below.
-
-Manticore Search server documentation: https://manual.manticoresearch.com.
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *{{basePath}}*
+All URIs are relative to *{{{basePath}}}*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}*{{classname}}* | [**{{operationId}}**]({{apiDocPath}}{{classname}}.md#{{operationIdLowerCase}}) | **{{httpMethod}}** {{path}} | {{#summary}}{{summary}}{{/summary}}
+{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}*{{classname}}* | [**{{operationId}}**]({{apiDocPath}}{{classname}}.md#{{operationIdLowerCase}}) | **{{httpMethod}}** {{path}} | {{summary}}
 {{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}
 
 ## Documentation For Models
@@ -62,14 +42,14 @@ Class | Method | HTTP request | Description
 {{#models}}{{#model}} - [{{{classname}}}]({{modelDocPath}}{{{classname}}}.md)
 {{/model}}{{/models}}
 
+<a id="documentation-for-authorization"></a>
 ## Documentation For Authorization
 
-{{^authMethods}}
- All endpoints do not require authorization.
-{{/authMethods}}
+{{^authMethods}}Endpoints do not require authorization.{{/authMethods}}
+{{#hasAuthMethods}}Authentication schemes defined for the API:{{/hasAuthMethods}}
 {{#authMethods}}
-{{#last}} Authentication schemes defined for the API:{{/last}}
-## {{{name}}}
+<a id="{{name}}"></a>
+### {{{name}}}
 
 {{#isApiKey}}
 - **Type**: API key
@@ -83,6 +63,9 @@ Class | Method | HTTP request | Description
 {{#isBasicBearer}}
 - **Type**: Bearer authentication{{#bearerFormat}} ({{{.}}}){{/bearerFormat}}
 {{/isBasicBearer}}
+{{#isHttpSignature}}
+- **Type**: HTTP signature authentication
+{{/isHttpSignature}}
 {{/isBasic}}
 {{#isOAuth}}
 - **Type**: OAuth

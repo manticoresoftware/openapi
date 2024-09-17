@@ -36,7 +36,7 @@ import com.manticoresearch.client.JSON;
 })
 @JsonTypeName("aggregation_terms")
 @JsonIgnoreProperties(ignoreUnknown = true)
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-18T11:24:55.908019234Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-08-07T13:45:53.763550451Z[Etc/UTC]")
 public class AggregationTerms {
   public static final String JSON_PROPERTY_FIELD = "field";
   private String field;
@@ -53,7 +53,7 @@ public class AggregationTerms {
   }
 
    /**
-   * Attribute Name to Aggregate
+   * Name of attribute to aggregate by
    * @return field
   **/
   @jakarta.annotation.Nullable
@@ -78,7 +78,7 @@ public class AggregationTerms {
   }
 
    /**
-   * Maximum Number of Buckets in the Result
+   * Maximum number of buckets in the result
    * @return size
   **/
   @jakarta.annotation.Nullable

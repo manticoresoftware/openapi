@@ -55,7 +55,7 @@ import com.manticoresearch.client.JSON;
 })
 @JsonTypeName("searchRequest")
 @JsonIgnoreProperties(ignoreUnknown = true)
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-18T11:24:55.908019234Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-08-07T13:45:53.763550451Z[Etc/UTC]")
 public class SearchRequest {
   public static final String JSON_PROPERTY_INDEX = "index";
   private String index = "";
@@ -90,7 +90,7 @@ public class SearchRequest {
   public static final String JSON_PROPERTY_HIGHLIGHT = "highlight";
   private Highlight highlight;
 
-  public static final String JSON_PROPERTY_SOURCE = "source";
+  public static final String JSON_PROPERTY_SOURCE = "_source";
   private Object source;
 
   public static final String JSON_PROPERTY_OPTIONS = "options";

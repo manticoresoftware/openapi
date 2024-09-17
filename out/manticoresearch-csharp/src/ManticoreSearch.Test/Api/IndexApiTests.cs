@@ -391,5 +391,23 @@ namespace ManticoreSearch.Test.Api
             	Assert.IsType<UpdateResponse>(response);
             }
         }
+
+        /// <summary>
+        /// Test Update_0
+        /// </summary>
+        [Fact]
+        public void Update_0Test()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string index = null;
+            //decimal id = null;
+            //ReplaceDocumentRequest replaceDocumentRequest = null;
+            //var response = instance.Update_0(index, id, replaceDocumentRequest);
+			object response = this.CheckTest( System.Reflection.MethodBase.GetCurrentMethod().Name );
+            if (response != null)
+            {
+            	Assert.IsType<UpdateResponse>(response);
+            }
+        }
     }
 }

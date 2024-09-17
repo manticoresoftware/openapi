@@ -3,11 +3,17 @@
 Сlient for Manticore Search.
 
 
+❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-typescript/tree/4.1.0
 
 ## Requirements
 
 Minimum Manticore Search version is 4.2.1 with HTTP protocol enabled.
 
+| Manticore Search | manticoresearch-typescript | Node      |
+| ---------------- | -------------------------- | --------- |
+| >= 6.2.0         | 4.0.x                      | >= 18.0.0 |
+| >= 6.2.0         | 3.3.1                      | >= 18.0.0 |
+| >= 4.2.1         | >= 1.0.x                   | >= 18.0.0 |
 
 ## Installation
 
@@ -81,6 +87,8 @@ All URIs are relative to *http://127.0.0.1:9308*
 | _Manticoresearch.IndexApi_ | [**replace**](docs/IndexApi.md#replace) | **POST** /replace | Replace new document in an index |
 
 | _Manticoresearch.IndexApi_ | [**update**](docs/IndexApi.md#update) | **POST** /update | Update a document in an index |
+
+| _Manticoresearch.IndexApi_ | [**update_0**](docs/IndexApi.md#update_0) | **POST** /{index}/_update/{id} | Partially replaces a document in an index |
 
 | _Manticoresearch.SearchApi_ | [**percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{index}/search | Perform reverse search on a percolate index |
 

@@ -38,7 +38,7 @@ import com.manticoresearch.client.JSON;
 })
 @JsonTypeName("highlightField")
 @JsonIgnoreProperties(ignoreUnknown = true)
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-18T11:24:55.908019234Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-08-07T13:45:53.763550451Z[Etc/UTC]")
 public class HighlightField {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;

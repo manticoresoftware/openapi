@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Field** | **string** | Attribute Name to Aggregate | [optional] 
-**Size** | **int** | Maximum Number of Buckets in the Result | [optional] 
+**Field** | **string** | Name of attribute to aggregate by | [optional] 
+**Size** | **int** | Maximum number of buckets in the result | [optional] 
 
 
 

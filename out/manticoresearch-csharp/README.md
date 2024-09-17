@@ -1,9 +1,11 @@
 # Manticore .Net client
 
-Сlient for Manticore Search.
+❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-net/tree/4.0.0
 
+- API version: 3.3.1
+- Build package: org.openapitools.codegen.languages.CSharpNetCoreClientCodegen
+    For more information, please visit [https://manticoresearch.com/contact-us/](https://manticoresearch.com/contact-us/)
 
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-typescript/tree/4.0.0
 
 ## Frameworks supported
 - .NET Core >=1.0
@@ -21,9 +23,8 @@ The DLLs included in the package may not be the latest version. We recommend usi
 
 | Manticore Search  | manticoresearch-net     |
 | ----------------- | ----------------------- |
-| >= 6.2.0          | 4.0.0                   |
-| >= 6.2.0          | 3.3.1                   |
-| >= 2.5.1          | 1.0.x                   |
+| >= 6.2.0          | >= 3.3.1                |
+| >= 2.5.1          | >= 1.0.x                |
 
 ```
 Install-Package Newtonsoft.Json
@@ -96,7 +97,7 @@ namespace Example
         {
 
             Configuration config = new Configuration();
-            config.BasePath = "http://localhost:9408";
+            config.BasePath = "http://127.0.0.1:9308";
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
@@ -142,7 +143,7 @@ namespace Example
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost:9408*
+All URIs are relative to *http://127.0.0.1:9308*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -151,6 +152,7 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**Insert**](docs/IndexApi.md#insert) | **POST** /insert | Create a new document in an index
 *IndexApi* | [**Replace**](docs/IndexApi.md#replace) | **POST** /replace | Replace new document in an index
 *IndexApi* | [**Update**](docs/IndexApi.md#update) | **POST** /update | Update a document in an index
+*IndexApi* | [**Update_0**](docs/IndexApi.md#update_0) | **POST** /{index}/_update/{id} | Partially replaces a document in an index
 *SearchApi* | [**Percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{index}/search | Perform reverse search on a percolate index
 *SearchApi* | [**Search**](docs/SearchApi.md#search) | **POST** /search | Performs a search on an index
 *UtilsApi* | [**Sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
@@ -159,6 +161,9 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [Model.Aggregation](docs/Aggregation.md)
+ - [Model.AggregationComposite](docs/AggregationComposite.md)
+ - [Model.AggregationCompositeSourcesInnerValue](docs/AggregationCompositeSourcesInnerValue.md)
+ - [Model.AggregationCompositeSourcesInnerValueTerms](docs/AggregationCompositeSourcesInnerValueTerms.md)
  - [Model.AggregationSortInnerValue](docs/AggregationSortInnerValue.md)
  - [Model.AggregationTerms](docs/AggregationTerms.md)
  - [Model.BoolFilter](docs/BoolFilter.md)
@@ -188,6 +193,8 @@ Class | Method | HTTP request | Description
  - [Model.PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [Model.QueryFilter](docs/QueryFilter.md)
  - [Model.RangeFilter](docs/RangeFilter.md)
+ - [Model.RangeFilterValue](docs/RangeFilterValue.md)
+ - [Model.ReplaceDocumentRequest](docs/ReplaceDocumentRequest.md)
  - [Model.SearchRequest](docs/SearchRequest.md)
  - [Model.SearchResponse](docs/SearchResponse.md)
  - [Model.SearchResponseHits](docs/SearchResponseHits.md)

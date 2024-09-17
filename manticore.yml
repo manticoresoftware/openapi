@@ -46,11 +46,11 @@ components:
           properties:
             field:
               type: string
-              description: Attribute Name to Aggregate
+              description: Name of attribute to aggregate by
               example: field1
             size:
               type: integer
-              description: Maximum Number of Buckets in the Result
+              description: Maximum number of buckets in the result
               example: 1000
         sort:
           type: array
@@ -61,6 +61,29 @@ components:
               properties:
                 order:
                   type: string
+        composite:
+          type: object
+          description: Composite aggregation
+          properties:
+            size:
+              type: integer
+              description: Maximum number of composite buckets in the result
+              example: 1000
+            sources:
+              type: array
+              items:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    terms:
+                     type: object
+                     properties:
+                       field:
+                         type: string
+                         description: Name of attribute to aggregate by
+                         example: field1
+ 
     equalsFilter:
       type: object
       description: Equals attribute filter
@@ -89,6 +112,11 @@ components:
           items:
             type: object
       example: {'field1': ['a','b']}
+    rangeFilterValue:
+      nullable: true
+      oneOf:
+        - type: number
+        - type: string
     rangeFilter:
       type: object
       description: Range attribute filter
@@ -98,18 +126,33 @@ components:
       properties:
         field:
           type: string
-        lte:
-          type: number
-          nullable: true
+        ltx:
+          oneOf:
+           - type: integer
+             format: int64
+           - type: number
+           - type: string
         gte:
-          type: number
           nullable: true
+          oneOf:
+           - type: integer
+             format: int64
+           - type: number
+           - type: string
         lt:
-          type: number
           nullable: true
+          oneOf:
+           - type: integer
+             format: int64
+           - type: number
+           - type: string
         gt:
-          type: number
           nullable: true
+          oneOf:
+           - type: integer
+             format: int64
+           - type: number
+           - type: string
       example: {'field1': {'gte': 10, 'lte': 20} }
     geoDistanceFilter:
       type: object
@@ -649,7 +692,7 @@ components:
             title_len: "crc32(title)"
         highlight:
           $ref: '#/components/schemas/highlight'
-        source:
+        _source:
           x-is_req_source: true
           type: object
           example: {}
@@ -758,6 +801,22 @@ components:
             Object with document data
       example:
         index: test
+        doc:
+          title: This is some title
+          gid: 100
+    replaceDocumentRequest:
+      type: object
+      description: |
+        Object with document data.
+      required:
+        - doc
+      properties:
+        doc:
+          type: object
+          additionalProperties: true
+          description: |
+            Object with document data
+      example:
         doc:
           title: This is some title
           gid: 100
@@ -1278,6 +1337,60 @@ paths:
               query:
                 equals:
                   cat_id: 2
+      responses:
+        '200':
+          description: item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /{index}/_update/{id}:
+    post:
+      summary: Partially replaces a document in an index
+      x-is_indexapi: true
+      x-is_update: true
+      x-is_modify: true
+      operationId: _update
+      description: >
+        Partially replaces a document with given id in an index
+
+        Responds with an object of the following format: 
+        
+          ```
+          {'_index':'products','updated':1}
+          ```
+      tags:
+        - Index
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Updating_documents/REPLACE#JSON-REPLACE'
+      parameters:
+        - in: path
+          name: index
+          schema:
+            type: string
+          required: true
+          description: Name of the percolate index
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: true
+          description: Id of the document to replace
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/replaceDocumentRequest'
+            example:
+              doc:
+                price: 20
       responses:
         '200':
           description: item updated
