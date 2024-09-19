@@ -8,10 +8,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **took** | **int** |  | [optional] 
 **timed_out** | **bool** |  | [optional] 
-**aggregations** | **Dict[str, object]** |  | [optional] 
+**aggregations** | **object** |  | [optional] 
 **hits** | [**SearchResponseHits**](SearchResponseHits.md) |  | [optional] 
 **profile** | **object** |  | [optional] 
-**warning** | **Dict[str, object]** |  | [optional] 
+**warning** | **object** |  | [optional] 
 
 ## Example
 

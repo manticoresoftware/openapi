@@ -1,17 +1,3 @@
-diff --git a/out/manticoresearch-javascript/package.json b/out/manticoresearch-javascript/package.json
-index 4a9f4ca..f8a13af
---- a/out/manticoresearch-javascript/package.json
-+++ b/out/manticoresearch-javascript/package.json
-@@ -18,7 +18,8 @@
-     "index"
-   ],  
-   "dependencies": {
--    "superagent": "5.1.0"
-+    "superagent": "5.1.0",
-+    "json-bigint": "1.0.0"
-   },
-   "devDependencies": {
-     "inherits": "^2.0.4",
 diff --git a/out/manticoresearch-javascript/src/ApiClient.js b/out/manticoresearch-javascript/src/ApiClient.js
 index b6c1537..04b3a7e
 --- a/out/manticoresearch-javascript/src/ApiClient.js

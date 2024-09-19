@@ -1,0 +1,39 @@
+{
+{{#devBranch}}
+  "name": "{{{projectName}}}-dev",
+  "version": "{{{projectVersion}}}-dev",
+{{/devBranch}}
+{{^devBranch}}
+  "name": "{{{projectName}}}",
+  "version": "{{{projectVersion}}}",
+{{/devBranch}}  
+  "description": "Javascript client for Manticore Search",
+  "license": "{{licenseName}}",
+  "main": "{{sourceFolder}}{{#invokerPackage}}/{{invokerPackage}}{{/invokerPackage}}/index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "browser": {
+    "fs": false
+  },
+  "keywords": [
+    "manticoresearch",
+    "REST",
+    "search",
+    "client",
+    "index"
+  ],  
+{{#npmRepository}}
+  "publishConfig":{
+    "registry":"{{npmRepository}}"
+  },
+{{/npmRepository}}
+  "dependencies": {
+    "superagent": "5.1.0"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^5.2.0",
+    "sinon": "^7.2.0"
+  }
+}

@@ -1,31 +1,31 @@
 ```python
-{{#apiInfo}}{{#apis}}{{#-last}}{{#hasHttpSignatureMethods}}import datetime{{/hasHttpSignatureMethods}}{{/-last}}{{/apis}}{{/apiInfo}}
-import {{{packageName}}}
-from {{{packageName}}}.rest import ApiException
+import manticoresearch
+from manticoresearch.rest import ApiException
 from pprint import pprint
-{{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}
-{{> python_doc_auth_partial}}
+
+# Defining the host is optional and defaults to http://127.0.0.1:9308
+# See configuration.py for a list of all supported configuration parameters.
+configuration = manticoresearch.Configuration(
+    host = "http://127.0.0.1:9308"
+)
+
+
 
 # Enter a context with an instance of the API client
-{{#asyncio}}async {{/asyncio}}with {{{packageName}}}.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = {{{packageName}}}.{{{classname}}}(api_client)
-    {{#allParams}}
-    {{paramName}} = {{{example}}} # {{{dataType}}} | {{{description}}}{{^required}} (optional){{/required}}{{#defaultValue}} (default to {{{.}}}){{/defaultValue}}
-    {{/allParams}}
+with manticoresearch.ApiClient(configuration) as api_client:
+    # Create instances of API classes
+    indexApi = manticoresearch.IndexApi(api_client)
+    searchApi = manticoresearch.SearchApi(api_client)
 
-    try:
-        {{#summary}}
-        # {{{.}}}
-        {{/summary}}
-        {{#returnType}}api_response = {{/returnType}}{{#asyncio}}await {{/asyncio}}api_instance.{{{operationId}}}({{#allParams}}{{#required}}{{paramName}}{{/required}}{{^required}}{{paramName}}={{paramName}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}})
-        {{#returnType}}
-        print("The response of {{classname}}->{{operationId}}:\n")
-        pprint(api_response)
-        {{/returnType}}
+    try:    
+        # Perform insert and search operations
+        indexApi.insert({"index": "products", "doc" : {"title" : "Crossbody Bag with Tassel", "price" : 19.85}})
+        indexApi.insert({"index": "products", "doc" : {"title" : "Pet Hair Remover Glove", "price" : 7.99}})
+        search_response = searchApi.search({"index": "products", "query": {"query_string": "@title bag"}, "highlight":{"fieldnames":["title"]}})
+        print("The response of SearchApi->search:\n")
+        pprint(search_response)
     except ApiException as e:
-        print("Exception when calling {{classname}}->{{operationId}}: %s\n" % e)
-{{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
+        print("Exception when calling Api method: %s\n" % e)
 ```
 
 ## Documentation for API Endpoints
