@@ -14,9 +14,6 @@
 
 import superagent from "superagent";
 import querystring from "querystring";
-import {default as _JBI} from 'json-bigint';
-const JSONBig = _JBI({storeAsString: true});
-
 
 /**
 * @module ApiClient
@@ -359,14 +356,9 @@ class ApiClient {
             return null;
         }
 
-		// Use json-bigint for parsing json responses otherwise rely on SuperAgent
-    	// See http://visionmedia.github.io/superagent/#parsing-response-bodies
-		var data;
-		if (returnType === Object || typeof returnType === 'object') {
-			data = JSONbig.parse(response.text);
-		} else {
-			data = response.body;
-		}
+        // Rely on SuperAgent for parsing response body.
+        // See http://visionmedia.github.io/superagent/#parsing-response-bodies
+        var data = response.body;
         if (data == null || (typeof data === 'object' && typeof data.length === 'undefined' && !Object.keys(data).length)) {
             // SuperAgent does not always produce a body; use the unparsed response as a fallback
             data = response.text;
