@@ -1,27 +1,26 @@
 # QueryFilter
 
+Object used to apply various conditions, such as full-text matching or attribute filtering, to a search query
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**equals** | [**EqualsFilterEquals**](EqualsFilterEquals.md) |  | [optional] 
-**var_in** | **Dict[str, List[EqualsFilterEquals]]** |  | [optional] 
-**range** | [**Dict[str, RangeFilterRangeValue]**](RangeFilterRangeValue.md) |  | [optional] 
-**geo_distance** | [**GeoFilterGeoDistance**](GeoFilterGeoDistance.md) |  | [optional] 
-**bool** | [**BoolFilterBool**](BoolFilterBool.md) |  | [optional] 
-**match** | [**MatchFilterMatch**](MatchFilterMatch.md) |  | [optional] 
-**match_all** | **str** |  | [optional] 
-**match_phrase** | **Dict[str, str]** |  | [optional] 
-**query_string** | **str** |  | [optional] 
+**query_string** | **object** | Filter object defining a query string | [optional] 
+**match** | **object** | Filter object defining a match keyword | [optional] 
+**match_phrase** | **object** | Filter object defining a match phrase | [optional] 
+**match_all** | **object** | Filter object to select all documents | [optional] 
+**bool** | [**BoolFilter**](BoolFilter.md) |  | [optional] 
+**equals** | **object** |  | [optional] 
+**var_in** | **object** | Filter to match a given set of attribute values. | [optional] 
+**range** | **object** | Filter to match a given range of attribute values. | [optional] 
+**geo_distance** | [**GeoDistance**](GeoDistance.md) |  | [optional] 
 
 ## Example
 
 ```python
 from manticoresearch.models.query_filter import QueryFilter
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of QueryFilter from a JSON string
 query_filter_instance = QueryFilter.from_json(json)
 # print the JSON string representation of the object

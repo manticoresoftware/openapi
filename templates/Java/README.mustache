@@ -31,6 +31,7 @@ Building the API client library requires:
 {{^outBranch}}
 | Manticore Search  | manticoresearch-java    |
 | ----------------- | ----------------------- |
+| >= 6.3.6          | >= 5.0.x                |
 | >= 6.2.0          | >= 3.3.1                |
 | >= 2.5.1          | >= 2.0.2                |
 {{/outBranch}}
@@ -189,11 +190,14 @@ public class ApiExample {
         SearchApi searchApi = new SearchApi(client);
         try {
             // Create SearchRequest
-            SearchRequest searchRequest = new SearchRequest();
-            searchRequest.setIndex("test");
-            QueryFilter queryFilter = new QueryFilter();
-			queryFilter.setQueryString("Title 1");								
-			searchRequest.setFulltextFilter(queryFilter);
+            BasicSearchRequest basicSearchRequest = new BasicSearchRequest();
+            basicSearchRequest.setIndex("test");
+
+            QueryStringFilter queryStringFilter = new QueryStringFilter();
+            queryStringFilter.setQueryString("Title 1");
+            basicSearchRequest.setQuery(new QueryFilter( new FulltextFilter(queryStringFilter) ));
+
+            SearchRequest searchRequest = new SearchRequest(basicSearchRequest);
 			
 			// Perform a search
 			SearchResponse searchResponse = searchApi.search(searchRequest);

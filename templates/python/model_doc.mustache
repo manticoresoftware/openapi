@@ -16,8 +16,6 @@ Name | Type | Description | Notes
 ```python
 from {{modelPackage}}.{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} import {{classname}}
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of {{classname}} from a JSON string
 {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}_instance = {{classname}}.from_json(json)
 # print the JSON string representation of the object

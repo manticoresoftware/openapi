@@ -1,153 +1,139 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Aggregation Alias
+ * Object to perform composite aggregation, i.e., grouping search results by multiple fields
+ * @export
+ * @interface AggComposite
+ */
+export interface AggComposite {
+    /**
+     * Maximum number of composite buckets in the result
+     * @type {number}
+     * @memberof AggComposite
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<{ [key: string]: AggCompositeSource; }>}
+     * @memberof AggComposite
+     */
+    sources?: Array<{ [key: string]: AggCompositeSource; }>;
+}
+/**
+ * Object containing terms used for composite aggregation.
+ * @export
+ * @interface AggCompositeSource
+ */
+export interface AggCompositeSource {
+    /**
+     * 
+     * @type {AggCompositeTerm}
+     * @memberof AggCompositeSource
+     */
+    terms: AggCompositeTerm;
+}
+/**
+ * Object representing a term to be used in composite aggregation.
+ * @export
+ * @interface AggCompositeTerm
+ */
+export interface AggCompositeTerm {
+    /**
+     * Name of field to operate with
+     * @type {string}
+     * @memberof AggCompositeTerm
+     */
+    field: string;
+}
+/**
+ * Object containing term fields to aggregate on
+ * @export
+ * @interface AggTerms
+ */
+export interface AggTerms {
+    /**
+     * Name of attribute to aggregate by
+     * @type {string}
+     * @memberof AggTerms
+     */
+    field: string;
+    /**
+     * Maximum number of buckets in the result
+     * @type {number}
+     * @memberof AggTerms
+     */
+    size?: number;
+}
+/**
+ * 
  * @export
  * @interface Aggregation
  */
 export interface Aggregation {
     /**
      * 
-     * @type {AggregationTerms}
+     * @type {AggTerms}
      * @memberof Aggregation
      */
-    terms?: AggregationTerms;
+    terms?: AggTerms;
     /**
      * 
-     * @type {Array<{ [key: string]: AggregationSortInnerValue; }>}
+     * @type {Array<any>}
      * @memberof Aggregation
      */
-    sort?: Array<{ [key: string]: AggregationSortInnerValue; }>;
+    sort?: Array<any>;
     /**
      * 
-     * @type {AggregationComposite}
+     * @type {AggComposite}
      * @memberof Aggregation
      */
-    composite?: AggregationComposite;
-}
-/**
- * Composite aggregation
- * @export
- * @interface AggregationComposite
- */
-export interface AggregationComposite {
-    /**
-     * Maximum number of composite buckets in the result
-     * @type {number}
-     * @memberof AggregationComposite
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<{ [key: string]: AggregationCompositeSourcesInnerValue; }>}
-     * @memberof AggregationComposite
-     */
-    sources?: Array<{ [key: string]: AggregationCompositeSourcesInnerValue; }>;
+    composite?: AggComposite;
 }
 /**
  * 
- * @export
- * @interface AggregationCompositeSourcesInnerValue
- */
-export interface AggregationCompositeSourcesInnerValue {
-    /**
-     * 
-     * @type {AggregationCompositeSourcesInnerValueTerms}
-     * @memberof AggregationCompositeSourcesInnerValue
-     */
-    terms?: AggregationCompositeSourcesInnerValueTerms;
-}
-/**
- * 
- * @export
- * @interface AggregationCompositeSourcesInnerValueTerms
- */
-export interface AggregationCompositeSourcesInnerValueTerms {
-    /**
-     * Name of attribute to aggregate by
-     * @type {string}
-     * @memberof AggregationCompositeSourcesInnerValueTerms
-     */
-    field?: string;
-}
-/**
- * 
- * @export
- * @interface AggregationSortInnerValue
- */
-export interface AggregationSortInnerValue {
-    /**
-     * 
-     * @type {string}
-     * @memberof AggregationSortInnerValue
-     */
-    order?: string;
-}
-/**
- * 
- * @export
- * @interface AggregationTerms
- */
-export interface AggregationTerms {
-    /**
-     * Name of attribute to aggregate by
-     * @type {string}
-     * @memberof AggregationTerms
-     */
-    field?: string;
-    /**
-     * Maximum number of buckets in the result
-     * @type {number}
-     * @memberof AggregationTerms
-     */
-    size?: number;
-}
-/**
- * Boolean attribute filter
  * @export
  * @interface BoolFilter
  */
 export interface BoolFilter {
     /**
-     * 
-     * @type {Array<object>}
+     * Query clauses that must match for the document to be included
+     * @type {Array<QueryFilter>}
      * @memberof BoolFilter
      */
-    should?: Array<object>;
+    must?: Array<QueryFilter>;
     /**
-     * 
-     * @type {Array<object>}
+     * Query clauses that must not match for the document to be included
+     * @type {Array<QueryFilter>}
      * @memberof BoolFilter
      */
-    must?: Array<object>;
+    must_not?: Array<QueryFilter>;
     /**
-     * 
-     * @type {Array<object>}
+     * Query clauses that should be matched, but are not required
+     * @type {Array<QueryFilter>}
      * @memberof BoolFilter
      */
-    must_not?: Array<object>;
+    should?: Array<QueryFilter>;
 }
 /**
- * Success bulk response
+ * Success response for bulk search requests
  * @export
  * @interface BulkResponse
  */
 export interface BulkResponse {
-    [key: string]: any | any;
     /**
-     * 
-     * @type {object}
+     * List of results
+     * @type {Array<object>}
      * @memberof BulkResponse
      */
-    items?: object;
+    items?: Array<object>;
     /**
-     * 
+     * Errors occurred during the bulk operation
      * @type {boolean}
      * @memberof BulkResponse
      */
     errors?: boolean;
     /**
-     * 
+     * Error message describing an error if such occurred
      * @type {string}
      * @memberof BulkResponse
      */
@@ -169,391 +155,316 @@ export interface DeleteDocumentRequest {
      */
     index: string;
     /**
-     * cluster name
+     * Cluster name
      * @type {string}
      * @memberof DeleteDocumentRequest
      */
     cluster?: string;
     /**
-     * Document ID
+     * The ID of document for deletion
      * @type {number}
      * @memberof DeleteDocumentRequest
      */
     id?: number;
     /**
-     * Query tree object
+     * Defines the criteria to match documents for deletion
      * @type {object}
      * @memberof DeleteDocumentRequest
      */
     query?: object;
 }
 /**
- * Success response
+ * Response object for successful delete request
  * @export
  * @interface DeleteResponse
  */
 export interface DeleteResponse {
     /**
-     * 
+     * The name of the index from which the document was deleted
      * @type {string}
      * @memberof DeleteResponse
      */
     _index?: string;
     /**
-     * 
+     * Number of documents deleted
      * @type {number}
      * @memberof DeleteResponse
      */
     deleted?: number;
     /**
-     * 
+     * The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned
      * @type {number}
      * @memberof DeleteResponse
      */
     _id?: number;
     /**
-     * 
+     * Indicates whether any documents to be deleted were found
+     * @type {boolean}
+     * @memberof DeleteResponse
+     */
+    found?: boolean;
+    /**
+     * Result of the delete operation, typically 'deleted'
      * @type {string}
      * @memberof DeleteResponse
      */
     result?: string;
 }
 /**
- * Equals attribute filter
- * @export
- * @interface EqualsFilter
- */
-export interface EqualsFilter {
-    /**
-     * 
-     * @type {string}
-     * @memberof EqualsFilter
-     */
-    field: string;
-    /**
-     * 
-     * @type {object}
-     * @memberof EqualsFilter
-     */
-    value: object;
-}
-/**
- * Error response
+ * Error response object containing information about the error and a status code
  * @export
  * @interface ErrorResponse
  */
 export interface ErrorResponse {
     /**
      * 
-     * @type {{ [key: string]: any; }}
+     * @type {ResponseError}
      * @memberof ErrorResponse
      */
-    error: { [key: string]: any; };
+    error: ResponseError;
     /**
-     * 
+     * HTTP status code of the error response
      * @type {number}
      * @memberof ErrorResponse
      */
-    status: number;
+    status?: number;
 }
 /**
- * Query FACET expression
+ * Defines a type of filter for full-text search queries
  * @export
- * @interface Facet
+ * @interface FulltextFilter
  */
-export interface Facet {
+export interface FulltextFilter {
     /**
-     * The name of an attribute to facet
+     * Filter object defining a query string
      * @type {string}
-     * @memberof Facet
+     * @memberof FulltextFilter
      */
-    attr: string;
+    query_string?: string;
     /**
-     * Facet alias
-     * @type {string}
-     * @memberof Facet
+     * Filter object defining a match keyword
+     * @type {object}
+     * @memberof FulltextFilter
      */
-    alias?: string;
+    match?: object;
     /**
-     * The number of facet values to return
-     * @type {number}
-     * @memberof Facet
+     * Filter object defining a match phrase
+     * @type {object}
+     * @memberof FulltextFilter
      */
-    limit?: number;
+    match_phrase?: object;
+    /**
+     * Filter object to select all documents
+     * @type {object}
+     * @memberof FulltextFilter
+     */
+    match_all?: object;
 }
 /**
- * Query filter
+ * Object to perform geo-distance based filtering on queries
  * @export
- * @interface FilterBoolean
+ * @interface GeoDistance
  */
-export interface FilterBoolean {
+export interface GeoDistance {
+    [key: string]: any | any;
     /**
      * 
-     * @type {string}
-     * @memberof FilterBoolean
+     * @type {GeoDistanceLocationAnchor}
+     * @memberof GeoDistance
      */
-    filter_field: string;
+    location_anchor?: GeoDistanceLocationAnchor;
     /**
-     * 
-     * @type {string}
-     * @memberof FilterBoolean
+     * Field name in the document that contains location data
+     * @type {any}
+     * @memberof GeoDistance
      */
-    operation: string;
+    location_source?: any | null;
     /**
-     * 
-     * @type {boolean}
-     * @memberof FilterBoolean
+     * Algorithm used to calculate the distance
+     * @type {any}
+     * @memberof GeoDistance
      */
-    filter_value: boolean;
-}
-/**
- * Query filter
- * @export
- * @interface FilterNumber
- */
-export interface FilterNumber {
+    distance_type?: GeoDistanceDistanceTypeEnum | null;
     /**
-     * 
-     * @type {string}
-     * @memberof FilterNumber
+     * The distance from the anchor point to filter results by
+     * @type {any}
+     * @memberof GeoDistance
      */
-    filter_field: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FilterNumber
-     */
-    operation: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof FilterNumber
-     */
-    filter_value: number;
-}
-/**
- * Query filter
- * @export
- * @interface FilterString
- */
-export interface FilterString {
-    /**
-     * 
-     * @type {string}
-     * @memberof FilterString
-     */
-    filter_field: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FilterString
-     */
-    operation: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FilterString
-     */
-    filter_value: string;
-}
-/**
- * Geo distance attribute filter
- * @export
- * @interface GeoDistanceFilter
- */
-export interface GeoDistanceFilter {
-    /**
-     * 
-     * @type {GeoDistanceFilterLocationAnchor}
-     * @memberof GeoDistanceFilter
-     */
-    location_anchor?: GeoDistanceFilterLocationAnchor;
-    /**
-     * Attribute containing latitude and longitude data
-     * @type {string}
-     * @memberof GeoDistanceFilter
-     */
-    location_source?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GeoDistanceFilter
-     */
-    distance_type?: GeoDistanceFilterDistanceTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof GeoDistanceFilter
-     */
-    distance?: string;
+    distance?: any | null;
 }
 
 /**
 * @export
 * @enum {string}
 */
-export enum GeoDistanceFilterDistanceTypeEnum {
+export enum GeoDistanceDistanceTypeEnum {
     adaptive = 'adaptive',
     haversine = 'haversine'
 }
 
 /**
- * Geo pin point object
+ * Specifies the location of the pin point used for search
  * @export
- * @interface GeoDistanceFilterLocationAnchor
+ * @interface GeoDistanceLocationAnchor
  */
-export interface GeoDistanceFilterLocationAnchor {
+export interface GeoDistanceLocationAnchor {
     /**
-     * Geo latitude of pin point in degrees
-     * @type {number}
-     * @memberof GeoDistanceFilterLocationAnchor
+     * Latitude of the anchor point
+     * @type {any}
+     * @memberof GeoDistanceLocationAnchor
      */
-    lat?: number;
+    lat?: any | null;
     /**
-     * Geo longitude pf pin point in degrees
-     * @type {number}
-     * @memberof GeoDistanceFilterLocationAnchor
+     * Longitude of the anchor point
+     * @type {any}
+     * @memberof GeoDistanceLocationAnchor
      */
-    lon?: number;
+    lon?: any | null;
 }
 /**
- * Query HIGHLIGHT expression
+ * 
  * @export
  * @interface Highlight
  */
 export interface Highlight {
     /**
-     * 
-     * @type {Array<string>}
+     * Maximum size of the text fragments in highlighted snippets per field
+     * @type {any}
      * @memberof Highlight
      */
-    fieldnames?: Array<string>;
+    fragment_size?: any | null;
     /**
-     * 
-     * @type {Array<HighlightField>}
+     * Maximum size of snippets per field
+     * @type {any}
      * @memberof Highlight
      */
-    fields?: Array<HighlightField>;
+    limit?: any | null;
     /**
-     * 
+     * Maximum number of snippets per field
+     * @type {any}
+     * @memberof Highlight
+     */
+    limit_snippets?: any | null;
+    /**
+     * Maximum number of words per field
+     * @type {any}
+     * @memberof Highlight
+     */
+    limit_words?: any | null;
+    /**
+     * Total number of highlighted fragments per field
+     * @type {any}
+     * @memberof Highlight
+     */
+    number_of_fragments?: any | null;
+    /**
+     * Text inserted after the matched term, typically used for HTML formatting
+     * @type {string}
+     * @memberof Highlight
+     */
+    after_match?: string;
+    /**
+     * Permits an empty string to be returned as the highlighting result. Otherwise, the beginning of the original text would be returned
+     * @type {boolean}
+     * @memberof Highlight
+     */
+    allow_empty?: boolean;
+    /**
+     * Number of words around the match to include in the highlight
+     * @type {number}
+     * @memberof Highlight
+     */
+    around?: number;
+    /**
+     * Text inserted before the match, typically used for HTML formatting
+     * @type {string}
+     * @memberof Highlight
+     */
+    before_match?: string;
+    /**
+     * Emits an HTML tag with the enclosing zone name before each highlighted snippet
+     * @type {boolean}
+     * @memberof Highlight
+     */
+    emit_zones?: boolean;
+    /**
+     * If set to 'html', retains HTML markup when highlighting
      * @type {string}
      * @memberof Highlight
      */
     encoder?: HighlightEncoderEnum;
     /**
      * 
-     * @type {{ [key: string]: any; }}
+     * @type {object}
      * @memberof Highlight
      */
-    highlight_query?: { [key: string]: any; } | null;
+    fields?: object | null;
     /**
-     * 
-     * @type {string}
-     * @memberof Highlight
-     */
-    pre_tags?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Highlight
-     */
-    post_tags?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof Highlight
-     */
-    no_match_size?: HighlightNoMatchSizeEnum;
-    /**
-     * 
-     * @type {number}
-     * @memberof Highlight
-     */
-    fragment_size?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Highlight
-     */
-    number_of_fragments?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Highlight
-     */
-    limit?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Highlight
-     */
-    limit_words?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Highlight
-     */
-    limit_snippets?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Highlight
-     */
-    limits_per_field?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Highlight
-     */
-    use_boundaries?: boolean;
-    /**
-     * 
+     * Ignores the length limit until the result includes all keywords
      * @type {boolean}
      * @memberof Highlight
      */
     force_all_words?: boolean;
     /**
-     * 
-     * @type {boolean}
-     * @memberof Highlight
-     */
-    allow_empty?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Highlight
-     */
-    emit_zones?: boolean;
-    /**
-     * 
+     * Forces snippet generation even if limits allow highlighting the entire text
      * @type {boolean}
      * @memberof Highlight
      */
     force_snippets?: boolean;
     /**
      * 
-     * @type {number}
+     * @type {QueryFilter}
      * @memberof Highlight
      */
-    around?: number;
+    highlight_query?: QueryFilter | null;
     /**
-     * 
-     * @type {number}
-     * @memberof Highlight
-     */
-    start_snippet_id?: number;
-    /**
-     * 
+     * Defines the mode for handling HTML markup in the highlight
      * @type {string}
      * @memberof Highlight
      */
     html_strip_mode?: HighlightHtmlStripModeEnum;
     /**
-     * 
+     * Determines whether the 'limit', 'limit_words', and 'limit_snippets' options operate as individual limits in each field of the document
+     * @type {boolean}
+     * @memberof Highlight
+     */
+    limits_per_field?: boolean;
+    /**
+     * If set to 1, allows an empty string to be returned as a highlighting result
+     * @type {number}
+     * @memberof Highlight
+     */
+    no_match_size?: HighlightNoMatchSizeEnum;
+    /**
+     * Sets the sorting order of highlighted snippets
      * @type {string}
      * @memberof Highlight
      */
-    snippet_boundary?: HighlightSnippetBoundaryEnum;
+    order?: HighlightOrderEnum;
+    /**
+     * Text inserted before each highlighted snippet
+     * @type {string}
+     * @memberof Highlight
+     */
+    pre_tags?: string;
+    /**
+     * Text inserted after each highlighted snippet
+     * @type {string}
+     * @memberof Highlight
+     */
+    post_tags?: string;
+    /**
+     * Sets the starting value of the %SNIPPET_ID% macro
+     * @type {number}
+     * @memberof Highlight
+     */
+    start_snippet_id?: number;
+    /**
+     * Defines whether to additionally break snippets by phrase boundary characters
+     * @type {boolean}
+     * @memberof Highlight
+     */
+    use_boundaries?: boolean;
 }
 
 /**
@@ -563,14 +474,6 @@ export interface Highlight {
 export enum HighlightEncoderEnum {
     default = 'default',
     html = 'html'
-}
-/**
-* @export
-* @enum {string}
-*/
-export enum HighlightNoMatchSizeEnum {
-    NUMBER_0 = 0,
-    NUMBER_1 = 1
 }
 /**
 * @export
@@ -586,259 +489,236 @@ export enum HighlightHtmlStripModeEnum {
 * @export
 * @enum {string}
 */
-export enum HighlightSnippetBoundaryEnum {
-    sentence = 'sentence',
-    paragraph = 'paragraph',
-    zone = 'zone'
+export enum HighlightNoMatchSizeEnum {
+    NUMBER_0 = 0,
+    NUMBER_1 = 1
+}
+/**
+* @export
+* @enum {string}
+*/
+export enum HighlightOrderEnum {
+    asc = 'asc',
+    desc = 'desc',
+    score = 'score'
 }
 
 /**
- * Query Highlight field with options set
+ * Options for controlling the behavior of highlighting on a per-field basis
  * @export
- * @interface HighlightField
+ * @interface HighlightFieldOption
  */
-export interface HighlightField {
+export interface HighlightFieldOption {
     /**
-     * 
-     * @type {string}
-     * @memberof HighlightField
-     */
-    name: string;
-    /**
-     * 
+     * Maximum size of the text fragments in highlighted snippets per field
      * @type {number}
-     * @memberof HighlightField
+     * @memberof HighlightFieldOption
+     */
+    fragment_size?: number;
+    /**
+     * Maximum size of snippets per field
+     * @type {number}
+     * @memberof HighlightFieldOption
      */
     limit?: number;
     /**
-     * 
+     * Maximum number of snippets per field
      * @type {number}
-     * @memberof HighlightField
+     * @memberof HighlightFieldOption
+     */
+    limit_snippets?: number;
+    /**
+     * Maximum number of words per field
+     * @type {number}
+     * @memberof HighlightFieldOption
      */
     limit_words?: number;
     /**
-     * 
+     * Total number of highlighted fragments per field
      * @type {number}
-     * @memberof HighlightField
+     * @memberof HighlightFieldOption
      */
-    limit_snippets?: number;
+    number_of_fragments?: number;
 }
 /**
- * In attribute filter
- * @export
- * @interface InFilter
- */
-export interface InFilter {
-    /**
-     * 
-     * @type {string}
-     * @memberof InFilter
-     */
-    field: string;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof InFilter
-     */
-    values: Array<object>;
-}
-/**
- * Object with document data.
+ * Object containing data for inserting a new document into the index
  * 
  * @export
  * @interface InsertDocumentRequest
  */
 export interface InsertDocumentRequest {
     /**
-     * Name of the index
+     * Name of the index to insert the document into
      * @type {string}
      * @memberof InsertDocumentRequest
      */
     index: string;
     /**
-     * cluster name
+     * Name of the cluster to insert the document into
      * @type {string}
      * @memberof InsertDocumentRequest
      */
     cluster?: string;
     /**
-     * Document ID.
+     * Document ID. If not provided, an ID will be auto-generated
      * 
      * @type {number}
      * @memberof InsertDocumentRequest
      */
     id?: number;
     /**
-     * Object with document data
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof InsertDocumentRequest
-     */
-    doc: { [key: string]: any; };
-}
-/**
- * Query match filter
- * @export
- * @interface MatchFilter
- */
-export interface MatchFilter {
-    /**
-     * 
-     * @type {string}
-     * @memberof MatchFilter
-     */
-    query_string: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof MatchFilter
-     */
-    query_fields: string;
-}
-/**
- * Query match expression with logical operator
- * @export
- * @interface MatchOp
- */
-export interface MatchOp {
-    /**
+     * Object containing document data
      * 
      * @type {object}
-     * @memberof MatchOp
+     * @memberof InsertDocumentRequest
      */
-    query_info: object;
+    doc: object;
 }
 /**
- * Query match expression
+ * 
  * @export
- * @interface MatchOpFilter
+ * @interface Join
  */
-export interface MatchOpFilter {
+export interface Join {
+    /**
+     * Type of the join operation
+     * @type {string}
+     * @memberof Join
+     */
+    type: JoinTypeEnum;
+    /**
+     * List of objects defining joined tables
+     * @type {Array<JoinOn>}
+     * @memberof Join
+     */
+    on: Array<JoinOn>;
     /**
      * 
-     * @type {string}
-     * @memberof MatchOpFilter
+     * @type {FulltextFilter}
+     * @memberof Join
      */
-    query_string: string;
+    query?: FulltextFilter;
     /**
-     * 
+     * Basic table of the join operation
      * @type {string}
-     * @memberof MatchOpFilter
+     * @memberof Join
      */
-    query_fields: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof MatchOpFilter
-     */
-    operator: MatchOpFilterOperatorEnum;
+    table: string;
 }
 
 /**
 * @export
 * @enum {string}
 */
-export enum MatchOpFilterOperatorEnum {
-    or = 'or',
-    and = 'and'
+export enum JoinTypeEnum {
+    inner = 'inner',
+    left = 'left'
 }
 
 /**
- * Query match expression
+ * Object representing the conditions used to perform the join operation
  * @export
- * @interface MatchPhraseFilter
+ * @interface JoinCond
  */
-export interface MatchPhraseFilter {
+export interface JoinCond {
+    /**
+     * Field to join on
+     * @type {string}
+     * @memberof JoinCond
+     */
+    field: string;
+    /**
+     * Joined table
+     * @type {string}
+     * @memberof JoinCond
+     */
+    table: string;
     /**
      * 
-     * @type {string}
-     * @memberof MatchPhraseFilter
+     * @type {any}
+     * @memberof JoinCond
      */
-    query_phrase: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof MatchPhraseFilter
-     */
-    query_fields: string;
+    type?: any | null;
 }
 /**
- * Query filter
+ * 
  * @export
- * @interface NotFilterBoolean
+ * @interface JoinOn
  */
-export interface NotFilterBoolean {
+export interface JoinOn {
+    /**
+     * 
+     * @type {JoinCond}
+     * @memberof JoinOn
+     */
+    right?: JoinCond;
+    /**
+     * 
+     * @type {JoinCond}
+     * @memberof JoinOn
+     */
+    left?: JoinCond;
     /**
      * 
      * @type {string}
-     * @memberof NotFilterBoolean
+     * @memberof JoinOn
      */
-    filter_field: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NotFilterBoolean
-     */
-    operation: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof NotFilterBoolean
-     */
-    filter_value: boolean;
+    operator?: JoinOnOperatorEnum;
 }
+
 /**
- * Query filter
+* @export
+* @enum {string}
+*/
+export enum JoinOnOperatorEnum {
+    eq = 'eq'
+}
+
+/**
+ * Object representing a k-nearest neighbor search query
  * @export
- * @interface NotFilterNumber
+ * @interface KnnQuery
  */
-export interface NotFilterNumber {
+export interface KnnQuery {
     /**
-     * 
+     * Field to perform the k-nearest neighbor search on
      * @type {string}
-     * @memberof NotFilterNumber
+     * @memberof KnnQuery
      */
-    filter_field: string;
+    field: string;
     /**
-     * 
-     * @type {string}
-     * @memberof NotFilterNumber
-     */
-    operation: string;
-    /**
-     * 
+     * The number of nearest neighbors to return
      * @type {number}
-     * @memberof NotFilterNumber
+     * @memberof KnnQuery
      */
-    filter_value: number;
+    k: number;
+    /**
+     * The vector used as input for the KNN search
+     * @type {Array<number>}
+     * @memberof KnnQuery
+     */
+    query_vector?: Array<number>;
+    /**
+     * The docuemnt ID used as input for the KNN search
+     * @type {number}
+     * @memberof KnnQuery
+     */
+    doc_id?: number;
+    /**
+     * Optional parameter controlling the accuracy of the search
+     * @type {number}
+     * @memberof KnnQuery
+     */
+    ef?: number;
+    /**
+     * 
+     * @type {QueryFilter}
+     * @memberof KnnQuery
+     */
+    filter?: QueryFilter;
 }
 /**
- * Query filter
- * @export
- * @interface NotFilterString
- */
-export interface NotFilterString {
-    /**
-     * 
-     * @type {string}
-     * @memberof NotFilterString
-     */
-    filter_field: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NotFilterString
-     */
-    operation: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NotFilterString
-     */
-    filter_value: string;
-}
-/**
- * Object with documents to percolate
+ * Object containing the query for percolating documents against stored queries in a percolate index
  * @export
  * @interface PercolateRequest
  */
@@ -856,84 +736,184 @@ export interface PercolateRequest {
  * @interface PercolateRequestQuery
  */
 export interface PercolateRequestQuery {
-    [key: string]: any | any;
     /**
-     * 
+     * Object representing the document to percolate
      * @type {object}
      * @memberof PercolateRequestQuery
      */
     percolate: object;
 }
 /**
- * Query string filter
+ * Object used to apply various conditions, such as full-text matching or attribute filtering, to a search query
  * @export
  * @interface QueryFilter
  */
 export interface QueryFilter {
     /**
-     * 
-     * @type {string}
+     * Filter object defining a query string
+     * @type {any}
      * @memberof QueryFilter
      */
-    query_string: string;
+    query_string?: any | null;
+    /**
+     * Filter object defining a match keyword
+     * @type {any}
+     * @memberof QueryFilter
+     */
+    match?: any | null;
+    /**
+     * Filter object defining a match phrase
+     * @type {any}
+     * @memberof QueryFilter
+     */
+    match_phrase?: any | null;
+    /**
+     * Filter object to select all documents
+     * @type {any}
+     * @memberof QueryFilter
+     */
+    match_all?: any | null;
+    /**
+     * 
+     * @type {BoolFilter}
+     * @memberof QueryFilter
+     */
+    bool?: BoolFilter;
+    /**
+     * 
+     * @type {any}
+     * @memberof QueryFilter
+     */
+    equals?: any | null;
+    /**
+     * Filter to match a given set of attribute values.
+     * @type {object}
+     * @memberof QueryFilter
+     */
+    _in?: object;
+    /**
+     * Filter to match a given range of attribute values.
+     * @type {object}
+     * @memberof QueryFilter
+     */
+    range?: object;
+    /**
+     * 
+     * @type {GeoDistance}
+     * @memberof QueryFilter
+     */
+    geo_distance?: GeoDistance;
 }
 /**
- * Range attribute filter
- * @export
- * @interface RangeFilter
- */
-export interface RangeFilter {
-    /**
-     * 
-     * @type {string}
-     * @memberof RangeFilter
-     */
-    field: string;
-    /**
-     * 
-     * @type {RangeFilterLte}
-     * @memberof RangeFilter
-     */
-    lte?: RangeFilterLte | null;
-    /**
-     * 
-     * @type {RangeFilterLte}
-     * @memberof RangeFilter
-     */
-    gte?: RangeFilterLte | null;
-    /**
-     * 
-     * @type {RangeFilterLte}
-     * @memberof RangeFilter
-     */
-    lt?: RangeFilterLte | null;
-    /**
-     * 
-     * @type {RangeFilterLte}
-     * @memberof RangeFilter
-     */
-    gt?: RangeFilterLte | null;
-}
-/**
- * @type RangeFilterLte
- * 
- * @export
- */
-export type RangeFilterLte = number | string;
-/**
- * Object with document data.
- * 
+ * Object containing the document data for replacing an existing document in an index.
  * @export
  * @interface ReplaceDocumentRequest
  */
 export interface ReplaceDocumentRequest {
     /**
-     * Object with document data
-     * 
-     * @type {{ [key: string]: any; }}
+     * Object containing the new document data to replace the existing one.
+     * @type {object}
      * @memberof ReplaceDocumentRequest
      */
-    doc: { [key: string]: any; };
+    doc: object;
+}
+/**
+ * @type ResponseError
+ * 
+ * @export
+ */
+export type ResponseError = ResponseErrorDetails | string;
+/**
+ * Detailed error information returned in case of an error response
+ * @export
+ * @interface ResponseErrorDetails
+ */
+export interface ResponseErrorDetails {
+    /**
+     * Type or category of the error
+     * @type {string}
+     * @memberof ResponseErrorDetails
+     */
+    type: string;
+    /**
+     * Detailed explanation of why the error occurred
+     * @type {string}
+     * @memberof ResponseErrorDetails
+     */
+    reason?: string | null;
+    /**
+     * The index related to the error, if applicable
+     * @type {string}
+     * @memberof ResponseErrorDetails
+     */
+    index?: string | null;
+}
+/**
+ * Defines a query structure for performing search operations
+ * @export
+ * @interface SearchQuery
+ */
+export interface SearchQuery {
+    /**
+     * Filter object defining a query string
+     * @type {any}
+     * @memberof SearchQuery
+     */
+    query_string?: any | null;
+    /**
+     * Filter object defining a match keyword
+     * @type {any}
+     * @memberof SearchQuery
+     */
+    match?: any | null;
+    /**
+     * Filter object defining a match phrase
+     * @type {any}
+     * @memberof SearchQuery
+     */
+    match_phrase?: any | null;
+    /**
+     * Filter object to select all documents
+     * @type {any}
+     * @memberof SearchQuery
+     */
+    match_all?: any | null;
+    /**
+     * 
+     * @type {BoolFilter}
+     * @memberof SearchQuery
+     */
+    bool?: BoolFilter;
+    /**
+     * 
+     * @type {any}
+     * @memberof SearchQuery
+     */
+    equals?: any | null;
+    /**
+     * Filter to match a given set of attribute values.
+     * @type {any}
+     * @memberof SearchQuery
+     */
+    _in?: any | null;
+    /**
+     * Filter to match a given range of attribute values.
+     * @type {any}
+     * @memberof SearchQuery
+     */
+    range?: any | null;
+    /**
+     * 
+     * @type {GeoDistance}
+     * @memberof SearchQuery
+     */
+    geo_distance?: GeoDistance;
+    /**
+     * 
+     * @type {Highlight}
+     * @memberof SearchQuery
+     */
+    highlight?: Highlight;
 }
 /**
  * Request object for search operation
@@ -942,65 +922,23 @@ export interface ReplaceDocumentRequest {
  */
 export interface SearchRequest {
     /**
-     * 
+     * The index to perform the search on
      * @type {string}
      * @memberof SearchRequest
      */
     index: string;
     /**
      * 
-     * @type {object}
+     * @type {SearchQuery}
      * @memberof SearchRequest
      */
-    query?: object;
+    query?: SearchQuery;
     /**
-     * 
-     * @type {object}
+     * Join clause to combine search data from multiple tables
+     * @type {Array<Join>}
      * @memberof SearchRequest
      */
-    fulltext_filter?: object;
-    /**
-     * 
-     * @type {object}
-     * @memberof SearchRequest
-     */
-    attr_filter?: object;
-    /**
-     * 
-     * @type {number}
-     * @memberof SearchRequest
-     */
-    limit?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SearchRequest
-     */
-    offset?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SearchRequest
-     */
-    max_matches?: number;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof SearchRequest
-     */
-    sort?: Array<object>;
-    /**
-     * 
-     * @type {{ [key: string]: Aggregation; }}
-     * @memberof SearchRequest
-     */
-    aggs?: { [key: string]: Aggregation; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof SearchRequest
-     */
-    expressions?: { [key: string]: string; };
+    join?: Array<Join>;
     /**
      * 
      * @type {Highlight}
@@ -1008,54 +946,96 @@ export interface SearchRequest {
      */
     highlight?: Highlight;
     /**
+     * Maximum number of results to return
+     * @type {number}
+     * @memberof SearchRequest
+     */
+    limit?: number;
+    /**
      * 
+     * @type {KnnQuery}
+     * @memberof SearchRequest
+     */
+    knn?: KnnQuery;
+    /**
+     * Defines aggregation settings for grouping results
+     * @type {{ [key: string]: Aggregation; }}
+     * @memberof SearchRequest
+     */
+    aggs?: { [key: string]: Aggregation; } | null;
+    /**
+     * Expressions to calculate additional values for the result
+     * @type {{ [key: string]: string; }}
+     * @memberof SearchRequest
+     */
+    expressions?: { [key: string]: string; } | null;
+    /**
+     * Maximum number of matches allowed in the result
+     * @type {number}
+     * @memberof SearchRequest
+     */
+    max_matches?: number;
+    /**
+     * Starting point for pagination of the result
+     * @type {number}
+     * @memberof SearchRequest
+     */
+    offset?: number;
+    /**
+     * Additional search options
      * @type {object}
      * @memberof SearchRequest
      */
-    _source?: object;
+    options?: object;
     /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof SearchRequest
-     */
-    options?: { [key: string]: any; };
-    /**
-     * 
+     * Enable or disable profiling of the search request
      * @type {boolean}
      * @memberof SearchRequest
      */
     profile?: boolean;
     /**
      * 
+     * @type {any}
+     * @memberof SearchRequest
+     */
+    sort?: any | null;
+    /**
+     * 
+     * @type {any}
+     * @memberof SearchRequest
+     */
+    _source?: any | null;
+    /**
+     * Enable or disable result weight calculation used for sorting
      * @type {boolean}
      * @memberof SearchRequest
      */
     track_scores?: boolean;
 }
 /**
- * Response object of a search request
+ * Response object containing the results of a search request
  * @export
  * @interface SearchResponse
  */
 export interface SearchResponse {
     /**
-     * 
+     * Time taken to execute the search
      * @type {number}
      * @memberof SearchResponse
      */
     took?: number;
     /**
-     * 
+     * Indicates whether the search operation timed out
      * @type {boolean}
      * @memberof SearchResponse
      */
     timed_out?: boolean;
     /**
-     * 
-     * @type {{ [key: string]: any; }}
+     * Aggregated search results grouped by the specified criteria
+     * @type {object}
      * @memberof SearchResponse
      */
-    aggregations?: { [key: string]: any; };
+    aggregations?: object;
     /**
      * 
      * @type {SearchResponseHits}
@@ -1063,214 +1043,136 @@ export interface SearchResponse {
      */
     hits?: SearchResponseHits;
     /**
-     * 
+     * Profile information about the search execution, if profiling is enabled
      * @type {object}
      * @memberof SearchResponse
      */
     profile?: object;
     /**
-     * 
-     * @type {{ [key: string]: any; }}
+     * Warnings encountered during the search operation
+     * @type {object}
      * @memberof SearchResponse
      */
-    warning?: { [key: string]: any; };
+    warning?: object;
 }
 /**
- * 
+ * Object containing the search hits, which represent the documents that matched the query.
  * @export
  * @interface SearchResponseHits
  */
 export interface SearchResponseHits {
     /**
-     * 
+     * Maximum score among the matched documents
      * @type {number}
      * @memberof SearchResponseHits
      */
     max_score?: number;
     /**
-     * 
+     * Total number of matched documents
      * @type {number}
      * @memberof SearchResponseHits
      */
     total?: number;
     /**
-     * 
+     * Indicates whether the total number of hits is accurate or an estimate
      * @type {string}
      * @memberof SearchResponseHits
      */
     total_relation?: string;
     /**
-     * 
+     * Array of hit objects, each representing a matched document
      * @type {Array<object>}
      * @memberof SearchResponseHits
      */
     hits?: Array<object>;
 }
 /**
- * Query sort expression for MVA attributes
+ * Defines which fields to include or exclude in the response for a search query
  * @export
- * @interface SortMVA
+ * @interface SourceRules
  */
-export interface SortMVA {
+export interface SourceRules {
+    [key: string]: any | any;
     /**
-     * 
-     * @type {string}
-     * @memberof SortMVA
+     * List of fields to include in the response
+     * @type {any}
+     * @memberof SourceRules
      */
-    attr: string;
+    includes?: any | null;
     /**
-     * 
-     * @type {string}
-     * @memberof SortMVA
+     * List of fields to exclude from the response
+     * @type {any}
+     * @memberof SourceRules
      */
-    order: SortMVAOrderEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof SortMVA
-     */
-    mode: SortMVAModeEnum;
-}
-
-/**
-* @export
-* @enum {string}
-*/
-export enum SortMVAOrderEnum {
-    asc = 'asc',
-    desc = 'desc'
+    excludes?: any | null;
 }
 /**
-* @export
-* @enum {string}
-*/
-export enum SortMVAModeEnum {
-    min = 'min',
-    max = 'max'
-}
-
-/**
- * Query sort expression for multiple attributes
- * @export
- * @interface SortMultiple
- */
-export interface SortMultiple {
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof SortMultiple
-     */
-    attrs: { [key: string]: any; };
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SortMultiple
-     */
-    replace: boolean;
-}
-/**
- * Query sort expression
- * @export
- * @interface SortOrder
- */
-export interface SortOrder {
-    /**
-     * 
-     * @type {string}
-     * @memberof SortOrder
-     */
-    attr: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SortOrder
-     */
-    order: SortOrderOrderEnum;
-}
-
-/**
-* @export
-* @enum {string}
-*/
-export enum SortOrderOrderEnum {
-    asc = 'asc',
-    desc = 'desc'
-}
-
-/**
- * Query fields to be included/excluded to/from response
- * @export
- * @interface SourceByRules
- */
-export interface SourceByRules {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof SourceByRules
-     */
-    includes: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof SourceByRules
-     */
-    excludes: Array<string>;
-}
-/**
- * Success response
+ * Response object indicating the success of an operation, such as inserting or updating a document
  * @export
  * @interface SuccessResponse
  */
 export interface SuccessResponse {
     /**
-     * 
+     * Name of the document index
      * @type {string}
      * @memberof SuccessResponse
      */
     _index?: string;
     /**
-     * 
+     * ID of the document affected by the request operation
      * @type {number}
      * @memberof SuccessResponse
      */
     _id?: number;
     /**
-     * 
+     * Indicates whether the document was created as a result of the operation
      * @type {boolean}
      * @memberof SuccessResponse
      */
     created?: boolean;
     /**
-     * 
+     * Result of the operation, typically 'created', 'updated', or 'deleted'
      * @type {string}
      * @memberof SuccessResponse
      */
     result?: string;
     /**
-     * 
+     * Indicates whether the document was found in the index
      * @type {boolean}
      * @memberof SuccessResponse
      */
     found?: boolean;
+    /**
+     * HTTP status code representing the result of the operation
+     * @type {number}
+     * @memberof SuccessResponse
+     */
+    status?: number;
 }
 /**
- * Payload for update document
+ * Payload for updating a document or multiple documents in an index
  * @export
  * @interface UpdateDocumentRequest
  */
 export interface UpdateDocumentRequest {
     /**
-     * 
+     * Name of the document index
      * @type {string}
      * @memberof UpdateDocumentRequest
      */
     index: string;
     /**
-     * Index name
-     * @type {{ [key: string]: any; }}
+     * Name of the document cluster
+     * @type {string}
      * @memberof UpdateDocumentRequest
      */
-    doc: { [key: string]: any; };
+    cluster?: string;
+    /**
+     * Object containing the document fields to update
+     * @type {object}
+     * @memberof UpdateDocumentRequest
+     */
+    doc: object;
     /**
      * Document ID
      * @type {number}
@@ -1278,38 +1180,38 @@ export interface UpdateDocumentRequest {
      */
     id?: number;
     /**
-     * Query tree object
-     * @type {{ [key: string]: any; }}
+     * 
+     * @type {QueryFilter}
      * @memberof UpdateDocumentRequest
      */
-    query?: { [key: string]: any; } | null;
+    query?: QueryFilter | null;
 }
 /**
- * Success response
+ * Success response returned after updating one or more documents
  * @export
  * @interface UpdateResponse
  */
 export interface UpdateResponse {
     /**
-     * 
+     * Name of the document index
      * @type {string}
      * @memberof UpdateResponse
      */
     _index?: string;
     /**
-     * 
+     * Number of documents updated
      * @type {number}
      * @memberof UpdateResponse
      */
     updated?: number;
     /**
-     * 
+     * Document ID
      * @type {number}
      * @memberof UpdateResponse
      */
     _id?: number;
     /**
-     * 
+     * Result of the update operation, typically 'updated'
      * @type {string}
      * @memberof UpdateResponse
      */

@@ -1,23 +1,21 @@
 # UpdateResponse
 
-Success response
+Success response returned after updating one or more documents
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **str** |  | [optional] 
-**updated** | **int** |  | [optional] 
-**id** | **int** |  | [optional] 
-**result** | **str** |  | [optional] 
+**index** | **str** | Name of the document index | [optional] 
+**updated** | **int** | Number of documents updated | [optional] 
+**id** | **int** | Document ID | [optional] 
+**result** | **str** | Result of the update operation, typically &#39;updated&#39; | [optional] 
 
 ## Example
 
 ```python
 from manticoresearch.models.update_response import UpdateResponse
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of UpdateResponse from a JSON string
 update_response_instance = UpdateResponse.from_json(json)
 # print the JSON string representation of the object

@@ -1,22 +1,21 @@
 # FulltextFilter
 
+Defines a type of filter for full-text search queries
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**match** | [**MatchFilterMatch**](MatchFilterMatch.md) |  | [optional] 
-**match_all** | **str** |  | [optional] 
-**match_phrase** | **Dict[str, str]** |  | [optional] 
-**query_string** | **str** |  | [optional] 
+**query_string** | **str** | Filter object defining a query string | [optional] 
+**match** | **object** | Filter object defining a match keyword | [optional] 
+**match_phrase** | **object** | Filter object defining a match phrase | [optional] 
+**match_all** | **object** | Filter object to select all documents | [optional] 
 
 ## Example
 
 ```python
 from manticoresearch.models.fulltext_filter import FulltextFilter
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of FulltextFilter from a JSON string
 fulltext_filter_instance = FulltextFilter.from_json(json)
 # print the JSON string representation of the object

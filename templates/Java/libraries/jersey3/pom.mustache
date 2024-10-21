@@ -2,18 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>{{groupId}}</groupId>
-{{#devBranch}}
-    <artifactId>{{artifactId}}-dev</artifactId>
-    <packaging>jar</packaging>
-    <name>{{artifactId}}-dev</name>
-    <version>{{artifactVersion}}-dev</version>
-{{/devBranch}}
-{{^devBranch}}
     <artifactId>{{artifactId}}</artifactId>
     <packaging>jar</packaging>
     <name>{{artifactId}}</name>
     <version>{{artifactVersion}}</version>
-{{/devBranch}}
     <url>{{artifactUrl}}</url>
     <description>{{artifactDescription}}</description>
     <scm>
@@ -73,12 +65,12 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
                 <configuration>
-                    <systemProperties>
+                    <systemPropertyVariables>
                         <property>
                             <name>loggerPath</name>
                             <value>conf/log4j.properties</value>
                         </property>
-                    </systemProperties>
+                    </systemPropertyVariables>
                     <argLine>-Xms512m -Xmx1500m</argLine>
                     <parallel>methods</parallel>
                     <threadCount>10</threadCount>
@@ -195,39 +187,6 @@
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                        <configuration>
-                            <executable>gpg2</executable>
-                            <passphrase>${gpg.passphrase}</passphrase>
-                            <gpgArguments>
-                                <arg>--pinentry-mode</arg>
-                                <arg>loopback</arg>
-                            </gpgArguments>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -437,12 +396,12 @@
         <swagger-annotations-version>2.2.15</swagger-annotations-version>
         {{/swagger2AnnotationLibrary}}
         <jersey-version>3.1.1</jersey-version>
-        <jackson-version>2.15.2</jackson-version>
-        <jackson-databind-version>2.15.2</jackson-databind-version>
+        <jackson-version>2.17.1</jackson-version>
+        <jackson-databind-version>2.17.1</jackson-databind-version>
         <jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
         <jakarta-annotation-version>2.1.1</jakarta-annotation-version>
         {{#useBeanValidation}}
-        <beanvalidation-version>2.0.2</beanvalidation-version>
+        <beanvalidation-version>3.0.2</beanvalidation-version>
         {{/useBeanValidation}}
         <junit-version>5.10.0</junit-version>
         {{#hasHttpSignatureMethods}}
@@ -453,14 +412,4 @@
         {{/hasOAuthMethods}}
         <spotless.version>2.21.0</spotless.version>
     </properties>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 </project>

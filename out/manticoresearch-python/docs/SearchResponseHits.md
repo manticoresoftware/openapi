@@ -1,22 +1,21 @@
 # SearchResponseHits
 
+Object containing the search hits, which represent the documents that matched the query.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**max_score** | **int** |  | [optional] 
-**total** | **int** |  | [optional] 
-**total_relation** | **str** |  | [optional] 
-**hits** | **List[object]** |  | [optional] 
+**max_score** | **int** | Maximum score among the matched documents | [optional] 
+**total** | **int** | Total number of matched documents | [optional] 
+**total_relation** | **str** | Indicates whether the total number of hits is accurate or an estimate | [optional] 
+**hits** | **List[object]** | Array of hit objects, each representing a matched document | [optional] 
 
 ## Example
 
 ```python
 from manticoresearch.models.search_response_hits import SearchResponseHits
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of SearchResponseHits from a JSON string
 search_response_hits_instance = SearchResponseHits.from_json(json)
 # print the JSON string representation of the object

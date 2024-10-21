@@ -1,22 +1,19 @@
 # Aggregation
 
-Used for grouping search results
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**terms** | [**AggregationTerms**](AggregationTerms.md) |  | [optional] 
-**sort** | **List[Dict[str, AggregationSortInnerValue]]** |  | [optional] 
-**composite** | [**AggregationComposite**](AggregationComposite.md) |  | [optional] 
+**terms** | [**AggTerms**](AggTerms.md) |  | [optional] 
+**sort** | **List[object]** |  | [optional] 
+**composite** | [**AggComposite**](AggComposite.md) |  | [optional] 
 
 ## Example
 
 ```python
 from manticoresearch.models.aggregation import Aggregation
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of Aggregation from a JSON string
 aggregation_instance = Aggregation.from_json(json)
 # print the JSON string representation of the object

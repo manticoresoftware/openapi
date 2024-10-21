@@ -5,15 +5,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**bool** | [**BoolFilterBool**](BoolFilterBool.md) |  | [optional] 
+**must** | [**List[QueryFilter]**](QueryFilter.md) | Query clauses that must match for the document to be included | [optional] 
+**must_not** | [**List[QueryFilter]**](QueryFilter.md) | Query clauses that must not match for the document to be included | [optional] 
+**should** | [**List[QueryFilter]**](QueryFilter.md) | Query clauses that should be matched, but are not required | [optional] 
 
 ## Example
 
 ```python
 from manticoresearch.models.bool_filter import BoolFilter
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of BoolFilter from a JSON string
 bool_filter_instance = BoolFilter.from_json(json)
 # print the JSON string representation of the object

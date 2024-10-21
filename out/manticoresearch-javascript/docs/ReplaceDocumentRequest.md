@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**doc** | **Object** | Object with document data  | 
+**doc** | **Object** | Object containing the new document data to replace the existing one. | 
 
 

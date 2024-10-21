@@ -1,47 +1,32 @@
 diff --git a/out/manticoresearch-javascript/src/ApiClient.js b/out/manticoresearch-javascript/src/ApiClient.js
-index b6c1537..04b3a7e
+index f3cf0dc..f9f843f
 --- a/out/manticoresearch-javascript/src/ApiClient.js
 +++ b/out/manticoresearch-javascript/src/ApiClient.js
-@@ -335,6 +335,8 @@
-     });
-   };
+@@ -14,6 +14,9 @@
  
-+  exports.JSONbig = require('json-bigint')({ storeAsString: true });
+ import superagent from "superagent";
+ import querystring from "querystring";
++import {default as _JBI} from 'json-bigint';
++const JSONBig = _JBI({storeAsString: true});
 +
-   /**
-    * Deserializes an HTTP response body into a value of the specified type.
-    * @param {Object} response A SuperAgent response object.
-@@ -348,14 +350,20 @@
-     if (response == null || returnType == null || response.status == 204) {
-       return null;
-     }
--    // Rely on SuperAgent for parsing response body.
-+    // Use json-bigint for parsing json responses otherwise rely on SuperAgent
-     // See http://visionmedia.github.io/superagent/#parsing-response-bodies
--    var data = response.body;
-+	var data;
-+	if (returnType === Object || typeof returnType === 'object') {
-+		data = exports.JSONbig.parse(response.text);
-+	} else {
-+		data = response.body;
-+	}
-     if (data == null || (typeof data === 'object' && typeof data.length === 'undefined' && !Object.keys(data).length)) {
-       // SuperAgent does not always produce a body; use the unparsed response as a fallback
-       data = response.text;
-     }
--    return exports.convertToType(data, returnType);
-+    const res = exports.convertToType(data, returnType);
-+	return res;
-   };
  
-   /**
-@@ -440,7 +448,8 @@
-     }
+ /**
+ * @module ApiClient
+@@ -356,9 +359,14 @@ class ApiClient {
+             return null;
+         }
  
-     if (contentType === 'application/x-www-form-urlencoded') {
--      request.send(querystring.stringify(this.normalizeParams(formParams)));
-+	  console.log('test request 2');
-+	  request.send(querystring.stringify(this.normalizeParams(formParams)));
-     } else if (contentType == 'multipart/form-data') {
-       var _formParams = this.normalizeParams(formParams);
-       for (var key in _formParams) {
+-        // Rely on SuperAgent for parsing response body.
+-        // See http://visionmedia.github.io/superagent/#parsing-response-bodies
+-        var data = response.body;
++		// Use json-bigint for parsing json responses otherwise rely on SuperAgent
++		// See http://visionmedia.github.io/superagent/#parsing-response-bodies
++		var data;
++		if (returnType === Object || typeof returnType === 'object') {
++			data = JSONbig.parse(response.text);
++		} else {
++			data = response.body;
++		}
+         if (data == null || (typeof data === 'object' && typeof data.length === 'undefined' && !Object.keys(data).length)) {
+             // SuperAgent does not always produce a body; use the unparsed response as a fallback
+             data = response.text;

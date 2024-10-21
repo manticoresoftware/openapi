@@ -1,30 +1,27 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "target": "ES2020",
     "strict": true,
-    "module": "Node16",
-    "moduleResolution": "nodenext",
-    "outDir": "dist",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ES2020"
-    ],
-    "noEmit": true, // TSUP takes care of emitting js for us, in a MUCH faster way
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "useDefineForClassFields": true
+    /* Basic Options */
+    "target": "es5",
+    "moduleResolution": "node",
+    "declaration": true,
+
+    /* Additional Checks */
+     "noUnusedLocals": false,                /* Report errors on unused locals. */ // TODO: reenable (unused imports!)
+     "noUnusedParameters": false,            /* Report errors on unused parameters. */ // TODO: set to true again
+     "noImplicitReturns": true,             /* Report error when not all code paths in function return a value. */
+     "noFallthroughCasesInSwitch": true,    /* Report errors for fallthrough cases in switch statement. */
+
+    "removeComments": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "noLib": false,
   },
-  "include": [
-    "src",
-    "tsup.config.ts",
-    "test"
-  ],
   "exclude": [
     "dist",
     "node_modules"
+  ],
+  "filesGlob": [
+    "./**/*.ts",
   ]
 }

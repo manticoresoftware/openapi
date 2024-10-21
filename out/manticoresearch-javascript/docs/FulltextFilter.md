@@ -4,18 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**match** | [**MatchFilterMatch**](MatchFilterMatch.md) |  | [optional] 
-**matchAll** | **String** |  | [optional] 
-**matchPhrase** | **{String: String}** |  | [optional] 
-**queryString** | **String** |  | [optional] 
-
-
-
-## Enum: MatchAllEnum
-
-
-* `{}` (value: `"{}"`)
-
-
+**queryString** | **String** | Filter object defining a query string | [optional] 
+**match** | **Object** | Filter object defining a match keyword | [optional] 
+**matchPhrase** | **Object** | Filter object defining a match phrase | [optional] 
+**matchAll** | **Object** | Filter object to select all documents | [optional] 
 
 

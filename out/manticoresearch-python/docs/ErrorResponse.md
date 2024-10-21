@@ -1,21 +1,19 @@
 # ErrorResponse
 
-Error response
+Error response object containing information about the error and a status code
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**error** | [**ErrorResponseError**](ErrorResponseError.md) |  | 
-**status** | **int** |  | [optional] [default to 500]
+**error** | [**ResponseError**](ResponseError.md) |  | 
+**status** | **int** | HTTP status code of the error response | [optional] [default to 500]
 
 ## Example
 
 ```python
 from manticoresearch.models.error_response import ErrorResponse
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of ErrorResponse from a JSON string
 error_response_instance = ErrorResponse.from_json(json)
 # print the JSON string representation of the object

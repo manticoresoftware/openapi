@@ -1,24 +1,22 @@
 # DeleteResponse
 
-Success response
+Response object for successful delete request
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **str** |  | [optional] 
-**deleted** | **int** |  | [optional] 
-**id** | **int** |  | [optional] 
-**found** | **bool** |  | [optional] 
-**result** | **str** |  | [optional] 
+**index** | **str** | The name of the index from which the document was deleted | [optional] 
+**deleted** | **int** | Number of documents deleted | [optional] 
+**id** | **int** | The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned | [optional] 
+**found** | **bool** | Indicates whether any documents to be deleted were found | [optional] 
+**result** | **str** | Result of the delete operation, typically &#39;deleted&#39; | [optional] 
 
 ## Example
 
 ```python
 from manticoresearch.models.delete_response import DeleteResponse
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of DeleteResponse from a JSON string
 delete_response_instance = DeleteResponse.from_json(json)
 # print the JSON string representation of the object

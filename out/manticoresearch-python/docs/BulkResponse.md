@@ -1,22 +1,20 @@
 # BulkResponse
 
-Success bulk response
+Success response for bulk search requests
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | **object** |  | [optional] 
-**errors** | **bool** |  | [optional] 
-**error** | **str** |  | [optional] 
+**items** | **List[object]** | List of results | [optional] 
+**errors** | **bool** | Errors occurred during the bulk operation | [optional] 
+**error** | **str** | Error message describing an error if such occurred | [optional] 
 
 ## Example
 
 ```python
 from manticoresearch.models.bulk_response import BulkResponse
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of BulkResponse from a JSON string
 bulk_response_instance = BulkResponse.from_json(json)
 # print the JSON string representation of the object

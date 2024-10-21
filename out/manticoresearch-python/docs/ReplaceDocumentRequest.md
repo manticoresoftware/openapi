@@ -1,20 +1,18 @@
 # ReplaceDocumentRequest
 
-Object with document data. 
+Object containing the document data for replacing an existing document in an index.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**doc** | **object** | Object with document data  | 
+**doc** | **object** | Object containing the new document data to replace the existing one. | 
 
 ## Example
 
 ```python
 from manticoresearch.models.replace_document_request import ReplaceDocumentRequest
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of ReplaceDocumentRequest from a JSON string
 replace_document_request_instance = ReplaceDocumentRequest.from_json(json)
 # print the JSON string representation of the object

@@ -5,12 +5,12 @@ set -e
 do_python() {
   echo "Building Python ..."
   rm -rf out/manticoresearch-python 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore_new.yml -g python -o /local/out/manticoresearch-python -t /local/templates/python --git-repo-id manticoresearch-python --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/python` $build_to_branch
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g python -o /local/out/manticoresearch-python -t /local/templates/python --git-repo-id manticoresearch-python --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/python` $build_to_branch
   rm -rf out/manticoresearch-python/test/* 
   cp LICENSE.txt out/manticoresearch-python/LICENSE.txt
   # replace test with our tests
   cp -R test/python/* out/manticoresearch-python/test/   
-  git apply patches/python_bulk.patch
+  git apply patches/python_bulk.patch patches/python_sql_api.patch
   echo "Python done."
 }
 
@@ -55,7 +55,7 @@ do_java() {
 do_javascript() {
   echo "Building Javascript ..."
   rm -rf out/manticoresearch-javascript 
-  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore_new.yml -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch  --additional-properties projectVersion=`cat versions/javascript`   --additional-properties  usePromises=true $build_to_branch
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch  --additional-properties projectVersion=`cat versions/javascript`   --additional-properties  usePromises=true $build_to_branch
   #git apply patches/javascript.package.patch
   git apply patches/javascript.jsonbig.patch
   cp LICENSE.txt out/manticoresearch-javascript/LICENSE.txt
@@ -78,7 +78,7 @@ do_typescript() {
     -i /local/manticore.yml \
     -g typescript-fetch \
     -o /local/out/manticoresearch-typescript \
-    -t /local/templates/Typescript \
+    -t /local/templates/typescript \
     --git-repo-id manticoresearch-typescript \
     --git-user-id manticoresoftware \
     --reserved-words-mappings delete=delete \
@@ -94,18 +94,18 @@ do_typescript() {
     $build_to_branch
   cp LICENSE.txt out/manticoresearch-typescript/LICENSE.txt
   mkdir out/manticoresearch-typescript/test/ && cp -R test/typescript/* out/manticoresearch-typescript/test/
-  cp -r docs/typescript/docs out/manticoresearch-typescript/
+  #cp -r docs/typescript/docs out/manticoresearch-typescript/
   # Adding a custom tsup config we use for package build
-  cp misc/typescript/tsup.config.ts out/manticoresearch-typescript/tsup.config.ts
+  #cp misc/typescript/tsup.config.ts out/manticoresearch-typescript/tsup.config.ts
   echo "Typescript done."
 }
 
 do_csharp() {
   echo "Building CSharp ..."
   rm -rf out/manticoresearch-csharp 
-  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp-netcore  -o /local/out/manticoresearch-csharp -t /local/templates/csharp-netcore --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp` $build_to_branch
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp  -o /local/out/manticoresearch-net -t /local/templates/csharp --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp` $build_to_branch
   cp -r gh-actions/csharp/. out/manticoresearch-csharp
-  cp -r docs/csharp/docs/SearchApi.md out/manticoresearch-csharp/docs/SearchApi.md
+  #cp -r docs/csharp/docs/SearchApi.md out/manticoresearch-csharp/docs/SearchApi.md
   echo "CSharp done."
 }
 
@@ -132,8 +132,7 @@ do_perl() {
 
 do_go() {
   echo "Building Go ..."
-  rm -rf out/manticore-go 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g go  -o /local/out/manticore-go-experimental -t /local/templates/go --git-repo-id manticoresearch-go --git-user-id manticoresoftware
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g go  -o /local/out/manticoresearch-go -t /local/templates/go --git-repo-id manticoresearch-go --git-user-id manticoresoftware
   echo "Go done." 
 }
 do_elixir() {

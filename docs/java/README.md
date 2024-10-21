@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.manticoresearch:manticoresearch:3.0.0"
+compile "com.manticoresearch:manticoresearch:5.0.0"
 ```
 
 ### Others
@@ -45,7 +45,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/manticoresearch-3.0.0.jar`
+- `target/manticoresearch-5.0.0.jar`
 - `target/lib/*.jar`
 
 ## Getting Started

@@ -1,25 +1,23 @@
 # SearchResponse
 
-Response object of a search request
+Response object containing the results of a search request
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**took** | **int** |  | [optional] 
-**timed_out** | **bool** |  | [optional] 
-**aggregations** | **object** |  | [optional] 
+**took** | **int** | Time taken to execute the search | [optional] 
+**timed_out** | **bool** | Indicates whether the search operation timed out | [optional] 
+**aggregations** | **object** | Aggregated search results grouped by the specified criteria | [optional] 
 **hits** | [**SearchResponseHits**](SearchResponseHits.md) |  | [optional] 
-**profile** | **object** |  | [optional] 
-**warning** | **object** |  | [optional] 
+**profile** | **object** | Profile information about the search execution, if profiling is enabled | [optional] 
+**warning** | **object** | Warnings encountered during the search operation | [optional] 
 
 ## Example
 
 ```python
 from manticoresearch.models.search_response import SearchResponse
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of SearchResponse from a JSON string
 search_response_instance = SearchResponse.from_json(json)
 # print the JSON string representation of the object

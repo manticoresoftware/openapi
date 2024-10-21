@@ -1,14 +1,14 @@
 # UpdateDocumentRequest
 
-Payload for update document
+Payload for updating a document or multiple documents in an index
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **str** |  | 
-**cluster** | **str** | cluster name | [optional] 
-**doc** | **object** | Index name | 
+**index** | **str** | Name of the document index | 
+**cluster** | **str** | Name of the document cluster | [optional] 
+**doc** | **object** | Object containing the document fields to update | 
 **id** | **int** | Document ID | [optional] 
 **query** | [**QueryFilter**](QueryFilter.md) |  | [optional] 
 
@@ -17,8 +17,6 @@ Name | Type | Description | Notes
 ```python
 from manticoresearch.models.update_document_request import UpdateDocumentRequest
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of UpdateDocumentRequest from a JSON string
 update_document_request_instance = UpdateDocumentRequest.from_json(json)
 # print the JSON string representation of the object

@@ -7,17 +7,15 @@ Payload for delete request. Documents can be deleted either one by one by specif
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **index** | **str** | Index name | 
-**cluster** | **str** | cluster name | [optional] 
-**id** | **int** | Document ID | [optional] 
-**query** | **object** | Query tree object | [optional] 
+**cluster** | **str** | Cluster name | [optional] 
+**id** | **int** | The ID of document for deletion | [optional] 
+**query** | **object** | Defines the criteria to match documents for deletion | [optional] 
 
 ## Example
 
 ```python
 from manticoresearch.models.delete_document_request import DeleteDocumentRequest
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of DeleteDocumentRequest from a JSON string
 delete_document_request_instance = DeleteDocumentRequest.from_json(json)
 # print the JSON string representation of the object

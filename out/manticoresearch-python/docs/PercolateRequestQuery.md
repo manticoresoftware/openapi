@@ -5,15 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**percolate** | **object** |  | 
+**percolate** | **object** | Object representing the document to percolate | 
 
 ## Example
 
 ```python
 from manticoresearch.models.percolate_request_query import PercolateRequestQuery
 
-# TODO update the JSON string below
-json = "{}"
 # create an instance of PercolateRequestQuery from a JSON string
 percolate_request_query_instance = PercolateRequestQuery.from_json(json)
 # print the JSON string representation of the object

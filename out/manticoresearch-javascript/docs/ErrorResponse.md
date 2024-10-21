@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**error** | [**ErrorResponseError**](ErrorResponseError.md) |  | 
-**status** | **Number** |  | [optional] [default to 500]
+**error** | [**ResponseError**](ResponseError.md) |  | 
+**status** | **Number** | HTTP status code of the error response | [optional] [default to 500]
 
 
