@@ -1,0 +1,16 @@
+diff --git a/out/manticoresearch-javascript/src/api/UtilsApi.js b/out/manticoresearch-javascript/src/api/UtilsApi.js
+index 55757a2..4ae001b 100644
+--- a/out/manticoresearch-javascript/src/api/UtilsApi.js
++++ b/out/manticoresearch-javascript/src/api/UtilsApi.js
+@@ -50,7 +50,9 @@ export default class UtilsApi {
+       if (body === undefined || body === null) {
+         throw new Error("Missing the required parameter 'body' when calling sql");
+       }
+-
++      if (!('rawResponse' in opts)) {
++		opts['rawResponse'] = true;
++	  }
+       let pathParams = {
+       };
+       let queryParams = {
+       

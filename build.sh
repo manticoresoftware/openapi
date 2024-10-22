@@ -56,7 +56,7 @@ do_javascript() {
   echo "Building Javascript ..."
   rm -rf out/manticoresearch-javascript 
   docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch  --additional-properties projectVersion=`cat versions/javascript`   --additional-properties  usePromises=true $build_to_branch
-  #git apply patches/javascript.package.patch
+  git apply patches/javascript.sql_api.patch
   git apply patches/javascript.jsonbig.patch
   cp LICENSE.txt out/manticoresearch-javascript/LICENSE.txt
   #cp docs/javascript/README.md out/manticoresearch-javascript/README.md

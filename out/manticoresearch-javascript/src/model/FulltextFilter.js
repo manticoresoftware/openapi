@@ -90,7 +90,7 @@ class FulltextFilter {
 FulltextFilter.prototype['query_string'] = undefined;
 
 /**
- * Filter object defining a match keyword
+ * Filter object defining a match keyword passed as a string or in a Match object
  * @member {Object} match
  */
 FulltextFilter.prototype['match'] = undefined;

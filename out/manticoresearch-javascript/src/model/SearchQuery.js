@@ -122,7 +122,7 @@ class SearchQuery {
 SearchQuery.prototype['query_string'] = undefined;
 
 /**
- * Filter object defining a match keyword
+ * Filter object defining a match keyword passed as a string or in a Match object
  * @member {Object} match
  */
 SearchQuery.prototype['match'] = undefined;
@@ -156,7 +156,7 @@ SearchQuery.prototype['equals'] = undefined;
 SearchQuery.prototype['in'] = undefined;
 
 /**
- * Filter to match a given range of attribute values.
+ * Filter to match a given range of attribute values passed in Range objects
  * @member {Object} range
  */
 SearchQuery.prototype['range'] = undefined;
@@ -179,7 +179,7 @@ SearchQuery.prototype['highlight'] = undefined;
  */
 QueryFilter.prototype['query_string'] = undefined;
 /**
- * Filter object defining a match keyword
+ * Filter object defining a match keyword passed as a string or in a Match object
  * @member {Object} match
  */
 QueryFilter.prototype['match'] = undefined;
@@ -207,7 +207,7 @@ QueryFilter.prototype['equals'] = undefined;
  */
 QueryFilter.prototype['in'] = undefined;
 /**
- * Filter to match a given range of attribute values.
+ * Filter to match a given range of attribute values passed in Range objects
  * @member {Object} range
  */
 QueryFilter.prototype['range'] = undefined;

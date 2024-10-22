@@ -33,9 +33,12 @@ import Join from './model/Join';
 import JoinCond from './model/JoinCond';
 import JoinOn from './model/JoinOn';
 import KnnQuery from './model/KnnQuery';
+import Match from './model/Match';
+import MatchAll from './model/MatchAll';
 import PercolateRequest from './model/PercolateRequest';
 import PercolateRequestQuery from './model/PercolateRequestQuery';
 import QueryFilter from './model/QueryFilter';
+import Range from './model/Range';
 import ReplaceDocumentRequest from './model/ReplaceDocumentRequest';
 import ResponseError from './model/ResponseError';
 import ResponseErrorDetails from './model/ResponseErrorDetails';
@@ -211,6 +214,18 @@ export {
     KnnQuery,
 
     /**
+     * The Match model constructor.
+     * @property {module:model/Match}
+     */
+    Match,
+
+    /**
+     * The MatchAll model constructor.
+     * @property {module:model/MatchAll}
+     */
+    MatchAll,
+
+    /**
      * The PercolateRequest model constructor.
      * @property {module:model/PercolateRequest}
      */
@@ -227,6 +242,12 @@ export {
      * @property {module:model/QueryFilter}
      */
     QueryFilter,
+
+    /**
+     * The Range model constructor.
+     * @property {module:model/Range}
+     */
+    Range,
 
     /**
      * The ReplaceDocumentRequest model constructor.

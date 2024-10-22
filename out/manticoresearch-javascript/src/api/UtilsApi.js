@@ -41,7 +41,6 @@ export default class UtilsApi {
      * @param {String} body A query parameter string. 
      * @param {Object} opts Optional parameters
      * @param {Boolean} [rawResponse = true)] Optional parameter, defines a format of response. Can be set to `False` for Select only queries and set to `True` for any type of queries. Default value is 'True'. 
-     * @param {String} [mode = 'raw')] Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to `raw` for any type of queries. Default value is 'raw'. 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Object>} and HTTP response
      */
     sqlWithHttpInfo(body, opts) {
@@ -51,12 +50,13 @@ export default class UtilsApi {
       if (body === undefined || body === null) {
         throw new Error("Missing the required parameter 'body' when calling sql");
       }
-
+      if (!('rawResponse' in opts)) {
+		opts['rawResponse'] = true;
+	  }
       let pathParams = {
       };
       let queryParams = {
-        'raw_response': opts['rawResponse'],
-        'mode': opts['mode']
+        'raw_response': opts['rawResponse']
       };
       let headerParams = {
       };
@@ -80,7 +80,6 @@ export default class UtilsApi {
      * @param {String} body A query parameter string. 
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.rawResponse Optional parameter, defines a format of response. Can be set to `False` for Select only queries and set to `True` for any type of queries. Default value is 'True'.  (default to true)
-     * @param {String} opts.mode Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to `raw` for any type of queries. Default value is 'raw'.  (default to 'raw')
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Object>}
      */
     sql(body, opts) {

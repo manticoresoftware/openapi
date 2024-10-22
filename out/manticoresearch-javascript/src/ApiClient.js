@@ -363,7 +363,7 @@ class ApiClient {
 		// See http://visionmedia.github.io/superagent/#parsing-response-bodies
 		var data;
 		if (returnType === Object || typeof returnType === 'object') {
-			data = JSONbig.parse(response.text);
+			data = JSONBig.parse(response.text);
 		} else {
 			data = response.body;
 		}

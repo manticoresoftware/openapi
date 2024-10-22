@@ -50,7 +50,7 @@ import manticoresearch
 
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
-```python
+	```python
 import manticoresearch
 from manticoresearch.rest import ApiException
 from pprint import pprint
@@ -69,11 +69,28 @@ with manticoresearch.ApiClient(configuration) as api_client:
     indexApi = manticoresearch.IndexApi(api_client)
     searchApi = manticoresearch.SearchApi(api_client)
 
-    try:    
-        # Perform insert and search operations
+    try:
+        # Perform insert and search operations    
+        newDoc = {"title" : "Crossbody Bag with Tassel", "price": 19.85}
+        insert_request = InsertDocumentRequest(index="products", doc=newDoc)
+        indexApi.insert(insert_request)
+
+        newDoc = {"title" : "Pet Hair Remover Glove", "price": 7.99}
+        insert_request = InsertDocumentRequest(index="products", doc=newDoc)
+        indexApi.insert(insert_request)
+        
+        query_highlight = Highlight()
+        query_highlight.fields = {"title":{}}
+        search_query = SearchQuery(query_string="@title bag")
+        search_request = SearchRequest(index="products", query=search_query, highlight=query_highlight)
+        search_response = searchApi.search(search_request)    
+        print("The response of SearchApi->search:\n")
+        pprint(search_response)
+
+        # Alternatively, you can pass all request arguments as JSON strings        
         indexApi.insert({"index": "products", "doc" : {"title" : "Crossbody Bag with Tassel", "price" : 19.85}})
         indexApi.insert({"index": "products", "doc" : {"title" : "Pet Hair Remover Glove", "price" : 7.99}})
-        search_response = searchApi.search({"index": "products", "query": {"query_string": "@title bag"}, "highlight":{"fieldnames":["title"]}})
+        search_response = searchApi.search({"index": "products", "query": {"query_string": "@title bag"}, "highlight":{"fields":{"title":{}}}})
         print("The response of SearchApi->search:\n")
         pprint(search_response)
     except ApiException as e:
@@ -119,9 +136,12 @@ Class | Method | HTTP request | Description
  - [JoinCond](docs/JoinCond.md)
  - [JoinOn](docs/JoinOn.md)
  - [KnnQuery](docs/KnnQuery.md)
+ - [Match](docs/Match.md)
+ - [MatchAll](docs/MatchAll.md)
  - [PercolateRequest](docs/PercolateRequest.md)
  - [PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [QueryFilter](docs/QueryFilter.md)
+ - [Range](docs/Range.md)
  - [ReplaceDocumentRequest](docs/ReplaceDocumentRequest.md)
  - [ResponseError](docs/ResponseError.md)
  - [ResponseErrorDetails](docs/ResponseErrorDetails.md)
