@@ -64,4 +64,20 @@ public class BulkResponseTest {
         // TODO: test error
     }
 
+    /**
+     * Test the property 'currentLine'
+     */
+    @Test
+    public void currentLineTest() {
+        // TODO: test currentLine
+    }
+
+    /**
+     * Test the property 'skippedLines'
+     */
+    @Test
+    public void skippedLinesTest() {
+        // TODO: test skippedLines
+    }
+
 }

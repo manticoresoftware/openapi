@@ -1,0 +1,18 @@
+diff --git a/out/manticoresearch-typescript/apis/UtilsApi.ts b/out/manticoresearch-typescript/apis/UtilsApi.ts
+index 7df38ef..a6346be 100644
+--- a/out/manticoresearch-typescript/apis/UtilsApi.ts
++++ b/out/manticoresearch-typescript/apis/UtilsApi.ts
+@@ -40,9 +40,10 @@ export class UtilsApiRequestFactory extends BaseAPIRequestFactory {
+         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+ 
+         // Query Params
+-        if (rawResponse !== undefined) {
+-            requestContext.setQueryParam("raw_response", ObjectSerializer.serialize(rawResponse, "boolean", ""));
+-        }
++        if (rawResponse === undefined) {
++			rawResponse = true;
++		}
++        requestContext.setQueryParam("raw_response", ObjectSerializer.serialize(rawResponse, "boolean", ""));
+ 
+ 
+         // Body Params

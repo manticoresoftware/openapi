@@ -44,8 +44,11 @@ do_java() {
     --additional-properties library="jersey3" \
     --additional-properties useJakartaEe=true \
     $build_to_branch
+  git apply patches/java.apiclient.patch patches/java.boolfilter.patch patches/java.queryfilter.patch \
+    patches/java.searchquery.patch patches/java.sqlresponse.patch patches/java.sourcerules.patch
   cp LICENSE.txt out/manticoresearch-java/LICENSE.txt
   cp docs/java/docs/* out/manticoresearch-java/docs/
+  cp -r test/java/api/* out/manticoresearch-java/src/test/java/com/manticoresearch/client/api/
   rm -rf out/manticoresearch-java/.openapi-generator
   rm -rf out/manticoresearch-java/api
   echo "Java done."
@@ -76,7 +79,7 @@ do_typescript() {
     -e JAVA_OPTS="-Dlog.level=warn" \
     "openapitools/openapi-generator-cli$version" generate \
     -i /local/manticore.yml \
-    -g typescript-fetch \
+    -g typescript \
     -o /local/out/manticoresearch-typescript \
     -t /local/templates/typescript \
     --git-repo-id manticoresearch-typescript \
@@ -92,9 +95,14 @@ do_typescript() {
     --additional-properties moduleName=Manticoresearch \
     --additional-properties apiDocPath=docs/ \
     $build_to_branch
+  git apply patches/typescript.matchall.patch
+  git apply patches/typescript.objectserializer.patch
+  git apply patches/typescript.utilsapi.patch
+  git apply patches/typescript.indexapi.patch
   cp LICENSE.txt out/manticoresearch-typescript/LICENSE.txt
   mkdir out/manticoresearch-typescript/test/ && cp -R test/typescript/* out/manticoresearch-typescript/test/
-  #cp -r docs/typescript/docs out/manticoresearch-typescript/
+  #cp -r docs/typescript/docs out/manticoresearch-typescript/docs
+  
   # Adding a custom tsup config we use for package build
   #cp misc/typescript/tsup.config.ts out/manticoresearch-typescript/tsup.config.ts
   echo "Typescript done."
@@ -132,7 +140,36 @@ do_perl() {
 
 do_go() {
   echo "Building Go ..."
+  rm -rf out/manticoresearch-go
   docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g go  -o /local/out/manticoresearch-go -t /local/templates/go --git-repo-id manticoresearch-go --git-user-id manticoresoftware
+  git apply patches/go.sql_api.patch
+  git apply patches/go.response_error.patch
+  cp patches/go_sql_response.go out/manticoresearch-go/model_sql_response.go
+  #Removing redundant files created by the go generator
+  cd out/manticoresearch-go &&
+  rm -rf model_aggregation_composite_sources_inner_value_terms.go model_aggregation_composite_sources_inner_value.go \
+    model_aggregation_composite.go model_aggregation_sort_inner_value.go model_aggregation_terms.go model_attr_filter.go \
+    model_basic_search_request.go model_bool_filter_bool.go model_equals_filter_equals.go model_equals_filter.go \
+    model_error_response_error_one_of.go model_error_response_error_one_of.go model_geo_filter_geo_distance_location_anchor.go \
+    model_geo_filter_geo_distance.go model_geo_filter.go model_highlight_all_of_fields.go model_in_filter.go \
+    model_join_basic_cond.go model_join_inner_on_inner_left.go model_join_inner_on_inner.go model_join_inner.go \
+    model_knn_doc_id_request.go model_knn_query_vector_request.go model_knn_search_parameters.go model_knn_search_request_all_of_knn.go \
+    model_knn_search_request.go model_match_all_filter.go model_match_filter_match.go model_match_filter.go model_match_phrase_filter.go \
+    model_query_string_filter.go model_range_filter_range_value.go model_range_filter.go model_search_request_parameters__source.go \
+    model_search_request_parameters_sort_inner.go model_search_request_parameters.go model_sort_object.go model_source_by_rules.go
+  cd docs &&
+  rm -rf AggregationCompositeSourcesInnerValueTerms.md AggregationCompositeSourcesInnerValue.md \
+    AggregationComposite.md AggregationSortInnerValue.md AggregationTerms.md AttrFilter.md \
+    BasicSearchRequest.md BoolFilterBool.md EqualsFilterEquals.md EqualsFilter.md \
+    ErrorResponseErrorOneOf.md ErrorResponseErrorOneOf.md GeoFilterGeoDistanceLocationAnchor.md \
+    GeoFilterGeoDistance.md GeoFilter.md HighlightAllOfFields.md InFilter.md \
+    JoinBasicCond.md JoinInnerOnInnerLeft.md JoinInnerOnInner.md JoinInner.md \
+    KnnSearchRequest.md KnnDocIdRequest.md KnnQueryVectorRequest.md KnnSearchParameters.md KnnSearchRequestAllOfKnn.md \
+    MatchAllFilter.md MatchFilterMatch.md MatchFilter.md MatchPhraseFilter.md \
+    QueryStringFilter.md RangeFilterRangeValue.md RangeFilter.md SearchRequestParametersSource.md \
+    SearchRequestParametersSortInner.md SearchRequestParameters.md SortObject.md SourceByRules.md
+  cd ../../../
+  cp -r test/go/* out/manticoresearch-go/test/
   echo "Go done." 
 }
 do_elixir() {

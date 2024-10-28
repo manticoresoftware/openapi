@@ -13,8 +13,8 @@ package openapi
 
 import (
 	"encoding/json"
-	"bytes"
-	"fmt"
+	_"bytes"
+	_"fmt"
 )
 
 // checks if the JoinCond type satisfies the MappedNullable interface at compile time

@@ -34,10 +34,12 @@ import com.manticoresearch.client.JSON;
 @JsonPropertyOrder({
   BulkResponse.JSON_PROPERTY_ITEMS,
   BulkResponse.JSON_PROPERTY_ERRORS,
-  BulkResponse.JSON_PROPERTY_ERROR
+  BulkResponse.JSON_PROPERTY_ERROR,
+  BulkResponse.JSON_PROPERTY_CURRENT_LINE,
+  BulkResponse.JSON_PROPERTY_SKIPPED_LINES
 })
 @JsonTypeName("bulkResponse")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-21T07:19:33.210051324Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-28T07:35:19.233819593Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
 public class BulkResponse {
   public static final String JSON_PROPERTY_ITEMS = "items";
   private List<Object> items;
@@ -47,6 +49,12 @@ public class BulkResponse {
 
   public static final String JSON_PROPERTY_ERROR = "error";
   private String error;
+
+  public static final String JSON_PROPERTY_CURRENT_LINE = "current_line";
+  private Integer currentLine;
+
+  public static final String JSON_PROPERTY_SKIPPED_LINES = "skipped_lines";
+  private Integer skippedLines;
 
   public BulkResponse() { 
   }
@@ -134,6 +142,56 @@ public class BulkResponse {
   }
 
 
+  public BulkResponse currentLine(Integer currentLine) {
+    this.currentLine = currentLine;
+    return this;
+  }
+
+  /**
+   * Number of the row returned in the response
+   * @return currentLine
+   */
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CURRENT_LINE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getCurrentLine() {
+    return currentLine;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CURRENT_LINE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCurrentLine(Integer currentLine) {
+    this.currentLine = currentLine;
+  }
+
+
+  public BulkResponse skippedLines(Integer skippedLines) {
+    this.skippedLines = skippedLines;
+    return this;
+  }
+
+  /**
+   * Number of rows skipped in the response
+   * @return skippedLines
+   */
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SKIPPED_LINES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getSkippedLines() {
+    return skippedLines;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SKIPPED_LINES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSkippedLines(Integer skippedLines) {
+    this.skippedLines = skippedLines;
+  }
+
+
   /**
    * Return true if this bulkResponse object is equal to o.
    */
@@ -148,12 +206,14 @@ public class BulkResponse {
     BulkResponse bulkResponse = (BulkResponse) o;
     return Objects.equals(this.items, bulkResponse.items) &&
         Objects.equals(this.errors, bulkResponse.errors) &&
-        Objects.equals(this.error, bulkResponse.error);
+        Objects.equals(this.error, bulkResponse.error) &&
+        Objects.equals(this.currentLine, bulkResponse.currentLine) &&
+        Objects.equals(this.skippedLines, bulkResponse.skippedLines);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(items, errors, error);
+    return Objects.hash(items, errors, error, currentLine, skippedLines);
   }
 
   @Override
@@ -163,6 +223,8 @@ public class BulkResponse {
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("    error: ").append(toIndentedString(error)).append("\n");
+    sb.append("    currentLine: ").append(toIndentedString(currentLine)).append("\n");
+    sb.append("    skippedLines: ").append(toIndentedString(skippedLines)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -1,0 +1,13 @@
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/QueryFilter.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/QueryFilter.java
+index 71e7516..a70741c 100644
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/QueryFilter.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/QueryFilter.java
+@@ -236,7 +236,7 @@ public class QueryFilter {
+   }
+ 
+ 
+-  public QueryFilter equals(Object equals) {
++  public QueryFilter equalsDef(Object equals) {
+     this.equals = JsonNullable.<Object>of(equals);
+     return this;
+   }

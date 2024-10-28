@@ -28,7 +28,6 @@ type ApiSqlRequest struct {
 	ApiService *UtilsAPIService
 	body *string
 	rawResponse *bool
-	mode *string
 }
 
 // A query parameter string. 
@@ -43,13 +42,7 @@ func (r ApiSqlRequest) RawResponse(rawResponse bool) ApiSqlRequest {
 	return r
 }
 
-// Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to &#x60;raw&#x60; for any type of queries. Default value is &#39;raw&#39;. 
-func (r ApiSqlRequest) Mode(mode string) ApiSqlRequest {
-	r.mode = &mode
-	return r
-}
-
-func (r ApiSqlRequest) Execute() ([]map[string]interface{}, *http.Response, error) {
+func (r ApiSqlRequest) Execute() (*SqlResponse, *http.Response, error) {
 	return r.ApiService.SqlExecute(r)
 }
 
@@ -74,13 +67,13 @@ func (a *UtilsAPIService) Sql(ctx context.Context) ApiSqlRequest {
 }
 
 // Execute executes the request
-//  @return []map[string]interface{}
-func (a *UtilsAPIService) SqlExecute(r ApiSqlRequest) ([]map[string]interface{}, *http.Response, error) {
+//  @return SqlResponse
+func (a *UtilsAPIService) SqlExecute(r ApiSqlRequest) (*SqlResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []map[string]interface{}
+		localVarReturnValue  *SqlResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UtilsAPIService.Sql")
@@ -97,18 +90,11 @@ func (a *UtilsAPIService) SqlExecute(r ApiSqlRequest) ([]map[string]interface{},
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
 
-	if r.rawResponse != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "raw_response", r.rawResponse, "form", "")
-	} else {
+	if r.rawResponse == nil {
 		var defaultValue bool = true
 		r.rawResponse = &defaultValue
 	}
-	if r.mode != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "mode", r.mode, "form", "")
-	} else {
-		var defaultValue string = "raw"
-		r.mode = &defaultValue
-	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "raw_response", r.rawResponse, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"text/plain"}
 

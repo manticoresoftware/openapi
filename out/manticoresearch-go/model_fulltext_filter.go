@@ -22,7 +22,7 @@ var _ MappedNullable = &FulltextFilter{}
 type FulltextFilter struct {
 	// Filter object defining a query string
 	QueryString *string
-	// Filter object defining a match keyword
+	// Filter object defining a match keyword passed as a string or in a Match object
 	Match map[string]interface{}
 	// Filter object defining a match phrase
 	MatchPhrase map[string]interface{}

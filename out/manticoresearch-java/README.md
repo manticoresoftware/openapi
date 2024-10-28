@@ -6,7 +6,7 @@ Manticore Search Client
 
 - API version: 5.0.0
 
-- Build date: 2024-10-21T07:19:33.210051324Z[Etc/UTC]
+- Build date: 2024-10-28T07:35:19.233819593Z[Etc/UTC]
 
 Сlient for Manticore Search.
 
@@ -177,9 +177,12 @@ Class | Method | HTTP request | Description
  - [JoinCond](docs/JoinCond.md)
  - [JoinOn](docs/JoinOn.md)
  - [KnnQuery](docs/KnnQuery.md)
+ - [Match](docs/Match.md)
+ - [MatchAll](docs/MatchAll.md)
  - [PercolateRequest](docs/PercolateRequest.md)
  - [PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [QueryFilter](docs/QueryFilter.md)
+ - [Range](docs/Range.md)
  - [ReplaceDocumentRequest](docs/ReplaceDocumentRequest.md)
  - [ResponseError](docs/ResponseError.md)
  - [ResponseErrorDetails](docs/ResponseErrorDetails.md)
@@ -188,6 +191,7 @@ Class | Method | HTTP request | Description
  - [SearchResponse](docs/SearchResponse.md)
  - [SearchResponseHits](docs/SearchResponseHits.md)
  - [SourceRules](docs/SourceRules.md)
+ - [SqlResponse](docs/SqlResponse.md)
  - [SuccessResponse](docs/SuccessResponse.md)
  - [UpdateDocumentRequest](docs/UpdateDocumentRequest.md)
  - [UpdateResponse](docs/UpdateResponse.md)

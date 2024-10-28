@@ -1,0 +1,18 @@
+diff --git a/out/manticoresearch-typescript/apis/IndexApi.ts b/out/manticoresearch-typescript/apis/IndexApi.ts
+index 5cd6b79..ac05947 100644
+--- a/out/manticoresearch-typescript/apis/IndexApi.ts
++++ b/out/manticoresearch-typescript/apis/IndexApi.ts
+@@ -50,11 +50,7 @@ export class IndexApiRequestFactory extends BaseAPIRequestFactory {
+             "application/x-ndjson"
+         ]);
+         requestContext.setHeaderParam("Content-Type", contentType);
+-        const serializedBody = ObjectSerializer.stringify(
+-            ObjectSerializer.serialize(body, "string", ""),
+-            contentType
+-        );
+-        requestContext.setBody(serializedBody);
++        requestContext.setBody(body);
+ 
+         
+         const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+         

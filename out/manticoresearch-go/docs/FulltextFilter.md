@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **QueryString** | Pointer to **string** | Filter object defining a query string | [optional] 
-**Match** | Pointer to **map[string]interface{}** | Filter object defining a match keyword | [optional] 
+**Match** | Pointer to **map[string]interface{}** | Filter object defining a match keyword passed as a string or in a Match object | [optional] 
 **MatchPhrase** | Pointer to **map[string]interface{}** | Filter object defining a match phrase | [optional] 
 **MatchAll** | Pointer to **map[string]interface{}** | Filter object to select all documents | [optional] 
 

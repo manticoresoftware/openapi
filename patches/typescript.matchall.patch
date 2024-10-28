@@ -1,0 +1,13 @@
+diff --git a/out/manticoresearch-typescript/models/MatchAll.ts b/out/manticoresearch-typescript/models/MatchAll.ts
+index 5bfcd5e..70dab56 100644
+--- a/out/manticoresearch-typescript/models/MatchAll.ts
++++ b/out/manticoresearch-typescript/models/MatchAll.ts
+@@ -39,6 +39,6 @@ export class MatchAll {
+ }
+ 
+ export enum MatchAllAllEnum {
+-     = '{}'
++     all = '{}'
+ }
+ 
+ 

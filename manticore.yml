@@ -256,7 +256,12 @@ components:
         error:
           type: string
           description: Error message describing an error if such occurred
-      additionalProperties: true
+        current_line:
+          type: integer
+          description: Number of the row returned in the response
+        skipped_lines:
+          type: integer
+          description: Number of rows skipped in the response
     deleteDocumentRequest:
       type: object
       description: >
@@ -747,10 +752,16 @@ components:
       example:
         status: 500
         error: an error occured
-    sqlResponse:
+    sqlRawResponse:
       type: array
       items:
         type: object
+    sqlObjResponse:
+      type: object
+    sqlResponse:
+      oneOf:
+        - $ref: '#/components/schemas/sqlRawResponse'
+        - $ref: '#/components/schemas/sqlObjResponse'
       description: List of responses from executed SQL queries
       example:
         - total: 0

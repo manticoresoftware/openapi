@@ -49,7 +49,7 @@ import com.manticoresearch.client.JSON;
   SearchQuery.JSON_PROPERTY_HIGHLIGHT
 })
 @JsonTypeName("searchQuery")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-21T07:19:33.210051324Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-28T07:35:19.233819593Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
 public class SearchQuery {
   public static final String JSON_PROPERTY_QUERY_STRING = "query_string";
   private JsonNullable<Object> queryString = JsonNullable.<Object>of(null);
@@ -123,7 +123,7 @@ public class SearchQuery {
   }
 
   /**
-   * Filter object defining a match keyword
+   * Filter object defining a match keyword passed as a string or in a Match object
    * @return match
    */
   @jakarta.annotation.Nullable
@@ -241,7 +241,7 @@ public class SearchQuery {
   }
 
 
-  public SearchQuery equals(Object equals) {
+  public SearchQuery equalsDef(Object equals) {
     this.equals = JsonNullable.<Object>of(equals);
     return this;
   }
@@ -313,7 +313,7 @@ public class SearchQuery {
   }
 
   /**
-   * Filter to match a given range of attribute values.
+   * Filter to match a given range of attribute values passed in Range objects
    * @return range
    */
   @jakarta.annotation.Nullable

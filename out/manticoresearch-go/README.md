@@ -31,26 +31,29 @@ package main
 
 import (
 	"context"
-	manticoreclient "github.com/manticoresoftware/manticoresearch-go"
+	Manticoresearch "github.com/manticoresoftware/manticoresearch-go"
 )
-configuration := manticoreclient.NewConfiguration()
-configuration.Servers[0].URL = "http://localhost:9308"
-apiClient := manticoreclient.NewAPIClient(configuration)
 
+# Create instance of API client
+configuration := Manticoresearch.NewConfiguration()
+configuration.Servers[0].URL = "http://localhost:9308"
+apiClient := Manticoresearch.NewAPIClient(configuration)
+
+# Perform insert and search operations
 tableName := "products"
 indexDoc := map[string]interface{} {"title": "Crossbody Bag with Tassel"}
-indexReq := manticoreclient.NewInsertDocumentRequest(tableName, indexDoc)
+indexReq := Manticoresearch.NewInsertDocumentRequest(tableName, indexDoc)
 indexReq.SetId(1)
+
 apiClient.IndexAPI.Insert(context.Background()).InsertDocumentRequest(*indexReq).Execute();
 
-indexDoc = map[string]interface{} {"title": "Pet Hair Remover Glove"}
-indexReq = manticoreclient.NewInsertDocumentRequest(tableName, indexDoc)
-indexReq.SetId(2)
-apiClient.IndexAPI.Insert(context.Background()).InsertDocumentRequest(*indexReq).Execute()
-
-searchRequest := manticoreclient.NewSearchRequest(tableName)
-query := map[string]interface{} {"query_string": "bag"}
-searchRequest.SetQuery(query)
+searchRequest := Manticoresearch.NewSearchRequest(tableName)
+searchQuery := Manticoresearch.NewSearchQuery()
+searchQuery.QueryString = "@title Bag"
+searchRequest.Query = searchQuery
+queryHighlight := Manticoresearch.NewHighlight()
+queryHighlight.Fields =  map[string]interface{} {"title": map[string]interface{} {}}
+searchRequest.Highlight = queryHighlight      
 
 res, _, _ := apiClient.SearchAPI.Search(context.Background()).SearchRequest(*searchRequest).Execute()
 
@@ -129,6 +132,9 @@ Class | Method | HTTP request | Description
  - [JoinCond](docs/JoinCond.md)
  - [JoinOn](docs/JoinOn.md)
  - [KnnQuery](docs/KnnQuery.md)
+ - [Match](docs/Match.md)
+ - [MatchAll](docs/MatchAll.md)
+ - [ModelRange](docs/ModelRange.md)
  - [PercolateRequest](docs/PercolateRequest.md)
  - [PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [QueryFilter](docs/QueryFilter.md)
@@ -140,6 +146,7 @@ Class | Method | HTTP request | Description
  - [SearchResponse](docs/SearchResponse.md)
  - [SearchResponseHits](docs/SearchResponseHits.md)
  - [SourceRules](docs/SourceRules.md)
+ - [SqlResponse](docs/SqlResponse.md)
  - [SuccessResponse](docs/SuccessResponse.md)
  - [UpdateDocumentRequest](docs/UpdateDocumentRequest.md)
  - [UpdateResponse](docs/UpdateResponse.md)

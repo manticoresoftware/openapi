@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## Sql
 
-> []map[string]interface{} Sql(ctx).Body(body).RawResponse(rawResponse).Mode(mode).Execute()
+> SqlResponse Sql(ctx).Body(body).RawResponse(rawResponse).Execute()
 
 Perform SQL requests
 
@@ -31,16 +31,15 @@ import (
 func main() {
 	body := "SHOW TABLES" // string | A query parameter string. 
 	rawResponse := true // bool | Optional parameter, defines a format of response. Can be set to `False` for Select only queries and set to `True` for any type of queries. Default value is 'True'.  (optional) (default to true)
-	mode := "mode_example" // string | Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to `raw` for any type of queries. Default value is 'raw'.  (optional) (default to "raw")
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UtilsAPI.Sql(context.Background()).Body(body).RawResponse(rawResponse).Mode(mode).Execute()
+	resp, r, err := apiClient.UtilsAPI.Sql(context.Background()).Body(body).RawResponse(rawResponse).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UtilsAPI.Sql``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `Sql`: []map[string]interface{}
+	// response from `Sql`: SqlResponse
 	fmt.Fprintf(os.Stdout, "Response from `UtilsAPI.Sql`: %v\n", resp)
 }
 ```
@@ -58,11 +57,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | **string** | A query parameter string.  | 
  **rawResponse** | **bool** | Optional parameter, defines a format of response. Can be set to &#x60;False&#x60; for Select only queries and set to &#x60;True&#x60; for any type of queries. Default value is &#39;True&#39;.  | [default to true]
- **mode** | **string** | Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to &#x60;raw&#x60; for any type of queries. Default value is &#39;raw&#39;.  | [default to &quot;raw&quot;]
 
 ### Return type
 
-**[]map[string]interface{}**
+[**SqlResponse**](SqlResponse.md)
 
 ### Authorization
 

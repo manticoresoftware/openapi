@@ -22,7 +22,7 @@ var _ MappedNullable = &QueryFilter{}
 type QueryFilter struct {
 	// Filter object defining a query string
 	QueryString interface{}
-	// Filter object defining a match keyword
+	// Filter object defining a match keyword passed as a string or in a Match object
 	Match interface{}
 	// Filter object defining a match phrase
 	MatchPhrase interface{}
@@ -32,7 +32,7 @@ type QueryFilter struct {
 	Equals interface{}
 	// Filter to match a given set of attribute values.
 	In map[string]interface{}
-	// Filter to match a given range of attribute values.
+	// Filter to match a given range of attribute values passed in Range objects
 	Range map[string]interface{}
 	GeoDistance *GeoDistance
 }

@@ -345,16 +345,6 @@ paths:
           default: true
           type: boolean
         style: form
-      - description: |
-          Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to `raw` for any type of queries. Default value is 'raw'.
-        explode: true
-        in: query
-        name: mode
-        required: false
-        schema:
-          default: raw
-          type: string
-        style: form
       requestBody:
         content:
           text/plain:
@@ -933,6 +923,36 @@ components:
       required:
       - field
       - table
+    match:
+      description: Filter helper object defining a match keyword and match options
+      properties:
+        query:
+          type: string
+        operator:
+          enum:
+          - or
+          - and
+          type: string
+        boost:
+          type: number
+      required:
+      - query
+    match_all:
+      description: Filter helper object defining the 'match all'' condition
+      properties:
+        _all:
+          enum:
+          - "{}"
+          type: string
+      required:
+      - _all
+    range:
+      description: Filter helper object defining the 'range' condition
+      properties:
+        lt: {}
+        lte: {}
+        gt: {}
+        gte: {}
     fulltextFilter:
       additionalProperties: false
       description: Defines a type of filter for full-text search queries
@@ -941,7 +961,8 @@ components:
           description: Filter object defining a query string
           type: string
         match:
-          description: Filter object defining a match keyword
+          description: Filter object defining a match keyword passed as a string or
+            in a Match object
           type: object
         match_phrase:
           description: Filter object defining a match phrase
@@ -961,7 +982,8 @@ components:
             description: Filter to match a given set of attribute values.
             type: object
           range:
-            description: Filter to match a given range of attribute values.
+            description: Filter to match a given range of attribute values passed
+              in Range objects
             type: object
           geo_distance:
             $ref: '#/components/schemas/geoDistance'
@@ -1122,14 +1144,20 @@ components:
           type: integer
       required:
       - error
+    sqlRawResponse:
+      items:
+        type: object
+      type: array
+    sqlObjResponse:
+      type: object
     sqlResponse:
       description: List of responses from executed SQL queries
       example:
       - total: 0
         error: null
-      items:
-        type: object
-      type: array
+      oneOf:
+      - $ref: '#/components/schemas/sqlRawResponse'
+      - $ref: '#/components/schemas/sqlObjResponse'
     updateDocumentRequest:
       description: Payload for updating a document or multiple documents in an index
       properties:

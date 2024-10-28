@@ -13,8 +13,10 @@ package openapi
 
 import (
 	"encoding/json"
+	_"fmt"
+	_"bytes"
+	"gopkg.in/validator.v2"
 	"fmt"
-	"bytes"
 )
 
 // ResponseError - struct for ResponseError

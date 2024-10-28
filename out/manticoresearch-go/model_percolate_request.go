@@ -13,8 +13,8 @@ package openapi
 
 import (
 	"encoding/json"
-	"bytes"
-	"fmt"
+	_"bytes"
+	_"fmt"
 )
 
 // checks if the PercolateRequest type satisfies the MappedNullable interface at compile time

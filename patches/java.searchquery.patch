@@ -1,0 +1,13 @@
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SearchQuery.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SearchQuery.java
+index c00a585..6485336 100644
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SearchQuery.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SearchQuery.java
+@@ -241,7 +241,7 @@ public class SearchQuery {
+   }
+ 
+ 
+-  public SearchQuery equals(Object equals) {
++  public SearchQuery equalsDef(Object equals) {
+     this.equals = JsonNullable.<Object>of(equals);
+     return this;
+   }

@@ -38,7 +38,7 @@ import com.manticoresearch.client.JSON;
   BoolFilter.JSON_PROPERTY_SHOULD
 })
 @JsonTypeName("boolFilter")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-21T07:19:33.210051324Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-28T07:35:19.233819593Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
 public class BoolFilter {
   public static final String JSON_PROPERTY_MUST = "must";
   private List<QueryFilter> must;
@@ -57,7 +57,7 @@ public class BoolFilter {
     return this;
   }
 
-  public BoolFilter addItem(QueryFilter mustItem) {
+  public BoolFilter addMustItem(QueryFilter mustItem) {
     if (this.must == null) {
       this.must = new ArrayList<>();
     }
@@ -90,7 +90,7 @@ public class BoolFilter {
     return this;
   }
 
-  public BoolFilter addItem(QueryFilter mustNotItem) {
+  public BoolFilter addMustNotItem(QueryFilter mustNotItem) {
     if (this.mustNot == null) {
       this.mustNot = new ArrayList<>();
     }
@@ -123,7 +123,7 @@ public class BoolFilter {
     return this;
   }
 
-  public BoolFilter addItem(QueryFilter shouldItem) {
+  public BoolFilter addShouldItem(QueryFilter shouldItem) {
     if (this.should == null) {
       this.should = new ArrayList<>();
     }

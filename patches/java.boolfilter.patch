@@ -1,0 +1,31 @@
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/BoolFilter.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/BoolFilter.java
+index 7601853..65b2fe2 100644
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/BoolFilter.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/BoolFilter.java
+@@ -57,7 +57,7 @@ public class BoolFilter {
+     return this;
+   }
+ 
+-  public BoolFilter addItem(QueryFilter mustItem) {
++  public BoolFilter addMustItem(QueryFilter mustItem) {
+     if (this.must == null) {
+       this.must = new ArrayList<>();
+     }
+@@ -90,7 +90,7 @@ public class BoolFilter {
+     return this;
+   }
+ 
+-  public BoolFilter addItem(QueryFilter mustNotItem) {
++  public BoolFilter addMustNotItem(QueryFilter mustNotItem) {
+     if (this.mustNot == null) {
+       this.mustNot = new ArrayList<>();
+     }
+@@ -123,7 +123,7 @@ public class BoolFilter {
+     return this;
+   }
+ 
+-  public BoolFilter addItem(QueryFilter shouldItem) {
++  public BoolFilter addShouldItem(QueryFilter shouldItem) {
+     if (this.should == null) {
+       this.should = new ArrayList<>();
+     }

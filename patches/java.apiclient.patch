@@ -1,0 +1,17 @@
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/ApiClient.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/ApiClient.java
+index 5fce260..998dffa 100644
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/ApiClient.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/ApiClient.java
+@@ -803,11 +803,7 @@ public class ApiClient extends JavaTimeFormatter {
+           entity = Entity.entity(obj == null ? "null" : obj, contentType);
+         }
+       } else {
+-        if (obj instanceof String) {
+-          entity = Entity.entity(obj == null ? "" : "\"" + ((String)obj).replaceAll("\"", Matcher.quoteReplacement("\\\"")) + "\"", contentType);
+-        } else {
+-          entity = Entity.entity(obj == null ? "" : obj, contentType);
+-        }
++        entity = Entity.entity(obj == null ? "" : obj, contentType);
+       }
+     }
+     return entity;
