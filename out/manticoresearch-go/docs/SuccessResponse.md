@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Index** | Pointer to **string** | Name of the document index | [optional] 
+**Table** | Pointer to **string** | Name of the document table (alias of index) | [optional] 
 **Id** | Pointer to **int64** | ID of the document affected by the request operation | [optional] 
 **Created** | Pointer to **bool** | Indicates whether the document was created as a result of the operation | [optional] 
 **Result** | Pointer to **string** | Result of the operation, typically &#39;created&#39;, &#39;updated&#39;, or &#39;deleted&#39; | [optional] 
@@ -54,6 +55,31 @@ SetIndex sets Index field to given value.
 `func (o *SuccessResponse) HasIndex() bool`
 
 HasIndex returns a boolean if a field has been set.
+
+### GetTable
+
+`func (o *SuccessResponse) GetTable() string`
+
+GetTable returns the Table field if non-nil, zero value otherwise.
+
+### GetTableOk
+
+`func (o *SuccessResponse) GetTableOk() (*string, bool)`
+
+GetTableOk returns a tuple with the Table field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTable
+
+`func (o *SuccessResponse) SetTable(v string)`
+
+SetTable sets Table field to given value.
+
+### HasTable
+
+`func (o *SuccessResponse) HasTable() bool`
+
+HasTable returns a boolean if a field has been set.
 
 ### GetId
 

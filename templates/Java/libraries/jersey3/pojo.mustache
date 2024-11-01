@@ -74,7 +74,7 @@ public class {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{{#vendorExtens
   {{#deprecated}}
   @Deprecated
   {{/deprecated}}
-  private JsonNullable<{{{datatypeWithEnum}}}> {{name}} = JsonNullable.<{{{datatypeWithEnum}}}>{{#defaultValue}}of({{{.}}}){{/defaultValue}}{{^defaultValue}}undefined(){{/defaultValue}};
+  private JsonNullable<{{{datatypeWithEnum}}}> {{name}} = JsonNullable.<{{{datatypeWithEnum}}}>undefined();
   {{/isContainer}}
   {{/vendorExtensions.x-is-jackson-optional-nullable}}
   {{^vendorExtensions.x-is-jackson-optional-nullable}}

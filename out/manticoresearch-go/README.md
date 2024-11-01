@@ -4,7 +4,6 @@
 
 ❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-go/tree/v1.0.0
 
-
 ## Requiments
 
 | Manticore Search  | manticoresearch-go           |     Go        |
@@ -19,11 +18,14 @@
 
 ```shell
 
-go get github.com/manticoresoftware/manticoresearch-go@dev 
+go get github.com/manticoresoftware/manticoresearch-go@dev
 
 ```
 
 ## Getting Started
+
+go mod init main
+go get github.com/manticoresoftware/manticoresearch-go@dev
 
 ```go
 
@@ -31,32 +33,36 @@ package main
 
 import (
 	"context"
+	"fmt:
 	Manticoresearch "github.com/manticoresoftware/manticoresearch-go"
 )
 
-# Create instance of API client
-configuration := Manticoresearch.NewConfiguration()
-configuration.Servers[0].URL = "http://localhost:9308"
-apiClient := Manticoresearch.NewAPIClient(configuration)
+func main() {
 
-# Perform insert and search operations
-tableName := "products"
-indexDoc := map[string]interface{} {"title": "Crossbody Bag with Tassel"}
-indexReq := Manticoresearch.NewInsertDocumentRequest(tableName, indexDoc)
-indexReq.SetId(1)
-
-apiClient.IndexAPI.Insert(context.Background()).InsertDocumentRequest(*indexReq).Execute();
-
-searchRequest := Manticoresearch.NewSearchRequest(tableName)
-searchQuery := Manticoresearch.NewSearchQuery()
-searchQuery.QueryString = "@title Bag"
-searchRequest.Query = searchQuery
-queryHighlight := Manticoresearch.NewHighlight()
-queryHighlight.Fields =  map[string]interface{} {"title": map[string]interface{} {}}
-searchRequest.Highlight = queryHighlight      
-
-res, _, _ := apiClient.SearchAPI.Search(context.Background()).SearchRequest(*searchRequest).Execute()
-
+	# Create an instance of API client
+	configuration := Manticoresearch.NewConfiguration()
+	configuration.Servers[0].URL = "http://localhost:9308"
+	apiClient := Manticoresearch.NewAPIClient(configuration)
+	
+	# Perform insert and search operations
+	tableName := "products"
+	indexDoc := map[string]interface{} {"title": "Crossbody Bag with Tassel"}
+	indexReq := Manticoresearch.NewInsertDocumentRequest(tableName, indexDoc)
+	indexReq.SetId(1)
+	
+	apiClient.IndexAPI.Insert(context.Background()).InsertDocumentRequest(*indexReq).Execute();
+	
+	searchRequest := Manticoresearch.NewSearchRequest(tableName)
+	searchQuery := Manticoresearch.NewSearchQuery()
+	searchQuery.QueryString = "@title Bag"
+	searchRequest.Query = searchQuery
+	queryHighlight := Manticoresearch.NewHighlight()
+	queryHighlight.Fields =  map[string]interface{} {"title": map[string]interface{} {}}
+	searchRequest.Highlight = queryHighlight      
+	
+	_, httpRes, _ := apiClient.SearchAPI.Search(context.Background()).SearchRequest(*searchRequest).Execute()
+	fmt.Printf("%+v\n\n", httpRes)
+}
 ```
 
 ## Configuration of Server URL

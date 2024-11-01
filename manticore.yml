@@ -622,6 +622,9 @@ components:
         _index:
           type: string
           description: Name of the document index
+        table:
+          type: string
+          description: Name of the document table (alias of index)
         _id:
           type: integer
           format: int64

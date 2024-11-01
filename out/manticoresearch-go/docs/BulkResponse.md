@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Items** | Pointer to **[]map[string]interface{}** | List of results | [optional] 
 **Errors** | Pointer to **bool** | Errors occurred during the bulk operation | [optional] 
 **Error** | Pointer to **string** | Error message describing an error if such occurred | [optional] 
+**CurrentLine** | Pointer to **int32** | Number of the row returned in the response | [optional] 
+**SkippedLines** | Pointer to **int32** | Number of rows skipped in the response | [optional] 
 
 ## Methods
 
@@ -101,6 +103,56 @@ SetError sets Error field to given value.
 `func (o *BulkResponse) HasError() bool`
 
 HasError returns a boolean if a field has been set.
+
+### GetCurrentLine
+
+`func (o *BulkResponse) GetCurrentLine() int32`
+
+GetCurrentLine returns the CurrentLine field if non-nil, zero value otherwise.
+
+### GetCurrentLineOk
+
+`func (o *BulkResponse) GetCurrentLineOk() (*int32, bool)`
+
+GetCurrentLineOk returns a tuple with the CurrentLine field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCurrentLine
+
+`func (o *BulkResponse) SetCurrentLine(v int32)`
+
+SetCurrentLine sets CurrentLine field to given value.
+
+### HasCurrentLine
+
+`func (o *BulkResponse) HasCurrentLine() bool`
+
+HasCurrentLine returns a boolean if a field has been set.
+
+### GetSkippedLines
+
+`func (o *BulkResponse) GetSkippedLines() int32`
+
+GetSkippedLines returns the SkippedLines field if non-nil, zero value otherwise.
+
+### GetSkippedLinesOk
+
+`func (o *BulkResponse) GetSkippedLinesOk() (*int32, bool)`
+
+GetSkippedLinesOk returns a tuple with the SkippedLines field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSkippedLines
+
+`func (o *BulkResponse) SetSkippedLines(v int32)`
+
+SetSkippedLines sets SkippedLines field to given value.
+
+### HasSkippedLines
+
+`func (o *BulkResponse) HasSkippedLines() bool`
+
+HasSkippedLines returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -22,6 +22,8 @@ var _ MappedNullable = &SuccessResponse{}
 type SuccessResponse struct {
 	// Name of the document index
 	Index *string
+	// Name of the document table (alias of index)
+	Table *string
 	// ID of the document affected by the request operation
 	Id *int64
 	// Indicates whether the document was created as a result of the operation
@@ -81,6 +83,38 @@ func (o *SuccessResponse) HasIndex() bool {
 // SetIndex gets a reference to the given string and assigns it to the Index field.
 func (o *SuccessResponse) SetIndex(v string) {
 	o.Index = &v
+}
+
+// GetTable returns the Table field value if set, zero value otherwise.
+func (o *SuccessResponse) GetTable() string {
+	if o == nil || IsNil(o.Table) {
+		var ret string
+		return ret
+	}
+	return *o.Table
+}
+
+// GetTableOk returns a tuple with the Table field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SuccessResponse) GetTableOk() (*string, bool) {
+	if o == nil || IsNil(o.Table) {
+		return nil, false
+	}
+	return o.Table, true
+}
+
+// HasTable returns a boolean if a field has been set.
+func (o *SuccessResponse) HasTable() bool {
+	if o != nil && !IsNil(o.Table) {
+		return true
+	}
+
+	return false
+}
+
+// SetTable gets a reference to the given string and assigns it to the Table field.
+func (o *SuccessResponse) SetTable(v string) {
+	o.Table = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -255,6 +289,9 @@ func (o SuccessResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Index) {
 		toSerialize["_index"] = o.Index
+	}
+	if !IsNil(o.Table) {
+		toSerialize["table"] = o.Table
 	}
 	if !IsNil(o.Id) {
 		toSerialize["_id"] = o.Id

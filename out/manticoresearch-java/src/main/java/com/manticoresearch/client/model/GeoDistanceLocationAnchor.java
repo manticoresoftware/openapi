@@ -38,13 +38,13 @@ import com.manticoresearch.client.JSON;
   GeoDistanceLocationAnchor.JSON_PROPERTY_LON
 })
 @JsonTypeName("geoDistance_location_anchor")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-28T07:35:19.233819593Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-28T14:42:59.426983397Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
 public class GeoDistanceLocationAnchor {
   public static final String JSON_PROPERTY_LAT = "lat";
-  private JsonNullable<Object> lat = JsonNullable.<Object>of(null);
+  private JsonNullable<Object> lat = JsonNullable.<Object>undefined();
 
   public static final String JSON_PROPERTY_LON = "lon";
-  private JsonNullable<Object> lon = JsonNullable.<Object>of(null);
+  private JsonNullable<Object> lon = JsonNullable.<Object>undefined();
 
   public GeoDistanceLocationAnchor() { 
   }

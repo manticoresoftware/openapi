@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.manticoresearch</groupId>
-    <artifactId>manticoresearch</artifactId>
+    <artifactId>manticoresearch-dev</artifactId>
     <packaging>jar</packaging>
-    <name>manticoresearch</name>
-    <version>5.0.0</version>
+    <name>manticoresearch-dev</name>
+    <version>6.0.0</version>
     <url>https://github.com/manticoresoftware/manticoresearch-java</url>
     <description>Client for Manticore Search</description>
     <scm>
@@ -336,4 +336,14 @@
         <junit-version>5.10.0</junit-version>
         <spotless.version>2.21.0</spotless.version>
     </properties>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>

@@ -666,9 +666,10 @@ components:
             $ref: '#/components/schemas/queryFilterAlias2'
           type: array
     bulkResponse:
-      additionalProperties: false
       description: Success response for bulk search requests
       example:
+        current_line: 0
+        skipped_lines: 6
         error: error
         items:
         - "{}"
@@ -686,6 +687,12 @@ components:
         error:
           description: Error message describing an error if such occurred
           type: string
+        current_line:
+          description: Number of the row returned in the response
+          type: integer
+        skipped_lines:
+          description: Number of rows skipped in the response
+          type: integer
     deleteDocumentRequest:
       description: |
         Payload for delete request.
@@ -1039,6 +1046,9 @@ components:
       properties:
         _index:
           description: Name of the document index
+          type: string
+        table:
+          description: Name of the document table (alias of index)
           type: string
         _id:
           description: ID of the document affected by the request operation

@@ -60,22 +60,22 @@ import com.manticoresearch.client.JSON;
   Highlight.JSON_PROPERTY_USE_BOUNDARIES
 })
 @JsonTypeName("highlight")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-28T07:35:19.233819593Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-28T14:42:59.426983397Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
 public class Highlight {
   public static final String JSON_PROPERTY_FRAGMENT_SIZE = "fragment_size";
-  private JsonNullable<Object> fragmentSize = JsonNullable.<Object>of(null);
+  private JsonNullable<Object> fragmentSize = JsonNullable.<Object>undefined();
 
   public static final String JSON_PROPERTY_LIMIT = "limit";
-  private JsonNullable<Object> limit = JsonNullable.<Object>of(null);
+  private JsonNullable<Object> limit = JsonNullable.<Object>undefined();
 
   public static final String JSON_PROPERTY_LIMIT_SNIPPETS = "limit_snippets";
-  private JsonNullable<Object> limitSnippets = JsonNullable.<Object>of(null);
+  private JsonNullable<Object> limitSnippets = JsonNullable.<Object>undefined();
 
   public static final String JSON_PROPERTY_LIMIT_WORDS = "limit_words";
-  private JsonNullable<Object> limitWords = JsonNullable.<Object>of(null);
+  private JsonNullable<Object> limitWords = JsonNullable.<Object>undefined();
 
   public static final String JSON_PROPERTY_NUMBER_OF_FRAGMENTS = "number_of_fragments";
-  private JsonNullable<Object> numberOfFragments = JsonNullable.<Object>of(null);
+  private JsonNullable<Object> numberOfFragments = JsonNullable.<Object>undefined();
 
   public static final String JSON_PROPERTY_AFTER_MATCH = "after_match";
   private String afterMatch = "</strong>";

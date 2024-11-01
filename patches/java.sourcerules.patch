@@ -1,5 +1,5 @@
 diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SourceRules.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SourceRules.java
-index ab5d33c..ef93b38 100644
+index ab5d33c..0836d74 100644
 --- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SourceRules.java
 +++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SourceRules.java
 @@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,14 +10,15 @@ index ab5d33c..ef93b38 100644
  import java.util.Arrays;
  import org.openapitools.jackson.nullable.JsonNullable;
  import com.fasterxml.jackson.annotation.JsonIgnore;
-@@ -50,6 +51,9 @@ public class SourceRules {
-   public static final String JSON_PROPERTY_EXCLUDES = "excludes";
-   private JsonNullable<Object> excludes = JsonNullable.<Object>of([""]);
+@@ -45,8 +46,8 @@ public class SourceRules {
+   public static final String JSON_PROPERTY_INCLUDES = "includes";
+-  private JsonNullable<Object> includes = JsonNullable.<Object>undefined();
++  private JsonNullable<Object> includes = JsonNullable.<Object>of(new ArrayList<>());
  
-+  includes = JsonNullable.<Object>of(new ArrayList<>());
-+  excludes = JsonNullable.<Object>of(new ArrayList<>(Arrays.asList("")));
-+
+   public static final String JSON_PROPERTY_EXCLUDES = "excludes";
+-  private JsonNullable<Object> excludes = JsonNullable.<Object>undefined();
++  private JsonNullable<Object> excludes = JsonNullable.<Object>of(new ArrayList<>(Arrays.asList("")));
+ 
    public SourceRules() { 
    }
 
-   

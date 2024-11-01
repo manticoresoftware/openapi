@@ -31,6 +31,7 @@ Building the API client library requires:
 {{^outBranch}}
 | Manticore Search  | manticoresearch-java    |
 | ----------------- | ----------------------- |
+| dev               | dev     	              |
 | >= 6.3.6          | >= 5.0.x                |
 | >= 6.2.0          | >= 3.3.1                |
 | >= 2.5.1          | >= 2.0.2                |
@@ -176,34 +177,35 @@ public class ApiExample {
         {{#allParams}}
         {{{dataType}}} {{{paramName}}} = {{{example}}}; // {{{dataType}}} | {{{description}}}
         {{/allParams}}
-        try {
-            {{#returnType}}{{{.}}} result = {{/returnType}}apiInstance.{{{operationId}}}({{#allParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{/allParams}});{{#returnType}}
-            System.out.println(result);{{/returnType}}
-        } catch (ApiException e) {
-            System.err.println("Exception when calling {{{classname}}}#{{{operationId}}}");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-        
+
+		# Perform insert and search operations        
         SearchApi searchApi = new SearchApi(client);
+        IndexApi indexApi = new IndexApi(client);
         try {
-            // Create SearchRequest
-            BasicSearchRequest basicSearchRequest = new BasicSearchRequest();
-            basicSearchRequest.setIndex("test");
+        	String tableName = "products";
 
-            QueryStringFilter queryStringFilter = new QueryStringFilter();
-            queryStringFilter.setQueryString("Title 1");
-            basicSearchRequest.setQuery(new QueryFilter( new FulltextFilter(queryStringFilter) ));
+			InsertDocumentRequest indexRequest = new InsertDocumentRequest();
+        	HashMap<String,Object> doc = new HashMap<String,Object>(){{
+            	put("title", "Crossbody Bag with Tassel");
+        	}};
+        	indexRequest.index(tableName).id(1L).setDoc(doc); 
+        	indexApi.insert(indexRequest);
+        
+            Highlight highlight = new Highlight();
+			List<String> highlightFields = new ArrayList<String>();
+	    	highlightFields.add("title");
+			highlight.setFields(highlightFields);
 
-            SearchRequest searchRequest = new SearchRequest(basicSearchRequest);
-			
-			// Perform a search
+			SearchQuery query = new SearchQuery();
+			query.setQueryString("@title Bag");
+
+			SearchRequest searchRequest = new SearchRequest();
+			searchRequest.index(tableName).query(query).setHighlight(highlight);
+					
 			SearchResponse searchResponse = searchApi.search(searchRequest);
-			System.out.println( searchResponse.toString() );
+			System.out.println(searchResponse);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SearchApi#search");
+            System.err.println("Exception when calling Api function");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

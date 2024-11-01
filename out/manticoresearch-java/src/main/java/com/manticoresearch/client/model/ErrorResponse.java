@@ -35,7 +35,7 @@ import com.manticoresearch.client.JSON;
   ErrorResponse.JSON_PROPERTY_STATUS
 })
 @JsonTypeName("errorResponse")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-28T07:35:19.233819593Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-28T14:42:59.426983397Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
 public class ErrorResponse {
   public static final String JSON_PROPERTY_ERROR = "error";
   private ResponseError error;

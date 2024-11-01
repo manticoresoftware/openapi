@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>{{groupId}}</groupId>
-    <artifactId>{{artifactId}}</artifactId>
+    <artifactId>{{artifactId}}-dev</artifactId>
     <packaging>jar</packaging>
-    <name>{{artifactId}}</name>
+    <name>{{artifactId}}-dev</name>
     <version>{{artifactVersion}}</version>
     <url>{{artifactUrl}}</url>
     <description>{{artifactDescription}}</description>
@@ -412,4 +412,14 @@
         {{/hasOAuthMethods}}
         <spotless.version>2.21.0</spotless.version>
     </properties>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>

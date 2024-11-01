@@ -26,6 +26,10 @@ type BulkResponse struct {
 	Errors *bool
 	// Error message describing an error if such occurred
 	Error *string
+	// Number of the row returned in the response
+	CurrentLine *int32
+	// Number of rows skipped in the response
+	SkippedLines *int32
 }
 
 // NewBulkResponse instantiates a new BulkResponse object
@@ -141,6 +145,70 @@ func (o *BulkResponse) SetError(v string) {
 	o.Error = &v
 }
 
+// GetCurrentLine returns the CurrentLine field value if set, zero value otherwise.
+func (o *BulkResponse) GetCurrentLine() int32 {
+	if o == nil || IsNil(o.CurrentLine) {
+		var ret int32
+		return ret
+	}
+	return *o.CurrentLine
+}
+
+// GetCurrentLineOk returns a tuple with the CurrentLine field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BulkResponse) GetCurrentLineOk() (*int32, bool) {
+	if o == nil || IsNil(o.CurrentLine) {
+		return nil, false
+	}
+	return o.CurrentLine, true
+}
+
+// HasCurrentLine returns a boolean if a field has been set.
+func (o *BulkResponse) HasCurrentLine() bool {
+	if o != nil && !IsNil(o.CurrentLine) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentLine gets a reference to the given int32 and assigns it to the CurrentLine field.
+func (o *BulkResponse) SetCurrentLine(v int32) {
+	o.CurrentLine = &v
+}
+
+// GetSkippedLines returns the SkippedLines field value if set, zero value otherwise.
+func (o *BulkResponse) GetSkippedLines() int32 {
+	if o == nil || IsNil(o.SkippedLines) {
+		var ret int32
+		return ret
+	}
+	return *o.SkippedLines
+}
+
+// GetSkippedLinesOk returns a tuple with the SkippedLines field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BulkResponse) GetSkippedLinesOk() (*int32, bool) {
+	if o == nil || IsNil(o.SkippedLines) {
+		return nil, false
+	}
+	return o.SkippedLines, true
+}
+
+// HasSkippedLines returns a boolean if a field has been set.
+func (o *BulkResponse) HasSkippedLines() bool {
+	if o != nil && !IsNil(o.SkippedLines) {
+		return true
+	}
+
+	return false
+}
+
+// SetSkippedLines gets a reference to the given int32 and assigns it to the SkippedLines field.
+func (o *BulkResponse) SetSkippedLines(v int32) {
+	o.SkippedLines = &v
+}
+
 func (o BulkResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -159,6 +227,12 @@ func (o BulkResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
+	}
+	if !IsNil(o.CurrentLine) {
+		toSerialize["current_line"] = o.CurrentLine
+	}
+	if !IsNil(o.SkippedLines) {
+		toSerialize["skipped_lines"] = o.SkippedLines
 	}
 	return toSerialize, nil
 }
