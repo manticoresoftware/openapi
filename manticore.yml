@@ -711,6 +711,9 @@ components:
         profile:
           type: object
           description: Profile information about the search execution, if profiling is enabled
+        scroll:
+          type: string
+          description: Scroll token to be used fo pagination
         warning:
           type: object
           additionalProperties: true
@@ -762,7 +765,7 @@ components:
     sqlObjResponse:
       type: object
     sqlResponse:
-      oneOf:
+      anyOf:
         - $ref: '#/components/schemas/sqlRawResponse'
         - $ref: '#/components/schemas/sqlObjResponse'
       description: List of responses from executed SQL queries
@@ -848,6 +851,7 @@ paths:
              - _source: the source data of the matched document.
         
         In addition, if profiling is enabled, the response will include an additional array with profiling information attached.
+        Also, if pagination is enabled, the response will include an additional 'scroll' property with a scroll token to use for pagination
 
         Here is an example search response:
         
@@ -1414,7 +1418,8 @@ paths:
         - in: path
           name: id
           schema:
-            type: number
+            type: integer
+            format: int64
           required: true
           description: Id of the document to replace
       requestBody:
