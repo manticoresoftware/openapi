@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Aggregations** | Pointer to **map[string]interface{}** | Aggregated search results grouped by the specified criteria | [optional] 
 **Hits** | Pointer to [**SearchResponseHits**](SearchResponseHits.md) |  | [optional] 
 **Profile** | Pointer to **map[string]interface{}** | Profile information about the search execution, if profiling is enabled | [optional] 
+**Scroll** | Pointer to **string** | Scroll token to be used fo pagination | [optional] 
 **Warning** | Pointer to **map[string]interface{}** | Warnings encountered during the search operation | [optional] 
 
 ## Methods
@@ -154,6 +155,31 @@ SetProfile sets Profile field to given value.
 `func (o *SearchResponse) HasProfile() bool`
 
 HasProfile returns a boolean if a field has been set.
+
+### GetScroll
+
+`func (o *SearchResponse) GetScroll() string`
+
+GetScroll returns the Scroll field if non-nil, zero value otherwise.
+
+### GetScrollOk
+
+`func (o *SearchResponse) GetScrollOk() (*string, bool)`
+
+GetScrollOk returns a tuple with the Scroll field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScroll
+
+`func (o *SearchResponse) SetScroll(v string)`
+
+SetScroll sets Scroll field to given value.
+
+### HasScroll
+
+`func (o *SearchResponse) HasScroll() bool`
+
+HasScroll returns a boolean if a field has been set.
 
 ### GetWarning
 

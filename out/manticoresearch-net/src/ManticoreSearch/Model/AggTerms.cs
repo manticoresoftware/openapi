@@ -41,17 +41,17 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AggTerms" /> class.
         /// </summary>
-        /// <param name="">Name of attribute to aggregate by (required).</param>
-        /// <param name="">Maximum number of buckets in the result.</param>
-        public AggTerms(string  = default(string), int  = default(int))
+        /// <param name="Field">Name of attribute to aggregate by (required).</param>
+        /// <param name="Size">Maximum number of buckets in the result.</param>
+        public AggTerms(string Field = default(string), int Size = default(int))
         {
-            // to ensure "" is required (not null)
-            if ( == null)
+            // to ensure "Field" is required (not null)
+            if (Field == null)
             {
-                throw new ArgumentNullException(" is a required property for AggTerms and cannot be null");
+                throw new ArgumentNullException("Field is a required property for AggTerms and cannot be null");
             }
-            this.Field = ;
-            this.Size = ;
+            this.Field = Field;
+            this.Size = Size;
         }
 
         /// <summary>

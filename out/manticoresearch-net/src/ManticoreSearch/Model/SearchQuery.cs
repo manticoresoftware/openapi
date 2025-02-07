@@ -36,28 +36,28 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchQuery" /> class.
         /// </summary>
-        /// <param name="">Filter object defining a query string.</param>
-        /// <param name="">Filter object defining a match keyword.</param>
-        /// <param name="">Filter object defining a match phrase.</param>
-        /// <param name="">Filter object to select all documents.</param>
-        /// <param name="">.</param>
-        /// <param name="">.</param>
-        /// <param name="">Filter to match a given set of attribute values..</param>
-        /// <param name="">Filter to match a given range of attribute values..</param>
-        /// <param name="">.</param>
-        /// <param name="">.</param>
-        public SearchQuery(Object  = default(Object), Object  = default(Object), Object  = default(Object), Object  = default(Object), BoolFilter  = default(BoolFilter), Object  = default(Object), Object  = default(Object), Object  = default(Object), GeoDistance  = default(GeoDistance), Highlight  = default(Highlight))
+        /// <param name="QueryString">Filter object defining a query string.</param>
+        /// <param name="Match">Filter object defining a match keyword passed as a string or in a Match object.</param>
+        /// <param name="MatchPhrase">Filter object defining a match phrase.</param>
+        /// <param name="MatchAll">Filter object to select all documents.</param>
+        /// <param name="VarBool">VarBool.</param>
+        /// <param name="PropertyEquals">PropertyEquals.</param>
+        /// <param name="VarIn">Filter to match a given set of attribute values..</param>
+        /// <param name="Range">Filter to match a given range of attribute values passed in Range objects.</param>
+        /// <param name="GeoDistance">GeoDistance.</param>
+        /// <param name="Highlight">Highlight.</param>
+        public SearchQuery(Object QueryString = default(Object), Object Match = default(Object), Object MatchPhrase = default(Object), Object MatchAll = default(Object), BoolFilter VarBool = default(BoolFilter), Object PropertyEquals = default(Object), Object VarIn = default(Object), Object Range = default(Object), GeoDistance GeoDistance = default(GeoDistance), Highlight Highlight = default(Highlight))
         {
-            this.QueryString = ;
-            this.Match = ;
-            this.MatchPhrase = ;
-            this.MatchAll = ;
-            this.VarBool = ;
-            this.PropertyEquals = ;
-            this.VarIn = ;
-            this.Range = ;
-            this.GeoDistance = ;
-            this.Highlight = ;
+            this.QueryString = QueryString;
+            this.Match = Match;
+            this.MatchPhrase = MatchPhrase;
+            this.MatchAll = MatchAll;
+            this.VarBool = VarBool;
+            this.PropertyEquals = PropertyEquals;
+            this.VarIn = VarIn;
+            this.Range = Range;
+            this.GeoDistance = GeoDistance;
+            this.Highlight = Highlight;
         }
 
         /// <summary>
@@ -68,9 +68,9 @@ namespace ManticoreSearch.Model
         public Object QueryString { get; set; }
 
         /// <summary>
-        /// Filter object defining a match keyword
+        /// Filter object defining a match keyword passed as a string or in a Match object
         /// </summary>
-        /// <value>Filter object defining a match keyword</value>
+        /// <value>Filter object defining a match keyword passed as a string or in a Match object</value>
         [DataMember(Name = "match", EmitDefaultValue = true)]
         public Object Match { get; set; }
 
@@ -108,9 +108,9 @@ namespace ManticoreSearch.Model
         public Object VarIn { get; set; }
 
         /// <summary>
-        /// Filter to match a given range of attribute values.
+        /// Filter to match a given range of attribute values passed in Range objects
         /// </summary>
-        /// <value>Filter to match a given range of attribute values.</value>
+        /// <value>Filter to match a given range of attribute values passed in Range objects</value>
         [DataMember(Name = "range", EmitDefaultValue = true)]
         public Object Range { get; set; }
 

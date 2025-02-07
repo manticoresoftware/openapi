@@ -193,7 +193,7 @@ const request: IndexApiPartialReplaceRequest = {
     // Name of the percolate index
   index: "index_example",
     // Id of the document to replace
-  id: 3.14,
+  id: 1,
   
   replaceDocumentRequest: null,
 };

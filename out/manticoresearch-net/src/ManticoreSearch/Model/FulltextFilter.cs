@@ -36,16 +36,16 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="FulltextFilter" /> class.
         /// </summary>
-        /// <param name="">Filter object defining a query string.</param>
-        /// <param name="">Filter object defining a match keyword.</param>
-        /// <param name="">Filter object defining a match phrase.</param>
-        /// <param name="">Filter object to select all documents.</param>
-        public FulltextFilter(string  = default(string), Object  = default(Object), Object  = default(Object), Object  = default(Object))
+        /// <param name="QueryString">Filter object defining a query string.</param>
+        /// <param name="Match">Filter object defining a match keyword passed as a string or in a Match object.</param>
+        /// <param name="MatchPhrase">Filter object defining a match phrase.</param>
+        /// <param name="MatchAll">Filter object to select all documents.</param>
+        public FulltextFilter(string QueryString = default(string), Object Match = default(Object), Object MatchPhrase = default(Object), Object MatchAll = default(Object))
         {
-            this.QueryString = ;
-            this.Match = ;
-            this.MatchPhrase = ;
-            this.MatchAll = ;
+            this.QueryString = QueryString;
+            this.Match = Match;
+            this.MatchPhrase = MatchPhrase;
+            this.MatchAll = MatchAll;
         }
 
         /// <summary>
@@ -56,9 +56,9 @@ namespace ManticoreSearch.Model
         public string QueryString { get; set; }
 
         /// <summary>
-        /// Filter object defining a match keyword
+        /// Filter object defining a match keyword passed as a string or in a Match object
         /// </summary>
-        /// <value>Filter object defining a match keyword</value>
+        /// <value>Filter object defining a match keyword passed as a string or in a Match object</value>
         [DataMember(Name = "match", EmitDefaultValue = false)]
         public Object Match { get; set; }
 

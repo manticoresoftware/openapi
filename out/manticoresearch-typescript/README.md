@@ -1,17 +1,6 @@
 # Manticore TypeScript client
 
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-typescript/tree/5.0.0
 
-## Requirements
-
-Minimum Manticore Search version is 4.2.1 with HTTP protocol enabled.
-
-| Manticore Search | manticoresearch-typescript | Node      |
-| ---------------- | -------------------------- | --------- |
-| dev              | manticoresearch-ts-dev     | >= 18.0.0 |
-| >= 6.2.0         | 4.0.x                      | >= 18.0.0 |
-| >= 6.2.0         | 3.3.1                      | >= 18.0.0 |
-| >= 4.2.1         | >= 1.0.x                   | >= 18.0.0 |
 
 ## Installation
 
@@ -64,7 +53,7 @@ import * as Manticoresearch from "manticoresearch-ts";
 
 ## Documentation
 
-Full documentation on the API Endpoints and Models used is available in [docs](https://github.com/manticoresoftware/manticoresearch-typescript/tree/5.0.0/docs) folder as listed below.
+Full documentation on the API Endpoints and Models used is available in [docs](https://github.com/manticoresoftware/manticoresearch-typescript/tree/6.0.0/docs) folder as listed below.
 
 Manticore Search server documentation: https://manual.manticoresearch.com.
 
@@ -72,26 +61,17 @@ Manticore Search server documentation: https://manual.manticoresearch.com.
 
 All URIs are relative to *http://127.0.0.1:9308*
 
-| Class | Method | HTTP request | Description |
-| ----- | ------ | ------------ | ------------|
-
-| _Manticoresearch.IndexApi_ | [**bulk**](docs/IndexApi.md#bulk) | **POST** /bulk | Bulk index operations |
-
-| _Manticoresearch.IndexApi_ | [**delete**](docs/IndexApi.md#delete) | **POST** /delete | Delete a document in an index |
-
-| _Manticoresearch.IndexApi_ | [**insert**](docs/IndexApi.md#insert) | **POST** /insert | Create a new document in an index |
-
-| _Manticoresearch.IndexApi_ | [**partialReplace**](docs/IndexApi.md#partialReplace) | **POST** /{index}/_update/{id} | Partially replaces a document in an index |
-
-| _Manticoresearch.IndexApi_ | [**replace**](docs/IndexApi.md#replace) | **POST** /replace | Replace new document in an index |
-
-| _Manticoresearch.IndexApi_ | [**update**](docs/IndexApi.md#update) | **POST** /update | Update a document in an index |
-
-| _Manticoresearch.SearchApi_ | [**percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{index}/search | Perform reverse search on a percolate index |
-
-| _Manticoresearch.SearchApi_ | [**search**](docs/SearchApi.md#search) | **POST** /search | Performs a search on an index |
-
-| _Manticoresearch.UtilsApi_ | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests |
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+_Manticoresearch.IndexApi_ | [**bulk**](docs/IndexApi.md#bulk) | **POST** /bulk | Bulk index operations
+_Manticoresearch.IndexApi_ | [**delete**](docs/IndexApi.md#delete) | **POST** /delete | Delete a document in an index
+_Manticoresearch.IndexApi_ | [**insert**](docs/IndexApi.md#insert) | **POST** /insert | Create a new document in an index
+_Manticoresearch.IndexApi_ | [**partialReplace**](docs/IndexApi.md#partialReplace) | **POST** /{index}/_update/{id} | Partially replaces a document in an index
+_Manticoresearch.IndexApi_ | [**replace**](docs/IndexApi.md#replace) | **POST** /replace | Replace new document in an index
+_Manticoresearch.IndexApi_ | [**update**](docs/IndexApi.md#update) | **POST** /update | Update a document in an index
+_Manticoresearch.SearchApi_ | [**percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{index}/search | Perform reverse search on a percolate index
+_Manticoresearch.SearchApi_ | [**search**](docs/SearchApi.md#search) | **POST** /search | Performs a search on an index
+_Manticoresearch.UtilsApi_ | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
 
 ## Documentation for Authorization

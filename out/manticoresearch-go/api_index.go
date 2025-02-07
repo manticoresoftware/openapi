@@ -491,7 +491,7 @@ type ApiPartialReplaceRequest struct {
 	ctx context.Context
 	ApiService *IndexAPIService
 	index string
-	id float32
+	id int64
 	replaceDocumentRequest *ReplaceDocumentRequest
 }
 
@@ -520,7 +520,7 @@ Responds with an object of the following format:
  @param id Id of the document to replace
  @return ApiPartialReplaceRequest
 */
-func (a *IndexAPIService) PartialReplace(ctx context.Context, index string, id float32) ApiPartialReplaceRequest {
+func (a *IndexAPIService) PartialReplace(ctx context.Context, index string, id int64) ApiPartialReplaceRequest {
 	return ApiPartialReplaceRequest{
 		ApiService: a,
 		ctx: ctx,

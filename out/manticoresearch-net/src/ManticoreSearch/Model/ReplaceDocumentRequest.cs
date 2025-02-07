@@ -41,15 +41,15 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ReplaceDocumentRequest" /> class.
         /// </summary>
-        /// <param name="">Object containing the new document data to replace the existing one. (required).</param>
-        public ReplaceDocumentRequest(Object  = default(Object))
+        /// <param name="Doc">Object containing the new document data to replace the existing one. (required).</param>
+        public ReplaceDocumentRequest(Object Doc = default(Object))
         {
-            // to ensure "" is required (not null)
-            if ( == null)
+            // to ensure "Doc" is required (not null)
+            if (Doc == null)
             {
-                throw new ArgumentNullException(" is a required property for ReplaceDocumentRequest and cannot be null");
+                throw new ArgumentNullException("Doc is a required property for ReplaceDocumentRequest and cannot be null");
             }
-            this.Doc = ;
+            this.Doc = Doc;
         }
 
         /// <summary>

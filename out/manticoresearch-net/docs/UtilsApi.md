@@ -8,7 +8,7 @@ All URIs are relative to *http://127.0.0.1:9308*
 
 <a id="sql"></a>
 # **Sql**
-> List&lt;Object&gt; Sql (string body, bool? rawResponse = null, string? mode = null)
+> SqlResponse Sql (string body, bool? rawResponse = null)
 
 Perform SQL requests
 
@@ -37,12 +37,11 @@ namespace Example
             var apiInstance = new UtilsApi(httpClient, config, httpClientHandler);
             var body = SHOW TABLES;  // string | A query parameter string. 
             var rawResponse = true;  // bool? | Optional parameter, defines a format of response. Can be set to `False` for Select only queries and set to `True` for any type of queries. Default value is 'True'.  (optional)  (default to true)
-            var mode = "\"raw\"";  // string? | Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to `raw` for any type of queries. Default value is 'raw'.  (optional)  (default to "raw")
 
             try
             {
                 // Perform SQL requests
-                List<Object> result = apiInstance.Sql(body, rawResponse, mode);
+                SqlResponse result = apiInstance.Sql(body, rawResponse);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -63,7 +62,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Perform SQL requests
-    ApiResponse<List<Object>> response = apiInstance.SqlWithHttpInfo(body, rawResponse, mode);
+    ApiResponse<SqlResponse> response = apiInstance.SqlWithHttpInfo(body, rawResponse);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -82,11 +81,10 @@ catch (ApiException e)
 |------|------|-------------|-------|
 | **body** | **string** | A query parameter string.  |  |
 | **rawResponse** | **bool?** | Optional parameter, defines a format of response. Can be set to &#x60;False&#x60; for Select only queries and set to &#x60;True&#x60; for any type of queries. Default value is &#39;True&#39;.  | [optional] [default to true] |
-| **mode** | **string?** | Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to &#x60;raw&#x60; for any type of queries. Default value is &#39;raw&#39;.  | [optional] [default to &quot;raw&quot;] |
 
 ### Return type
 
-**List<Object>**
+[**SqlResponse**](SqlResponse.md)
 
 ### Authorization
 

@@ -41,26 +41,26 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="InsertDocumentRequest" /> class.
         /// </summary>
-        /// <param name="">Name of the index to insert the document into (required).</param>
-        /// <param name="">Name of the cluster to insert the document into.</param>
-        /// <param name="">Document ID. If not provided, an ID will be auto-generated .</param>
-        /// <param name="">Object containing document data  (required).</param>
-        public InsertDocumentRequest(string  = default(string), string  = default(string), long  = default(long), Object  = default(Object))
+        /// <param name="Index">Name of the index to insert the document into (required).</param>
+        /// <param name="Cluster">Name of the cluster to insert the document into.</param>
+        /// <param name="Id">Document ID. If not provided, an ID will be auto-generated .</param>
+        /// <param name="Doc">Object containing document data  (required).</param>
+        public InsertDocumentRequest(string Index = default(string), string Cluster = default(string), long Id = default(long), Object Doc = default(Object))
         {
-            // to ensure "" is required (not null)
-            if ( == null)
+            // to ensure "Index" is required (not null)
+            if (Index == null)
             {
-                throw new ArgumentNullException(" is a required property for InsertDocumentRequest and cannot be null");
+                throw new ArgumentNullException("Index is a required property for InsertDocumentRequest and cannot be null");
             }
-            this.Index = ;
-            // to ensure "" is required (not null)
-            if ( == null)
+            this.Index = Index;
+            // to ensure "Doc" is required (not null)
+            if (Doc == null)
             {
-                throw new ArgumentNullException(" is a required property for InsertDocumentRequest and cannot be null");
+                throw new ArgumentNullException("Doc is a required property for InsertDocumentRequest and cannot be null");
             }
-            this.Doc = ;
-            this.Cluster = ;
-            this.Id = ;
+            this.Doc = Doc;
+            this.Cluster = Cluster;
+            this.Id = Id;
         }
 
         /// <summary>

@@ -36,18 +36,18 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteResponse" /> class.
         /// </summary>
-        /// <param name="">The name of the index from which the document was deleted.</param>
-        /// <param name="">Number of documents deleted.</param>
-        /// <param name="">The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned.</param>
-        /// <param name="">Indicates whether any documents to be deleted were found.</param>
-        /// <param name="">Result of the delete operation, typically &#39;deleted&#39;.</param>
-        public DeleteResponse(string  = default(string), int  = default(int), long  = default(long), bool  = default(bool), string  = default(string))
+        /// <param name="Index">The name of the index from which the document was deleted.</param>
+        /// <param name="Deleted">Number of documents deleted.</param>
+        /// <param name="Id">The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned.</param>
+        /// <param name="Found">Indicates whether any documents to be deleted were found.</param>
+        /// <param name="Result">Result of the delete operation, typically &#39;deleted&#39;.</param>
+        public DeleteResponse(string Index = default(string), int Deleted = default(int), long Id = default(long), bool Found = default(bool), string Result = default(string))
         {
-            this.Index = ;
-            this.Deleted = ;
-            this.Id = ;
-            this.Found = ;
-            this.Result = ;
+            this.Index = Index;
+            this.Deleted = Deleted;
+            this.Id = Id;
+            this.Found = Found;
+            this.Result = Result;
         }
 
         /// <summary>

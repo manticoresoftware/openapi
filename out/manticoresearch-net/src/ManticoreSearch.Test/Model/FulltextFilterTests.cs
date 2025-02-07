@@ -56,21 +56,21 @@ namespace ManticoreSearch.Test.Model
         }
 
         /// <summary>
+        /// Test the property 'QueryString'
+        /// </summary>
+        [Fact]
+        public void QueryStringTest()
+        {
+            // TODO unit test for the property 'QueryString'
+        }
+
+        /// <summary>
         /// Test the property 'Match'
         /// </summary>
         [Fact]
         public void MatchTest()
         {
             // TODO unit test for the property 'Match'
-        }
-
-        /// <summary>
-        /// Test the property 'MatchAll'
-        /// </summary>
-        [Fact]
-        public void MatchAllTest()
-        {
-            // TODO unit test for the property 'MatchAll'
         }
 
         /// <summary>
@@ -83,12 +83,12 @@ namespace ManticoreSearch.Test.Model
         }
 
         /// <summary>
-        /// Test the property 'QueryString'
+        /// Test the property 'MatchAll'
         /// </summary>
         [Fact]
-        public void QueryStringTest()
+        public void MatchAllTest()
         {
-            // TODO unit test for the property 'QueryString'
+            // TODO unit test for the property 'MatchAll'
         }
     }
 }

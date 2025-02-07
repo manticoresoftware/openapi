@@ -111,9 +111,10 @@ do_typescript() {
 
 do_csharp() {
   echo "Building CSharp ..."
-  rm -rf out/manticoresearch-csharp 
+  rm -rf out/manticoresearch-net 
   docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp  -o /local/out/manticoresearch-net -t /local/templates/csharp --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp` $build_to_branch
-  cp -r gh-actions/csharp/. out/manticoresearch-csharp
+  git apply patches/net.matchall.patch patches/net.geodistance.patch
+  #cp -r gh-actions/csharp/. out/manticoresearch-net
   #cp -r docs/csharp/docs/SearchApi.md out/manticoresearch-csharp/docs/SearchApi.md
   echo "CSharp done."
 }
@@ -142,7 +143,9 @@ do_perl() {
 do_go() {
   echo "Building Go ..."
   rm -rf out/manticoresearch-go
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g go  -o /local/out/manticoresearch-go -t /local/templates/go --git-repo-id manticoresearch-go --git-user-id manticoresoftware
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g go  -o /local/out/manticoresearch-go -t /local/templates/go --git-repo-id manticoresearch-go --git-user-id manticoresoftware \
+  --additional-properties packageVersion=`cat versions/go` \
+  $build_to_branch
   git apply patches/go.sql_api.patch
   git apply patches/go.response_error.patch
   cp patches/go_sql_response.go out/manticoresearch-go/model_sql_response.go

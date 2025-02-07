@@ -36,14 +36,18 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="BulkResponse" /> class.
         /// </summary>
-        /// <param name="">List of results.</param>
-        /// <param name="">Errors occurred during the bulk operation.</param>
-        /// <param name="">Error message describing an error if such occurred.</param>
-        public BulkResponse(List<Object>  = default(List<Object>), bool  = default(bool), string  = default(string))
+        /// <param name="Items">List of results.</param>
+        /// <param name="Errors">Errors occurred during the bulk operation.</param>
+        /// <param name="Error">Error message describing an error if such occurred.</param>
+        /// <param name="CurrentLine">Number of the row returned in the response.</param>
+        /// <param name="SkippedLines">Number of rows skipped in the response.</param>
+        public BulkResponse(List<Object> Items = default(List<Object>), bool Errors = default(bool), string Error = default(string), int CurrentLine = default(int), int SkippedLines = default(int))
         {
-            this.Items = ;
-            this.Errors = ;
-            this.Error = ;
+            this.Items = Items;
+            this.Errors = Errors;
+            this.Error = Error;
+            this.CurrentLine = CurrentLine;
+            this.SkippedLines = SkippedLines;
         }
 
         /// <summary>
@@ -68,6 +72,20 @@ namespace ManticoreSearch.Model
         public string Error { get; set; }
 
         /// <summary>
+        /// Number of the row returned in the response
+        /// </summary>
+        /// <value>Number of the row returned in the response</value>
+        [DataMember(Name = "current_line", EmitDefaultValue = false)]
+        public int CurrentLine { get; set; }
+
+        /// <summary>
+        /// Number of rows skipped in the response
+        /// </summary>
+        /// <value>Number of rows skipped in the response</value>
+        [DataMember(Name = "skipped_lines", EmitDefaultValue = false)]
+        public int SkippedLines { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -78,6 +96,8 @@ namespace ManticoreSearch.Model
             sb.Append("  Items: ").Append(Items).Append("\n");
             sb.Append("  Errors: ").Append(Errors).Append("\n");
             sb.Append("  Error: ").Append(Error).Append("\n");
+            sb.Append("  CurrentLine: ").Append(CurrentLine).Append("\n");
+            sb.Append("  SkippedLines: ").Append(SkippedLines).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

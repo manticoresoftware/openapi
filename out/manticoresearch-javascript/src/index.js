@@ -85,7 +85,7 @@ import UtilsApi from './api/UtilsApi';
 * </pre>
 * </p>
 * @module index
-* @version 5.0.0
+* @version 6.0.0
 */
 export {
     /**

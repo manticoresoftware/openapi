@@ -1,6 +1,12 @@
 {
+  {{#devBranch}}
   "name": "{{{projectName}}}-dev",
   "version": "{{{projectVersion}}}-dev",
+  {{/devBranch}}
+  {{^devBranch}}
+  "name": "{{{projectName}}}",
+  "version": "{{{projectVersion}}}",
+  {{/devBranch}}
   "description": "{{{projectDescription}}}",
   "license": "{{licenseName}}",
   "main": "dist{{#invokerPackage}}/{{.}}{{/invokerPackage}}/index.js",

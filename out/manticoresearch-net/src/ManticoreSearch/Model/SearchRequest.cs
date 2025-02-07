@@ -41,43 +41,43 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchRequest" /> class.
         /// </summary>
-        /// <param name="">The index to perform the search on (required).</param>
-        /// <param name="">.</param>
-        /// <param name="">Join clause to combine search data from multiple tables.</param>
-        /// <param name="">.</param>
-        /// <param name="">Maximum number of results to return.</param>
-        /// <param name="">.</param>
-        /// <param name="">Defines aggregation settings for grouping results.</param>
-        /// <param name="">Expressions to calculate additional values for the result.</param>
-        /// <param name="">Maximum number of matches allowed in the result.</param>
-        /// <param name="">Starting point for pagination of the result.</param>
-        /// <param name="">Additional search options.</param>
-        /// <param name="">Enable or disable profiling of the search request.</param>
-        /// <param name="">.</param>
-        /// <param name="">.</param>
-        /// <param name="">Enable or disable result weight calculation used for sorting.</param>
-        public SearchRequest(string  = default(string), SearchQuery  = default(SearchQuery), List<Join>  = default(List<Join>), Highlight  = default(Highlight), int  = default(int), KnnQuery  = default(KnnQuery), Dictionary<string, Aggregation>  = default(Dictionary<string, Aggregation>), Dictionary<string, string>  = default(Dictionary<string, string>), int  = default(int), int  = default(int), Object  = default(Object), bool  = default(bool), Object  = default(Object), Object  = default(Object), bool  = default(bool))
+        /// <param name="Index">The index to perform the search on (required).</param>
+        /// <param name="Query">Query.</param>
+        /// <param name="Join">Join clause to combine search data from multiple tables.</param>
+        /// <param name="Highlight">Highlight.</param>
+        /// <param name="Limit">Maximum number of results to return.</param>
+        /// <param name="Knn">Knn.</param>
+        /// <param name="Aggs">Defines aggregation settings for grouping results.</param>
+        /// <param name="Expressions">Expressions to calculate additional values for the result.</param>
+        /// <param name="MaxMatches">Maximum number of matches allowed in the result.</param>
+        /// <param name="Offset">Starting point for pagination of the result.</param>
+        /// <param name="Options">Additional search options.</param>
+        /// <param name="Profile">Enable or disable profiling of the search request.</param>
+        /// <param name="Sort">Sort.</param>
+        /// <param name="Source">Source.</param>
+        /// <param name="TrackScores">Enable or disable result weight calculation used for sorting.</param>
+        public SearchRequest(string Index = default(string), SearchQuery Query = default(SearchQuery), List<Join> Join = default(List<Join>), Highlight Highlight = default(Highlight), int Limit = default(int), KnnQuery Knn = default(KnnQuery), Dictionary<string, Aggregation> Aggs = default(Dictionary<string, Aggregation>), Dictionary<string, string> Expressions = default(Dictionary<string, string>), int MaxMatches = default(int), int Offset = default(int), Object Options = default(Object), bool Profile = default(bool), Object Sort = default(Object), Object Source = default(Object), bool TrackScores = default(bool))
         {
-            // to ensure "" is required (not null)
-            if ( == null)
+            // to ensure "Index" is required (not null)
+            if (Index == null)
             {
-                throw new ArgumentNullException(" is a required property for SearchRequest and cannot be null");
+                throw new ArgumentNullException("Index is a required property for SearchRequest and cannot be null");
             }
-            this.Index = ;
-            this.Query = ;
-            this.Join = ;
-            this.Highlight = ;
-            this.Limit = ;
-            this.Knn = ;
-            this.Aggs = ;
-            this.Expressions = ;
-            this.MaxMatches = ;
-            this.Offset = ;
-            this.Options = ;
-            this.Profile = ;
-            this.Sort = ;
-            this.Source = ;
-            this.TrackScores = ;
+            this.Index = Index;
+            this.Query = Query;
+            this.Join = Join;
+            this.Highlight = Highlight;
+            this.Limit = Limit;
+            this.Knn = Knn;
+            this.Aggs = Aggs;
+            this.Expressions = Expressions;
+            this.MaxMatches = MaxMatches;
+            this.Offset = Offset;
+            this.Options = Options;
+            this.Profile = Profile;
+            this.Sort = Sort;
+            this.Source = Source;
+            this.TrackScores = TrackScores;
         }
 
         /// <summary>

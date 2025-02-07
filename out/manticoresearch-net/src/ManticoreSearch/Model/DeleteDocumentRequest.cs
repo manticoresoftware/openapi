@@ -41,21 +41,21 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteDocumentRequest" /> class.
         /// </summary>
-        /// <param name="">Index name (required).</param>
-        /// <param name="">Cluster name.</param>
-        /// <param name="">The ID of document for deletion.</param>
-        /// <param name="">Defines the criteria to match documents for deletion.</param>
-        public DeleteDocumentRequest(string  = default(string), string  = default(string), long  = default(long), Object  = default(Object))
+        /// <param name="Index">Index name (required).</param>
+        /// <param name="Cluster">Cluster name.</param>
+        /// <param name="Id">The ID of document for deletion.</param>
+        /// <param name="Query">Defines the criteria to match documents for deletion.</param>
+        public DeleteDocumentRequest(string Index = default(string), string Cluster = default(string), long Id = default(long), Object Query = default(Object))
         {
-            // to ensure "" is required (not null)
-            if ( == null)
+            // to ensure "Index" is required (not null)
+            if (Index == null)
             {
-                throw new ArgumentNullException(" is a required property for DeleteDocumentRequest and cannot be null");
+                throw new ArgumentNullException("Index is a required property for DeleteDocumentRequest and cannot be null");
             }
-            this.Index = ;
-            this.Cluster = ;
-            this.Id = ;
-            this.Query = ;
+            this.Index = Index;
+            this.Cluster = Cluster;
+            this.Id = Id;
+            this.Query = Query;
         }
 
         /// <summary>

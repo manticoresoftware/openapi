@@ -159,58 +159,58 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="Highlight" /> class.
         /// </summary>
-        /// <param name="">Maximum size of the text fragments in highlighted snippets per field.</param>
-        /// <param name="">Maximum size of snippets per field.</param>
-        /// <param name="">Maximum number of snippets per field.</param>
-        /// <param name="">Maximum number of words per field.</param>
-        /// <param name="">Total number of highlighted fragments per field.</param>
-        /// <param name="">Text inserted after the matched term, typically used for HTML formatting (default to &quot;&lt;/strong&gt;&quot;).</param>
-        /// <param name="">Permits an empty string to be returned as the highlighting result. Otherwise, the beginning of the original text would be returned.</param>
-        /// <param name="">Number of words around the match to include in the highlight.</param>
-        /// <param name="">Text inserted before the match, typically used for HTML formatting (default to &quot;&lt;strong&gt;&quot;).</param>
-        /// <param name="">Emits an HTML tag with the enclosing zone name before each highlighted snippet.</param>
-        /// <param name="">If set to &#39;html&#39;, retains HTML markup when highlighting.</param>
-        /// <param name="">.</param>
-        /// <param name="">Ignores the length limit until the result includes all keywords.</param>
-        /// <param name="">Forces snippet generation even if limits allow highlighting the entire text.</param>
-        /// <param name="">.</param>
-        /// <param name="">Defines the mode for handling HTML markup in the highlight.</param>
-        /// <param name="">Determines whether the &#39;limit&#39;, &#39;limit_words&#39;, and &#39;limit_snippets&#39; options operate as individual limits in each field of the document.</param>
-        /// <param name="">If set to 1, allows an empty string to be returned as a highlighting result.</param>
-        /// <param name="">Sets the sorting order of highlighted snippets.</param>
-        /// <param name="">Text inserted before each highlighted snippet (default to &quot;&lt;strong&gt;&quot;).</param>
-        /// <param name="">Text inserted after each highlighted snippet (default to &quot;&lt;/strong&gt;&quot;).</param>
-        /// <param name="">Sets the starting value of the %SNIPPET_ID% macro.</param>
-        /// <param name="">Defines whether to additionally break snippets by phrase boundary characters.</param>
-        public Highlight(Object  = default(Object), Object  = default(Object), Object  = default(Object), Object  = default(Object), Object  = default(Object), string  = @"</strong>", bool  = default(bool), int  = default(int), string  = @"<strong>", bool  = default(bool), EncoderEnum?  = default(EncoderEnum?), Object  = default(Object), bool  = default(bool), bool  = default(bool), QueryFilter  = default(QueryFilter), HtmlStripModeEnum?  = default(HtmlStripModeEnum?), bool  = default(bool), NoMatchSizeEnum?  = default(NoMatchSizeEnum?), OrderEnum?  = default(OrderEnum?), string  = @"<strong>", string  = @"</strong>", int  = default(int), bool  = default(bool))
+        /// <param name="FragmentSize">Maximum size of the text fragments in highlighted snippets per field.</param>
+        /// <param name="Limit">Maximum size of snippets per field.</param>
+        /// <param name="LimitSnippets">Maximum number of snippets per field.</param>
+        /// <param name="LimitWords">Maximum number of words per field.</param>
+        /// <param name="NumberOfFragments">Total number of highlighted fragments per field.</param>
+        /// <param name="AfterMatch">Text inserted after the matched term, typically used for HTML formatting (default to &quot;&lt;/strong&gt;&quot;).</param>
+        /// <param name="AllowEmpty">Permits an empty string to be returned as the highlighting result. Otherwise, the beginning of the original text would be returned.</param>
+        /// <param name="Around">Number of words around the match to include in the highlight.</param>
+        /// <param name="BeforeMatch">Text inserted before the match, typically used for HTML formatting (default to &quot;&lt;strong&gt;&quot;).</param>
+        /// <param name="EmitZones">Emits an HTML tag with the enclosing zone name before each highlighted snippet.</param>
+        /// <param name="Encoder">If set to &#39;html&#39;, retains HTML markup when highlighting.</param>
+        /// <param name="Fields">Fields.</param>
+        /// <param name="ForceAllWords">Ignores the length limit until the result includes all keywords.</param>
+        /// <param name="ForceSnippets">Forces snippet generation even if limits allow highlighting the entire text.</param>
+        /// <param name="HighlightQuery">HighlightQuery.</param>
+        /// <param name="HtmlStripMode">Defines the mode for handling HTML markup in the highlight.</param>
+        /// <param name="LimitsPerField">Determines whether the &#39;limit&#39;, &#39;limit_words&#39;, and &#39;limit_snippets&#39; options operate as individual limits in each field of the document.</param>
+        /// <param name="NoMatchSize">If set to 1, allows an empty string to be returned as a highlighting result.</param>
+        /// <param name="Order">Sets the sorting order of highlighted snippets.</param>
+        /// <param name="PreTags">Text inserted before each highlighted snippet (default to &quot;&lt;strong&gt;&quot;).</param>
+        /// <param name="PostTags">Text inserted after each highlighted snippet (default to &quot;&lt;/strong&gt;&quot;).</param>
+        /// <param name="StartSnippetId">Sets the starting value of the %SNIPPET_ID% macro.</param>
+        /// <param name="UseBoundaries">Defines whether to additionally break snippets by phrase boundary characters.</param>
+        public Highlight(Object FragmentSize = default(Object), Object Limit = default(Object), Object LimitSnippets = default(Object), Object LimitWords = default(Object), Object NumberOfFragments = default(Object), string AfterMatch = @"</strong>", bool AllowEmpty = default(bool), int Around = default(int), string BeforeMatch = @"<strong>", bool EmitZones = default(bool), EncoderEnum? Encoder = default(EncoderEnum?), Object Fields = default(Object), bool ForceAllWords = default(bool), bool ForceSnippets = default(bool), QueryFilter HighlightQuery = default(QueryFilter), HtmlStripModeEnum? HtmlStripMode = default(HtmlStripModeEnum?), bool LimitsPerField = default(bool), NoMatchSizeEnum? NoMatchSize = default(NoMatchSizeEnum?), OrderEnum? Order = default(OrderEnum?), string PreTags = @"<strong>", string PostTags = @"</strong>", int StartSnippetId = default(int), bool UseBoundaries = default(bool))
         {
-            this.FragmentSize = ;
-            this.Limit = ;
-            this.LimitSnippets = ;
-            this.LimitWords = ;
-            this.NumberOfFragments = ;
-            // use default value if no "" provided
-            this.AfterMatch =  ?? @"</strong>";
-            this.AllowEmpty = ;
-            this.Around = ;
-            // use default value if no "" provided
-            this.BeforeMatch =  ?? @"<strong>";
-            this.EmitZones = ;
-            this.Encoder = ;
-            this.Fields = ;
-            this.ForceAllWords = ;
-            this.ForceSnippets = ;
-            this.HighlightQuery = ;
-            this.HtmlStripMode = ;
-            this.LimitsPerField = ;
-            this.NoMatchSize = ;
-            this.Order = ;
-            // use default value if no "" provided
-            this.PreTags =  ?? @"<strong>";
-            // use default value if no "" provided
-            this.PostTags =  ?? @"</strong>";
-            this.StartSnippetId = ;
-            this.UseBoundaries = ;
+            this.FragmentSize = FragmentSize;
+            this.Limit = Limit;
+            this.LimitSnippets = LimitSnippets;
+            this.LimitWords = LimitWords;
+            this.NumberOfFragments = NumberOfFragments;
+            // use default value if no "AfterMatch" provided
+            this.AfterMatch = AfterMatch ?? @"</strong>";
+            this.AllowEmpty = AllowEmpty;
+            this.Around = Around;
+            // use default value if no "BeforeMatch" provided
+            this.BeforeMatch = BeforeMatch ?? @"<strong>";
+            this.EmitZones = EmitZones;
+            this.Encoder = Encoder;
+            this.Fields = Fields;
+            this.ForceAllWords = ForceAllWords;
+            this.ForceSnippets = ForceSnippets;
+            this.HighlightQuery = HighlightQuery;
+            this.HtmlStripMode = HtmlStripMode;
+            this.LimitsPerField = LimitsPerField;
+            this.NoMatchSize = NoMatchSize;
+            this.Order = Order;
+            // use default value if no "PreTags" provided
+            this.PreTags = PreTags ?? @"<strong>";
+            // use default value if no "PostTags" provided
+            this.PostTags = PostTags ?? @"</strong>";
+            this.StartSnippetId = StartSnippetId;
+            this.UseBoundaries = UseBoundaries;
         }
 
         /// <summary>

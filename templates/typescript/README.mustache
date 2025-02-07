@@ -6,17 +6,17 @@
 {{/infoUrl}}
 {{/outBranch}}
 
-## Requirements
-
-Minimum Manticore Search version is 4.2.1 with HTTP protocol enabled.
-
 {{^outBranch}}
-| Manticore Search | manticoresearch-typescript | Node      |
-| ---------------- | -------------------------- | --------- |
-| dev              | manticoresearch-ts-dev     | >= 18.0.0 |
-| >= 6.2.0         | 4.0.x                      | >= 18.0.0 |
-| >= 6.2.0         | 3.3.1                      | >= 18.0.0 |
-| >= 4.2.1         | >= 1.0.x                   | >= 18.0.0 |
+## Compatibility Table
+
+| **manticoresearch-typescript** | **Manticore Search**                | **Node**            | **Compatibility**      |
+| ------------------------------ | ----------------------------------- | ------------------- | -----------------------|
+| `manticoresearch-ts-dev`       | `dev` (latest development version)  | Node 18 or newer    | ✅ Fully Compatible    |
+| 6.0.0 or newer                 | 7.0.0 or newer                      | Node 18 or newer    | ✅ Fully Compatible    |
+| 6.0.0 or newer                 | 4.2.1 to 7.0.0                      | Node 18 or newer    | ⚠️ Partially Compatible|
+| 3.3.1 to 6.0.0                 | 6.2.0 or newer                      | Node 18 or newer    | ✅ Fully Compatible    |
+| 3.3.1 to 6.0.0                 | 4.2.1 to 6.2.0                      | Node 18 or newer    | ⚠️ Partially Compatible|
+| 1.0.x to 3.3.1                 | 4.2.1 to 6.2.0                      | Node 18 or newer    | ✅ Fully Compatible    |
 {{/outBranch}}
 
 ## Installation
@@ -78,10 +78,9 @@ Manticore Search server documentation: https://manual.manticoresearch.com.
 
 All URIs are relative to *{{basePath}}*
 
-| Class | Method | HTTP request | Description |
-| ----- | ------ | ------------ | ------------|
-{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}
-| _{{moduleName}}.{{classname}}_ | [**{{operationId}}**]({{apiDocPath}}{{classname}}.md#{{operationId}}) | **{{httpMethod}}** {{path}} | {{#summary}}{{summary}}{{/summary}} |
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}_{{moduleName}}.{{classname}}_ | [**{{operationId}}**]({{apiDocPath}}{{classname}}.md#{{operationId}}) | **{{httpMethod}}** {{path}} | {{#summary}}{{summary}}{{/summary}}
 {{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}
 
 ## Documentation for Authorization

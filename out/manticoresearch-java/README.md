@@ -1,15 +1,11 @@
 # Manticore Java client
 
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-java/tree/6.0.0
 
 Manticore Search Client
 
 - API version: 6.0.0
 
-- Build date: 2024-10-28T14:42:59.426983397Z[Etc/UTC]
-
-Сlient for Manticore Search.
-
+- Build date: 2025-02-03T11:48:40.720533039Z[Etc/UTC]
 
 ## Requirements
 
@@ -18,12 +14,6 @@ Building the API client library requires:
 1. Java 1.8+
 2. Maven/Gradle
 
-| Manticore Search  | manticoresearch-java    |
-| ----------------- | ----------------------- |
-| dev               | dev     	              |
-| >= 6.3.6          | >= 5.0.x                |
-| >= 6.2.0          | >= 3.3.1                |
-| >= 2.5.1          | >= 2.0.2                |
 
 ## Installation
 

@@ -56,6 +56,51 @@ namespace ManticoreSearch.Test.Model
         }
 
         /// <summary>
+        /// Test the property 'QueryString'
+        /// </summary>
+        [Fact]
+        public void QueryStringTest()
+        {
+            // TODO unit test for the property 'QueryString'
+        }
+
+        /// <summary>
+        /// Test the property 'Match'
+        /// </summary>
+        [Fact]
+        public void MatchTest()
+        {
+            // TODO unit test for the property 'Match'
+        }
+
+        /// <summary>
+        /// Test the property 'MatchPhrase'
+        /// </summary>
+        [Fact]
+        public void MatchPhraseTest()
+        {
+            // TODO unit test for the property 'MatchPhrase'
+        }
+
+        /// <summary>
+        /// Test the property 'MatchAll'
+        /// </summary>
+        [Fact]
+        public void MatchAllTest()
+        {
+            // TODO unit test for the property 'MatchAll'
+        }
+
+        /// <summary>
+        /// Test the property 'VarBool'
+        /// </summary>
+        [Fact]
+        public void VarBoolTest()
+        {
+            // TODO unit test for the property 'VarBool'
+        }
+
+        /// <summary>
         /// Test the property 'PropertyEquals'
         /// </summary>
         [Fact]
@@ -65,12 +110,12 @@ namespace ManticoreSearch.Test.Model
         }
 
         /// <summary>
-        /// Test the property 'In'
+        /// Test the property 'VarIn'
         /// </summary>
         [Fact]
-        public void InTest()
+        public void VarInTest()
         {
-            // TODO unit test for the property 'In'
+            // TODO unit test for the property 'VarIn'
         }
 
         /// <summary>
@@ -89,51 +134,6 @@ namespace ManticoreSearch.Test.Model
         public void GeoDistanceTest()
         {
             // TODO unit test for the property 'GeoDistance'
-        }
-
-        /// <summary>
-        /// Test the property 'Bool'
-        /// </summary>
-        [Fact]
-        public void BoolTest()
-        {
-            // TODO unit test for the property 'Bool'
-        }
-
-        /// <summary>
-        /// Test the property 'Match'
-        /// </summary>
-        [Fact]
-        public void MatchTest()
-        {
-            // TODO unit test for the property 'Match'
-        }
-
-        /// <summary>
-        /// Test the property 'MatchAll'
-        /// </summary>
-        [Fact]
-        public void MatchAllTest()
-        {
-            // TODO unit test for the property 'MatchAll'
-        }
-
-        /// <summary>
-        /// Test the property 'MatchPhrase'
-        /// </summary>
-        [Fact]
-        public void MatchPhraseTest()
-        {
-            // TODO unit test for the property 'MatchPhrase'
-        }
-
-        /// <summary>
-        /// Test the property 'QueryString'
-        /// </summary>
-        [Fact]
-        public void QueryStringTest()
-        {
-            // TODO unit test for the property 'QueryString'
         }
     }
 }

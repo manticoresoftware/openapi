@@ -37,9 +37,8 @@ namespace ManticoreSearch.Api
         /// <exception cref="ManticoreSearch.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">A query parameter string. </param>
         /// <param name="rawResponse">Optional parameter, defines a format of response. Can be set to &#x60;False&#x60; for Select only queries and set to &#x60;True&#x60; for any type of queries. Default value is &#39;True&#39;.  (optional, default to true)</param>
-        /// <param name="mode">Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to &#x60;raw&#x60; for any type of queries. Default value is &#39;raw&#39;.  (optional, default to &quot;raw&quot;)</param>
-        /// <returns>List&lt;Object&gt;</returns>
-        List<Object> Sql(string body, bool? rawResponse = default(bool?), string? mode = default(string?));
+        /// <returns>SqlResponse</returns>
+        SqlResponse Sql(string body, bool? rawResponse = default(bool?));
 
         /// <summary>
         /// Perform SQL requests
@@ -50,9 +49,8 @@ namespace ManticoreSearch.Api
         /// <exception cref="ManticoreSearch.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">A query parameter string. </param>
         /// <param name="rawResponse">Optional parameter, defines a format of response. Can be set to &#x60;False&#x60; for Select only queries and set to &#x60;True&#x60; for any type of queries. Default value is &#39;True&#39;.  (optional, default to true)</param>
-        /// <param name="mode">Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to &#x60;raw&#x60; for any type of queries. Default value is &#39;raw&#39;.  (optional, default to &quot;raw&quot;)</param>
-        /// <returns>ApiResponse of List&lt;Object&gt;</returns>
-        ApiResponse<List<Object>> SqlWithHttpInfo(string body, bool? rawResponse = default(bool?), string? mode = default(string?));
+        /// <returns>ApiResponse of SqlResponse</returns>
+        ApiResponse<SqlResponse> SqlWithHttpInfo(string body, bool? rawResponse = default(bool?));
         #endregion Synchronous Operations
     }
 
@@ -71,10 +69,9 @@ namespace ManticoreSearch.Api
         /// <exception cref="ManticoreSearch.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">A query parameter string. </param>
         /// <param name="rawResponse">Optional parameter, defines a format of response. Can be set to &#x60;False&#x60; for Select only queries and set to &#x60;True&#x60; for any type of queries. Default value is &#39;True&#39;.  (optional, default to true)</param>
-        /// <param name="mode">Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to &#x60;raw&#x60; for any type of queries. Default value is &#39;raw&#39;.  (optional, default to &quot;raw&quot;)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;Object&gt;</returns>
-        System.Threading.Tasks.Task<List<Object>> SqlAsync(string body, bool? rawResponse = default(bool?), string? mode = default(string?), System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        /// <returns>Task of SqlResponse</returns>
+        System.Threading.Tasks.Task<SqlResponse> SqlAsync(string body, bool? rawResponse = default(bool?), System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Perform SQL requests
@@ -85,10 +82,9 @@ namespace ManticoreSearch.Api
         /// <exception cref="ManticoreSearch.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">A query parameter string. </param>
         /// <param name="rawResponse">Optional parameter, defines a format of response. Can be set to &#x60;False&#x60; for Select only queries and set to &#x60;True&#x60; for any type of queries. Default value is &#39;True&#39;.  (optional, default to true)</param>
-        /// <param name="mode">Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to &#x60;raw&#x60; for any type of queries. Default value is &#39;raw&#39;.  (optional, default to &quot;raw&quot;)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<Object>>> SqlWithHttpInfoAsync(string body, bool? rawResponse = default(bool?), string? mode = default(string?), System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (SqlResponse)</returns>
+        System.Threading.Tasks.Task<ApiResponse<SqlResponse>> SqlWithHttpInfoAsync(string body, bool? rawResponse = default(bool?), System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -308,11 +304,10 @@ namespace ManticoreSearch.Api
         /// <exception cref="ManticoreSearch.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">A query parameter string. </param>
         /// <param name="rawResponse">Optional parameter, defines a format of response. Can be set to &#x60;False&#x60; for Select only queries and set to &#x60;True&#x60; for any type of queries. Default value is &#39;True&#39;.  (optional, default to true)</param>
-        /// <param name="mode">Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to &#x60;raw&#x60; for any type of queries. Default value is &#39;raw&#39;.  (optional, default to &quot;raw&quot;)</param>
-        /// <returns>List&lt;Object&gt;</returns>
-        public List<Object> Sql(string body, bool? rawResponse = default(bool?), string? mode = default(string?))
+        /// <returns>SqlResponse</returns>
+        public SqlResponse Sql(string body, bool? rawResponse = default(bool?))
         {
-            ManticoreSearch.Client.ApiResponse<List<Object>> localVarResponse = SqlWithHttpInfo(body, rawResponse, mode);
+            ManticoreSearch.Client.ApiResponse<SqlResponse> localVarResponse = SqlWithHttpInfo(body, rawResponse);
             return localVarResponse.Data;
         }
 
@@ -322,9 +317,8 @@ namespace ManticoreSearch.Api
         /// <exception cref="ManticoreSearch.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">A query parameter string. </param>
         /// <param name="rawResponse">Optional parameter, defines a format of response. Can be set to &#x60;False&#x60; for Select only queries and set to &#x60;True&#x60; for any type of queries. Default value is &#39;True&#39;.  (optional, default to true)</param>
-        /// <param name="mode">Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to &#x60;raw&#x60; for any type of queries. Default value is &#39;raw&#39;.  (optional, default to &quot;raw&quot;)</param>
-        /// <returns>ApiResponse of List&lt;Object&gt;</returns>
-        public ManticoreSearch.Client.ApiResponse<List<Object>> SqlWithHttpInfo(string body, bool? rawResponse = default(bool?), string? mode = default(string?))
+        /// <returns>ApiResponse of SqlResponse</returns>
+        public ManticoreSearch.Client.ApiResponse<SqlResponse> SqlWithHttpInfo(string body, bool? rawResponse = default(bool?))
         {
             // verify the required parameter 'body' is set
             if (body == null)
@@ -351,15 +345,11 @@ namespace ManticoreSearch.Api
             {
                 localVarRequestOptions.QueryParameters.Add(ManticoreSearch.Client.ClientUtils.ParameterToMultiMap("", "raw_response", rawResponse));
             }
-            if (mode != null)
-            {
-                localVarRequestOptions.QueryParameters.Add(ManticoreSearch.Client.ClientUtils.ParameterToMultiMap("", "mode", mode));
-            }
             localVarRequestOptions.Data = body;
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Post<List<Object>>("/sql", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<SqlResponse>("/sql", localVarRequestOptions, this.Configuration);
 
             if (this.ExceptionFactory != null)
             {
@@ -376,12 +366,11 @@ namespace ManticoreSearch.Api
         /// <exception cref="ManticoreSearch.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">A query parameter string. </param>
         /// <param name="rawResponse">Optional parameter, defines a format of response. Can be set to &#x60;False&#x60; for Select only queries and set to &#x60;True&#x60; for any type of queries. Default value is &#39;True&#39;.  (optional, default to true)</param>
-        /// <param name="mode">Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to &#x60;raw&#x60; for any type of queries. Default value is &#39;raw&#39;.  (optional, default to &quot;raw&quot;)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;Object&gt;</returns>
-        public async System.Threading.Tasks.Task<List<Object>> SqlAsync(string body, bool? rawResponse = default(bool?), string? mode = default(string?), System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        /// <returns>Task of SqlResponse</returns>
+        public async System.Threading.Tasks.Task<SqlResponse> SqlAsync(string body, bool? rawResponse = default(bool?), System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            ManticoreSearch.Client.ApiResponse<List<Object>> localVarResponse = await SqlWithHttpInfoAsync(body, rawResponse, mode, cancellationToken).ConfigureAwait(false);
+            ManticoreSearch.Client.ApiResponse<SqlResponse> localVarResponse = await SqlWithHttpInfoAsync(body, rawResponse, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -391,10 +380,9 @@ namespace ManticoreSearch.Api
         /// <exception cref="ManticoreSearch.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">A query parameter string. </param>
         /// <param name="rawResponse">Optional parameter, defines a format of response. Can be set to &#x60;False&#x60; for Select only queries and set to &#x60;True&#x60; for any type of queries. Default value is &#39;True&#39;.  (optional, default to true)</param>
-        /// <param name="mode">Optional parameter, defines a format of response. Can be set to empty for Select only queries and set to &#x60;raw&#x60; for any type of queries. Default value is &#39;raw&#39;.  (optional, default to &quot;raw&quot;)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
-        public async System.Threading.Tasks.Task<ManticoreSearch.Client.ApiResponse<List<Object>>> SqlWithHttpInfoAsync(string body, bool? rawResponse = default(bool?), string? mode = default(string?), System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (SqlResponse)</returns>
+        public async System.Threading.Tasks.Task<ManticoreSearch.Client.ApiResponse<SqlResponse>> SqlWithHttpInfoAsync(string body, bool? rawResponse = default(bool?), System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
             // verify the required parameter 'body' is set
             if (body == null)
@@ -423,16 +411,12 @@ namespace ManticoreSearch.Api
             {
                 localVarRequestOptions.QueryParameters.Add(ManticoreSearch.Client.ClientUtils.ParameterToMultiMap("", "raw_response", rawResponse));
             }
-            if (mode != null)
-            {
-                localVarRequestOptions.QueryParameters.Add(ManticoreSearch.Client.ClientUtils.ParameterToMultiMap("", "mode", mode));
-            }
             localVarRequestOptions.Data = body;
 
 
             // make the HTTP request
 
-            var localVarResponse = await this.AsynchronousClient.PostAsync<List<Object>>("/sql", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<SqlResponse>("/sql", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {

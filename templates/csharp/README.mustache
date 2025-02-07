@@ -15,11 +15,9 @@
 
 <a id="frameworks-supported"></a>
 ## Frameworks supported
-{{#netStandard}}
 - .NET Core >=1.0
 - .NET Framework >=4.6
 - Mono/Xamarin >=vNext
-{{/netStandard}}
 
 <a id="dependencies"></a>
 ## Dependencies
@@ -39,10 +37,17 @@
 The DLLs included in the package may not be the latest version. We recommend using [NuGet](https://docs.nuget.org/consume/installing-nuget) to obtain the latest version of the packages:
 
 {{^outBranch}}
-| Manticore Search  | manticoresearch-net     |
-| ----------------- | ----------------------- |
-| >= 6.2.0          | >= 3.3.1                |
-| >= 2.5.1          | >= 1.0.x                |
+| **manticoresearch-net*  | **Manticore Search**                | **Compatibility**       |
+| ------------------------| ----------------------------------- | ------------------------|
+| `manticoresearch-dev`   | `dev` (latest development version)  | ✅ Fully Compatible     |
+| 6.0.0 or newer          | 7.0.0 or newer                      | ✅ Fully Compatible     |
+| 5.0.0 to 6.0.0          | 7.0.0 or newer                      | ⚠️ Partially Compatible |
+| 5.0.0 to 6.0.0          | 6.3.6 to 7.0.0                      | ✅ Fully Compatible     |
+| 3.3.1 to 5.0.0          | 6.3.6 or newer                      | ⚠️ Partially Compatible |
+| 3.3.1 to 5.0.0          | 6.2.0 to 6.3.6                      | ✅ Fully Compatible     |
+| 1.0.0 to 3.3.1          | 6.2.0 or newer                      | ⚠️ Partially Compatible |
+| 1.0.0 to 3.3.1          | 2.5.1 to 6.2.0                      | ✅ Fully Compatible     |
+
 {{/outBranch}}
 
 ```
@@ -66,14 +71,8 @@ NOTE: RestSharp for .Net Core creates a new socket for each api call, which can 
 {{/useRestSharp}}
 <a id="installation"></a>
 ## Installation
-{{#netStandard}}
+
 Generate the DLL using your preferred tool (e.g. `dotnet build`)
-{{/netStandard}}
-{{^netStandard}}
-Run the following command to generate the DLL
-- [Mac/Linux] `/bin/sh build.sh`
-- [Windows] `build.bat`
-{{/netStandard}}
 
 Then include the DLL (under the `bin` folder) in the C# project, and use the namespaces:
 ```csharp
@@ -172,50 +171,42 @@ namespace Example
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
-            var apiInstance = new {{classname}}(httpClient, config, httpClientHandler);
             {{/useHttpClient}}
-            {{^useHttpClient}}
-            var apiInstance = new {{classname}}(config);
-            {{/useHttpClient}}
-            {{#allParams}}
-            {{#isPrimitiveType}}
-            var {{paramName}} = {{{example}}};  // {{{dataType}}} | {{{description}}}{{^required}} (optional) {{/required}}{{#defaultValue}} (default to {{{.}}}){{/defaultValue}}
-            {{/isPrimitiveType}}
-            {{^isPrimitiveType}}
-            var {{paramName}} = new {{{dataType}}}(); // {{{dataType}}} | {{{description}}}{{^required}} (optional) {{/required}}{{#defaultValue}} (default to {{{.}}}){{/defaultValue}}
-            {{/isPrimitiveType}}
-            {{/allParams}}
-
-            try
-            {
-                {{#summary}}
-                // {{{.}}}
-                {{/summary}}
-                {{#returnType}}{{{.}}} result = {{/returnType}}apiInstance.{{{operationId}}}({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}});{{#returnType}}
-                Debug.WriteLine(result);{{/returnType}}
-            }
-            catch (ApiException e)
-            {
-                Debug.Print("Exception when calling {{classname}}.{{operationId}}: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
-                Debug.Print(e.StackTrace);
-            }
             
-            apiInstance = new SearchApi(httpClient, config, httpClientHandler);
-            
-            // Create SearchRequest
-            var basicSearchRequest = new BasicSearchRequest(index: "test", query: "Title 1");
-            var searchRequest = new SearchRequest(basicSearchRequest);
-
-            try
+            // Perform insert and search operations
+            var indexApi = new IndexApi(httpClient, config, httpClientHandler);
+			var searchApi = new SearchApi(httpClient, config, httpClientHandler);
+            try 
             {
-                // Perform a search
-                SearchResponse result = apiInstance.Search(searchRequest);
-                Debug.WriteLine(result);
-            }
+            	string tableName = "products";
+	
+				Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
+				doc.Add("title", "Crossbody Bag with Tassel");
+				doc.Add("price", 19.85);
+
+                InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(Index: "products", Doc: doc);
+                indexApi.Insert(insertDocumentRequest);
+
+	            SearchRequest searchRequest = new SearchRequest(Index: "products");
+                                
+                Highlight queryHighlight = new Highlight();
+                List<string> highlightFields = new List<string>();
+                highlightFields.Add("title");
+                queryHighlight.Fields = highlightFields;
+
+                SearchQuery query = new SearchQuery();
+                query.QueryString = "@title Bag";
+                
+                searchRequest.Query = query;
+                searchRequest.Highlight = queryHighlight;
+                
+                SearchResponse searchResponse = searchApi.Search(searchRequest);
+						
+				Console.WriteLine(searchResponse);
+			}
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling SearchApi.Search: " + e.Message);
+                Debug.Print("Exception when calling Api method: " + e.Message);
                 Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }

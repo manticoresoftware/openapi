@@ -36,12 +36,12 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SourceRules" /> class.
         /// </summary>
-        /// <param name="">List of fields to include in the response.</param>
-        /// <param name="">List of fields to exclude from the response.</param>
-        public SourceRules(Object  = default(Object), Object  = default(Object))
+        /// <param name="Includes">List of fields to include in the response.</param>
+        /// <param name="Excludes">List of fields to exclude from the response.</param>
+        public SourceRules(Object Includes = default(Object), Object Excludes = default(Object))
         {
-            this.Includes = ;
-            this.Excludes = ;
+            this.Includes = Includes;
+            this.Excludes = Excludes;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

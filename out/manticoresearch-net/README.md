@@ -1,13 +1,17 @@
 # Manticore .Net client
 
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-net/tree/5.0.0
 
 - API version: 5.0.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://manticoresearch.com/contact-us/](https://manticoresearch.com/contact-us/)
 
+❗ WARNING: the current version has breaking changes compared to the previous release https://github.com/manticoresoftware/manticoresearch-net/tree/4.0.0
+
 <a id="frameworks-supported"></a>
 ## Frameworks supported
+- .NET Core >=1.0
+- .NET Framework >=4.6
+- Mono/Xamarin >=vNext
 
 <a id="dependencies"></a>
 ## Dependencies
@@ -18,10 +22,6 @@
 
 The DLLs included in the package may not be the latest version. We recommend using [NuGet](https://docs.nuget.org/consume/installing-nuget) to obtain the latest version of the packages:
 
-| Manticore Search  | manticoresearch-net     |
-| ----------------- | ----------------------- |
-| >= 6.2.0          | >= 3.3.1                |
-| >= 2.5.1          | >= 1.0.x                |
 
 ```
 Install-Package Newtonsoft.Json
@@ -30,9 +30,8 @@ Install-Package System.ComponentModel.Annotations
 ```
 <a id="installation"></a>
 ## Installation
-Run the following command to generate the DLL
-- [Mac/Linux] `/bin/sh build.sh`
-- [Windows] `build.bat`
+
+Generate the DLL using your preferred tool (e.g. `dotnet build`)
 
 Then include the DLL (under the `bin` folder) in the C# project, and use the namespaces:
 ```csharp
@@ -102,37 +101,41 @@ namespace Example
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
-            var apiInstance = new IndexApi(httpClient, config, httpClientHandler);
-            var body = "body_example";  // string | 
-
-            try
-            {
-                // Bulk index operations
-                BulkResponse result = apiInstance.Bulk(body);
-                Debug.WriteLine(result);
-            }
-            catch (ApiException e)
-            {
-                Debug.Print("Exception when calling IndexApi.Bulk: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
-                Debug.Print(e.StackTrace);
-            }
             
-            apiInstance = new SearchApi(httpClient, config, httpClientHandler);
-            
-            // Create SearchRequest
-            var basicSearchRequest = new BasicSearchRequest(index: "test", query: "Title 1");
-            var searchRequest = new SearchRequest(basicSearchRequest);
-
-            try
+            // Perform insert and search operations
+            var indexApi = new IndexApi(httpClient, config, httpClientHandler);
+			var searchApi = new SearchApi(httpClient, config, httpClientHandler);
+            try 
             {
-                // Perform a search
-                SearchResponse result = apiInstance.Search(searchRequest);
-                Debug.WriteLine(result);
-            }
+            	string tableName = "products";
+	
+				Dictionary<string, Object> doc = new Dictionary<string, Object>(); 
+				doc.Add("title", "Crossbody Bag with Tassel");
+				doc.Add("price", 19.85);
+
+                InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(Index: "products", Doc: doc);
+                indexApi.Insert(insertDocumentRequest);
+
+	            SearchRequest searchRequest = new SearchRequest(Index: "products");
+                                
+                Highlight queryHighlight = new Highlight();
+                List<string> highlightFields = new List<string>();
+                highlightFields.Add("title");
+                queryHighlight.Fields = highlightFields;
+
+                SearchQuery query = new SearchQuery();
+                query.QueryString = "@title Bag";
+                
+                searchRequest.Query = query;
+                searchRequest.Highlight = queryHighlight;
+                
+                SearchResponse searchResponse = searchApi.Search(searchRequest);
+						
+				Console.WriteLine(searchResponse);
+			}
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling SearchApi.Search: " + e.Message);
+                Debug.Print("Exception when calling Api method: " + e.Message);
                 Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -184,9 +187,12 @@ Class | Method | HTTP request | Description
  - [Model.JoinCond](docs/JoinCond.md)
  - [Model.JoinOn](docs/JoinOn.md)
  - [Model.KnnQuery](docs/KnnQuery.md)
+ - [Model.Match](docs/Match.md)
+ - [Model.MatchAll](docs/MatchAll.md)
  - [Model.PercolateRequest](docs/PercolateRequest.md)
  - [Model.PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [Model.QueryFilter](docs/QueryFilter.md)
+ - [Model.Range](docs/Range.md)
  - [Model.ReplaceDocumentRequest](docs/ReplaceDocumentRequest.md)
  - [Model.ResponseError](docs/ResponseError.md)
  - [Model.ResponseErrorDetails](docs/ResponseErrorDetails.md)
@@ -195,6 +201,7 @@ Class | Method | HTTP request | Description
  - [Model.SearchResponse](docs/SearchResponse.md)
  - [Model.SearchResponseHits](docs/SearchResponseHits.md)
  - [Model.SourceRules](docs/SourceRules.md)
+ - [Model.SqlResponse](docs/SqlResponse.md)
  - [Model.SuccessResponse](docs/SuccessResponse.md)
  - [Model.UpdateDocumentRequest](docs/UpdateDocumentRequest.md)
  - [Model.UpdateResponse](docs/UpdateResponse.md)

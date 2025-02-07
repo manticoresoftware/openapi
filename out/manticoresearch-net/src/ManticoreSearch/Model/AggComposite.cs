@@ -36,12 +36,12 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AggComposite" /> class.
         /// </summary>
-        /// <param name="">Maximum number of composite buckets in the result.</param>
-        /// <param name="">.</param>
-        public AggComposite(int  = default(int), List<Dictionary<string, AggCompositeSource>>  = default(List<Dictionary<string, AggCompositeSource>>))
+        /// <param name="Size">Maximum number of composite buckets in the result.</param>
+        /// <param name="Sources">Sources.</param>
+        public AggComposite(int Size = default(int), List<Dictionary<string, AggCompositeSource>> Sources = default(List<Dictionary<string, AggCompositeSource>>))
         {
-            this.Size = ;
-            this.Sources = ;
+            this.Size = Size;
+            this.Sources = Sources;
         }
 
         /// <summary>

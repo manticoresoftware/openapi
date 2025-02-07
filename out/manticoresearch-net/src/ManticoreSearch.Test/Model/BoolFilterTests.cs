@@ -56,12 +56,30 @@ namespace ManticoreSearch.Test.Model
         }
 
         /// <summary>
-        /// Test the property 'Bool'
+        /// Test the property 'Must'
         /// </summary>
         [Fact]
-        public void BoolTest()
+        public void MustTest()
         {
-            // TODO unit test for the property 'Bool'
+            // TODO unit test for the property 'Must'
+        }
+
+        /// <summary>
+        /// Test the property 'MustNot'
+        /// </summary>
+        [Fact]
+        public void MustNotTest()
+        {
+            // TODO unit test for the property 'MustNot'
+        }
+
+        /// <summary>
+        /// Test the property 'Should'
+        /// </summary>
+        [Fact]
+        public void ShouldTest()
+        {
+            // TODO unit test for the property 'Should'
         }
     }
 }

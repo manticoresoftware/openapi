@@ -2,30 +2,19 @@
 
 Сlient for Manticore Search.
 
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-go/tree/v1.0.0
-
-## Requiments
-
-| Manticore Search  | manticoresearch-go           |     Go        |
-| ----------------- | ---------------------------- | ------------- |
-| dev               | dev                          | >= 1.17.0     |
-| >= 6.3.6          | v2.0.x                       | >= 1.17.0     |
-| >= 6.2.12         | v1.0.0                       | >= 1.17.0     |
-
-
 
 ## Installation
 
 ```shell
 
-go get github.com/manticoresoftware/manticoresearch-go@dev
+go get github.com/manticoresoftware/manticoresearch-go@v6.0.0
 
 ```
 
 ## Getting Started
 
 go mod init main
-go get github.com/manticoresoftware/manticoresearch-go@dev
+go get github.com/manticoresoftware/manticoresearch-go@v6.0.0
 
 ```go
 

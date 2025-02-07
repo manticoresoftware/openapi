@@ -41,24 +41,24 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="JoinCond" /> class.
         /// </summary>
-        /// <param name="">Field to join on (required).</param>
-        /// <param name="">Joined table (required).</param>
-        /// <param name="">.</param>
-        public JoinCond(string  = default(string), string  = default(string), Object  = default(Object))
+        /// <param name="Field">Field to join on (required).</param>
+        /// <param name="Table">Joined table (required).</param>
+        /// <param name="Type">Type.</param>
+        public JoinCond(string Field = default(string), string Table = default(string), Object Type = default(Object))
         {
-            // to ensure "" is required (not null)
-            if ( == null)
+            // to ensure "Field" is required (not null)
+            if (Field == null)
             {
-                throw new ArgumentNullException(" is a required property for JoinCond and cannot be null");
+                throw new ArgumentNullException("Field is a required property for JoinCond and cannot be null");
             }
-            this.Field = ;
-            // to ensure "" is required (not null)
-            if ( == null)
+            this.Field = Field;
+            // to ensure "Table" is required (not null)
+            if (Table == null)
             {
-                throw new ArgumentNullException(" is a required property for JoinCond and cannot be null");
+                throw new ArgumentNullException("Table is a required property for JoinCond and cannot be null");
             }
-            this.Table = ;
-            this.Type = ;
+            this.Table = Table;
+            this.Type = Type;
         }
 
         /// <summary>

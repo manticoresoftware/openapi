@@ -41,25 +41,25 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="KnnQuery" /> class.
         /// </summary>
-        /// <param name="">Field to perform the k-nearest neighbor search on (required).</param>
-        /// <param name="">The number of nearest neighbors to return (required).</param>
-        /// <param name="">The vector used as input for the KNN search.</param>
-        /// <param name="">The docuemnt ID used as input for the KNN search.</param>
-        /// <param name="">Optional parameter controlling the accuracy of the search.</param>
-        /// <param name="">.</param>
-        public KnnQuery(string  = default(string), int  = default(int), List<decimal>  = default(List<decimal>), long  = default(long), int  = default(int), QueryFilter  = default(QueryFilter))
+        /// <param name="Field">Field to perform the k-nearest neighbor search on (required).</param>
+        /// <param name="K">The number of nearest neighbors to return (required).</param>
+        /// <param name="QueryVector">The vector used as input for the KNN search.</param>
+        /// <param name="DocId">The docuemnt ID used as input for the KNN search.</param>
+        /// <param name="Ef">Optional parameter controlling the accuracy of the search.</param>
+        /// <param name="Filter">Filter.</param>
+        public KnnQuery(string Field = default(string), int K = default(int), List<decimal> QueryVector = default(List<decimal>), long DocId = default(long), int Ef = default(int), QueryFilter Filter = default(QueryFilter))
         {
-            // to ensure "" is required (not null)
-            if ( == null)
+            // to ensure "Field" is required (not null)
+            if (Field == null)
             {
-                throw new ArgumentNullException(" is a required property for KnnQuery and cannot be null");
+                throw new ArgumentNullException("Field is a required property for KnnQuery and cannot be null");
             }
-            this.Field = ;
-            this.K = ;
-            this.QueryVector = ;
-            this.DocId = ;
-            this.Ef = ;
-            this.Filter = ;
+            this.Field = Field;
+            this.K = K;
+            this.QueryVector = QueryVector;
+            this.DocId = DocId;
+            this.Ef = Ef;
+            this.Filter = Filter;
         }
 
         /// <summary>

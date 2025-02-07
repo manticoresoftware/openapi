@@ -41,17 +41,17 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ErrorResponse" /> class.
         /// </summary>
-        /// <param name=""> (required).</param>
-        /// <param name="">HTTP status code of the error response (default to 500).</param>
-        public ErrorResponse(ResponseError  = default(ResponseError), int  = 500)
+        /// <param name="Error">Error (required).</param>
+        /// <param name="Status">HTTP status code of the error response (default to 500).</param>
+        public ErrorResponse(ResponseError Error = default(ResponseError), int Status = 500)
         {
-            // to ensure "" is required (not null)
-            if ( == null)
+            // to ensure "Error" is required (not null)
+            if (Error == null)
             {
-                throw new ArgumentNullException(" is a required property for ErrorResponse and cannot be null");
+                throw new ArgumentNullException("Error is a required property for ErrorResponse and cannot be null");
             }
-            this.Error = ;
-            this.Status = ;
+            this.Error = Error;
+            this.Status = Status;
         }
 
         /// <summary>

@@ -233,7 +233,7 @@ import (
 
 func main() {
 	index := "index_example" // string | Name of the percolate index
-	id := float32(8.14) // float32 | Id of the document to replace
+	id := int64(789) // int64 | Id of the document to replace
 	replaceDocumentRequest := *openapiclient.NewReplaceDocumentRequest(map[string]interface{}(123)) // ReplaceDocumentRequest | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -255,7 +255,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **index** | **string** | Name of the percolate index | 
-**id** | **float32** | Id of the document to replace | 
+**id** | **int64** | Id of the document to replace | 
 
 ### Other Parameters
 

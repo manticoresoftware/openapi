@@ -81,5 +81,23 @@ namespace ManticoreSearch.Test.Model
         {
             // TODO unit test for the property 'Error'
         }
+
+        /// <summary>
+        /// Test the property 'CurrentLine'
+        /// </summary>
+        [Fact]
+        public void CurrentLineTest()
+        {
+            // TODO unit test for the property 'CurrentLine'
+        }
+
+        /// <summary>
+        /// Test the property 'SkippedLines'
+        /// </summary>
+        [Fact]
+        public void SkippedLinesTest()
+        {
+            // TODO unit test for the property 'SkippedLines'
+        }
     }
 }

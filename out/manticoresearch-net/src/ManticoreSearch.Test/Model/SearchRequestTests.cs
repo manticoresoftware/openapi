@@ -56,6 +56,51 @@ namespace ManticoreSearch.Test.Model
         }
 
         /// <summary>
+        /// Test the property 'Index'
+        /// </summary>
+        [Fact]
+        public void IndexTest()
+        {
+            // TODO unit test for the property 'Index'
+        }
+
+        /// <summary>
+        /// Test the property 'Query'
+        /// </summary>
+        [Fact]
+        public void QueryTest()
+        {
+            // TODO unit test for the property 'Query'
+        }
+
+        /// <summary>
+        /// Test the property 'Join'
+        /// </summary>
+        [Fact]
+        public void JoinTest()
+        {
+            // TODO unit test for the property 'Join'
+        }
+
+        /// <summary>
+        /// Test the property 'Highlight'
+        /// </summary>
+        [Fact]
+        public void HighlightTest()
+        {
+            // TODO unit test for the property 'Highlight'
+        }
+
+        /// <summary>
+        /// Test the property 'Limit'
+        /// </summary>
+        [Fact]
+        public void LimitTest()
+        {
+            // TODO unit test for the property 'Limit'
+        }
+
+        /// <summary>
         /// Test the property 'Knn'
         /// </summary>
         [Fact]
@@ -80,42 +125,6 @@ namespace ManticoreSearch.Test.Model
         public void ExpressionsTest()
         {
             // TODO unit test for the property 'Expressions'
-        }
-
-        /// <summary>
-        /// Test the property 'Join'
-        /// </summary>
-        [Fact]
-        public void JoinTest()
-        {
-            // TODO unit test for the property 'Join'
-        }
-
-        /// <summary>
-        /// Test the property 'Highlight'
-        /// </summary>
-        [Fact]
-        public void HighlightTest()
-        {
-            // TODO unit test for the property 'Highlight'
-        }
-
-        /// <summary>
-        /// Test the property 'Index'
-        /// </summary>
-        [Fact]
-        public void IndexTest()
-        {
-            // TODO unit test for the property 'Index'
-        }
-
-        /// <summary>
-        /// Test the property 'Limit'
-        /// </summary>
-        [Fact]
-        public void LimitTest()
-        {
-            // TODO unit test for the property 'Limit'
         }
 
         /// <summary>
@@ -179,15 +188,6 @@ namespace ManticoreSearch.Test.Model
         public void TrackScoresTest()
         {
             // TODO unit test for the property 'TrackScores'
-        }
-
-        /// <summary>
-        /// Test the property 'Query'
-        /// </summary>
-        [Fact]
-        public void QueryTest()
-        {
-            // TODO unit test for the property 'Query'
         }
     }
 }

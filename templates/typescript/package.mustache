@@ -1,6 +1,12 @@
 {
+  {{#devBranch}}
   "name": "{{npmName}}-dev",
   "version": "{{npmVersion}}-dev",
+  {{/devBranch}}
+  {{^devBranch}}
+  "name": "{{npmName}}",
+  "version": "{{npmVersion}}",
+  {{/devBranch}}
   "description": "OpenAPI client for {{npmName}}",
   "author": "OpenAPI-Generator Contributors",
   "repository": {

@@ -10,8 +10,14 @@ from setuptools import setup, find_packages  # noqa: H301
 #
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
+{{#devBranch}}
 NAME = "{{{projectName}}}-devel"
 VERSION = "{{packageVersion}}-dev"
+{{/devBranch}}
+{{^devBranch}}
+NAME = "{{{projectName}}}"
+VERSION = "{{packageVersion}}"
+{{/devBranch}}
 PYTHON_REQUIRES = ">=3.7"
 {{#apiInfo}}
 {{#apis}}

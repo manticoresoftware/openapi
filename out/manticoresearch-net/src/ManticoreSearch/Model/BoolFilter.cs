@@ -36,14 +36,14 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="BoolFilter" /> class.
         /// </summary>
-        /// <param name="">Query clauses that must match for the document to be included.</param>
-        /// <param name="">Query clauses that must not match for the document to be included.</param>
-        /// <param name="">Query clauses that should be matched, but are not required.</param>
-        public BoolFilter(List<QueryFilter>  = default(List<QueryFilter>), List<QueryFilter>  = default(List<QueryFilter>), List<QueryFilter>  = default(List<QueryFilter>))
+        /// <param name="Must">Query clauses that must match for the document to be included.</param>
+        /// <param name="MustNot">Query clauses that must not match for the document to be included.</param>
+        /// <param name="Should">Query clauses that should be matched, but are not required.</param>
+        public BoolFilter(List<QueryFilter> Must = default(List<QueryFilter>), List<QueryFilter> MustNot = default(List<QueryFilter>), List<QueryFilter> Should = default(List<QueryFilter>))
         {
-            this.Must = ;
-            this.MustNot = ;
-            this.Should = ;
+            this.Must = Must;
+            this.MustNot = MustNot;
+            this.Should = Should;
         }
 
         /// <summary>

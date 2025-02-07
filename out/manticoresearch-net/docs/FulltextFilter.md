@@ -6,7 +6,7 @@ Defines a type of filter for full-text search queries
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **QueryString** | **string** | Filter object defining a query string | [optional] 
-**Match** | **Object** | Filter object defining a match keyword | [optional] 
+**Match** | **Object** | Filter object defining a match keyword passed as a string or in a Match object | [optional] 
 **MatchPhrase** | **Object** | Filter object defining a match phrase | [optional] 
 **MatchAll** | **Object** | Filter object to select all documents | [optional] 
 

@@ -41,28 +41,28 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateDocumentRequest" /> class.
         /// </summary>
-        /// <param name="">Name of the document index (required).</param>
-        /// <param name="">Name of the document cluster.</param>
-        /// <param name="">Object containing the document fields to update (required).</param>
-        /// <param name="">Document ID.</param>
-        /// <param name="">.</param>
-        public UpdateDocumentRequest(string  = default(string), string  = default(string), Object  = default(Object), long  = default(long), QueryFilter  = default(QueryFilter))
+        /// <param name="Index">Name of the document index (required).</param>
+        /// <param name="Cluster">Name of the document cluster.</param>
+        /// <param name="Doc">Object containing the document fields to update (required).</param>
+        /// <param name="Id">Document ID.</param>
+        /// <param name="Query">Query.</param>
+        public UpdateDocumentRequest(string Index = default(string), string Cluster = default(string), Object Doc = default(Object), long Id = default(long), QueryFilter Query = default(QueryFilter))
         {
-            // to ensure "" is required (not null)
-            if ( == null)
+            // to ensure "Index" is required (not null)
+            if (Index == null)
             {
-                throw new ArgumentNullException(" is a required property for UpdateDocumentRequest and cannot be null");
+                throw new ArgumentNullException("Index is a required property for UpdateDocumentRequest and cannot be null");
             }
-            this.Index = ;
-            // to ensure "" is required (not null)
-            if ( == null)
+            this.Index = Index;
+            // to ensure "Doc" is required (not null)
+            if (Doc == null)
             {
-                throw new ArgumentNullException(" is a required property for UpdateDocumentRequest and cannot be null");
+                throw new ArgumentNullException("Doc is a required property for UpdateDocumentRequest and cannot be null");
             }
-            this.Doc = ;
-            this.Cluster = ;
-            this.Id = ;
-            this.Query = ;
+            this.Doc = Doc;
+            this.Cluster = Cluster;
+            this.Id = Id;
+            this.Query = Query;
         }
 
         /// <summary>

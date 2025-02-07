@@ -3,7 +3,7 @@
 Сlient for Manticore Search.
 
 
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-python/tree/5.0.0
+❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-python/tree/6.0.0
 
 ## Requirements.
 
@@ -50,7 +50,7 @@ import manticoresearch
 
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
-	```python
+```python
 import manticoresearch
 from manticoresearch.rest import ApiException
 from pprint import pprint
@@ -68,12 +68,18 @@ with manticoresearch.ApiClient(configuration) as api_client:
     # Create instances of API classes
     indexApi = manticoresearch.IndexApi(api_client)
     searchApi = manticoresearch.SearchApi(api_client)
+    utilsApi = manticoresearch.UtilsApi(api_client)
 
     try:
         # Perform insert and search operations    
         newDoc = {"title" : "Crossbody Bag with Tassel", "price": 19.85}
         insert_request = InsertDocumentRequest(index="products", doc=newDoc)
         indexApi.insert(insert_request)
+        
+        # Check out the structure of the autocreated 'products' table
+        sql_response = utilsApi.sql('DESC products');
+        print("The response of UtilsApi->sql:\n")
+        pprint(sql_response) 
 
         newDoc = {"title" : "Pet Hair Remover Glove", "price": 7.99}
         insert_request = InsertDocumentRequest(index="products", doc=newDoc)
@@ -103,14 +109,14 @@ All URIs are relative to *http://127.0.0.1:9308*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*IndexApi* | [**bulk**](docs/IndexApi.md#bulk) | **POST** /bulk | Bulk index operations
-*IndexApi* | [**delete**](docs/IndexApi.md#delete) | **POST** /delete | Delete a document in an index
-*IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /insert | Create a new document in an index
-*IndexApi* | [**partial_replace**](docs/IndexApi.md#partial_replace) | **POST** /{index}/_update/{id} | Partially replaces a document in an index
-*IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /replace | Replace new document in an index
-*IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /update | Update a document in an index
-*SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{index}/search | Perform reverse search on a percolate index
-*SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /search | Performs a search on an index
+*IndexApi* | [**bulk**](docs/IndexApi.md#bulk) | **POST** /bulk | Bulk table operations
+*IndexApi* | [**delete**](docs/IndexApi.md#delete) | **POST** /delete | Delete a document in a table
+*IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /insert | Create a new document in a table
+*IndexApi* | [**partial_replace**](docs/IndexApi.md#partial_replace) | **POST** /{table}/_update/{id} | Partially replaces a document in a table
+*IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /replace | Replace new document in a table
+*IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /update | Update a document in a table
+*SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{table}/search | Perform reverse search on a percolate table
+*SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /search | Performs a search on a table
 *UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
 

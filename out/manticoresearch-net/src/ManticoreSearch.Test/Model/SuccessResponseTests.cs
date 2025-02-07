@@ -65,6 +65,15 @@ namespace ManticoreSearch.Test.Model
         }
 
         /// <summary>
+        /// Test the property 'Table'
+        /// </summary>
+        [Fact]
+        public void TableTest()
+        {
+            // TODO unit test for the property 'Table'
+        }
+
+        /// <summary>
         /// Test the property 'Id'
         /// </summary>
         [Fact]

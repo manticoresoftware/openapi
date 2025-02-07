@@ -36,16 +36,16 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchResponseHits" /> class.
         /// </summary>
-        /// <param name="">Maximum score among the matched documents.</param>
-        /// <param name="">Total number of matched documents.</param>
-        /// <param name="">Indicates whether the total number of hits is accurate or an estimate.</param>
-        /// <param name="">Array of hit objects, each representing a matched document.</param>
-        public SearchResponseHits(int  = default(int), int  = default(int), string  = default(string), List<Object>  = default(List<Object>))
+        /// <param name="MaxScore">Maximum score among the matched documents.</param>
+        /// <param name="Total">Total number of matched documents.</param>
+        /// <param name="TotalRelation">Indicates whether the total number of hits is accurate or an estimate.</param>
+        /// <param name="Hits">Array of hit objects, each representing a matched document.</param>
+        public SearchResponseHits(int MaxScore = default(int), int Total = default(int), string TotalRelation = default(string), List<Object> Hits = default(List<Object>))
         {
-            this.MaxScore = ;
-            this.Total = ;
-            this.TotalRelation = ;
-            this.Hits = ;
+            this.MaxScore = MaxScore;
+            this.Total = Total;
+            this.TotalRelation = TotalRelation;
+            this.Hits = Hits;
         }
 
         /// <summary>

@@ -29,6 +29,8 @@ type SearchResponse struct {
 	Hits *SearchResponseHits
 	// Profile information about the search execution, if profiling is enabled
 	Profile map[string]interface{}
+	// Scroll token to be used fo pagination
+	Scroll *string
 	// Warnings encountered during the search operation
 	Warning map[string]interface{}
 }
@@ -210,6 +212,38 @@ func (o *SearchResponse) SetProfile(v map[string]interface{}) {
 	o.Profile = v
 }
 
+// GetScroll returns the Scroll field value if set, zero value otherwise.
+func (o *SearchResponse) GetScroll() string {
+	if o == nil || IsNil(o.Scroll) {
+		var ret string
+		return ret
+	}
+	return *o.Scroll
+}
+
+// GetScrollOk returns a tuple with the Scroll field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchResponse) GetScrollOk() (*string, bool) {
+	if o == nil || IsNil(o.Scroll) {
+		return nil, false
+	}
+	return o.Scroll, true
+}
+
+// HasScroll returns a boolean if a field has been set.
+func (o *SearchResponse) HasScroll() bool {
+	if o != nil && !IsNil(o.Scroll) {
+		return true
+	}
+
+	return false
+}
+
+// SetScroll gets a reference to the given string and assigns it to the Scroll field.
+func (o *SearchResponse) SetScroll(v string) {
+	o.Scroll = &v
+}
+
 // GetWarning returns the Warning field value if set, zero value otherwise.
 func (o *SearchResponse) GetWarning() map[string]interface{} {
 	if o == nil || IsNil(o.Warning) {
@@ -266,6 +300,9 @@ func (o SearchResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
+	}
+	if !IsNil(o.Scroll) {
+		toSerialize["scroll"] = o.Scroll
 	}
 	if !IsNil(o.Warning) {
 		toSerialize["warning"] = o.Warning
