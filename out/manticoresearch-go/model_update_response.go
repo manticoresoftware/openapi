@@ -20,14 +20,14 @@ var _ MappedNullable = &UpdateResponse{}
 
 // UpdateResponse Success response returned after updating one or more documents
 type UpdateResponse struct {
-	// Name of the document index
-	Index *string
+	// Name of the document table
+	Table *string `json:"table"` 
 	// Number of documents updated
-	Updated *int32
+	Updated *int32 `json:"updated"` 
 	// Document ID
-	Id *int64
+	Id *int64 `json:"id"` 
 	// Result of the update operation, typically 'updated'
-	Result *string
+	Result *string `json:"result"` 
 }
 
 // NewUpdateResponse instantiates a new UpdateResponse object
@@ -47,36 +47,36 @@ func NewUpdateResponseWithDefaults() *UpdateResponse {
 	return &this
 }
 
-// GetIndex returns the Index field value if set, zero value otherwise.
-func (o *UpdateResponse) GetIndex() string {
-	if o == nil || IsNil(o.Index) {
+// GetTable returns the Table field value if set, zero value otherwise.
+func (o *UpdateResponse) GetTable() string {
+	if o == nil || IsNil(o.Table) {
 		var ret string
 		return ret
 	}
-	return *o.Index
+	return *o.Table
 }
 
-// GetIndexOk returns a tuple with the Index field value if set, nil otherwise
+// GetTableOk returns a tuple with the Table field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateResponse) GetIndexOk() (*string, bool) {
-	if o == nil || IsNil(o.Index) {
+func (o *UpdateResponse) GetTableOk() (*string, bool) {
+	if o == nil || IsNil(o.Table) {
 		return nil, false
 	}
-	return o.Index, true
+	return o.Table, true
 }
 
-// HasIndex returns a boolean if a field has been set.
-func (o *UpdateResponse) HasIndex() bool {
-	if o != nil && !IsNil(o.Index) {
+// HasTable returns a boolean if a field has been set.
+func (o *UpdateResponse) HasTable() bool {
+	if o != nil && !IsNil(o.Table) {
 		return true
 	}
 
 	return false
 }
 
-// SetIndex gets a reference to the given string and assigns it to the Index field.
-func (o *UpdateResponse) SetIndex(v string) {
-	o.Index = &v
+// SetTable gets a reference to the given string and assigns it to the Table field.
+func (o *UpdateResponse) SetTable(v string) {
+	o.Table = &v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
@@ -185,14 +185,14 @@ func (o UpdateResponse) MarshalJSON() ([]byte, error) {
 
 func (o UpdateResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Index) {
-		toSerialize["_index"] = o.Index
+	if !IsNil(o.Table) {
+		toSerialize["table"] = o.Table
 	}
 	if !IsNil(o.Updated) {
 		toSerialize["updated"] = o.Updated
 	}
 	if !IsNil(o.Id) {
-		toSerialize["_id"] = o.Id
+		toSerialize["id"] = o.Id
 	}
 	if !IsNil(o.Result) {
 		toSerialize["result"] = o.Result

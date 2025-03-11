@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Index** | **string** | Name of the index to insert the document into | 
+**Table** | **string** | Name of the table to insert the document into | 
 **Cluster** | Pointer to **string** | Name of the cluster to insert the document into | [optional] 
 **Id** | Pointer to **int64** | Document ID. If not provided, an ID will be auto-generated  | [optional] 
 **Doc** | **map[string]interface{}** | Object containing document data  | 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewInsertDocumentRequest
 
-`func NewInsertDocumentRequest(index string, doc map[string]interface{}, ) *InsertDocumentRequest`
+`func NewInsertDocumentRequest(table string, doc map[string]interface{}, ) *InsertDocumentRequest`
 
 NewInsertDocumentRequest instantiates a new InsertDocumentRequest object
 This constructor will assign default values to properties that have it defined,
@@ -28,24 +28,24 @@ NewInsertDocumentRequestWithDefaults instantiates a new InsertDocumentRequest ob
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetIndex
+### GetTable
 
-`func (o *InsertDocumentRequest) GetIndex() string`
+`func (o *InsertDocumentRequest) GetTable() string`
 
-GetIndex returns the Index field if non-nil, zero value otherwise.
+GetTable returns the Table field if non-nil, zero value otherwise.
 
-### GetIndexOk
+### GetTableOk
 
-`func (o *InsertDocumentRequest) GetIndexOk() (*string, bool)`
+`func (o *InsertDocumentRequest) GetTableOk() (*string, bool)`
 
-GetIndexOk returns a tuple with the Index field if it's non-nil, zero value otherwise
+GetTableOk returns a tuple with the Table field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIndex
+### SetTable
 
-`func (o *InsertDocumentRequest) SetIndex(v string)`
+`func (o *InsertDocumentRequest) SetTable(v string)`
 
-SetIndex sets Index field to given value.
+SetTable sets Table field to given value.
 
 
 ### GetCluster

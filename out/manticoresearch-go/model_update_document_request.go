@@ -20,17 +20,17 @@ import (
 // checks if the UpdateDocumentRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UpdateDocumentRequest{}
 
-// UpdateDocumentRequest Payload for updating a document or multiple documents in an index
+// UpdateDocumentRequest Payload for updating a document or multiple documents in a table
 type UpdateDocumentRequest struct {
-	// Name of the document index
-	Index string
+	// Name of the document table
+	Table string `json:"table"` 
 	// Name of the document cluster
-	Cluster *string
+	Cluster *string `json:"cluster"` 
 	// Object containing the document fields to update
-	Doc map[string]interface{}
+	Doc map[string]interface{} `json:"doc"` 
 	// Document ID
-	Id *int64
-	Query NullableQueryFilter
+	Id *int64 `json:"id"` 
+	Query NullableQueryFilter `json:"query"` 
 }
 
 type _UpdateDocumentRequest UpdateDocumentRequest
@@ -39,9 +39,9 @@ type _UpdateDocumentRequest UpdateDocumentRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateDocumentRequest(index string, doc map[string]interface{}) *UpdateDocumentRequest {
+func NewUpdateDocumentRequest(table string, doc map[string]interface{}) *UpdateDocumentRequest {
 	this := UpdateDocumentRequest{}
-	this.Index = index
+	this.Table = table
 	this.Doc = doc
 	return &this
 }
@@ -54,28 +54,28 @@ func NewUpdateDocumentRequestWithDefaults() *UpdateDocumentRequest {
 	return &this
 }
 
-// GetIndex returns the Index field value
-func (o *UpdateDocumentRequest) GetIndex() string {
+// GetTable returns the Table field value
+func (o *UpdateDocumentRequest) GetTable() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Index
+	return o.Table
 }
 
-// GetIndexOk returns a tuple with the Index field value
+// GetTableOk returns a tuple with the Table field value
 // and a boolean to check if the value has been set.
-func (o *UpdateDocumentRequest) GetIndexOk() (*string, bool) {
+func (o *UpdateDocumentRequest) GetTableOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Index, true
+	return &o.Table, true
 }
 
-// SetIndex sets field value
-func (o *UpdateDocumentRequest) SetIndex(v string) {
-	o.Index = v
+// SetTable sets field value
+func (o *UpdateDocumentRequest) SetTable(v string) {
+	o.Table = v
 }
 
 // GetCluster returns the Cluster field value if set, zero value otherwise.
@@ -218,7 +218,7 @@ func (o UpdateDocumentRequest) MarshalJSON() ([]byte, error) {
 
 func (o UpdateDocumentRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["index"] = o.Index
+	toSerialize["table"] = o.Table
 	if !IsNil(o.Cluster) {
 		toSerialize["cluster"] = o.Cluster
 	}

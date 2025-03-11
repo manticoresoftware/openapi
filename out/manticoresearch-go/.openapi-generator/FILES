@@ -13,6 +13,7 @@ docs/AggCompositeSource.md
 docs/AggCompositeTerm.md
 docs/AggTerms.md
 docs/Aggregation.md
+docs/AutocompleteRequest.md
 docs/BoolFilter.md
 docs/BulkResponse.md
 docs/DeleteDocumentRequest.md
@@ -23,6 +24,7 @@ docs/GeoDistance.md
 docs/GeoDistanceLocationAnchor.md
 docs/Highlight.md
 docs/HighlightFieldOption.md
+docs/HitsHits.md
 docs/IndexAPI.md
 docs/InsertDocumentRequest.md
 docs/Join.md
@@ -57,6 +59,7 @@ model_agg_composite_source.go
 model_agg_composite_term.go
 model_agg_terms.go
 model_aggregation.go
+model_autocomplete_request.go
 model_bool_filter.go
 model_bulk_response.go
 model_delete_document_request.go
@@ -67,6 +70,7 @@ model_geo_distance.go
 model_geo_distance_location_anchor.go
 model_highlight.go
 model_highlight_field_option.go
+model_hits_hits.go
 model_insert_document_request.go
 model_join.go
 model_join_cond.go

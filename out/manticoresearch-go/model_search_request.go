@@ -22,31 +22,31 @@ var _ MappedNullable = &SearchRequest{}
 
 // SearchRequest Request object for search operation
 type SearchRequest struct {
-	// The index to perform the search on
-	Index string
-	Query *SearchQuery
+	// The table to perform the search on
+	Table string `json:"table"` 
+	Query *SearchQuery `json:"query"` 
 	// Join clause to combine search data from multiple tables
-	Join []Join
-	Highlight *Highlight
+	Join []Join `json:"join"` 
+	Highlight *Highlight `json:"highlight"` 
 	// Maximum number of results to return
-	Limit *int32
-	Knn *KnnQuery
+	Limit *int32 `json:"limit"` 
+	Knn *KnnQuery `json:"knn"` 
 	// Defines aggregation settings for grouping results
-	Aggs map[string]Aggregation
+	Aggs map[string]Aggregation `json:"aggs"` 
 	// Expressions to calculate additional values for the result
-	Expressions map[string]string
+	Expressions map[string]string `json:"expressions"` 
 	// Maximum number of matches allowed in the result
-	MaxMatches *int32
+	MaxMatches *int32 `json:"max_matches"` 
 	// Starting point for pagination of the result
-	Offset *int32
+	Offset *int32 `json:"offset"` 
 	// Additional search options
-	Options map[string]interface{}
+	Options map[string]interface{} `json:"options"` 
 	// Enable or disable profiling of the search request
-	Profile *bool
-	Sort interface{}
-	Source interface{}
+	Profile *bool `json:"profile"` 
+	Sort interface{} `json:"sort"` 
+	Source interface{} `json:"_source"` 
 	// Enable or disable result weight calculation used for sorting
-	TrackScores *bool
+	TrackScores *bool `json:"track_scores"` 
 }
 
 type _SearchRequest SearchRequest
@@ -55,9 +55,9 @@ type _SearchRequest SearchRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSearchRequest(index string) *SearchRequest {
+func NewSearchRequest(table string) *SearchRequest {
 	this := SearchRequest{}
-	this.Index = index
+	this.Table = table
 	return &this
 }
 
@@ -69,28 +69,28 @@ func NewSearchRequestWithDefaults() *SearchRequest {
 	return &this
 }
 
-// GetIndex returns the Index field value
-func (o *SearchRequest) GetIndex() string {
+// GetTable returns the Table field value
+func (o *SearchRequest) GetTable() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Index
+	return o.Table
 }
 
-// GetIndexOk returns a tuple with the Index field value
+// GetTableOk returns a tuple with the Table field value
 // and a boolean to check if the value has been set.
-func (o *SearchRequest) GetIndexOk() (*string, bool) {
+func (o *SearchRequest) GetTableOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Index, true
+	return &o.Table, true
 }
 
-// SetIndex sets field value
-func (o *SearchRequest) SetIndex(v string) {
-	o.Index = v
+// SetTable sets field value
+func (o *SearchRequest) SetTable(v string) {
+	o.Table = v
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
@@ -555,7 +555,7 @@ func (o SearchRequest) MarshalJSON() ([]byte, error) {
 
 func (o SearchRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["index"] = o.Index
+	toSerialize["table"] = o.Table
 	if !IsNil(o.Query) {
 		toSerialize["query"] = o.Query
 	}

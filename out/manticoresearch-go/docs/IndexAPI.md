@@ -4,12 +4,12 @@ All URIs are relative to *http://127.0.0.1:9308*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Bulk**](IndexAPI.md#Bulk) | **Post** /bulk | Bulk index operations
-[**Delete**](IndexAPI.md#Delete) | **Post** /delete | Delete a document in an index
-[**Insert**](IndexAPI.md#Insert) | **Post** /insert | Create a new document in an index
-[**PartialReplace**](IndexAPI.md#PartialReplace) | **Post** /{index}/_update/{id} | Partially replaces a document in an index
-[**Replace**](IndexAPI.md#Replace) | **Post** /replace | Replace new document in an index
-[**Update**](IndexAPI.md#Update) | **Post** /update | Update a document in an index
+[**Bulk**](IndexAPI.md#Bulk) | **Post** /bulk | Bulk table operations
+[**Delete**](IndexAPI.md#Delete) | **Post** /delete | Delete a document in a table
+[**Insert**](IndexAPI.md#Insert) | **Post** /insert | Create a new document in a table
+[**PartialReplace**](IndexAPI.md#PartialReplace) | **Post** /{table}/_update/{id} | Partially replaces a document in a table
+[**Replace**](IndexAPI.md#Replace) | **Post** /replace | Replace new document in a table
+[**Update**](IndexAPI.md#Update) | **Post** /update | Update a document in a table
 
 
 
@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 > BulkResponse Bulk(ctx).Body(body).Execute()
 
-Bulk index operations
+Bulk table operations
 
 
 
@@ -83,7 +83,7 @@ No authorization required
 
 > DeleteResponse Delete(ctx).DeleteDocumentRequest(deleteDocumentRequest).Execute()
 
-Delete a document in an index
+Delete a document in a table
 
 
 
@@ -100,7 +100,7 @@ import (
 )
 
 func main() {
-	deleteDocumentRequest := *openapiclient.NewDeleteDocumentRequest("Index_example") // DeleteDocumentRequest | 
+	deleteDocumentRequest := *openapiclient.NewDeleteDocumentRequest("Table_example") // DeleteDocumentRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -149,7 +149,7 @@ No authorization required
 
 > SuccessResponse Insert(ctx).InsertDocumentRequest(insertDocumentRequest).Execute()
 
-Create a new document in an index
+Create a new document in a table
 
 
 
@@ -166,7 +166,7 @@ import (
 )
 
 func main() {
-	insertDocumentRequest := *openapiclient.NewInsertDocumentRequest("Index_example", map[string]interface{}(123)) // InsertDocumentRequest | 
+	insertDocumentRequest := *openapiclient.NewInsertDocumentRequest("Table_example", map[string]interface{}(123)) // InsertDocumentRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -213,9 +213,9 @@ No authorization required
 
 ## PartialReplace
 
-> UpdateResponse PartialReplace(ctx, index, id).ReplaceDocumentRequest(replaceDocumentRequest).Execute()
+> UpdateResponse PartialReplace(ctx, table, id).ReplaceDocumentRequest(replaceDocumentRequest).Execute()
 
-Partially replaces a document in an index
+Partially replaces a document in a table
 
 
 
@@ -232,13 +232,13 @@ import (
 )
 
 func main() {
-	index := "index_example" // string | Name of the percolate index
+	table := "table_example" // string | Name of the percolate table
 	id := int64(789) // int64 | Id of the document to replace
 	replaceDocumentRequest := *openapiclient.NewReplaceDocumentRequest(map[string]interface{}(123)) // ReplaceDocumentRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IndexAPI.PartialReplace(context.Background(), index, id).ReplaceDocumentRequest(replaceDocumentRequest).Execute()
+	resp, r, err := apiClient.IndexAPI.PartialReplace(context.Background(), table, id).ReplaceDocumentRequest(replaceDocumentRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.PartialReplace``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -254,7 +254,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**index** | **string** | Name of the percolate index | 
+**table** | **string** | Name of the percolate table | 
 **id** | **int64** | Id of the document to replace | 
 
 ### Other Parameters
@@ -290,7 +290,7 @@ No authorization required
 
 > SuccessResponse Replace(ctx).InsertDocumentRequest(insertDocumentRequest).Execute()
 
-Replace new document in an index
+Replace new document in a table
 
 
 
@@ -307,7 +307,7 @@ import (
 )
 
 func main() {
-	insertDocumentRequest := *openapiclient.NewInsertDocumentRequest("Index_example", map[string]interface{}(123)) // InsertDocumentRequest | 
+	insertDocumentRequest := *openapiclient.NewInsertDocumentRequest("Table_example", map[string]interface{}(123)) // InsertDocumentRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -356,7 +356,7 @@ No authorization required
 
 > UpdateResponse Update(ctx).UpdateDocumentRequest(updateDocumentRequest).Execute()
 
-Update a document in an index
+Update a document in a table
 
 
 
@@ -373,7 +373,7 @@ import (
 )
 
 func main() {
-	updateDocumentRequest := *openapiclient.NewUpdateDocumentRequest("Index_example", map[string]interface{}({gid=10})) // UpdateDocumentRequest | 
+	updateDocumentRequest := *openapiclient.NewUpdateDocumentRequest("Table_example", map[string]interface{}({gid=10})) // UpdateDocumentRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

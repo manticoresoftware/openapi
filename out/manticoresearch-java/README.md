@@ -3,9 +3,9 @@
 
 Manticore Search Client
 
-- API version: 6.0.0
+- API version: 7.0.0
 
-- Build date: 2025-02-03T11:48:40.720533039Z[Etc/UTC]
+- Build date: 2025-02-13T14:03:43.705466922Z[Etc/UTC]
 
 ## Requirements
 
@@ -39,7 +39,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.manticoresearch</groupId>
   <artifactId>manticoresearch</artifactId>
-  <version>6.0.0</version>
+  <version>7.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -55,7 +55,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.manticoresearch:manticoresearch:6.0.0"
+     implementation "com.manticoresearch:manticoresearch:7.0.0"
   }
 ```
 
@@ -69,7 +69,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/manticoresearch-6.0.0.jar`
+- `target/manticoresearch-7.0.0.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -134,14 +134,15 @@ All URIs are relative to *http://127.0.0.1:9308*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*IndexApi* | [**bulk**](docs/IndexApi.md#bulk) | **POST** /bulk | Bulk index operations
-*IndexApi* | [**delete**](docs/IndexApi.md#delete) | **POST** /delete | Delete a document in an index
-*IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /insert | Create a new document in an index
-*IndexApi* | [**partialReplace**](docs/IndexApi.md#partialReplace) | **POST** /{index}/_update/{id} | Partially replaces a document in an index
-*IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /replace | Replace new document in an index
-*IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /update | Update a document in an index
-*SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{index}/search | Perform reverse search on a percolate index
-*SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /search | Performs a search on an index
+*IndexApi* | [**bulk**](docs/IndexApi.md#bulk) | **POST** /bulk | Bulk table operations
+*IndexApi* | [**delete**](docs/IndexApi.md#delete) | **POST** /delete | Delete a document in a table
+*IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /insert | Create a new document in a table
+*IndexApi* | [**partialReplace**](docs/IndexApi.md#partialReplace) | **POST** /{table}/_update/{id} | Partially replaces a document in a table
+*IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /replace | Replace new document in a table
+*IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /update | Update a document in a table
+*SearchApi* | [**autocomplete**](docs/SearchApi.md#autocomplete) | **POST** /autocomplete | Performs an autocomplete search on a table
+*SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{table}/search | Perform reverse search on a percolate table
+*SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /search | Performs a search on a table
 *UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
 
@@ -152,6 +153,7 @@ Class | Method | HTTP request | Description
  - [AggCompositeTerm](docs/AggCompositeTerm.md)
  - [AggTerms](docs/AggTerms.md)
  - [Aggregation](docs/Aggregation.md)
+ - [AutocompleteRequest](docs/AutocompleteRequest.md)
  - [BoolFilter](docs/BoolFilter.md)
  - [BulkResponse](docs/BulkResponse.md)
  - [DeleteDocumentRequest](docs/DeleteDocumentRequest.md)

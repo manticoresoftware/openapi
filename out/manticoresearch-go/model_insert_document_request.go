@@ -20,16 +20,16 @@ import (
 // checks if the InsertDocumentRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &InsertDocumentRequest{}
 
-// InsertDocumentRequest Object containing data for inserting a new document into the index 
+// InsertDocumentRequest Object containing data for inserting a new document into the table 
 type InsertDocumentRequest struct {
-	// Name of the index to insert the document into
-	Index string
+	// Name of the table to insert the document into
+	Table string `json:"table"` 
 	// Name of the cluster to insert the document into
-	Cluster *string
+	Cluster *string `json:"cluster"` 
 	// Document ID. If not provided, an ID will be auto-generated 
-	Id *int64
+	Id *int64 `json:"id"` 
 	// Object containing document data 
-	Doc map[string]interface{}
+	Doc map[string]interface{} `json:"doc"` 
 }
 
 type _InsertDocumentRequest InsertDocumentRequest
@@ -38,9 +38,9 @@ type _InsertDocumentRequest InsertDocumentRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInsertDocumentRequest(index string, doc map[string]interface{}) *InsertDocumentRequest {
+func NewInsertDocumentRequest(table string, doc map[string]interface{}) *InsertDocumentRequest {
 	this := InsertDocumentRequest{}
-	this.Index = index
+	this.Table = table
 	this.Doc = doc
 	return &this
 }
@@ -53,28 +53,28 @@ func NewInsertDocumentRequestWithDefaults() *InsertDocumentRequest {
 	return &this
 }
 
-// GetIndex returns the Index field value
-func (o *InsertDocumentRequest) GetIndex() string {
+// GetTable returns the Table field value
+func (o *InsertDocumentRequest) GetTable() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Index
+	return o.Table
 }
 
-// GetIndexOk returns a tuple with the Index field value
+// GetTableOk returns a tuple with the Table field value
 // and a boolean to check if the value has been set.
-func (o *InsertDocumentRequest) GetIndexOk() (*string, bool) {
+func (o *InsertDocumentRequest) GetTableOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Index, true
+	return &o.Table, true
 }
 
-// SetIndex sets field value
-func (o *InsertDocumentRequest) SetIndex(v string) {
-	o.Index = v
+// SetTable sets field value
+func (o *InsertDocumentRequest) SetTable(v string) {
+	o.Table = v
 }
 
 // GetCluster returns the Cluster field value if set, zero value otherwise.
@@ -175,7 +175,7 @@ func (o InsertDocumentRequest) MarshalJSON() ([]byte, error) {
 
 func (o InsertDocumentRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["index"] = o.Index
+	toSerialize["table"] = o.Table
 	if !IsNil(o.Cluster) {
 		toSerialize["cluster"] = o.Cluster
 	}

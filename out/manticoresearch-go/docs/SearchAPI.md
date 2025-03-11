@@ -4,16 +4,17 @@ All URIs are relative to *http://127.0.0.1:9308*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Percolate**](SearchAPI.md#Percolate) | **Post** /pq/{index}/search | Perform reverse search on a percolate index
-[**Search**](SearchAPI.md#Search) | **Post** /search | Performs a search on an index
+[**Autocomplete**](SearchAPI.md#Autocomplete) | **Post** /autocomplete | Performs an autocomplete search on a table
+[**Percolate**](SearchAPI.md#Percolate) | **Post** /pq/{table}/search | Perform reverse search on a percolate table
+[**Search**](SearchAPI.md#Search) | **Post** /search | Performs a search on a table
 
 
 
-## Percolate
+## Autocomplete
 
-> SearchResponse Percolate(ctx, index).PercolateRequest(percolateRequest).Execute()
+> []map[string]interface{} Autocomplete(ctx).AutocompleteRequest(autocompleteRequest).Execute()
 
-Perform reverse search on a percolate index
+Performs an autocomplete search on a table
 
 
 
@@ -30,12 +31,78 @@ import (
 )
 
 func main() {
-	index := "index_example" // string | Name of the percolate index
+	autocompleteRequest := *openapiclient.NewAutocompleteRequest("Table_example", "Query_example") // AutocompleteRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SearchAPI.Autocomplete(context.Background()).AutocompleteRequest(autocompleteRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.Autocomplete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Autocomplete`: []map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.Autocomplete`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAutocompleteRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **autocompleteRequest** | [**AutocompleteRequest**](AutocompleteRequest.md) |  | 
+
+### Return type
+
+**[]map[string]interface{}**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## Percolate
+
+> SearchResponse Percolate(ctx, table).PercolateRequest(percolateRequest).Execute()
+
+Perform reverse search on a percolate table
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/manticoresoftware/manticoresearch-go"
+)
+
+func main() {
+	table := "table_example" // string | Name of the percolate table
 	percolateRequest := *openapiclient.NewPercolateRequest(*openapiclient.NewPercolateRequestQuery(map[string]interface{}(123))) // PercolateRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SearchAPI.Percolate(context.Background(), index).PercolateRequest(percolateRequest).Execute()
+	resp, r, err := apiClient.SearchAPI.Percolate(context.Background(), table).PercolateRequest(percolateRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.Percolate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -51,7 +118,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**index** | **string** | Name of the percolate index | 
+**table** | **string** | Name of the percolate table | 
 
 ### Other Parameters
 
@@ -85,7 +152,7 @@ No authorization required
 
 > SearchResponse Search(ctx).SearchRequest(searchRequest).Execute()
 
-Performs a search on an index
+Performs a search on a table
 
 
 
@@ -102,7 +169,7 @@ import (
 )
 
 func main() {
-	searchRequest := *openapiclient.NewSearchRequest("Index_example") // SearchRequest | 
+	searchRequest := *openapiclient.NewSearchRequest("Table_example") // SearchRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Index** | **string** | The index to perform the search on | 
+**Table** | **string** | The table to perform the search on | 
 **Query** | Pointer to [**SearchQuery**](SearchQuery.md) |  | [optional] 
 **Join** | Pointer to [**[]Join**](Join.md) | Join clause to combine search data from multiple tables | [optional] 
 **Highlight** | Pointer to [**Highlight**](Highlight.md) |  | [optional] 
@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 
 ### NewSearchRequest
 
-`func NewSearchRequest(index string, ) *SearchRequest`
+`func NewSearchRequest(table string, ) *SearchRequest`
 
 NewSearchRequest instantiates a new SearchRequest object
 This constructor will assign default values to properties that have it defined,
@@ -39,24 +39,24 @@ NewSearchRequestWithDefaults instantiates a new SearchRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetIndex
+### GetTable
 
-`func (o *SearchRequest) GetIndex() string`
+`func (o *SearchRequest) GetTable() string`
 
-GetIndex returns the Index field if non-nil, zero value otherwise.
+GetTable returns the Table field if non-nil, zero value otherwise.
 
-### GetIndexOk
+### GetTableOk
 
-`func (o *SearchRequest) GetIndexOk() (*string, bool)`
+`func (o *SearchRequest) GetTableOk() (*string, bool)`
 
-GetIndexOk returns a tuple with the Index field if it's non-nil, zero value otherwise
+GetTableOk returns a tuple with the Table field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIndex
+### SetTable
 
-`func (o *SearchRequest) SetIndex(v string)`
+`func (o *SearchRequest) SetTable(v string)`
 
-SetIndex sets Index field to given value.
+SetTable sets Table field to given value.
 
 
 ### GetQuery

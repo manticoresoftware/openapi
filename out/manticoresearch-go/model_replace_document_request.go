@@ -20,10 +20,10 @@ import (
 // checks if the ReplaceDocumentRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ReplaceDocumentRequest{}
 
-// ReplaceDocumentRequest Object containing the document data for replacing an existing document in an index.
+// ReplaceDocumentRequest Object containing the document data for replacing an existing document in a table.
 type ReplaceDocumentRequest struct {
 	// Object containing the new document data to replace the existing one.
-	Doc map[string]interface{}
+	Doc map[string]interface{} `json:"doc"` 
 }
 
 type _ReplaceDocumentRequest ReplaceDocumentRequest

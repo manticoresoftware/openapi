@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Index** | **string** | Name of the document index | 
+**Table** | **string** | Name of the document table | 
 **Cluster** | Pointer to **string** | Name of the document cluster | [optional] 
 **Doc** | **map[string]interface{}** | Object containing the document fields to update | 
 **Id** | Pointer to **int64** | Document ID | [optional] 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewUpdateDocumentRequest
 
-`func NewUpdateDocumentRequest(index string, doc map[string]interface{}, ) *UpdateDocumentRequest`
+`func NewUpdateDocumentRequest(table string, doc map[string]interface{}, ) *UpdateDocumentRequest`
 
 NewUpdateDocumentRequest instantiates a new UpdateDocumentRequest object
 This constructor will assign default values to properties that have it defined,
@@ -29,24 +29,24 @@ NewUpdateDocumentRequestWithDefaults instantiates a new UpdateDocumentRequest ob
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetIndex
+### GetTable
 
-`func (o *UpdateDocumentRequest) GetIndex() string`
+`func (o *UpdateDocumentRequest) GetTable() string`
 
-GetIndex returns the Index field if non-nil, zero value otherwise.
+GetTable returns the Table field if non-nil, zero value otherwise.
 
-### GetIndexOk
+### GetTableOk
 
-`func (o *UpdateDocumentRequest) GetIndexOk() (*string, bool)`
+`func (o *UpdateDocumentRequest) GetTableOk() (*string, bool)`
 
-GetIndexOk returns a tuple with the Index field if it's non-nil, zero value otherwise
+GetTableOk returns a tuple with the Table field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIndex
+### SetTable
 
-`func (o *UpdateDocumentRequest) SetIndex(v string)`
+`func (o *UpdateDocumentRequest) SetTable(v string)`
 
-SetIndex sets Index field to given value.
+SetTable sets Table field to given value.
 
 
 ### GetCluster

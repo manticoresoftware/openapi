@@ -23,11 +23,11 @@ var _ MappedNullable = &ResponseErrorDetails{}
 // ResponseErrorDetails Detailed error information returned in case of an error response
 type ResponseErrorDetails struct {
 	// Type or category of the error
-	Type string
+	Type string `json:"type"` 
 	// Detailed explanation of why the error occurred
-	Reason NullableString
-	// The index related to the error, if applicable
-	Index NullableString
+	Reason NullableString `json:"reason"` 
+	// The table related to the error, if applicable
+	Table NullableString `json:"table"` 
 }
 
 type _ResponseErrorDetails ResponseErrorDetails
@@ -116,46 +116,46 @@ func (o *ResponseErrorDetails) UnsetReason() {
 	o.Reason.Unset()
 }
 
-// GetIndex returns the Index field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResponseErrorDetails) GetIndex() string {
-	if o == nil || IsNil(o.Index.Get()) {
+// GetTable returns the Table field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResponseErrorDetails) GetTable() string {
+	if o == nil || IsNil(o.Table.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Index.Get()
+	return *o.Table.Get()
 }
 
-// GetIndexOk returns a tuple with the Index field value if set, nil otherwise
+// GetTableOk returns a tuple with the Table field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResponseErrorDetails) GetIndexOk() (*string, bool) {
+func (o *ResponseErrorDetails) GetTableOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Index.Get(), o.Index.IsSet()
+	return o.Table.Get(), o.Table.IsSet()
 }
 
-// HasIndex returns a boolean if a field has been set.
-func (o *ResponseErrorDetails) HasIndex() bool {
-	if o != nil && o.Index.IsSet() {
+// HasTable returns a boolean if a field has been set.
+func (o *ResponseErrorDetails) HasTable() bool {
+	if o != nil && o.Table.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetIndex gets a reference to the given NullableString and assigns it to the Index field.
-func (o *ResponseErrorDetails) SetIndex(v string) {
-	o.Index.Set(&v)
+// SetTable gets a reference to the given NullableString and assigns it to the Table field.
+func (o *ResponseErrorDetails) SetTable(v string) {
+	o.Table.Set(&v)
 }
-// SetIndexNil sets the value for Index to be an explicit nil
-func (o *ResponseErrorDetails) SetIndexNil() {
-	o.Index.Set(nil)
+// SetTableNil sets the value for Table to be an explicit nil
+func (o *ResponseErrorDetails) SetTableNil() {
+	o.Table.Set(nil)
 }
 
-// UnsetIndex ensures that no value is present for Index, not even an explicit nil
-func (o *ResponseErrorDetails) UnsetIndex() {
-	o.Index.Unset()
+// UnsetTable ensures that no value is present for Table, not even an explicit nil
+func (o *ResponseErrorDetails) UnsetTable() {
+	o.Table.Unset()
 }
 
 func (o ResponseErrorDetails) MarshalJSON() ([]byte, error) {
@@ -172,8 +172,8 @@ func (o ResponseErrorDetails) ToMap() (map[string]interface{}, error) {
 	if o.Reason.IsSet() {
 		toSerialize["reason"] = o.Reason.Get()
 	}
-	if o.Index.IsSet() {
-		toSerialize["index"] = o.Index.Get()
+	if o.Table.IsSet() {
+		toSerialize["table"] = o.Table.Get()
 	}
 	return toSerialize, nil
 }

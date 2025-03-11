@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Index** | **string** | Index name | 
+**Table** | **string** | Table name | 
 **Cluster** | Pointer to **string** | Cluster name | [optional] 
 **Id** | Pointer to **int64** | The ID of document for deletion | [optional] 
 **Query** | Pointer to **map[string]interface{}** | Defines the criteria to match documents for deletion | [optional] 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewDeleteDocumentRequest
 
-`func NewDeleteDocumentRequest(index string, ) *DeleteDocumentRequest`
+`func NewDeleteDocumentRequest(table string, ) *DeleteDocumentRequest`
 
 NewDeleteDocumentRequest instantiates a new DeleteDocumentRequest object
 This constructor will assign default values to properties that have it defined,
@@ -28,24 +28,24 @@ NewDeleteDocumentRequestWithDefaults instantiates a new DeleteDocumentRequest ob
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetIndex
+### GetTable
 
-`func (o *DeleteDocumentRequest) GetIndex() string`
+`func (o *DeleteDocumentRequest) GetTable() string`
 
-GetIndex returns the Index field if non-nil, zero value otherwise.
+GetTable returns the Table field if non-nil, zero value otherwise.
 
-### GetIndexOk
+### GetTableOk
 
-`func (o *DeleteDocumentRequest) GetIndexOk() (*string, bool)`
+`func (o *DeleteDocumentRequest) GetTableOk() (*string, bool)`
 
-GetIndexOk returns a tuple with the Index field if it's non-nil, zero value otherwise
+GetTableOk returns a tuple with the Table field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIndex
+### SetTable
 
-`func (o *DeleteDocumentRequest) SetIndex(v string)`
+`func (o *DeleteDocumentRequest) SetTable(v string)`
 
-SetIndex sets Index field to given value.
+SetTable sets Table field to given value.
 
 
 ### GetCluster

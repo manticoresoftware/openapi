@@ -40,7 +40,7 @@ import com.manticoresearch.client.JSON;
   SearchResponse.JSON_PROPERTY_WARNING
 })
 @JsonTypeName("searchResponse")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-03T11:48:40.720533039Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-13T14:03:43.705466922Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
 public class SearchResponse {
   public static final String JSON_PROPERTY_TOOK = "took";
   private Integer took;

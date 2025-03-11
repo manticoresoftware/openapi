@@ -217,11 +217,40 @@ components:
             tabke: 'your_table'
             query:
               query_string: 'your_query'
-    # workaround to fix incorrect generation of referenced items
+    # workaround to fix the incorrect generation of referenced items in some clients
     queryFilterAlias1:
       $ref: '#/components/schemas/queryFilter'
     queryFilterAlias2:
       $ref: '#/components/schemas/queryFilter'
+    autocompleteRequest:
+      type: object
+      description: Object containing the data for performing an autocomplete search.
+      required:
+        - table
+        - query
+      properties:
+        table: 
+          type: string
+          description: The table to perform the search on
+        query:
+          type: string
+          description: The beginning of the string to autocomplete
+        options:
+          type: object
+          description: >
+            Autocomplete options
+              - layouts: A comma-separated string of keyboard layout codes to validate and check for spell correction. Available options - us, ru, ua, se, pt, no, it, gr, uk, fr, es, dk, de, ch, br, bg, be. By default, all are enabled.
+              - fuzziness: (0,1 or 2) Maximum Levenshtein distance for finding typos. Set to 0 to disable fuzzy matching. Default is 2
+              - prepend: true/false If true, adds an asterisk before the last word for prefix expansion (e.g., *word )
+              - append:  true/false If true, adds an asterisk after the last word for prefix expansion (e.g., word* )
+              - expansion_len: Number of characters to expand in the last word. Default is 10.
+          additionalProperties: true  
+      example:
+        table: "test"
+        query: "Start"
+        options:
+          layouts: "us,uk"
+          fuzziness: 0 
     boolFilter:
       type: object
       properties:
@@ -301,7 +330,7 @@ components:
         deleted:
           type: integer
           description: Number of documents deleted
-        _id:
+        id:
           type: integer
           format: int64
           description: The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned
@@ -419,6 +448,21 @@ components:
            description: Total number of highlighted fragments per field
       additionalProperties: false
       description: Options for controlling the behavior of highlighting on a per-field basis
+    hitsHits:
+      type: object
+      properties:
+        _id:
+          type: integer
+          format: int64
+          description: The ID of the matched document
+        _score:
+          type: integer
+          description: The score of the matched document
+        _source:
+          type: object
+          description: The source data of the matched document
+      additionalProperties: false
+      description: Search hit representing a matched document
     insertDocumentRequest:
       type: object
       description: |
@@ -622,7 +666,7 @@ components:
         table:
           type: string
           description: Name of the document table
-        _id:
+        id:
           type: integer
           format: int64
           description: ID of the document affected by the request operation
@@ -640,7 +684,7 @@ components:
           description: HTTP status code representing the result of the operation
       example:
         table: test
-        _id: 1
+        id: 1
         result: created
         created: true
         status: 201      
@@ -691,7 +735,7 @@ components:
             hits:
               type: array
               items:
-                type: object
+                $ref: '#/components/schemas/hitsHits'
               description: Array of hit objects, each representing a matched document
           description: Object containing the search hits, which represent the documents that matched the query.
           example:
@@ -762,7 +806,7 @@ components:
     sqlObjResponse:
       type: object
     sqlResponse:
-      anyOf:
+      oneOf:
         - $ref: '#/components/schemas/sqlRawResponse'
         - $ref: '#/components/schemas/sqlObjResponse'
       description: List of responses from executed SQL queries
@@ -811,7 +855,7 @@ components:
         updated:
           type: integer
           description: Number of documents updated
-        _id:
+        id:
           type: integer
           format: int64
           description: Document ID
@@ -896,7 +940,85 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorResponse'
+  /autocomplete:
+    post:
+      summary: Performs an autocomplete search on a table
+      description: >
+       
+        The method expects an object with the following mandatory properties:
+        
+        * the name of the table to search
+        
+        * the query string to autocomplete
 
+        For details, see the documentation on [**Autocomplete**](Autocomplete.md)
+        
+        An example:
+        ```
+        {
+          "table":"table_name",
+          "query":"query_beginning"
+        }        
+        ```
+
+        An example of the method's response:
+        
+         ```
+         [
+           {
+             "total": 3,
+             "error": "",
+             "warning": "",
+             "columns": [
+               {
+                 "query": {
+                   "type": "string"
+                 }
+               }
+             ],
+             "data": [
+               {
+                 "query": "hello"
+               },
+               {
+                 "query": "helio"
+               },
+               {
+                 "query": "hell"
+               }
+             ]
+           }
+         ] 
+         ```
+
+        For more detailed information about the autocomplete queries, please refer to the documentation [here](https://manual.manticoresearch.com/Searching/Autocomplete).
+
+      operationId: autocomplete
+      tags:
+        - Search
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/dev/Searching/Autocomplete?client=JSON'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/autocompleteRequest'
+            example:
+              - '''request=AutocompleteRequest(table="test",query="abc")'''
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sqlRawResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
   /bulk:
     post:
       summary: Bulk table operations
@@ -924,10 +1046,10 @@ paths:
             'items':
             [
               {
-                'update':{'table':'products','_id':1,'result':'updated'}
+                'update':{'table':'products','id':1,'result':'updated'}
               },
               {
-                'update':{'table':'products','_id':2,'result':'updated'}
+                'update':{'table':'products','id':2,'result':'updated'}
               }
             ],
             'errors':false
@@ -1083,7 +1205,7 @@ paths:
         It responds with an object in format:
           
           ```
-          {'table':'products','_id':701,'created':true,'result':'created','status':201}
+          {'table':'products','id':701,'created':true,'result':'created','status':201}
           ```
       tags:
         - Index
@@ -1119,56 +1241,59 @@ paths:
       summary: Perform reverse search on a percolate table
       operationId: percolate
       description: >
-        Performs a percolate search. <br><br>
+        Performs a percolate search.
         
-        This method must be used only on percolate tables. <br>
+        This method must be used only on percolate tables.
         
-        Expects two parameters: the table name and an object with array of documents to be tested. <br>
-        <br>
-        An example of the documents object: <br>
-          { <br>
-          &nbsp;&nbsp;"query" {<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;"percolate": {<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"document": { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"content":"sample content" <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;} <br>
-          &nbsp;&nbsp;} <br>
-          } <br>
-        <br>
+        Expects two parameters: the table name and an object with array of documents to be tested.
+        
+        An example of the documents object:
+        ```
+          {
+            "query" {
+              "percolate": {
+                "document": {
+                  "content":"sample content"
+                }
+              }
+            }
+          }
+        ```
+
         Responds with an object with matched stored queries: 
-        <br>
-          { <br>
-          &nbsp;&nbsp;'timed_out':false, <br>
-          &nbsp;&nbsp;'hits': { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;'total':2, <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;'max_score':1, <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;'hits': [ <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'table':'idx_pq_1', <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_type':'doc', <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_id':'2', <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_score':'1', <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_source': { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'query': { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'match':{'title':'some'} <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }, <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'table':'idx_pq_1', <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_type':'doc', <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_id':'5', <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_score':'1', <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_source': { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'query': { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'ql':'some | none' <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
-          &nbsp;&nbsp;&nbsp;&nbsp; ] <br>
-          &nbsp;&nbsp; } <br>
-          } <br>
+        ```
+          {
+            'timed_out':false,
+            'hits': {
+              'total':2,
+              'max_score':1,
+              'hits': [
+                {
+                  'table':'idx_pq_1',
+                  '_type':'doc',
+                  '_id':'2',
+                  '_score':'1',
+                  '_source': {
+                    'query': {
+                      'match':{'title':'some'}
+                    }
+                  }
+                },
+                {
+                  'table':'idx_pq_1',
+                  '_type':'doc',
+                  '_id':'5',
+                  '_score':'1',
+                  '_source': {
+                    'query': {
+                      'ql':'some | none'
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ```
       tags:
         - Search
       externalDocs:
@@ -1211,12 +1336,12 @@ paths:
       x-is_replace: true
       operationId: replace
       description: >
-        Replace an existing document. Input has same format as `insert` operation. <br/>
+        Replace an existing document. Input has same format as `insert` operation.
 
-        Responds with an object in format: <br/>
+        Responds with an object in format:
 
           ```
-          {'table':'products','_id':1,'created':false,'result':'updated','status':200}
+          {'table':'products','id':1,'created':false,'result':'updated','status':200}
           ```
       tags:
         - Index

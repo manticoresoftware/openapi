@@ -5,17 +5,18 @@ All URIs are relative to *http://127.0.0.1:9308*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**search**](SearchApi.md#search) | **POST** /search | Performs a search
-[**percolate**](SearchApi.md#percolate) | **POST** /pq/{index}/search | Perform a reverse search on a percolate index
+[**percolate**](SearchApi.md#percolate) | **POST** /pq/{table}/search | Perform a reverse search on a percolate table
+[**autocomplete**](SearchApi.md#autocomplete) | **POST** /autocomplete | Performs an autocomplete search on a table
 
 ## search
 
 > SearchResponse search(searchRequest)
 
-Performs a search on an index. 
+Performs a search on a table. 
 
 The method expects a SearchRequest object with the following mandatory properties:
         
-* the name of the index to search | string
+* the name of the table to search | string
         
 For details, see the documentation on [**SearchRequest**](SearchRequest.md)
 
@@ -79,10 +80,9 @@ public class SearchApiExample {
         try {
             // Create SearchRequest
             SearchRequest searchRequest = new SearchRequest();
-            searchRequest.setIndex("test");
-            QueryFilter queryFilter = new QueryFilter();
-			queryFilter.setQueryString("Title 1");								
-			searchRequest.setFulltextFilter(queryFilter);
+            searchRequest.setTable("test");
+            SearchQuery query = new SearchQuery();
+			query.setQueryString("find smth");
 			
 			// Perform a search
 			SearchResponse searchResponse = searchApi.search(searchRequest);
@@ -127,13 +127,13 @@ No authorization required
 
 ## percolate
 
-> SearchResponse percolate(index, percolateRequest)
+> SearchResponse percolate(table, percolateRequest)
 
-Perform a reverse search on a percolate index
+Perform a reverse search on a percolate table
 
-This method must be used only on percolate indexes.
+This method must be used only on percolate tables.
 
-Expects two parameters: the index name and an object with a document or an array of documents to search by.
+Expects two parameters: the table name and an object with a document or an array of documents to search by.
 Here is an example of the object with a single document:
 
 ```
@@ -163,7 +163,7 @@ Responds with an object with matched stored queries:
     'hits':
     [
       {
-        '_index':'idx_pq_1',
+        'table':'idx_pq_1',
         '_type':'doc',
         '_id':'2',
         '_score':'1',
@@ -176,7 +176,7 @@ Responds with an object with matched stored queries:
         }
       },
       {
-        '_index':'idx_pq_1',
+        'table':'idx_pq_1',
         '_type':'doc',
         '_id':'5',
         '_score':'1',
@@ -257,7 +257,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **index** | **String**| Name of the percolate index |
+ **table** | **String**| Name of the percolate table |
  **percolateRequest** | [**PercolateRequest**](PercolateRequest.md)|  |
 
 ### Return type
@@ -278,4 +278,110 @@ No authorization required
 |-------------|-------------|
 | **200** | Success, query processed |
 | **500** | Server error |
+
+
+## autocomplete
+
+> List&lt;Object&gt; autocomplete(autocompleteRequest)
+
+Performs an autocomplete search on a table
+
+
+The method expects an object with the following mandatory properties:
+* the name of the table to search
+* the query string to autocomplete
+For details, see the documentation on [**Autocomplete**](Autocomplete.md)
+An example: ``` {
+  "table":"table_name",
+  "query":"query_beginning"
+}         ```
+An example of the method's response:
+
+ ```
+ [
+   {
+     "total": 3,
+     "error": "",
+     "warning": "",
+     "columns": [
+       {
+         "query": {
+           "type": "string"
+         }
+       }
+     ],
+     "data": [
+       {
+         "query": "hello"
+       },
+       {
+         "query": "helio"
+       },
+       {
+         "query": "hell"
+       }
+     ]
+   }
+ ] 
+ ```
+
+For more detailed information about the autocomplete queries, please refer to the documentation [here](https://manual.manticoresearch.com/Searching/Autocomplete).
+
+
+### Example
+
+```java
+// Import classes:
+import com.manticoresearch.client.ApiClient;
+import com.manticoresearch.client.ApiException;
+import com.manticoresearch.client.Configuration;
+import com.manticoresearch.client.model.*;
+import com.manticoresearch.client.api.SearchApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://127.0.0.1:9308");
+
+        SearchApi searchApi = new SearchApi(defaultClient);
+        AutocompleteRequest autocompleteRequest = new AutocompleteRequest(); // AutocompleteRequest | 
+        try {
+            List<Object> result = searchApi.autocomplete(autocompleteRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SearchApi#autocomplete");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **autocompleteRequest** | [**AutocompleteRequest**](AutocompleteRequest.md)|  | |
+
+### Return type
+
+**List&lt;Object&gt;**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Ok |  -  |
+| **0** | error |  -  |
 

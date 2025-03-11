@@ -20,20 +20,18 @@ var _ MappedNullable = &SuccessResponse{}
 
 // SuccessResponse Response object indicating the success of an operation, such as inserting or updating a document
 type SuccessResponse struct {
-	// Name of the document index
-	Index *string
-	// Name of the document table (alias of index)
-	Table *string
+	// Name of the document table
+	Table *string `json:"table"` 
 	// ID of the document affected by the request operation
-	Id *int64
+	Id *int64 `json:"id"` 
 	// Indicates whether the document was created as a result of the operation
-	Created *bool
+	Created *bool `json:"created"` 
 	// Result of the operation, typically 'created', 'updated', or 'deleted'
-	Result *string
-	// Indicates whether the document was found in the index
-	Found *bool
+	Result *string `json:"result"` 
+	// Indicates whether the document was found in the table
+	Found *bool `json:"found"` 
 	// HTTP status code representing the result of the operation
-	Status *int32
+	Status *int32 `json:"status"` 
 }
 
 // NewSuccessResponse instantiates a new SuccessResponse object
@@ -51,38 +49,6 @@ func NewSuccessResponse() *SuccessResponse {
 func NewSuccessResponseWithDefaults() *SuccessResponse {
 	this := SuccessResponse{}
 	return &this
-}
-
-// GetIndex returns the Index field value if set, zero value otherwise.
-func (o *SuccessResponse) GetIndex() string {
-	if o == nil || IsNil(o.Index) {
-		var ret string
-		return ret
-	}
-	return *o.Index
-}
-
-// GetIndexOk returns a tuple with the Index field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SuccessResponse) GetIndexOk() (*string, bool) {
-	if o == nil || IsNil(o.Index) {
-		return nil, false
-	}
-	return o.Index, true
-}
-
-// HasIndex returns a boolean if a field has been set.
-func (o *SuccessResponse) HasIndex() bool {
-	if o != nil && !IsNil(o.Index) {
-		return true
-	}
-
-	return false
-}
-
-// SetIndex gets a reference to the given string and assigns it to the Index field.
-func (o *SuccessResponse) SetIndex(v string) {
-	o.Index = &v
 }
 
 // GetTable returns the Table field value if set, zero value otherwise.
@@ -287,14 +253,11 @@ func (o SuccessResponse) MarshalJSON() ([]byte, error) {
 
 func (o SuccessResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Index) {
-		toSerialize["_index"] = o.Index
-	}
 	if !IsNil(o.Table) {
 		toSerialize["table"] = o.Table
 	}
 	if !IsNil(o.Id) {
-		toSerialize["_id"] = o.Id
+		toSerialize["id"] = o.Id
 	}
 	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **interface{}** | Type or category of the error | 
 **Reason** | Pointer to **interface{}** | Detailed explanation of why the error occurred | [optional] 
-**Index** | Pointer to **interface{}** | The index related to the error, if applicable | [optional] 
+**Table** | Pointer to **interface{}** | The table related to the error, if applicable | [optional] 
 
 ## Methods
 
@@ -92,41 +92,41 @@ HasReason returns a boolean if a field has been set.
 `func (o *ResponseError) UnsetReason()`
 
 UnsetReason ensures that no value is present for Reason, not even an explicit nil
-### GetIndex
+### GetTable
 
-`func (o *ResponseError) GetIndex() interface{}`
+`func (o *ResponseError) GetTable() interface{}`
 
-GetIndex returns the Index field if non-nil, zero value otherwise.
+GetTable returns the Table field if non-nil, zero value otherwise.
 
-### GetIndexOk
+### GetTableOk
 
-`func (o *ResponseError) GetIndexOk() (*interface{}, bool)`
+`func (o *ResponseError) GetTableOk() (*interface{}, bool)`
 
-GetIndexOk returns a tuple with the Index field if it's non-nil, zero value otherwise
+GetTableOk returns a tuple with the Table field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIndex
+### SetTable
 
-`func (o *ResponseError) SetIndex(v interface{})`
+`func (o *ResponseError) SetTable(v interface{})`
 
-SetIndex sets Index field to given value.
+SetTable sets Table field to given value.
 
-### HasIndex
+### HasTable
 
-`func (o *ResponseError) HasIndex() bool`
+`func (o *ResponseError) HasTable() bool`
 
-HasIndex returns a boolean if a field has been set.
+HasTable returns a boolean if a field has been set.
 
-### SetIndexNil
+### SetTableNil
 
-`func (o *ResponseError) SetIndexNil(b bool)`
+`func (o *ResponseError) SetTableNil(b bool)`
 
- SetIndexNil sets the value for Index to be an explicit nil
+ SetTableNil sets the value for Table to be an explicit nil
 
-### UnsetIndex
-`func (o *ResponseError) UnsetIndex()`
+### UnsetTable
+`func (o *ResponseError) UnsetTable()`
 
-UnsetIndex ensures that no value is present for Index, not even an explicit nil
+UnsetTable ensures that no value is present for Table, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

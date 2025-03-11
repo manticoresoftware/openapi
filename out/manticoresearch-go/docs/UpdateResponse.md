@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Index** | Pointer to **string** | Name of the document index | [optional] 
+**Table** | Pointer to **string** | Name of the document table | [optional] 
 **Updated** | Pointer to **int32** | Number of documents updated | [optional] 
 **Id** | Pointer to **int64** | Document ID | [optional] 
 **Result** | Pointer to **string** | Result of the update operation, typically &#39;updated&#39; | [optional] 
@@ -28,30 +28,30 @@ NewUpdateResponseWithDefaults instantiates a new UpdateResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetIndex
+### GetTable
 
-`func (o *UpdateResponse) GetIndex() string`
+`func (o *UpdateResponse) GetTable() string`
 
-GetIndex returns the Index field if non-nil, zero value otherwise.
+GetTable returns the Table field if non-nil, zero value otherwise.
 
-### GetIndexOk
+### GetTableOk
 
-`func (o *UpdateResponse) GetIndexOk() (*string, bool)`
+`func (o *UpdateResponse) GetTableOk() (*string, bool)`
 
-GetIndexOk returns a tuple with the Index field if it's non-nil, zero value otherwise
+GetTableOk returns a tuple with the Table field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIndex
+### SetTable
 
-`func (o *UpdateResponse) SetIndex(v string)`
+`func (o *UpdateResponse) SetTable(v string)`
 
-SetIndex sets Index field to given value.
+SetTable sets Table field to given value.
 
-### HasIndex
+### HasTable
 
-`func (o *UpdateResponse) HasIndex() bool`
+`func (o *UpdateResponse) HasTable() bool`
 
-HasIndex returns a boolean if a field has been set.
+HasTable returns a boolean if a field has been set.
 
 ### GetUpdated
 

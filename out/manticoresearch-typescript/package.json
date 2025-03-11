@@ -1,6 +1,6 @@
 {
-  "name": "manticoresearch-ts",
-  "version": "6.0.0",
+  "name": "manticoresearch-ts-dev",
+  "version": "7.0.0-dev",
   "description": "OpenAPI client for manticoresearch-ts",
   "author": "OpenAPI-Generator Contributors",
   "repository": {
@@ -34,7 +34,8 @@
   "dependencies": {
     "whatwg-fetch": "^3.0.0",
     "es6-promise": "^4.2.4",
-    "url-parse": "^1.4.3"
+    "url-parse": "^1.4.3",
+    "json-bigint": "^0.4.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.9",

@@ -3,19 +3,11 @@
 Сlient for Manticore Search.
 
 
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-python/tree/6.0.0
 
 ## Requirements.
 
 Minimum Manticore Search version is >= 2.5.1 with HTTP protocol enabled.
 
-| Manticore Search  | manticoresearch-python   |     Python    |
-| ----------------- | ------------------------ | ------------- |
-| dev               | manticoresearch-devel    | >= 3.4        |
-| >= 6.2.0          | >= 3.3.1                 | >= 3.4        |
-| >= 4.2.1          | >= 2.0.x                 | >= 3.4        |
-| >= 4.0.2  < 4.2.1 | >= 1.0.6                 | >= 3.4        |
-| >= 2.5.1  < 4.0.2 | >= 1.0.5                 | >= 2.7        |
 
 ## Installation & Usage
 ### pip install
@@ -93,7 +85,7 @@ with manticoresearch.ApiClient(configuration) as api_client:
         print("The response of SearchApi->search:\n")
         pprint(search_response)
 
-        # Alternatively, you can pass all request arguments as JSON strings        
+        # Alternatively, you can pass all request arguments as a complex JSON object        
         indexApi.insert({"index": "products", "doc" : {"title" : "Crossbody Bag with Tassel", "price" : 19.85}})
         indexApi.insert({"index": "products", "doc" : {"title" : "Pet Hair Remover Glove", "price" : 7.99}})
         search_response = searchApi.search({"index": "products", "query": {"query_string": "@title bag"}, "highlight":{"fields":{"title":{}}}})
@@ -115,6 +107,7 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**partial_replace**](docs/IndexApi.md#partial_replace) | **POST** /{table}/_update/{id} | Partially replaces a document in a table
 *IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /replace | Replace new document in a table
 *IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /update | Update a document in a table
+*SearchApi* | [**autocomplete**](docs/SearchApi.md#autocomplete) | **POST** /autocomplete | Performs an autocomplete search on a table
 *SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{table}/search | Perform reverse search on a percolate table
 *SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /search | Performs a search on a table
 *UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
@@ -127,6 +120,7 @@ Class | Method | HTTP request | Description
  - [AggCompositeTerm](docs/AggCompositeTerm.md)
  - [AggTerms](docs/AggTerms.md)
  - [Aggregation](docs/Aggregation.md)
+ - [AutocompleteRequest](docs/AutocompleteRequest.md)
  - [BoolFilter](docs/BoolFilter.md)
  - [BulkResponse](docs/BulkResponse.md)
  - [DeleteDocumentRequest](docs/DeleteDocumentRequest.md)

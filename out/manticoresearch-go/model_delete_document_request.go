@@ -22,14 +22,14 @@ var _ MappedNullable = &DeleteDocumentRequest{}
 
 // DeleteDocumentRequest Payload for delete request. Documents can be deleted either one by one by specifying the document id or by providing a query object. For more information see  [Delete API](https://manual.manticoresearch.com/Deleting_documents) 
 type DeleteDocumentRequest struct {
-	// Index name
-	Index string
+	// Table name
+	Table string `json:"table"` 
 	// Cluster name
-	Cluster *string
+	Cluster *string `json:"cluster"` 
 	// The ID of document for deletion
-	Id *int64
+	Id *int64 `json:"id"` 
 	// Defines the criteria to match documents for deletion
-	Query map[string]interface{}
+	Query map[string]interface{} `json:"query"` 
 }
 
 type _DeleteDocumentRequest DeleteDocumentRequest
@@ -38,9 +38,9 @@ type _DeleteDocumentRequest DeleteDocumentRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteDocumentRequest(index string) *DeleteDocumentRequest {
+func NewDeleteDocumentRequest(table string) *DeleteDocumentRequest {
 	this := DeleteDocumentRequest{}
-	this.Index = index
+	this.Table = table
 	return &this
 }
 
@@ -52,28 +52,28 @@ func NewDeleteDocumentRequestWithDefaults() *DeleteDocumentRequest {
 	return &this
 }
 
-// GetIndex returns the Index field value
-func (o *DeleteDocumentRequest) GetIndex() string {
+// GetTable returns the Table field value
+func (o *DeleteDocumentRequest) GetTable() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Index
+	return o.Table
 }
 
-// GetIndexOk returns a tuple with the Index field value
+// GetTableOk returns a tuple with the Table field value
 // and a boolean to check if the value has been set.
-func (o *DeleteDocumentRequest) GetIndexOk() (*string, bool) {
+func (o *DeleteDocumentRequest) GetTableOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Index, true
+	return &o.Table, true
 }
 
-// SetIndex sets field value
-func (o *DeleteDocumentRequest) SetIndex(v string) {
-	o.Index = v
+// SetTable sets field value
+func (o *DeleteDocumentRequest) SetTable(v string) {
+	o.Table = v
 }
 
 // GetCluster returns the Cluster field value if set, zero value otherwise.
@@ -182,7 +182,7 @@ func (o DeleteDocumentRequest) MarshalJSON() ([]byte, error) {
 
 func (o DeleteDocumentRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["index"] = o.Index
+	toSerialize["table"] = o.Table
 	if !IsNil(o.Cluster) {
 		toSerialize["cluster"] = o.Cluster
 	}

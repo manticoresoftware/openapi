@@ -7,9 +7,10 @@ do_python() {
   rm -rf out/manticoresearch-python 
   docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g python -o /local/out/manticoresearch-python -t /local/templates/python --git-repo-id manticoresearch-python --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/python` $build_to_branch
   rm -rf out/manticoresearch-python/test/* 
-  cp LICENSE.txt out/manticoresearch-python/LICENSE.txt
+  cp -r LICENSE.txt out/manticoresearch-python/LICENSE.txt
+  cp docs/python/docs/* out/manticoresearch-python/docs/
   # replace test with our tests
-  cp -R test/python/* out/manticoresearch-python/test/   
+  cp -r test/python/* out/manticoresearch-python/test/   
   git apply patches/python_bulk.patch patches/python_sql_api.patch
   echo "Python done."
 }
@@ -48,7 +49,7 @@ do_java() {
   git apply patches/java.apiclient.patch patches/java.boolfilter.patch patches/java.queryfilter.patch \
   patches/java.searchquery.patch patches/java.sqlresponse.patch patches/java.sourcerules.patch
   cp LICENSE.txt out/manticoresearch-java/LICENSE.txt
-  #cp docs/java/docs/* out/manticoresearch-java/docs/
+  cp docs/java/docs/* out/manticoresearch-java/docs/
   cp -r test/java/api/* out/manticoresearch-java/src/test/java/com/manticoresearch/client/api/
   rm -rf out/manticoresearch-java/.openapi-generator
   rm -rf out/manticoresearch-java/api
@@ -94,7 +95,7 @@ do_typescript() {
     --additional-properties modelPropertyNaming=original \
     --additional-properties useSingleRequestParameter=false \
     --additional-properties moduleName=Manticoresearch \
-    --additional-properties apiDocPath=docs/ \
+    --additional-properties apiDocPath=./ \
     $build_to_branch
   git apply patches/typescript.matchall.patch
   git apply patches/typescript.objectserializer.patch
@@ -102,7 +103,7 @@ do_typescript() {
   git apply patches/typescript.indexapi.patch
   cp LICENSE.txt out/manticoresearch-typescript/LICENSE.txt
   mkdir out/manticoresearch-typescript/test/ && cp -R test/typescript/* out/manticoresearch-typescript/test/
-  #cp -r docs/typescript/docs out/manticoresearch-typescript/docs
+ cp -r docs/typescript/docs/* out/manticoresearch-typescript/
   
   # Adding a custom tsup config we use for package build
   #cp misc/typescript/tsup.config.ts out/manticoresearch-typescript/tsup.config.ts
@@ -115,7 +116,7 @@ do_csharp() {
   docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp  -o /local/out/manticoresearch-net -t /local/templates/csharp --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp` $build_to_branch
   git apply patches/net.matchall.patch patches/net.geodistance.patch
   #cp -r gh-actions/csharp/. out/manticoresearch-net
-  #cp -r docs/csharp/docs/SearchApi.md out/manticoresearch-csharp/docs/SearchApi.md
+  cp -r docs/csharp/docs/* out/manticoresearch-net/docs/
   echo "CSharp done."
 }
 

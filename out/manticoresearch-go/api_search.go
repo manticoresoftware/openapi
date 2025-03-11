@@ -24,10 +24,168 @@ import (
 // SearchAPIService SearchAPI service
 type SearchAPIService service
 
+type ApiAutocompleteRequest struct {
+	ctx context.Context
+	ApiService *SearchAPIService
+	autocompleteRequest *AutocompleteRequest
+}
+
+func (r ApiAutocompleteRequest) AutocompleteRequest(autocompleteRequest AutocompleteRequest) ApiAutocompleteRequest {
+	r.autocompleteRequest = &autocompleteRequest
+	return r
+}
+
+func (r ApiAutocompleteRequest) Execute() ([]map[string]interface{}, *http.Response, error) {
+	return r.ApiService.AutocompleteExecute(r)
+}
+
+/*
+Autocomplete Performs an autocomplete search on a table
+
+
+The method expects an object with the following mandatory properties:
+* the name of the table to search
+* the query string to autocomplete
+For details, see the documentation on [**Autocomplete**](Autocomplete.md)
+An example: ``` {
+  "table":"table_name",
+  "query":"query_beginning"
+}         ```
+An example of the method's response:
+
+ ```
+ [
+   {
+     "total": 3,
+     "error": "",
+     "warning": "",
+     "columns": [
+       {
+         "query": {
+           "type": "string"
+         }
+       }
+     ],
+     "data": [
+       {
+         "query": "hello"
+       },
+       {
+         "query": "helio"
+       },
+       {
+         "query": "hell"
+       }
+     ]
+   }
+ ] 
+ ```
+
+For more detailed information about the autocomplete queries, please refer to the documentation [here](https://manual.manticoresearch.com/Searching/Autocomplete).
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiAutocompleteRequest
+*/
+func (a *SearchAPIService) Autocomplete(ctx context.Context) ApiAutocompleteRequest {
+	return ApiAutocompleteRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return []map[string]interface{}
+func (a *SearchAPIService) AutocompleteExecute(r ApiAutocompleteRequest) ([]map[string]interface{}, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []map[string]interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchAPIService.Autocomplete")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/autocomplete"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.autocompleteRequest == nil {
+		return localVarReturnValue, nil, reportError("autocompleteRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.autocompleteRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiPercolateRequest struct {
 	ctx context.Context
 	ApiService *SearchAPIService
-	index string
+	table string
 	percolateRequest *PercolateRequest
 }
 
@@ -41,63 +199,66 @@ func (r ApiPercolateRequest) Execute() (*SearchResponse, *http.Response, error) 
 }
 
 /*
-Percolate Perform reverse search on a percolate index
+Percolate Perform reverse search on a percolate table
 
-Performs a percolate search. <br><br>
-This method must be used only on percolate indexes. <br>
-Expects two parameters: the index name and an object with array of documents to be tested. <br> <br> An example of the documents object: <br>
-  { <br>
-  &nbsp;&nbsp;"query" {<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;"percolate": {<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"document": { <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"content":"sample content" <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;} <br>
-  &nbsp;&nbsp;} <br>
-  } <br>
-<br> Responds with an object with matched stored queries:  <br>
-  { <br>
-  &nbsp;&nbsp;'timed_out':false, <br>
-  &nbsp;&nbsp;'hits': { <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;'total':2, <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;'max_score':1, <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;'hits': [ <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_index':'idx_pq_1', <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_type':'doc', <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_id':'2', <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_score':'1', <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_source': { <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'query': { <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'match':{'title':'some'} <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }, <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_index':'idx_pq_1', <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_type':'doc', <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_id':'5', <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_score':'1', <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '_source': { <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'query': { <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'ql':'some | none' <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
-  &nbsp;&nbsp;&nbsp;&nbsp; ] <br>
-  &nbsp;&nbsp; } <br>
-  } <br>
+Performs a percolate search.
+This method must be used only on percolate tables.
+Expects two parameters: the table name and an object with array of documents to be tested.
+An example of the documents object: ```
+  {
+    "query" {
+      "percolate": {
+        "document": {
+          "content":"sample content"
+        }
+      }
+    }
+  }
+```
+Responds with an object with matched stored queries:  ```
+  {
+    'timed_out':false,
+    'hits': {
+      'total':2,
+      'max_score':1,
+      'hits': [
+        {
+          'table':'idx_pq_1',
+          '_type':'doc',
+          '_id':'2',
+          '_score':'1',
+          '_source': {
+            'query': {
+              'match':{'title':'some'}
+            }
+          }
+        },
+        {
+          'table':'idx_pq_1',
+          '_type':'doc',
+          '_id':'5',
+          '_score':'1',
+          '_source': {
+            'query': {
+              'ql':'some | none'
+            }
+          }
+        }
+      ]
+    }
+  }
+```
 
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param index Name of the percolate index
+ @param table Name of the percolate table
  @return ApiPercolateRequest
 */
-func (a *SearchAPIService) Percolate(ctx context.Context, index string) ApiPercolateRequest {
+func (a *SearchAPIService) Percolate(ctx context.Context, table string) ApiPercolateRequest {
 	return ApiPercolateRequest{
 		ApiService: a,
 		ctx: ctx,
-		index: index,
+		table: table,
 	}
 }
 
@@ -116,8 +277,8 @@ func (a *SearchAPIService) PercolateExecute(r ApiPercolateRequest) (*SearchRespo
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/pq/{index}/search"
-	localVarPath = strings.Replace(localVarPath, "{"+"index"+"}", url.PathEscape(parameterValueToString(r.index, "index")), -1)
+	localVarPath := localBasePath + "/pq/{table}/search"
+	localVarPath = strings.Replace(localVarPath, "{"+"table"+"}", url.PathEscape(parameterValueToString(r.table, "table")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -206,11 +367,11 @@ func (r ApiSearchRequest) Execute() (*SearchResponse, *http.Response, error) {
 }
 
 /*
-Search Performs a search on an index
+Search Performs a search on a table
 
 
 The method expects an object with the following mandatory properties:
-* the name of the index to search
+* the name of the table to search
 * the match query object
 For details, see the documentation on [**SearchRequest**](SearchRequest.md)
 The method returns an object with the following properties:

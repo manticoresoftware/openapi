@@ -16,7 +16,7 @@ Perform SQL requests
 
 Run a query in SQL format.
 Expects a query string passed through `body` parameter and `rawResponse` parameter that defines a format of response:
-* `rawResponse` parameter can be set to false for Select only queries, e.g., `SELECT * FROM myindex`.  
+* `rawResponse` parameter can be set to false for Select only queries, e.g., `SELECT * FROM mytable`.  
 * `rawResponse` parameter can be set to true for any type of query (including Select qieries as well) , e.g., `SHOW TABLES`.
 The query string must stay as it is, no URL encoding is needed.  
 The response object depends on the query executed. In select mode the response has same format as `/search` operation.

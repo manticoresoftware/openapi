@@ -8,7 +8,6 @@
 
 Minimum Manticore Search version is 2.5.1 with HTTP protocol enabled.
 
-
 ## Installation
 
 ```shell
@@ -61,14 +60,15 @@ All URIs are relative to *http://127.0.0.1:9308*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*Manticoresearch.IndexApi* | [**bulk**](docs/IndexApi.md#bulk) | **POST** /bulk | Bulk index operations
-*Manticoresearch.IndexApi* | [**callDelete**](docs/IndexApi.md#callDelete) | **POST** /delete | Delete a document in an index
-*Manticoresearch.IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /insert | Create a new document in an index
-*Manticoresearch.IndexApi* | [**partialReplace**](docs/IndexApi.md#partialReplace) | **POST** /{index}/_update/{id} | Partially replaces a document in an index
-*Manticoresearch.IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /replace | Replace new document in an index
-*Manticoresearch.IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /update | Update a document in an index
-*Manticoresearch.SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{index}/search | Perform reverse search on a percolate index
-*Manticoresearch.SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /search | Performs a search on an index
+*Manticoresearch.IndexApi* | [**bulk**](docs/IndexApi.md#bulk) | **POST** /bulk | Bulk table operations
+*Manticoresearch.IndexApi* | [**callDelete**](docs/IndexApi.md#callDelete) | **POST** /delete | Delete a document in a table
+*Manticoresearch.IndexApi* | [**insert**](docs/IndexApi.md#insert) | **POST** /insert | Create a new document in a table
+*Manticoresearch.IndexApi* | [**partialReplace**](docs/IndexApi.md#partialReplace) | **POST** /{table}/_update/{id} | Partially replaces a document in a table
+*Manticoresearch.IndexApi* | [**replace**](docs/IndexApi.md#replace) | **POST** /replace | Replace new document in a table
+*Manticoresearch.IndexApi* | [**update**](docs/IndexApi.md#update) | **POST** /update | Update a document in a table
+*Manticoresearch.SearchApi* | [**autocomplete**](docs/SearchApi.md#autocomplete) | **POST** /autocomplete | Performs an autocomplete search on a table
+*Manticoresearch.SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{table}/search | Perform reverse search on a percolate table
+*Manticoresearch.SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /search | Performs a search on a table
 *Manticoresearch.UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
 
 
@@ -79,6 +79,7 @@ Class | Method | HTTP request | Description
  - [Manticoresearch.AggCompositeTerm](docs/AggCompositeTerm.md)
  - [Manticoresearch.AggTerms](docs/AggTerms.md)
  - [Manticoresearch.Aggregation](docs/Aggregation.md)
+ - [Manticoresearch.AutocompleteRequest](docs/AutocompleteRequest.md)
  - [Manticoresearch.BoolFilter](docs/BoolFilter.md)
  - [Manticoresearch.BulkResponse](docs/BulkResponse.md)
  - [Manticoresearch.DeleteDocumentRequest](docs/DeleteDocumentRequest.md)

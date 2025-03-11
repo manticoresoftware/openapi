@@ -4,12 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Index** | Pointer to **string** | Name of the document index | [optional] 
-**Table** | Pointer to **string** | Name of the document table (alias of index) | [optional] 
+**Table** | Pointer to **string** | Name of the document table | [optional] 
 **Id** | Pointer to **int64** | ID of the document affected by the request operation | [optional] 
 **Created** | Pointer to **bool** | Indicates whether the document was created as a result of the operation | [optional] 
 **Result** | Pointer to **string** | Result of the operation, typically &#39;created&#39;, &#39;updated&#39;, or &#39;deleted&#39; | [optional] 
-**Found** | Pointer to **bool** | Indicates whether the document was found in the index | [optional] 
+**Found** | Pointer to **bool** | Indicates whether the document was found in the table | [optional] 
 **Status** | Pointer to **int32** | HTTP status code representing the result of the operation | [optional] 
 
 ## Methods
@@ -30,31 +29,6 @@ will change when the set of required properties is changed
 NewSuccessResponseWithDefaults instantiates a new SuccessResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetIndex
-
-`func (o *SuccessResponse) GetIndex() string`
-
-GetIndex returns the Index field if non-nil, zero value otherwise.
-
-### GetIndexOk
-
-`func (o *SuccessResponse) GetIndexOk() (*string, bool)`
-
-GetIndexOk returns a tuple with the Index field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIndex
-
-`func (o *SuccessResponse) SetIndex(v string)`
-
-SetIndex sets Index field to given value.
-
-### HasIndex
-
-`func (o *SuccessResponse) HasIndex() bool`
-
-HasIndex returns a boolean if a field has been set.
 
 ### GetTable
 

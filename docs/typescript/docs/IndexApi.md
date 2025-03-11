@@ -5,10 +5,10 @@ All URIs are relative to *http://127.0.0.1:9308*
 | Method                             | HTTP request      | Description                       |
 | ---------------------------------- | ----------------- | --------------------------------- |
 | [**bulk**](IndexApi.md#bulk)       | **POST** /bulk    | Bulk index operations             |
-| [**delete**](IndexApi.md#delete)   | **POST** /delete  | Delete a document in an index     |
-| [**insert**](IndexApi.md#insert)   | **POST** /insert  | Create a new document in an index |
-| [**replace**](IndexApi.md#replace) | **POST** /replace | Replace new document in an index  |
-| [**update**](IndexApi.md#update)   | **POST** /update  | Update a document in an index     |
+| [**delete**](IndexApi.md#delete)   | **POST** /delete  | Delete a document in a table      |
+| [**insert**](IndexApi.md#insert)   | **POST** /insert  | Create a new document in a table  |
+| [**replace**](IndexApi.md#replace) | **POST** /replace | Replace new document in a table   |
+| [**update**](IndexApi.md#update)   | **POST** /update  | Update a document in a table      |
 
 ## bulk
 
@@ -24,15 +24,15 @@ Each operation object needs to be serialized to JSON and separated by endline (\
 An example of raw input:
 
 ```
-  {"insert": {"index" : "products", "id" : 3, "doc" : {"title" : "Crossbody Bag with Tassel", "price" : 19.85}}}\n
-  {"insert": {"index" : "products", "id" : 4, "doc" : {"title" : "microfiber sheet set", "price" : 19.99}}}\n
-  {"insert": {"index" : "products", "id" : 5, "doc" : {"title" : "CPet Hair Remover Glove", "price" : 7.99}}}
+  {"insert": {"table" : "products", "id" : 3, "doc" : {"title" : "Crossbody Bag with Tassel", "price" : 19.85}}}\n
+  {"insert": {"table" : "products", "id" : 4, "doc" : {"title" : "microfiber sheet set", "price" : 19.99}}}\n
+  {"insert": {"table" : "products", "id" : 5, "doc" : {"title" : "CPet Hair Remover Glove", "price" : 7.99}}}
 ```
 
 Responds with an object telling whenever any errors occured and an array with status for each operation:
 
 ```
-{'items':[{'update':{'_index':'products','_id':1,'result':'updated'}},{'update':{'_index':'products','_id':2,'result':'updated'}}],'errors':false}
+{'items':[{'update':{'table':'products','_id':1,'result':'updated'}},{'update':{'table':'products','_id':2,'result':'updated'}}],'errors':false}
 ```
 
 ### Example
@@ -44,21 +44,21 @@ const indexApi = new IndexApi();
 const docs = [
   {
     insert: {
-      index: "products",
+      table: "products",
       id: 3,
       doc: { title: "Crossbody Bag with Tassel", price: 19.85 },
     },
   },
   {
     insert: {
-      index: "products",
+      table: "products",
       id: 4,
       doc: { title: "microfiber sheet set", price: 19.99 },
     },
   },
   {
     insert: {
-      index: "products",
+      table: "products",
       id: 5,
       doc: { title: "CPet Hair Remover Glove", price: 7.99 },
     },
@@ -92,27 +92,27 @@ No authorization required
 
 > DeleteResponse delete(deleteDocumentRequest)
 
-Delete a document in an index
+Delete a document in a table
 
 Delete one or several documents.
 The method has 2 ways of deleting: either by id, in case only one document is deleted or by using a match query, in which case multiple documents can be delete .
 Example of input to delete by id:
 
 ```
-{"index" : "products", "id" : 1}
+{"table" : "products", "id" : 1}
 ```
 
 Example of input to delete using a query:
 
 ```
-{"index" : "products", "query": { "match": { "*": "superseeded" }}}
+{"table" : "products", "query": { "match": { "*": "superseeded" }}}
 ```
 
 The match query has same syntax as in for searching.
 Responds with an object telling how many documents got deleted:
 
 ```
-{'_index':'products','updated':1}
+{'table':'products','updated':1}
 ```
 
 ### Example
@@ -122,19 +122,19 @@ import { IndexApi } from "manticoresearch-ts";
 
 const indexApi = new IndexApi();
 indexApi
-  .delete({ index: "products", id: 1 })
+  .delete({ table: "products", id: 1 })
   .then((res) => console.log(JSON.stringify(res, null, 2)));
 ```
 
 ### Parameters
 
-| Name                      | Type                                                  | Description | Notes |
-| ------------------------- | ----------------------------------------------------- | ----------- | ----- |
-| **deleteDocumentRequest** | [**DeleteDocumentRequest**](DeleteDocumentRequest.md) |             |       |
+| Name                      | Type                                   | Description | Notes |
+| ------------------------- | -------------------------------------- | ----------- | ----- |
+| **deleteDocumentRequest** | **DeleteDocumentRequest**              |             |       |
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+**DeleteResponse**
 
 ### Authorization
 
@@ -149,25 +149,25 @@ No authorization required
 
 > SuccessResponse insert(insertDocumentRequest)
 
-Create a new document in an index
+Create a new document in a table
 
 Insert a document.
 Expects an object like:
 
 ```
-{"index" : "products", "id" : 1, "doc" : {"title" : "Crossbody Bag with Tassel", "price" : 19.85}}
+{"table" : "products", "id" : 1, "doc" : {"title" : "Crossbody Bag with Tassel", "price" : 19.85}}
 ```
 
 The document id can also be missing, in which case an autogenerated one will be used:
 
 ```
-{"index" : "products", "id" : 0, "doc" : {"title" : "Yellow bag"}}
+{"table" : "products", "id" : 0, "doc" : {"title" : "Yellow bag"}}
 ```
 
 It responds with an object in format:
 
 ```
-{'_index':'products','_id':1,'created':true,'result':'created','status':201}
+{'table':'products','_id':1,'created':true,'result':'created','status':201}
 ```
 
 ### Example
@@ -178,7 +178,7 @@ import { IndexApi } from "manticoresearch-ts";
 const indexApi = new IndexApi();
 indexApi
   .insert({
-    index: "products",
+    table: "products",
     id: 1,
     doc: { title: "Crossbody Bag with Tassel", price: 19.85 },
   })
@@ -187,13 +187,13 @@ indexApi
 
 ### Parameters
 
-| Name                      | Type                                                  | Description | Notes |
-| ------------------------- | ----------------------------------------------------- | ----------- | ----- |
-| **insertDocumentRequest** | [**InsertDocumentRequest**](InsertDocumentRequest.md) |             |       |
+| Name                      | Type                           | Description | Notes |
+| ------------------------- | ------------------------------ | ----------- | ----- |
+| **insertDocumentRequest** | **InsertDocumentRequest**      |             |       |
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+**SuccessResponse**
 
 ### Authorization
 
@@ -208,13 +208,13 @@ No authorization required
 
 > SuccessResponse replace(insertDocumentRequest)
 
-Replace new document in an index
+Replace new document in a table
 
 Replace an existing document. Input has same format as `insert` operation. <br/>
 Responds with an object in format: <br/>
 
 ```
-{'_index':'products','_id':1,'created':false,'result':'updated','status':200}
+{'table':'products','_id':1,'created':false,'result':'updated','status':200}
 ```
 
 ### Example
@@ -225,7 +225,7 @@ import { IndexApi } from "manticoresearch-ts";
 const indexApi = new IndexApi();
 indexApi
   .replace({
-    index: "products",
+    table: "products",
     id: 1,
     doc: { title: "document one", price: 10 },
   })
@@ -234,13 +234,13 @@ indexApi
 
 ### Parameters
 
-| Name                      | Type                                                  | Description | Notes |
-| ------------------------- | ----------------------------------------------------- | ----------- | ----- |
-| **insertDocumentRequest** | [**InsertDocumentRequest**](InsertDocumentRequest.md) |             |       |
+| Name                      | Type                              | Description | Notes |
+| ------------------------- | --------------------------------- | ----------- | ----- |
+| **insertDocumentRequest** | **InsertDocumentRequest**         |             |       |
 
 ### Return type
 
-[**SuccessResponse**](SuccessResponse.md)
+**SuccessResponse**
 
 ### Authorization
 
@@ -255,26 +255,26 @@ No authorization required
 
 > UpdateResponse update(updateDocumentRequest)
 
-Update a document in an index
+Update a document in a table
 
 Update one or several documents.
 The update can be made by passing the id or by using a match query in case multiple documents can be updated. For example update a document using document id:
 
 ```
-{"index" : "products", "id" : 1, "doc" : {"price":10}}
+{"table" : "products", "id" : 1, "doc" : {"price":10}}
 ```
 
 And update by using a match query:
 
 ```
-{{'index':'products','doc':"price":10},'query':{'bool':{'must':[{'query_string':'yellow bag'}]}}}
+{{'table':'products','doc':"price":10},'query':{'bool':{'must':[{'query_string':'yellow bag'}]}}}
 ```
 
 The match query has same syntax as for searching.
 Responds with an object that tells how many documents where updated in format:
 
 ```
-{'_index':'products','updated':1}
+{'table':'products','updated':1}
 ```
 
 ### Example
@@ -284,19 +284,19 @@ import { IndexApi } from "manticoresearch-ts";
 
 const indexApi = new IndexApi();
 indexApi
-  .update({ index: "products", id: 1, doc: { price: 10 } })
+  .update({ table: "products", id: 1, doc: { price: 10 } })
   .then((res) => console.log(JSON.stringify(res, null, 2)));
 ```
 
 ### Parameters
 
-| Name                      | Type                                                  | Description | Notes |
-| ------------------------- | ----------------------------------------------------- | ----------- | ----- |
-| **updateDocumentRequest** | [**UpdateDocumentRequest**](UpdateDocumentRequest.md) |             |       |
+| Name                      | Type                                | Description | Notes |
+| ------------------------- | ----------------------------------- | ----------- | ----- |
+| **updateDocumentRequest** | **UpdateDocumentRequest**           |             |       |
 
 ### Return type
 
-[**UpdateResponse**](UpdateResponse.md)
+**UpdateResponse**
 
 ### Authorization
 

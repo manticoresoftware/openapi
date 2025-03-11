@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Index** | Pointer to **string** | The name of the index from which the document was deleted | [optional] 
+**Table** | Pointer to **string** | The name of the table from which the document was deleted | [optional] 
 **Deleted** | Pointer to **int32** | Number of documents deleted | [optional] 
 **Id** | Pointer to **int64** | The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned | [optional] 
 **Found** | Pointer to **bool** | Indicates whether any documents to be deleted were found | [optional] 
@@ -29,30 +29,30 @@ NewDeleteResponseWithDefaults instantiates a new DeleteResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetIndex
+### GetTable
 
-`func (o *DeleteResponse) GetIndex() string`
+`func (o *DeleteResponse) GetTable() string`
 
-GetIndex returns the Index field if non-nil, zero value otherwise.
+GetTable returns the Table field if non-nil, zero value otherwise.
 
-### GetIndexOk
+### GetTableOk
 
-`func (o *DeleteResponse) GetIndexOk() (*string, bool)`
+`func (o *DeleteResponse) GetTableOk() (*string, bool)`
 
-GetIndexOk returns a tuple with the Index field if it's non-nil, zero value otherwise
+GetTableOk returns a tuple with the Table field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIndex
+### SetTable
 
-`func (o *DeleteResponse) SetIndex(v string)`
+`func (o *DeleteResponse) SetTable(v string)`
 
-SetIndex sets Index field to given value.
+SetTable sets Table field to given value.
 
-### HasIndex
+### HasTable
 
-`func (o *DeleteResponse) HasIndex() bool`
+`func (o *DeleteResponse) HasTable() bool`
 
-HasIndex returns a boolean if a field has been set.
+HasTable returns a boolean if a field has been set.
 
 ### GetDeleted
 

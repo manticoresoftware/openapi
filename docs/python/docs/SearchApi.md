@@ -4,18 +4,19 @@ All URIs are relative to *http://127.0.0.1:9308*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**search**](SearchApi.md#search) | **POST** /search | Performs a search on an index.
-[**percolate**](SearchApi.md#percolate) | **POST** /pq/{index}/search | Perform a reverse search on a percolate index
+[**search**](SearchApi.md#search) | **POST** /search | Performs a search on a table.
+[**percolate**](SearchApi.md#percolate) | **POST** /pq/{table}/search | Perform a reverse search on a percolate table
+[**autocomplete**](SearchApi.md#autocomplete) | **POST** /autocomplete | Performs an autocomplete search on a table
 
 
 ## **search**
 > SearchResponse search(search_request)
 
-Performs a search on an index. 
+Performs a search on a table. 
 
 The method expects a SearchRequest object with the following mandatory properties:
         
-* the name of the index to search | string
+* the name of the table to search | string
         
 For details, see the documentation on [**SearchRequest**](SearchRequest.md)
 
@@ -76,15 +77,12 @@ with manticoresearch.ApiClient(configuration) as api_client:
     api_instance = search_api.SearchApi(api_client)
 
 	# Create SearchRequest
-    search_request = SearchRequest()
-    search_request.index='test'
-    search_request.fulltext_filter=QueryFilter('find smth') 
+	search_request = SearchRequest(table="test")
+    search_query = SearchQuery(query_string="find smth")
+    search_request.query = search_query 
     
-    # or create SearchRequest in an alternative way as in the previous versions of the client. It uses a single complex JSON object for a query field 
-    search_request = SearchRequest(
-        index='test',
-        query={'query_string': 'find smth'},
-    )
+    # or create SearchRequest in an alternative way as in the previous versions of the client, which uses a single complex JSON object 
+    search_request = { "table": "test", "query": {"query_string": "find smth"} }
     
     # Both ways of creating SearchRequest are interchangeable and produce the same result  
 
@@ -128,13 +126,13 @@ No authorization required
 
 
 ## **percolate**
-> SearchResponse percolate(index,percolate_request)
+> SearchResponse percolate(table,percolate_request)
 
-Perform a reverse search on a percolate index. [[More info on percolate indexes in Manticore Search Manual]](https://manual.manticoresearch.com/Creating_a_table/Local_tables/Percolate_table#Percolate-table)
+Perform a reverse search on a percolate table. [[More info on percolate tables in Manticore Search Manual]](https://manual.manticoresearch.com/Creating_a_table/Local_tables/Percolate_table#Percolate-table)
 
-This method must be used only on percolate indexes.
+This method must be used only on percolate tables.
 
-Expects two parameters: the index name and an object with a document or an array of documents to search by.
+Expects two parameters: the table name and an object with a document or an array of documents to search by.
 Here is an example of the object with a single document:
 
 ```
@@ -164,7 +162,7 @@ Responds with an object with matched stored queries:
       'hits':
       [
         {
-          '_index':'idx_pq_1',
+          'table':'idx_pq_1',
           '_type':'doc',
           '_id':'2',
           '_score':'1',
@@ -177,7 +175,7 @@ Responds with an object with matched stored queries:
           }
         },
         {
-          '_index':'idx_pq_1',
+          'table':'idx_pq_1',
           '_type':'doc',
           '_id':'5',
           '_score':'1',
@@ -238,7 +236,7 @@ with manticoresearch.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = search_api.SearchApi(api_client)
 
-    index = "index_example" # str  | Name of the percolate index
+    table = "table_example" # str  | Name of the percolate table
     percolate_query = { 
         "query": { 
             "percolate": { 
@@ -254,8 +252,8 @@ with manticoresearch.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Perform reverse search on a percolate index
-        api_response = api_instance.percolate(index, percolate_request)
+        # Perform reverse search on a percolate table
+        api_response = api_instance.percolate(table, percolate_request)
         pprint(api_response)
     except manticoresearch.ApiException as e:
         print("Exception when calling SearchApi->percolate: %s\n" % e)
@@ -266,7 +264,7 @@ with manticoresearch.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **index** | **str**| Name of the percolate index | 
+ **table** | **str**| Name of the percolate table | 
  **percolate_request** | [**PercolateRequest**](PercolateRequest.md)|  | 
 
 ### Return type
@@ -287,6 +285,75 @@ No authorization required
 |-------------|-------------|
 **200** | Success, query processed |
 **500** | Server error |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **autocomplete**
+> List[object] autocomplete(autocomplete_request)
+
+Performs an autocomplete search on a table
+
+ The method expects an object with the following mandatory properties: * the name of the table to search * the query string to autocomplete For details, see the documentation on [**Autocomplete**](Autocomplete.md) An example: ``` {   \"table\":\"table_name\",   \"query\":\"query_beginning\" }         ``` An example of the method's response:   ```  [    {      \"total\": 3,      \"error\": \"\",      \"warning\": \"\",      \"columns\": [        {          \"query\": {            \"type\": \"string\"          }        }      ],      \"data\": [        {          \"query\": \"hello\"        },        {          \"query\": \"helio\"        },        {          \"query\": \"hell\"        }      ]    }  ]   ```  For more detailed information about the autocomplete queries, please refer to the documentation [here](https://manual.manticoresearch.com/Searching/Autocomplete). 
+
+### Example
+
+
+```python
+import manticoresearch
+from manticoresearch.models.autocomplete_request import AutocompleteRequest
+from manticoresearch.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://127.0.0.1:9308
+# See configuration.py for a list of all supported configuration parameters.
+configuration = manticoresearch.Configuration(
+    host = "http://127.0.0.1:9308"
+)
+
+
+# Enter a context with an instance of the API client
+with manticoresearch.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = manticoresearch.SearchApi(api_client)
+    autocomplete_request = AutocompleteRequest(table="test",query="abc") 
+
+    try:
+        # Performs an autocomplete search on a table
+        api_response = api_instance.autocomplete(autocomplete_request)
+        print("The response of SearchApi->autocomplete:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling SearchApi->autocomplete: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **autocomplete_request** | [**AutocompleteRequest**](AutocompleteRequest.md)|  | 
+
+### Return type
+
+**List[object]**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Ok |  -  |
+**0** | error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
