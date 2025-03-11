@@ -108,6 +108,8 @@ const arraySuffix = ">";
 const mapPrefix = "{ [key: string]: ";
 const mapSuffix = "; }";
 
+const JSONbig = require('json-bigint');
+
 export class ObjectSerializer {
     public static findCorrectType(data: any, expectedType: string) {
         if (data == undefined) {
@@ -309,7 +311,7 @@ export class ObjectSerializer {
         }
 
         if (isJsonLikeMimeType(mediaType)) {
-            return JSON.stringify(data);
+            return JSONbig.stringify(data);
         }
 
         throw new Error("The mediaType " + mediaType + " is not supported by ObjectSerializer.stringify.");
@@ -328,7 +330,7 @@ export class ObjectSerializer {
         }
 
         if (isJsonLikeMimeType(mediaType)) {
-            return JSON.parse(rawData);
+            return JSONbig.parse(rawData);
         }
 
         throw new Error("The mediaType " + mediaType + " is not supported by ObjectSerializer.parse.");

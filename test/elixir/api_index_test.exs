@@ -10,7 +10,7 @@ defmodule Manticoresearch.Api.IndexTest do
     tesla_client = Manticoresearch.Connection.new
     IO.inspect tesla_client
     sql = ~s[mode=raw&query=CREATE TABLE testrt ( title text, content text, gid integer)]
-    doc = ~s[{"index":"testrt","id":1,"doc":{"title":"Hello","content":"world","gid":1}}]
+    doc = ~s[{"table":"testrt","id":1,"doc":{"title":"Hello","content":"world","gid":1}}]
     expected_response = {:ok,
       %Manticoresearch.Model.SearchResponse{
         hits: %Manticoresearch.Model.SearchResponseHits{
@@ -27,12 +27,12 @@ defmodule Manticoresearch.Api.IndexTest do
         timed_out: false,
         took: 0
     }}
-    # create index
-    create_index = Manticoresearch.Api.Utils.sql(tesla_client, sql)
-    IO.inspect create_index
+    # create table
+    create_table = Manticoresearch.Api.Utils.sql(tesla_client, sql)
+    IO.inspect create_table
     # insert a document
     Manticoresearch.Api.Index.insert(tesla_client, doc)
-    json = ~s[{"index": "testrt",
+    json = ~s[{"table": "testrt",
                "query": {
                   "match": {
                     "*": "hello world"

@@ -34,21 +34,21 @@ class TestManualApi(ParametrizedTestCase):
         res = utilsApi.sql('CREATE TABLE IF NOT EXISTS movies (title text, plot text, year integer, rating float, code multi)')
         
         docs = [ \
-            {"insert": {"index" : "movies", "id" : 1, "doc" : {"title" : "Star Trek 2: Nemesis", "plot": "The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.", "year": 2002, "rating": 6.4, "code": [1,2,3]}}}, \
-            {"insert": {"index" : "movies", "id" : 2, "doc" : {"title" : "Star Trek 1: Nemesis", "plot": "The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.", "year": 2001, "rating": 6.5, "code": [1,12,3]}}},
-            {"insert": {"index" : "movies", "id" : 3, "doc" : {"title" : "Star Trek 3: Nemesis", "plot": "The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.", "year": 2003, "rating": 6.6, "code": [11,2,3]}}}, \
-            {"insert": {"index" : "movies", "id" : 4, "doc" : {"title" : "Star Trek 4: Nemesis", "plot": "The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.", "year": 2003, "rating": 6.5, "code": [1,2,4]}}},
+            {"insert": {"table" : "movies", "id" : 1, "doc" : {"title" : "Star Trek 2: Nemesis", "plot": "The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.", "year": 2002, "rating": 6.4, "code": [1,2,3]}}}, \
+            {"insert": {"table" : "movies", "id" : 2, "doc" : {"title" : "Star Trek 1: Nemesis", "plot": "The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.", "year": 2001, "rating": 6.5, "code": [1,12,3]}}},
+            {"insert": {"table" : "movies", "id" : 3, "doc" : {"title" : "Star Trek 3: Nemesis", "plot": "The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.", "year": 2003, "rating": 6.6, "code": [11,2,3]}}}, \
+            {"insert": {"table" : "movies", "id" : 4, "doc" : {"title" : "Star Trek 4: Nemesis", "plot": "The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.", "year": 2003, "rating": 6.5, "code": [1,2,4]}}},
         ]
         indexApi.bulk('\n'.join(map(json.dumps,docs)))
         
         search_request = SearchRequest(
-            index="movies",
+            table="movies",
             query={"match_all": {}}
         ) 
         
         res = searchApi.search(search_request)
 
-        search_request.index = 'movies'
+        search_request.table = 'movies'
         search_request.limit = 10
         search_request.track_scores = True
         search_request.options = {'cutoff': 5}
@@ -195,104 +195,104 @@ class TestManualApi(ParametrizedTestCase):
         self.assertEqual(res[0]['error'],'')
         indexApi = api = manticoresearch.IndexApi(client)
         # example insert request
-        indexApi.insert({"index" : "products", "id" : 1, "doc" : {"title" : "Crossbody Bag with Tassel", "price" : 19.85}})
-        indexApi.insert({"index" : "products", "id" : 2, "doc" : {"title" : "Crossbody Bag with Tassel"}})
-        indexApi.insert({"index" : "products", "id" : 0, "doc" : {"title" : "Yellow bag"}})
+        indexApi.insert({"table" : "products", "id" : 1, "doc" : {"title" : "Crossbody Bag with Tassel", "price" : 19.85}})
+        indexApi.insert({"table" : "products", "id" : 2, "doc" : {"title" : "Crossbody Bag with Tassel"}})
+        indexApi.insert({"table" : "products", "id" : 0, "doc" : {"title" : "Yellow bag"}})
         # example autoid request
-        indexApi.insert({"index" : "products", "id" : 0, "doc" : {"title" : "Yellow bag"}})
+        indexApi.insert({"table" : "products", "id" : 0, "doc" : {"title" : "Yellow bag"}})
         # example bulk_insert request
         indexApi = api = manticoresearch.IndexApi(client)
         docs = [ \
-            {"insert": {"index" : "products", "id" : 3, "doc" : {"title" : "Crossbody Bag with Tassel", "price" : 19.85}}}, \
-            {"insert": {"index" : "products", "id" : 4, "doc" : {"title" : "microfiber sheet set", "price" : 19.99}}}, \
-            {"insert": {"index" : "products", "id" : 5, "doc" : {"title" : "CPet Hair Remover Glove", "price" : 7.99}}}
+            {"insert": {"table" : "products", "id" : 3, "doc" : {"title" : "Crossbody Bag with Tassel", "price" : 19.85}}}, \
+            {"insert": {"table" : "products", "id" : 4, "doc" : {"title" : "microfiber sheet set", "price" : 19.99}}}, \
+            {"insert": {"table" : "products", "id" : 5, "doc" : {"title" : "CPet Hair Remover Glove", "price" : 7.99}}}
         ]
         print('\n'.join(map(json.dumps,docs)))
         api_resp = indexApi.bulk('\n'.join(map(json.dumps,docs)))
         # example MVA_insert request
         indexApi = api = manticoresearch.IndexApi(client)
-        indexApi.insert({"index" : "products", "id" : 0, "doc" : {"title" : "Yellow bag","sizes":[40,41,42,43]}})
+        indexApi.insert({"table" : "products", "id" : 0, "doc" : {"title" : "Yellow bag","sizes":[40,41,42,43]}})
         # example JSON_insert request
         indexApi = api = manticoresearch.IndexApi(client)
-        indexApi.insert({"index" : "products", "id" : 0, "doc" : {"title" : "Yellow bag","meta":'{"size": 41, "color": "red"}'}})
+        indexApi.insert({"table" : "products", "id" : 0, "doc" : {"title" : "Yellow bag","meta":'{"size": 41, "color": "red"}'}})
         # example replace request
-        api_resp = indexApi.replace({"index" : "products", "id" : 1, "doc" : {"title" : "document one","price":10}})
+        api_resp = indexApi.replace({"table" : "products", "id" : 1, "doc" : {"title" : "document one","price":10}})
 
         # example replace response
         # {'created': False,
         # 'found': None,
         # 'id': 1,
-        # 'index': 'products',
+        # 'table': 'products',
         # 'result': 'updated'}
         
         # example bulk_replace request
         docs = [ \
-            {"replace": {"index" : "products", "id" : 1, "doc" : {"title" : "document one"}}}, \
-            {"replace": {"index" : "products", "id" : 2, "doc" : {"title" : "document two"}}} ]
+            {"replace": {"table" : "products", "id" : 1, "doc" : {"title" : "document one"}}}, \
+            {"replace": {"table" : "products", "id" : 2, "doc" : {"title" : "document two"}}} ]
         api_resp = indexApi.bulk('\n'.join(map(json.dumps,docs)))
         
         # example bulk_replace response
         #{'error': None,
         #'items': [{u'replace': {u'_id': 1,
-        #                 u'_index': u'products',
+        #                 u'table': u'products',
         #                 u'created': False,
         #                 u'result': u'updated',
         #                 u'status': 200}},
         #   {u'replace': {u'_id': 2,
-        #                u'_index': u'products',
+        #                u'table': u'products',
         #                 u'created': False,
         #                 u'result': u'updated',
         #                 u'status': 200}}]}
         
         # example update request
-        api_resp = indexApi.update({"index" : "products", "id" : 1, "doc" : {"price":10}})
+        api_resp = indexApi.update({"table" : "products", "id" : 1, "doc" : {"price":10}})
         pprint(api_resp)
         # example update respone
-        # {'id': 1, 'index': 'products', 'result': 'updated', 'updated': None}
+        # {'id': 1, 'table': 'products', 'result': 'updated', 'updated': None}
         
         # example update multiple attributes request
-        api_resp = indexApi.update({"index" : "products", "id" : 1, "doc" : {
+        api_resp = indexApi.update({"table" : "products", "id" : 1, "doc" : {
             "price": 100000000000,
             "coeff": 3465.23,
             "tags1": [3,6,4],
             "tags2": []}})
         pprint(api_resp)
         # example update multiple attributes respone
-        # {'id': 1, 'index': 'products', 'result': 'updated', 'updated': None}
+        # {'id': 1, 'table': 'products', 'result': 'updated', 'updated': None}
         
         
         
         # example partial JSON update request
-        api_resp = indexApi.insert({"index" : "products", "id" : 100, "doc" : {"title" : "title", "meta" : {"tags":[1,2,3]}}})
+        api_resp = indexApi.insert({"table" : "products", "id" : 100, "doc" : {"title" : "title", "meta" : {"tags":[1,2,3]}}})
         pprint(api_resp)
-        api_resp = indexApi.update({"index" : "products", "id" : 100, "doc" : {
+        api_resp = indexApi.update({"table" : "products", "id" : 100, "doc" : {
             "meta.tags[0]": 100}})
         pprint(api_resp)
         # example partial JSON update respone
         #{'created': True,
         #'found': None,
         #'id': 100,
-        #'index': 'products',
+        #'table': 'products',
         #'result': 'created'}
-        #{'id': 100, 'index': 'products', 'result': 'updated', 'updated': None}      
+        #{'id': 100, 'table': 'products', 'result': 'updated', 'updated': None}      
 
         # example MVA empty update request
-        api_resp = indexApi.update({"index" : "products", "id" : 1, "doc" : {"tags1": []}})
+        api_resp = indexApi.update({"table" : "products", "id" : 1, "doc" : {"tags1": []}})
         pprint(api_resp)
         
         # example bulk by query request
         docs = [ \
-            { "update" : { "index" : "products", "doc": { "coeff" : 1000 }, "query": { "range": { "price": { "gte": 1000 } } } } }, \
-            { "update" : { "index" : "products", "doc": { "coeff" : 0 }, "query": { "range": { "price": { "lt": 1000 } } } } } ]
+            { "update" : { "table" : "products", "doc": { "coeff" : 1000 }, "query": { "range": { "price": { "gte": 1000 } } } } }, \
+            { "update" : { "table" : "products", "doc": { "coeff" : 0 }, "query": { "range": { "price": { "lt": 1000 } } } } } ]
         api_resp = indexApi.bulk('\n'.join(map(json.dumps,docs)))
         pprint(api_resp)
         
         # example delete 2 request
-        api_resp = indexApi.delete({"index" : "products", "query": { "match": { "*": "document" }}})
+        api_resp = indexApi.delete({"table" : "products", "query": { "match": { "*": "document" }}})
         pprint(api_resp)        
         
         # example delete 3 request
-        api_resp = indexApi.delete({"index" : "products", "id" : 1})
+        api_resp = indexApi.delete({"table" : "products", "id" : 1})
         pprint(api_resp)      
 
         # example truncate request
@@ -308,28 +308,28 @@ class TestManualApi(ParametrizedTestCase):
         res = utilsApi.sql('drop table if exists forum')
         utilsApi.sql('create table forum(title text, content text, author_id int, forum_id int, post_date timestamp) min_infix_len=\'3\'')
         # example filtered query request
-        res = searchApi.search({"index":"forum","query":{"match_all":{},"bool":{"must":[{"equals":{"author_id":123}},{"in":{"forum_id":[1,3,7]}}]}},"sort":[{"post_date":"desc"}]})
+        res = searchApi.search({"table":"forum","query":{"match_all":{},"bool":{"must":[{"equals":{"author_id":123}},{"in":{"forum_id":[1,3,7]}}]}},"sort":[{"post_date":"desc"}]})
         pprint(res)
         
         #
         print('HERE')
-        indexApi.insert({"index" : "forum", "id" : 0, "doc" : {"title" : "i me"}})
-        indexApi.insert({"index" : "forum", "id" : 0, "doc" : {"title" : "wayne","content":"hey"}})
-        res = searchApi.search({"index":"forum","query":{"query_string":"i me"},"_source":{"excludes":["*"]},"limit":1,"profile":True})
+        indexApi.insert({"table" : "forum", "id" : 0, "doc" : {"title" : "i me"}})
+        indexApi.insert({"table" : "forum", "id" : 0, "doc" : {"title" : "wayne","content":"hey"}})
+        res = searchApi.search({"table":"forum","query":{"query_string":"i me"},"_source":{"excludes":["*"]},"limit":1,"profile":True})
         pprint(res)
-        res = searchApi.search({"index":"forum","query":{"query_string":"@title way* @content hey"},"_source":{"excludes":["*"]},"limit":1,"profile":True})
+        res = searchApi.search({"table":"forum","query":{"query_string":"@title way* @content hey"},"_source":{"excludes":["*"]},"limit":1,"profile":True})
         pprint(res)
         
         #
         utilsApi.sql('DROP TABLE products')
         res = utilsApi.sql('CREATE TABLE IF NOT EXISTS products (title text,product_codes multi)')
         
-        res = indexApi.insert({"index":"products","id":1,"doc":{"title":"first","product_codes":[4,2,1,3]}})
+        res = indexApi.insert({"table":"products","id":1,"doc":{"title":"first","product_codes":[4,2,1,3]}})
         pprint(res)
-        res = indexApi.insert({"index":"products","id":2,"doc":{"title":"second","product_codes":[5,6,8,7]}})
-        res = searchApi.search({"index":"products","query":{"match_all":{}}})
+        res = indexApi.insert({"table":"products","id":2,"doc":{"title":"second","product_codes":[5,6,8,7]}})
+        res = searchApi.search({"table":"products","query":{"match_all":{}}})
         pprint(res)
-        res = searchApi.search({"index":"products","query":{"match_all":{}}, "options":{"max_matches":1}})
+        res = searchApi.search({"table":"products","query":{"match_all":{}}, "options":{"max_matches":1}})
         pprint(res)
         utilsApi.sql('DROP TABLE products')
         
@@ -341,11 +341,11 @@ class TestManualApi(ParametrizedTestCase):
         # example create percolate request
         
         #utilsApi.sql('create table products(title text, color string) type=\'pq\'')
-        #res = indexApi.insert({"index" : "products", "doc" : {"query" : "@title bag" }})
+        #res = indexApi.insert({"table" : "products", "doc" : {"query" : "@title bag" }})
         #pprint(res)
-        #res = indexApi.insert({"index" : "products",  "doc" : {"query" : "@title shoes", "filters": "color='red'" }})
+        #res = indexApi.insert({"table" : "products",  "doc" : {"query" : "@title shoes", "filters": "color='red'" }})
         #pprint(res)
-        #res = indexApi.insert({"index" : "products",  "doc" : {"query" : "@title shoes","filters": "color in ('blue', 'green')" }})
+        #res = indexApi.insert({"table" : "products",  "doc" : {"query" : "@title shoes","filters": "color in ('blue', 'green')" }})
         #pprint(res)
         
         #
@@ -354,12 +354,12 @@ class TestManualApi(ParametrizedTestCase):
         #pprint(res)
         #res = searchApi.percolate('products',{"query":{"percolate":{"documents":[{"title":"nice pair of shoes","color":"blue"},{"title":"beautiful bag"}]}}})
         #pprint(res)        
-        #res = searchApi.search({"index":"products","query":{"match_all":{}}})
+        #res = searchApi.search({"table":"products","query":{"match_all":{}}})
         #pprint(res)        
         #utilsApi.sql('DROP TABLE products')
         
         
-        #res =  searchApi.search({"index":"books","query":{"match":{"*":"try"}},"highlight":{}})
+        #res =  searchApi.search({"table":"books","query":{"match":{"*":"try"}},"highlight":{}})
         #pprint(res)
         
         pprint("Tests finished")

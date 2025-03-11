@@ -22,30 +22,10 @@ Method | HTTP request | Description
 
 
 ```typescript
-{{#hasParams}}
-import { createConfiguration, {{classname}} } from '{{{projectName}}}';
-import type { {{classname}}{{operationIdCamelCase}}Request } from '{{{projectName}}}';
-{{/hasParams}}
-{{^hasParams}}
-import { createConfiguration, {{classname}} } from '{{{projectName}}}';
-{{/hasParams}}
-
 const configuration = createConfiguration();
 const apiInstance = new {{classname}}(configuration);
 
-{{#hasParams}}
-const request: {{classname}}{{operationIdCamelCase}}Request = {
-{{#allParams}}
-  {{#description}}  // {{{description}}}{{^required}} (optional){{/required}}{{/description}}
-  {{paramName}}: {{{example}}},
-{{/allParams}}
-};
-{{/hasParams}}
-{{^hasParams}}
-const request = {};
-{{/hasParams}}
-
-const data = await apiInstance.{{{operationId}}}(request);
+const data = await apiInstance.{{{operationId}}}({{#hasParams}}{{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}}{{/hasParams}});
 console.log('API called successfully. Returned data:', data);
 ```
 

@@ -30,7 +30,7 @@ func Test_openapi_IndexAPIService(t *testing.T) {
 		apiClient.UtilsAPI.Sql(context.Background()).Body("DROP TABLE IF EXISTS test").Execute()
 		apiClient.UtilsAPI.Sql(context.Background()).Body("CREATE TABLE IF NOT EXISTS test (body text, title string)").Execute()
 		
-   		body := "{\"insert\": {\"index\": \"test\", \"id\": 1, \"doc\": {\"body\": \"test\", \"title\": \"test\"}}}" + "\n"
+   		body := "{\"insert\": {\"table\": \"test\", \"id\": 1, \"doc\": {\"body\": \"test\", \"title\": \"test\"}}}" + "\n"
    		resp, httpRes, err := apiClient.IndexAPI.Bulk(context.Background()).Body(body).Execute()
    		fmt.Printf("test %v\n", resp)
    		require.Nil(t, err)

@@ -84,15 +84,15 @@ public class SearchApiTest {
     /**
      * Perform reverse search on a percolate index
      *
-     * Performs a percolate search.  This method must be used only on percolate indexes.  Expects two parameters: the index name and an object with array of documents to be tested. An example of the documents object:    &#x60;&#x60;&#x60;   {     \&quot;query\&quot;:     {       \&quot;percolate\&quot;:       {         \&quot;document\&quot;:         {           \&quot;content\&quot;:\&quot;sample content\&quot;         }       }     }   }   &#x60;&#x60;&#x60;  Responds with an object with matched stored queries:     &#x60;&#x60;&#x60;   {     &#39;timed_out&#39;:false,     &#39;hits&#39;:     {       &#39;total&#39;:2,       &#39;max_score&#39;:1,       &#39;hits&#39;:       [         {           &#39;_index&#39;:&#39;idx_pq_1&#39;,           &#39;_type&#39;:&#39;doc&#39;,           &#39;_id&#39;:&#39;2&#39;,           &#39;_score&#39;:&#39;1&#39;,           &#39;_source&#39;:           {             &#39;query&#39;:             {               &#39;match&#39;:{&#39;title&#39;:&#39;some&#39;}             }           }         },         {           &#39;_index&#39;:&#39;idx_pq_1&#39;,           &#39;_type&#39;:&#39;doc&#39;,           &#39;_id&#39;:&#39;5&#39;,           &#39;_score&#39;:&#39;1&#39;,           &#39;_source&#39;:           {             &#39;query&#39;:             {               &#39;ql&#39;:&#39;some | none&#39;             }           }         }       ]     }   }   &#x60;&#x60;&#x60; 
+     * Performs a percolate search.  This method must be used only on percolate indexes.  Expects two parameters: the index name and an object with array of documents to be tested. An example of the documents object:    &#x60;&#x60;&#x60;   {     \&quot;query\&quot;:     {       \&quot;percolate\&quot;:       {         \&quot;document\&quot;:         {           \&quot;content\&quot;:\&quot;sample content\&quot;         }       }     }   }   &#x60;&#x60;&#x60;  Responds with an object with matched stored queries:     &#x60;&#x60;&#x60;   {     &#39;timed_out&#39;:false,     &#39;hits&#39;:     {       &#39;total&#39;:2,       &#39;max_score&#39;:1,       &#39;hits&#39;:       [         {           &#39;table&#39;:&#39;idx_pq_1&#39;,           &#39;_type&#39;:&#39;doc&#39;,           &#39;_id&#39;:&#39;2&#39;,           &#39;_score&#39;:&#39;1&#39;,           &#39;_source&#39;:           {             &#39;query&#39;:             {               &#39;match&#39;:{&#39;title&#39;:&#39;some&#39;}             }           }         },         {           &#39;table&#39;:&#39;idx_pq_1&#39;,           &#39;_type&#39;:&#39;doc&#39;,           &#39;_id&#39;:&#39;5&#39;,           &#39;_score&#39;:&#39;1&#39;,           &#39;_source&#39;:           {             &#39;query&#39;:             {               &#39;ql&#39;:&#39;some | none&#39;             }           }         }       ]     }   }   &#x60;&#x60;&#x60; 
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void percolateTest() throws ApiException {
-        //String index = null;
+        //String table = null;
         //PercolateRequest percolateRequest = null;
-        //SearchResponse response = api.percolate(index, percolateRequest);
+        //SearchResponse response = api.percolate(table, percolateRequest);
         // TODO: test validations
         PercolateSubTests subTests = new PercolateSubTests() {
             public void BuildPercolateRequestData() throws ApiException
@@ -103,7 +103,7 @@ public class SearchApiTest {
 		        System.out.println(sqlresult);
 		        HashMap<String,Object> doc = new HashMap<String,Object>();
 		        InsertDocumentRequest newdoc = new InsertDocumentRequest();
-		        newdoc.index("products").setDoc(doc); 
+		        newdoc.table("products").setDoc(doc); 
 		        sqlresult = indexApi.insert(newdoc);
 		        System.out.println(sqlresult);
 		        
@@ -112,7 +112,7 @@ public class SearchApiTest {
 		        doc.put("filters", "color='red'");
 		        
 		        newdoc = new InsertDocumentRequest();
-		        newdoc.index("products").setDoc(doc); 
+		        newdoc.table("products").setDoc(doc); 
 		        sqlresult =  indexApi.insert(newdoc);
 		        System.out.println(sqlresult);
 		        
@@ -121,7 +121,7 @@ public class SearchApiTest {
 		        doc.put("filters", "color IN ('blue', 'green')");
 
 		        newdoc = new InsertDocumentRequest();
-		        newdoc.index("products").setDoc(doc); 
+		        newdoc.table("products").setDoc(doc); 
 		        sqlresult =  indexApi.insert(newdoc);
 		        System.out.println(sqlresult);
             };
@@ -197,10 +197,10 @@ public class SearchApiTest {
 	                utilsApi.sql("CREATE TABLE IF NOT EXISTS movies (title text, plot text, _year integer, rating float, cat string, code multi, type_vector float_vector knn_type='hnsw' knn_dims='3' hnsw_similarity='l2' )", true);
     
 				    List<String> docs = Arrays.asList(
-						"{\"insert\": {\"index\" : \"movies\", \"id\" : 1, \"doc\" : {\"title\" : \"Star Trek 2: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"_year\": 2002, \"rating\": 6.4, \"cat\": \"R\", \"code\": [1,2,3], \"type_vector\": [0.2, 1.4, -2.3]}}}",
-				        "{\"insert\": {\"index\" : \"movies\", \"id\" : 2, \"doc\" : {\"title\" : \"Star Trek 1: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"_year\": 2001, \"rating\": 6.5, \"cat\": \"PG-13\", \"code\": [1,12,3], \"type_vector\": [0.8, 0.4, 1.3]}}}",
-				        "{\"insert\": {\"index\" : \"movies\", \"id\" : 3, \"doc\" : {\"title\" : \"Star Trek 3: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"_year\": 2003, \"rating\": 6.6, \"cat\": \"R\", \"code\": [11,2,3], \"type_vector\": [1.5, -1.0, 1.6]}}}",
-				        "{\"insert\": {\"index\" : \"movies\", \"id\" : 4, \"doc\" : {\"title\" : \"Star Trek 4: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"_year\": 2003, \"rating\": 6, \"cat\": \"R\", \"code\": [1,2,4], \"type_vector\": [0.4, 2.4, 0.9]}}}"					        	
+						"{\"insert\": {\"table\" : \"movies\", \"id\" : 1, \"doc\" : {\"title\" : \"Star Trek 2: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"_year\": 2002, \"rating\": 6.4, \"cat\": \"R\", \"code\": [1,2,3], \"type_vector\": [0.2, 1.4, -2.3]}}}",
+				        "{\"insert\": {\"table\" : \"movies\", \"id\" : 2, \"doc\" : {\"title\" : \"Star Trek 1: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"_year\": 2001, \"rating\": 6.5, \"cat\": \"PG-13\", \"code\": [1,12,3], \"type_vector\": [0.8, 0.4, 1.3]}}}",
+				        "{\"insert\": {\"table\" : \"movies\", \"id\" : 3, \"doc\" : {\"title\" : \"Star Trek 3: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"_year\": 2003, \"rating\": 6.6, \"cat\": \"R\", \"code\": [11,2,3], \"type_vector\": [1.5, -1.0, 1.6]}}}",
+				        "{\"insert\": {\"table\" : \"movies\", \"id\" : 4, \"doc\" : {\"title\" : \"Star Trek 4: Nemesis\", \"plot\": \"The Enterprise is diverted to the Romulan homeworld Romulus, supposedly because they want to negotiate a peace treaty. Captain Picard and his crew discover a serious threat to the Federation once Praetor Shinzon plans to attack Earth.\", \"_year\": 2003, \"rating\": 6, \"cat\": \"R\", \"code\": [1,2,4], \"type_vector\": [0.4, 2.4, 0.9]}}}"					        	
 				    );
 			
 					BulkResponse res = indexApi.bulk( String.join("\n", docs) );
@@ -476,7 +476,7 @@ public class SearchApiTest {
 			    	
 					Map<String,Object> query = new HashMap<String,Object>();
 			        query.put("query_string", "Star");
-			        searchRequest.setIndex("movies");
+			        searchRequest.setTable("movies");
 			        searchRequest.setQuery(query);
 					searchRequest.setLimit(10);
 					searchRequest.setTrackScores(false);
@@ -508,7 +508,7 @@ public class SearchApiTest {
 			    public void TestKnnSearchByVector(SearchRequest searchRequest) throws ApiException
 			    {
 			    	
-			    	searchRequest.setIndex("movies");
+			    	searchRequest.setTable("movies");
 			    	List<BigDecimal> queryVector = Arrays.asList(new BigDecimal[]{BigDecimal.valueOf(1.5), BigDecimal.valueOf(-1.0), BigDecimal.valueOf(1.6)});
 					//Map<String,Object> query = new HashMap<String,Object>();
 					KnnQueryByVector knnQueryByVector = new KnnQueryByVector();

@@ -43,25 +43,25 @@ describe('Index API Tests', () => {
       await utilsApi.sql('TRUNCATE TABLE test');
 
       let res = await indexApi.insert({
-        index: 'test',
+        table: 'test',
         id: 1,
         doc: { content: 'Text 1', name: 'Doc 1', cat: 1 },
       });
       expect(res).to.include({ _id: 1, result: 'created' });
 
       res = await indexApi.insert({
-        index: 'test',
+        table: 'test',
         id: 2,
         doc: { content: 'Text 2', name: 'Doc 2', cat: 2 },
       });
       res = await indexApi.insert({
-        index: 'test',
+        table: 'test',
         id: 3,
         doc: { content: 'Text 3', name: 'Doc 3', cat: 7 },
       });
 
       res = await indexApi.replace({
-        index: 'test',
+        table: 'test',
         id: 2,
         doc: { content: 'Text21', cat: 3 },
       });
@@ -76,21 +76,21 @@ describe('Index API Tests', () => {
       let insertDocs = [
         {
           insert: {
-            index: 'test',
+            table: 'test',
             id: 4,
             doc: { content: 'Text 4', cat: 1, name: 'Doc 4' },
           },
         },
         {
           insert: {
-            index: 'test',
+            table: 'test',
             id: 5,
             doc: { content: 'Text 5', cat: 9, name: 'Doc 5' },
           },
         },
         {
           insert: {
-            index: 'test',
+            table: 'test',
             id: 6,
             doc: { content: 'Text 6', cat: 7, name: 'Doc 6' },
           },
@@ -102,20 +102,20 @@ describe('Index API Tests', () => {
       );
       expect(bulkRes).to.property("errors", false);
 
-      res = await indexApi.update({ index: "test", id: 1, doc: { cat: 10 } });
+      res = await indexApi.update({ table: "test", id: 1, doc: { cat: 10 } });
       expect(res).to.include({ _id: 1, result: "updated" });
 
       let updateDocs = [
         {
           update: {
-            index: "test",
+            table: "test",
             doc: { cat: 10 },
             query: { equals: { cat: 7 } },
           },
         },
         {
           update: {
-            index: "test",
+            table: "test",
             doc: { cat: 10 },
             query: { equals: { cat: 9 } },
           },
@@ -134,11 +134,11 @@ describe('Index API Tests', () => {
         'count(*)': 4,
       });
 
-      res = await indexApi.delete({ index: 'test', id: 1 });
+      res = await indexApi.delete({ table: 'test', id: 1 });
       expect(res).to.include({ _id: 1, result: 'deleted' });
 
       res = await indexApi.delete({
-        index: 'test',
+        table: 'test',
         query: { match: { '*': 'Text21' } },
       });
       expect(res).to.property('deleted', 1);
@@ -157,35 +157,35 @@ describe('Search Api Tests', () => {
       let insertDocs = [
         {
           insert: {
-            index: 'test',
+            table: 'test',
             id: 1,
             doc: { content: 'Text 1', cat: 1, name: 'Doc 1' },
           },
         },
         {
           insert: {
-            index: 'test',
+            table: 'test',
             id: 2,
             doc: { content: 'Text 2', cat: 5, name: 'Doc 2' },
           },
         },
         {
           insert: {
-            index: 'test',
+            table: 'test',
             id: 3,
             doc: { content: 'Text 3', cat: 10, name: 'Doc 3' },
           },
         },
         {
           insert: {
-            index: 'test',
+            table: 'test',
             id: 4,
             doc: { content: 'Text 4', cat: 7, name: 'Doc 4' },
           },
         },
         {
           insert: {
-            index: 'test',
+            table: 'test',
             id: 5,
             doc: { content: 'Text 5', cat: 8, name: 'Doc 5' },
           },
@@ -194,20 +194,20 @@ describe('Search Api Tests', () => {
       await indexApi.bulk(insertDocs.map((e) => JSON.stringify(e)).join('\n'));
 
       let res = await searchApi.search({
-        index: 'test',
+        table: 'test',
         query: { match_all: {} },
       });
       expect(res).to.deep.nested.property('hits.total', 5);
 
       res = await searchApi.search({
-        index: 'test',
+        table: 'test',
         query: { match_all: {} },
         options: { cutoff: 1 },
       });
       expect(res).to.deep.nested.property('hits.total', 1);
 
       res = await searchApi.search({
-        index: 'test',
+        table: 'test',
         query: {
           match_all: {},
           bool: { should: [{ equals: { cat: 1 } }, { in: { cat: [5, 10] } }] },
@@ -217,7 +217,7 @@ describe('Search Api Tests', () => {
       expect(res).to.deep.nested.property('hits.total', 3);
 
       res = await searchApi.search({
-        index: 'test',
+        table: 'test',
         query: {
           match_all: {},
           bool: { should: [{ equals: { cat: 2 } }, { in: { cat: [3, 4] } }] },
