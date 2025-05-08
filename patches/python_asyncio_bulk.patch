@@ -1,0 +1,14 @@
+diff --git a/out/manticoresearch-python-asyncio/manticoresearch/rest.py b/out/manticoresearch-python-asyncio/manticoresearch/rest.py
+index 34ca52b..ec9be35 100755
+--- a/out/manticoresearch-python-asyncio/manticoresearch/rest.py
++++ b/out/manticoresearch-python-asyncio/manticoresearch/rest.py
+@@ -164,7 +164,7 @@ class RESTClientObject:
+ 
+         # For `POST`, `PUT`, `PATCH`, `OPTIONS`, `DELETE`
+         if method in ['POST', 'PUT', 'PATCH', 'OPTIONS', 'DELETE']:
+-            if re.search('json', headers['Content-Type'], re.IGNORECASE):
++            if headers['Content-Type'] == "application/json":
+                 if body is not None:
+                     body = json.dumps(body)
+                 args["data"] = body
+                

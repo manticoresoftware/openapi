@@ -461,7 +461,22 @@ components:
         _source:
           type: object
           description: The source data of the matched document
-      additionalProperties: false
+        _knn_dist:
+          type: number
+          description: The knn distance of the matched document returned for knn queries
+        highlight:
+          type: object
+          description: The highlighting-related data of the matched document
+        table:
+          type: string
+          description: The table name of the matched document returned for percolate queries
+        _type::
+          type: string
+          description: The type of the matched document returned for percolate queries
+        fields:
+          type: object
+          description: The percolate-related fields of the matched document returned for percolate queries
+      additionalProperties: true
       description: Search hit representing a matched document
     insertDocumentRequest:
       type: object
@@ -550,7 +565,7 @@ components:
           type: {}
       additionalProperties: false
       description: Object representing the conditions used to perform the join operation  
-    match:
+    _match:
       type: object
       required: ['query']
       properties:
@@ -805,6 +820,14 @@ components:
         type: object
     sqlObjResponse:
       type: object
+      required: ['hits']
+      properties:
+        hits:
+          type: object
+        took:
+          type: number
+        timed_out:
+          type: boolean
     sqlResponse:
       oneOf:
         - $ref: '#/components/schemas/sqlRawResponse'

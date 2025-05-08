@@ -15,6 +15,30 @@ do_python() {
   echo "Python done."
 }
 
+do_python_asyncio() {
+  echo "Building Python async..."
+  rm -rf out/manticoresearch-python-asyncio
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g python -o /local/out/manticoresearch-python-asyncio -t /local/templates/python --git-repo-id manticoresearch-python-asyncio --git-user-id manticoresoftware  --additional-properties library=asyncio --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch-asyncio --additional-properties packageVersion=`cat versions/python` $build_to_branch
+  rm -rf out/manticoresearch-python-asyncio/test/* 
+  cp -r LICENSE.txt out/manticoresearch-python-asyncio/LICENSE.txt
+  #cp docs/python/docs/* out/manticoresearch-python-asyncio/docs/
+  # replace test with our tests
+  cp -r test/python-asyncio/* out/manticoresearch-python-asyncio/test/   
+  git apply patches/python_asyncio_bulk.patch patches/python_asyncio_sql_api.patch
+  echo "Python async done."
+}
+
+do_rust() {
+  echo "Building Rust..."
+  rm -rf out/manticoresearch-rust
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g rust -o /local/out/manticoresearch-rust -t /local/templates/rust --git-repo-id manticoresearch-rust --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/rust` --additional-properties library=hyper $build_to_branch
+  cp -r LICENSE.txt out/manticoresearch-rust/LICENSE.txt
+  mkdir out/manticoresearch-rust/tests
+  cp -r test/rust/* out/manticoresearch-rust/tests/
+  git apply patches/rust_request.patch
+  echo "Rust done."
+}
+
 do_java() {
   echo "Building Java ...$version"
   rm -rf out/manticoresearch-java 
@@ -209,6 +233,12 @@ fi
 case $1 in
  python)
    do_python 
+  ;;
+ python-asyncio)
+   do_python_asyncio 
+  ;;
+ rust)
+   do_rust
   ;;
  java)
    do_java 

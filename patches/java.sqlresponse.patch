@@ -2,7 +2,7 @@ diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/m
 index fd11fea..fd4731d 100644
 --- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SqlResponse.java
 +++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SqlResponse.java
-@@ -30,6 +30,7 @@ import java.util.logging.Logger;
+@@ -36,6 +36,7 @@ import java.util.logging.Logger;
  import java.util.ArrayList;
  import java.util.Collections;
  import java.util.HashSet;
@@ -10,16 +10,3 @@ index fd11fea..fd4731d 100644
  
  import com.fasterxml.jackson.core.JsonGenerator;
  import com.fasterxml.jackson.core.JsonParser;
-@@ -103,11 +103,7 @@ public class SqlResponse extends AbstractOpenApiSchema {
- 
-             // deserialize Object
-             try {
--                boolean attemptParsing = true;
--                attemptParsing = typeCoercion; //respect type coercion setting
--                if (!attemptParsing) {
--                }
--                if (attemptParsing) {
-+                if (token != JsonToken.START_ARRAY) {
-                     deserialized = tree.traverse(jp.getCodec()).readValueAs(Object.class);
-                     // TODO: there is no validation against JSON schema constraints
-                     // (min, max, enum, pattern...), this does not perform a strict JSON
