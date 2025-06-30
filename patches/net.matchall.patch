@@ -21,9 +21,8 @@ index fcd1af2..6638097 100644
          /// Initializes a new instance of the <see cref="MatchAll" /> class.
          /// </summary>
 @@ -63,7 +63,7 @@ namespace ManticoreSearch.Model
-         /// <param name="All"> (required).</param>
--        public MatchAll(AllEnum All = default(AllEnum))
-+        public MatchAll(AllEnum All = default(AllEnum))
+         /// <param name="All">All (required).</param>
+         public MatchAll(AllEnum All = default(AllEnum))
          {
 -            this.All = All;
 +            this.All = "{}";
