@@ -70,8 +70,8 @@ do_java() {
     --additional-properties useJakartaEe=true \
     --additional-properties prevVersion=$prev_version \
     $build_to_branch
-  git apply patches/java.apiclient.patch patches/java.boolfilter.patch patches/java.queryfilter.patch \
-  patches/java.searchquery.patch patches/java.sqlresponse.patch patches/java.sourcerules.patch
+  git apply patches/java.apiclient.patch patches/java.queryfilter.patch \
+  patches/java.searchquery.patch patches/java.sqlresponse.patch 
   cp LICENSE.txt out/manticoresearch-java/LICENSE.txt
   cp docs/java/docs/* out/manticoresearch-java/docs/
   cp -r test/java/api/* out/manticoresearch-java/src/test/java/com/manticoresearch/client/api/

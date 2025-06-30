@@ -39,10 +39,10 @@ import com.manticoresearch.client.JSON;
   BulkResponse.JSON_PROPERTY_SKIPPED_LINES
 })
 @JsonTypeName("bulkResponse")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-13T14:03:43.705466922Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-06-30T06:35:36.803619975Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class BulkResponse {
   public static final String JSON_PROPERTY_ITEMS = "items";
-  private List<Object> items;
+  private List<Object> items = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ERRORS = "errors";
   private Boolean errors;
@@ -64,7 +64,7 @@ public class BulkResponse {
     return this;
   }
 
-  public BulkResponse addItem(Object itemsItem) {
+  public BulkResponse addItemsItem(Object itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<>();
     }

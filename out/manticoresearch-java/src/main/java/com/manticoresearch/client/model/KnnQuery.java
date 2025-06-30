@@ -42,7 +42,7 @@ import com.manticoresearch.client.JSON;
   KnnQuery.JSON_PROPERTY_FILTER
 })
 @JsonTypeName("knnQuery")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-13T14:03:43.705466922Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-06-30T06:35:36.803619975Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class KnnQuery {
   public static final String JSON_PROPERTY_FIELD = "field";
   private String field;
@@ -51,7 +51,7 @@ public class KnnQuery {
   private Integer k;
 
   public static final String JSON_PROPERTY_QUERY_VECTOR = "query_vector";
-  private List<BigDecimal> queryVector;
+  private List<BigDecimal> queryVector = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DOC_ID = "doc_id";
   private Long docId;
@@ -120,7 +120,7 @@ public class KnnQuery {
     return this;
   }
 
-  public KnnQuery addItem(BigDecimal queryVectorItem) {
+  public KnnQuery addQueryVectorItem(BigDecimal queryVectorItem) {
     if (this.queryVector == null) {
       this.queryVector = new ArrayList<>();
     }

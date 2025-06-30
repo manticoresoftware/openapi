@@ -13,7 +13,15 @@
 
 package com.manticoresearch.client.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.manticoresearch.client.model.SqlObjResponse;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -31,6 +39,30 @@ public class SqlResponseTest {
     @Test
     public void testSqlResponse() {
         // TODO: test SqlResponse
+    }
+
+    /**
+     * Test the property 'hits'
+     */
+    @Test
+    public void hitsTest() {
+        // TODO: test hits
+    }
+
+    /**
+     * Test the property 'took'
+     */
+    @Test
+    public void tookTest() {
+        // TODO: test took
+    }
+
+    /**
+     * Test the property 'timedOut'
+     */
+    @Test
+    public void timedOutTest() {
+        // TODO: test timedOut
     }
 
 }

@@ -567,6 +567,31 @@ components:
           $ref: '#/components/schemas/aggCompositeTerm'
       required:
       - terms
+    aggHistogram:
+      additionalProperties: false
+      description: "Object to use histograms in aggregation, i.e., grouping search\
+        \ results by histogram values"
+      properties:
+        field:
+          description: Field to group by
+          example: field
+          type: string
+        interval:
+          description: Interval of the histogram values
+          example: 10
+          type: integer
+        offset:
+          description: Offset of the histogram values. Default value is 0.
+          example: 1
+          type: integer
+        keyed:
+          description: Flag that defines if a search response will be a dictionary
+            with the bucket keys. Default value is false.
+          example: true
+          type: boolean
+      required:
+      - field
+      - interval
     aggComposite:
       additionalProperties: false
       description: "Object to perform composite aggregation, i.e., grouping search\
@@ -607,6 +632,8 @@ components:
             type: array
           composite:
             $ref: '#/components/schemas/aggComposite'
+          histogram:
+            $ref: '#/components/schemas/aggHistogram'
     knnQuery:
       description: Object representing a k-nearest neighbor search query
       properties:
@@ -962,6 +989,23 @@ components:
         _source:
           description: The source data of the matched document
           type: object
+        _knn_dist:
+          description: The knn distance of the matched document returned for knn queries
+          type: number
+        highlight:
+          description: The highlighting-related data of the matched document
+          type: object
+        table:
+          description: The table name of the matched document returned for percolate
+            queries
+          type: string
+        '_type:':
+          description: The type of the matched document returned for percolate queries
+          type: string
+        fields:
+          description: The percolate-related fields of the matched document returned
+            for percolate queries
+          type: object
     insertDocumentRequest:
       description: |
         Object containing data for inserting a new document into the table
@@ -1046,7 +1090,7 @@ components:
       required:
       - field
       - table
-    match:
+    _match:
       description: Filter helper object defining a match keyword and match options
       properties:
         query:
@@ -1276,7 +1320,15 @@ components:
         type: object
       type: array
     sqlObjResponse:
-      type: object
+      properties:
+        hits:
+          type: object
+        took:
+          type: number
+        timed_out:
+          type: boolean
+      required:
+      - hits
     sqlResponse:
       description: List of responses from executed SQL queries
       example:

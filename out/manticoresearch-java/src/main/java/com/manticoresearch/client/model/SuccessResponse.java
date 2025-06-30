@@ -38,12 +38,12 @@ import com.manticoresearch.client.JSON;
   SuccessResponse.JSON_PROPERTY_STATUS
 })
 @JsonTypeName("successResponse")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-13T14:03:43.705466922Z[Etc/UTC]", comments = "Generator version: 7.3.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-06-30T06:35:36.803619975Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class SuccessResponse {
   public static final String JSON_PROPERTY_TABLE = "table";
   private String table;
 
-  public static final String JSON_PROPERTY_ID = "_id";
+  public static final String JSON_PROPERTY_ID = "id";
   private Long id;
 
   public static final String JSON_PROPERTY_CREATED = "created";

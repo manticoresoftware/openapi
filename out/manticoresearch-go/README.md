@@ -2,7 +2,7 @@
 
 Сlient for Manticore Search.
 
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-go/tree/v1.7.0
+❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-go/tree/v1.8.0
 
 ## Compatibility Table
 
@@ -123,6 +123,7 @@ Class | Method | HTTP request | Description
  - [AggComposite](docs/AggComposite.md)
  - [AggCompositeSource](docs/AggCompositeSource.md)
  - [AggCompositeTerm](docs/AggCompositeTerm.md)
+ - [AggHistogram](docs/AggHistogram.md)
  - [AggTerms](docs/AggTerms.md)
  - [Aggregation](docs/Aggregation.md)
  - [AutocompleteRequest](docs/AutocompleteRequest.md)
@@ -156,6 +157,7 @@ Class | Method | HTTP request | Description
  - [SearchResponse](docs/SearchResponse.md)
  - [SearchResponseHits](docs/SearchResponseHits.md)
  - [SourceRules](docs/SourceRules.md)
+ - [SqlObjResponse](docs/SqlObjResponse.md)
  - [SqlResponse](docs/SqlResponse.md)
  - [SuccessResponse](docs/SuccessResponse.md)
  - [UpdateDocumentRequest](docs/UpdateDocumentRequest.md)

@@ -54,5 +54,32 @@ namespace ManticoreSearch.Test.Model
             // TODO uncomment below to test "IsType" SqlResponse
             //Assert.IsType<SqlResponse>(instance);
         }
+
+        /// <summary>
+        /// Test the property 'Hits'
+        /// </summary>
+        [Fact]
+        public void HitsTest()
+        {
+            // TODO unit test for the property 'Hits'
+        }
+
+        /// <summary>
+        /// Test the property 'Took'
+        /// </summary>
+        [Fact]
+        public void TookTest()
+        {
+            // TODO unit test for the property 'Took'
+        }
+
+        /// <summary>
+        /// Test the property 'TimedOut'
+        /// </summary>
+        [Fact]
+        public void TimedOutTest()
+        {
+            // TODO unit test for the property 'TimedOut'
+        }
     }
 }

@@ -45,6 +45,54 @@ components:
           $ref: '#/components/schemas/aggCompositeTerm'
       additionalProperties: false
       description: Object containing terms used for composite aggregation. 	
+    aggHistogram:
+      additionalProperties: false
+      description: "Object to use histograms in aggregation, i.e., grouping search\
+        \ results by histogram values"
+      properties:
+        field:
+          description: Field to group by
+          example: field
+          type: string
+        interval:
+          description: Interval of the histogram values
+          example: 10
+          type: integer
+        offset:
+          description: Offset of the histogram values. Default value is 0.
+          example: 1
+          type: integer
+        keyed:
+          description: Flag that defines if a search response will be a dictionary with the bucket keys. Default value is false.
+          example: true
+          type: boolean
+      required:
+        - field
+        - interval
+    aggDateHistogram:
+      additionalProperties: false
+      description: "Object to use histograms in aggregation, i.e., grouping search\
+        \ results by histogram values"
+      properties:
+        field:
+          description: Field to group by
+          example: field
+          type: string
+        interval:
+          description: Interval of the histogram values
+          example: 10
+          type: integer
+        offset:
+          description: Offset of the histogram values. Default value is 0.
+          example: 1
+          type: integer
+        keyed:
+          description: Flag that defines if a search response will be a dictionary with the bucket keys. Default value is false.
+          example: true
+          type: boolean
+      required:
+        - field
+        - interval
     aggComposite:
       type: object
       description: Object to perform composite aggregation, i.e., grouping search results by multiple fields
@@ -88,6 +136,8 @@ components:
               type: {}
           composite:
             $ref: '#/components/schemas/aggComposite'
+          histogram:
+            $ref: '#/components/schemas/aggHistogram'
     knnQuery:
       type: object
       required: [field, k]
@@ -372,12 +422,7 @@ components:
                 - html
               description: If set to 'html', retains HTML markup when highlighting
             fields:
-              anyOf:
-                - type: array
-                  items:
-                    type: string
-                - type: object
-              description: List of fields available for highlighting
+              $ref: '#/components/schemas/highlightFields'
             force_all_words:
               type: boolean
               description: Ignores the length limit until the result includes all keywords
@@ -428,6 +473,13 @@ components:
               type: boolean
               description: Defines whether to additionally break snippets by phrase boundary characters
         - $ref: '#/components/schemas/highlightFieldOption'
+    highlightFields:
+      anyOf:
+      - type: array
+        items:
+          type: string
+      - type: object
+      description: List of fields available for highlighting
     highlightFieldOption:
       type: object
       properties:
