@@ -69,16 +69,16 @@ namespace ManticoreSearch.Model
         /// <param name="Query"> (required).</param>
         /// <param name="Operator">.</param>
         /// <param name="Boost">.</param>
-        public Match(string  = default(string), OperatorEnum?  = default(OperatorEnum?), decimal  = default(decimal))
+        public Match(string Query = default(string), OperatorEnum? Operator = default(OperatorEnum?), decimal Boost = default(decimal))
         {
             // to ensure "" is required (not null)
-            if ( == null)
+            if (Query == null)
             {
-                throw new ArgumentNullException(" is a required property for Match and cannot be null");
+                throw new ArgumentNullException("Query is a required property for Match and cannot be null");
             }
-            this.Query = ;
-            this.Operator = ;
-            this.Boost = ;
+            this.Query = Query;
+            this.Operator = Operator;
+            this.Boost = Boost;
         }
 
         /// <summary>
