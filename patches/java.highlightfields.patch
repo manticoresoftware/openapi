@@ -1,0 +1,43 @@
+From 900139df27e29574ebd47e3d1326eb4a81fbe5b3 Mon Sep 17 00:00:00 2001
+From: Nick <nick@manticoresearch.com>
+Date: Mon, 30 Jun 2025 13:59:28 +0700
+Subject: [PATCH] Regenerated the clients
+
+---
+ .../com/manticoresearch/client/model/HighlightFields.java   | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/HighlightFields.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/HighlightFields.java
+index 590f4a8..697e9d6 100755
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/HighlightFields.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/HighlightFields.java
+@@ -82,7 +82,7 @@ public class HighlightFields extends AbstractOpenApiSchema {
+             Object deserialized = null;
+             // deserialize List<String>
+             try {
+-                deserialized = tree.traverse(jp.getCodec()).readValueAs(List<String>.class);
++                deserialized = tree.traverse(jp.getCodec()).readValueAs(List.class);
+                 HighlightFields ret = new HighlightFields();
+                 ret.setActualInstance(deserialized);
+                 return ret;
+@@ -154,7 +154,7 @@ public class HighlightFields extends AbstractOpenApiSchema {
+      */
+     @Override
+     public void setActualInstance(Object instance) {
+-        if (JSON.isInstanceOf(List<String>.class, instance, new HashSet<>())) {
++        if (JSON.isInstanceOf(List.class, instance, new HashSet<>())) {
+             super.setActualInstance(instance);
+             return;
+         }
+@@ -185,7 +185,7 @@ public class HighlightFields extends AbstractOpenApiSchema {
+      * @return The actual instance of `List<String>`
+      * @throws ClassCastException if the instance is not `List<String>`
+      */
+-    public List<String> getList<String>() throws ClassCastException {
++    public List<String> getList() throws ClassCastException {
+         return (List<String>)super.getActualInstance();
+     }
+ 
+-- 
+2.49.0
+

@@ -43,7 +43,7 @@ namespace ManticoreSearch.Model
             /// Enum  for value: {}
             /// </summary>
             [EnumMember(Value = "{}")]
-            All = 1
+             = 1
         }
 
 
@@ -51,7 +51,7 @@ namespace ManticoreSearch.Model
         /// Gets or Sets All
         /// </summary>
         [DataMember(Name = "_all", IsRequired = true, EmitDefaultValue = true)]
-        public String All { get; set; }
+        public AllEnum All { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchAll" /> class.
         /// </summary>
@@ -60,10 +60,10 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchAll" /> class.
         /// </summary>
-        /// <param name="All">All (required).</param>
-        public MatchAll(AllEnum All = default(AllEnum))
+        /// <param name="All"> (required).</param>
+        public MatchAll(AllEnum  = default(AllEnum))
         {
-            this.All = "{}";
+            this.All = ;
         }
 
         /// <summary>

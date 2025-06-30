@@ -41,13 +41,13 @@ namespace ManticoreSearch.Model
         /// <param name="Id">The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned.</param>
         /// <param name="Found">Indicates whether any documents to be deleted were found.</param>
         /// <param name="Result">Result of the delete operation, typically &#39;deleted&#39;.</param>
-        public DeleteResponse(string Table = default(string), int Deleted = default(int), long Id = default(long), bool Found = default(bool), string Result = default(string))
+        public DeleteResponse(string  = default(string), int  = default(int), int  = default(int), bool  = default(bool), string  = default(string))
         {
-            this.Table = Table;
-            this.Deleted = Deleted;
-            this.Id = Id;
-            this.Found = Found;
-            this.Result = Result;
+            this.Table = ;
+            this.Deleted = ;
+            this.Id = ;
+            this.Found = ;
+            this.Result = ;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <value>The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Indicates whether any documents to be deleted were found

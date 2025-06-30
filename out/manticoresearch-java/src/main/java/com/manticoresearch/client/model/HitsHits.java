@@ -41,10 +41,10 @@ import com.manticoresearch.client.JSON;
   HitsHits.JSON_PROPERTY_FIELDS
 })
 @JsonTypeName("hitsHits")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-06-30T06:35:36.803619975Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-06-30T07:16:18.467791800Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class HitsHits {
   public static final String JSON_PROPERTY_ID = "_id";
-  private Long id;
+  private Integer id;
 
   public static final String JSON_PROPERTY_SCORE = "_score";
   private Integer score;
@@ -70,7 +70,7 @@ public class HitsHits {
   public HitsHits() { 
   }
 
-  public HitsHits id(Long id) {
+  public HitsHits id(Integer id) {
     this.id = id;
     return this;
   }
@@ -83,14 +83,14 @@ public class HitsHits {
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 

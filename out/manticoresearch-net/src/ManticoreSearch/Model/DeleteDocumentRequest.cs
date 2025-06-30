@@ -45,17 +45,17 @@ namespace ManticoreSearch.Model
         /// <param name="Cluster">Cluster name.</param>
         /// <param name="Id">The ID of document for deletion.</param>
         /// <param name="Query">Defines the criteria to match documents for deletion.</param>
-        public DeleteDocumentRequest(string Table = default(string), string Cluster = default(string), long Id = default(long), Object Query = default(Object))
+        public DeleteDocumentRequest(string  = default(string), string  = default(string), int  = default(int), Object  = default(Object))
         {
-            // to ensure "Table" is required (not null)
-            if (Table == null)
+            // to ensure "" is required (not null)
+            if ( == null)
             {
-                throw new ArgumentNullException("Table is a required property for DeleteDocumentRequest and cannot be null");
+                throw new ArgumentNullException(" is a required property for DeleteDocumentRequest and cannot be null");
             }
-            this.Table = Table;
-            this.Cluster = Cluster;
-            this.Id = Id;
-            this.Query = Query;
+            this.Table = ;
+            this.Cluster = ;
+            this.Id = ;
+            this.Query = ;
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <value>The ID of document for deletion</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Defines the criteria to match documents for deletion

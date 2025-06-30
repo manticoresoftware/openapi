@@ -6,7 +6,7 @@ Manticore Search Client
 
 - API version: 9.0.0
 
-- Build date: 2025-06-30T06:35:36.803619975Z[Etc/UTC]
+- Build date: 2025-06-30T07:16:18.467791800Z[Etc/UTC]
 
 ## Requirements
 

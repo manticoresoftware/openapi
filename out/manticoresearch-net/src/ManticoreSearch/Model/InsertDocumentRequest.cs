@@ -45,22 +45,22 @@ namespace ManticoreSearch.Model
         /// <param name="Cluster">Name of the cluster to insert the document into.</param>
         /// <param name="Id">Document ID. If not provided, an ID will be auto-generated .</param>
         /// <param name="Doc">Object containing document data  (required).</param>
-        public InsertDocumentRequest(string Table = default(string), string Cluster = default(string), long Id = default(long), Object Doc = default(Object))
+        public InsertDocumentRequest(string  = default(string), string  = default(string), int  = default(int), Object  = default(Object))
         {
-            // to ensure "Table" is required (not null)
-            if (Table == null)
+            // to ensure "" is required (not null)
+            if ( == null)
             {
-                throw new ArgumentNullException("Table is a required property for InsertDocumentRequest and cannot be null");
+                throw new ArgumentNullException(" is a required property for InsertDocumentRequest and cannot be null");
             }
-            this.Table = Table;
-            // to ensure "Doc" is required (not null)
-            if (Doc == null)
+            this.Table = ;
+            // to ensure "" is required (not null)
+            if ( == null)
             {
-                throw new ArgumentNullException("Doc is a required property for InsertDocumentRequest and cannot be null");
+                throw new ArgumentNullException(" is a required property for InsertDocumentRequest and cannot be null");
             }
-            this.Doc = Doc;
-            this.Cluster = Cluster;
-            this.Id = Id;
+            this.Doc = ;
+            this.Cluster = ;
+            this.Id = ;
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <value>Document ID. If not provided, an ID will be auto-generated </value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Object containing document data 

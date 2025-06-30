@@ -39,19 +39,19 @@ namespace ManticoreSearch.Model
         /// <param name="Took">Time taken to execute the search.</param>
         /// <param name="TimedOut">Indicates whether the search operation timed out.</param>
         /// <param name="Aggregations">Aggregated search results grouped by the specified criteria.</param>
-        /// <param name="Hits">Hits.</param>
+        /// <param name="Hits">.</param>
         /// <param name="Profile">Profile information about the search execution, if profiling is enabled.</param>
         /// <param name="Scroll">Scroll token to be used fo pagination.</param>
         /// <param name="Warning">Warnings encountered during the search operation.</param>
-        public SearchResponse(int Took = default(int), bool TimedOut = default(bool), Object Aggregations = default(Object), SearchResponseHits Hits = default(SearchResponseHits), Object Profile = default(Object), string Scroll = default(string), Object Warning = default(Object))
+        public SearchResponse(int  = default(int), bool  = default(bool), Object  = default(Object), SearchResponseHits  = default(SearchResponseHits), Object  = default(Object), string  = default(string), Object  = default(Object))
         {
-            this.Took = Took;
-            this.TimedOut = TimedOut;
-            this.Aggregations = Aggregations;
-            this.Hits = Hits;
-            this.Profile = Profile;
-            this.Scroll = Scroll;
-            this.Warning = Warning;
+            this.Took = ;
+            this.TimedOut = ;
+            this.Aggregations = ;
+            this.Hits = ;
+            this.Profile = ;
+            this.Scroll = ;
+            this.Warning = ;
         }
 
         /// <summary>

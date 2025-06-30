@@ -42,42 +42,42 @@ namespace ManticoreSearch.Model
         /// Initializes a new instance of the <see cref="SearchRequest" /> class.
         /// </summary>
         /// <param name="Table">The table to perform the search on (required).</param>
-        /// <param name="Query">Query.</param>
+        /// <param name="Query">.</param>
         /// <param name="Join">Join clause to combine search data from multiple tables.</param>
-        /// <param name="Highlight">Highlight.</param>
+        /// <param name="Highlight">.</param>
         /// <param name="Limit">Maximum number of results to return.</param>
-        /// <param name="Knn">Knn.</param>
+        /// <param name="Knn">.</param>
         /// <param name="Aggs">Defines aggregation settings for grouping results.</param>
         /// <param name="Expressions">Expressions to calculate additional values for the result.</param>
         /// <param name="MaxMatches">Maximum number of matches allowed in the result.</param>
         /// <param name="Offset">Starting point for pagination of the result.</param>
         /// <param name="Options">Additional search options.</param>
         /// <param name="Profile">Enable or disable profiling of the search request.</param>
-        /// <param name="Sort">Sort.</param>
-        /// <param name="Source">Source.</param>
+        /// <param name="Sort">.</param>
+        /// <param name="Source">.</param>
         /// <param name="TrackScores">Enable or disable result weight calculation used for sorting.</param>
-        public SearchRequest(string Table = default(string), SearchQuery Query = default(SearchQuery), List<Join> Join = default(List<Join>), Highlight Highlight = default(Highlight), int Limit = default(int), KnnQuery Knn = default(KnnQuery), Dictionary<string, Aggregation> Aggs = default(Dictionary<string, Aggregation>), Dictionary<string, string> Expressions = default(Dictionary<string, string>), int MaxMatches = default(int), int Offset = default(int), Object Options = default(Object), bool Profile = default(bool), Object Sort = default(Object), Object Source = default(Object), bool TrackScores = default(bool))
+        public SearchRequest(string  = default(string), SearchQuery  = default(SearchQuery), List<Join>  = default(List<Join>), Highlight  = default(Highlight), int  = default(int), KnnQuery  = default(KnnQuery), Dictionary<string, Aggregation>  = default(Dictionary<string, Aggregation>), Dictionary<string, string>  = default(Dictionary<string, string>), int  = default(int), int  = default(int), Object  = default(Object), bool  = default(bool), Object  = default(Object), Object  = default(Object), bool  = default(bool))
         {
-            // to ensure "Table" is required (not null)
-            if (Table == null)
+            // to ensure "" is required (not null)
+            if ( == null)
             {
-                throw new ArgumentNullException("Table is a required property for SearchRequest and cannot be null");
+                throw new ArgumentNullException(" is a required property for SearchRequest and cannot be null");
             }
-            this.Table = Table;
-            this.Query = Query;
-            this.Join = Join;
-            this.Highlight = Highlight;
-            this.Limit = Limit;
-            this.Knn = Knn;
-            this.Aggs = Aggs;
-            this.Expressions = Expressions;
-            this.MaxMatches = MaxMatches;
-            this.Offset = Offset;
-            this.Options = Options;
-            this.Profile = Profile;
-            this.Sort = Sort;
-            this.Source = Source;
-            this.TrackScores = TrackScores;
+            this.Table = ;
+            this.Query = ;
+            this.Join = ;
+            this.Highlight = ;
+            this.Limit = ;
+            this.Knn = ;
+            this.Aggs = ;
+            this.Expressions = ;
+            this.MaxMatches = ;
+            this.Offset = ;
+            this.Options = ;
+            this.Profile = ;
+            this.Sort = ;
+            this.Source = ;
+            this.TrackScores = ;
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <value>Defines aggregation settings for grouping results</value>
         /// <example>{agg1&#x3D;{terms&#x3D;{field&#x3D;field1, size&#x3D;1000, sort&#x3D;[{field1&#x3D;null, order&#x3D;asc}]}}}</example>
-        [DataMember(Name = "aggs", EmitDefaultValue = true)]
+        [DataMember(Name = "aggs", EmitDefaultValue = false)]
         public Dictionary<string, Aggregation> Aggs { get; set; }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <value>Expressions to calculate additional values for the result</value>
         /// <example>{title_len&#x3D;crc32(title)}</example>
-        [DataMember(Name = "expressions", EmitDefaultValue = true)]
+        [DataMember(Name = "expressions", EmitDefaultValue = false)]
         public Dictionary<string, string> Expressions { get; set; }
 
         /// <summary>

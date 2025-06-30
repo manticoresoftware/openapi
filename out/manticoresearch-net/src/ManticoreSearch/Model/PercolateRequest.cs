@@ -41,15 +41,15 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="PercolateRequest" /> class.
         /// </summary>
-        /// <param name="Query">Query (required).</param>
-        public PercolateRequest(PercolateRequestQuery Query = default(PercolateRequestQuery))
+        /// <param name="Query"> (required).</param>
+        public PercolateRequest(PercolateRequestQuery  = default(PercolateRequestQuery))
         {
-            // to ensure "Query" is required (not null)
-            if (Query == null)
+            // to ensure "" is required (not null)
+            if ( == null)
             {
-                throw new ArgumentNullException("Query is a required property for PercolateRequest and cannot be null");
+                throw new ArgumentNullException(" is a required property for PercolateRequest and cannot be null");
             }
-            this.Query = Query;
+            this.Query = ;
         }
 
         /// <summary>

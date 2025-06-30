@@ -36,16 +36,16 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="Range" /> class.
         /// </summary>
-        /// <param name="Lt">Lt.</param>
-        /// <param name="Lte">Lte.</param>
-        /// <param name="Gt">Gt.</param>
-        /// <param name="Gte">Gte.</param>
-        public Range(Object Lt = default(Object), Object Lte = default(Object), Object Gt = default(Object), Object Gte = default(Object))
+        /// <param name="Lt">.</param>
+        /// <param name="Lte">.</param>
+        /// <param name="Gt">.</param>
+        /// <param name="Gte">.</param>
+        public Range(Object  = default(Object), Object  = default(Object), Object  = default(Object), Object  = default(Object))
         {
-            this.Lt = Lt;
-            this.Lte = Lte;
-            this.Gt = Gt;
-            this.Gte = Gte;
+            this.Lt = ;
+            this.Lte = ;
+            this.Gt = ;
+            this.Gte = ;
         }
 
         /// <summary>

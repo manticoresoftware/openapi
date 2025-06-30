@@ -155,7 +155,7 @@ components:
           description: The vector used as input for the KNN search
         doc_id:
           type: integer
-          format: int64
+          format: uint64
           description: The docuemnt ID used as input for the KNN search
         ef:
           type: integer
@@ -362,7 +362,7 @@ components:
           description: Cluster name
         id:
           type: integer
-          format: int64
+          format: uint64
           description: The ID of document for deletion
         query:
           type: object
@@ -382,7 +382,7 @@ components:
           description: Number of documents deleted
         id:
           type: integer
-          format: int64
+          format: uint64
           description: The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned
         found:
           type: boolean
@@ -505,7 +505,7 @@ components:
       properties:
         _id:
           type: integer
-          format: int64
+          format: uuint64
           description: The ID of the matched document
         _score:
           type: integer
@@ -546,7 +546,7 @@ components:
           description: Name of the cluster to insert the document into
         id:
           type: integer
-          format: int64
+          format: uint64
           description: |
             Document ID. If not provided, an ID will be auto-generated
         doc:
@@ -735,7 +735,7 @@ components:
           description: Name of the document table
         id:
           type: integer
-          format: int64
+          format: uint64
           description: ID of the document affected by the request operation
         created:
           type: boolean
@@ -909,7 +909,7 @@ components:
             gid: 10
         id:
           type: integer
-          format: int64
+          format: uint64
           description: Document ID
         query:
           oneOf:
@@ -932,7 +932,7 @@ components:
           description: Number of documents updated
         id:
           type: integer
-          format: int64
+          format: uint64
           description: Document ID
         result:
           type: string
@@ -1600,7 +1600,7 @@ paths:
           name: id
           schema:
             type: integer
-            format: int64
+            format: uint64
           required: true
           description: Id of the document to replace
       requestBody:

@@ -43,22 +43,22 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <param name="Field">Field to join on (required).</param>
         /// <param name="Table">Joined table (required).</param>
-        /// <param name="Type">Type.</param>
-        public JoinCond(string Field = default(string), string Table = default(string), Object Type = default(Object))
+        /// <param name="Type">.</param>
+        public JoinCond(string  = default(string), string  = default(string), Object  = default(Object))
         {
-            // to ensure "Field" is required (not null)
-            if (Field == null)
+            // to ensure "" is required (not null)
+            if ( == null)
             {
-                throw new ArgumentNullException("Field is a required property for JoinCond and cannot be null");
+                throw new ArgumentNullException(" is a required property for JoinCond and cannot be null");
             }
-            this.Field = Field;
-            // to ensure "Table" is required (not null)
-            if (Table == null)
+            this.Field = ;
+            // to ensure "" is required (not null)
+            if ( == null)
             {
-                throw new ArgumentNullException("Table is a required property for JoinCond and cannot be null");
+                throw new ArgumentNullException(" is a required property for JoinCond and cannot be null");
             }
-            this.Table = Table;
-            this.Type = Type;
+            this.Table = ;
+            this.Type = ;
         }
 
         /// <summary>

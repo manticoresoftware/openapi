@@ -44,16 +44,16 @@ namespace ManticoreSearch.Model
         /// <param name="Table">The table name of the matched document returned for percolate queries.</param>
         /// <param name="Type">The type of the matched document returned for percolate queries.</param>
         /// <param name="Fields">The percolate-related fields of the matched document returned for percolate queries.</param>
-        public HitsHits(long Id = default(long), int Score = default(int), Object Source = default(Object), decimal KnnDist = default(decimal), Object Highlight = default(Object), string Table = default(string), string Type = default(string), Object Fields = default(Object))
+        public HitsHits(int  = default(int), int  = default(int), Object  = default(Object), decimal  = default(decimal), Object  = default(Object), string  = default(string), string  = default(string), Object  = default(Object))
         {
-            this.Id = Id;
-            this.Score = Score;
-            this.Source = Source;
-            this.KnnDist = KnnDist;
-            this.Highlight = Highlight;
-            this.Table = Table;
-            this.Type = Type;
-            this.Fields = Fields;
+            this.Id = ;
+            this.Score = ;
+            this.Source = ;
+            this.KnnDist = ;
+            this.Highlight = ;
+            this.Table = ;
+            this.Type = ;
+            this.Fields = ;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <value>The ID of the matched document</value>
         [DataMember(Name = "_id", EmitDefaultValue = false)]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// The score of the matched document

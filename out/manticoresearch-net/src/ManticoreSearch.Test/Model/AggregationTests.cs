@@ -81,5 +81,14 @@ namespace ManticoreSearch.Test.Model
         {
             // TODO unit test for the property 'Composite'
         }
+
+        /// <summary>
+        /// Test the property 'Histogram'
+        /// </summary>
+        [Fact]
+        public void HistogramTest()
+        {
+            // TODO unit test for the property 'Histogram'
+        }
     }
 }

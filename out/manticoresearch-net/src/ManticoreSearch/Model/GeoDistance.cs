@@ -43,11 +43,13 @@ namespace ManticoreSearch.Model
             /// <summary>
             /// Enum Adaptive for value: adaptive
             /// </summary>
+            [EnumMember(Value = "adaptive")]
             Adaptive = 1,
 
             /// <summary>
             /// Enum Haversine for value: haversine
             /// </summary>
+            [EnumMember(Value = "haversine")]
             Haversine = 2
         }
 
@@ -56,21 +58,21 @@ namespace ManticoreSearch.Model
         /// Algorithm used to calculate the distance
         /// </summary>
         /// <value>Algorithm used to calculate the distance</value>
-        [DataMember(Name = "distance_type", EmitDefaultValue = true)]
+        [DataMember(Name = "distance_type", EmitDefaultValue = false)]
         public DistanceTypeEnum? DistanceType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="GeoDistance" /> class.
         /// </summary>
-        /// <param name="LocationAnchor">LocationAnchor.</param>
+        /// <param name="LocationAnchor">.</param>
         /// <param name="LocationSource">Field name in the document that contains location data.</param>
         /// <param name="DistanceType">Algorithm used to calculate the distance.</param>
         /// <param name="Distance">The distance from the anchor point to filter results by.</param>
-        public GeoDistance(GeoDistanceLocationAnchor LocationAnchor = default(GeoDistanceLocationAnchor), String LocationSource = default(String), DistanceTypeEnum? DistanceType = default(DistanceTypeEnum?), String Distance = default(String))
+        public GeoDistance(GeoDistanceLocationAnchor  = default(GeoDistanceLocationAnchor), string  = default(string), DistanceTypeEnum?  = default(DistanceTypeEnum?), string  = default(string))
         {
-            this.LocationAnchor = LocationAnchor;
-            this.LocationSource = LocationSource;
-            this.DistanceType = DistanceType;
-            this.Distance = Distance;
+            this.LocationAnchor = ;
+            this.LocationSource = ;
+            this.DistanceType = ;
+            this.Distance = ;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
@@ -84,15 +86,15 @@ namespace ManticoreSearch.Model
         /// Field name in the document that contains location data
         /// </summary>
         /// <value>Field name in the document that contains location data</value>
-        [DataMember(Name = "location_source", EmitDefaultValue = true)]
-        public String LocationSource { get; set; }
+        [DataMember(Name = "location_source", EmitDefaultValue = false)]
+        public string LocationSource { get; set; }
 
         /// <summary>
         /// The distance from the anchor point to filter results by
         /// </summary>
         /// <value>The distance from the anchor point to filter results by</value>
-        [DataMember(Name = "distance", EmitDefaultValue = true)]
-        public String Distance { get; set; }
+        [DataMember(Name = "distance", EmitDefaultValue = false)]
+        public string Distance { get; set; }
 
         /// <summary>
         /// Gets or Sets additional properties
@@ -134,7 +136,7 @@ namespace ManticoreSearch.Model
         IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
             if (this.Distance != null) {
-                // Distance (String) pattern
+                // Distance (string) pattern
                 Regex regexDistance = new Regex(@"^\.+(km|m|cm|mm|mi|yd|ft|in|NM|nmi|kilometers|meters|centimeters|millimeters|miles|yards|foots|inches|nauticalmiles|)$", RegexOptions.CultureInvariant);
                 if (!regexDistance.Match(this.Distance).Success)
                 {

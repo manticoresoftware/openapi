@@ -41,13 +41,13 @@ namespace ManticoreSearch.Model
         /// <param name="LimitSnippets">Maximum number of snippets per field.</param>
         /// <param name="LimitWords">Maximum number of words per field.</param>
         /// <param name="NumberOfFragments">Total number of highlighted fragments per field.</param>
-        public HighlightFieldOption(int FragmentSize = default(int), int Limit = default(int), int LimitSnippets = default(int), int LimitWords = default(int), int NumberOfFragments = default(int))
+        public HighlightFieldOption(int  = default(int), int  = default(int), int  = default(int), int  = default(int), int  = default(int))
         {
-            this.FragmentSize = FragmentSize;
-            this.Limit = Limit;
-            this.LimitSnippets = LimitSnippets;
-            this.LimitWords = LimitWords;
-            this.NumberOfFragments = NumberOfFragments;
+            this.FragmentSize = ;
+            this.Limit = ;
+            this.LimitSnippets = ;
+            this.LimitWords = ;
+            this.NumberOfFragments = ;
         }
 
         /// <summary>

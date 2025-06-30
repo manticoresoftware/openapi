@@ -38,25 +38,25 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <param name="Lat">Latitude of the anchor point.</param>
         /// <param name="Lon">Longitude of the anchor point.</param>
-        public GeoDistanceLocationAnchor(Object Lat = default(Object), Object Lon = default(Object))
+        public GeoDistanceLocationAnchor(decimal  = default(decimal), decimal  = default(decimal))
         {
-            this.Lat = Lat;
-            this.Lon = Lon;
+            this.Lat = ;
+            this.Lon = ;
         }
 
         /// <summary>
         /// Latitude of the anchor point
         /// </summary>
         /// <value>Latitude of the anchor point</value>
-        [DataMember(Name = "lat", EmitDefaultValue = true)]
-        public Object Lat { get; set; }
+        [DataMember(Name = "lat", EmitDefaultValue = false)]
+        public decimal Lat { get; set; }
 
         /// <summary>
         /// Longitude of the anchor point
         /// </summary>
         /// <value>Longitude of the anchor point</value>
-        [DataMember(Name = "lon", EmitDefaultValue = true)]
-        public Object Lon { get; set; }
+        [DataMember(Name = "lon", EmitDefaultValue = false)]
+        public decimal Lon { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

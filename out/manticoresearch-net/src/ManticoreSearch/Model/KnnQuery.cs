@@ -46,20 +46,20 @@ namespace ManticoreSearch.Model
         /// <param name="QueryVector">The vector used as input for the KNN search.</param>
         /// <param name="DocId">The docuemnt ID used as input for the KNN search.</param>
         /// <param name="Ef">Optional parameter controlling the accuracy of the search.</param>
-        /// <param name="Filter">Filter.</param>
-        public KnnQuery(string Field = default(string), int K = default(int), List<decimal> QueryVector = default(List<decimal>), long DocId = default(long), int Ef = default(int), QueryFilter Filter = default(QueryFilter))
+        /// <param name="Filter">.</param>
+        public KnnQuery(string  = default(string), int  = default(int), List<decimal>  = default(List<decimal>), int  = default(int), int  = default(int), QueryFilter  = default(QueryFilter))
         {
-            // to ensure "Field" is required (not null)
-            if (Field == null)
+            // to ensure "" is required (not null)
+            if ( == null)
             {
-                throw new ArgumentNullException("Field is a required property for KnnQuery and cannot be null");
+                throw new ArgumentNullException(" is a required property for KnnQuery and cannot be null");
             }
-            this.Field = Field;
-            this.K = K;
-            this.QueryVector = QueryVector;
-            this.DocId = DocId;
-            this.Ef = Ef;
-            this.Filter = Filter;
+            this.Field = ;
+            this.K = ;
+            this.QueryVector = ;
+            this.DocId = ;
+            this.Ef = ;
+            this.Filter = ;
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <value>The docuemnt ID used as input for the KNN search</value>
         [DataMember(Name = "doc_id", EmitDefaultValue = false)]
-        public long DocId { get; set; }
+        public int DocId { get; set; }
 
         /// <summary>
         /// Optional parameter controlling the accuracy of the search

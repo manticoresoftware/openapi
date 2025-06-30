@@ -41,13 +41,13 @@ namespace ManticoreSearch.Model
         /// <param name="Error">Error message describing an error if such occurred.</param>
         /// <param name="CurrentLine">Number of the row returned in the response.</param>
         /// <param name="SkippedLines">Number of rows skipped in the response.</param>
-        public BulkResponse(List<Object> Items = default(List<Object>), bool Errors = default(bool), string Error = default(string), int CurrentLine = default(int), int SkippedLines = default(int))
+        public BulkResponse(List<Object>  = default(List<Object>), bool  = default(bool), string  = default(string), int  = default(int), int  = default(int))
         {
-            this.Items = Items;
-            this.Errors = Errors;
-            this.Error = Error;
-            this.CurrentLine = CurrentLine;
-            this.SkippedLines = SkippedLines;
+            this.Items = ;
+            this.Errors = ;
+            this.Error = ;
+            this.CurrentLine = ;
+            this.SkippedLines = ;
         }
 
         /// <summary>

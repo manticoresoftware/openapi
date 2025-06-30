@@ -40,12 +40,12 @@ namespace ManticoreSearch.Model
         /// <param name="Match">Filter object defining a match keyword passed as a string or in a Match object.</param>
         /// <param name="MatchPhrase">Filter object defining a match phrase.</param>
         /// <param name="MatchAll">Filter object to select all documents.</param>
-        public FulltextFilter(string QueryString = default(string), Object Match = default(Object), Object MatchPhrase = default(Object), Object MatchAll = default(Object))
+        public FulltextFilter(string  = default(string), Object  = default(Object), Object  = default(Object), Object  = default(Object))
         {
-            this.QueryString = QueryString;
-            this.Match = Match;
-            this.MatchPhrase = MatchPhrase;
-            this.MatchAll = MatchAll;
+            this.QueryString = ;
+            this.Match = ;
+            this.MatchPhrase = ;
+            this.MatchAll = ;
         }
 
         /// <summary>

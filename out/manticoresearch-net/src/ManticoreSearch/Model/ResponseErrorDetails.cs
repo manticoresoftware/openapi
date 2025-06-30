@@ -44,16 +44,16 @@ namespace ManticoreSearch.Model
         /// <param name="Type">Type or category of the error (required).</param>
         /// <param name="Reason">Detailed explanation of why the error occurred.</param>
         /// <param name="Table">The table related to the error, if applicable.</param>
-        public ResponseErrorDetails(string Type = default(string), string Reason = default(string), string Table = default(string))
+        public ResponseErrorDetails(string  = default(string), string  = default(string), string  = default(string))
         {
-            // to ensure "Type" is required (not null)
-            if (Type == null)
+            // to ensure "" is required (not null)
+            if ( == null)
             {
-                throw new ArgumentNullException("Type is a required property for ResponseErrorDetails and cannot be null");
+                throw new ArgumentNullException(" is a required property for ResponseErrorDetails and cannot be null");
             }
-            this.Type = Type;
-            this.Reason = Reason;
-            this.Table = Table;
+            this.Type = ;
+            this.Reason = ;
+            this.Table = ;
         }
 
         /// <summary>

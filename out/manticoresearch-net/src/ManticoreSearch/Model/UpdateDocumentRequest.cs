@@ -45,24 +45,24 @@ namespace ManticoreSearch.Model
         /// <param name="Cluster">Name of the document cluster.</param>
         /// <param name="Doc">Object containing the document fields to update (required).</param>
         /// <param name="Id">Document ID.</param>
-        /// <param name="Query">Query.</param>
-        public UpdateDocumentRequest(string Table = default(string), string Cluster = default(string), Object Doc = default(Object), long Id = default(long), QueryFilter Query = default(QueryFilter))
+        /// <param name="Query">.</param>
+        public UpdateDocumentRequest(string  = default(string), string  = default(string), Object  = default(Object), int  = default(int), QueryFilter  = default(QueryFilter))
         {
-            // to ensure "Table" is required (not null)
-            if (Table == null)
+            // to ensure "" is required (not null)
+            if ( == null)
             {
-                throw new ArgumentNullException("Table is a required property for UpdateDocumentRequest and cannot be null");
+                throw new ArgumentNullException(" is a required property for UpdateDocumentRequest and cannot be null");
             }
-            this.Table = Table;
-            // to ensure "Doc" is required (not null)
-            if (Doc == null)
+            this.Table = ;
+            // to ensure "" is required (not null)
+            if ( == null)
             {
-                throw new ArgumentNullException("Doc is a required property for UpdateDocumentRequest and cannot be null");
+                throw new ArgumentNullException(" is a required property for UpdateDocumentRequest and cannot be null");
             }
-            this.Doc = Doc;
-            this.Cluster = Cluster;
-            this.Id = Id;
-            this.Query = Query;
+            this.Doc = ;
+            this.Cluster = ;
+            this.Id = ;
+            this.Query = ;
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <value>Document ID</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Query

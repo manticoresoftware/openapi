@@ -42,14 +42,14 @@ namespace ManticoreSearch.Model
         /// <param name="Result">Result of the operation, typically &#39;created&#39;, &#39;updated&#39;, or &#39;deleted&#39;.</param>
         /// <param name="Found">Indicates whether the document was found in the table.</param>
         /// <param name="Status">HTTP status code representing the result of the operation.</param>
-        public SuccessResponse(string Table = default(string), long Id = default(long), bool Created = default(bool), string Result = default(string), bool Found = default(bool), int Status = default(int))
+        public SuccessResponse(string  = default(string), int  = default(int), bool  = default(bool), string  = default(string), bool  = default(bool), int  = default(int))
         {
-            this.Table = Table;
-            this.Id = Id;
-            this.Created = Created;
-            this.Result = Result;
-            this.Found = Found;
-            this.Status = Status;
+            this.Table = ;
+            this.Id = ;
+            this.Created = ;
+            this.Result = ;
+            this.Found = ;
+            this.Status = ;
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace ManticoreSearch.Model
         /// </summary>
         /// <value>ID of the document affected by the request operation</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Indicates whether the document was created as a result of the operation
