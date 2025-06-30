@@ -2,26 +2,11 @@ diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/GeoDistance.cs b/
 index 8bcd3c9..a232914 100644
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/GeoDistance.cs
 +++ b/out/manticoresearch-net/src/ManticoreSearch/Model/GeoDistance.cs
-@@ -43,12 +43,12 @@ namespace ManticoreSearch.Model
-             /// <summary>
-             /// Enum Adaptive for value: adaptive
-             /// </summary>
--            Adaptive = adaptive,
-+            Adaptive = 1,
- 
-             /// <summary>
-             /// Enum Haversine for value: haversine
-             /// </summary>
--            Haversine = haversine
-+            Haversine = 2
-         }
- 
- 
 @@ -65,7 +65,7 @@ namespace ManticoreSearch.Model
          /// <param name="LocationSource">Field name in the document that contains location data.</param>
          /// <param name="DistanceType">Algorithm used to calculate the distance.</param>
          /// <param name="Distance">The distance from the anchor point to filter results by.</param>
--        public GeoDistance(GeoDistanceLocationAnchor LocationAnchor = default(GeoDistanceLocationAnchor), Object LocationSource = default(Object), DistanceTypeEnum? DistanceType = default(DistanceTypeEnum?), Object Distance = default(Object))
+-        public GeoDistance(GeoDistanceLocationAnchor  = default(GeoDistanceLocationAnchor), string = default(string), DistanceTypeEnum?  = default(DistanceTypeEnum?), string  = default(string))
 +        public GeoDistance(GeoDistanceLocationAnchor LocationAnchor = default(GeoDistanceLocationAnchor), String LocationSource = default(String), DistanceTypeEnum? DistanceType = default(DistanceTypeEnum?), String Distance = default(String))
          {
              this.LocationAnchor = LocationAnchor;
