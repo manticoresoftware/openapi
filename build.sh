@@ -138,7 +138,7 @@ do_csharp() {
   echo "Building CSharp ..."
   rm -rf out/manticoresearch-net 
   docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp  -o /local/out/manticoresearch-net -t /local/templates/csharp --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp` $build_to_branch
-  git apply patches/net.matchall.patch patches/net.geodistance.patch
+  git apply patches/net.matchall.patch
   #cp -r gh-actions/csharp/. out/manticoresearch-net
   cp -r docs/csharp/docs/* out/manticoresearch-net/docs/
   echo "CSharp done."
