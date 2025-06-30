@@ -67,12 +67,12 @@ namespace ManticoreSearch.Model
         /// <param name="LocationSource">Field name in the document that contains location data.</param>
         /// <param name="DistanceType">Algorithm used to calculate the distance.</param>
         /// <param name="Distance">The distance from the anchor point to filter results by.</param>
-        public GeoDistance(GeoDistanceLocationAnchor  = default(GeoDistanceLocationAnchor), string  = default(string), DistanceTypeEnum?  = default(DistanceTypeEnum?), string  = default(string))
+        public GeoDistance(GeoDistanceLocationAnchor LocationAnchor = default(GeoDistanceLocationAnchor), string LocationSource = default(string), DistanceTypeEnum? DistanceType = default(DistanceTypeEnum?), string Distance = default(string))
         {
-            this.LocationAnchor = ;
-            this.LocationSource = ;
-            this.DistanceType = ;
-            this.Distance = ;
+            this.LocationAnchor = LocationAnchor;
+            this.LocationSource = LocationSource;
+            this.DistanceType = DistanceType;
+            this.Distance = Distance;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
