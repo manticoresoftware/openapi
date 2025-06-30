@@ -82,7 +82,7 @@ public class HighlightFields extends AbstractOpenApiSchema {
             Object deserialized = null;
             // deserialize List<String>
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(List<String>.class);
+                deserialized = tree.traverse(jp.getCodec()).readValueAs(List.class);
                 HighlightFields ret = new HighlightFields();
                 ret.setActualInstance(deserialized);
                 return ret;
@@ -154,7 +154,7 @@ public class HighlightFields extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(List<String>.class, instance, new HashSet<>())) {
+        if (JSON.isInstanceOf(List.class, instance, new HashSet<>())) {
             super.setActualInstance(instance);
             return;
         }
@@ -185,7 +185,7 @@ public class HighlightFields extends AbstractOpenApiSchema {
      * @return The actual instance of `List<String>`
      * @throws ClassCastException if the instance is not `List<String>`
      */
-    public List<String> getList<String>() throws ClassCastException {
+    public List<String> getList() throws ClassCastException {
         return (List<String>)super.getActualInstance();
     }
 
