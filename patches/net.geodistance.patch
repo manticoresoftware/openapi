@@ -1,39 +1,22 @@
 diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/GeoDistance.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/GeoDistance.cs
-index 8bcd3c9..a232914 100644
+index 335df4a..e7ba862 100755
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/GeoDistance.cs
 +++ b/out/manticoresearch-net/src/ManticoreSearch/Model/GeoDistance.cs
-@@ -65,7 +65,7 @@ namespace ManticoreSearch.Model
+@@ -67,12 +67,12 @@ namespace ManticoreSearch.Model
          /// <param name="LocationSource">Field name in the document that contains location data.</param>
          /// <param name="DistanceType">Algorithm used to calculate the distance.</param>
          /// <param name="Distance">The distance from the anchor point to filter results by.</param>
--        public GeoDistance(GeoDistanceLocationAnchor  = default(GeoDistanceLocationAnchor), string = default(string), DistanceTypeEnum?  = default(DistanceTypeEnum?), string  = default(string))
-+        public GeoDistance(GeoDistanceLocationAnchor LocationAnchor = default(GeoDistanceLocationAnchor), String LocationSource = default(String), DistanceTypeEnum? DistanceType = default(DistanceTypeEnum?), String Distance = default(String))
+-        public GeoDistance(GeoDistanceLocationAnchor  = default(GeoDistanceLocationAnchor), string  = default(string), DistanceTypeEnum?  = default(DistanceTypeEnum?), string  = default(string))
++        public GeoDistance(GeoDistanceLocationAnchor LocationAnchor = default(GeoDistanceLocationAnchor), string LocationSource = default(string), DistanceTypeEnum? DistanceType = default(DistanceTypeEnum?), string Distance = default(string))
          {
-             this.LocationAnchor = LocationAnchor;
-             this.LocationSource = LocationSource;
-@@ -85,14 +85,14 @@ namespace ManticoreSearch.Model
-         /// </summary>
-         /// <value>Field name in the document that contains location data</value>
-         [DataMember(Name = "location_source", EmitDefaultValue = true)]
--        public Object LocationSource { get; set; }
-+        public String LocationSource { get; set; }
- 
-         /// <summary>
-         /// The distance from the anchor point to filter results by
-         /// </summary>
-         /// <value>The distance from the anchor point to filter results by</value>
-         [DataMember(Name = "distance", EmitDefaultValue = true)]
--        public Object Distance { get; set; }
-+        public String Distance { get; set; }
- 
-         /// <summary>
-         /// Gets or Sets additional properties
-@@ -134,7 +134,7 @@ namespace ManticoreSearch.Model
-         IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-         {
-             if (this.Distance != null) {
--                // Distance (Object) pattern
-+                // Distance (String) pattern
-                 Regex regexDistance = new Regex(@"^\.+(km|m|cm|mm|mi|yd|ft|in|NM|nmi|kilometers|meters|centimeters|millimeters|miles|yards|foots|inches|nauticalmiles|)$", RegexOptions.CultureInvariant);
-                 if (!regexDistance.Match(this.Distance).Success)
-                 {
+-            this.LocationAnchor = ;
+-            this.LocationSource = ;
+-            this.DistanceType = ;
+-            this.Distance = ;
++            this.LocationAnchor = LocationAnchor;
++            this.LocationSource = LocationSource;
++            this.DistanceType = DistanceType;
++            this.Distance = Distance;
+             this.AdditionalProperties = new Dictionary<string, object>();
+         }
+
