@@ -1,0 +1,21 @@
+diff --git a/out/manticoresearch-go/api_utils.go b/out/manticoresearch-go/api_utils.go
+index ad3a3b1..ae8cb80 100755
+--- a/out/manticoresearch-go/api_utils.go
++++ b/out/manticoresearch-go/api_utils.go
+@@ -90,12 +90,12 @@ func (a *UtilsAPIService) SqlExecute(r ApiSqlRequest) (*SqlResponse, *http.Respo
+ 		return localVarReturnValue, nil, reportError("body is required and must be specified")
+ 	}
+ 
+-	if r.rawResponse != nil {
+-		parameterAddToHeaderOrQuery(localVarQueryParams, "raw_response", r.rawResponse, "form", "")
+-	} else {
++	if r.rawResponse == nil {
+ 		var defaultValue bool = true
+ 		r.rawResponse = &defaultValue
+-	}
++	}
++	parameterAddToHeaderOrQuery(localVarQueryParams, "raw_response", r.rawResponse, "form", "")
++
+ 	// to determine the Content-Type header
+ 	localVarHTTPContentTypes := []string{"text/plain"}
+ 

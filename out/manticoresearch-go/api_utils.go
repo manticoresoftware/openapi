@@ -93,7 +93,7 @@ func (a *UtilsAPIService) SqlExecute(r ApiSqlRequest) (*SqlResponse, *http.Respo
 	if r.rawResponse == nil {
 		var defaultValue bool = true
 		r.rawResponse = &defaultValue
-	} 
+	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "raw_response", r.rawResponse, "form", "")
 
 	// to determine the Content-Type header

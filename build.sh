@@ -171,6 +171,7 @@ do_go() {
   docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g go  -o /local/out/manticoresearch-go -t /local/templates/go --git-repo-id manticoresearch-go --git-user-id manticoresoftware \
   --additional-properties packageVersion=`cat versions/go` \
   $build_to_branch
+  git apply patches/go.api_utils.patch
   #git apply patches/go.sql_api.patch
   #git apply patches/go.response_error.patch
   #cp patches/go_sql_response.go out/manticoresearch-go/model_sql_response.go
