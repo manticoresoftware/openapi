@@ -13,8 +13,8 @@ package openapi
 
 import (
 	"encoding/json"
-	_"bytes"
-	_"fmt"
+	"bytes"
+	"fmt"
 )
 
 // checks if the KnnQuery type satisfies the MappedNullable interface at compile time
@@ -23,16 +23,16 @@ var _ MappedNullable = &KnnQuery{}
 // KnnQuery Object representing a k-nearest neighbor search query
 type KnnQuery struct {
 	// Field to perform the k-nearest neighbor search on
-	Field string `json:"field"` 
+	Field string `json:"field"`
 	// The number of nearest neighbors to return
-	K int32 `json:"k"` 
+	K int32 `json:"k"`
 	// The vector used as input for the KNN search
-	QueryVector []float32 `json:"query_vector"` 
+	QueryVector []float32 `json:"query_vector,omitempty"`
 	// The docuemnt ID used as input for the KNN search
-	DocId *int64 `json:"doc_id"` 
+	DocId *int32 `json:"doc_id,omitempty"`
 	// Optional parameter controlling the accuracy of the search
-	Ef *int32 `json:"ef"` 
-	Filter *QueryFilter `json:"filter"` 
+	Ef *int32 `json:"ef,omitempty"`
+	Filter *QueryFilter `json:"filter,omitempty"`
 }
 
 type _KnnQuery KnnQuery
@@ -137,9 +137,9 @@ func (o *KnnQuery) SetQueryVector(v []float32) {
 }
 
 // GetDocId returns the DocId field value if set, zero value otherwise.
-func (o *KnnQuery) GetDocId() int64 {
+func (o *KnnQuery) GetDocId() int32 {
 	if o == nil || IsNil(o.DocId) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.DocId
@@ -147,7 +147,7 @@ func (o *KnnQuery) GetDocId() int64 {
 
 // GetDocIdOk returns a tuple with the DocId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KnnQuery) GetDocIdOk() (*int64, bool) {
+func (o *KnnQuery) GetDocIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.DocId) {
 		return nil, false
 	}
@@ -163,8 +163,8 @@ func (o *KnnQuery) HasDocId() bool {
 	return false
 }
 
-// SetDocId gets a reference to the given int64 and assigns it to the DocId field.
-func (o *KnnQuery) SetDocId(v int64) {
+// SetDocId gets a reference to the given int32 and assigns it to the DocId field.
+func (o *KnnQuery) SetDocId(v int32) {
 	o.DocId = &v
 }
 
@@ -257,6 +257,44 @@ func (o KnnQuery) ToMap() (map[string]interface{}, error) {
 		toSerialize["filter"] = o.Filter
 	}
 	return toSerialize, nil
+}
+
+func (o *KnnQuery) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"field",
+		"k",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varKnnQuery := _KnnQuery{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varKnnQuery)
+
+	if err != nil {
+		return err
+	}
+
+	*o = KnnQuery(varKnnQuery)
+
+	return err
 }
 
 type NullableKnnQuery struct {

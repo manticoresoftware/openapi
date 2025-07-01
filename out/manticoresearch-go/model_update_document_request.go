@@ -13,8 +13,8 @@ package openapi
 
 import (
 	"encoding/json"
-	_"bytes"
-	_"fmt"
+	"bytes"
+	"fmt"
 )
 
 // checks if the UpdateDocumentRequest type satisfies the MappedNullable interface at compile time
@@ -23,14 +23,14 @@ var _ MappedNullable = &UpdateDocumentRequest{}
 // UpdateDocumentRequest Payload for updating a document or multiple documents in a table
 type UpdateDocumentRequest struct {
 	// Name of the document table
-	Table string `json:"table"` 
+	Table string `json:"table"`
 	// Name of the document cluster
-	Cluster *string `json:"cluster"` 
+	Cluster *string `json:"cluster,omitempty"`
 	// Object containing the document fields to update
-	Doc map[string]interface{} `json:"doc"` 
+	Doc map[string]interface{} `json:"doc"`
 	// Document ID
-	Id *int64 `json:"id"` 
-	Query NullableQueryFilter `json:"query"` 
+	Id *int32 `json:"id,omitempty"`
+	Query NullableQueryFilter `json:"query,omitempty"`
 }
 
 type _UpdateDocumentRequest UpdateDocumentRequest
@@ -135,9 +135,9 @@ func (o *UpdateDocumentRequest) SetDoc(v map[string]interface{}) {
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *UpdateDocumentRequest) GetId() int64 {
+func (o *UpdateDocumentRequest) GetId() int32 {
 	if o == nil || IsNil(o.Id) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.Id
@@ -145,7 +145,7 @@ func (o *UpdateDocumentRequest) GetId() int64 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateDocumentRequest) GetIdOk() (*int64, bool) {
+func (o *UpdateDocumentRequest) GetIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -161,8 +161,8 @@ func (o *UpdateDocumentRequest) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given int64 and assigns it to the Id field.
-func (o *UpdateDocumentRequest) SetId(v int64) {
+// SetId gets a reference to the given int32 and assigns it to the Id field.
+func (o *UpdateDocumentRequest) SetId(v int32) {
 	o.Id = &v
 }
 
@@ -230,6 +230,44 @@ func (o UpdateDocumentRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["query"] = o.Query.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *UpdateDocumentRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"table",
+		"doc",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUpdateDocumentRequest := _UpdateDocumentRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUpdateDocumentRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UpdateDocumentRequest(varUpdateDocumentRequest)
+
+	return err
 }
 
 type NullableUpdateDocumentRequest struct {

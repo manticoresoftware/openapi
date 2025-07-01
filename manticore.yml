@@ -505,7 +505,7 @@ components:
       properties:
         _id:
           type: integer
-          format: uuint64
+          format: uint64
           description: The ID of the matched document
         _score:
           type: integer

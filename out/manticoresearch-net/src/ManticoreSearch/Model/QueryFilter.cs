@@ -36,26 +36,26 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="QueryFilter" /> class.
         /// </summary>
-        /// <param name="QueryString">Filter object defining a query string.</param>
-        /// <param name="Match">Filter object defining a match keyword passed as a string or in a Match object.</param>
-        /// <param name="MatchPhrase">Filter object defining a match phrase.</param>
-        /// <param name="MatchAll">Filter object to select all documents.</param>
-        /// <param name="Bool">.</param>
-        /// <param name="PropertyEquals">.</param>
-        /// <param name="In">Filter to match a given set of attribute values..</param>
-        /// <param name="Range">Filter to match a given range of attribute values passed in Range objects.</param>
-        /// <param name="GeoDistance">.</param>
-        public QueryFilter(string  = default(string), Object  = default(Object), Object  = default(Object), Object  = default(Object), BoolFilter  = default(BoolFilter), Object  = default(Object), Object  = default(Object), Object  = default(Object), GeoDistance  = default(GeoDistance))
+        /// <param name="queryString">Filter object defining a query string.</param>
+        /// <param name="match">Filter object defining a match keyword passed as a string or in a Match object.</param>
+        /// <param name="matchPhrase">Filter object defining a match phrase.</param>
+        /// <param name="matchAll">Filter object to select all documents.</param>
+        /// <param name="varBool">varBool.</param>
+        /// <param name="propertyEquals">propertyEquals.</param>
+        /// <param name="varIn">Filter to match a given set of attribute values..</param>
+        /// <param name="range">Filter to match a given range of attribute values passed in Range objects.</param>
+        /// <param name="geoDistance">geoDistance.</param>
+        public QueryFilter(string queryString = default, Object match = default, Object matchPhrase = default, Object matchAll = default, BoolFilter varBool = default, Object propertyEquals = default, Object varIn = default, Object range = default, GeoDistance geoDistance = default)
         {
-            this.QueryString = ;
-            this.Match = ;
-            this.MatchPhrase = ;
-            this.MatchAll = ;
-            this.Bool = ;
-            this.PropertyEquals = ;
-            this.In = ;
-            this.Range = ;
-            this.GeoDistance = ;
+            this.QueryString = queryString;
+            this.Match = match;
+            this.MatchPhrase = matchPhrase;
+            this.MatchAll = matchAll;
+            this.Bool = varBool;
+            this.PropertyEquals = propertyEquals;
+            this.In = varIn;
+            this.Range = range;
+            this.GeoDistance = geoDistance;
         }
 
         /// <summary>
@@ -95,7 +95,8 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Gets or Sets PropertyEquals
         /// </summary>
-        [DataMember(Name = "equals", EmitDefaultValue = true)]
+        [JsonProperty(NullValueHandling=NullValueHandling.Ignore)]
+        [DataMember(Name = "equals", EmitDefaultValue = false)]
         public Object PropertyEquals { get; set; }
 
         /// <summary>

@@ -21,15 +21,15 @@ var _ MappedNullable = &DeleteResponse{}
 // DeleteResponse Response object for successful delete request
 type DeleteResponse struct {
 	// The name of the table from which the document was deleted
-	Table *string `json:"table"` 
+	Table *string `json:"table,omitempty"`
 	// Number of documents deleted
-	Deleted *int32 `json:"deleted"` 
+	Deleted *int32 `json:"deleted,omitempty"`
 	// The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned
-	Id *int64 `json:"id"` 
+	Id *int32 `json:"id,omitempty"`
 	// Indicates whether any documents to be deleted were found
-	Found *bool `json:"found"` 
+	Found *bool `json:"found,omitempty"`
 	// Result of the delete operation, typically 'deleted'
-	Result *string `json:"result"` 
+	Result *string `json:"result,omitempty"`
 }
 
 // NewDeleteResponse instantiates a new DeleteResponse object
@@ -114,9 +114,9 @@ func (o *DeleteResponse) SetDeleted(v int32) {
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *DeleteResponse) GetId() int64 {
+func (o *DeleteResponse) GetId() int32 {
 	if o == nil || IsNil(o.Id) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.Id
@@ -124,7 +124,7 @@ func (o *DeleteResponse) GetId() int64 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeleteResponse) GetIdOk() (*int64, bool) {
+func (o *DeleteResponse) GetIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -140,8 +140,8 @@ func (o *DeleteResponse) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given int64 and assigns it to the Id field.
-func (o *DeleteResponse) SetId(v int64) {
+// SetId gets a reference to the given int32 and assigns it to the Id field.
+func (o *DeleteResponse) SetId(v int32) {
 	o.Id = &v
 }
 

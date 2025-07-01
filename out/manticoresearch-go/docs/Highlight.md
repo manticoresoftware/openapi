@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FragmentSize** | Pointer to **interface{}** | Maximum size of the text fragments in highlighted snippets per field | [optional] 
-**Limit** | Pointer to **interface{}** | Maximum size of snippets per field | [optional] 
-**LimitSnippets** | Pointer to **interface{}** | Maximum number of snippets per field | [optional] 
-**LimitWords** | Pointer to **interface{}** | Maximum number of words per field | [optional] 
-**NumberOfFragments** | Pointer to **interface{}** | Total number of highlighted fragments per field | [optional] 
+**FragmentSize** | Pointer to **int32** | Maximum size of the text fragments in highlighted snippets per field | [optional] 
+**Limit** | Pointer to **int32** | Maximum size of snippets per field | [optional] 
+**LimitSnippets** | Pointer to **int32** | Maximum number of snippets per field | [optional] 
+**LimitWords** | Pointer to **int32** | Maximum number of words per field | [optional] 
+**NumberOfFragments** | Pointer to **int32** | Total number of highlighted fragments per field | [optional] 
 **AfterMatch** | Pointer to **string** | Text inserted after the matched term, typically used for HTML formatting | [optional] [default to "</strong>"]
 **AllowEmpty** | Pointer to **bool** | Permits an empty string to be returned as the highlighting result. Otherwise, the beginning of the original text would be returned | [optional] 
 **Around** | Pointer to **int32** | Number of words around the match to include in the highlight | [optional] 
 **BeforeMatch** | Pointer to **string** | Text inserted before the match, typically used for HTML formatting | [optional] [default to "<strong>"]
 **EmitZones** | Pointer to **bool** | Emits an HTML tag with the enclosing zone name before each highlighted snippet | [optional] 
 **Encoder** | Pointer to **string** | If set to &#39;html&#39;, retains HTML markup when highlighting | [optional] 
-**Fields** | Pointer to **map[string]interface{}** |  | [optional] 
+**Fields** | Pointer to [**HighlightFields**](HighlightFields.md) |  | [optional] 
 **ForceAllWords** | Pointer to **bool** | Ignores the length limit until the result includes all keywords | [optional] 
 **ForceSnippets** | Pointer to **bool** | Forces snippet generation even if limits allow highlighting the entire text | [optional] 
 **HighlightQuery** | Pointer to [**NullableQueryFilter**](QueryFilter.md) |  | [optional] 
@@ -49,20 +49,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetFragmentSize
 
-`func (o *Highlight) GetFragmentSize() interface{}`
+`func (o *Highlight) GetFragmentSize() int32`
 
 GetFragmentSize returns the FragmentSize field if non-nil, zero value otherwise.
 
 ### GetFragmentSizeOk
 
-`func (o *Highlight) GetFragmentSizeOk() (*interface{}, bool)`
+`func (o *Highlight) GetFragmentSizeOk() (*int32, bool)`
 
 GetFragmentSizeOk returns a tuple with the FragmentSize field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFragmentSize
 
-`func (o *Highlight) SetFragmentSize(v interface{})`
+`func (o *Highlight) SetFragmentSize(v int32)`
 
 SetFragmentSize sets FragmentSize field to given value.
 
@@ -72,32 +72,22 @@ SetFragmentSize sets FragmentSize field to given value.
 
 HasFragmentSize returns a boolean if a field has been set.
 
-### SetFragmentSizeNil
-
-`func (o *Highlight) SetFragmentSizeNil(b bool)`
-
- SetFragmentSizeNil sets the value for FragmentSize to be an explicit nil
-
-### UnsetFragmentSize
-`func (o *Highlight) UnsetFragmentSize()`
-
-UnsetFragmentSize ensures that no value is present for FragmentSize, not even an explicit nil
 ### GetLimit
 
-`func (o *Highlight) GetLimit() interface{}`
+`func (o *Highlight) GetLimit() int32`
 
 GetLimit returns the Limit field if non-nil, zero value otherwise.
 
 ### GetLimitOk
 
-`func (o *Highlight) GetLimitOk() (*interface{}, bool)`
+`func (o *Highlight) GetLimitOk() (*int32, bool)`
 
 GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimit
 
-`func (o *Highlight) SetLimit(v interface{})`
+`func (o *Highlight) SetLimit(v int32)`
 
 SetLimit sets Limit field to given value.
 
@@ -107,32 +97,22 @@ SetLimit sets Limit field to given value.
 
 HasLimit returns a boolean if a field has been set.
 
-### SetLimitNil
-
-`func (o *Highlight) SetLimitNil(b bool)`
-
- SetLimitNil sets the value for Limit to be an explicit nil
-
-### UnsetLimit
-`func (o *Highlight) UnsetLimit()`
-
-UnsetLimit ensures that no value is present for Limit, not even an explicit nil
 ### GetLimitSnippets
 
-`func (o *Highlight) GetLimitSnippets() interface{}`
+`func (o *Highlight) GetLimitSnippets() int32`
 
 GetLimitSnippets returns the LimitSnippets field if non-nil, zero value otherwise.
 
 ### GetLimitSnippetsOk
 
-`func (o *Highlight) GetLimitSnippetsOk() (*interface{}, bool)`
+`func (o *Highlight) GetLimitSnippetsOk() (*int32, bool)`
 
 GetLimitSnippetsOk returns a tuple with the LimitSnippets field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimitSnippets
 
-`func (o *Highlight) SetLimitSnippets(v interface{})`
+`func (o *Highlight) SetLimitSnippets(v int32)`
 
 SetLimitSnippets sets LimitSnippets field to given value.
 
@@ -142,32 +122,22 @@ SetLimitSnippets sets LimitSnippets field to given value.
 
 HasLimitSnippets returns a boolean if a field has been set.
 
-### SetLimitSnippetsNil
-
-`func (o *Highlight) SetLimitSnippetsNil(b bool)`
-
- SetLimitSnippetsNil sets the value for LimitSnippets to be an explicit nil
-
-### UnsetLimitSnippets
-`func (o *Highlight) UnsetLimitSnippets()`
-
-UnsetLimitSnippets ensures that no value is present for LimitSnippets, not even an explicit nil
 ### GetLimitWords
 
-`func (o *Highlight) GetLimitWords() interface{}`
+`func (o *Highlight) GetLimitWords() int32`
 
 GetLimitWords returns the LimitWords field if non-nil, zero value otherwise.
 
 ### GetLimitWordsOk
 
-`func (o *Highlight) GetLimitWordsOk() (*interface{}, bool)`
+`func (o *Highlight) GetLimitWordsOk() (*int32, bool)`
 
 GetLimitWordsOk returns a tuple with the LimitWords field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimitWords
 
-`func (o *Highlight) SetLimitWords(v interface{})`
+`func (o *Highlight) SetLimitWords(v int32)`
 
 SetLimitWords sets LimitWords field to given value.
 
@@ -177,32 +147,22 @@ SetLimitWords sets LimitWords field to given value.
 
 HasLimitWords returns a boolean if a field has been set.
 
-### SetLimitWordsNil
-
-`func (o *Highlight) SetLimitWordsNil(b bool)`
-
- SetLimitWordsNil sets the value for LimitWords to be an explicit nil
-
-### UnsetLimitWords
-`func (o *Highlight) UnsetLimitWords()`
-
-UnsetLimitWords ensures that no value is present for LimitWords, not even an explicit nil
 ### GetNumberOfFragments
 
-`func (o *Highlight) GetNumberOfFragments() interface{}`
+`func (o *Highlight) GetNumberOfFragments() int32`
 
 GetNumberOfFragments returns the NumberOfFragments field if non-nil, zero value otherwise.
 
 ### GetNumberOfFragmentsOk
 
-`func (o *Highlight) GetNumberOfFragmentsOk() (*interface{}, bool)`
+`func (o *Highlight) GetNumberOfFragmentsOk() (*int32, bool)`
 
 GetNumberOfFragmentsOk returns a tuple with the NumberOfFragments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumberOfFragments
 
-`func (o *Highlight) SetNumberOfFragments(v interface{})`
+`func (o *Highlight) SetNumberOfFragments(v int32)`
 
 SetNumberOfFragments sets NumberOfFragments field to given value.
 
@@ -212,16 +172,6 @@ SetNumberOfFragments sets NumberOfFragments field to given value.
 
 HasNumberOfFragments returns a boolean if a field has been set.
 
-### SetNumberOfFragmentsNil
-
-`func (o *Highlight) SetNumberOfFragmentsNil(b bool)`
-
- SetNumberOfFragmentsNil sets the value for NumberOfFragments to be an explicit nil
-
-### UnsetNumberOfFragments
-`func (o *Highlight) UnsetNumberOfFragments()`
-
-UnsetNumberOfFragments ensures that no value is present for NumberOfFragments, not even an explicit nil
 ### GetAfterMatch
 
 `func (o *Highlight) GetAfterMatch() string`
@@ -374,20 +324,20 @@ HasEncoder returns a boolean if a field has been set.
 
 ### GetFields
 
-`func (o *Highlight) GetFields() map[string]interface{}`
+`func (o *Highlight) GetFields() HighlightFields`
 
 GetFields returns the Fields field if non-nil, zero value otherwise.
 
 ### GetFieldsOk
 
-`func (o *Highlight) GetFieldsOk() (*map[string]interface{}, bool)`
+`func (o *Highlight) GetFieldsOk() (*HighlightFields, bool)`
 
 GetFieldsOk returns a tuple with the Fields field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFields
 
-`func (o *Highlight) SetFields(v map[string]interface{})`
+`func (o *Highlight) SetFields(v HighlightFields)`
 
 SetFields sets Fields field to given value.
 
@@ -397,16 +347,6 @@ SetFields sets Fields field to given value.
 
 HasFields returns a boolean if a field has been set.
 
-### SetFieldsNil
-
-`func (o *Highlight) SetFieldsNil(b bool)`
-
- SetFieldsNil sets the value for Fields to be an explicit nil
-
-### UnsetFields
-`func (o *Highlight) UnsetFields()`
-
-UnsetFields ensures that no value is present for Fields, not even an explicit nil
 ### GetForceAllWords
 
 `func (o *Highlight) GetForceAllWords() bool`

@@ -88,11 +88,10 @@ namespace ManticoreSearch.Test.Api
                         
                                 indexApi.Bulk(body);
                                 
-                                SearchRequest searchRequest = new SearchRequest(Table: "movies");
+                                SearchRequest searchRequest = new SearchRequest("movies");
                                 
                                 Highlight queryHighlight = new Highlight();
-                                List<string> highlightFields = new List<string>();
-                                highlightFields.Add("title");
+                                HighlightFields highlightFields = new HighlightFields(new List<string>() { "title" });
                                 queryHighlight.Fields = highlightFields;
 
                                 SearchQuery query = new SearchQuery();
@@ -154,10 +153,10 @@ namespace ManticoreSearch.Test.Api
                                 doc.Add("title", "test");
                                 doc.Add("tags1", new List<int>() {1,2,4,5});
 
-                                InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(Table: "products", Doc: doc);
+                                InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(table: "products", doc: doc);
                                 indexApi.Insert(insertDocumentRequest);
 
-                                insertDocumentRequest = new InsertDocumentRequest(Table: "products", Doc: doc);
+                                insertDocumentRequest = new InsertDocumentRequest(table: "products", doc: doc);
                                 insertDocumentRequest.Id = 100;
                                 var res = indexApi.Insert(insertDocumentRequest);
                                 

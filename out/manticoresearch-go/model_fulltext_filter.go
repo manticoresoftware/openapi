@@ -21,13 +21,13 @@ var _ MappedNullable = &FulltextFilter{}
 // FulltextFilter Defines a type of filter for full-text search queries
 type FulltextFilter struct {
 	// Filter object defining a query string
-	QueryString *string `json:"query_string"` 
+	QueryString *string `json:"query_string,omitempty"`
 	// Filter object defining a match keyword passed as a string or in a Match object
-	Match map[string]interface{} `json:"match"` 
+	Match map[string]interface{} `json:"match,omitempty"`
 	// Filter object defining a match phrase
-	MatchPhrase map[string]interface{} `json:"match_phrase"` 
+	MatchPhrase map[string]interface{} `json:"match_phrase,omitempty"`
 	// Filter object to select all documents
-	MatchAll map[string]interface{} `json:"match_all"` 
+	MatchAll map[string]interface{} `json:"match_all,omitempty"`
 }
 
 // NewFulltextFilter instantiates a new FulltextFilter object

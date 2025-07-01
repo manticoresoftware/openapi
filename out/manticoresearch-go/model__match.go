@@ -13,8 +13,8 @@ package openapi
 
 import (
 	"encoding/json"
-	_"bytes"
-	_"fmt"
+	"bytes"
+	"fmt"
 )
 
 // checks if the Match type satisfies the MappedNullable interface at compile time
@@ -22,9 +22,9 @@ var _ MappedNullable = &Match{}
 
 // Match Filter helper object defining a match keyword and match options
 type Match struct {
-	Query string `json:"query"` 
-	Operator *string `json:"operator"` 
-	Boost *float32 `json:"boost"` 
+	Query string `json:"query"`
+	Operator *string `json:"operator,omitempty"`
+	Boost *float32 `json:"boost,omitempty"`
 }
 
 type _Match Match
@@ -153,6 +153,43 @@ func (o Match) ToMap() (map[string]interface{}, error) {
 		toSerialize["boost"] = o.Boost
 	}
 	return toSerialize, nil
+}
+
+func (o *Match) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"query",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varMatch := _Match{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varMatch)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Match(varMatch)
+
+	return err
 }
 
 type NullableMatch struct {

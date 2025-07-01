@@ -21,49 +21,49 @@ var _ MappedNullable = &Highlight{}
 // Highlight struct for Highlight
 type Highlight struct {
 	// Maximum size of the text fragments in highlighted snippets per field
-	FragmentSize interface{} `json:"fragment_size"` 
+	FragmentSize *int32 `json:"fragment_size,omitempty"`
 	// Maximum size of snippets per field
-	Limit interface{} `json:"limit"` 
+	Limit *int32 `json:"limit,omitempty"`
 	// Maximum number of snippets per field
-	LimitSnippets interface{} `json:"limit_snippets"` 
+	LimitSnippets *int32 `json:"limit_snippets,omitempty"`
 	// Maximum number of words per field
-	LimitWords interface{} `json:"limit_words"` 
+	LimitWords *int32 `json:"limit_words,omitempty"`
 	// Total number of highlighted fragments per field
-	NumberOfFragments interface{} `json:"number_of_fragments"` 
+	NumberOfFragments *int32 `json:"number_of_fragments,omitempty"`
 	// Text inserted after the matched term, typically used for HTML formatting
-	AfterMatch *string `json:"after_match"` 
+	AfterMatch *string `json:"after_match,omitempty"`
 	// Permits an empty string to be returned as the highlighting result. Otherwise, the beginning of the original text would be returned
-	AllowEmpty *bool `json:"allow_empty"` 
+	AllowEmpty *bool `json:"allow_empty,omitempty"`
 	// Number of words around the match to include in the highlight
-	Around *int32 `json:"around"` 
+	Around *int32 `json:"around,omitempty"`
 	// Text inserted before the match, typically used for HTML formatting
-	BeforeMatch *string `json:"before_match"` 
+	BeforeMatch *string `json:"before_match,omitempty"`
 	// Emits an HTML tag with the enclosing zone name before each highlighted snippet
-	EmitZones *bool `json:"emit_zones"` 
+	EmitZones *bool `json:"emit_zones,omitempty"`
 	// If set to 'html', retains HTML markup when highlighting
-	Encoder *string `json:"encoder"` 
-	Fields map[string]interface{} `json:"fields"` 
+	Encoder *string `json:"encoder,omitempty"`
+	Fields *HighlightFields `json:"fields,omitempty"`
 	// Ignores the length limit until the result includes all keywords
-	ForceAllWords *bool `json:"force_all_words"` 
+	ForceAllWords *bool `json:"force_all_words,omitempty"`
 	// Forces snippet generation even if limits allow highlighting the entire text
-	ForceSnippets *bool `json:"force_snippets"` 
-	HighlightQuery NullableQueryFilter `json:"highlight_query"` 
+	ForceSnippets *bool `json:"force_snippets,omitempty"`
+	HighlightQuery NullableQueryFilter `json:"highlight_query,omitempty"`
 	// Defines the mode for handling HTML markup in the highlight
-	HtmlStripMode *string `json:"html_strip_mode"` 
+	HtmlStripMode *string `json:"html_strip_mode,omitempty"`
 	// Determines whether the 'limit', 'limit_words', and 'limit_snippets' options operate as individual limits in each field of the document
-	LimitsPerField *bool `json:"limits_per_field"` 
+	LimitsPerField *bool `json:"limits_per_field,omitempty"`
 	// If set to 1, allows an empty string to be returned as a highlighting result
-	NoMatchSize *int32 `json:"no_match_size"` 
+	NoMatchSize *int32 `json:"no_match_size,omitempty"`
 	// Sets the sorting order of highlighted snippets
-	Order *string `json:"order"` 
+	Order *string `json:"order,omitempty"`
 	// Text inserted before each highlighted snippet
-	PreTags *string `json:"pre_tags"` 
+	PreTags *string `json:"pre_tags,omitempty"`
 	// Text inserted after each highlighted snippet
-	PostTags *string `json:"post_tags"` 
+	PostTags *string `json:"post_tags,omitempty"`
 	// Sets the starting value of the %SNIPPET_ID% macro
-	StartSnippetId *int32 `json:"start_snippet_id"` 
+	StartSnippetId *int32 `json:"start_snippet_id,omitempty"`
 	// Defines whether to additionally break snippets by phrase boundary characters
-	UseBoundaries *bool `json:"use_boundaries"` 
+	UseBoundaries *bool `json:"use_boundaries,omitempty"`
 }
 
 // NewHighlight instantiates a new Highlight object
@@ -99,23 +99,22 @@ func NewHighlightWithDefaults() *Highlight {
 	return &this
 }
 
-// GetFragmentSize returns the FragmentSize field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Highlight) GetFragmentSize() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetFragmentSize returns the FragmentSize field value if set, zero value otherwise.
+func (o *Highlight) GetFragmentSize() int32 {
+	if o == nil || IsNil(o.FragmentSize) {
+		var ret int32
 		return ret
 	}
-	return o.FragmentSize
+	return *o.FragmentSize
 }
 
 // GetFragmentSizeOk returns a tuple with the FragmentSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Highlight) GetFragmentSizeOk() (*interface{}, bool) {
+func (o *Highlight) GetFragmentSizeOk() (*int32, bool) {
 	if o == nil || IsNil(o.FragmentSize) {
 		return nil, false
 	}
-	return &o.FragmentSize, true
+	return o.FragmentSize, true
 }
 
 // HasFragmentSize returns a boolean if a field has been set.
@@ -127,28 +126,27 @@ func (o *Highlight) HasFragmentSize() bool {
 	return false
 }
 
-// SetFragmentSize gets a reference to the given interface{} and assigns it to the FragmentSize field.
-func (o *Highlight) SetFragmentSize(v interface{}) {
-	o.FragmentSize = v
+// SetFragmentSize gets a reference to the given int32 and assigns it to the FragmentSize field.
+func (o *Highlight) SetFragmentSize(v int32) {
+	o.FragmentSize = &v
 }
 
-// GetLimit returns the Limit field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Highlight) GetLimit() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetLimit returns the Limit field value if set, zero value otherwise.
+func (o *Highlight) GetLimit() int32 {
+	if o == nil || IsNil(o.Limit) {
+		var ret int32
 		return ret
 	}
-	return o.Limit
+	return *o.Limit
 }
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Highlight) GetLimitOk() (*interface{}, bool) {
+func (o *Highlight) GetLimitOk() (*int32, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
-	return &o.Limit, true
+	return o.Limit, true
 }
 
 // HasLimit returns a boolean if a field has been set.
@@ -160,28 +158,27 @@ func (o *Highlight) HasLimit() bool {
 	return false
 }
 
-// SetLimit gets a reference to the given interface{} and assigns it to the Limit field.
-func (o *Highlight) SetLimit(v interface{}) {
-	o.Limit = v
+// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
+func (o *Highlight) SetLimit(v int32) {
+	o.Limit = &v
 }
 
-// GetLimitSnippets returns the LimitSnippets field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Highlight) GetLimitSnippets() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetLimitSnippets returns the LimitSnippets field value if set, zero value otherwise.
+func (o *Highlight) GetLimitSnippets() int32 {
+	if o == nil || IsNil(o.LimitSnippets) {
+		var ret int32
 		return ret
 	}
-	return o.LimitSnippets
+	return *o.LimitSnippets
 }
 
 // GetLimitSnippetsOk returns a tuple with the LimitSnippets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Highlight) GetLimitSnippetsOk() (*interface{}, bool) {
+func (o *Highlight) GetLimitSnippetsOk() (*int32, bool) {
 	if o == nil || IsNil(o.LimitSnippets) {
 		return nil, false
 	}
-	return &o.LimitSnippets, true
+	return o.LimitSnippets, true
 }
 
 // HasLimitSnippets returns a boolean if a field has been set.
@@ -193,28 +190,27 @@ func (o *Highlight) HasLimitSnippets() bool {
 	return false
 }
 
-// SetLimitSnippets gets a reference to the given interface{} and assigns it to the LimitSnippets field.
-func (o *Highlight) SetLimitSnippets(v interface{}) {
-	o.LimitSnippets = v
+// SetLimitSnippets gets a reference to the given int32 and assigns it to the LimitSnippets field.
+func (o *Highlight) SetLimitSnippets(v int32) {
+	o.LimitSnippets = &v
 }
 
-// GetLimitWords returns the LimitWords field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Highlight) GetLimitWords() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetLimitWords returns the LimitWords field value if set, zero value otherwise.
+func (o *Highlight) GetLimitWords() int32 {
+	if o == nil || IsNil(o.LimitWords) {
+		var ret int32
 		return ret
 	}
-	return o.LimitWords
+	return *o.LimitWords
 }
 
 // GetLimitWordsOk returns a tuple with the LimitWords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Highlight) GetLimitWordsOk() (*interface{}, bool) {
+func (o *Highlight) GetLimitWordsOk() (*int32, bool) {
 	if o == nil || IsNil(o.LimitWords) {
 		return nil, false
 	}
-	return &o.LimitWords, true
+	return o.LimitWords, true
 }
 
 // HasLimitWords returns a boolean if a field has been set.
@@ -226,28 +222,27 @@ func (o *Highlight) HasLimitWords() bool {
 	return false
 }
 
-// SetLimitWords gets a reference to the given interface{} and assigns it to the LimitWords field.
-func (o *Highlight) SetLimitWords(v interface{}) {
-	o.LimitWords = v
+// SetLimitWords gets a reference to the given int32 and assigns it to the LimitWords field.
+func (o *Highlight) SetLimitWords(v int32) {
+	o.LimitWords = &v
 }
 
-// GetNumberOfFragments returns the NumberOfFragments field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Highlight) GetNumberOfFragments() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetNumberOfFragments returns the NumberOfFragments field value if set, zero value otherwise.
+func (o *Highlight) GetNumberOfFragments() int32 {
+	if o == nil || IsNil(o.NumberOfFragments) {
+		var ret int32
 		return ret
 	}
-	return o.NumberOfFragments
+	return *o.NumberOfFragments
 }
 
 // GetNumberOfFragmentsOk returns a tuple with the NumberOfFragments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Highlight) GetNumberOfFragmentsOk() (*interface{}, bool) {
+func (o *Highlight) GetNumberOfFragmentsOk() (*int32, bool) {
 	if o == nil || IsNil(o.NumberOfFragments) {
 		return nil, false
 	}
-	return &o.NumberOfFragments, true
+	return o.NumberOfFragments, true
 }
 
 // HasNumberOfFragments returns a boolean if a field has been set.
@@ -259,9 +254,9 @@ func (o *Highlight) HasNumberOfFragments() bool {
 	return false
 }
 
-// SetNumberOfFragments gets a reference to the given interface{} and assigns it to the NumberOfFragments field.
-func (o *Highlight) SetNumberOfFragments(v interface{}) {
-	o.NumberOfFragments = v
+// SetNumberOfFragments gets a reference to the given int32 and assigns it to the NumberOfFragments field.
+func (o *Highlight) SetNumberOfFragments(v int32) {
+	o.NumberOfFragments = &v
 }
 
 // GetAfterMatch returns the AfterMatch field value if set, zero value otherwise.
@@ -456,21 +451,20 @@ func (o *Highlight) SetEncoder(v string) {
 	o.Encoder = &v
 }
 
-// GetFields returns the Fields field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Highlight) GetFields() map[string]interface{} {
-	if o == nil {
-		var ret map[string]interface{}
+// GetFields returns the Fields field value if set, zero value otherwise.
+func (o *Highlight) GetFields() HighlightFields {
+	if o == nil || IsNil(o.Fields) {
+		var ret HighlightFields
 		return ret
 	}
-	return o.Fields
+	return *o.Fields
 }
 
 // GetFieldsOk returns a tuple with the Fields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Highlight) GetFieldsOk() (map[string]interface{}, bool) {
+func (o *Highlight) GetFieldsOk() (*HighlightFields, bool) {
 	if o == nil || IsNil(o.Fields) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
 	return o.Fields, true
 }
@@ -484,9 +478,9 @@ func (o *Highlight) HasFields() bool {
 	return false
 }
 
-// SetFields gets a reference to the given map[string]interface{} and assigns it to the Fields field.
-func (o *Highlight) SetFields(v map[string]interface{}) {
-	o.Fields = v
+// SetFields gets a reference to the given HighlightFields and assigns it to the Fields field.
+func (o *Highlight) SetFields(v HighlightFields) {
+	o.Fields = &v
 }
 
 // GetForceAllWords returns the ForceAllWords field value if set, zero value otherwise.
@@ -861,19 +855,19 @@ func (o Highlight) MarshalJSON() ([]byte, error) {
 
 func (o Highlight) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.FragmentSize != nil {
+	if !IsNil(o.FragmentSize) {
 		toSerialize["fragment_size"] = o.FragmentSize
 	}
-	if o.Limit != nil {
+	if !IsNil(o.Limit) {
 		toSerialize["limit"] = o.Limit
 	}
-	if o.LimitSnippets != nil {
+	if !IsNil(o.LimitSnippets) {
 		toSerialize["limit_snippets"] = o.LimitSnippets
 	}
-	if o.LimitWords != nil {
+	if !IsNil(o.LimitWords) {
 		toSerialize["limit_words"] = o.LimitWords
 	}
-	if o.NumberOfFragments != nil {
+	if !IsNil(o.NumberOfFragments) {
 		toSerialize["number_of_fragments"] = o.NumberOfFragments
 	}
 	if !IsNil(o.AfterMatch) {
@@ -894,7 +888,7 @@ func (o Highlight) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Encoder) {
 		toSerialize["encoder"] = o.Encoder
 	}
-	if o.Fields != nil {
+	if !IsNil(o.Fields) {
 		toSerialize["fields"] = o.Fields
 	}
 	if !IsNil(o.ForceAllWords) {

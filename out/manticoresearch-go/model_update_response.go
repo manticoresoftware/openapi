@@ -21,13 +21,13 @@ var _ MappedNullable = &UpdateResponse{}
 // UpdateResponse Success response returned after updating one or more documents
 type UpdateResponse struct {
 	// Name of the document table
-	Table *string `json:"table"` 
+	Table *string `json:"table,omitempty"`
 	// Number of documents updated
-	Updated *int32 `json:"updated"` 
+	Updated *int32 `json:"updated,omitempty"`
 	// Document ID
-	Id *int64 `json:"id"` 
+	Id *int32 `json:"id,omitempty"`
 	// Result of the update operation, typically 'updated'
-	Result *string `json:"result"` 
+	Result *string `json:"result,omitempty"`
 }
 
 // NewUpdateResponse instantiates a new UpdateResponse object
@@ -112,9 +112,9 @@ func (o *UpdateResponse) SetUpdated(v int32) {
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *UpdateResponse) GetId() int64 {
+func (o *UpdateResponse) GetId() int32 {
 	if o == nil || IsNil(o.Id) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.Id
@@ -122,7 +122,7 @@ func (o *UpdateResponse) GetId() int64 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateResponse) GetIdOk() (*int64, bool) {
+func (o *UpdateResponse) GetIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -138,8 +138,8 @@ func (o *UpdateResponse) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given int64 and assigns it to the Id field.
-func (o *UpdateResponse) SetId(v int64) {
+// SetId gets a reference to the given int32 and assigns it to the Id field.
+func (o *UpdateResponse) SetId(v int32) {
 	o.Id = &v
 }
 

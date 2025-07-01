@@ -36,12 +36,12 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="GeoDistanceLocationAnchor" /> class.
         /// </summary>
-        /// <param name="Lat">Latitude of the anchor point.</param>
-        /// <param name="Lon">Longitude of the anchor point.</param>
-        public GeoDistanceLocationAnchor(decimal  = default(decimal), decimal  = default(decimal))
+        /// <param name="lat">Latitude of the anchor point.</param>
+        /// <param name="lon">Longitude of the anchor point.</param>
+        public GeoDistanceLocationAnchor(decimal lat = default, decimal lon = default)
         {
-            this.Lat = ;
-            this.Lon = ;
+            this.Lat = lat;
+            this.Lon = lon;
         }
 
         /// <summary>

@@ -34,7 +34,7 @@ namespace ManticoreSearch.Client
         /// Version of the package.
         /// </summary>
         /// <value>Version of the package.</value>
-        public const string Version = "8.0.0";
+        public const string Version = "9.0.0";
 
         /// <summary>
         /// Identifier for ISO 8601 DateTime Format
@@ -118,7 +118,7 @@ namespace ManticoreSearch.Client
         public Configuration()
         {
             Proxy = null;
-            UserAgent = WebUtility.UrlEncode("OpenAPI-Generator/8.0.0/csharp");
+            UserAgent = WebUtility.UrlEncode("OpenAPI-Generator/9.0.0/csharp");
             BasePath = "http://127.0.0.1:9308";
             DefaultHeaders = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
@@ -137,7 +137,7 @@ namespace ManticoreSearch.Client
             };
 
             // Setting Timeout has side effects (forces ApiClient creation).
-            Timeout = 100000;
+            Timeout = TimeSpan.FromSeconds(100);
         }
 
         /// <summary>
@@ -221,9 +221,9 @@ namespace ManticoreSearch.Client
         public virtual IDictionary<string, string> DefaultHeaders { get; set; }
 
         /// <summary>
-        /// Gets or sets the HTTP timeout (milliseconds) of ApiClient. Default to 100000 milliseconds.
+        /// Gets or sets the HTTP timeout of ApiClient. Defaults to 100 seconds.
         /// </summary>
-        public virtual int Timeout { get; set; }
+        public virtual TimeSpan Timeout { get; set; }
 
         /// <summary>
         /// Gets or sets the proxy
@@ -503,7 +503,7 @@ namespace ManticoreSearch.Client
 
                     if (inputVariables.ContainsKey(variable.Key))
                     {
-                        if (((List<string>)serverVariables["enum_values"]).Contains(inputVariables[variable.Key]))
+                        if (!serverVariables.ContainsKey("enum_values") || ((List<string>)serverVariables["enum_values"]).Contains(inputVariables[variable.Key]))
                         {
                             url = url.Replace("{" + variable.Key + "}", inputVariables[variable.Key]);
                         }
@@ -541,7 +541,7 @@ namespace ManticoreSearch.Client
             report += "    OS: " + System.Environment.OSVersion + "\n";
             report += "    .NET Framework Version: " + System.Environment.Version  + "\n";
             report += "    Version of the API: 5.0.0\n";
-            report += "    SDK Package Version: 8.0.0\n";
+            report += "    SDK Package Version: 9.0.0\n";
 
             return report;
         }

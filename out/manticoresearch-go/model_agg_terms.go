@@ -13,8 +13,8 @@ package openapi
 
 import (
 	"encoding/json"
-	_"bytes"
-	_"fmt"
+	"bytes"
+	"fmt"
 )
 
 // checks if the AggTerms type satisfies the MappedNullable interface at compile time
@@ -23,9 +23,9 @@ var _ MappedNullable = &AggTerms{}
 // AggTerms Object containing term fields to aggregate on
 type AggTerms struct {
 	// Name of attribute to aggregate by
-	Field string `json:"field"` 
+	Field string `json:"field"`
 	// Maximum number of buckets in the result
-	Size *int32 `json:"size"` 
+	Size *int32 `json:"size,omitempty"`
 }
 
 type _AggTerms AggTerms
@@ -119,6 +119,43 @@ func (o AggTerms) ToMap() (map[string]interface{}, error) {
 		toSerialize["size"] = o.Size
 	}
 	return toSerialize, nil
+}
+
+func (o *AggTerms) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"field",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAggTerms := _AggTerms{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAggTerms)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AggTerms(varAggTerms)
+
+	return err
 }
 
 type NullableAggTerms struct {

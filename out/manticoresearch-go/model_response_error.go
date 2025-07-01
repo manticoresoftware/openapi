@@ -13,10 +13,8 @@ package openapi
 
 import (
 	"encoding/json"
-	_"fmt"
-	_"bytes"
-	"gopkg.in/validator.v2"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
 // ResponseError - struct for ResponseError
@@ -115,6 +113,20 @@ func (obj *ResponseError) GetActualInstance() (interface{}) {
 
 	if obj.String != nil {
 		return obj.String
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ResponseError) GetActualInstanceValue() (interface{}) {
+	if obj.ResponseErrorDetails != nil {
+		return *obj.ResponseErrorDetails
+	}
+
+	if obj.String != nil {
+		return *obj.String
 	}
 
 	// all schemas are nil

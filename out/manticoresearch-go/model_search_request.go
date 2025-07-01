@@ -13,8 +13,8 @@ package openapi
 
 import (
 	"encoding/json"
-	_"bytes"
-	_"fmt"
+	"bytes"
+	"fmt"
 )
 
 // checks if the SearchRequest type satisfies the MappedNullable interface at compile time
@@ -23,30 +23,30 @@ var _ MappedNullable = &SearchRequest{}
 // SearchRequest Request object for search operation
 type SearchRequest struct {
 	// The table to perform the search on
-	Table string `json:"table"` 
-	Query *SearchQuery `json:"query"` 
+	Table string `json:"table"`
+	Query *SearchQuery `json:"query,omitempty"`
 	// Join clause to combine search data from multiple tables
-	Join []Join `json:"join"` 
-	Highlight *Highlight `json:"highlight"` 
+	Join []Join `json:"join,omitempty"`
+	Highlight *Highlight `json:"highlight,omitempty"`
 	// Maximum number of results to return
-	Limit *int32 `json:"limit"` 
-	Knn *KnnQuery `json:"knn"` 
+	Limit *int32 `json:"limit,omitempty"`
+	Knn *KnnQuery `json:"knn,omitempty"`
 	// Defines aggregation settings for grouping results
-	Aggs map[string]Aggregation `json:"aggs"` 
+	Aggs map[string]Aggregation `json:"aggs,omitempty"`
 	// Expressions to calculate additional values for the result
-	Expressions map[string]string `json:"expressions"` 
+	Expressions map[string]string `json:"expressions,omitempty"`
 	// Maximum number of matches allowed in the result
-	MaxMatches *int32 `json:"max_matches"` 
+	MaxMatches *int32 `json:"max_matches,omitempty"`
 	// Starting point for pagination of the result
-	Offset *int32 `json:"offset"` 
+	Offset *int32 `json:"offset,omitempty"`
 	// Additional search options
-	Options map[string]interface{} `json:"options"` 
+	Options map[string]interface{} `json:"options,omitempty"`
 	// Enable or disable profiling of the search request
-	Profile *bool `json:"profile"` 
-	Sort interface{} `json:"sort"` 
-	Source interface{} `json:"_source"` 
+	Profile *bool `json:"profile,omitempty"`
+	Sort interface{} `json:"sort,omitempty"`
+	Source interface{} `json:"_source,omitempty"`
 	// Enable or disable result weight calculation used for sorting
-	TrackScores *bool `json:"track_scores"` 
+	TrackScores *bool `json:"track_scores,omitempty"`
 }
 
 type _SearchRequest SearchRequest
@@ -253,9 +253,9 @@ func (o *SearchRequest) SetKnn(v KnnQuery) {
 	o.Knn = &v
 }
 
-// GetAggs returns the Aggs field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetAggs returns the Aggs field value if set, zero value otherwise.
 func (o *SearchRequest) GetAggs() map[string]Aggregation {
-	if o == nil {
+	if o == nil || IsNil(o.Aggs) {
 		var ret map[string]Aggregation
 		return ret
 	}
@@ -264,12 +264,11 @@ func (o *SearchRequest) GetAggs() map[string]Aggregation {
 
 // GetAggsOk returns a tuple with the Aggs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SearchRequest) GetAggsOk() (*map[string]Aggregation, bool) {
+func (o *SearchRequest) GetAggsOk() (map[string]Aggregation, bool) {
 	if o == nil || IsNil(o.Aggs) {
-		return nil, false
+		return map[string]Aggregation{}, false
 	}
-	return &o.Aggs, true
+	return o.Aggs, true
 }
 
 // HasAggs returns a boolean if a field has been set.
@@ -286,9 +285,9 @@ func (o *SearchRequest) SetAggs(v map[string]Aggregation) {
 	o.Aggs = v
 }
 
-// GetExpressions returns the Expressions field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetExpressions returns the Expressions field value if set, zero value otherwise.
 func (o *SearchRequest) GetExpressions() map[string]string {
-	if o == nil {
+	if o == nil || IsNil(o.Expressions) {
 		var ret map[string]string
 		return ret
 	}
@@ -297,12 +296,11 @@ func (o *SearchRequest) GetExpressions() map[string]string {
 
 // GetExpressionsOk returns a tuple with the Expressions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SearchRequest) GetExpressionsOk() (*map[string]string, bool) {
+func (o *SearchRequest) GetExpressionsOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Expressions) {
-		return nil, false
+		return map[string]string{}, false
 	}
-	return &o.Expressions, true
+	return o.Expressions, true
 }
 
 // HasExpressions returns a boolean if a field has been set.
@@ -571,10 +569,10 @@ func (o SearchRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Knn) {
 		toSerialize["knn"] = o.Knn
 	}
-	if o.Aggs != nil {
+	if !IsNil(o.Aggs) {
 		toSerialize["aggs"] = o.Aggs
 	}
-	if o.Expressions != nil {
+	if !IsNil(o.Expressions) {
 		toSerialize["expressions"] = o.Expressions
 	}
 	if !IsNil(o.MaxMatches) {
@@ -599,6 +597,43 @@ func (o SearchRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["track_scores"] = o.TrackScores
 	}
 	return toSerialize, nil
+}
+
+func (o *SearchRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"table",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSearchRequest := _SearchRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSearchRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SearchRequest(varSearchRequest)
+
+	return err
 }
 
 type NullableSearchRequest struct {

@@ -21,21 +21,21 @@ var _ MappedNullable = &HitsHits{}
 // HitsHits Search hit representing a matched document
 type HitsHits struct {
 	// The ID of the matched document
-	Id *int64 `json:"_id"` 
+	Id *int32 `json:"_id,omitempty"`
 	// The score of the matched document
-	Score *int32 `json:"_score"` 
+	Score *int32 `json:"_score,omitempty"`
 	// The source data of the matched document
-	Source map[string]interface{} `json:"_source"` 
+	Source map[string]interface{} `json:"_source,omitempty"`
 	// The knn distance of the matched document returned for knn queries
-	KnnDist *float32 `json:"_knn_dist"` 
+	KnnDist *float32 `json:"_knn_dist,omitempty"`
 	// The highlighting-related data of the matched document
-	Highlight map[string]interface{} `json:"highlight"` 
+	Highlight map[string]interface{} `json:"highlight,omitempty"`
 	// The table name of the matched document returned for percolate queries
-	Table *string `json:"table"` 
+	Table *string `json:"table,omitempty"`
 	// The type of the matched document returned for percolate queries
-	Type *string `json:"_type:"` 
+	Type *string `json:"_type:,omitempty"`
 	// The percolate-related fields of the matched document returned for percolate queries
-	Fields map[string]interface{} `json:"fields"` 
+	Fields map[string]interface{} `json:"fields,omitempty"`
 }
 
 // NewHitsHits instantiates a new HitsHits object
@@ -56,9 +56,9 @@ func NewHitsHitsWithDefaults() *HitsHits {
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *HitsHits) GetId() int64 {
+func (o *HitsHits) GetId() int32 {
 	if o == nil || IsNil(o.Id) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.Id
@@ -66,7 +66,7 @@ func (o *HitsHits) GetId() int64 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *HitsHits) GetIdOk() (*int64, bool) {
+func (o *HitsHits) GetIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -82,8 +82,8 @@ func (o *HitsHits) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given int64 and assigns it to the Id field.
-func (o *HitsHits) SetId(v int64) {
+// SetId gets a reference to the given int32 and assigns it to the Id field.
+func (o *HitsHits) SetId(v int32) {
 	o.Id = &v
 }
 

@@ -21,15 +21,15 @@ var _ MappedNullable = &HighlightFieldOption{}
 // HighlightFieldOption Options for controlling the behavior of highlighting on a per-field basis
 type HighlightFieldOption struct {
 	// Maximum size of the text fragments in highlighted snippets per field
-	FragmentSize *int32 `json:"fragment_size"` 
+	FragmentSize *int32 `json:"fragment_size,omitempty"`
 	// Maximum size of snippets per field
-	Limit *int32 `json:"limit"` 
+	Limit *int32 `json:"limit,omitempty"`
 	// Maximum number of snippets per field
-	LimitSnippets *int32 `json:"limit_snippets"` 
+	LimitSnippets *int32 `json:"limit_snippets,omitempty"`
 	// Maximum number of words per field
-	LimitWords *int32 `json:"limit_words"` 
+	LimitWords *int32 `json:"limit_words,omitempty"`
 	// Total number of highlighted fragments per field
-	NumberOfFragments *int32 `json:"number_of_fragments"` 
+	NumberOfFragments *int32 `json:"number_of_fragments,omitempty"`
 }
 
 // NewHighlightFieldOption instantiates a new HighlightFieldOption object

@@ -13,8 +13,8 @@ package openapi
 
 import (
 	"encoding/json"
-	_"bytes"
-	_"fmt"
+	"bytes"
+	"fmt"
 )
 
 // checks if the ResponseErrorDetails type satisfies the MappedNullable interface at compile time
@@ -23,11 +23,11 @@ var _ MappedNullable = &ResponseErrorDetails{}
 // ResponseErrorDetails Detailed error information returned in case of an error response
 type ResponseErrorDetails struct {
 	// Type or category of the error
-	Type string `json:"type"` 
+	Type string `json:"type"`
 	// Detailed explanation of why the error occurred
-	Reason NullableString `json:"reason"` 
+	Reason NullableString `json:"reason,omitempty"`
 	// The table related to the error, if applicable
-	Table NullableString `json:"table"` 
+	Table NullableString `json:"table,omitempty"`
 }
 
 type _ResponseErrorDetails ResponseErrorDetails
@@ -176,6 +176,43 @@ func (o ResponseErrorDetails) ToMap() (map[string]interface{}, error) {
 		toSerialize["table"] = o.Table.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *ResponseErrorDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varResponseErrorDetails := _ResponseErrorDetails{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varResponseErrorDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResponseErrorDetails(varResponseErrorDetails)
+
+	return err
 }
 
 type NullableResponseErrorDetails struct {

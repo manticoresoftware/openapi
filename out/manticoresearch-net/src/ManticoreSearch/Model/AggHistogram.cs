@@ -41,28 +41,30 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AggHistogram" /> class.
         /// </summary>
-        /// <param name="Field">Field to group by (required).</param>
-        /// <param name="Interval">Interval of the histogram values (required).</param>
-        /// <param name="Offset">Offset of the histogram values. Default value is 0..</param>
-        /// <param name="Keyed">Flag that defines if a search response will be a dictionary with the bucket keys. Default value is false..</param>
-        public AggHistogram(string  = default(string), int  = default(int), int  = default(int), bool  = default(bool))
+        /// <param name="field">Field to group by (required).</param>
+        /// <param name="interval">Interval of the histogram values (required).</param>
+        /// <param name="offset">Offset of the histogram values. Default value is 0..</param>
+        /// <param name="keyed">Flag that defines if a search response will be a dictionary with the bucket keys. Default value is false..</param>
+        public AggHistogram(string field = default, int interval = default, int offset = default, bool keyed = default)
         {
-            // to ensure "" is required (not null)
-            if ( == null)
+            // to ensure "field" is required (not null)
+            if (field == null)
             {
-                throw new ArgumentNullException(" is a required property for AggHistogram and cannot be null");
+                throw new ArgumentNullException("field is a required property for AggHistogram and cannot be null");
             }
-            this.Field = ;
-            this.Interval = ;
-            this.Offset = ;
-            this.Keyed = ;
+            this.Field = field;
+            this.Interval = interval;
+            this.Offset = offset;
+            this.Keyed = keyed;
         }
 
         /// <summary>
         /// Field to group by
         /// </summary>
         /// <value>Field to group by</value>
-        /// <example>field</example>
+        /*
+        <example>field</example>
+        */
         [DataMember(Name = "field", IsRequired = true, EmitDefaultValue = true)]
         public string Field { get; set; }
 
@@ -70,7 +72,9 @@ namespace ManticoreSearch.Model
         /// Interval of the histogram values
         /// </summary>
         /// <value>Interval of the histogram values</value>
-        /// <example>10</example>
+        /*
+        <example>10</example>
+        */
         [DataMember(Name = "interval", IsRequired = true, EmitDefaultValue = true)]
         public int Interval { get; set; }
 
@@ -78,7 +82,9 @@ namespace ManticoreSearch.Model
         /// Offset of the histogram values. Default value is 0.
         /// </summary>
         /// <value>Offset of the histogram values. Default value is 0.</value>
-        /// <example>1</example>
+        /*
+        <example>1</example>
+        */
         [DataMember(Name = "offset", EmitDefaultValue = false)]
         public int Offset { get; set; }
 
@@ -86,7 +92,9 @@ namespace ManticoreSearch.Model
         /// Flag that defines if a search response will be a dictionary with the bucket keys. Default value is false.
         /// </summary>
         /// <value>Flag that defines if a search response will be a dictionary with the bucket keys. Default value is false.</value>
-        /// <example>true</example>
+        /*
+        <example>true</example>
+        */
         [DataMember(Name = "keyed", EmitDefaultValue = true)]
         public bool Keyed { get; set; }
 

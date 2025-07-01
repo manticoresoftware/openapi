@@ -3,9 +3,9 @@ index 335df4a..e7ba862 100755
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/GeoDistance.cs
 +++ b/out/manticoresearch-net/src/ManticoreSearch/Model/GeoDistance.cs
 @@ -67,12 +67,12 @@ namespace ManticoreSearch.Model
-         /// <param name="LocationSource">Field name in the document that contains location data.</param>
-         /// <param name="DistanceType">Algorithm used to calculate the distance.</param>
-         /// <param name="Distance">The distance from the anchor point to filter results by.</param>
+         /// <param name="locationSource">Field name in the document that contains location data.</param>
+         /// <param name="distanceType">Algorithm used to calculate the distance.</param>
+         /// <param name="distance">The distance from the anchor point to filter results by.</param>
 -        public GeoDistance(GeoDistanceLocationAnchor  = default(GeoDistanceLocationAnchor), string  = default(string), DistanceTypeEnum?  = default(DistanceTypeEnum?), string  = default(string))
 +        public GeoDistance(GeoDistanceLocationAnchor LocationAnchor = default(GeoDistanceLocationAnchor), string LocationSource = default(string), DistanceTypeEnum? DistanceType = default(DistanceTypeEnum?), string Distance = default(string))
          {

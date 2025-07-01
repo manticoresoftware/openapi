@@ -41,28 +41,28 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateDocumentRequest" /> class.
         /// </summary>
-        /// <param name="Table">Name of the document table (required).</param>
-        /// <param name="Cluster">Name of the document cluster.</param>
-        /// <param name="Doc">Object containing the document fields to update (required).</param>
-        /// <param name="Id">Document ID.</param>
-        /// <param name="Query">.</param>
-        public UpdateDocumentRequest(string  = default(string), string  = default(string), Object  = default(Object), int  = default(int), QueryFilter  = default(QueryFilter))
+        /// <param name="table">Name of the document table (required).</param>
+        /// <param name="cluster">Name of the document cluster.</param>
+        /// <param name="doc">Object containing the document fields to update (required).</param>
+        /// <param name="id">Document ID.</param>
+        /// <param name="query">query.</param>
+        public UpdateDocumentRequest(string table = default, string cluster = default, Object doc = default, int id = default, QueryFilter query = default)
         {
-            // to ensure "" is required (not null)
-            if ( == null)
+            // to ensure "table" is required (not null)
+            if (table == null)
             {
-                throw new ArgumentNullException(" is a required property for UpdateDocumentRequest and cannot be null");
+                throw new ArgumentNullException("table is a required property for UpdateDocumentRequest and cannot be null");
             }
-            this.Table = ;
-            // to ensure "" is required (not null)
-            if ( == null)
+            this.Table = table;
+            // to ensure "doc" is required (not null)
+            if (doc == null)
             {
-                throw new ArgumentNullException(" is a required property for UpdateDocumentRequest and cannot be null");
+                throw new ArgumentNullException("doc is a required property for UpdateDocumentRequest and cannot be null");
             }
-            this.Doc = ;
-            this.Cluster = ;
-            this.Id = ;
-            this.Query = ;
+            this.Doc = doc;
+            this.Cluster = cluster;
+            this.Id = id;
+            this.Query = query;
         }
 
         /// <summary>
@@ -83,7 +83,9 @@ namespace ManticoreSearch.Model
         /// Object containing the document fields to update
         /// </summary>
         /// <value>Object containing the document fields to update</value>
-        /// <example>{gid&#x3D;10}</example>
+        /*
+        <example>{gid&#x3D;10}</example>
+        */
         [DataMember(Name = "doc", IsRequired = true, EmitDefaultValue = true)]
         public Object Doc { get; set; }
 

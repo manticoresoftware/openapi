@@ -1,5 +1,5 @@
 diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/MatchAll.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/MatchAll.cs
-index 50502f8..6638097 100755
+index fcd1af2..6638097 100644
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/MatchAll.cs
 +++ b/out/manticoresearch-net/src/ManticoreSearch/Model/MatchAll.cs
 @@ -43,7 +43,7 @@ namespace ManticoreSearch.Model
@@ -20,16 +20,11 @@ index 50502f8..6638097 100755
          /// <summary>
          /// Initializes a new instance of the <see cref="MatchAll" /> class.
          /// </summary>
-@@ -60,10 +60,10 @@ namespace ManticoreSearch.Model
-         /// <summary>
-         /// Initializes a new instance of the <see cref="MatchAll" /> class.
-         /// </summary>
--        /// <param name="All"> (required).</param>
--        public MatchAll(AllEnum  = default(AllEnum))
-+        /// <param name="All">All (required).</param>
-+        public MatchAll(AllEnum All = default(AllEnum))
+@@ -63,7 +63,7 @@ namespace ManticoreSearch.Model
+         /// <param name="all">all (required).</param>
+         public MatchAll(AllEnum all = default)
          {
--            this.All = ;
+-            this.All = all;
 +            this.All = "{}";
          }
  

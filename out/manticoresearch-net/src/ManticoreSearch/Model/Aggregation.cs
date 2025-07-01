@@ -36,16 +36,16 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="Aggregation" /> class.
         /// </summary>
-        /// <param name="Terms">.</param>
-        /// <param name="Sort">.</param>
-        /// <param name="Composite">.</param>
-        /// <param name="Histogram">.</param>
-        public Aggregation(AggTerms  = default(AggTerms), List<Object>  = default(List<Object>), AggComposite  = default(AggComposite), AggHistogram  = default(AggHistogram))
+        /// <param name="terms">terms.</param>
+        /// <param name="sort">sort.</param>
+        /// <param name="composite">composite.</param>
+        /// <param name="histogram">histogram.</param>
+        public Aggregation(AggTerms terms = default, List<Object> sort = default, AggComposite composite = default, AggHistogram histogram = default)
         {
-            this.Terms = ;
-            this.Sort = ;
-            this.Composite = ;
-            this.Histogram = ;
+            this.Terms = terms;
+            this.Sort = sort;
+            this.Composite = composite;
+            this.Histogram = histogram;
         }
 
         /// <summary>

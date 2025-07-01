@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **Highlight** | Pointer to [**Highlight**](Highlight.md) |  | [optional] 
 **Limit** | Pointer to **int32** | Maximum number of results to return | [optional] 
 **Knn** | Pointer to [**KnnQuery**](KnnQuery.md) |  | [optional] 
-**Aggs** | Pointer to  | Defines aggregation settings for grouping results | [optional] 
-**Expressions** | Pointer to  | Expressions to calculate additional values for the result | [optional] 
+**Aggs** | Pointer to [**map[string]Aggregation**](Aggregation.md) | Defines aggregation settings for grouping results | [optional] 
+**Expressions** | Pointer to **map[string]string** | Expressions to calculate additional values for the result | [optional] 
 **MaxMatches** | Pointer to **int32** | Maximum number of matches allowed in the result | [optional] 
 **Offset** | Pointer to **int32** | Starting point for pagination of the result | [optional] 
 **Options** | Pointer to **map[string]interface{}** | Additional search options | [optional] 
@@ -209,16 +209,6 @@ SetAggs sets Aggs field to given value.
 
 HasAggs returns a boolean if a field has been set.
 
-### SetAggsNil
-
-`func (o *SearchRequest) SetAggsNil(b bool)`
-
- SetAggsNil sets the value for Aggs to be an explicit nil
-
-### UnsetAggs
-`func (o *SearchRequest) UnsetAggs()`
-
-UnsetAggs ensures that no value is present for Aggs, not even an explicit nil
 ### GetExpressions
 
 `func (o *SearchRequest) GetExpressions() map[string]string`
@@ -244,16 +234,6 @@ SetExpressions sets Expressions field to given value.
 
 HasExpressions returns a boolean if a field has been set.
 
-### SetExpressionsNil
-
-`func (o *SearchRequest) SetExpressionsNil(b bool)`
-
- SetExpressionsNil sets the value for Expressions to be an explicit nil
-
-### UnsetExpressions
-`func (o *SearchRequest) UnsetExpressions()`
-
-UnsetExpressions ensures that no value is present for Expressions, not even an explicit nil
 ### GetMaxMatches
 
 `func (o *SearchRequest) GetMaxMatches() int32`

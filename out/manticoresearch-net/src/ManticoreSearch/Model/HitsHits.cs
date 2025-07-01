@@ -36,24 +36,24 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="HitsHits" /> class.
         /// </summary>
-        /// <param name="Id">The ID of the matched document.</param>
-        /// <param name="Score">The score of the matched document.</param>
-        /// <param name="Source">The source data of the matched document.</param>
-        /// <param name="KnnDist">The knn distance of the matched document returned for knn queries.</param>
-        /// <param name="Highlight">The highlighting-related data of the matched document.</param>
-        /// <param name="Table">The table name of the matched document returned for percolate queries.</param>
-        /// <param name="Type">The type of the matched document returned for percolate queries.</param>
-        /// <param name="Fields">The percolate-related fields of the matched document returned for percolate queries.</param>
-        public HitsHits(int  = default(int), int  = default(int), Object  = default(Object), decimal  = default(decimal), Object  = default(Object), string  = default(string), string  = default(string), Object  = default(Object))
+        /// <param name="id">The ID of the matched document.</param>
+        /// <param name="score">The score of the matched document.</param>
+        /// <param name="source">The source data of the matched document.</param>
+        /// <param name="knnDist">The knn distance of the matched document returned for knn queries.</param>
+        /// <param name="highlight">The highlighting-related data of the matched document.</param>
+        /// <param name="table">The table name of the matched document returned for percolate queries.</param>
+        /// <param name="type">The type of the matched document returned for percolate queries.</param>
+        /// <param name="fields">The percolate-related fields of the matched document returned for percolate queries.</param>
+        public HitsHits(int id = default, int score = default, Object source = default, decimal knnDist = default, Object highlight = default, string table = default, string type = default, Object fields = default)
         {
-            this.Id = ;
-            this.Score = ;
-            this.Source = ;
-            this.KnnDist = ;
-            this.Highlight = ;
-            this.Table = ;
-            this.Type = ;
-            this.Fields = ;
+            this.Id = id;
+            this.Score = score;
+            this.Source = source;
+            this.KnnDist = knnDist;
+            this.Highlight = highlight;
+            this.Table = table;
+            this.Type = type;
+            this.Fields = fields;
         }
 
         /// <summary>

@@ -20,10 +20,10 @@ var _ MappedNullable = &Aggregation{}
 
 // Aggregation struct for Aggregation
 type Aggregation struct {
-	Terms *AggTerms `json:"terms"` 
-	Sort []interface{} `json:"sort"` 
-	Composite *AggComposite `json:"composite"` 
-	Histogram *AggHistogram `json:"histogram"` 
+	Terms *AggTerms `json:"terms,omitempty"`
+	Sort []interface{} `json:"sort,omitempty"`
+	Composite *AggComposite `json:"composite,omitempty"`
+	Histogram *AggHistogram `json:"histogram,omitempty"`
 }
 
 // NewAggregation instantiates a new Aggregation object

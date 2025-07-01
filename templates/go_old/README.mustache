@@ -1,0 +1,147 @@
+# Manticorer Go client
+
+Сlient for Manticore Search.
+
+{{^outBranch}}
+❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-go/tree/v{{packageVersion}}
+
+## Compatibility Table
+
+| **manticoresearch-go**    | **Manticore Search**                | **Go**           | **Compatibility**       |
+| --------------------------| ----------------------------------- | -----------------| ------------------------|
+| `dev`                     | `dev` (latest development version)  | 1.17.0 or newer  | ✅ Fully Compatible     |
+| v1.6.0 or newer           | 7.0.0 or newer                      | 1.17.0 or newer  | ✅ Fully Compatible     |
+| v1.6.0 or newer           | 6.2.12 to 7.0.0                     | 1.17.0 or newer  | ⚠️ Partially Compatible |
+| v1.0.0 to v1.6.0          | 6.3.6  to 7.0.0                     | 1.17.0 or newer  | ✅ Fully Compatible     |
+| v1.0.0 to v1.6.0          | 6.2.12 to 6.3.6                     | 1.17.0 or newer  | ⚠️ Partially Compatible |
+
+{{/outBranch}}
+
+## Installation
+
+```shell
+
+{{#outBranch}}
+go get github.com/manticoresoftware/manticoresearch-go@v{{packageVersion}}
+{{/outBranch}}
+{{^outBranch}}
+go get github.com/manticoresoftware/manticoresearch-go@dev
+{{/outBranch}} 
+
+```
+
+## Getting Started
+
+go mod init main
+{{#outBranch}}
+go get github.com/manticoresoftware/manticoresearch-go@v{{packageVersion}}
+{{/outBranch}}
+{{^outBranch}}
+go get github.com/manticoresoftware/manticoresearch-go@dev
+{{/outBranch}} 
+
+```go
+
+package main
+
+import (
+	"context"
+	"fmt"
+	Manticoresearch "github.com/manticoresoftware/manticoresearch-go"
+)
+
+func main() {
+
+	// Create an instance of API client
+	configuration := Manticoresearch.NewConfiguration()
+	configuration.Servers[0].URL = "http://localhost:9308"
+	apiClient := Manticoresearch.NewAPIClient(configuration)
+	
+	// Perform insert and search operations
+	tableName := "products"
+	indexDoc := map[string]interface{} {"title": "Crossbody Bag with Tassel"}
+	indexReq := Manticoresearch.NewInsertDocumentRequest(tableName, indexDoc)
+	indexReq.SetId(1)
+	
+	apiClient.IndexAPI.Insert(context.Background()).InsertDocumentRequest(*indexReq).Execute();
+	
+	searchRequest := Manticoresearch.NewSearchRequest(tableName)
+	searchQuery := Manticoresearch.NewSearchQuery()
+	searchQuery.QueryString = "@title Bag"
+	searchRequest.Query = searchQuery
+	queryHighlight := Manticoresearch.NewHighlight()
+	queryHighlight.Fields =  map[string]interface{} {"title": map[string]interface{} {}}
+	searchRequest.Highlight = queryHighlight      
+	
+	_, httpRes, _ := apiClient.SearchAPI.Search(context.Background()).SearchRequest(*searchRequest).Execute()
+	fmt.Printf("%+v\n\n", httpRes)
+}
+```
+
+## Configuration of Server URL
+
+Default configuration comes with `Servers` field that contains server objects as defined in the OpenAPI specification.
+
+### Select Server Configuration
+
+For using other server than the one defined on index 0 set context value `{{packageName}}.ContextServerIndex` of type `int`.
+
+```go
+ctx := context.WithValue(context.Background(), {{packageName}}.ContextServerIndex, 1)
+```
+
+### Templated Server URL
+
+Templated server URL is formatted using default variables from configuration or from context value `{{packageName}}.ContextServerVariables` of type `map[string]string`.
+
+```go
+ctx := context.WithValue(context.Background(), {{packageName}}.ContextServerVariables, map[string]string{
+	"basePath": "v2",
+})
+```
+
+Note, enum values are always validated and all unused variables are silently ignored.
+
+### Using proxy
+
+To use a proxy, set the environment variable `HTTP_PROXY`:
+
+```go
+os.Setenv("HTTP_PROXY", "http://proxy_name:proxy_port")
+```
+
+More details on the use of `HTTP_PROXY` can be found [here](https://www.cyberciti.biz/faq/linux-unix-set-proxy-environment-variable/)
+
+## Documentation for API Endpoints
+
+All URIs are relative to *{{basePath}}*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}*{{classname}}* | [**{{operationId}}**]({{apiDocPath}}{{classname}}.md#{{operationIdLowerCase}}) | **{{httpMethod}}** {{path}} | {{summary}}
+{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}
+
+## Documentation For Models
+
+{{#models}}{{#model}} - [{{{classname}}}]({{modelDocPath}}{{{classname}}}.md)
+{{/model}}{{/models}}
+
+## Documentation For Authorization
+
+{{^authMethods}}Endpoints do not require authorization.{{/authMethods}}
+
+## Documentation for Utility Methods
+
+Due to the fact that model structure members are all pointers, this package contains
+a number of utility functions to easily obtain pointers to values of basic types.
+Each of these functions takes a value of the given basic type and returns a pointer to it:
+
+* `PtrBool`
+* `PtrInt`
+* `PtrInt32`
+* `PtrInt64`
+* `PtrFloat`
+* `PtrFloat32`
+* `PtrFloat64`
+* `PtrString`
+* `PtrTime`

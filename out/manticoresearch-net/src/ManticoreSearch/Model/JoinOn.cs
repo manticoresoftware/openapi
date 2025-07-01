@@ -55,14 +55,14 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="JoinOn" /> class.
         /// </summary>
-        /// <param name="Right">.</param>
-        /// <param name="Left">.</param>
-        /// <param name="Operator">.</param>
-        public JoinOn(JoinCond  = default(JoinCond), JoinCond  = default(JoinCond), OperatorEnum?  = default(OperatorEnum?))
+        /// <param name="right">right.</param>
+        /// <param name="left">left.</param>
+        /// <param name="varOperator">varOperator.</param>
+        public JoinOn(JoinCond right = default, JoinCond left = default, OperatorEnum? varOperator = default)
         {
-            this.Right = ;
-            this.Left = ;
-            this.Operator = ;
+            this.Right = right;
+            this.Left = left;
+            this.Operator = varOperator;
         }
 
         /// <summary>

@@ -13,8 +13,8 @@ package openapi
 
 import (
 	"encoding/json"
-	_"bytes"
-	_"fmt"
+	"bytes"
+	"fmt"
 )
 
 // checks if the Join type satisfies the MappedNullable interface at compile time
@@ -23,12 +23,12 @@ var _ MappedNullable = &Join{}
 // Join struct for Join
 type Join struct {
 	// Type of the join operation
-	Type string `json:"type"` 
+	Type string `json:"type"`
 	// List of objects defining joined tables
-	On []JoinOn `json:"on"` 
-	Query *FulltextFilter `json:"query"` 
+	On []JoinOn `json:"on"`
+	Query *FulltextFilter `json:"query,omitempty"`
 	// Basic table of the join operation
-	Table string `json:"table"` 
+	Table string `json:"table"`
 }
 
 type _Join Join
@@ -174,6 +174,45 @@ func (o Join) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["table"] = o.Table
 	return toSerialize, nil
+}
+
+func (o *Join) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"on",
+		"table",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJoin := _Join{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varJoin)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Join(varJoin)
+
+	return err
 }
 
 type NullableJoin struct {

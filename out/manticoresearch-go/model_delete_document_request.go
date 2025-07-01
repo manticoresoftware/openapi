@@ -13,8 +13,8 @@ package openapi
 
 import (
 	"encoding/json"
-	_"bytes"
-	_"fmt"
+	"bytes"
+	"fmt"
 )
 
 // checks if the DeleteDocumentRequest type satisfies the MappedNullable interface at compile time
@@ -23,13 +23,13 @@ var _ MappedNullable = &DeleteDocumentRequest{}
 // DeleteDocumentRequest Payload for delete request. Documents can be deleted either one by one by specifying the document id or by providing a query object. For more information see  [Delete API](https://manual.manticoresearch.com/Deleting_documents) 
 type DeleteDocumentRequest struct {
 	// Table name
-	Table string `json:"table"` 
+	Table string `json:"table"`
 	// Cluster name
-	Cluster *string `json:"cluster"` 
+	Cluster *string `json:"cluster,omitempty"`
 	// The ID of document for deletion
-	Id *int64 `json:"id"` 
+	Id *int32 `json:"id,omitempty"`
 	// Defines the criteria to match documents for deletion
-	Query map[string]interface{} `json:"query"` 
+	Query map[string]interface{} `json:"query,omitempty"`
 }
 
 type _DeleteDocumentRequest DeleteDocumentRequest
@@ -109,9 +109,9 @@ func (o *DeleteDocumentRequest) SetCluster(v string) {
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *DeleteDocumentRequest) GetId() int64 {
+func (o *DeleteDocumentRequest) GetId() int32 {
 	if o == nil || IsNil(o.Id) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.Id
@@ -119,7 +119,7 @@ func (o *DeleteDocumentRequest) GetId() int64 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeleteDocumentRequest) GetIdOk() (*int64, bool) {
+func (o *DeleteDocumentRequest) GetIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *DeleteDocumentRequest) HasId() bool {
 	return false
 }
 
-// SetId gets a reference to the given int64 and assigns it to the Id field.
-func (o *DeleteDocumentRequest) SetId(v int64) {
+// SetId gets a reference to the given int32 and assigns it to the Id field.
+func (o *DeleteDocumentRequest) SetId(v int32) {
 	o.Id = &v
 }
 
@@ -193,6 +193,43 @@ func (o DeleteDocumentRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["query"] = o.Query
 	}
 	return toSerialize, nil
+}
+
+func (o *DeleteDocumentRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"table",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDeleteDocumentRequest := _DeleteDocumentRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varDeleteDocumentRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeleteDocumentRequest(varDeleteDocumentRequest)
+
+	return err
 }
 
 type NullableDeleteDocumentRequest struct {

@@ -21,13 +21,13 @@ var _ MappedNullable = &SearchResponseHits{}
 // SearchResponseHits Object containing the search hits, which represent the documents that matched the query.
 type SearchResponseHits struct {
 	// Maximum score among the matched documents
-	MaxScore *int32 `json:"max_score"` 
+	MaxScore *int32 `json:"max_score,omitempty"`
 	// Total number of matched documents
-	Total *int32 `json:"total"` 
+	Total *int32 `json:"total,omitempty"`
 	// Indicates whether the total number of hits is accurate or an estimate
-	TotalRelation *string `json:"total_relation"` 
+	TotalRelation *string `json:"total_relation,omitempty"`
 	// Array of hit objects, each representing a matched document
-	Hits []HitsHits `json:"hits"` 
+	Hits []HitsHits `json:"hits,omitempty"`
 }
 
 // NewSearchResponseHits instantiates a new SearchResponseHits object

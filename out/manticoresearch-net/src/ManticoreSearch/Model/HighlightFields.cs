@@ -73,11 +73,11 @@ namespace ManticoreSearch.Model
             }
             set
             {
-                if (value.GetType() == typeof(List<string>) || value is List<string>)
+                if (value.GetType() == typeof(List<string>))
                 {
                     _actualInstance = value;
                 }
-                else if (value.GetType() == typeof(Object) || value is Object)
+                else if (value.GetType() == typeof(Object))
                 {
                     _actualInstance = value;
                 }

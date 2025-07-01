@@ -36,16 +36,16 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateResponse" /> class.
         /// </summary>
-        /// <param name="Table">Name of the document table.</param>
-        /// <param name="Updated">Number of documents updated.</param>
-        /// <param name="Id">Document ID.</param>
-        /// <param name="Result">Result of the update operation, typically &#39;updated&#39;.</param>
-        public UpdateResponse(string  = default(string), int  = default(int), int  = default(int), string  = default(string))
+        /// <param name="table">Name of the document table.</param>
+        /// <param name="updated">Number of documents updated.</param>
+        /// <param name="id">Document ID.</param>
+        /// <param name="result">Result of the update operation, typically &#39;updated&#39;.</param>
+        public UpdateResponse(string table = default, int updated = default, int id = default, string result = default)
         {
-            this.Table = ;
-            this.Updated = ;
-            this.Id = ;
-            this.Result = ;
+            this.Table = table;
+            this.Updated = updated;
+            this.Id = id;
+            this.Result = result;
         }
 
         /// <summary>

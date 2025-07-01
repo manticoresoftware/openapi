@@ -41,19 +41,19 @@ namespace ManticoreSearch.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SqlObjResponse" /> class.
         /// </summary>
-        /// <param name="Hits"> (required).</param>
-        /// <param name="Took">.</param>
-        /// <param name="TimedOut">.</param>
-        public SqlObjResponse(Object  = default(Object), decimal  = default(decimal), bool  = default(bool))
+        /// <param name="hits">hits (required).</param>
+        /// <param name="took">took.</param>
+        /// <param name="timedOut">timedOut.</param>
+        public SqlObjResponse(Object hits = default, decimal took = default, bool timedOut = default)
         {
-            // to ensure "" is required (not null)
-            if ( == null)
+            // to ensure "hits" is required (not null)
+            if (hits == null)
             {
-                throw new ArgumentNullException(" is a required property for SqlObjResponse and cannot be null");
+                throw new ArgumentNullException("hits is a required property for SqlObjResponse and cannot be null");
             }
-            this.Hits = ;
-            this.Took = ;
-            this.TimedOut = ;
+            this.Hits = hits;
+            this.Took = took;
+            this.TimedOut = timedOut;
         }
 
         /// <summary>
