@@ -5,7 +5,7 @@ set -e
 do_python() {
   echo "Building Python ..."
   rm -rf out/manticoresearch-python 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g python -o /local/out/manticoresearch-python -t /local/templates/python --git-repo-id manticoresearch-python --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/python` $build_to_branch
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g python -o /local/out/manticoresearch-python -t /local/templates/python --git-repo-id manticoresearch-python --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/python` $build_to_branch
   rm -rf out/manticoresearch-python/test/* 
   cp -r LICENSE.txt out/manticoresearch-python/LICENSE.txt
   cp docs/python/docs/* out/manticoresearch-python/docs/
@@ -18,7 +18,7 @@ do_python() {
 do_python_asyncio() {
   echo "Building Python async..."
   rm -rf out/manticoresearch-python-asyncio
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g python -o /local/out/manticoresearch-python-asyncio -t /local/templates/python --git-repo-id manticoresearch-python-asyncio --git-user-id manticoresoftware  --additional-properties library=asyncio --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch-asyncio --additional-properties packageVersion=`cat versions/python` $build_to_branch
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g python -o /local/out/manticoresearch-python-asyncio -t /local/templates/python --git-repo-id manticoresearch-python-asyncio --git-user-id manticoresoftware  --additional-properties library=asyncio --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch-asyncio --additional-properties packageVersion=`cat versions/python` $build_to_branch
   rm -rf out/manticoresearch-python-asyncio/test/* 
   cp -r LICENSE.txt out/manticoresearch-python-asyncio/LICENSE.txt
   #cp docs/python/docs/* out/manticoresearch-python-asyncio/docs/
@@ -31,7 +31,7 @@ do_python_asyncio() {
 do_rust() {
   echo "Building Rust..."
   rm -rf out/manticoresearch-rust
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g rust -o /local/out/manticoresearch-rust -t /local/templates/rust --git-repo-id manticoresearch-rust --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/rust` --additional-properties library=hyper $build_to_branch
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g rust -o /local/out/manticoresearch-rust -t /local/templates/rust --git-repo-id manticoresearch-rust --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/rust` --additional-properties library=hyper $build_to_branch
   cp -r LICENSE.txt out/manticoresearch-rust/LICENSE.txt
   mkdir out/manticoresearch-rust/tests
   cp -r test/rust/* out/manticoresearch-rust/tests/
@@ -48,7 +48,7 @@ do_java() {
     -u "$(id -u):$(id -g)" \
     -e JAVA_OPTS="-Dlog.level=warn" \
     "openapitools/openapi-generator-cli$version" generate \
-    -i /local/manticore.yml \
+    -i /local/$openapi_schema_int64_file  \
     -g java  \
     -o /local/out/manticoresearch-java \
     -t /local/templates/Java \
@@ -84,7 +84,7 @@ do_java() {
 do_javascript() {
   echo "Building Javascript ..."
   rm -rf out/manticoresearch-javascript 
-  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch  --additional-properties projectVersion=`cat versions/javascript`   --additional-properties  usePromises=true $build_to_branch
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g javascript -o /local/out/manticoresearch-javascript -t /local/templates/Javascript --git-repo-id manticoresearch-javascript --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch  --additional-properties projectVersion=`cat versions/javascript`   --additional-properties  usePromises=true $build_to_branch
   git apply patches/javascript.sql_api.patch
   git apply patches/javascript.jsonbig.patch
   cp LICENSE.txt out/manticoresearch-javascript/LICENSE.txt
@@ -104,7 +104,7 @@ do_typescript() {
     -u "$(id -u):$(id -g)" \
     -e JAVA_OPTS="-Dlog.level=warn" \
     "openapitools/openapi-generator-cli$version" generate \
-    -i /local/manticore.yml \
+    -i /local/$openapi_schema_file  \
     -g typescript \
     -o /local/out/manticoresearch-typescript \
     -t /local/templates/typescript \
@@ -137,7 +137,7 @@ do_typescript() {
 do_csharp() {
   echo "Building CSharp ..."
   rm -rf out/manticoresearch-net 
-  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g csharp  -o /local/out/manticoresearch-net -t /local/templates/csharp --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp` $build_to_branch
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g csharp  -o /local/out/manticoresearch-net -t /local/templates/csharp --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp` $build_to_branch
   git apply patches/net.matchall.patch
   #cp -r gh-actions/csharp/. out/manticoresearch-net
   cp -r docs/csharp/docs/* out/manticoresearch-net/docs/
@@ -147,31 +147,31 @@ do_csharp() {
 do_ruby() {
   echo "Building Ruby ..."
   rm -rf out/manticore-ruby 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"   -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g ruby -o /local/out/manticore-ruby -t /local/templates/ruby-client --git-repo-id manticoresearch-ruby --git-user-id manticoresoftware
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"   -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g ruby -o /local/out/manticore-ruby -t /local/templates/ruby-client --git-repo-id manticoresearch-ruby --git-user-id manticoresoftware
   echo "Ruby done."
 }
 
 do_swift() {
   echo "Building Swift ..."
   rm -rf out/manticore-swift5 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"   -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g swift5 -o /local/out/manticore-swift5 -t /local/templates/swift5 --git-repo-id manticoresearch-swift --git-user-id manticoresoftware
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"   -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g swift5 -o /local/out/manticore-swift5 -t /local/templates/swift5 --git-repo-id manticoresearch-swift --git-user-id manticoresoftware
   echo "Swift done." 
 }
 
 do_perl() {
   echo "Building Perl ..."
   rm -rf out/manticore-perl 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g perl  -o /local/out/manticore-perl -t /local/templates/perl --git-repo-id manticoresearch-perl --git-user-id manticoresoftware
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g perl  -o /local/out/manticore-perl -t /local/templates/perl --git-repo-id manticoresearch-perl --git-user-id manticoresoftware
   echo "Perl done." 
 }
 
 do_go() {
   echo "Building Go ..."
   rm -rf out/manticoresearch-go
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g go  -o /local/out/manticoresearch-go -t /local/templates/go --git-repo-id manticoresearch-go --git-user-id manticoresoftware \
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g go  -o /local/out/manticoresearch-go -t /local/templates/go --git-repo-id manticoresearch-go --git-user-id manticoresoftware \
   --additional-properties packageVersion=`cat versions/go` \
   $build_to_branch
-  git apply patches/go.api_utils.patch
+  git apply patches/go.api_utils.patch patches/go.uint64.patch
   #git apply patches/go.sql_api.patch
   #git apply patches/go.response_error.patch
   #cp patches/go_sql_response.go out/manticoresearch-go/model_sql_response.go
@@ -205,7 +205,7 @@ do_go() {
 do_elixir() {
   echo "Building Elixir ..."
   rm -rf out/manticoresearch-elixir 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  "openapitools/openapi-generator-cli$version" generate -i /local/manticore.yml -g elixir  -o /local/out/manticoresearch-elixir -t /local/templates/elixir --git-repo-id manticoresearch-elixir --git-user-id manticoresoftware  --additional-properties packageName="manticoresearch" --additional-properties invokerPackage="Manticoresearch"
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file -g elixir  -o /local/out/manticoresearch-elixir -t /local/templates/elixir --git-repo-id manticoresearch-elixir --git-user-id manticoresoftware  --additional-properties packageName="manticoresearch" --additional-properties invokerPackage="Manticoresearch"
   cp LICENSE.txt out/manticoresearch-elixir/LICENSE.txt
   cp test/elixir/api_index_test.exs out/manticoresearch-elixir/test/
   cp patches/test.exs out/manticoresearch-elixir/config/
@@ -230,6 +230,9 @@ else
 build_to_branch=''
 fi
 
+openapi_schema_file="manticore.yml"
+openapi_schema_int64_file="manticore_int64.yml"
+sed 's/uint64/int64/g' "$openapi_schema_file" > "$openapi_schema_int64_file"
 
 case $1 in
  python)

@@ -155,6 +155,7 @@ components:
           description: The vector used as input for the KNN search
         doc_id:
           type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
           format: uint64
           description: The docuemnt ID used as input for the KNN search
         ef:
@@ -362,6 +363,7 @@ components:
           description: Cluster name
         id:
           type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
           format: uint64
           description: The ID of document for deletion
         query:
@@ -382,6 +384,7 @@ components:
           description: Number of documents deleted
         id:
           type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
           format: uint64
           description: The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned
         found:
@@ -505,6 +508,7 @@ components:
       properties:
         _id:
           type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
           format: uint64
           description: The ID of the matched document
         _score:
@@ -546,6 +550,7 @@ components:
           description: Name of the cluster to insert the document into
         id:
           type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
           format: uint64
           description: |
             Document ID. If not provided, an ID will be auto-generated
@@ -735,6 +740,7 @@ components:
           description: Name of the document table
         id:
           type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
           format: uint64
           description: ID of the document affected by the request operation
         created:
@@ -909,6 +915,7 @@ components:
             gid: 10
         id:
           type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
           format: uint64
           description: Document ID
         query:
@@ -932,6 +939,7 @@ components:
           description: Number of documents updated
         id:
           type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
           format: uint64
           description: Document ID
         result:
@@ -1599,7 +1607,8 @@ paths:
         - in: path
           name: id
           schema:
-            type: integer
+            type: integer 
+            # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
             format: uint64
           required: true
           description: Id of the document to replace
