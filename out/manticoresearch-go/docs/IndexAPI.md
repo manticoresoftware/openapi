@@ -255,7 +255,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **table** | **string** | Name of the percolate table | 
-**id** | **uint64** | Id of the document to replace | 
+**id** | **uint64** | Id of the document to replace |
 
 ### Other Parameters
 

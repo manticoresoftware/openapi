@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Field** | **string** | Field to perform the k-nearest neighbor search on | 
 **K** | **int32** | The number of nearest neighbors to return | 
 **QueryVector** | Pointer to **[]float32** | The vector used as input for the KNN search | [optional] 
-**DocId** | Pointer to **uint64** | The docuemnt ID used as input for the KNN search | [optional] 
+**DocId** | Pointer to **uint64** | The docuemnt ID used as input for the KNN search | [optional]
 **Ef** | Pointer to **int32** | Optional parameter controlling the accuracy of the search | [optional] 
 **Filter** | Pointer to [**QueryFilter**](QueryFilter.md) |  | [optional] 
 

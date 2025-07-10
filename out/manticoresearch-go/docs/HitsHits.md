@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **uint64** | The ID of the matched document | [optional] 
+**Id** | Pointer to **uint64** | The ID of the matched document | [optional]
 **Score** | Pointer to **int32** | The score of the matched document | [optional] 
 **Source** | Pointer to **map[string]interface{}** | The source data of the matched document | [optional] 
 **KnnDist** | Pointer to **float32** | The knn distance of the matched document returned for knn queries | [optional] 

@@ -1,29 +1,27 @@
-diff --git a/out/manticoresearch-javascript/src/ApiClient.js b/out/manticoresearch-javascript/src/ApiClient.js
-index f3cf0dc..f9f843f
+diff --git b/out/manticoresearch-javascript/src/ApiClient.js b/out/manticoresearch-javascript/src/ApiClient.js
+index 8bb9d90..1b082fa 100755
 --- a/out/manticoresearch-javascript/src/ApiClient.js
 +++ b/out/manticoresearch-javascript/src/ApiClient.js
-@@ -14,6 +14,9 @@
+@@ -14,6 +14,7 @@
  
  import superagent from "superagent";
  import querystring from "querystring";
-+import {default as _JBI} from 'json-bigint';
-+const JSONBig = _JBI({storeAsString: true});
-+
++import { JSONParse } from 'json-with-bigint';
  
  /**
  * @module ApiClient
-@@ -356,9 +359,14 @@ class ApiClient {
+@@ -356,9 +357,14 @@ class ApiClient {
              return null;
          }
  
 -        // Rely on SuperAgent for parsing response body.
 -        // See http://visionmedia.github.io/superagent/#parsing-response-bodies
 -        var data = response.body;
-+		// Use json-bigint for parsing json responses otherwise rely on SuperAgent
++        // Use json-with-bigint for parsing json responses otherwise rely on SuperAgent
 +		// See http://visionmedia.github.io/superagent/#parsing-response-bodies
 +		var data;
 +		if (returnType === Object || typeof returnType === 'object') {
-+			data = JSONBig.parse(response.text);
++			data = JSONParse(response.text);
 +		} else {
 +			data = response.body;
 +		}

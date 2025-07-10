@@ -1,0 +1,700 @@
+diff --git a/out/manticoresearch-go/api_index.go b/out/manticoresearch-go/api_index.go
+index 3b0d3e3..8226536 100755
+--- a/out/manticoresearch-go/api_index.go
++++ b/out/manticoresearch-go/api_index.go
+@@ -491,7 +491,7 @@ type ApiPartialReplaceRequest struct {
+ 	ctx context.Context
+ 	ApiService *IndexAPIService
+ 	table string
+-	id int32
++	id uint64
+ 	replaceDocumentRequest *ReplaceDocumentRequest
+ }
+ 
+@@ -520,7 +520,7 @@ Responds with an object of the following format:
+  @param id Id of the document to replace
+  @return ApiPartialReplaceRequest
+ */
+-func (a *IndexAPIService) PartialReplace(ctx context.Context, table string, id int32) ApiPartialReplaceRequest {
++func (a *IndexAPIService) PartialReplace(ctx context.Context, table string, id uint64) ApiPartialReplaceRequest {
+ 	return ApiPartialReplaceRequest{
+ 		ApiService: a,
+ 		ctx: ctx,
+diff --git a/out/manticoresearch-go/docs/DeleteDocumentRequest.md b/out/manticoresearch-go/docs/DeleteDocumentRequest.md
+index 67fa146..5b4d90e 100755
+--- a/out/manticoresearch-go/docs/DeleteDocumentRequest.md
++++ b/out/manticoresearch-go/docs/DeleteDocumentRequest.md
+@@ -6,7 +6,7 @@ Name | Type | Description | Notes
+ ------------ | ------------- | ------------- | -------------
+ **Table** | **string** | Table name | 
+ **Cluster** | Pointer to **string** | Cluster name | [optional] 
+-**Id** | Pointer to **int32** | The ID of document for deletion | [optional] 
++**Id** | Pointer to **uint64** | The ID of document for deletion | [optional]
+ **Query** | Pointer to **map[string]interface{}** | Defines the criteria to match documents for deletion | [optional] 
+ 
+ ## Methods
+@@ -75,20 +75,20 @@ HasCluster returns a boolean if a field has been set.
+ 
+ ### GetId
+ 
+-`func (o *DeleteDocumentRequest) GetId() int32`
++`func (o *DeleteDocumentRequest) GetId() uint64`
+ 
+ GetId returns the Id field if non-nil, zero value otherwise.
+ 
+ ### GetIdOk
+ 
+-`func (o *DeleteDocumentRequest) GetIdOk() (*int32, bool)`
++`func (o *DeleteDocumentRequest) GetIdOk() (*uint64, bool)`
+ 
+ GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+ and a boolean to check if the value has been set.
+ 
+ ### SetId
+ 
+-`func (o *DeleteDocumentRequest) SetId(v int32)`
++`func (o *DeleteDocumentRequest) SetId(v uint64)`
+ 
+ SetId sets Id field to given value.
+ 
+diff --git a/out/manticoresearch-go/docs/DeleteResponse.md b/out/manticoresearch-go/docs/DeleteResponse.md
+index 427262f..364fd63 100755
+--- a/out/manticoresearch-go/docs/DeleteResponse.md
++++ b/out/manticoresearch-go/docs/DeleteResponse.md
+@@ -6,7 +6,7 @@ Name | Type | Description | Notes
+ ------------ | ------------- | ------------- | -------------
+ **Table** | Pointer to **string** | The name of the table from which the document was deleted | [optional] 
+ **Deleted** | Pointer to **int32** | Number of documents deleted | [optional] 
+-**Id** | Pointer to **int32** | The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned | [optional] 
++**Id** | Pointer to **uint64** | The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned | [optional]
+ **Found** | Pointer to **bool** | Indicates whether any documents to be deleted were found | [optional] 
+ **Result** | Pointer to **string** | Result of the delete operation, typically &#39;deleted&#39; | [optional] 
+ 
+@@ -81,20 +81,20 @@ HasDeleted returns a boolean if a field has been set.
+ 
+ ### GetId
+ 
+-`func (o *DeleteResponse) GetId() int32`
++`func (o *DeleteResponse) GetId() uint64`
+ 
+ GetId returns the Id field if non-nil, zero value otherwise.
+ 
+ ### GetIdOk
+ 
+-`func (o *DeleteResponse) GetIdOk() (*int32, bool)`
++`func (o *DeleteResponse) GetIdOk() (*uint64, bool)`
+ 
+ GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+ and a boolean to check if the value has been set.
+ 
+ ### SetId
+ 
+-`func (o *DeleteResponse) SetId(v int32)`
++`func (o *DeleteResponse) SetId(v uint64)`
+ 
+ SetId sets Id field to given value.
+ 
+diff --git a/out/manticoresearch-go/docs/HitsHits.md b/out/manticoresearch-go/docs/HitsHits.md
+index 4e06e1a..89dc9b5 100755
+--- a/out/manticoresearch-go/docs/HitsHits.md
++++ b/out/manticoresearch-go/docs/HitsHits.md
+@@ -4,7 +4,7 @@
+ 
+ Name | Type | Description | Notes
+ ------------ | ------------- | ------------- | -------------
+-**Id** | Pointer to **int32** | The ID of the matched document | [optional] 
++**Id** | Pointer to **uint64** | The ID of the matched document | [optional]
+ **Score** | Pointer to **int32** | The score of the matched document | [optional] 
+ **Source** | Pointer to **map[string]interface{}** | The source data of the matched document | [optional] 
+ **KnnDist** | Pointer to **float32** | The knn distance of the matched document returned for knn queries | [optional] 
+@@ -34,20 +34,20 @@ but it doesn't guarantee that properties required by API are set
+ 
+ ### GetId
+ 
+-`func (o *HitsHits) GetId() int32`
++`func (o *HitsHits) GetId() uint64`
+ 
+ GetId returns the Id field if non-nil, zero value otherwise.
+ 
+ ### GetIdOk
+ 
+-`func (o *HitsHits) GetIdOk() (*int32, bool)`
++`func (o *HitsHits) GetIdOk() (*uint64, bool)`
+ 
+ GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+ and a boolean to check if the value has been set.
+ 
+ ### SetId
+ 
+-`func (o *HitsHits) SetId(v int32)`
++`func (o *HitsHits) SetId(v uint64)`
+ 
+ SetId sets Id field to given value.
+ 
+diff --git a/out/manticoresearch-go/docs/IndexAPI.md b/out/manticoresearch-go/docs/IndexAPI.md
+index 430ec54..aca3938 100755
+--- a/out/manticoresearch-go/docs/IndexAPI.md
++++ b/out/manticoresearch-go/docs/IndexAPI.md
+@@ -233,7 +233,7 @@ import (
+ 
+ func main() {
+ 	table := "table_example" // string | Name of the percolate table
+-	id := int32(56) // int32 | Id of the document to replace
++	id := uint64(56) // uint64 | Id of the document to replace
+ 	replaceDocumentRequest := *openapiclient.NewReplaceDocumentRequest(map[string]interface{}(123)) // ReplaceDocumentRequest | 
+ 
+ 	configuration := openapiclient.NewConfiguration()
+@@ -255,7 +255,7 @@ Name | Type | Description  | Notes
+ ------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **table** | **string** | Name of the percolate table | 
+-**id** | **int32** | Id of the document to replace | 
++**id** | **uint64** | Id of the document to replace |
+ 
+ ### Other Parameters
+ 
+diff --git a/out/manticoresearch-go/docs/InsertDocumentRequest.md b/out/manticoresearch-go/docs/InsertDocumentRequest.md
+index 3b1a878..4cd30a3 100755
+--- a/out/manticoresearch-go/docs/InsertDocumentRequest.md
++++ b/out/manticoresearch-go/docs/InsertDocumentRequest.md
+@@ -6,7 +6,7 @@ Name | Type | Description | Notes
+ ------------ | ------------- | ------------- | -------------
+ **Table** | **string** | Name of the table to insert the document into | 
+ **Cluster** | Pointer to **string** | Name of the cluster to insert the document into | [optional] 
+-**Id** | Pointer to **int32** | Document ID. If not provided, an ID will be auto-generated  | [optional] 
++**Id** | Pointer to **uint64** | Document ID. If not provided, an ID will be auto-generated  | [optional]
+ **Doc** | **map[string]interface{}** | Object containing document data  | 
+ 
+ ## Methods
+@@ -75,20 +75,20 @@ HasCluster returns a boolean if a field has been set.
+ 
+ ### GetId
+ 
+-`func (o *InsertDocumentRequest) GetId() int32`
++`func (o *InsertDocumentRequest) GetId() uint64`
+ 
+ GetId returns the Id field if non-nil, zero value otherwise.
+ 
+ ### GetIdOk
+ 
+-`func (o *InsertDocumentRequest) GetIdOk() (*int32, bool)`
++`func (o *InsertDocumentRequest) GetIdOk() (*uint64, bool)`
+ 
+ GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+ and a boolean to check if the value has been set.
+ 
+ ### SetId
+ 
+-`func (o *InsertDocumentRequest) SetId(v int32)`
++`func (o *InsertDocumentRequest) SetId(v uint64)`
+ 
+ SetId sets Id field to given value.
+ 
+diff --git a/out/manticoresearch-go/docs/KnnQuery.md b/out/manticoresearch-go/docs/KnnQuery.md
+index c3042f5..73e1b94 100755
+--- a/out/manticoresearch-go/docs/KnnQuery.md
++++ b/out/manticoresearch-go/docs/KnnQuery.md
+@@ -7,7 +7,7 @@ Name | Type | Description | Notes
+ **Field** | **string** | Field to perform the k-nearest neighbor search on | 
+ **K** | **int32** | The number of nearest neighbors to return | 
+ **QueryVector** | Pointer to **[]float32** | The vector used as input for the KNN search | [optional] 
+-**DocId** | Pointer to **int32** | The docuemnt ID used as input for the KNN search | [optional] 
++**DocId** | Pointer to **uint64** | The docuemnt ID used as input for the KNN search | [optional]
+ **Ef** | Pointer to **int32** | Optional parameter controlling the accuracy of the search | [optional] 
+ **Filter** | Pointer to [**QueryFilter**](QueryFilter.md) |  | [optional] 
+ 
+@@ -97,20 +97,20 @@ HasQueryVector returns a boolean if a field has been set.
+ 
+ ### GetDocId
+ 
+-`func (o *KnnQuery) GetDocId() int32`
++`func (o *KnnQuery) GetDocId() uint64`
+ 
+ GetDocId returns the DocId field if non-nil, zero value otherwise.
+ 
+ ### GetDocIdOk
+ 
+-`func (o *KnnQuery) GetDocIdOk() (*int32, bool)`
++`func (o *KnnQuery) GetDocIdOk() (*uint64, bool)`
+ 
+ GetDocIdOk returns a tuple with the DocId field if it's non-nil, zero value otherwise
+ and a boolean to check if the value has been set.
+ 
+ ### SetDocId
+ 
+-`func (o *KnnQuery) SetDocId(v int32)`
++`func (o *KnnQuery) SetDocId(v uint64)`
+ 
+ SetDocId sets DocId field to given value.
+ 
+diff --git a/out/manticoresearch-go/docs/SuccessResponse.md b/out/manticoresearch-go/docs/SuccessResponse.md
+index c24dc0c..cc96ccb 100755
+--- a/out/manticoresearch-go/docs/SuccessResponse.md
++++ b/out/manticoresearch-go/docs/SuccessResponse.md
+@@ -5,7 +5,7 @@
+ Name | Type | Description | Notes
+ ------------ | ------------- | ------------- | -------------
+ **Table** | Pointer to **string** | Name of the document table | [optional] 
+-**Id** | Pointer to **int32** | ID of the document affected by the request operation | [optional] 
++**Id** | Pointer to **uint64** | ID of the document affected by the request operation | [optional]
+ **Created** | Pointer to **bool** | Indicates whether the document was created as a result of the operation | [optional] 
+ **Result** | Pointer to **string** | Result of the operation, typically &#39;created&#39;, &#39;updated&#39;, or &#39;deleted&#39; | [optional] 
+ **Found** | Pointer to **bool** | Indicates whether the document was found in the table | [optional] 
+@@ -57,20 +57,20 @@ HasTable returns a boolean if a field has been set.
+ 
+ ### GetId
+ 
+-`func (o *SuccessResponse) GetId() int32`
++`func (o *SuccessResponse) GetId() uint64`
+ 
+ GetId returns the Id field if non-nil, zero value otherwise.
+ 
+ ### GetIdOk
+ 
+-`func (o *SuccessResponse) GetIdOk() (*int32, bool)`
++`func (o *SuccessResponse) GetIdOk() (*uint64, bool)`
+ 
+ GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+ and a boolean to check if the value has been set.
+ 
+ ### SetId
+ 
+-`func (o *SuccessResponse) SetId(v int32)`
++`func (o *SuccessResponse) SetId(v uint64)`
+ 
+ SetId sets Id field to given value.
+ 
+diff --git a/out/manticoresearch-go/docs/UpdateDocumentRequest.md b/out/manticoresearch-go/docs/UpdateDocumentRequest.md
+index ce4825c..eee8dc5 100755
+--- a/out/manticoresearch-go/docs/UpdateDocumentRequest.md
++++ b/out/manticoresearch-go/docs/UpdateDocumentRequest.md
+@@ -7,7 +7,7 @@ Name | Type | Description | Notes
+ **Table** | **string** | Name of the document table | 
+ **Cluster** | Pointer to **string** | Name of the document cluster | [optional] 
+ **Doc** | **map[string]interface{}** | Object containing the document fields to update | 
+-**Id** | Pointer to **int32** | Document ID | [optional] 
++**Id** | Pointer to **uint64** | Document ID | [optional]
+ **Query** | Pointer to [**NullableQueryFilter**](QueryFilter.md) |  | [optional] 
+ 
+ ## Methods
+@@ -96,20 +96,20 @@ SetDoc sets Doc field to given value.
+ 
+ ### GetId
+ 
+-`func (o *UpdateDocumentRequest) GetId() int32`
++`func (o *UpdateDocumentRequest) GetId() uint64`
+ 
+ GetId returns the Id field if non-nil, zero value otherwise.
+ 
+ ### GetIdOk
+ 
+-`func (o *UpdateDocumentRequest) GetIdOk() (*int32, bool)`
++`func (o *UpdateDocumentRequest) GetIdOk() (*uint64, bool)`
+ 
+ GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+ and a boolean to check if the value has been set.
+ 
+ ### SetId
+ 
+-`func (o *UpdateDocumentRequest) SetId(v int32)`
++`func (o *UpdateDocumentRequest) SetId(v uint64)`
+ 
+ SetId sets Id field to given value.
+ 
+diff --git a/out/manticoresearch-go/docs/UpdateResponse.md b/out/manticoresearch-go/docs/UpdateResponse.md
+index 90592c4..df75460 100755
+--- a/out/manticoresearch-go/docs/UpdateResponse.md
++++ b/out/manticoresearch-go/docs/UpdateResponse.md
+@@ -6,7 +6,7 @@ Name | Type | Description | Notes
+ ------------ | ------------- | ------------- | -------------
+ **Table** | Pointer to **string** | Name of the document table | [optional] 
+ **Updated** | Pointer to **int32** | Number of documents updated | [optional] 
+-**Id** | Pointer to **int32** | Document ID | [optional] 
++**Id** | Pointer to **uint64** | Document ID | [optional]
+ **Result** | Pointer to **string** | Result of the update operation, typically &#39;updated&#39; | [optional] 
+ 
+ ## Methods
+@@ -80,20 +80,20 @@ HasUpdated returns a boolean if a field has been set.
+ 
+ ### GetId
+ 
+-`func (o *UpdateResponse) GetId() int32`
++`func (o *UpdateResponse) GetId() uint64`
+ 
+ GetId returns the Id field if non-nil, zero value otherwise.
+ 
+ ### GetIdOk
+ 
+-`func (o *UpdateResponse) GetIdOk() (*int32, bool)`
++`func (o *UpdateResponse) GetIdOk() (*uint64, bool)`
+ 
+ GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+ and a boolean to check if the value has been set.
+ 
+ ### SetId
+ 
+-`func (o *UpdateResponse) SetId(v int32)`
++`func (o *UpdateResponse) SetId(v uint64)`
+ 
+ SetId sets Id field to given value.
+ 
+diff --git a/out/manticoresearch-go/model_delete_document_request.go b/out/manticoresearch-go/model_delete_document_request.go
+index 2728b2e..dda5b98 100755
+--- a/out/manticoresearch-go/model_delete_document_request.go
++++ b/out/manticoresearch-go/model_delete_document_request.go
+@@ -27,7 +27,7 @@ type DeleteDocumentRequest struct {
+ 	// Cluster name
+ 	Cluster *string `json:"cluster,omitempty"`
+ 	// The ID of document for deletion
+-	Id *int32 `json:"id,omitempty"`
++	Id *uint64 `json:"id,omitempty"`
+ 	// Defines the criteria to match documents for deletion
+ 	Query map[string]interface{} `json:"query,omitempty"`
+ }
+@@ -109,9 +109,9 @@ func (o *DeleteDocumentRequest) SetCluster(v string) {
+ }
+ 
+ // GetId returns the Id field value if set, zero value otherwise.
+-func (o *DeleteDocumentRequest) GetId() int32 {
++func (o *DeleteDocumentRequest) GetId() uint64 {
+ 	if o == nil || IsNil(o.Id) {
+-		var ret int32
++		var ret uint64
+ 		return ret
+ 	}
+ 	return *o.Id
+@@ -119,7 +119,7 @@ func (o *DeleteDocumentRequest) GetId() int32 {
+ 
+ // GetIdOk returns a tuple with the Id field value if set, nil otherwise
+ // and a boolean to check if the value has been set.
+-func (o *DeleteDocumentRequest) GetIdOk() (*int32, bool) {
++func (o *DeleteDocumentRequest) GetIdOk() (*uint64, bool) {
+ 	if o == nil || IsNil(o.Id) {
+ 		return nil, false
+ 	}
+@@ -135,8 +135,8 @@ func (o *DeleteDocumentRequest) HasId() bool {
+ 	return false
+ }
+ 
+-// SetId gets a reference to the given int32 and assigns it to the Id field.
+-func (o *DeleteDocumentRequest) SetId(v int32) {
++// SetId gets a reference to the given uint64 and assigns it to the Id field.
++func (o *DeleteDocumentRequest) SetId(v uint64) {
+ 	o.Id = &v
+ }
+ 
+diff --git a/out/manticoresearch-go/model_delete_response.go b/out/manticoresearch-go/model_delete_response.go
+index 8eedb25..f212693 100755
+--- a/out/manticoresearch-go/model_delete_response.go
++++ b/out/manticoresearch-go/model_delete_response.go
+@@ -25,7 +25,7 @@ type DeleteResponse struct {
+ 	// Number of documents deleted
+ 	Deleted *int32 `json:"deleted,omitempty"`
+ 	// The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned
+-	Id *int32 `json:"id,omitempty"`
++	Id *uint64 `json:"id,omitempty"`
+ 	// Indicates whether any documents to be deleted were found
+ 	Found *bool `json:"found,omitempty"`
+ 	// Result of the delete operation, typically 'deleted'
+@@ -114,9 +114,9 @@ func (o *DeleteResponse) SetDeleted(v int32) {
+ }
+ 
+ // GetId returns the Id field value if set, zero value otherwise.
+-func (o *DeleteResponse) GetId() int32 {
++func (o *DeleteResponse) GetId() uint64 {
+ 	if o == nil || IsNil(o.Id) {
+-		var ret int32
++		var ret uint64
+ 		return ret
+ 	}
+ 	return *o.Id
+@@ -124,7 +124,7 @@ func (o *DeleteResponse) GetId() int32 {
+ 
+ // GetIdOk returns a tuple with the Id field value if set, nil otherwise
+ // and a boolean to check if the value has been set.
+-func (o *DeleteResponse) GetIdOk() (*int32, bool) {
++func (o *DeleteResponse) GetIdOk() (*uint64, bool) {
+ 	if o == nil || IsNil(o.Id) {
+ 		return nil, false
+ 	}
+@@ -140,8 +140,8 @@ func (o *DeleteResponse) HasId() bool {
+ 	return false
+ }
+ 
+-// SetId gets a reference to the given int32 and assigns it to the Id field.
+-func (o *DeleteResponse) SetId(v int32) {
++// SetId gets a reference to the given uint64 and assigns it to the Id field.
++func (o *DeleteResponse) SetId(v uint64) {
+ 	o.Id = &v
+ }
+ 
+diff --git a/out/manticoresearch-go/model_hits_hits.go b/out/manticoresearch-go/model_hits_hits.go
+index 7bba158..16623ee 100755
+--- a/out/manticoresearch-go/model_hits_hits.go
++++ b/out/manticoresearch-go/model_hits_hits.go
+@@ -21,7 +21,7 @@ var _ MappedNullable = &HitsHits{}
+ // HitsHits Search hit representing a matched document
+ type HitsHits struct {
+ 	// The ID of the matched document
+-	Id *int32 `json:"_id,omitempty"`
++	Id *uint64 `json:"_id,omitempty"`
+ 	// The score of the matched document
+ 	Score *int32 `json:"_score,omitempty"`
+ 	// The source data of the matched document
+@@ -56,9 +56,9 @@ func NewHitsHitsWithDefaults() *HitsHits {
+ }
+ 
+ // GetId returns the Id field value if set, zero value otherwise.
+-func (o *HitsHits) GetId() int32 {
++func (o *HitsHits) GetId() uint64 {
+ 	if o == nil || IsNil(o.Id) {
+-		var ret int32
++		var ret uint64
+ 		return ret
+ 	}
+ 	return *o.Id
+@@ -66,7 +66,7 @@ func (o *HitsHits) GetId() int32 {
+ 
+ // GetIdOk returns a tuple with the Id field value if set, nil otherwise
+ // and a boolean to check if the value has been set.
+-func (o *HitsHits) GetIdOk() (*int32, bool) {
++func (o *HitsHits) GetIdOk() (*uint64, bool) {
+ 	if o == nil || IsNil(o.Id) {
+ 		return nil, false
+ 	}
+@@ -82,8 +82,8 @@ func (o *HitsHits) HasId() bool {
+ 	return false
+ }
+ 
+-// SetId gets a reference to the given int32 and assigns it to the Id field.
+-func (o *HitsHits) SetId(v int32) {
++// SetId gets a reference to the given uint64 and assigns it to the Id field.
++func (o *HitsHits) SetId(v uint64) {
+ 	o.Id = &v
+ }
+ 
+diff --git a/out/manticoresearch-go/model_insert_document_request.go b/out/manticoresearch-go/model_insert_document_request.go
+index 68dcb10..020f76f 100755
+--- a/out/manticoresearch-go/model_insert_document_request.go
++++ b/out/manticoresearch-go/model_insert_document_request.go
+@@ -27,7 +27,7 @@ type InsertDocumentRequest struct {
+ 	// Name of the cluster to insert the document into
+ 	Cluster *string `json:"cluster,omitempty"`
+ 	// Document ID. If not provided, an ID will be auto-generated 
+-	Id *int32 `json:"id,omitempty"`
++	Id *uint64 `json:"id,omitempty"`
+ 	// Object containing document data 
+ 	Doc map[string]interface{} `json:"doc"`
+ }
+@@ -110,9 +110,9 @@ func (o *InsertDocumentRequest) SetCluster(v string) {
+ }
+ 
+ // GetId returns the Id field value if set, zero value otherwise.
+-func (o *InsertDocumentRequest) GetId() int32 {
++func (o *InsertDocumentRequest) GetId() uint64 {
+ 	if o == nil || IsNil(o.Id) {
+-		var ret int32
++		var ret uint64
+ 		return ret
+ 	}
+ 	return *o.Id
+@@ -120,7 +120,7 @@ func (o *InsertDocumentRequest) GetId() int32 {
+ 
+ // GetIdOk returns a tuple with the Id field value if set, nil otherwise
+ // and a boolean to check if the value has been set.
+-func (o *InsertDocumentRequest) GetIdOk() (*int32, bool) {
++func (o *InsertDocumentRequest) GetIdOk() (*uint64, bool) {
+ 	if o == nil || IsNil(o.Id) {
+ 		return nil, false
+ 	}
+@@ -136,8 +136,8 @@ func (o *InsertDocumentRequest) HasId() bool {
+ 	return false
+ }
+ 
+-// SetId gets a reference to the given int32 and assigns it to the Id field.
+-func (o *InsertDocumentRequest) SetId(v int32) {
++// SetId gets a reference to the given uint64 and assigns it to the Id field.
++func (o *InsertDocumentRequest) SetId(v uint64) {
+ 	o.Id = &v
+ }
+ 
+diff --git a/out/manticoresearch-go/model_knn_query.go b/out/manticoresearch-go/model_knn_query.go
+index 66d26e5..fb8a427 100755
+--- a/out/manticoresearch-go/model_knn_query.go
++++ b/out/manticoresearch-go/model_knn_query.go
+@@ -29,7 +29,7 @@ type KnnQuery struct {
+ 	// The vector used as input for the KNN search
+ 	QueryVector []float32 `json:"query_vector,omitempty"`
+ 	// The docuemnt ID used as input for the KNN search
+-	DocId *int32 `json:"doc_id,omitempty"`
++	DocId *uint64 `json:"doc_id,omitempty"`
+ 	// Optional parameter controlling the accuracy of the search
+ 	Ef *int32 `json:"ef,omitempty"`
+ 	Filter *QueryFilter `json:"filter,omitempty"`
+@@ -137,9 +137,9 @@ func (o *KnnQuery) SetQueryVector(v []float32) {
+ }
+ 
+ // GetDocId returns the DocId field value if set, zero value otherwise.
+-func (o *KnnQuery) GetDocId() int32 {
++func (o *KnnQuery) GetDocId() uint64 {
+ 	if o == nil || IsNil(o.DocId) {
+-		var ret int32
++		var ret uint64
+ 		return ret
+ 	}
+ 	return *o.DocId
+@@ -147,7 +147,7 @@ func (o *KnnQuery) GetDocId() int32 {
+ 
+ // GetDocIdOk returns a tuple with the DocId field value if set, nil otherwise
+ // and a boolean to check if the value has been set.
+-func (o *KnnQuery) GetDocIdOk() (*int32, bool) {
++func (o *KnnQuery) GetDocIdOk() (*uint64, bool) {
+ 	if o == nil || IsNil(o.DocId) {
+ 		return nil, false
+ 	}
+@@ -163,8 +163,8 @@ func (o *KnnQuery) HasDocId() bool {
+ 	return false
+ }
+ 
+-// SetDocId gets a reference to the given int32 and assigns it to the DocId field.
+-func (o *KnnQuery) SetDocId(v int32) {
++// SetDocId gets a reference to the given uint64 and assigns it to the DocId field.
++func (o *KnnQuery) SetDocId(v uint64) {
+ 	o.DocId = &v
+ }
+ 
+diff --git a/out/manticoresearch-go/model_success_response.go b/out/manticoresearch-go/model_success_response.go
+index c8e76ad..ec50317 100755
+--- a/out/manticoresearch-go/model_success_response.go
++++ b/out/manticoresearch-go/model_success_response.go
+@@ -23,7 +23,7 @@ type SuccessResponse struct {
+ 	// Name of the document table
+ 	Table *string `json:"table,omitempty"`
+ 	// ID of the document affected by the request operation
+-	Id *int32 `json:"id,omitempty"`
++	Id *uint64 `json:"id,omitempty"`
+ 	// Indicates whether the document was created as a result of the operation
+ 	Created *bool `json:"created,omitempty"`
+ 	// Result of the operation, typically 'created', 'updated', or 'deleted'
+@@ -84,9 +84,9 @@ func (o *SuccessResponse) SetTable(v string) {
+ }
+ 
+ // GetId returns the Id field value if set, zero value otherwise.
+-func (o *SuccessResponse) GetId() int32 {
++func (o *SuccessResponse) GetId() uint64 {
+ 	if o == nil || IsNil(o.Id) {
+-		var ret int32
++		var ret uint64
+ 		return ret
+ 	}
+ 	return *o.Id
+@@ -94,7 +94,7 @@ func (o *SuccessResponse) GetId() int32 {
+ 
+ // GetIdOk returns a tuple with the Id field value if set, nil otherwise
+ // and a boolean to check if the value has been set.
+-func (o *SuccessResponse) GetIdOk() (*int32, bool) {
++func (o *SuccessResponse) GetIdOk() (*uint64, bool) {
+ 	if o == nil || IsNil(o.Id) {
+ 		return nil, false
+ 	}
+@@ -110,8 +110,8 @@ func (o *SuccessResponse) HasId() bool {
+ 	return false
+ }
+ 
+-// SetId gets a reference to the given int32 and assigns it to the Id field.
+-func (o *SuccessResponse) SetId(v int32) {
++// SetId gets a reference to the given uint64 and assigns it to the Id field.
++func (o *SuccessResponse) SetId(v uint64) {
+ 	o.Id = &v
+ }
+ 
+diff --git a/out/manticoresearch-go/model_update_document_request.go b/out/manticoresearch-go/model_update_document_request.go
+index cb772bd..13ea0cb 100755
+--- a/out/manticoresearch-go/model_update_document_request.go
++++ b/out/manticoresearch-go/model_update_document_request.go
+@@ -29,7 +29,7 @@ type UpdateDocumentRequest struct {
+ 	// Object containing the document fields to update
+ 	Doc map[string]interface{} `json:"doc"`
+ 	// Document ID
+-	Id *int32 `json:"id,omitempty"`
++	Id *uint64 `json:"id,omitempty"`
+ 	Query NullableQueryFilter `json:"query,omitempty"`
+ }
+ 
+@@ -135,9 +135,9 @@ func (o *UpdateDocumentRequest) SetDoc(v map[string]interface{}) {
+ }
+ 
+ // GetId returns the Id field value if set, zero value otherwise.
+-func (o *UpdateDocumentRequest) GetId() int32 {
++func (o *UpdateDocumentRequest) GetId() uint64 {
+ 	if o == nil || IsNil(o.Id) {
+-		var ret int32
++		var ret uint64
+ 		return ret
+ 	}
+ 	return *o.Id
+@@ -145,7 +145,7 @@ func (o *UpdateDocumentRequest) GetId() int32 {
+ 
+ // GetIdOk returns a tuple with the Id field value if set, nil otherwise
+ // and a boolean to check if the value has been set.
+-func (o *UpdateDocumentRequest) GetIdOk() (*int32, bool) {
++func (o *UpdateDocumentRequest) GetIdOk() (*uint64, bool) {
+ 	if o == nil || IsNil(o.Id) {
+ 		return nil, false
+ 	}
+@@ -161,8 +161,8 @@ func (o *UpdateDocumentRequest) HasId() bool {
+ 	return false
+ }
+ 
+-// SetId gets a reference to the given int32 and assigns it to the Id field.
+-func (o *UpdateDocumentRequest) SetId(v int32) {
++// SetId gets a reference to the given uint64 and assigns it to the Id field.
++func (o *UpdateDocumentRequest) SetId(v uint64) {
+ 	o.Id = &v
+ }
+ 
+diff --git a/out/manticoresearch-go/model_update_response.go b/out/manticoresearch-go/model_update_response.go
+index 76da802..c024143 100755
+--- a/out/manticoresearch-go/model_update_response.go
++++ b/out/manticoresearch-go/model_update_response.go
+@@ -25,7 +25,7 @@ type UpdateResponse struct {
+ 	// Number of documents updated
+ 	Updated *int32 `json:"updated,omitempty"`
+ 	// Document ID
+-	Id *int32 `json:"id,omitempty"`
++	Id *uint64 `json:"id,omitempty"`
+ 	// Result of the update operation, typically 'updated'
+ 	Result *string `json:"result,omitempty"`
+ }
+@@ -112,9 +112,9 @@ func (o *UpdateResponse) SetUpdated(v int32) {
+ }
+ 
+ // GetId returns the Id field value if set, zero value otherwise.
+-func (o *UpdateResponse) GetId() int32 {
++func (o *UpdateResponse) GetId() uint64 {
+ 	if o == nil || IsNil(o.Id) {
+-		var ret int32
++		var ret uint64
+ 		return ret
+ 	}
+ 	return *o.Id
+@@ -122,7 +122,7 @@ func (o *UpdateResponse) GetId() int32 {
+ 
+ // GetIdOk returns a tuple with the Id field value if set, nil otherwise
+ // and a boolean to check if the value has been set.
+-func (o *UpdateResponse) GetIdOk() (*int32, bool) {
++func (o *UpdateResponse) GetIdOk() (*uint64, bool) {
+ 	if o == nil || IsNil(o.Id) {
+ 		return nil, false
+ 	}
+@@ -138,8 +138,8 @@ func (o *UpdateResponse) HasId() bool {
+ 	return false
+ }
+ 
+-// SetId gets a reference to the given int32 and assigns it to the Id field.
+-func (o *UpdateResponse) SetId(v int32) {
++// SetId gets a reference to the given uint64 and assigns it to the Id field.
++func (o *UpdateResponse) SetId(v uint64) {
+ 	o.Id = &v
+ }
+ 

@@ -477,7 +477,7 @@ components:
               description: Defines whether to additionally break snippets by phrase boundary characters
         - $ref: '#/components/schemas/highlightFieldOption'
     highlightFields:
-      anyOf:
+      oneOf:
       - type: array
         items:
           type: string

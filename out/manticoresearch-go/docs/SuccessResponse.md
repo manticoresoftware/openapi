@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Table** | Pointer to **string** | Name of the document table | [optional] 
-**Id** | Pointer to **uint64** | ID of the document affected by the request operation | [optional] 
+**Id** | Pointer to **uint64** | ID of the document affected by the request operation | [optional]
 **Created** | Pointer to **bool** | Indicates whether the document was created as a result of the operation | [optional] 
 **Result** | Pointer to **string** | Result of the operation, typically &#39;created&#39;, &#39;updated&#39;, or &#39;deleted&#39; | [optional] 
 **Found** | Pointer to **bool** | Indicates whether the document was found in the table | [optional] 

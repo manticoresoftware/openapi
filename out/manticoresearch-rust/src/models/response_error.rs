@@ -14,14 +14,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ResponseError {
-    one_of_0(Box<crate::models::ResponseErrorDetails>),
+    ResponseErrorDetails(Box<models::ResponseErrorDetails>),
     /// Error message text returned in case of an error
-    one_of_1(String),
+    ResponseErrorText(String),
 }
 
 impl Default for ResponseError {
     fn default() -> Self {
-        Self::one_of_0(Default::default())
+        Self::ResponseErrorDetails(Default::default())
     }
 }
 
