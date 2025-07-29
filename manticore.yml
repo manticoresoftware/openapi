@@ -1637,3 +1637,4 @@ paths:
 servers:
   - description: Default Manticore Search HTTP 
     url: http://127.0.0.1:9308/
+
