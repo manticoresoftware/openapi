@@ -608,7 +608,7 @@ components:
             description: Basic table of the join operation
         additionalProperties: false
         description: Object representing the join operation between two tables
-    joinCond:
+joinCond:
       type: object
       required: ['field', 'table']
       properties:
@@ -618,10 +618,12 @@ components:
         table:
           type: string
           description: Joined table
+        query:
+            $ref: '#/components/schemas/fulltextFilter'
         type:
           type: {}
       additionalProperties: false
-      description: Object representing the conditions used to perform the join operation  
+      description: Object representing the conditions used to perform the join operation
     _match:
       type: object
       required: ['query']
