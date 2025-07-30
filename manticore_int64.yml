@@ -618,6 +618,8 @@ components:
         table:
           type: string
           description: Joined table
+        query:
+            $ref: '#/components/schemas/fulltextFilter'
         type:
           type: {}
       additionalProperties: false
