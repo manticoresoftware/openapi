@@ -1,6 +1,8 @@
 export * from '../models/AggComposite';
 export * from '../models/AggCompositeSource';
 export * from '../models/AggCompositeTerm';
+export * from '../models/AggDateHistogram';
+export * from '../models/AggHistogram';
 export * from '../models/AggTerms';
 export * from '../models/Aggregation';
 export * from '../models/AutocompleteRequest';
@@ -14,6 +16,7 @@ export * from '../models/GeoDistance';
 export * from '../models/GeoDistanceLocationAnchor';
 export * from '../models/Highlight';
 export * from '../models/HighlightFieldOption';
+export * from '../models/HighlightFields';
 export * from '../models/HitsHits';
 export * from '../models/InsertDocumentRequest';
 export * from '../models/Join';
@@ -43,6 +46,8 @@ export * from '../models/UpdateResponse';
 import { AggComposite } from '../models/AggComposite';
 import { AggCompositeSource } from '../models/AggCompositeSource';
 import { AggCompositeTerm } from '../models/AggCompositeTerm';
+import { AggDateHistogram } from '../models/AggDateHistogram';
+import { AggHistogram } from '../models/AggHistogram';
 import { AggTerms } from '../models/AggTerms';
 import { Aggregation } from '../models/Aggregation';
 import { AutocompleteRequest } from '../models/AutocompleteRequest';
@@ -56,6 +61,7 @@ import { GeoDistance  , GeoDistanceDistanceTypeEnum    } from '../models/GeoDist
 import { GeoDistanceLocationAnchor } from '../models/GeoDistanceLocationAnchor';
 import { Highlight          , HighlightEncoderEnum      , HighlightHtmlStripModeEnum   , HighlightNoMatchSizeEnum  , HighlightOrderEnum       } from '../models/Highlight';
 import { HighlightFieldOption } from '../models/HighlightFieldOption';
+import { HighlightFieldsClass } from '../models/HighlightFields';
 import { HitsHits } from '../models/HitsHits';
 import { InsertDocumentRequest } from '../models/InsertDocumentRequest';
 import { Join, JoinTypeEnum      } from '../models/Join';
@@ -110,6 +116,8 @@ let typeMap: {[index: string]: any} = {
     "AggComposite": AggComposite,
     "AggCompositeSource": AggCompositeSource,
     "AggCompositeTerm": AggCompositeTerm,
+    "AggDateHistogram": AggDateHistogram,
+    "AggHistogram": AggHistogram,
     "AggTerms": AggTerms,
     "Aggregation": Aggregation,
     "AutocompleteRequest": AutocompleteRequest,
@@ -123,6 +131,7 @@ let typeMap: {[index: string]: any} = {
     "GeoDistanceLocationAnchor": GeoDistanceLocationAnchor,
     "Highlight": Highlight,
     "HighlightFieldOption": HighlightFieldOption,
+    "HighlightFields": HighlightFieldsClass,
     "HitsHits": HitsHits,
     "InsertDocumentRequest": InsertDocumentRequest,
     "Join": Join,
@@ -209,7 +218,9 @@ const arraySuffix = ">";
 const mapPrefix = "{ [key: string]: ";
 const mapSuffix = "; }";
 
-const JSONbig = require('json-bigint');
+const JSONbig = require('json-bigint')({
+	useNativeBigInt: true,
+});
 
 export class ObjectSerializer {
     public static findCorrectType(data: any, expectedType: string) {

@@ -32,6 +32,8 @@ homepage = "{{.}}"
 {{/homePageUrl}}
 
 [dependencies]
+tokio = {version = "1", features = ["full"]}
+fancy-regex = "^0.14"
 serde = { version = "^1.0", features = ["derive"] }
 {{#serdeWith}}
 serde_with = { version = "^3.8", default-features = false, features = ["base64", "std", "macros"] }

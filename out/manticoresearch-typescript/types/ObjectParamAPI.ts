@@ -4,6 +4,8 @@ import { Configuration} from '../configuration'
 import { AggComposite } from '../models/AggComposite';
 import { AggCompositeSource } from '../models/AggCompositeSource';
 import { AggCompositeTerm } from '../models/AggCompositeTerm';
+import { AggDateHistogram } from '../models/AggDateHistogram';
+import { AggHistogram } from '../models/AggHistogram';
 import { AggTerms } from '../models/AggTerms';
 import { Aggregation } from '../models/Aggregation';
 import { AutocompleteRequest } from '../models/AutocompleteRequest';
@@ -17,6 +19,7 @@ import { GeoDistance } from '../models/GeoDistance';
 import { GeoDistanceLocationAnchor } from '../models/GeoDistanceLocationAnchor';
 import { Highlight } from '../models/Highlight';
 import { HighlightFieldOption } from '../models/HighlightFieldOption';
+import { HighlightFields } from '../models/HighlightFields';
 import { HitsHits } from '../models/HitsHits';
 import { InsertDocumentRequest } from '../models/InsertDocumentRequest';
 import { Join } from '../models/Join';

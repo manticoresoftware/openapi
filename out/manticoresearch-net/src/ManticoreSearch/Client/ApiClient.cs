@@ -43,8 +43,6 @@ namespace ManticoreSearch.Client
         private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
         {
             // OpenAPI generated types generally hide default constructors.
-            NullValueHandling = NullValueHandling.Ignore,
-            MissingMemberHandling = MissingMemberHandling.Ignore,
             ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
             ContractResolver = new DefaultContractResolver
             {
@@ -416,12 +414,11 @@ namespace ManticoreSearch.Client
                         {
                             data = serializer.Serialize(options.Data);
                         }
-                        if (contentType != "application/x-ndjson") 
+                        if (contentType != "application/x-ndjson")
                         {
                             contentType = "application/json";
-                        } 
+                        }
                         request.Content = new StringContent(data, new UTF8Encoding(), contentType);
-
                     }
                 }
             }
@@ -560,7 +557,7 @@ namespace ManticoreSearch.Client
                 // if the response type is oneOf/anyOf, call FromJSON to deserialize the data
                 if (typeof(ManticoreSearch.Model.AbstractOpenAPISchema).IsAssignableFrom(typeof(T)))
                 {
-                    responseData = (T) typeof(T).GetMethod("FromJson").Invoke(null, new object[] { await response.Content.ReadAsStringAsync().ConfigureAwait(false) });
+                    responseData = (T) typeof(T).GetMethod("FromJson").Invoke(null, new object[] { (string) await response.Content.ReadAsStringAsync() });
                 }
                 else if (typeof(T).Name == "Stream") // for binary response
                 {

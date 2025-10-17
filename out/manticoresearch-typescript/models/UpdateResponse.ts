@@ -54,7 +54,7 @@ export class UpdateResponse {
             "name": "id",
             "baseName": "id",
             "type": "number",
-            "format": "int64"
+            "format": "uint64"
         },
         {
             "name": "result",

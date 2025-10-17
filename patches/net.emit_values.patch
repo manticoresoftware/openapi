@@ -1,0 +1,13 @@
+diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/Highlight.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/Highlight.cs
+index ef8669d..5ba98cd 100755
+--- a/out/manticoresearch-net/src/ManticoreSearch/Model/Highlight.cs
++++ b/out/manticoresearch-net/src/ManticoreSearch/Model/Highlight.cs
+@@ -306,7 +306,7 @@ namespace ManticoreSearch.Model
+         /// <summary>
+         /// Gets or Sets HighlightQuery
+         /// </summary>
+-        [DataMember(Name = "highlight_query", EmitDefaultValue = true)]
++        [DataMember(Name = "highlight_query", EmitDefaultValue = false)]
+         public QueryFilter HighlightQuery { get; set; }
+ 
+         /// <summary>

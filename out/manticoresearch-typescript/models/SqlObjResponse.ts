@@ -14,6 +14,8 @@ import { HttpFile } from '../http/http';
 
 export class SqlObjResponse {
     'hits': any;
+    'took'?: number;
+    'timed_out'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -24,6 +26,18 @@ export class SqlObjResponse {
             "name": "hits",
             "baseName": "hits",
             "type": "any",
+            "format": ""
+        },
+        {
+            "name": "took",
+            "baseName": "took",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "timed_out",
+            "baseName": "timed_out",
+            "type": "boolean",
             "format": ""
         }    ];
 

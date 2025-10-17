@@ -58,7 +58,7 @@ export class HitsHits {
             "name": "_id",
             "baseName": "_id",
             "type": "number",
-            "format": "int64"
+            "format": "uint64"
         },
         {
             "name": "_score",

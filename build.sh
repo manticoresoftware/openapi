@@ -31,11 +31,19 @@ do_python_asyncio() {
 do_rust() {
   echo "Building Rust..."
   rm -rf out/manticoresearch-rust
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g rust -o /local/out/manticoresearch-rust -t /local/templates/rust --git-repo-id manticoresearch-rust --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/rust` --additional-properties library=hyper $build_to_branch
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g rust -o /local/out/manticoresearch-rust \
+  -t /local/templates/rust \
+  --git-repo-id manticoresearch-rust \
+  --git-user-id manticoresoftware \
+  --additional-properties projectName=manticoresearch \
+  --additional-properties packageName=manticoresearch \
+  --additional-properties packageVersion=`cat versions/rust` \
+  --additional-properties library=hyper \
+  $build_to_branch
   cp -r LICENSE.txt out/manticoresearch-rust/LICENSE.txt
   mkdir out/manticoresearch-rust/tests
   cp -r test/rust/* out/manticoresearch-rust/tests/
-  git apply patches/rust_request.patch
+  git apply patches/rust_request.patch patches/rust.uint64.patch
   echo "Rust done."
 }
 
@@ -70,8 +78,7 @@ do_java() {
     --additional-properties useJakartaEe=true \
     --additional-properties prevVersion=$prev_version \
     $build_to_branch
-  git apply patches/java.apiclient.patch patches/java.queryfilter.patch patches/java.queryfilter.patch \
-  patches/java.searchquery.patch patches/java.sqlresponse.patch 
+  git apply patches/java.apiclient.patch patches/java.queryfilter.patch patches/java.searchquery.patch patches/java.sqlresponse.patch 
   cp LICENSE.txt out/manticoresearch-java/LICENSE.txt
   cp docs/java/docs/* out/manticoresearch-java/docs/
   cp -r test/java/api/* out/manticoresearch-java/src/test/java/com/manticoresearch/client/api/
@@ -110,7 +117,7 @@ do_typescript() {
     -t /local/templates/typescript \
     --git-repo-id manticoresearch-typescript \
     --git-user-id manticoresoftware \
-    --reserved-words-mappings delete=delete \
+    --reserved-words-mappings delete=delete,in=in\
     --additional-properties npmName=manticoresearch-ts \
     --additional-properties npmVersion=`cat versions/typescript` \
     --additional-properties withoutRuntimeChecks=true \
@@ -137,8 +144,8 @@ do_typescript() {
 do_csharp() {
   echo "Building CSharp ..."
   rm -rf out/manticoresearch-net 
-  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g csharp  -o /local/out/manticoresearch-net -t /local/templates/csharp --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp` $build_to_branch
-  git apply patches/net.matchall.patch
+  docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_no_nullables_file  -g csharp  -o /local/out/manticoresearch-net -t /local/templates/csharp --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp` $build_to_branch
+  git apply patches/net.matchall.patch patches/net.emit_values.patch patches/net.uint64.patch
   #cp -r gh-actions/csharp/. out/manticoresearch-net
   cp -r docs/csharp/docs/* out/manticoresearch-net/docs/
   echo "CSharp done."
@@ -232,7 +239,15 @@ fi
 
 openapi_schema_file="manticore.yml"
 openapi_schema_int64_file="manticore_int64.yml"
+openapi_schema_no_nullables_file="manticore_no_nullables.yml"
 sed 's/uint64/int64/g' "$openapi_schema_file" > "$openapi_schema_int64_file"
+sed -e '691c\
+              type: object
+' -e '259c\
+              type: object
+' -e '262c\
+              type: object
+' "$openapi_schema_file" > "$openapi_schema_no_nullables_file"
 
 case $1 in
  python)

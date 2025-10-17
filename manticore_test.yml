@@ -1,0 +1,1642 @@
+openapi: 3.1.0
+info:
+  title: Manticore Search Client
+  description: |
+    Сlient for Manticore Search.
+  version: 5.0.0
+  contact:
+    name: Manticore Software Ltd.
+    email: info@manticoresearch.com
+    url: 'https://manticoresearch.com/contact-us/'
+  license:
+    name: MIT
+    url: 'http://opensource.org/licenses/MIT'
+tags:
+  - name: Index
+    description: Operations regarding adding, updating or deleting documents
+  - name: Search
+    description: Operations about performing searches over tables
+  - name: Utils
+    description: Various operations
+externalDocs:
+  description: Find out more about Manticore Search
+  url: 'https://manticoresearch.com/'
+components:
+  examples:
+    objectExample:
+      value: www
+      summary: A sample object
+  schemas:
+    aggCompositeTerm:
+      type: object
+      required: ['field']
+      properties:
+         field:
+           type: string
+           description: Name of field to operate with
+           example: field1
+      additionalProperties: false
+      description: Object representing a term to be used in composite aggregation.
+    aggCompositeSource:
+      type: object
+      required: ['terms']
+      properties:
+        terms:
+          $ref: '#/components/schemas/aggCompositeTerm'
+      additionalProperties: false
+      description: Object containing terms used for composite aggregation. 	
+    aggHistogram:
+      additionalProperties: false
+      description: "Object to use histograms in aggregation, i.e., grouping search\
+        \ results by histogram values"
+      properties:
+        field:
+          description: Field to group by
+          example: field
+          type: string
+        interval:
+          description: Interval of the histogram values
+          example: 10
+          type: integer
+        offset:
+          description: Offset of the histogram values. Default value is 0.
+          example: 1
+          type: integer
+        keyed:
+          description: Flag that defines if a search response will be a dictionary with the bucket keys. Default value is false.
+          example: true
+          type: boolean
+      required:
+        - field
+        - interval
+    aggDateHistogram:
+      additionalProperties: false
+      description: "Object to use histograms in aggregation, i.e., grouping search\
+        \ results by histogram values"
+      properties:
+        field:
+          description: Field to group by
+          example: field
+          type: string
+        interval:
+          description: Interval of the histogram values
+          example: 10
+          type: integer
+        offset:
+          description: Offset of the histogram values. Default value is 0.
+          example: 1
+          type: integer
+        keyed:
+          description: Flag that defines if a search response will be a dictionary with the bucket keys. Default value is false.
+          example: true
+          type: boolean
+      required:
+        - field
+        - interval
+    aggComposite:
+      type: object
+      description: Object to perform composite aggregation, i.e., grouping search results by multiple fields
+      properties:
+        size:
+          type: integer
+          description: Maximum number of composite buckets in the result
+          example: 1000
+        sources:
+          type: array
+          items:
+            type: object
+            description: List of objects that contain terms used for composite aggregation.
+            additionalProperties:
+              $ref: '#/components/schemas/aggCompositeSource'
+      additionalProperties: false
+    aggTerms:
+      type: object
+      required: ['field']
+      properties:
+        field:
+          type: string
+          description: Name of attribute to aggregate by
+          example: field1
+        size:
+          type: integer
+          description: Maximum number of buckets in the result
+          example: 1000
+      description: Object containing term fields to aggregate on
+      additionalProperties: false
+    aggregation:
+      allOf:
+      - type: object
+        description: Object used for grouping search results
+        properties:
+          terms:
+            $ref: '#/components/schemas/aggTerms'
+          sort:
+            type: array
+            items:
+              type: {}
+          composite:
+            $ref: '#/components/schemas/aggComposite'
+          histogram:
+            $ref: '#/components/schemas/aggHistogram'
+    knnQuery:
+      type: object
+      required: [field, k]
+      properties:
+        field:
+          type: string
+          description: Field to perform the k-nearest neighbor search on
+        k:
+          type: integer
+          description: The number of nearest neighbors to return
+        query_vector:
+          type: array
+          items:
+            type: number
+          description: The vector used as input for the KNN search
+        doc_id:
+          type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
+          format: uint64
+          description: The docuemnt ID used as input for the KNN search
+        ef:
+          type: integer
+          description: Optional parameter controlling the accuracy of the search
+        filter: 
+          $ref: '#/components/schemas/queryFilter'
+      description: Object representing a k-nearest neighbor search query
+    geoDistance:
+      type: object
+      properties:
+        location_anchor:
+          type: object
+          description: Specifies the location of the pin point used for search
+          properties:
+            lat: 
+              type: number
+              description: Latitude of the anchor point
+            lon:
+              type: number
+              description: Longitude of the anchor point
+          additionalProperties: false
+        location_source:
+          type: string
+          description: Field name in the document that contains location data
+        distance_type:
+          type: string
+          enum:
+            - adaptive
+            - haversine
+          description: Algorithm used to calculate the distance
+        distance:
+          type: string
+          pattern: /^\.+(km|m|cm|mm|mi|yd|ft|in|NM|nmi|kilometers|meters|centimeters|millimeters|miles|yards|foots|inches|nauticalmiles|)$/
+          description: The distance from the anchor point to filter results by
+      additionalProperties: false
+      description: Object to perform geo-distance based filtering on queries
+    searchQuery:
+      allOf:
+        - $ref: '#/components/schemas/queryFilter'
+        - type: object
+          properties:
+            highlight:
+              $ref: '#/components/schemas/highlight'
+      description: Defines a query structure for performing search operations
+    searchRequest:
+          description: Request object for search operation
+          type: object
+          required: [table]
+          properties:
+            table:
+              type: string
+              description: The table to perform the search on
+            query:
+              $ref: '#/components/schemas/searchQuery'
+            join:
+              type: array
+              items:
+                $ref: '#/components/schemas/join'
+              description: Join clause to combine search data from multiple tables
+            highlight:
+              $ref: '#/components/schemas/highlight'
+            limit:
+              type: integer
+              description: Maximum number of results to return
+            knn:
+              $ref: '#/components/schemas/knnQuery'
+            aggs:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/aggregation'
+              example:
+                 agg1:
+                   terms:
+                     field: field1
+                     size: 1000
+                     sort:
+                       - 'field1':
+                         order: asc
+              description: Defines aggregation settings for grouping results
+            expressions:
+              type: object
+              additionalProperties:
+                type: string
+              example:
+                title_len: "crc32(title)"
+              description: Expressions to calculate additional values for the result
+            max_matches:
+              type: integer
+              description: Maximum number of matches allowed in the result
+            offset:
+              type: integer
+              description: Starting point for pagination of the result
+            options:
+              type: object
+              description: Additional search options
+            profile:
+              type: boolean
+              description: Enable or disable profiling of the search request
+            sort:
+              type: object
+              description: Sorting criteria for the search results
+            _source:
+              type: object
+              description: Specify which fields to include or exclude in the response
+            track_scores:
+              type: boolean
+              description: Enable or disable result weight calculation used for sorting
+          example:
+            table: 'your_table'
+            query:
+              query_string: 'your_query'
+    # workaround to fix the incorrect generation of referenced items in some clients
+    queryFilterAlias1:
+      $ref: '#/components/schemas/queryFilter'
+    queryFilterAlias2:
+      $ref: '#/components/schemas/queryFilter'
+    autocompleteRequest:
+      type: object
+      description: Object containing the data for performing an autocomplete search.
+      required:
+        - table
+        - query
+      properties:
+        table: 
+          type: string
+          description: The table to perform the search on
+        query:
+          type: string
+          description: The beginning of the string to autocomplete
+        options:
+          type: object
+          description: >
+            Autocomplete options
+              - layouts: A comma-separated string of keyboard layout codes to validate and check for spell correction. Available options - us, ru, ua, se, pt, no, it, gr, uk, fr, es, dk, de, ch, br, bg, be. By default, all are enabled.
+              - fuzziness: (0,1 or 2) Maximum Levenshtein distance for finding typos. Set to 0 to disable fuzzy matching. Default is 2
+              - prepend: true/false If true, adds an asterisk before the last word for prefix expansion (e.g., *word )
+              - append:  true/false If true, adds an asterisk after the last word for prefix expansion (e.g., word* )
+              - expansion_len: Number of characters to expand in the last word. Default is 10.
+          additionalProperties: true  
+      example:
+        table: "test"
+        query: "Start"
+        options:
+          layouts: "us,uk"
+          fuzziness: 0 
+    boolFilter:
+      type: object
+      properties:
+        must:
+          type: array
+          items:
+            $ref: '#/components/schemas/queryFilter'
+          description: Query clauses that must match for the document to be included
+        must_not:
+          type: array
+          items:
+            $ref: '#/components/schemas/queryFilterAlias1'
+          description: Query clauses that must not match for the document to be included
+        should:
+          type: array
+          items:
+            $ref: '#/components/schemas/queryFilterAlias2'
+          description: Query clauses that should be matched, but are not required
+      additionalProperties: false
+    bulkResponse:
+      type: object
+      description: Success response for bulk search requests
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+          description: List of results
+        errors:
+          type: boolean
+          description: Errors occurred during the bulk operation
+        error:
+          type: string
+          description: Error message describing an error if such occurred
+        current_line:
+          type: integer
+          description: Number of the row returned in the response
+        skipped_lines:
+          type: integer
+          description: Number of rows skipped in the response
+    deleteDocumentRequest:
+      type: object
+      description: >
+        Payload for delete request.
+        
+        Documents can be deleted either one by one by specifying the document id
+        or by providing a query object.
+        
+        For more information see 
+        [Delete API](https://manual.manticoresearch.com/Deleting_documents)
+      required:
+        - table
+      properties:
+        table:
+          type: string
+          description: Table name
+        cluster:
+          type: string
+          description: Cluster name
+        id:
+          type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
+          format: uint64
+          description: The ID of document for deletion
+        query:
+          type: object
+          description: Defines the criteria to match documents for deletion
+      example:
+        table: test
+        id: 1
+    deleteResponse:
+      type: object
+      description: Response object for successful delete request
+      properties:
+        table:
+          type: string
+          description: The name of the table from which the document was deleted
+        deleted:
+          type: integer
+          description: Number of documents deleted
+        id:
+          type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
+          format: uint64
+          description: The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned
+        found:
+          type: boolean
+          description: Indicates whether any documents to be deleted were found
+        result:
+          type: string
+          description: Result of the delete operation, typically 'deleted'
+      example:
+        table: test
+        deleted: 29      
+    highlight:
+      allOf:
+        - type: object
+          description: Defines a query HIGHLIGHT expression to emphasize matched results
+          properties:
+            after_match:
+              type: string
+              default: '</strong>'
+              description: Text inserted after the matched term, typically used for HTML formatting
+            allow_empty:
+              type: boolean
+              description: Permits an empty string to be returned as the highlighting result. Otherwise, the beginning of the original text would be returned
+            around:
+              type: integer
+              description: Number of words around the match to include in the highlight
+            before_match:
+              type: string
+              default: '<strong>'
+              description: Text inserted before the match, typically used for HTML formatting
+            emit_zones:
+              type: boolean
+              description: Emits an HTML tag with the enclosing zone name before each highlighted snippet
+            encoder:
+              type: string
+              enum:
+                - default
+                - html
+              description: If set to 'html', retains HTML markup when highlighting
+            fields:
+              $ref: '#/components/schemas/highlightFields'
+            force_all_words:
+              type: boolean
+              description: Ignores the length limit until the result includes all keywords
+            force_snippets:
+              type: boolean
+              description: Forces snippet generation even if limits allow highlighting the entire text      
+            highlight_query:
+              oneOf:
+                - type: null
+                - $ref: '#/components/schemas/queryFilter'
+              description: Optional query object to customize highlighting behavior
+            html_strip_mode:
+              type: string
+              enum:
+                - 'none'
+                - 'strip'
+                - 'index'
+                - 'retain'
+              description: Defines the mode for handling HTML markup in the highlight
+            limits_per_field:
+              type: boolean
+              description: Determines whether the 'limit', 'limit_words', and 'limit_snippets' options operate as individual limits in each field of the document             
+            no_match_size:
+              type: integer
+              enum:
+                - 0
+                - 1
+              description: If set to 1, allows an empty string to be returned as a highlighting result 
+            order:
+              type: string
+              enum:
+                - asc
+                - desc
+                - score
+              description: Sets the sorting order of highlighted snippets
+            pre_tags:
+              type: string
+              default: '<strong>'
+              description: Text inserted before each highlighted snippet
+            post_tags:
+              type: string
+              default: '</strong>'
+              description: Text inserted after each highlighted snippet
+            start_snippet_id:
+              type: integer
+              description: Sets the starting value of the %SNIPPET_ID% macro
+            use_boundaries:
+              type: boolean
+              description: Defines whether to additionally break snippets by phrase boundary characters
+        - $ref: '#/components/schemas/highlightFieldOption'
+    highlightFields:
+      oneOf:
+      - type: array
+        items:
+          type: string
+      - type: object
+      description: List of fields available for highlighting
+    highlightFieldOption:
+      type: object
+      properties:
+         fragment_size:
+           type: integer
+           description: Maximum size of the text fragments in highlighted snippets per field
+         limit:
+           type: integer
+           description: Maximum size of snippets per field
+         limit_snippets:
+           type: integer
+           description: Maximum number of snippets per field
+         limit_words:
+           type: integer
+           description: Maximum number of words per field
+         number_of_fragments:
+           type: integer
+           description: Total number of highlighted fragments per field
+      additionalProperties: false
+      description: Options for controlling the behavior of highlighting on a per-field basis
+    hitsHits:
+      type: object
+      properties:
+        _id:
+          type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
+          format: uint64
+          description: The ID of the matched document
+        _score:
+          type: integer
+          description: The score of the matched document
+        _source:
+          type: object
+          description: The source data of the matched document
+        _knn_dist:
+          type: number
+          description: The knn distance of the matched document returned for knn queries
+        highlight:
+          type: object
+          description: The highlighting-related data of the matched document
+        table:
+          type: string
+          description: The table name of the matched document returned for percolate queries
+        _type::
+          type: string
+          description: The type of the matched document returned for percolate queries
+        fields:
+          type: object
+          description: The percolate-related fields of the matched document returned for percolate queries
+      additionalProperties: true
+      description: Search hit representing a matched document
+    insertDocumentRequest:
+      type: object
+      description: |
+        Object containing data for inserting a new document into the table
+      required:
+        - table
+        - doc
+      properties:
+        table:
+          type: string
+          description: Name of the table to insert the document into
+        cluster:
+          type: string
+          description: Name of the cluster to insert the document into
+        id:
+          type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
+          format: uint64
+          description: |
+            Document ID. If not provided, an ID will be auto-generated
+        doc:
+          type: object
+          additionalProperties: true
+          description: |
+            Object containing document data
+      example:
+        table: test
+        doc:
+          title: This is some title
+          gid: 100
+    joinOn:
+      allOf:
+      - type: object 
+        properties:
+          right:
+           $ref: '#/components/schemas/joinCond'
+        additionalProperties: false 
+      - type: object
+        properties:
+          left:
+            $ref: '#/components/schemas/joinCond'
+        additionalProperties: false
+      - type: object
+        properties:
+          operator:
+            type: string
+            enum:
+             - eq              
+        additionalProperties: false
+        description: Defines joined tables
+    join:
+      # workaround to avoid incorrect generation of strict types in some clients
+      allOf:
+      - type: object
+        required: ['type', 'on', 'table']
+        properties:
+          type:
+            type: string
+            enum:
+              - inner
+              - left
+            description: Type of the join operation
+          on:
+            type: array
+            items:
+              $ref: '#/components/schemas/joinOn'
+            description: List of objects defining joined tables
+          query:
+            $ref: '#/components/schemas/fulltextFilter'
+          table:
+            type: string
+            description: Basic table of the join operation
+        additionalProperties: false
+        description: Object representing the join operation between two tables
+    joinCond:
+      type: object
+      required: ['field', 'table']
+      properties:
+        field:
+         type: string
+         description: Field to join on
+        table:
+          type: string
+          description: Joined table
+        query:
+            $ref: '#/components/schemas/fulltextFilter'
+        type:
+          type: {}
+      additionalProperties: false
+      description: Object representing the conditions used to perform the join operation
+    _match:
+      type: object
+      required: ['query']
+      properties:
+        query:
+          type: string
+        operator:
+          type: string
+          enum:
+            - or
+            - and
+        boost:
+          type: number
+      description: Filter helper object defining a match keyword and match options
+    match_all:
+      type: object
+      required: ['_all']
+      properties:
+        _all:
+          type: string
+          enum:
+            - '{}'
+      description: Filter helper object defining the 'match all'' condition
+    range:
+      type: object
+      properties:
+        lt:
+          type: {}
+          description: <Less than> condition value
+        lte:
+          type: {}
+          description: <Less than or equal> condition value
+        gt:
+          type: {}
+          description: <Greater than> condition value
+        gte:
+          type: {}
+          description: <Greater than or equal> condition value
+      description: Filter helper object defining the 'range' condition
+    fulltextFilter:
+      type: object
+      properties:
+        query_string:
+          type: string
+          description: Filter object defining a query string
+        match:
+          type: object
+          description: Filter object defining a match keyword passed as a string or in a Match object
+        match_phrase:
+          type: object
+          description: Filter object defining a match phrase
+        match_all:
+          type: object
+          description: Filter object to select all documents
+      additionalProperties: false
+      description: Defines a type of filter for full-text search queries
+    queryFilter:
+      allOf:
+        - $ref: '#/components/schemas/fulltextFilter'
+        - type: object
+          properties:
+            bool:
+              $ref: '#/components/schemas/boolFilter'
+            equals:
+              type: object
+              description: Filter to match exact attribute values.
+            in:
+              type: object
+              description: Filter to match a given set of attribute values.
+            range:
+              type: object
+              description: Filter to match a given range of attribute values passed in Range objects
+            geo_distance:
+              $ref: '#/components/schemas/geoDistance'
+          additionalProperties: false  
+      description: Object used to apply various conditions, such as full-text matching or attribute filtering, to a search query    
+    replaceDocumentRequest:
+      type: object
+      description: Object containing the document data for replacing an existing document in a table.
+      required:
+        - doc
+      properties:
+        doc:
+          type: object
+          additionalProperties: true
+          description: Object containing the new document data to replace the existing one.
+      example:
+        doc:
+          title: This is some title
+          gid: 100
+    sourceRules:
+      type: object
+      description: Defines which fields to include or exclude in the response for a search query
+      properties:
+        includes:
+          type: array
+          default: []
+          items:
+            type: string
+          description: List of fields to include in the response
+        excludes:
+          type: array
+          default: ['']
+          items:
+            type: string
+          description: List of fields to exclude from the response
+      additionalProperties: false
+      minProperties: 1
+      example: {"includes": ["attr1","attri*"], "excludes": ["desc*"]}
+    successResponse:
+      type: object
+      description: Response object indicating the success of an operation, such as inserting or updating a document
+      properties:
+        table:
+          type: string
+          description: Name of the document table
+        id:
+          type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
+          format: uint64
+          description: ID of the document affected by the request operation
+        created:
+          type: boolean
+          description: Indicates whether the document was created as a result of the operation
+        result:
+          type: string
+          description: Result of the operation, typically 'created', 'updated', or 'deleted'
+        found:
+          type: boolean
+          description: Indicates whether the document was found in the table
+        status:
+          type: integer
+          description: HTTP status code representing the result of the operation
+      example:
+        table: test
+        id: 1
+        result: created
+        created: true
+        status: 201      
+    percolateRequest:
+      type: object
+      description: Object containing the query for percolating documents against stored queries in a percolate table
+      required: [query]
+      properties:
+        query:
+          type: object
+          additionalProperties: true
+          required:
+            - percolate
+          properties:
+            percolate:
+              type: object
+              description: Object representing the document to percolate
+          example:
+            percolate:
+              document:
+                title: some text to match
+    searchResponse:
+      type: object
+      description: Response object containing the results of a search request
+      properties:
+        took:
+          type: integer
+          description: Time taken to execute the search
+        timed_out:
+          type: boolean
+          description: Indicates whether the search operation timed out
+        aggregations:
+          type: object
+          additionalProperties: true
+          description: Aggregated search results grouped by the specified criteria        
+        hits:
+          type: object
+          properties:
+            max_score:
+              type: integer
+              description: Maximum score among the matched documents
+            total:
+              type: integer
+              description: Total number of matched documents
+            total_relation:
+              type: string
+              description: Indicates whether the total number of hits is accurate or an estimate
+            hits:
+              type: array
+              items:
+                $ref: '#/components/schemas/hitsHits'
+              description: Array of hit objects, each representing a matched document
+          description: Object containing the search hits, which represent the documents that matched the query.
+          example:
+            total: 2
+            hits:
+              - _id: 1
+                _score: 1
+                _source:
+                  gid: 11
+              - _id: 2
+                _score: 1
+                _source:
+                  gid: 20
+        profile:
+          type: object
+          description: Profile information about the search execution, if profiling is enabled
+        scroll:
+          type: string
+          description: Scroll token to be used fo pagination
+        warning:
+          type: object
+          additionalProperties: true
+          description: Warnings encountered during the search operation
+    responseError:
+      oneOf:
+        - $ref: '#/components/schemas/responseErrorDetails'
+        - $ref: '#/components/schemas/responseErrorText'
+    responseErrorDetails:
+          type: object
+          description: Detailed error information returned in case of an error response
+          required:
+            - type
+          properties:
+            type: 
+              type: string
+              description: Type or category of the error
+            reason:
+              type:
+                - string
+                - 'null'
+              description: Detailed explanation of why the error occurred
+            table:
+              type:
+                - string
+                - 'null'
+              description: The table related to the error, if applicable
+    responseErrorText:
+        type: string
+        description: Error message text returned in case of an error
+    errorResponse:
+      type: object
+      description: Error response object containing information about the error and a status code
+      required: ['error']
+      properties:
+        error:
+          $ref: '#/components/schemas/responseError'
+        status:
+          type: integer
+          description: HTTP status code of the error response
+          default: 500
+      example:
+        status: 500
+        error: an error occured
+    sqlRawResponse:
+      type: array
+      items:
+        type: object
+    sqlObjResponse:
+      type: object
+      required: ['hits']
+      properties:
+        hits:
+          type: object
+        took:
+          type: number
+        timed_out:
+          type: boolean
+    sqlResponse:
+      oneOf:
+        - $ref: '#/components/schemas/sqlRawResponse'
+        - $ref: '#/components/schemas/sqlObjResponse'
+      description: List of responses from executed SQL queries
+      example:
+        - total: 0
+          error: null
+    updateDocumentRequest:
+      type: object
+      description: Payload for updating a document or multiple documents in a table
+      required:
+        - table
+        - doc
+      properties:
+        table:
+          type: string
+          description: Name of the document table
+        cluster:
+          type: string
+          description: Name of the document cluster
+        doc:
+          type: object
+          description: Object containing the document fields to update
+          additionalProperties: true
+          example:
+            gid: 10
+        id:
+          type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
+          format: uint64
+          description: Document ID
+        query:
+          oneOf:
+            - type: null
+            - $ref: '#/components/schemas/queryFilter'
+          description: Object defining conditions to perform the updates
+          example:
+            query:
+              match:
+                title: match me
+    updateResponse:
+      type: object
+      description: Success response returned after updating one or more documents
+      properties:
+        table:
+          type: string
+          description: Name of the document table
+        updated:
+          type: integer
+          description: Number of documents updated
+        id:
+          type: integer
+          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
+          format: uint64
+          description: Document ID
+        result:
+          type: string
+          description: Result of the update operation, typically 'updated'
+      example:
+        table: test
+        updated: 29
+paths:
+  /search:
+    post:
+      summary: Performs a search on a table
+      x-is_search: true
+      description: >
+       
+        The method expects an object with the following mandatory properties:
+        
+        * the name of the table to search
+        
+        * the match query object
+
+        For details, see the documentation on [**SearchRequest**](SearchRequest.md)
+
+        The method returns an object with the following properties:
+        
+        - took: the time taken to execute the search query.
+        - timed_out: a boolean indicating whether the query timed out.
+        - hits: an object with the following properties:
+           - total: the total number of hits found.
+           - hits: an array of hit objects, where each hit object represents a matched document. Each hit object has the following properties:
+             - _id: the ID of the matched document.
+             - _score: the score of the matched document.
+             - _source: the source data of the matched document.
+        
+        In addition, if profiling is enabled, the response will include an additional array with profiling information attached.
+        Also, if pagination is enabled, the response will include an additional 'scroll' property with a scroll token to use for pagination
+
+        Here is an example search response:
+        
+          ```
+          {
+            'took':10,
+            'timed_out':false,
+            'hits':
+            {
+              'total':2,
+              'hits':
+              [
+                {'_id':'1','_score':1,'_source':{'gid':11}},
+                {'_id':'2','_score':1,'_source':{'gid':12}}
+              ]
+            }
+          }
+          ```
+
+        For more information about the match query syntax and additional parameters that can be added to request and response, please see the documentation [here](https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP-JSON).
+
+      operationId: search
+      tags:
+        - Search
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP-JSON'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/searchRequest'
+            example:
+              - '''request=SearchRequest(table="test",query=Query(query_string="abc"))'''
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /autocomplete:
+    post:
+      summary: Performs an autocomplete search on a table
+      description: >
+       
+        The method expects an object with the following mandatory properties:
+        
+        * the name of the table to search
+        
+        * the query string to autocomplete
+
+        For details, see the documentation on [**Autocomplete**](Autocomplete.md)
+        
+        An example:
+        ```
+        {
+          "table":"table_name",
+          "query":"query_beginning"
+        }        
+        ```
+
+        An example of the method's response:
+        
+         ```
+         [
+           {
+             "total": 3,
+             "error": "",
+             "warning": "",
+             "columns": [
+               {
+                 "query": {
+                   "type": "string"
+                 }
+               }
+             ],
+             "data": [
+               {
+                 "query": "hello"
+               },
+               {
+                 "query": "helio"
+               },
+               {
+                 "query": "hell"
+               }
+             ]
+           }
+         ] 
+         ```
+
+        For more detailed information about the autocomplete queries, please refer to the documentation [here](https://manual.manticoresearch.com/Searching/Autocomplete).
+
+      operationId: autocomplete
+      tags:
+        - Search
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/dev/Searching/Autocomplete?client=JSON'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/autocompleteRequest'
+            example:
+              - '''request=AutocompleteRequest(table="test",query="abc")'''
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sqlRawResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /bulk:
+    post:
+      summary: Bulk table operations
+      description: >
+        Sends multiple operatons like inserts, updates, replaces or deletes. 
+
+        For each operation it's object must have same format as in their dedicated method. 
+
+        The method expects a raw string as the batch in NDJSON.
+         Each operation object needs to be serialized to 
+         JSON and separated by endline (\n). 
+         
+          An example of raw input:
+          
+          ```
+          {"insert": {"table": "movies", "doc": {"plot": "A secret team goes to North Pole", "rating": 9.5, "language": [2, 3], "title": "This is an older movie", "lon": 51.99, "meta": {"keywords":["travel","ice"],"genre":["adventure"]}, "year": 1950, "lat": 60.4, "advise": "PG-13"}}}
+          \n
+          {"delete": {"table": "movies","id":700}}
+          ```
+          
+          Responds with an object telling whenever any errors occured and an array with status for each operation:
+          
+          ```
+          {
+            'items':
+            [
+              {
+                'update':{'table':'products','id':1,'result':'updated'}
+              },
+              {
+                'update':{'table':'products','id':2,'result':'updated'}
+              }
+            ],
+            'errors':false
+          }
+          ```
+      operationId: bulk
+      tags:
+        - Index
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Updating_documents/UPDATE'
+      requestBody:
+        required: true
+        content:
+          application/x-ndjson:
+            schema:
+              type: string 
+            #example: 
+            #  - '''{"insert": {"table": "test", "id": 1, "doc": {"title": "Title 1"}}},\n{"insert": {"table": "test", "id": 2, "doc": {"title": "Title 2"}}}'''
+      responses:
+        '200':
+          description: item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bulkResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /delete:
+    post:
+      summary: Delete a document in a table
+      operationId: delete
+      description: >
+        Delete one or several documents.
+
+        The method has 2 ways of deleting: either by id,
+        in case only one document is deleted or by using a 
+        match query, in which case multiple documents can be delete
+        .
+        
+        Example of input to delete by id:
+        
+          ```
+          {'table':'movies','id':100}
+          ```
+        
+        Example of input to delete using a query:
+        
+          ```
+          {
+            'table':'movies',
+            'query':
+            {
+              'bool':
+              {
+                'must':
+                [
+                  {'query_string':'new movie'}
+                ]
+              }
+            }
+          }
+          ```
+        
+        The match query has same syntax as in for searching.
+        
+        Responds with an object telling how many documents got deleted: 
+
+          ```
+          {'table':'products','updated':1}
+          ```
+      tags:
+        - Index
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Updating_documents/UPDATE'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteDocumentRequest'
+            example:
+              table: test
+              query:
+                match:
+                  title: apple
+      responses:
+        '200':
+          description: item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /insert:
+    post:
+      summary: Create a new document in a table
+      x-is_indexapi: true
+      x-is_insert: true
+      operationId: insert
+      description: >
+        Insert a document. 
+        
+        Expects an object like:
+         
+          ```
+          {
+            'table':'movies',
+            'id':701,
+            'doc':
+            {
+              'title':'This is an old movie',
+              'plot':'A secret team goes to North Pole',
+              'year':1950,
+              'rating':9.5,
+              'lat':60.4,
+              'lon':51.99,
+              'advise':'PG-13',
+              'meta':'{"keywords":{"travel","ice"},"genre":{"adventure"}}',
+              'language':[2,3]
+            }
+          }
+          ```
+         
+        The document id can also be missing, in which case an autogenerated one will be used:
+                 
+          ```
+          {
+            'table':'movies',
+            'doc':
+            {
+              'title':'This is a new movie',
+              'plot':'A secret team goes to North Pole',
+              'year':2020,
+              'rating':9.5,
+              'lat':60.4,
+              'lon':51.99,
+              'advise':'PG-13',
+              'meta':'{"keywords":{"travel","ice"},"genre":{"adventure"}}',
+              'language':[2,3]
+            }
+          }
+          ```
+         
+        It responds with an object in format:
+          
+          ```
+          {'table':'products','id':701,'created':true,'result':'created','status':201}
+          ```
+      tags:
+        - Index
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Adding_documents_to_a_table/Adding_documents_to_a_real-time_table#Adding-documents-to-a-real-time-table'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/insertDocumentRequest'
+            example: 
+              table: test
+              id: 1
+              doc:
+                title: sample title
+                gid: 10
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/successResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  '/pq/{table}/search':
+    post:
+      summary: Perform reverse search on a percolate table
+      operationId: percolate
+      description: >
+        Performs a percolate search.
+        
+        This method must be used only on percolate tables.
+        
+        Expects two parameters: the table name and an object with array of documents to be tested.
+        
+        An example of the documents object:
+        ```
+          {
+            "query" {
+              "percolate": {
+                "document": {
+                  "content":"sample content"
+                }
+              }
+            }
+          }
+        ```
+
+        Responds with an object with matched stored queries: 
+        ```
+          {
+            'timed_out':false,
+            'hits': {
+              'total':2,
+              'max_score':1,
+              'hits': [
+                {
+                  'table':'idx_pq_1',
+                  '_type':'doc',
+                  '_id':'2',
+                  '_score':'1',
+                  '_source': {
+                    'query': {
+                      'match':{'title':'some'}
+                    }
+                  }
+                },
+                {
+                  'table':'idx_pq_1',
+                  '_type':'doc',
+                  '_id':'5',
+                  '_score':'1',
+                  '_source': {
+                    'query': {
+                      'ql':'some | none'
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ```
+      tags:
+        - Search
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Updating_documents/UPDATE'
+      parameters:
+        - in: path
+          name: table
+          schema:
+            type: string
+          required: true
+          description: Name of the percolate table
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/percolateRequest'
+            example:
+              query:
+                percolate:
+                  document:
+                    title: some text to match
+      responses:
+        '200':
+          description: items found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /replace:
+    post:
+      summary: Replace new document in a table
+      x-is_indexapi: true
+      x-is_replace: true
+      operationId: replace
+      description: >
+        Replace an existing document. Input has same format as `insert` operation.
+
+        Responds with an object in format:
+
+          ```
+          {'table':'products','id':1,'created':false,'result':'updated','status':200}
+          ```
+      tags:
+        - Index
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Adding_documents_to_a_table/Adding_documents_to_a_real-time_table#Adding-documents-to-a-real-time-table'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/insertDocumentRequest'
+            example:
+              table: test
+              id: 1
+              doc:
+                title: updated title
+                gid: 15
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/successResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /sql:
+    post:
+      summary: Perform SQL requests
+      x-is_sql: true
+      description: >
+        Run a query in SQL format.
+
+        Expects a query string passed through `body` parameter and optional `raw_response` parameter that defines a format of response.
+
+        `raw_response` can be set to `False` for Select queries only, e.g., `SELECT * FROM mytable`
+        
+        The query string must stay as it is, no URL encoding is needed.
+        
+        The response object depends on the query executed. In select mode the response has same format as `/search` operation.
+      operationId: sql
+      tags:
+        - utils
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Connecting_to_the_server/HTTP#sql-api'
+      requestBody:
+        required: true
+        description: >
+          A query parameter string.
+        content:
+          text/plain:
+            schema:
+              type: string
+            example: SHOW TABLES
+      parameters:
+        - in: query
+          name: raw_response  
+          description: >
+           Optional parameter, defines a format of response. Can be set to `False` for Select only queries and set to `True` for any type of queries. Default value is 'True'.
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: >
+            In case of SELECT-only in mode none the response schema is the same
+            as of `search`.
+            
+            In case of `mode=raw` or `raw_response=true` the response depends on the query executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sqlResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /update:
+    post:
+      summary: Update a document in a table
+      x-is_indexapi: true
+      x-is_update: true
+      x-is_modify: true
+      operationId: update
+      description: >
+        Update one or several documents.
+
+        The update can be made by passing the id or by using a match query in case multiple documents can be updated. 
+        For example update a document using document id:
+        
+          ```
+          {'table':'movies','doc':{'rating':9.49},'id':100}
+          ```
+        
+        And update by using a match query:
+        
+          ```
+          {
+            'table':'movies',
+            'doc':{'rating':9.49},
+            'query':
+            {
+              'bool':
+              {
+                'must':
+                [
+                  {'query_string':'new movie'}
+                ]
+              }
+            }
+          }
+          ``` 
+        
+        The match query has same syntax as for searching.
+
+        Responds with an object that tells how many documents where updated in format: 
+        
+          ```
+          {'table':'products','updated':1}
+          ```
+      tags:
+        - Index
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Updating_documents/UPDATE'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateDocumentRequest'
+            example:
+              table: test
+              doc:
+                gid: 20
+              query:
+                equals:
+                  cat_id: 2
+      responses:
+        '200':
+          description: item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /{table}/_update/{id}:
+    post:
+      summary: Partially replaces a document in a table
+      operationId: partial_replace
+      description: >
+        Partially replaces a document with given id in a table
+
+        Responds with an object of the following format: 
+        
+          ```
+          {'table':'products','updated':1}
+          ```
+      tags:
+        - Index
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Updating_documents/REPLACE#JSON-REPLACE'
+      parameters:
+        - in: path
+          name: table
+          schema:
+            type: string
+          required: true
+          description: Name of the percolate table
+        - in: path
+          name: id
+          schema:
+            type: integer 
+            # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
+            format: uint64
+          required: true
+          description: Id of the document to replace
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/replaceDocumentRequest'
+            example:
+              doc:
+                price: 20
+      responses:
+        '200':
+          description: item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+servers:
+  - description: Default Manticore Search HTTP 
+    url: http://127.0.0.1:9308/
+

@@ -1,0 +1,126 @@
+diff --git a/out/manticoresearch-rust/src/apis/index_api.rs b/out/manticoresearch-rust/src/apis/index_api.rs
+index 5025f82..90e738f 100755
+--- a/out/manticoresearch-rust/src/apis/index_api.rs
++++ b/out/manticoresearch-rust/src/apis/index_api.rs
+@@ -40,7 +40,7 @@ pub trait IndexApi: Send + Sync {
+     fn bulk(&self, body: &str) -> Pin<Box<dyn Future<Output = Result<models::BulkResponse, Error>> + Send>>;
+     fn delete(&self, delete_document_request: models::DeleteDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::DeleteResponse, Error>> + Send>>;
+     fn insert(&self, insert_document_request: models::InsertDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::SuccessResponse, Error>> + Send>>;
+-    fn partial_replace(&self, table: &str, id: i32, replace_document_request: models::ReplaceDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::UpdateResponse, Error>> + Send>>;
++    fn partial_replace(&self, table: &str, id: u64, replace_document_request: models::ReplaceDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::UpdateResponse, Error>> + Send>>;
+     fn replace(&self, insert_document_request: models::InsertDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::SuccessResponse, Error>> + Send>>;
+     fn update(&self, update_document_request: models::UpdateDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::UpdateResponse, Error>> + Send>>;
+ }
+@@ -75,7 +75,7 @@ impl<C: Connect>IndexApi for IndexApiClient<C>
+     }
+ 
+     #[allow(unused_mut)]
+-    fn partial_replace(&self, table: &str, id: i32, replace_document_request: models::ReplaceDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::UpdateResponse, Error>> + Send>> {
++    fn partial_replace(&self, table: &str, id: u64, replace_document_request: models::ReplaceDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::UpdateResponse, Error>> + Send>> {
+         let mut req = __internal_request::Request::new(hyper::Method::POST, "/{table}/_update/{id}".to_string())
+         ;
+         req = req.with_path_param("table".to_string(), table.to_string());
+diff --git a/out/manticoresearch-rust/src/models/delete_document_request.rs b/out/manticoresearch-rust/src/models/delete_document_request.rs
+index c8c0a35..980a942 100755
+--- a/out/manticoresearch-rust/src/models/delete_document_request.rs
++++ b/out/manticoresearch-rust/src/models/delete_document_request.rs
+@@ -22,7 +22,7 @@ pub struct DeleteDocumentRequest {
+     pub cluster: Option<String>,
+     /// The ID of document for deletion
+     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+-    pub id: Option<i32>,
++    pub id: Option<u64>,
+     /// Defines the criteria to match documents for deletion
+     #[serde(rename = "query", skip_serializing_if = "Option::is_none")]
+     pub query: Option<serde_json::Value>,
+diff --git a/out/manticoresearch-rust/src/models/delete_response.rs b/out/manticoresearch-rust/src/models/delete_response.rs
+index fd7dd50..6a817fd 100755
+--- a/out/manticoresearch-rust/src/models/delete_response.rs
++++ b/out/manticoresearch-rust/src/models/delete_response.rs
+@@ -22,7 +22,7 @@ pub struct DeleteResponse {
+     pub deleted: Option<i32>,
+     /// The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned
+     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+-    pub id: Option<i32>,
++    pub id: Option<u64>,
+     /// Indicates whether any documents to be deleted were found
+     #[serde(rename = "found", skip_serializing_if = "Option::is_none")]
+     pub found: Option<bool>,
+diff --git a/out/manticoresearch-rust/src/models/hits_hits.rs b/out/manticoresearch-rust/src/models/hits_hits.rs
+index 5b34818..b457ca6 100755
+--- a/out/manticoresearch-rust/src/models/hits_hits.rs
++++ b/out/manticoresearch-rust/src/models/hits_hits.rs
+@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
+ pub struct HitsHits {
+     /// The ID of the matched document
+     #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
+-    pub _id: Option<i32>,
++    pub _id: Option<u64>,
+     /// The score of the matched document
+     #[serde(rename = "_score", skip_serializing_if = "Option::is_none")]
+     pub _score: Option<i32>,
+diff --git a/out/manticoresearch-rust/src/models/insert_document_request.rs b/out/manticoresearch-rust/src/models/insert_document_request.rs
+index 69e7800..808ad60 100755
+--- a/out/manticoresearch-rust/src/models/insert_document_request.rs
++++ b/out/manticoresearch-rust/src/models/insert_document_request.rs
+@@ -22,7 +22,7 @@ pub struct InsertDocumentRequest {
+     pub cluster: Option<String>,
+     /// Document ID. If not provided, an ID will be auto-generated 
+     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+-    pub id: Option<i32>,
++    pub id: Option<u64>,
+     /// Object containing document data 
+     #[serde(rename = "doc")]
+     pub doc: serde_json::Value,
+diff --git a/out/manticoresearch-rust/src/models/knn_query.rs b/out/manticoresearch-rust/src/models/knn_query.rs
+index 3aed8d0..5026cae 100755
+--- a/out/manticoresearch-rust/src/models/knn_query.rs
++++ b/out/manticoresearch-rust/src/models/knn_query.rs
+@@ -25,7 +25,7 @@ pub struct KnnQuery {
+     pub query_vector: Option<Vec<f64>>,
+     /// The docuemnt ID used as input for the KNN search
+     #[serde(rename = "doc_id", skip_serializing_if = "Option::is_none")]
+-    pub doc_id: Option<i32>,
++    pub doc_id: Option<u64>,
+     /// Optional parameter controlling the accuracy of the search
+     #[serde(rename = "ef", skip_serializing_if = "Option::is_none")]
+     pub ef: Option<i32>,
+diff --git a/out/manticoresearch-rust/src/models/success_response.rs b/out/manticoresearch-rust/src/models/success_response.rs
+index e454441..0c9b19d 100755
+--- a/out/manticoresearch-rust/src/models/success_response.rs
++++ b/out/manticoresearch-rust/src/models/success_response.rs
+@@ -19,7 +19,7 @@ pub struct SuccessResponse {
+     pub table: Option<String>,
+     /// ID of the document affected by the request operation
+     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+-    pub id: Option<i32>,
++    pub id: Option<u64>,
+     /// Indicates whether the document was created as a result of the operation
+     #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
+     pub created: Option<bool>,
+diff --git a/out/manticoresearch-rust/src/models/update_document_request.rs b/out/manticoresearch-rust/src/models/update_document_request.rs
+index 4069220..ea3da0e 100755
+--- a/out/manticoresearch-rust/src/models/update_document_request.rs
++++ b/out/manticoresearch-rust/src/models/update_document_request.rs
+@@ -25,7 +25,7 @@ pub struct UpdateDocumentRequest {
+     pub doc: serde_json::Value,
+     /// Document ID
+     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+-    pub id: Option<i32>,
++    pub id: Option<u64>,
+     #[serde(rename = "query", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+     pub query: Option<Option<Box<models::QueryFilter>>>,
+ }
+diff --git a/out/manticoresearch-rust/src/models/update_response.rs b/out/manticoresearch-rust/src/models/update_response.rs
+index bd9b78b..a241460 100755
+--- a/out/manticoresearch-rust/src/models/update_response.rs
++++ b/out/manticoresearch-rust/src/models/update_response.rs
+@@ -22,7 +22,7 @@ pub struct UpdateResponse {
+     pub updated: Option<i32>,
+     /// Document ID
+     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+-    pub id: Option<i32>,
++    pub id: Option<u64>,
+     /// Result of the update operation, typically 'updated'
+     #[serde(rename = "result", skip_serializing_if = "Option::is_none")]
+     pub result: Option<String>,

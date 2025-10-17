@@ -16,7 +16,7 @@
 from __future__ import annotations
 import json
 import pprint
-from pydantic import BaseModel, Field, StrictStr, ValidationError, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
 from manticoresearch.models.response_error_details import ResponseErrorDetails
 from pydantic import StrictStr, Field

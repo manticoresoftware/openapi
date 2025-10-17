@@ -4,7 +4,7 @@
 
 List of fields available for highlighting
 
-## anyOf schemas
+## oneOf schemas
 * [List<String>](List<String>.md)
 * [Object](Object.md)
 

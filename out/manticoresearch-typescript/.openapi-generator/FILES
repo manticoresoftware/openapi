@@ -19,6 +19,8 @@ middleware.ts
 models/AggComposite.ts
 models/AggCompositeSource.ts
 models/AggCompositeTerm.ts
+models/AggDateHistogram.ts
+models/AggHistogram.ts
 models/AggTerms.ts
 models/Aggregation.ts
 models/AutocompleteRequest.ts
@@ -32,6 +34,7 @@ models/GeoDistance.ts
 models/GeoDistanceLocationAnchor.ts
 models/Highlight.ts
 models/HighlightFieldOption.ts
+models/HighlightFields.ts
 models/HitsHits.ts
 models/InsertDocumentRequest.ts
 models/Join.ts

@@ -21,6 +21,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.manticoresearch.client.JSON;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.Response;
@@ -34,10 +35,12 @@ import java.util.HashSet;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -45,8 +48,8 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.manticoresearch.client.JSON;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-06-30T07:16:18.467791800Z[Etc/UTC]", comments = "Generator version: 7.14.0")
-@JsonDeserialize(using=HighlightFields.HighlightFieldsDeserializer.class)
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-01T15:59:28.052447079Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@JsonDeserialize(using = HighlightFields.HighlightFieldsDeserializer.class)
 @JsonSerialize(using = HighlightFields.HighlightFieldsSerializer.class)
 public class HighlightFields extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(HighlightFields.class.getName());
@@ -78,31 +81,51 @@ public class HighlightFields extends AbstractOpenApiSchema {
         @Override
         public HighlightFields deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
-
             Object deserialized = null;
+            boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
+            int match = 0;
+            JsonToken token = tree.traverse(jp.getCodec()).nextToken();
             // deserialize List<String>
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(List.class);
-                HighlightFields ret = new HighlightFields();
-                ret.setActualInstance(deserialized);
-                return ret;
+                if (token == JsonToken.START_ARRAY) {
+                    final TypeReference<List<String>> ref = new TypeReference<List<String>>(){};
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(ref);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'List<String>'");
+                }
             } catch (Exception e) {
-                // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'HighlightFields'", e);
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'List<String>'", e);
             }
 
             // deserialize Object
             try {
-                deserialized = tree.traverse(jp.getCodec()).readValueAs(Object.class);
+                boolean attemptParsing = true;
+                attemptParsing = typeCoercion; //respect type coercion setting
+                if (!attemptParsing) {
+                }
+                if (attemptParsing) {
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(Object.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'Object'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'Object'", e);
+            }
+
+            if (match == 1) {
                 HighlightFields ret = new HighlightFields();
                 ret.setActualInstance(deserialized);
                 return ret;
-            } catch (Exception e) {
-                // deserialization failed, continue, log to help debugging
-                log.log(Level.FINER, "Input data does not match 'HighlightFields'", e);
             }
-
-            throw new IOException(String.format("Failed deserialization for HighlightFields: no match found"));
+            throw new IOException(String.format("Failed deserialization for HighlightFields: %d classes match result, expected 1", match));
         }
 
         /**
@@ -114,20 +137,20 @@ public class HighlightFields extends AbstractOpenApiSchema {
         }
     }
 
-    // store a list of schema names defined in anyOf
+    // store a list of schema names defined in oneOf
     public static final Map<String, GenericType<?>> schemas = new HashMap<>();
 
     public HighlightFields() {
-        super("anyOf", Boolean.FALSE);
+        super("oneOf", Boolean.FALSE);
     }
 
-    public HighlightFields(List<String> o) {
-        super("anyOf", Boolean.FALSE);
+    public HighlightFields(List o) {
+        super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
     public HighlightFields(Object o) {
-        super("anyOf", Boolean.FALSE);
+        super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
@@ -145,12 +168,12 @@ public class HighlightFields extends AbstractOpenApiSchema {
     }
 
     /**
-     * Set the instance that matches the anyOf child schema, check
-     * the instance parameter is valid against the anyOf child schemas:
+     * Set the instance that matches the oneOf child schema, check
+     * the instance parameter is valid against the oneOf child schemas:
      * List<String>, Object
      *
-     * It could be an instance of the 'anyOf' schemas.
-     * The anyOf child schemas may themselves be a composed schema (allOf, anyOf, anyOf).
+     * It could be an instance of the 'oneOf' schemas.
+     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
@@ -185,9 +208,9 @@ public class HighlightFields extends AbstractOpenApiSchema {
      * @return The actual instance of `List<String>`
      * @throws ClassCastException if the instance is not `List<String>`
      */
-    public List<String> getList() throws ClassCastException {
+        public List<String> getListString() throws ClassCastException {
         return (List<String>)super.getActualInstance();
-    }
+        }
 
     /**
      * Get the actual instance of `Object`. If the actual instance is not `Object`,

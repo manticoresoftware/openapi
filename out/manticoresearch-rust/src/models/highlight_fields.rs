@@ -12,15 +12,17 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// HighlightFields : List of fields available for highlighting
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct HighlightFields {
+/// List of fields available for highlighting
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum HighlightFields {
+    Array(Vec<String>),
+    Object(serde_json::Value),
 }
 
-impl HighlightFields {
-    /// List of fields available for highlighting
-    pub fn new() -> HighlightFields {
-        HighlightFields {
-        }
+impl Default for HighlightFields {
+    fn default() -> Self {
+        Self::Array(Default::default())
     }
 }
 

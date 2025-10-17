@@ -88,10 +88,11 @@ namespace ManticoreSearch.Test.Api
                         
                                 indexApi.Bulk(body);
                                 
-                                SearchRequest searchRequest = new SearchRequest("movies");
+                                SearchRequest searchRequest = new SearchRequest(table: "movies");
                                 
                                 Highlight queryHighlight = new Highlight();
-                                HighlightFields highlightFields = new HighlightFields(new List<string>() { "title" });
+                                List<string> fields = new List<string>() { "title" };
+                                HighlightFields highlightFields = new HighlightFields(fields);
                                 queryHighlight.Fields = highlightFields;
 
                                 SearchQuery query = new SearchQuery();

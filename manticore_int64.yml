@@ -265,7 +265,7 @@ components:
               type: boolean
               description: Enable or disable result weight calculation used for sorting
           example:
-            tabke: 'your_table'
+            table: 'your_table'
             query:
               query_string: 'your_query'
     # workaround to fix the incorrect generation of referenced items in some clients
@@ -623,7 +623,7 @@ components:
         type:
           type: {}
       additionalProperties: false
-      description: Object representing the conditions used to perform the join operation  
+      description: Object representing the conditions used to perform the join operation
     _match:
       type: object
       required: ['query']
@@ -1639,3 +1639,4 @@ paths:
 servers:
   - description: Default Manticore Search HTTP 
     url: http://127.0.0.1:9308/
+

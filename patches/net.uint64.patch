@@ -1,0 +1,280 @@
+diff --git a/out/manticoresearch-net/docs/DeleteDocumentRequest.md b/out/manticoresearch-net/docs/DeleteDocumentRequest.md
+index 6e8d46e..4dcfa70 100755
+--- a/out/manticoresearch-net/docs/DeleteDocumentRequest.md
++++ b/out/manticoresearch-net/docs/DeleteDocumentRequest.md
+@@ -7,7 +7,7 @@ Name | Type | Description | Notes
+ ------------ | ------------- | ------------- | -------------
+ **Table** | **string** | Table name | 
+ **Cluster** | **string** | Cluster name | [optional] 
+-**Id** | **int** | The ID of document for deletion | [optional] 
++**Id** | **UInt64** | The ID of document for deletion | [optional]
+ **Query** | **Object** | Defines the criteria to match documents for deletion | [optional] 
+ 
+ [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+diff --git a/out/manticoresearch-net/docs/DeleteResponse.md b/out/manticoresearch-net/docs/DeleteResponse.md
+index f5fd572..2585f44 100755
+--- a/out/manticoresearch-net/docs/DeleteResponse.md
++++ b/out/manticoresearch-net/docs/DeleteResponse.md
+@@ -6,7 +6,7 @@ Response object for successful delete request
+ Name | Type | Description | Notes
+ ------------ | ------------- | ------------- | -------------
+ **Table** | **string** | The name of the table from which the document was deleted | [optional] 
+-**Deleted** | **int** | Number of documents deleted | [optional] 
++**Deleted** | **UInt64** | Number of documents deleted | [optional]
+ **Id** | **int** | The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned | [optional] 
+ **Found** | **bool** | Indicates whether any documents to be deleted were found | [optional] 
+ **Result** | **string** | Result of the delete operation, typically &#39;deleted&#39; | [optional] 
+diff --git a/out/manticoresearch-net/docs/HitsHits.md b/out/manticoresearch-net/docs/HitsHits.md
+index a92eb22..5f72f53 100755
+--- a/out/manticoresearch-net/docs/HitsHits.md
++++ b/out/manticoresearch-net/docs/HitsHits.md
+@@ -6,7 +6,7 @@ Search hit representing a matched document
+ Name | Type | Description | Notes
+ ------------ | ------------- | ------------- | -------------
+ **Id** | **int** | The ID of the matched document | [optional] 
+-**Score** | **int** | The score of the matched document | [optional] 
++**Score** | **UInt64** | The score of the matched document | [optional]
+ **Source** | **Object** | The source data of the matched document | [optional] 
+ **KnnDist** | **decimal** | The knn distance of the matched document returned for knn queries | [optional] 
+ **Highlight** | **Object** | The highlighting-related data of the matched document | [optional] 
+diff --git a/out/manticoresearch-net/docs/InsertDocumentRequest.md b/out/manticoresearch-net/docs/InsertDocumentRequest.md
+index 6cba1e9..64b505f 100755
+--- a/out/manticoresearch-net/docs/InsertDocumentRequest.md
++++ b/out/manticoresearch-net/docs/InsertDocumentRequest.md
+@@ -7,7 +7,7 @@ Name | Type | Description | Notes
+ ------------ | ------------- | ------------- | -------------
+ **Table** | **string** | Name of the table to insert the document into | 
+ **Cluster** | **string** | Name of the cluster to insert the document into | [optional] 
+-**Id** | **int** | Document ID. If not provided, an ID will be auto-generated  | [optional] 
++**Id** | **UInt64** | Document ID. If not provided, an ID will be auto-generated  | [optional]
+ **Doc** | **Object** | Object containing document data  | 
+ 
+ [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+diff --git a/out/manticoresearch-net/docs/KnnQuery.md b/out/manticoresearch-net/docs/KnnQuery.md
+index f76b76e..9434551 100755
+--- a/out/manticoresearch-net/docs/KnnQuery.md
++++ b/out/manticoresearch-net/docs/KnnQuery.md
+@@ -8,7 +8,7 @@ Name | Type | Description | Notes
+ **Field** | **string** | Field to perform the k-nearest neighbor search on | 
+ **K** | **int** | The number of nearest neighbors to return | 
+ **QueryVector** | **List&lt;decimal&gt;** | The vector used as input for the KNN search | [optional] 
+-**DocId** | **int** | The docuemnt ID used as input for the KNN search | [optional] 
++**DocId** | **UInt64** | The document ID used as input for the KNN search | [optional]
+ **Ef** | **int** | Optional parameter controlling the accuracy of the search | [optional] 
+ **Filter** | [**QueryFilter**](QueryFilter.md) |  | [optional] 
+ 
+diff --git a/out/manticoresearch-net/docs/SuccessResponse.md b/out/manticoresearch-net/docs/SuccessResponse.md
+index a6acc74..8bf7608 100755
+--- a/out/manticoresearch-net/docs/SuccessResponse.md
++++ b/out/manticoresearch-net/docs/SuccessResponse.md
+@@ -6,7 +6,7 @@ Response object indicating the success of an operation, such as inserting or upd
+ Name | Type | Description | Notes
+ ------------ | ------------- | ------------- | -------------
+ **Table** | **string** | Name of the document table | [optional] 
+-**Id** | **int** | ID of the document affected by the request operation | [optional] 
++**Id** | **UInt64** | ID of the document affected by the request operation | [optional]
+ **Created** | **bool** | Indicates whether the document was created as a result of the operation | [optional] 
+ **Result** | **string** | Result of the operation, typically &#39;created&#39;, &#39;updated&#39;, or &#39;deleted&#39; | [optional] 
+ **Found** | **bool** | Indicates whether the document was found in the table | [optional] 
+diff --git a/out/manticoresearch-net/docs/UpdateDocumentRequest.md b/out/manticoresearch-net/docs/UpdateDocumentRequest.md
+index 2b80f04..8c8c863 100755
+--- a/out/manticoresearch-net/docs/UpdateDocumentRequest.md
++++ b/out/manticoresearch-net/docs/UpdateDocumentRequest.md
+@@ -8,7 +8,7 @@ Name | Type | Description | Notes
+ **Table** | **string** | Name of the document table | 
+ **Cluster** | **string** | Name of the document cluster | [optional] 
+ **Doc** | **Object** | Object containing the document fields to update | 
+-**Id** | **int** | Document ID | [optional] 
++**Id** | **UInt64** | Document ID | [optional]
+ **Query** | [**QueryFilter**](QueryFilter.md) |  | [optional] 
+ 
+ [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+diff --git a/out/manticoresearch-net/docs/UpdateResponse.md b/out/manticoresearch-net/docs/UpdateResponse.md
+index cd7d8f0..1720af4 100755
+--- a/out/manticoresearch-net/docs/UpdateResponse.md
++++ b/out/manticoresearch-net/docs/UpdateResponse.md
+@@ -7,7 +7,7 @@ Name | Type | Description | Notes
+ ------------ | ------------- | ------------- | -------------
+ **Table** | **string** | Name of the document table | [optional] 
+ **Updated** | **int** | Number of documents updated | [optional] 
+-**Id** | **int** | Document ID | [optional] 
++**Id** | **UInt64** | Document ID | [optional]
+ **Result** | **string** | Result of the update operation, typically &#39;updated&#39; | [optional] 
+ 
+ [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteDocumentRequest.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteDocumentRequest.cs
+index 36abbba..4bd0be1 100755
+--- a/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteDocumentRequest.cs
++++ b/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteDocumentRequest.cs
+@@ -45,7 +45,7 @@ namespace ManticoreSearch.Model
+         /// <param name="cluster">Cluster name.</param>
+         /// <param name="id">The ID of document for deletion.</param>
+         /// <param name="query">Defines the criteria to match documents for deletion.</param>
+-        public DeleteDocumentRequest(string table = default, string cluster = default, int id = default, Object query = default)
++        public DeleteDocumentRequest(string table = default, string cluster = default, UInt64 id = default, Object query = default)
+         {
+             // to ensure "table" is required (not null)
+             if (table == null)
+@@ -77,7 +77,7 @@ namespace ManticoreSearch.Model
+         /// </summary>
+         /// <value>The ID of document for deletion</value>
+         [DataMember(Name = "id", EmitDefaultValue = false)]
+-        public int Id { get; set; }
++        public UInt64 Id { get; set; }
+ 
+         /// <summary>
+         /// Defines the criteria to match documents for deletion
+diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteResponse.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteResponse.cs
+index c0a5332..25d09c8 100755
+--- a/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteResponse.cs
++++ b/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteResponse.cs
+@@ -41,7 +41,7 @@ namespace ManticoreSearch.Model
+         /// <param name="id">The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned.</param>
+         /// <param name="found">Indicates whether any documents to be deleted were found.</param>
+         /// <param name="result">Result of the delete operation, typically &#39;deleted&#39;.</param>
+-        public DeleteResponse(string table = default, int deleted = default, int id = default, bool found = default, string result = default)
++        public DeleteResponse(string table = default, int deleted = default, UInt64 id = default, bool found = default, string result = default)
+         {
+             this.Table = table;
+             this.Deleted = deleted;
+@@ -69,7 +69,7 @@ namespace ManticoreSearch.Model
+         /// </summary>
+         /// <value>The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned</value>
+         [DataMember(Name = "id", EmitDefaultValue = false)]
+-        public int Id { get; set; }
++        public UInt64 Id { get; set; }
+ 
+         /// <summary>
+         /// Indicates whether any documents to be deleted were found
+diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/HitsHits.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/HitsHits.cs
+index 384401b..6816b0f 100755
+--- a/out/manticoresearch-net/src/ManticoreSearch/Model/HitsHits.cs
++++ b/out/manticoresearch-net/src/ManticoreSearch/Model/HitsHits.cs
+@@ -44,7 +44,7 @@ namespace ManticoreSearch.Model
+         /// <param name="table">The table name of the matched document returned for percolate queries.</param>
+         /// <param name="type">The type of the matched document returned for percolate queries.</param>
+         /// <param name="fields">The percolate-related fields of the matched document returned for percolate queries.</param>
+-        public HitsHits(int id = default, int score = default, Object source = default, decimal knnDist = default, Object highlight = default, string table = default, string type = default, Object fields = default)
++        public HitsHits(UInt64 id = default, int score = default, Object source = default, decimal knnDist = default, Object highlight = default, string table = default, string type = default, Object fields = default)
+         {
+             this.Id = id;
+             this.Score = score;
+@@ -61,7 +61,7 @@ namespace ManticoreSearch.Model
+         /// </summary>
+         /// <value>The ID of the matched document</value>
+         [DataMember(Name = "_id", EmitDefaultValue = false)]
+-        public int Id { get; set; }
++        public UInt64 Id { get; set; }
+ 
+         /// <summary>
+         /// The score of the matched document
+diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/InsertDocumentRequest.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/InsertDocumentRequest.cs
+index 6b826e9..c43aecf 100755
+--- a/out/manticoresearch-net/src/ManticoreSearch/Model/InsertDocumentRequest.cs
++++ b/out/manticoresearch-net/src/ManticoreSearch/Model/InsertDocumentRequest.cs
+@@ -45,7 +45,7 @@ namespace ManticoreSearch.Model
+         /// <param name="cluster">Name of the cluster to insert the document into.</param>
+         /// <param name="id">Document ID. If not provided, an ID will be auto-generated .</param>
+         /// <param name="doc">Object containing document data  (required).</param>
+-        public InsertDocumentRequest(string table = default, string cluster = default, int id = default, Object doc = default)
++        public InsertDocumentRequest(string table = default, string cluster = default, UInt64 id = default, Object doc = default)
+         {
+             // to ensure "table" is required (not null)
+             if (table == null)
+@@ -82,7 +82,7 @@ namespace ManticoreSearch.Model
+         /// </summary>
+         /// <value>Document ID. If not provided, an ID will be auto-generated </value>
+         [DataMember(Name = "id", EmitDefaultValue = false)]
+-        public int Id { get; set; }
++        public UInt64 Id { get; set; }
+ 
+         /// <summary>
+         /// Object containing document data 
+diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/KnnQuery.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/KnnQuery.cs
+index 6e06628..16991e7 100755
+--- a/out/manticoresearch-net/src/ManticoreSearch/Model/KnnQuery.cs
++++ b/out/manticoresearch-net/src/ManticoreSearch/Model/KnnQuery.cs
+@@ -47,7 +47,7 @@ namespace ManticoreSearch.Model
+         /// <param name="docId">The docuemnt ID used as input for the KNN search.</param>
+         /// <param name="ef">Optional parameter controlling the accuracy of the search.</param>
+         /// <param name="filter">filter.</param>
+-        public KnnQuery(string field = default, int k = default, List<decimal> queryVector = default, int docId = default, int ef = default, QueryFilter filter = default)
++        public KnnQuery(string field = default, int k = default, List<decimal> queryVector = default, UInt64 docId = default, int ef = default, QueryFilter filter = default)
+         {
+             // to ensure "field" is required (not null)
+             if (field == null)
+@@ -88,7 +88,7 @@ namespace ManticoreSearch.Model
+         /// </summary>
+         /// <value>The docuemnt ID used as input for the KNN search</value>
+         [DataMember(Name = "doc_id", EmitDefaultValue = false)]
+-        public int DocId { get; set; }
++        public UInt64 DocId { get; set; }
+ 
+         /// <summary>
+         /// Optional parameter controlling the accuracy of the search
+diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/SuccessResponse.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/SuccessResponse.cs
+index e5a5880..ccec01d 100755
+--- a/out/manticoresearch-net/src/ManticoreSearch/Model/SuccessResponse.cs
++++ b/out/manticoresearch-net/src/ManticoreSearch/Model/SuccessResponse.cs
+@@ -42,7 +42,7 @@ namespace ManticoreSearch.Model
+         /// <param name="result">Result of the operation, typically &#39;created&#39;, &#39;updated&#39;, or &#39;deleted&#39;.</param>
+         /// <param name="found">Indicates whether the document was found in the table.</param>
+         /// <param name="status">HTTP status code representing the result of the operation.</param>
+-        public SuccessResponse(string table = default, int id = default, bool created = default, string result = default, bool found = default, int status = default)
++        public SuccessResponse(string table = default, UInt64 id = default, bool created = default, string result = default, bool found = default, int status = default)
+         {
+             this.Table = table;
+             this.Id = id;
+@@ -64,7 +64,7 @@ namespace ManticoreSearch.Model
+         /// </summary>
+         /// <value>ID of the document affected by the request operation</value>
+         [DataMember(Name = "id", EmitDefaultValue = false)]
+-        public int Id { get; set; }
++        public UInt64 Id { get; set; }
+ 
+         /// <summary>
+         /// Indicates whether the document was created as a result of the operation
+diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateDocumentRequest.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateDocumentRequest.cs
+index 9095cfa..4bb07f2 100755
+--- a/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateDocumentRequest.cs
++++ b/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateDocumentRequest.cs
+@@ -46,7 +46,7 @@ namespace ManticoreSearch.Model
+         /// <param name="doc">Object containing the document fields to update (required).</param>
+         /// <param name="id">Document ID.</param>
+         /// <param name="query">query.</param>
+-        public UpdateDocumentRequest(string table = default, string cluster = default, Object doc = default, int id = default, QueryFilter query = default)
++        public UpdateDocumentRequest(string table = default, string cluster = default, Object doc = default, UInt64 id = default, QueryFilter query = default)
+         {
+             // to ensure "table" is required (not null)
+             if (table == null)
+@@ -94,7 +94,7 @@ namespace ManticoreSearch.Model
+         /// </summary>
+         /// <value>Document ID</value>
+         [DataMember(Name = "id", EmitDefaultValue = false)]
+-        public int Id { get; set; }
++        public UInt64 Id { get; set; }
+ 
+         /// <summary>
+         /// Gets or Sets Query
+diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateResponse.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateResponse.cs
+index 7c52d54..d68a092 100755
+--- a/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateResponse.cs
++++ b/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateResponse.cs
+@@ -40,7 +40,7 @@ namespace ManticoreSearch.Model
+         /// <param name="updated">Number of documents updated.</param>
+         /// <param name="id">Document ID.</param>
+         /// <param name="result">Result of the update operation, typically &#39;updated&#39;.</param>
+-        public UpdateResponse(string table = default, int updated = default, int id = default, string result = default)
++        public UpdateResponse(string table = default, int updated = default, UInt64 id = default, string result = default)
+         {
+             this.Table = table;
+             this.Updated = updated;
+@@ -67,7 +67,7 @@ namespace ManticoreSearch.Model
+         /// </summary>
+         /// <value>Document ID</value>
+         [DataMember(Name = "id", EmitDefaultValue = false)]
+-        public int Id { get; set; }
++        public UInt64 Id { get; set; }
+ 
+         /// <summary>
+         /// Result of the update operation, typically &#39;updated&#39;

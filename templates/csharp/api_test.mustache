@@ -87,11 +87,11 @@ namespace {{packageName}}.Test.Api
                         
                                 indexApi.Bulk(body);
                                 
-                                SearchRequest searchRequest = new SearchRequest(Table: "movies");
+                                SearchRequest searchRequest = new SearchRequest(table: "movies");
                                 
                                 Highlight queryHighlight = new Highlight();
-                                List<string> highlightFields = new List<string>();
-                                highlightFields.Add("title");
+                                List<string> fields = new List<string>() { "title" };
+                                HighlightFields highlightFields = new HighlightFields(fields);
                                 queryHighlight.Fields = highlightFields;
 
                                 SearchQuery query = new SearchQuery();
@@ -153,10 +153,10 @@ namespace {{packageName}}.Test.Api
                                 doc.Add("title", "test");
                                 doc.Add("tags1", new List<int>() {1,2,4,5});
 
-                                InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(Table: "products", Doc: doc);
+                                InsertDocumentRequest insertDocumentRequest = new InsertDocumentRequest(table: "products", doc: doc);
                                 indexApi.Insert(insertDocumentRequest);
 
-                                insertDocumentRequest = new InsertDocumentRequest(Table: "products", Doc: doc);
+                                insertDocumentRequest = new InsertDocumentRequest(table: "products", doc: doc);
                                 insertDocumentRequest.Id = 100;
                                 var res = indexApi.Insert(insertDocumentRequest);
                                 
