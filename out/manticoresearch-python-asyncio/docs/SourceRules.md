@@ -6,14 +6,16 @@ Defines which fields to include or exclude in the response for a search query
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**includes** | **object** | List of fields to include in the response | [optional] 
-**excludes** | **object** | List of fields to exclude from the response | [optional] 
+**includes** | **List[str]** | List of fields to include in the response | [optional] [default to []]
+**excludes** | **List[str]** | List of fields to exclude from the response | [optional] [default to [""]]
 
 ## Example
 
 ```python
-from manticoresearch.models.source_rules import SourceRules
+from manticoresearch-asyncio.models.source_rules import SourceRules
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of SourceRules from a JSON string
 source_rules_instance = SourceRules.from_json(json)
 # print the JSON string representation of the object

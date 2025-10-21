@@ -44,7 +44,7 @@ class SearchApi:
 
 
     @validate_call
-    def autocomplete(
+    async def autocomplete(
         self,
         autocomplete_request: AutocompleteRequest,
         _request_timeout: Union[
@@ -99,11 +99,11 @@ class SearchApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[object]",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -111,7 +111,7 @@ class SearchApi:
 
 
     @validate_call
-    def autocomplete_with_http_info(
+    async def autocomplete_with_http_info(
         self,
         autocomplete_request: AutocompleteRequest,
         _request_timeout: Union[
@@ -166,11 +166,11 @@ class SearchApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[object]",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -178,7 +178,7 @@ class SearchApi:
 
 
     @validate_call
-    def autocomplete_without_preload_content(
+    async def autocomplete_without_preload_content(
         self,
         autocomplete_request: AutocompleteRequest,
         _request_timeout: Union[
@@ -233,7 +233,7 @@ class SearchApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[object]",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
@@ -258,7 +258,9 @@ class SearchApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, Union[str, bytes]] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -315,7 +317,7 @@ class SearchApi:
 
 
     @validate_call
-    def percolate(
+    async def percolate(
         self,
         table: Annotated[StrictStr, Field(description="Name of the percolate table")],
         percolate_request: PercolateRequest,
@@ -374,11 +376,11 @@ class SearchApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SearchResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -386,7 +388,7 @@ class SearchApi:
 
 
     @validate_call
-    def percolate_with_http_info(
+    async def percolate_with_http_info(
         self,
         table: Annotated[StrictStr, Field(description="Name of the percolate table")],
         percolate_request: PercolateRequest,
@@ -445,11 +447,11 @@ class SearchApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SearchResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -457,7 +459,7 @@ class SearchApi:
 
 
     @validate_call
-    def percolate_without_preload_content(
+    async def percolate_without_preload_content(
         self,
         table: Annotated[StrictStr, Field(description="Name of the percolate table")],
         percolate_request: PercolateRequest,
@@ -516,7 +518,7 @@ class SearchApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SearchResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
@@ -542,7 +544,9 @@ class SearchApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, Union[str, bytes]] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -601,7 +605,7 @@ class SearchApi:
 
 
     @validate_call
-    def search(
+    async def search(
         self,
         search_request: SearchRequest,
         _request_timeout: Union[
@@ -656,11 +660,11 @@ class SearchApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SearchResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -668,7 +672,7 @@ class SearchApi:
 
 
     @validate_call
-    def search_with_http_info(
+    async def search_with_http_info(
         self,
         search_request: SearchRequest,
         _request_timeout: Union[
@@ -723,11 +727,11 @@ class SearchApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SearchResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -735,7 +739,7 @@ class SearchApi:
 
 
     @validate_call
-    def search_without_preload_content(
+    async def search_without_preload_content(
         self,
         search_request: SearchRequest,
         _request_timeout: Union[
@@ -790,7 +794,7 @@ class SearchApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SearchResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
@@ -815,7 +819,9 @@ class SearchApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, Union[str, bytes]] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters

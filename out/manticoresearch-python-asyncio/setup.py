@@ -21,13 +21,13 @@ from setuptools import setup, find_packages  # noqa: H301
 #
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
-NAME = "manticoresearch-devel"
-VERSION = "8.0.0-dev"
-PYTHON_REQUIRES = ">=3.7"
+NAME = "manticoresearch"
+VERSION = "9.1.0"
+PYTHON_REQUIRES = ">= 3.9"
 REQUIRES = [
-    "urllib3 >= 1.25.3, < 2.1.0",
-    "python-dateutil",
-    "aiohttp >= 3.0.0",
+    "urllib3 >= 2.1.0, < 3.0.0",
+    "python-dateutil >= 2.8.2",
+    "aiohttp >= 3.8.4",
     "aiohttp-retry >= 2.8.3",
     "pydantic >= 2",
     "typing-extensions >= 4.7.1",
@@ -49,5 +49,5 @@ setup(
     long_description="""\
     Сlient for Manticore Search. 
     """,  # noqa: E501
-    package_data={"manticoresearch": ["py.typed"]},
+    package_data={"manticoresearch-asyncio": ["py.typed"]},
 )

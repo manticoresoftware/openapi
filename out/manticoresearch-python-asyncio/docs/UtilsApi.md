@@ -1,4 +1,4 @@
-# manticoresearch.UtilsApi
+# manticoresearch-asyncio.UtilsApi
 
 All URIs are relative to *http://127.0.0.1:9308*
 
@@ -12,28 +12,33 @@ Method | HTTP request | Description
 
 Perform SQL requests
 
-Run a query in SQL format. Expects a query string passed through `body` parameter and optional `raw_response` parameter that defines a format of response. `raw_response` can be set to `False` for Select queries only, e.g., `SELECT * FROM mytable` The query string must stay as it is, no URL encoding is needed. The response object depends on the query executed. In select mode the response has same format as `/search` operation. 
+Run a query in SQL format.
+Expects a query string passed through `body` parameter and optional `raw_response` parameter that defines a format of response.
+`raw_response` can be set to `False` for Select queries only, e.g., `SELECT * FROM mytable`
+The query string must stay as it is, no URL encoding is needed.
+The response object depends on the query executed. In select mode the response has same format as `/search` operation.
+
 
 ### Example
 
 
 ```python
-import manticoresearch
-from manticoresearch.models.sql_response import SqlResponse
-from manticoresearch.rest import ApiException
+import manticoresearch-asyncio
+from manticoresearch-asyncio.models.sql_response import SqlResponse
+from manticoresearch-asyncio.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://127.0.0.1:9308
 # See configuration.py for a list of all supported configuration parameters.
-configuration = manticoresearch.Configuration(
+configuration = manticoresearch-asyncio.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+async with manticoresearch-asyncio.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = manticoresearch.UtilsApi(api_client)
+    api_instance = manticoresearch-asyncio.UtilsApi(api_client)
     body = SHOW TABLES # str | A query parameter string. 
     raw_response = True # bool | Optional parameter, defines a format of response. Can be set to `False` for Select only queries and set to `True` for any type of queries. Default value is 'True'.  (optional) (default to True)
 

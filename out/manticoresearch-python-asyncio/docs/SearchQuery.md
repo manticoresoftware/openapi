@@ -6,7 +6,7 @@ Defines a query structure for performing search operations
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**query_string** | **object** | Filter object defining a query string | [optional] 
+**query_string** | **str** | Filter object defining a query string | [optional] 
 **match** | **object** | Filter object defining a match keyword passed as a string or in a Match object | [optional] 
 **match_phrase** | **object** | Filter object defining a match phrase | [optional] 
 **match_all** | **object** | Filter object to select all documents | [optional] 
@@ -20,8 +20,10 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from manticoresearch.models.search_query import SearchQuery
+from manticoresearch-asyncio.models.search_query import SearchQuery
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of SearchQuery from a JSON string
 search_query_instance = SearchQuery.from_json(json)
 # print the JSON string representation of the object

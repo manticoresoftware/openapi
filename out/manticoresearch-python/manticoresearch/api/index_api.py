@@ -47,7 +47,7 @@ class IndexApi:
 
 
     @validate_call
-    def bulk(
+    async def bulk(
         self,
         body: StrictStr,
         _request_timeout: Union[
@@ -102,11 +102,11 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "BulkResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -114,7 +114,7 @@ class IndexApi:
 
 
     @validate_call
-    def bulk_with_http_info(
+    async def bulk_with_http_info(
         self,
         body: StrictStr,
         _request_timeout: Union[
@@ -169,11 +169,11 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "BulkResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -181,7 +181,7 @@ class IndexApi:
 
 
     @validate_call
-    def bulk_without_preload_content(
+    async def bulk_without_preload_content(
         self,
         body: StrictStr,
         _request_timeout: Union[
@@ -236,7 +236,7 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "BulkResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
@@ -261,7 +261,9 @@ class IndexApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, Union[str, bytes]] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -318,7 +320,7 @@ class IndexApi:
 
 
     @validate_call
-    def delete(
+    async def delete(
         self,
         delete_document_request: DeleteDocumentRequest,
         _request_timeout: Union[
@@ -373,11 +375,11 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "DeleteResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -385,7 +387,7 @@ class IndexApi:
 
 
     @validate_call
-    def delete_with_http_info(
+    async def delete_with_http_info(
         self,
         delete_document_request: DeleteDocumentRequest,
         _request_timeout: Union[
@@ -440,11 +442,11 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "DeleteResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -452,7 +454,7 @@ class IndexApi:
 
 
     @validate_call
-    def delete_without_preload_content(
+    async def delete_without_preload_content(
         self,
         delete_document_request: DeleteDocumentRequest,
         _request_timeout: Union[
@@ -507,7 +509,7 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "DeleteResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
@@ -532,7 +534,9 @@ class IndexApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, Union[str, bytes]] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -589,7 +593,7 @@ class IndexApi:
 
 
     @validate_call
-    def insert(
+    async def insert(
         self,
         insert_document_request: InsertDocumentRequest,
         _request_timeout: Union[
@@ -644,11 +648,11 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SuccessResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -656,7 +660,7 @@ class IndexApi:
 
 
     @validate_call
-    def insert_with_http_info(
+    async def insert_with_http_info(
         self,
         insert_document_request: InsertDocumentRequest,
         _request_timeout: Union[
@@ -711,11 +715,11 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SuccessResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -723,7 +727,7 @@ class IndexApi:
 
 
     @validate_call
-    def insert_without_preload_content(
+    async def insert_without_preload_content(
         self,
         insert_document_request: InsertDocumentRequest,
         _request_timeout: Union[
@@ -778,7 +782,7 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SuccessResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
@@ -803,7 +807,9 @@ class IndexApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, Union[str, bytes]] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -860,7 +866,7 @@ class IndexApi:
 
 
     @validate_call
-    def partial_replace(
+    async def partial_replace(
         self,
         table: Annotated[StrictStr, Field(description="Name of the percolate table")],
         id: Annotated[StrictInt, Field(description="Id of the document to replace")],
@@ -923,11 +929,11 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UpdateResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -935,7 +941,7 @@ class IndexApi:
 
 
     @validate_call
-    def partial_replace_with_http_info(
+    async def partial_replace_with_http_info(
         self,
         table: Annotated[StrictStr, Field(description="Name of the percolate table")],
         id: Annotated[StrictInt, Field(description="Id of the document to replace")],
@@ -998,11 +1004,11 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UpdateResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -1010,7 +1016,7 @@ class IndexApi:
 
 
     @validate_call
-    def partial_replace_without_preload_content(
+    async def partial_replace_without_preload_content(
         self,
         table: Annotated[StrictStr, Field(description="Name of the percolate table")],
         id: Annotated[StrictInt, Field(description="Id of the document to replace")],
@@ -1073,7 +1079,7 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UpdateResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
@@ -1100,7 +1106,9 @@ class IndexApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, Union[str, bytes]] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -1161,7 +1169,7 @@ class IndexApi:
 
 
     @validate_call
-    def replace(
+    async def replace(
         self,
         insert_document_request: InsertDocumentRequest,
         _request_timeout: Union[
@@ -1216,11 +1224,11 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SuccessResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -1228,7 +1236,7 @@ class IndexApi:
 
 
     @validate_call
-    def replace_with_http_info(
+    async def replace_with_http_info(
         self,
         insert_document_request: InsertDocumentRequest,
         _request_timeout: Union[
@@ -1283,11 +1291,11 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SuccessResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -1295,7 +1303,7 @@ class IndexApi:
 
 
     @validate_call
-    def replace_without_preload_content(
+    async def replace_without_preload_content(
         self,
         insert_document_request: InsertDocumentRequest,
         _request_timeout: Union[
@@ -1350,7 +1358,7 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SuccessResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
@@ -1375,7 +1383,9 @@ class IndexApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, Union[str, bytes]] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -1432,7 +1442,7 @@ class IndexApi:
 
 
     @validate_call
-    def update(
+    async def update(
         self,
         update_document_request: UpdateDocumentRequest,
         _request_timeout: Union[
@@ -1487,11 +1497,11 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UpdateResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -1499,7 +1509,7 @@ class IndexApi:
 
 
     @validate_call
-    def update_with_http_info(
+    async def update_with_http_info(
         self,
         update_document_request: UpdateDocumentRequest,
         _request_timeout: Union[
@@ -1554,11 +1564,11 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UpdateResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        response_data.read()
+        await response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -1566,7 +1576,7 @@ class IndexApi:
 
 
     @validate_call
-    def update_without_preload_content(
+    async def update_without_preload_content(
         self,
         update_document_request: UpdateDocumentRequest,
         _request_timeout: Union[
@@ -1621,7 +1631,7 @@ class IndexApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UpdateResponse",
         }
-        response_data = self.api_client.call_api(
+        response_data = await self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
@@ -1646,7 +1656,9 @@ class IndexApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, Union[str, bytes]] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters

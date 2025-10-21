@@ -14,8 +14,10 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from manticoresearch.models.insert_document_request import InsertDocumentRequest
+from manticoresearch-asyncio.models.insert_document_request import InsertDocumentRequest
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of InsertDocumentRequest from a JSON string
 insert_document_request_instance = InsertDocumentRequest.from_json(json)
 # print the JSON string representation of the object

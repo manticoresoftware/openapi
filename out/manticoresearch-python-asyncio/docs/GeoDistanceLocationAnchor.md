@@ -6,14 +6,16 @@ Specifies the location of the pin point used for search
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**lat** | **object** | Latitude of the anchor point | [optional] 
-**lon** | **object** | Longitude of the anchor point | [optional] 
+**lat** | **float** | Latitude of the anchor point | [optional] 
+**lon** | **float** | Longitude of the anchor point | [optional] 
 
 ## Example
 
 ```python
-from manticoresearch.models.geo_distance_location_anchor import GeoDistanceLocationAnchor
+from manticoresearch-asyncio.models.geo_distance_location_anchor import GeoDistanceLocationAnchor
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of GeoDistanceLocationAnchor from a JSON string
 geo_distance_location_anchor_instance = GeoDistanceLocationAnchor.from_json(json)
 # print the JSON string representation of the object

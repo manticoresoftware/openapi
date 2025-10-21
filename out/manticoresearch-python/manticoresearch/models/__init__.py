@@ -13,7 +13,6 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-
 # import models into model package
 from manticoresearch.models.agg_composite import AggComposite
 from manticoresearch.models.agg_composite_source import AggCompositeSource
@@ -59,3 +58,4 @@ from manticoresearch.models.sql_response import SqlResponse
 from manticoresearch.models.success_response import SuccessResponse
 from manticoresearch.models.update_document_request import UpdateDocumentRequest
 from manticoresearch.models.update_response import UpdateResponse
+

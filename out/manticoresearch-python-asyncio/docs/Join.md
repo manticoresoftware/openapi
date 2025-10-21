@@ -13,8 +13,10 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from manticoresearch.models.join import Join
+from manticoresearch-asyncio.models.join import Join
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of Join from a JSON string
 join_instance = Join.from_json(json)
 # print the JSON string representation of the object

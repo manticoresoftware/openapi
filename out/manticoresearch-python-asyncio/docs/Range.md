@@ -14,8 +14,10 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from manticoresearch.models.range import Range
+from manticoresearch-asyncio.models.range import Range
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of Range from a JSON string
 range_instance = Range.from_json(json)
 # print the JSON string representation of the object

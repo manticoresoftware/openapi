@@ -7,12 +7,16 @@ List of responses from executed SQL queries
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **hits** | **object** |  | 
+**took** | **float** |  | [optional] 
+**timed_out** | **bool** |  | [optional] 
 
 ## Example
 
 ```python
-from manticoresearch.models.sql_response import SqlResponse
+from manticoresearch-asyncio.models.sql_response import SqlResponse
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of SqlResponse from a JSON string
 sql_response_instance = SqlResponse.from_json(json)
 # print the JSON string representation of the object

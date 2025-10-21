@@ -36,11 +36,11 @@ class KnnQuery(BaseModel):
     filter: Optional[QueryFilter] = None
     __properties: ClassVar[List[str]] = ["field", "k", "query_vector", "doc_id", "ef", "filter"]
 
-    #model_config = ConfigDict(
-    #    populate_by_name=True,
-    #    validate_assignment=True,
-    #    protected_namespaces=(),
-    #)
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:

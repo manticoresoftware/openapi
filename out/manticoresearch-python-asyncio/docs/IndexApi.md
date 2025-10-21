@@ -1,4 +1,4 @@
-# manticoresearch.IndexApi
+# manticoresearch-asyncio.IndexApi
 
 All URIs are relative to *http://127.0.0.1:9308*
 
@@ -17,28 +17,58 @@ Method | HTTP request | Description
 
 Bulk table operations
 
-Sends multiple operatons like inserts, updates, replaces or deletes.  For each operation it's object must have same format as in their dedicated method.  The method expects a raw string as the batch in NDJSON.  Each operation object needs to be serialized to   JSON and separated by endline (\\n).      An example of raw input:      ```   {\"insert\": {\"table\": \"movies\", \"doc\": {\"plot\": \"A secret team goes to North Pole\", \"rating\": 9.5, \"language\": [2, 3], \"title\": \"This is an older movie\", \"lon\": 51.99, \"meta\": {\"keywords\":[\"travel\",\"ice\"],\"genre\":[\"adventure\"]}, \"year\": 1950, \"lat\": 60.4, \"advise\": \"PG-13\"}}}   \\n   {\"delete\": {\"table\": \"movies\",\"id\":700}}   ```      Responds with an object telling whenever any errors occured and an array with status for each operation:      ```   {     'items':     [       {         'update':{'table':'products','id':1,'result':'updated'}       },       {         'update':{'table':'products','id':2,'result':'updated'}       }     ],     'errors':false   }   ``` 
+Sends multiple operatons like inserts, updates, replaces or deletes. 
+For each operation it's object must have same format as in their dedicated method. 
+The method expects a raw string as the batch in NDJSON.
+ Each operation object needs to be serialized to 
+ JSON and separated by endline (\n). 
+ 
+  An example of raw input:
+  
+  ```
+  {"insert": {"table": "movies", "doc": {"plot": "A secret team goes to North Pole", "rating": 9.5, "language": [2, 3], "title": "This is an older movie", "lon": 51.99, "meta": {"keywords":["travel","ice"],"genre":["adventure"]}, "year": 1950, "lat": 60.4, "advise": "PG-13"}}}
+  \n
+  {"delete": {"table": "movies","id":700}}
+  ```
+  
+  Responds with an object telling whenever any errors occured and an array with status for each operation:
+  
+  ```
+  {
+    'items':
+    [
+      {
+        'update':{'table':'products','id':1,'result':'updated'}
+      },
+      {
+        'update':{'table':'products','id':2,'result':'updated'}
+      }
+    ],
+    'errors':false
+  }
+  ```
+
 
 ### Example
 
 
 ```python
-import manticoresearch
-from manticoresearch.models.bulk_response import BulkResponse
-from manticoresearch.rest import ApiException
+import manticoresearch-asyncio
+from manticoresearch-asyncio.models.bulk_response import BulkResponse
+from manticoresearch-asyncio.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://127.0.0.1:9308
 # See configuration.py for a list of all supported configuration parameters.
-configuration = manticoresearch.Configuration(
+configuration = manticoresearch-asyncio.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+async with manticoresearch-asyncio.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = manticoresearch.IndexApi(api_client)
+    api_instance = manticoresearch-asyncio.IndexApi(api_client)
     body = 'body_example' # str | 
 
     try:
@@ -86,29 +116,61 @@ No authorization required
 
 Delete a document in a table
 
-Delete one or several documents. The method has 2 ways of deleting: either by id, in case only one document is deleted or by using a  match query, in which case multiple documents can be delete . Example of input to delete by id:    ```   {'table':'movies','id':100}   ```  Example of input to delete using a query:    ```   {     'table':'movies',     'query':     {       'bool':       {         'must':         [           {'query_string':'new movie'}         ]       }     }   }   ```  The match query has same syntax as in for searching. Responds with an object telling how many documents got deleted:     ```   {'table':'products','updated':1}   ``` 
+Delete one or several documents.
+The method has 2 ways of deleting: either by id, in case only one document is deleted or by using a  match query, in which case multiple documents can be delete .
+Example of input to delete by id:
+
+  ```
+  {'table':'movies','id':100}
+  ```
+
+Example of input to delete using a query:
+
+  ```
+  {
+    'table':'movies',
+    'query':
+    {
+      'bool':
+      {
+        'must':
+        [
+          {'query_string':'new movie'}
+        ]
+      }
+    }
+  }
+  ```
+
+The match query has same syntax as in for searching.
+Responds with an object telling how many documents got deleted: 
+
+  ```
+  {'table':'products','updated':1}
+  ```
+
 
 ### Example
 
 
 ```python
-import manticoresearch
-from manticoresearch.models.delete_document_request import DeleteDocumentRequest
-from manticoresearch.models.delete_response import DeleteResponse
-from manticoresearch.rest import ApiException
+import manticoresearch-asyncio
+from manticoresearch-asyncio.models.delete_document_request import DeleteDocumentRequest
+from manticoresearch-asyncio.models.delete_response import DeleteResponse
+from manticoresearch-asyncio.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://127.0.0.1:9308
 # See configuration.py for a list of all supported configuration parameters.
-configuration = manticoresearch.Configuration(
+configuration = manticoresearch-asyncio.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+async with manticoresearch-asyncio.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = manticoresearch.IndexApi(api_client)
+    api_instance = manticoresearch-asyncio.IndexApi(api_client)
     delete_document_request = {"table":"test","query":{"match":{"title":"apple"}}} # DeleteDocumentRequest | 
 
     try:
@@ -156,29 +218,76 @@ No authorization required
 
 Create a new document in a table
 
-Insert a document.  Expects an object like:     ```   {     'table':'movies',     'id':701,     'doc':     {       'title':'This is an old movie',       'plot':'A secret team goes to North Pole',       'year':1950,       'rating':9.5,       'lat':60.4,       'lon':51.99,       'advise':'PG-13',       'meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}',       'language':[2,3]     }   }   ```   The document id can also be missing, in which case an autogenerated one will be used:             ```   {     'table':'movies',     'doc':     {       'title':'This is a new movie',       'plot':'A secret team goes to North Pole',       'year':2020,       'rating':9.5,       'lat':60.4,       'lon':51.99,       'advise':'PG-13',       'meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}',       'language':[2,3]     }   }   ```   It responds with an object in format:      ```   {'table':'products','id':701,'created':true,'result':'created','status':201}   ``` 
+Insert a document. 
+Expects an object like:
+ 
+  ```
+  {
+    'table':'movies',
+    'id':701,
+    'doc':
+    {
+      'title':'This is an old movie',
+      'plot':'A secret team goes to North Pole',
+      'year':1950,
+      'rating':9.5,
+      'lat':60.4,
+      'lon':51.99,
+      'advise':'PG-13',
+      'meta':'{"keywords":{"travel","ice"},"genre":{"adventure"}}',
+      'language':[2,3]
+    }
+  }
+  ```
+ 
+The document id can also be missing, in which case an autogenerated one will be used:
+         
+  ```
+  {
+    'table':'movies',
+    'doc':
+    {
+      'title':'This is a new movie',
+      'plot':'A secret team goes to North Pole',
+      'year':2020,
+      'rating':9.5,
+      'lat':60.4,
+      'lon':51.99,
+      'advise':'PG-13',
+      'meta':'{"keywords":{"travel","ice"},"genre":{"adventure"}}',
+      'language':[2,3]
+    }
+  }
+  ```
+ 
+It responds with an object in format:
+  
+  ```
+  {'table':'products','id':701,'created':true,'result':'created','status':201}
+  ```
+
 
 ### Example
 
 
 ```python
-import manticoresearch
-from manticoresearch.models.insert_document_request import InsertDocumentRequest
-from manticoresearch.models.success_response import SuccessResponse
-from manticoresearch.rest import ApiException
+import manticoresearch-asyncio
+from manticoresearch-asyncio.models.insert_document_request import InsertDocumentRequest
+from manticoresearch-asyncio.models.success_response import SuccessResponse
+from manticoresearch-asyncio.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://127.0.0.1:9308
 # See configuration.py for a list of all supported configuration parameters.
-configuration = manticoresearch.Configuration(
+configuration = manticoresearch-asyncio.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+async with manticoresearch-asyncio.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = manticoresearch.IndexApi(api_client)
+    api_instance = manticoresearch-asyncio.IndexApi(api_client)
     insert_document_request = {"table":"test","id":1,"doc":{"title":"sample title","gid":10}} # InsertDocumentRequest | 
 
     try:
@@ -226,29 +335,35 @@ No authorization required
 
 Partially replaces a document in a table
 
-Partially replaces a document with given id in a table Responds with an object of the following format:     ```   {'table':'products','updated':1}   ``` 
+Partially replaces a document with given id in a table
+Responds with an object of the following format: 
+
+  ```
+  {'table':'products','updated':1}
+  ```
+
 
 ### Example
 
 
 ```python
-import manticoresearch
-from manticoresearch.models.replace_document_request import ReplaceDocumentRequest
-from manticoresearch.models.update_response import UpdateResponse
-from manticoresearch.rest import ApiException
+import manticoresearch-asyncio
+from manticoresearch-asyncio.models.replace_document_request import ReplaceDocumentRequest
+from manticoresearch-asyncio.models.update_response import UpdateResponse
+from manticoresearch-asyncio.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://127.0.0.1:9308
 # See configuration.py for a list of all supported configuration parameters.
-configuration = manticoresearch.Configuration(
+configuration = manticoresearch-asyncio.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+async with manticoresearch-asyncio.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = manticoresearch.IndexApi(api_client)
+    api_instance = manticoresearch-asyncio.IndexApi(api_client)
     table = 'table_example' # str | Name of the percolate table
     id = 56 # int | Id of the document to replace
     replace_document_request = {"doc":{"price":20}} # ReplaceDocumentRequest | 
@@ -300,29 +415,35 @@ No authorization required
 
 Replace new document in a table
 
-Replace an existing document. Input has same format as `insert` operation. Responds with an object in format:    ```   {'table':'products','id':1,'created':false,'result':'updated','status':200}   ``` 
+Replace an existing document. Input has same format as `insert` operation.
+Responds with an object in format:
+
+  ```
+  {'table':'products','id':1,'created':false,'result':'updated','status':200}
+  ```
+
 
 ### Example
 
 
 ```python
-import manticoresearch
-from manticoresearch.models.insert_document_request import InsertDocumentRequest
-from manticoresearch.models.success_response import SuccessResponse
-from manticoresearch.rest import ApiException
+import manticoresearch-asyncio
+from manticoresearch-asyncio.models.insert_document_request import InsertDocumentRequest
+from manticoresearch-asyncio.models.success_response import SuccessResponse
+from manticoresearch-asyncio.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://127.0.0.1:9308
 # See configuration.py for a list of all supported configuration parameters.
-configuration = manticoresearch.Configuration(
+configuration = manticoresearch-asyncio.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+async with manticoresearch-asyncio.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = manticoresearch.IndexApi(api_client)
+    api_instance = manticoresearch-asyncio.IndexApi(api_client)
     insert_document_request = {"table":"test","id":1,"doc":{"title":"updated title","gid":15}} # InsertDocumentRequest | 
 
     try:
@@ -370,29 +491,61 @@ No authorization required
 
 Update a document in a table
 
-Update one or several documents. The update can be made by passing the id or by using a match query in case multiple documents can be updated.  For example update a document using document id:    ```   {'table':'movies','doc':{'rating':9.49},'id':100}   ```  And update by using a match query:    ```   {     'table':'movies',     'doc':{'rating':9.49},     'query':     {       'bool':       {         'must':         [           {'query_string':'new movie'}         ]       }     }   }   ```   The match query has same syntax as for searching. Responds with an object that tells how many documents where updated in format:     ```   {'table':'products','updated':1}   ``` 
+Update one or several documents.
+The update can be made by passing the id or by using a match query in case multiple documents can be updated.  For example update a document using document id:
+
+  ```
+  {'table':'movies','doc':{'rating':9.49},'id':100}
+  ```
+
+And update by using a match query:
+
+  ```
+  {
+    'table':'movies',
+    'doc':{'rating':9.49},
+    'query':
+    {
+      'bool':
+      {
+        'must':
+        [
+          {'query_string':'new movie'}
+        ]
+      }
+    }
+  }
+  ``` 
+
+The match query has same syntax as for searching.
+Responds with an object that tells how many documents where updated in format: 
+
+  ```
+  {'table':'products','updated':1}
+  ```
+
 
 ### Example
 
 
 ```python
-import manticoresearch
-from manticoresearch.models.update_document_request import UpdateDocumentRequest
-from manticoresearch.models.update_response import UpdateResponse
-from manticoresearch.rest import ApiException
+import manticoresearch-asyncio
+from manticoresearch-asyncio.models.update_document_request import UpdateDocumentRequest
+from manticoresearch-asyncio.models.update_response import UpdateResponse
+from manticoresearch-asyncio.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://127.0.0.1:9308
 # See configuration.py for a list of all supported configuration parameters.
-configuration = manticoresearch.Configuration(
+configuration = manticoresearch-asyncio.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+async with manticoresearch-asyncio.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = manticoresearch.IndexApi(api_client)
+    api_instance = manticoresearch-asyncio.IndexApi(api_client)
     update_document_request = {"table":"test","doc":{"gid":20},"query":{"equals":{"cat_id":2}}} # UpdateDocumentRequest | 
 
     try:

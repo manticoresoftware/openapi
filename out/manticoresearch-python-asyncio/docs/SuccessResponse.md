@@ -16,8 +16,10 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from manticoresearch.models.success_response import SuccessResponse
+from manticoresearch-asyncio.models.success_response import SuccessResponse
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of SuccessResponse from a JSON string
 success_response_instance = SuccessResponse.from_json(json)
 # print the JSON string representation of the object

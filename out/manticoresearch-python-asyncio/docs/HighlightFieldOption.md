@@ -15,8 +15,10 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from manticoresearch.models.highlight_field_option import HighlightFieldOption
+from manticoresearch-asyncio.models.highlight_field_option import HighlightFieldOption
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of HighlightFieldOption from a JSON string
 highlight_field_option_instance = HighlightFieldOption.from_json(json)
 # print the JSON string representation of the object

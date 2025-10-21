@@ -6,13 +6,15 @@ Object representing a term to be used in composite aggregation.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**field** | **str** | Name of field to operate with | 
+**var_field** | **str** | Name of field to operate with | 
 
 ## Example
 
 ```python
-from manticoresearch.models.agg_composite_term import AggCompositeTerm
+from manticoresearch-asyncio.models.agg_composite_term import AggCompositeTerm
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of AggCompositeTerm from a JSON string
 agg_composite_term_instance = AggCompositeTerm.from_json(json)
 # print the JSON string representation of the object

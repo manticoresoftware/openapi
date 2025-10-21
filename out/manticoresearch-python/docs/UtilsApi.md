@@ -12,7 +12,12 @@ Method | HTTP request | Description
 
 Perform SQL requests
 
-Run a query in SQL format. Expects a query string passed through `body` parameter and optional `raw_response` parameter that defines a format of response. `raw_response` can be set to `False` for Select queries only, e.g., `SELECT * FROM mytable` The query string must stay as it is, no URL encoding is needed. The response object depends on the query executed. In select mode the response has same format as `/search` operation. 
+Run a query in SQL format.
+Expects a query string passed through `body` parameter and optional `raw_response` parameter that defines a format of response.
+`raw_response` can be set to `False` for Select queries only, e.g., `SELECT * FROM mytable`
+The query string must stay as it is, no URL encoding is needed.
+The response object depends on the query executed. In select mode the response has same format as `/search` operation.
+
 
 ### Example
 
@@ -31,7 +36,7 @@ configuration = manticoresearch.Configuration(
 
 
 # Enter a context with an instance of the API client
-with manticoresearch.ApiClient(configuration) as api_client:
+async with manticoresearch.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = manticoresearch.UtilsApi(api_client)
     body = SHOW TABLES # str | A query parameter string. 
@@ -39,7 +44,7 @@ with manticoresearch.ApiClient(configuration) as api_client:
 
     try:
         # Perform SQL requests
-        api_response = api_instance.sql(body, raw_response=raw_response)
+        api_response = await api_instance.sql(body, raw_response=raw_response)
         print("The response of UtilsApi->sql:\n")
         pprint(api_response)
     except Exception as e:

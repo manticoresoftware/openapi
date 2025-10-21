@@ -6,7 +6,7 @@ Object representing a k-nearest neighbor search query
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**field** | **str** | Field to perform the k-nearest neighbor search on | 
+**var_field** | **str** | Field to perform the k-nearest neighbor search on | 
 **k** | **int** | The number of nearest neighbors to return | 
 **query_vector** | **List[float]** | The vector used as input for the KNN search | [optional] 
 **doc_id** | **int** | The docuemnt ID used as input for the KNN search | [optional] 
@@ -16,8 +16,10 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from manticoresearch.models.knn_query import KnnQuery
+from manticoresearch-asyncio.models.knn_query import KnnQuery
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of KnnQuery from a JSON string
 knn_query_instance = KnnQuery.from_json(json)
 # print the JSON string representation of the object

@@ -12,14 +12,16 @@ Name | Type | Description | Notes
 **knn_dist** | **float** | The knn distance of the matched document returned for knn queries | [optional] 
 **highlight** | **object** | The highlighting-related data of the matched document | [optional] 
 **table** | **str** | The table name of the matched document returned for percolate queries | [optional] 
-**type** | **str** | The type of the matched document returned for percolate queries | [optional] 
+**type_** | **str** | The type of the matched document returned for percolate queries | [optional] 
 **fields** | **object** | The percolate-related fields of the matched document returned for percolate queries | [optional] 
 
 ## Example
 
 ```python
-from manticoresearch.models.hits_hits import HitsHits
+from manticoresearch-asyncio.models.hits_hits import HitsHits
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of HitsHits from a JSON string
 hits_hits_instance = HitsHits.from_json(json)
 # print the JSON string representation of the object

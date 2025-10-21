@@ -49,11 +49,11 @@ class SearchRequest(BaseModel):
     track_scores: Optional[StrictBool] = Field(default=None, description="Enable or disable result weight calculation used for sorting")
     __properties: ClassVar[List[str]] = ["table", "query", "join", "highlight", "limit", "knn", "aggs", "expressions", "max_matches", "offset", "options", "profile", "sort", "_source", "track_scores"]
 
-    #model_config = ConfigDict(
-    #    populate_by_name=True,
-    #    validate_assignment=True,
-    #    protected_namespaces=(),
-    #)
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:

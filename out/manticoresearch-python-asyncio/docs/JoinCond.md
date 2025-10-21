@@ -6,15 +6,18 @@ Object representing the conditions used to perform the join operation
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**field** | **str** | Field to join on | 
+**var_field** | **str** | Field to join on | 
 **table** | **str** | Joined table | 
+**query** | [**FulltextFilter**](FulltextFilter.md) |  | [optional] 
 **type** | **object** |  | [optional] 
 
 ## Example
 
 ```python
-from manticoresearch.models.join_cond import JoinCond
+from manticoresearch-asyncio.models.join_cond import JoinCond
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of JoinCond from a JSON string
 join_cond_instance = JoinCond.from_json(json)
 # print the JSON string representation of the object

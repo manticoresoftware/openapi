@@ -7,15 +7,17 @@ Object to perform geo-distance based filtering on queries
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **location_anchor** | [**GeoDistanceLocationAnchor**](GeoDistanceLocationAnchor.md) |  | [optional] 
-**location_source** | **object** | Field name in the document that contains location data | [optional] 
-**distance_type** | **object** | Algorithm used to calculate the distance | [optional] 
-**distance** | **object** | The distance from the anchor point to filter results by | [optional] 
+**location_source** | **str** | Field name in the document that contains location data | [optional] 
+**distance_type** | **str** | Algorithm used to calculate the distance | [optional] 
+**distance** | **str** | The distance from the anchor point to filter results by | [optional] 
 
 ## Example
 
 ```python
-from manticoresearch.models.geo_distance import GeoDistance
+from manticoresearch-asyncio.models.geo_distance import GeoDistance
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of GeoDistance from a JSON string
 geo_distance_instance = GeoDistance.from_json(json)
 # print the JSON string representation of the object

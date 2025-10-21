@@ -17,8 +17,10 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from manticoresearch.models.search_response import SearchResponse
+from manticoresearch-asyncio.models.search_response import SearchResponse
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of SearchResponse from a JSON string
 search_response_instance = SearchResponse.from_json(json)
 # print the JSON string representation of the object

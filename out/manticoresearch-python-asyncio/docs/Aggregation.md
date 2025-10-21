@@ -8,12 +8,15 @@ Name | Type | Description | Notes
 **terms** | [**AggTerms**](AggTerms.md) |  | [optional] 
 **sort** | **List[object]** |  | [optional] 
 **composite** | [**AggComposite**](AggComposite.md) |  | [optional] 
+**histogram** | [**AggHistogram**](AggHistogram.md) |  | [optional] 
 
 ## Example
 
 ```python
-from manticoresearch.models.aggregation import Aggregation
+from manticoresearch-asyncio.models.aggregation import Aggregation
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of Aggregation from a JSON string
 aggregation_instance = Aggregation.from_json(json)
 # print the JSON string representation of the object

@@ -11,8 +11,10 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from manticoresearch.models.agg_composite_source import AggCompositeSource
+from manticoresearch-asyncio.models.agg_composite_source import AggCompositeSource
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of AggCompositeSource from a JSON string
 agg_composite_source_instance = AggCompositeSource.from_json(json)
 # print the JSON string representation of the object

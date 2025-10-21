@@ -11,8 +11,10 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from manticoresearch.models.percolate_request import PercolateRequest
+from manticoresearch-asyncio.models.percolate_request import PercolateRequest
 
+# TODO update the JSON string below
+json = "{}"
 # create an instance of PercolateRequest from a JSON string
 percolate_request_instance = PercolateRequest.from_json(json)
 # print the JSON string representation of the object
