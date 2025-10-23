@@ -1,3 +1,4 @@
+
 diff --git a/out/manticoresearch-rust/src/apis/index_api.rs b/out/manticoresearch-rust/src/apis/index_api.rs
 index 5025f82..90e738f 100755
 --- a/out/manticoresearch-rust/src/apis/index_api.rs
@@ -72,11 +73,11 @@ index 69e7800..808ad60 100755
      /// Object containing document data 
      #[serde(rename = "doc")]
      pub doc: serde_json::Value,
-diff --git a/out/manticoresearch-rust/src/models/knn_query.rs b/out/manticoresearch-rust/src/models/knn_query.rs
+diff --git a/out/manticoresearch-rust/src/models/knn.rs b/out/manticoresearch-rust/src/models/knn.rs
 index 3aed8d0..5026cae 100755
---- a/out/manticoresearch-rust/src/models/knn_query.rs
-+++ b/out/manticoresearch-rust/src/models/knn_query.rs
-@@ -25,7 +25,7 @@ pub struct KnnQuery {
+--- a/out/manticoresearch-rust/src/models/knn.rs
++++ b/out/manticoresearch-rust/src/models/knn.rs
+@@ -25,7 +25,7 @@ pub struct Knn {
      pub query_vector: Option<Vec<f64>>,
      /// The docuemnt ID used as input for the KNN search
      #[serde(rename = "doc_id", skip_serializing_if = "Option::is_none")]

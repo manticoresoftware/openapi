@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "9.1.0"
+__version__ = "10.0.0"
 
 # Define package exports
 __all__ = [
@@ -55,6 +55,7 @@ __all__ = [
     "Join",
     "JoinCond",
     "JoinOn",
+    "Knn",
     "KnnQuery",
     "Match",
     "MatchAll",
@@ -118,6 +119,7 @@ from manticoresearch.models.insert_document_request import InsertDocumentRequest
 from manticoresearch.models.join import Join as Join
 from manticoresearch.models.join_cond import JoinCond as JoinCond
 from manticoresearch.models.join_on import JoinOn as JoinOn
+from manticoresearch.models.knn import Knn as Knn
 from manticoresearch.models.knn_query import KnnQuery as KnnQuery
 from manticoresearch.models.match import Match as Match
 from manticoresearch.models.match_all import MatchAll as MatchAll

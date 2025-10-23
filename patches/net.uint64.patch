@@ -50,13 +50,14 @@ index 6cba1e9..64b505f 100755
  **Doc** | **Object** | Object containing document data  | 
  
  [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
-diff --git a/out/manticoresearch-net/docs/KnnQuery.md b/out/manticoresearch-net/docs/KnnQuery.md
+diff --git a/out/manticoresearch-net/docs/Knn.md b/out/manticoresearch-net/docs/Knn.md
 index f76b76e..9434551 100755
---- a/out/manticoresearch-net/docs/KnnQuery.md
-+++ b/out/manticoresearch-net/docs/KnnQuery.md
-@@ -8,7 +8,7 @@ Name | Type | Description | Notes
+--- a/out/manticoresearch-net/docs/Knn.md
++++ b/out/manticoresearch-net/docs/Knn.md
+@@ -8,8 +8,8 @@ Name | Type | Description | Notes
  **Field** | **string** | Field to perform the k-nearest neighbor search on | 
  **K** | **int** | The number of nearest neighbors to return | 
+ **Query** | [**KnnQuery**](KnnQuery.md) |  | [optional] 
  **QueryVector** | **List&lt;decimal&gt;** | The vector used as input for the KNN search | [optional] 
 -**DocId** | **int** | The docuemnt ID used as input for the KNN search | [optional] 
 +**DocId** | **UInt64** | The document ID used as input for the KNN search | [optional]
@@ -190,16 +191,16 @@ index 6b826e9..c43aecf 100755
  
          /// <summary>
          /// Object containing document data 
-diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/KnnQuery.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/KnnQuery.cs
+diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/Knn.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/Knn.cs
 index 6e06628..16991e7 100755
---- a/out/manticoresearch-net/src/ManticoreSearch/Model/KnnQuery.cs
-+++ b/out/manticoresearch-net/src/ManticoreSearch/Model/KnnQuery.cs
+--- a/out/manticoresearch-net/src/ManticoreSearch/Model/Knn.cs
++++ b/out/manticoresearch-net/src/ManticoreSearch/Model/Knn.cs
 @@ -47,7 +47,7 @@ namespace ManticoreSearch.Model
          /// <param name="docId">The docuemnt ID used as input for the KNN search.</param>
          /// <param name="ef">Optional parameter controlling the accuracy of the search.</param>
          /// <param name="filter">filter.</param>
--        public KnnQuery(string field = default, int k = default, List<decimal> queryVector = default, int docId = default, int ef = default, QueryFilter filter = default)
-+        public KnnQuery(string field = default, int k = default, List<decimal> queryVector = default, UInt64 docId = default, int ef = default, QueryFilter filter = default)
+-        public Knn(string field = default, int k = default, KnnQuery query = default, List<decimal> queryVector = default, int docId = default, int ef = default, QueryFilter filter = default)
++        public Knn(string field = default, int k = default, KnnQuery query = default, List<decimal> queryVector = default, UInt64 docId = default, int ef = default, QueryFilter filter = default)
          {
              // to ensure "field" is required (not null)
              if (field == null)

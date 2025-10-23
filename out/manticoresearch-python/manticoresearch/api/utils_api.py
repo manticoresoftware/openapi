@@ -41,10 +41,10 @@ class UtilsApi:
 
 
     @validate_call
-    async def sql(
+    def sql(
         self,
         body: Annotated[StrictStr, Field(description="A query parameter string. ")],
-        raw_response: Annotated[Optional[StrictBool], Field(description="Optional parameter, defines a format of response. Can be set to `False` for Select only queries and set to `True` for any type of queries. Default value is 'True'. ")] = None,
+        raw_response: Annotated[Optional[StrictBool], Field(description="Optional parameter, defines a format of response. Can be set to `False` for Select only queries and set to `True` for any type of queries. Default value is 'True'. ")] = True,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -100,11 +100,11 @@ class UtilsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SqlResponse",
         }
-        response_data = await self.api_client.call_api(
+        response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        await response_data.read()
+        response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -112,7 +112,7 @@ class UtilsApi:
 
 
     @validate_call
-    async def sql_with_http_info(
+    def sql_with_http_info(
         self,
         body: Annotated[StrictStr, Field(description="A query parameter string. ")],
         raw_response: Annotated[Optional[StrictBool], Field(description="Optional parameter, defines a format of response. Can be set to `False` for Select only queries and set to `True` for any type of queries. Default value is 'True'. ")] = None,
@@ -171,11 +171,11 @@ class UtilsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SqlResponse",
         }
-        response_data = await self.api_client.call_api(
+        response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
-        await response_data.read()
+        response_data.read()
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -183,7 +183,7 @@ class UtilsApi:
 
 
     @validate_call
-    async def sql_without_preload_content(
+    def sql_without_preload_content(
         self,
         body: Annotated[StrictStr, Field(description="A query parameter string. ")],
         raw_response: Annotated[Optional[StrictBool], Field(description="Optional parameter, defines a format of response. Can be set to `False` for Select only queries and set to `True` for any type of queries. Default value is 'True'. ")] = None,
@@ -242,7 +242,7 @@ class UtilsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SqlResponse",
         }
-        response_data = await self.api_client.call_api(
+        response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )

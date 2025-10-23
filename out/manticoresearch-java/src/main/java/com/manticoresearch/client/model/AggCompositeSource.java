@@ -34,7 +34,7 @@ import com.manticoresearch.client.JSON;
   AggCompositeSource.JSON_PROPERTY_TERMS
 })
 @JsonTypeName("aggCompositeSource")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-01T15:59:28.052447079Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-22T12:27:44.564851536Z[Etc/UTC]", comments = "Generator version: 7.17.0-SNAPSHOT")
 public class AggCompositeSource {
   public static final String JSON_PROPERTY_TERMS = "terms";
   private AggCompositeTerm terms;
@@ -65,7 +65,6 @@ public class AggCompositeSource {
   public void setTerms(AggCompositeTerm terms) {
     this.terms = terms;
   }
-
 
   /**
    * Return true if this aggCompositeSource object is equal to o.

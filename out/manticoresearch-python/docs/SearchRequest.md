@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **join** | [**List[Join]**](Join.md) | Join clause to combine search data from multiple tables | [optional] 
 **highlight** | [**Highlight**](Highlight.md) |  | [optional] 
 **limit** | **int** | Maximum number of results to return | [optional] 
-**knn** | [**KnnQuery**](KnnQuery.md) |  | [optional] 
+**knn** | [**Knn**](Knn.md) |  | [optional] 
 **aggs** | [**Dict[str, Aggregation]**](Aggregation.md) | Defines aggregation settings for grouping results | [optional] 
 **expressions** | **Dict[str, str]** | Expressions to calculate additional values for the result | [optional] 
 **max_matches** | **int** | Maximum number of matches allowed in the result | [optional] 

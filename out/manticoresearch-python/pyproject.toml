@@ -1,6 +1,6 @@
 [project]
 name = "manticoresearch"
-version = "9.1.0"
+version = "10.0.0"
 description = "Manticore Search Client"
 authors = [
   {name = "Manticore Software Ltd.",email = "info@manticoresearch.com"},
@@ -13,8 +13,6 @@ requires-python = ">=3.9"
 dependencies = [
   "urllib3 (>=2.1.0,<3.0.0)",
   "python-dateutil (>=2.8.2)",
-  "aiohttp (>=3.8.4)",
-  "aiohttp-retry (>=2.8.3)",
   "pydantic (>=2)",
   "typing-extensions (>=4.7.1)",
 ]

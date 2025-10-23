@@ -2,19 +2,31 @@
 
 Сlient for Manticore Search.
 
+❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-go/tree/v1.10.0
+
+## Compatibility Table
+
+| **manticoresearch-go**    | **Manticore Search**                | **Go**           | **Compatibility**       |
+| --------------------------| ----------------------------------- | -----------------| ------------------------|
+| `dev`                     | `dev` (latest development version)  | 1.17.0 or newer  | ✅ Fully Compatible     |
+| v1.6.0 or newer           | 7.0.0 or newer                      | 1.17.0 or newer  | ✅ Fully Compatible     |
+| v1.6.0 or newer           | 6.2.12 to 7.0.0                     | 1.17.0 or newer  | ⚠️ Partially Compatible |
+| v1.0.0 to v1.6.0          | 6.3.6  to 7.0.0                     | 1.17.0 or newer  | ✅ Fully Compatible     |
+| v1.0.0 to v1.6.0          | 6.2.12 to 6.3.6                     | 1.17.0 or newer  | ⚠️ Partially Compatible |
+
 
 ## Installation
 
 ```shell
 
-go get github.com/manticoresoftware/manticoresearch-go@v1.10.0
+go get github.com/manticoresoftware/manticoresearch-go@dev
 
 ```
 
 ## Getting Started
 
 go mod init main
-go get github.com/manticoresoftware/manticoresearch-go@v1.10.0
+go get github.com/manticoresoftware/manticoresearch-go@dev
 
 ```go
 
@@ -132,6 +144,7 @@ Class | Method | HTTP request | Description
  - [Join](docs/Join.md)
  - [JoinCond](docs/JoinCond.md)
  - [JoinOn](docs/JoinOn.md)
+ - [Knn](docs/Knn.md)
  - [KnnQuery](docs/KnnQuery.md)
  - [Match](docs/Match.md)
  - [MatchAll](docs/MatchAll.md)

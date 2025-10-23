@@ -2,7 +2,6 @@
 
 {{>partial_header}}
 
-
 from setuptools import setup, find_packages  # noqa: H301
 
 # To install the library, run the following
@@ -11,31 +10,34 @@ from setuptools import setup, find_packages  # noqa: H301
 #
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
+{{#devBranch}}
+NAME = "{{{projectName}}}-devel"
+VERSION = "{{packageVersion}}"
+{{/devBranch}}
+{{^devBranch}}
 NAME = "{{{projectName}}}"
 VERSION = "{{packageVersion}}"
-PYTHON_REQUIRES = ">= 3.9"
+{{/devBranch}}
+PYTHON_REQUIRES = ">=3.7"
+{{#apiInfo}}
+{{#apis}}
+{{#-last}}
 REQUIRES = [
-    "urllib3 >= 2.1.0, < 3.0.0",
-    "python-dateutil >= 2.8.2",
+    "urllib3 >= 1.25.3, < 3",
+    "python-dateutil",
 {{#asyncio}}
-    "aiohttp >= 3.8.4",
+    "aiohttp >= 3.0.0",
     "aiohttp-retry >= 2.8.3",
 {{/asyncio}}
-{{#httpx}}
-    "httpx >= 0.28.1",
-{{/httpx}}
 {{#tornado}}
-    "tornado>=4.2, < 5",
+    "tornado>=4.2,<5",
 {{/tornado}}
 {{#hasHttpSignatureMethods}}
-    "pem >= 19.3.0",
-    "pycryptodome >= 3.9.0",
+    "pem>=19.3.0",
+    "pycryptodome>=3.9.0",
 {{/hasHttpSignatureMethods}}
     "pydantic >= 2",
     "typing-extensions >= 4.7.1",
-{{#lazyImports}}
-    "lazy-imports >= 1, < 2",
-{{/lazyImports}}
 ]
 
 setup(
@@ -56,3 +58,6 @@ setup(
     """,  # noqa: E501
     package_data={"{{{packageName}}}": ["py.typed"]},
 )
+{{/-last}}
+{{/apis}}
+{{/apiInfo}}

@@ -36,7 +36,7 @@ configuration = manticoresearch.Configuration(
 
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+with manticoresearch.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = manticoresearch.UtilsApi(api_client)
     body = SHOW TABLES # str | A query parameter string. 
@@ -44,7 +44,7 @@ async with manticoresearch.ApiClient(configuration) as api_client:
 
     try:
         # Perform SQL requests
-        api_response = await api_instance.sql(body, raw_response=raw_response)
+        api_response = api_instance.sql(body, raw_response=raw_response)
         print("The response of UtilsApi->sql:\n")
         pprint(api_response)
     except Exception as e:

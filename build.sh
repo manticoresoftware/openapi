@@ -5,7 +5,7 @@ set -e
 do_python() {
   echo "Building Python ..."
   rm -rf out/manticoresearch-python 
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g python -o /local/out/manticoresearch-python -t /local/templates/python --git-repo-id manticoresearch-python --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch --additional-properties library=httpx --additional-properties packageVersion=`cat versions/python` $build_to_branch
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g python -o /local/out/manticoresearch-python -t /local/templates/python --git-repo-id manticoresearch-python --git-user-id manticoresoftware  --additional-properties projectName=manticoresearch --additional-properties packageRepo=manticoresearch-python --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/python` $build_to_branch
   rm -rf out/manticoresearch-python/test/* 
   cp -r LICENSE.txt out/manticoresearch-python/LICENSE.txt
   cp docs/python/docs/* out/manticoresearch-python/docs/
@@ -18,7 +18,7 @@ do_python() {
 do_python_asyncio() {
   echo "Building Python async..."
   rm -rf out/manticoresearch-python-asyncio
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g python -o /local/out/manticoresearch-python-asyncio -t /local/templates/python --git-repo-id manticoresearch-python-asyncio --git-user-id manticoresoftware  --additional-properties library=asyncio --additional-properties projectName=manticoresearch --additional-properties packageName=manticoresearch-asyncio --additional-properties packageVersion=`cat versions/python` $build_to_branch
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g python -o /local/out/manticoresearch-python-asyncio -t /local/templates/python --git-repo-id manticoresearch-python-asyncio --git-user-id manticoresoftware  --additional-properties library=asyncio --additional-properties packageRepo=manticoresearch-python-asyncio --additional-properties projectName=manticoresearch-asyncio --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/python-asyncio` $build_to_branch
   rm -rf out/manticoresearch-python-asyncio/test/* 
   cp -r LICENSE.txt out/manticoresearch-python-asyncio/LICENSE.txt
   #cp docs/python/docs/* out/manticoresearch-python-asyncio/docs/
@@ -128,7 +128,7 @@ do_typescript() {
     --additional-properties moduleName=Manticoresearch \
     --additional-properties apiDocPath=./ \
     $build_to_branch
-  git apply patches/typescript.matchall.patch
+  #git apply patches/typescript.matchall.patch
   git apply patches/typescript.objectserializer.patch
   git apply patches/typescript.utilsapi.patch
   git apply patches/typescript.indexapi.patch
@@ -179,9 +179,6 @@ do_go() {
   --additional-properties packageVersion=`cat versions/go` \
   $build_to_branch
   git apply patches/go.api_utils.patch patches/go.uint64.patch
-  #git apply patches/go.sql_api.patch
-  #git apply patches/go.response_error.patch
-  #cp patches/go_sql_response.go out/manticoresearch-go/model_sql_response.go
   #Removing redundant files created by the go generator
   cd out/manticoresearch-go &&
   rm -rf model_aggregation_composite_sources_inner_value_terms.go model_aggregation_composite_sources_inner_value.go \
@@ -241,20 +238,20 @@ openapi_schema_file="manticore.yml"
 openapi_schema_int64_file="manticore_int64.yml"
 openapi_schema_no_nullables_file="manticore_no_nullables.yml"
 sed 's/uint64/int64/g' "$openapi_schema_file" > "$openapi_schema_int64_file"
-sed -e '691c\
+sed -e '692c\
+          type: object
+' -e '265c\
               type: object
-' -e '259c\
-              type: object
-' -e '262c\
+' -e '268c\
               type: object
 ' "$openapi_schema_file" > "$openapi_schema_no_nullables_file"
 
 case $1 in
- python)
-   do_python 
-  ;;
  python-asyncio)
    do_python_asyncio 
+  ;;
+ python)
+   do_python 
   ;;
  rust)
    do_rust

@@ -1,32 +1,54 @@
 ```python
-{{#apiInfo}}{{#apis}}{{#-last}}{{#hasHttpSignatureMethods}}import datetime{{/hasHttpSignatureMethods}}{{/-last}}{{/apis}}{{/apiInfo}}
-import {{{packageName}}}
-from {{{packageName}}}.rest import ApiException
+import manticoresearch
+from manticoresearch.rest import ApiException
 from pprint import pprint
-{{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}
-{{> python_doc_auth_partial}}
+
+# Defining the host is optional and defaults to http://127.0.0.1:9308
+# See configuration.py for a list of all supported configuration parameters.
+configuration = manticoresearch.Configuration(
+    host = "http://127.0.0.1:9308"
+)
+
 
 
 # Enter a context with an instance of the API client
-{{#async}}async {{/async}}with {{{packageName}}}.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = {{{packageName}}}.{{{classname}}}(api_client)
-    {{#allParams}}
-    {{paramName}} = {{{example}}} # {{{dataType}}} | {{{description}}}{{^required}} (optional){{/required}}{{#defaultValue}} (default to {{{.}}}){{/defaultValue}}
-    {{/allParams}}
+with manticoresearch.ApiClient(configuration) as api_client:
+    # Create instances of API classes
+    indexApi = manticoresearch.IndexApi(api_client)
+    searchApi = manticoresearch.SearchApi(api_client)
+    utilsApi = manticoresearch.UtilsApi(api_client)
 
     try:
-        {{#summary}}
-        # {{{.}}}
-        {{/summary}}
-        {{#returnType}}api_response = {{/returnType}}{{#async}}await {{/async}}api_instance.{{{operationId}}}({{#allParams}}{{#required}}{{paramName}}{{/required}}{{^required}}{{paramName}}={{paramName}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}})
-        {{#returnType}}
-        print("The response of {{classname}}->{{operationId}}:\n")
-        pprint(api_response)
-        {{/returnType}}
+        # Perform insert and search operations    
+        newDoc = {"title" : "Crossbody Bag with Tassel", "price": 19.85}
+        insert_request = InsertDocumentRequest(index="products", doc=newDoc)
+        indexApi.insert(insert_request)
+        
+        # Check out the structure of the autocreated 'products' table
+        sql_response = utilsApi.sql('DESC products');
+        print("The response of UtilsApi->sql:\n")
+        pprint(sql_response) 
+
+        newDoc = {"title" : "Pet Hair Remover Glove", "price": 7.99}
+        insert_request = InsertDocumentRequest(index="products", doc=newDoc)
+        indexApi.insert(insert_request)
+        
+        query_highlight = Highlight()
+        query_highlight.fields = {"title":{}}
+        search_query = SearchQuery(query_string="@title bag")
+        search_request = SearchRequest(index="products", query=search_query, highlight=query_highlight)
+        search_response = searchApi.search(search_request)    
+        print("The response of SearchApi->search:\n")
+        pprint(search_response)
+
+        # Alternatively, you can pass all request arguments as a complex JSON object        
+        indexApi.insert({"index": "products", "doc" : {"title" : "Crossbody Bag with Tassel", "price" : 19.85}})
+        indexApi.insert({"index": "products", "doc" : {"title" : "Pet Hair Remover Glove", "price" : 7.99}})
+        search_response = searchApi.search({"index": "products", "query": {"query_string": "@title bag"}, "highlight":{"fields":{"title":{}}}})
+        print("The response of SearchApi->search:\n")
+        pprint(search_response)
     except ApiException as e:
-        print("Exception when calling {{classname}}->{{operationId}}: %s\n" % e)
-{{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
+        print("Exception when calling Api method: %s\n" % e)
 ```
 
 ## Documentation for API Endpoints

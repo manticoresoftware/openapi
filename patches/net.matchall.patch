@@ -10,7 +10,7 @@ index fcd1af2..6638097 100644
 +            All = 1
          }
  
- 
+         /// <summary>
 @@ -51,7 +51,7 @@ namespace ManticoreSearch.Model
          /// Gets or Sets All
          /// </summary>

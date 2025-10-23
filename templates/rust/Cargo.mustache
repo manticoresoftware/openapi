@@ -1,6 +1,11 @@
 [package]
 name = "{{{packageName}}}"
+{{#devBranch}}
+version = "{{#lambdaVersion}}{{{packageVersion}}}-alpha{{/lambdaVersion}}"
+{{/devBranch}}
+{{^devBranch}}
 version = "{{#lambdaVersion}}{{{packageVersion}}}{{/lambdaVersion}}"
+{{/devBranch}}
 {{#infoEmail}}
 authors = ["{{{.}}}"]
 {{/infoEmail}}

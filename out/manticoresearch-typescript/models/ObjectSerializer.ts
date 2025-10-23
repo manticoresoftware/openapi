@@ -22,6 +22,7 @@ export * from '../models/InsertDocumentRequest';
 export * from '../models/Join';
 export * from '../models/JoinCond';
 export * from '../models/JoinOn';
+export * from '../models/Knn';
 export * from '../models/KnnQuery';
 export * from '../models/Match';
 export * from '../models/MatchAll';
@@ -67,7 +68,8 @@ import { InsertDocumentRequest } from '../models/InsertDocumentRequest';
 import { Join, JoinTypeEnum      } from '../models/Join';
 import { JoinCond } from '../models/JoinCond';
 import { JoinOn  , JoinOnOperatorEnum   } from '../models/JoinOn';
-import { KnnQuery } from '../models/KnnQuery';
+import { Knn } from '../models/Knn';
+import { KnnQueryClass } from '../models/KnnQuery';
 import { Match , MatchOperatorEnum    } from '../models/Match';
 import { MatchAll, MatchAllAllEnum   } from '../models/MatchAll';
 import { PercolateRequest } from '../models/PercolateRequest';
@@ -137,7 +139,8 @@ let typeMap: {[index: string]: any} = {
     "Join": Join,
     "JoinCond": JoinCond,
     "JoinOn": JoinOn,
-    "KnnQuery": KnnQuery,
+    "Knn": Knn,
+    "KnnQuery": KnnQueryClass,
     "Match": Match,
     "MatchAll": MatchAll,
     "PercolateRequest": PercolateRequest,

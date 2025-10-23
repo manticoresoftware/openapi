@@ -1,9 +1,8 @@
 diff --git a/out/manticoresearch-python/manticoresearch/rest.py b/out/manticoresearch-python/manticoresearch/rest.py
-index 34ca52b..ec9be35 100755
+index 2d9f935..9a2410b 100644
 --- a/out/manticoresearch-python/manticoresearch/rest.py
 +++ b/out/manticoresearch-python/manticoresearch/rest.py
-@@ -175,7 +175,7 @@ class RESTClientObject:
-                 content_type = headers.get('Content-Type')
+@@ -177,6 +177,6 @@ class RESTClientObject:
                  if (
                      not content_type
 -                    or re.search('json', content_type, re.IGNORECASE)
@@ -11,3 +10,4 @@ index 34ca52b..ec9be35 100755
                  ):
                      request_body = None
                      if body is not None:
+                     

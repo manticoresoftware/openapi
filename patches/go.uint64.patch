@@ -190,13 +190,14 @@ index 3b1a878..4cd30a3 100755
  
  SetId sets Id field to given value.
  
-diff --git a/out/manticoresearch-go/docs/KnnQuery.md b/out/manticoresearch-go/docs/KnnQuery.md
+diff --git a/out/manticoresearch-go/docs/Knn.md b/out/manticoresearch-go/docs/Knn.md
 index c3042f5..73e1b94 100755
---- a/out/manticoresearch-go/docs/KnnQuery.md
-+++ b/out/manticoresearch-go/docs/KnnQuery.md
-@@ -7,7 +7,7 @@ Name | Type | Description | Notes
+--- a/out/manticoresearch-go/docs/Knn.md
++++ b/out/manticoresearch-go/docs/Knn.md
+@@ -7,8 +7,8 @@ Name | Type | Description | Notes
  **Field** | **string** | Field to perform the k-nearest neighbor search on | 
  **K** | **int32** | The number of nearest neighbors to return | 
+ **Query** | Pointer to [**KnnQuery**](KnnQuery.md) |  | [optional] 
  **QueryVector** | Pointer to **[]float32** | The vector used as input for the KNN search | [optional] 
 -**DocId** | Pointer to **int32** | The docuemnt ID used as input for the KNN search | [optional] 
 +**DocId** | Pointer to **uint64** | The docuemnt ID used as input for the KNN search | [optional]
@@ -207,23 +208,23 @@ index c3042f5..73e1b94 100755
  
  ### GetDocId
  
--`func (o *KnnQuery) GetDocId() int32`
-+`func (o *KnnQuery) GetDocId() uint64`
+-`func (o *Knn) GetDocId() int32`
++`func (o *Knn) GetDocId() uint64`
  
  GetDocId returns the DocId field if non-nil, zero value otherwise.
  
  ### GetDocIdOk
  
--`func (o *KnnQuery) GetDocIdOk() (*int32, bool)`
-+`func (o *KnnQuery) GetDocIdOk() (*uint64, bool)`
+-`func (o *Knn) GetDocIdOk() (*int32, bool)`
++`func (o *Knn) GetDocIdOk() (*uint64, bool)`
  
  GetDocIdOk returns a tuple with the DocId field if it's non-nil, zero value otherwise
  and a boolean to check if the value has been set.
  
  ### SetDocId
  
--`func (o *KnnQuery) SetDocId(v int32)`
-+`func (o *KnnQuery) SetDocId(v uint64)`
+-`func (o *Knn) SetDocId(v int32)`
++`func (o *Knn) SetDocId(v uint64)`
  
  SetDocId sets DocId field to given value.
  
@@ -518,11 +519,11 @@ index 68dcb10..020f76f 100755
  	o.Id = &v
  }
  
-diff --git a/out/manticoresearch-go/model_knn_query.go b/out/manticoresearch-go/model_knn_query.go
+diff --git a/out/manticoresearch-go/model_knn.go b/out/manticoresearch-go/model_knn.go
 index 66d26e5..fb8a427 100755
---- a/out/manticoresearch-go/model_knn_query.go
-+++ b/out/manticoresearch-go/model_knn_query.go
-@@ -29,7 +29,7 @@ type KnnQuery struct {
+--- a/out/manticoresearch-go/model_knn.go
++++ b/out/manticoresearch-go/model_knn.go
+@@ -30,7 +30,7 @@ type Knn struct {
  	// The vector used as input for the KNN search
  	QueryVector []float32 `json:"query_vector,omitempty"`
  	// The docuemnt ID used as input for the KNN search
@@ -531,35 +532,35 @@ index 66d26e5..fb8a427 100755
  	// Optional parameter controlling the accuracy of the search
  	Ef *int32 `json:"ef,omitempty"`
  	Filter *QueryFilter `json:"filter,omitempty"`
-@@ -137,9 +137,9 @@ func (o *KnnQuery) SetQueryVector(v []float32) {
+@@ -137,9 +137,9 @@ func (o *Knn) SetQueryVector(v []float32) {
  }
  
  // GetDocId returns the DocId field value if set, zero value otherwise.
--func (o *KnnQuery) GetDocId() int32 {
-+func (o *KnnQuery) GetDocId() uint64 {
+-func (o *Knn) GetDocId() int32 {
++func (o *Knn) GetDocId() uint64 {
  	if o == nil || IsNil(o.DocId) {
 -		var ret int32
 +		var ret uint64
  		return ret
  	}
  	return *o.DocId
-@@ -147,7 +147,7 @@ func (o *KnnQuery) GetDocId() int32 {
+@@ -147,7 +147,7 @@ func (o *Knn) GetDocId() int32 {
  
  // GetDocIdOk returns a tuple with the DocId field value if set, nil otherwise
  // and a boolean to check if the value has been set.
--func (o *KnnQuery) GetDocIdOk() (*int32, bool) {
-+func (o *KnnQuery) GetDocIdOk() (*uint64, bool) {
+-func (o *Knn) GetDocIdOk() (*int32, bool) {
++func (o *Knn) GetDocIdOk() (*uint64, bool) {
  	if o == nil || IsNil(o.DocId) {
  		return nil, false
  	}
-@@ -163,8 +163,8 @@ func (o *KnnQuery) HasDocId() bool {
+@@ -163,8 +163,8 @@ func (o *Knn) HasDocId() bool {
  	return false
  }
  
 -// SetDocId gets a reference to the given int32 and assigns it to the DocId field.
--func (o *KnnQuery) SetDocId(v int32) {
+-func (o *Knn) SetDocId(v int32) {
 +// SetDocId gets a reference to the given uint64 and assigns it to the DocId field.
-+func (o *KnnQuery) SetDocId(v uint64) {
++func (o *Knn) SetDocId(v uint64) {
  	o.DocId = &v
  }
  

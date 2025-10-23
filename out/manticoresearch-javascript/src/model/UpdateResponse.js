@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The UpdateResponse model module.
  * @module model/UpdateResponse
- * @version 8.1.0
+ * @version 9.0.0
  */
 class UpdateResponse {
     /**
@@ -117,4 +117,3 @@ UpdateResponse.prototype['result'] = undefined;
 
 
 export default UpdateResponse;
-
