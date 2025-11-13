@@ -178,7 +178,7 @@ do_go() {
   docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"    -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g go  -o /local/out/manticoresearch-go -t /local/templates/go --git-repo-id manticoresearch-go --git-user-id manticoresoftware \
   --additional-properties packageVersion=`cat versions/go` \
   $build_to_branch
-  git apply patches/go.api_utils.patch patches/go.uint64.patch
+  git apply patches/go.api_utils.patch patches/go.uint64.patch patches/go.request_close.patch
   #Removing redundant files created by the go generator
   cd out/manticoresearch-go &&
   rm -rf model_aggregation_composite_sources_inner_value_terms.go model_aggregation_composite_sources_inner_value.go \
