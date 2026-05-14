@@ -140,14 +140,15 @@ components:
             $ref: '#/components/schemas/aggHistogram'
     knn:
       type: object
-      required: [field, k]
+      required: [field]
       properties:
         field:
           type: string
           description: Field to perform the k-nearest neighbor search on
         k:
           type: integer
-          description: The number of nearest neighbors to return
+          deprecated: true
+          description: Deprecated. Use the top-level `limit` parameter instead.
         query:
           oneOf:
             - type: string
