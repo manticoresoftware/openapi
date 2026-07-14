@@ -1,4 +1,4 @@
-diff --git b/out/manticoresearch-javascript/src/ApiClient.js b/out/manticoresearch-javascript/src/ApiClient.js
+diff --git a/out/manticoresearch-javascript/src/ApiClient.js b/out/manticoresearch-javascript/src/ApiClient.js
 index 8bb9d90..1b082fa 100755
 --- a/out/manticoresearch-javascript/src/ApiClient.js
 +++ b/out/manticoresearch-javascript/src/ApiClient.js
@@ -20,7 +20,7 @@ index 8bb9d90..1b082fa 100755
 +        // Use json-with-bigint for parsing json responses otherwise rely on SuperAgent
 +		// See http://visionmedia.github.io/superagent/#parsing-response-bodies
 +		var data;
-+		if (returnType === Object || typeof returnType === 'object') {
++		if (returnType === Object || typeof returnType === 'object' || typeof returnType === 'function') {
 +			data = JSONParse(response.text);
 +		} else {
 +			data = response.body;
@@ -28,3 +28,18 @@ index 8bb9d90..1b082fa 100755
          if (data == null || (typeof data === 'object' && typeof data.length === 'undefined' && !Object.keys(data).length)) {
              // SuperAgent does not always produce a body; use the unparsed response as a fallback
              data = response.text;
+
+diff --git a/out/manticoresearch-javascript/src/ApiClient.js b/out/manticoresearch-javascript/src/ApiClient.js
+index 8b90235..b7b8cd0 100644
+--- a/out/manticoresearch-javascript/src/ApiClient.js
++++ b/out/manticoresearch-javascript/src/ApiClient.js
+@@ -543,7 +543,7 @@ class ApiClient {
+             case 'Integer':
+                 return parseInt(data, 10);
+             case 'Number':
+-                return parseFloat(data);
++                return Number(data) === data ? parseFloat(data) : data;
+             case 'String':
+                 return String(data);
+             case 'Date':
+             

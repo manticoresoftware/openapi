@@ -1,0 +1,107 @@
+```python
+import manticoresearch
+from manticoresearch.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://127.0.0.1:9308
+# See configuration.py for a list of all supported configuration parameters.
+configuration = manticoresearch.Configuration(
+    host = "http://127.0.0.1:9308"
+)
+
+
+
+# Enter a context with an instance of the API client
+with manticoresearch.ApiClient(configuration) as api_client:
+    # Create instances of API classes
+    indexApi = manticoresearch.IndexApi(api_client)
+    searchApi = manticoresearch.SearchApi(api_client)
+    utilsApi = manticoresearch.UtilsApi(api_client)
+
+    try:
+        # Perform insert and search operations    
+        newDoc = {"title" : "Crossbody Bag with Tassel", "price": 19.85}
+        insert_request = InsertDocumentRequest(index="products", doc=newDoc)
+        indexApi.insert(insert_request)
+        
+        # Check out the structure of the autocreated 'products' table
+        sql_response = utilsApi.sql('DESC products');
+        print("The response of UtilsApi->sql:\n")
+        pprint(sql_response) 
+
+        newDoc = {"title" : "Pet Hair Remover Glove", "price": 7.99}
+        insert_request = InsertDocumentRequest(index="products", doc=newDoc)
+        indexApi.insert(insert_request)
+        
+        query_highlight = Highlight()
+        query_highlight.fields = {"title":{}}
+        search_query = SearchQuery(query_string="@title bag")
+        search_request = SearchRequest(index="products", query=search_query, highlight=query_highlight)
+        search_response = searchApi.search(search_request)    
+        print("The response of SearchApi->search:\n")
+        pprint(search_response)
+
+        # Alternatively, you can pass all request arguments as a complex JSON object        
+        indexApi.insert({"index": "products", "doc" : {"title" : "Crossbody Bag with Tassel", "price" : 19.85}})
+        indexApi.insert({"index": "products", "doc" : {"title" : "Pet Hair Remover Glove", "price" : 7.99}})
+        search_response = searchApi.search({"index": "products", "query": {"query_string": "@title bag"}, "highlight":{"fields":{"title":{}}}})
+        print("The response of SearchApi->search:\n")
+        pprint(search_response)
+    except ApiException as e:
+        print("Exception when calling Api method: %s\n" % e)
+```
+
+## Documentation for API Endpoints
+
+All URIs are relative to *{{{basePath}}}*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}*{{classname}}* | [**{{operationId}}**]({{apiDocPath}}{{classname}}.md#{{operationIdLowerCase}}) | **{{httpMethod}}** {{path}} | {{summary}}
+{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}
+
+## Documentation For Models
+
+{{#models}}{{#model}} - [{{{classname}}}]({{modelDocPath}}{{{classname}}}.md)
+{{/model}}{{/models}}
+
+<a id="documentation-for-authorization"></a>
+## Documentation For Authorization
+
+{{^authMethods}}Endpoints do not require authorization.{{/authMethods}}
+{{#hasAuthMethods}}Authentication schemes defined for the API:{{/hasAuthMethods}}
+{{#authMethods}}
+<a id="{{name}}"></a>
+### {{{name}}}
+
+{{#isApiKey}}
+- **Type**: API key
+- **API key parameter name**: {{{keyParamName}}}
+- **Location**: {{#isKeyInQuery}}URL query string{{/isKeyInQuery}}{{#isKeyInHeader}}HTTP header{{/isKeyInHeader}}
+{{/isApiKey}}
+{{#isBasic}}
+{{#isBasicBasic}}
+- **Type**: HTTP basic authentication
+{{/isBasicBasic}}
+{{#isBasicBearer}}
+- **Type**: Bearer authentication{{#bearerFormat}} ({{{.}}}){{/bearerFormat}}
+{{/isBasicBearer}}
+{{#isHttpSignature}}
+- **Type**: HTTP signature authentication
+{{/isHttpSignature}}
+{{/isBasic}}
+{{#isOAuth}}
+- **Type**: OAuth
+- **Flow**: {{{flow}}}
+- **Authorization URL**: {{{authorizationUrl}}}
+- **Scopes**: {{^scopes}}N/A{{/scopes}}
+{{#scopes}} - **{{{scope}}}**: {{{description}}}
+{{/scopes}}
+{{/isOAuth}}
+
+{{/authMethods}}
+
+## Author
+
+{{#apiInfo}}{{#apis}}{{#-last}}{{infoEmail}}
+{{/-last}}{{/apis}}{{/apiInfo}}

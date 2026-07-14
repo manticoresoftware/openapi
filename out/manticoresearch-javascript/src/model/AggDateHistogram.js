@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AggDateHistogram model module.
  * @module model/AggDateHistogram
- * @version 9.0.0
+ * @version 10.0.0
  */
 class AggDateHistogram {
     /**
@@ -24,11 +24,10 @@ class AggDateHistogram {
      * Object to use histograms in aggregation, i.e., grouping search results by histogram values
      * @alias module:model/AggDateHistogram
      * @param field {String} Field to group by
-     * @param interval {Number} Interval of the histogram values
      */
-    constructor(field, interval) { 
+    constructor(field) { 
         
-        AggDateHistogram.initialize(this, field, interval);
+        AggDateHistogram.initialize(this, field);
     }
 
     /**
@@ -36,9 +35,8 @@ class AggDateHistogram {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, field, interval) { 
+    static initialize(obj, field) { 
         obj['field'] = field;
-        obj['interval'] = interval;
     }
 
     /**
@@ -55,8 +53,8 @@ class AggDateHistogram {
             if (data.hasOwnProperty('field')) {
                 obj['field'] = ApiClient.convertToType(data['field'], 'String');
             }
-            if (data.hasOwnProperty('interval')) {
-                obj['interval'] = ApiClient.convertToType(data['interval'], 'Number');
+            if (data.hasOwnProperty('calendar_interval')) {
+                obj['calendar_interval'] = ApiClient.convertToType(data['calendar_interval'], 'Number');
             }
             if (data.hasOwnProperty('offset')) {
                 obj['offset'] = ApiClient.convertToType(data['offset'], 'Number');
@@ -91,7 +89,7 @@ class AggDateHistogram {
 
 }
 
-AggDateHistogram.RequiredProperties = ["field", "interval"];
+AggDateHistogram.RequiredProperties = ["field"];
 
 /**
  * Field to group by
@@ -101,9 +99,9 @@ AggDateHistogram.prototype['field'] = undefined;
 
 /**
  * Interval of the histogram values
- * @member {Number} interval
+ * @member {Number} calendar_interval
  */
-AggDateHistogram.prototype['interval'] = undefined;
+AggDateHistogram.prototype['calendar_interval'] = undefined;
 
 /**
  * Offset of the histogram values. Default value is 0.

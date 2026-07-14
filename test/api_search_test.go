@@ -20,6 +20,19 @@ import (
 	openapiclient "github.com/manticoresoftware/manticoresearch-go"
 )
 
+func unwrapSearchResponse(resp *openapiclient.SearchResultResponse) *openapiclient.SearchResponse {
+	if resp == nil {
+		return nil
+	}
+	if resp.SearchResponse != nil {
+		return resp.SearchResponse
+	}
+	if actual, ok := resp.GetActualInstance().(*openapiclient.SearchResponse); ok {
+		return actual
+	}
+	return nil
+}
+
 func Test_openapi_SearchAPIService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
@@ -86,9 +99,10 @@ func Test_openapi_SearchAPIService(t *testing.T) {
 				
 			require.Nil(t, err)
 			require.NotNil(t, resp)
+			require.NotNil(t, unwrapSearchResponse(resp))
 			assert.Equal(t, 200, httpRes.StatusCode)
 			
-			outRes, outErr := json.Marshal(resp)
+			outRes, outErr := json.Marshal(unwrapSearchResponse(resp))
     		require.Nil(t, outErr)
     		fmt.Printf("%+v\n", string(outRes[:]))
     		
@@ -99,9 +113,10 @@ func Test_openapi_SearchAPIService(t *testing.T) {
 				
 			require.Nil(t, err)
 			require.NotNil(t, resp)
+			require.NotNil(t, unwrapSearchResponse(resp))
 			assert.Equal(t, 200, httpRes.StatusCode)
 			
-			outRes, outErr = json.Marshal(resp)
+			outRes, outErr = json.Marshal(unwrapSearchResponse(resp))
     		require.Nil(t, outErr)
     		fmt.Printf("%+v\n", string(outRes[:]))
     		
@@ -114,9 +129,10 @@ func Test_openapi_SearchAPIService(t *testing.T) {
 				
 			require.Nil(t, err)
 			require.NotNil(t, resp)
+			require.NotNil(t, unwrapSearchResponse(resp))
 			assert.Equal(t, 200, httpRes.StatusCode)
 			
-			outRes, outErr = json.Marshal(resp)
+			outRes, outErr = json.Marshal(unwrapSearchResponse(resp))
     		require.Nil(t, outErr)
     		fmt.Printf("%+v\n", string(outRes[:]))			
 		}

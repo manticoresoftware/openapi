@@ -20,6 +20,19 @@ import (
 	Manticoresearch "github.com/manticoresoftware/manticoresearch-go"
 )
 
+func unwrapSearchResponse(resp *Manticoresearch.SearchResultResponse) *Manticoresearch.SearchResponse {
+	if resp == nil {
+		return nil
+	}
+	if resp.SearchResponse != nil {
+		return resp.SearchResponse
+	}
+	if actual, ok := resp.GetActualInstance().(*Manticoresearch.SearchResponse); ok {
+		return actual
+	}
+	return nil
+}
+
 func Test_openapi_SearchAPIService(t *testing.T) {
 
 	configuration := Manticoresearch.NewConfiguration()
@@ -64,7 +77,9 @@ func Test_openapi_SearchAPIService(t *testing.T) {
 		fmt.Printf("%+v\n\n", httpRes)
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		outRes, outErr = json.Marshal(resp)
+		searchResp := unwrapSearchResponse(resp)
+		require.NotNil(t, searchResp)
+		outRes, outErr = json.Marshal(searchResp)
 		require.Nil(t, outErr)
 		fmt.Printf("%+v\n\n", string(outRes[:]))
 		assert.Equal(t, 200, httpRes.StatusCode)

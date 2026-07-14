@@ -28,6 +28,10 @@ import java.math.BigDecimal;
 
 public class App 
 {
+    private static SearchResponse unwrapSearch(SearchResultResponse result) {
+        return result.getSearchResponse();
+    }
+
 	public static void testSearchRequestBuild(ApiClient client, IndexApi indexApi, SearchApi searchApi, UtilsApi utilsApi)
 	{
 		try {
@@ -53,7 +57,7 @@ public class App
 			searchRequest.setLimit(10);
 			searchRequest.setTrackScores(false);
 
-			SearchResponse searchResponse = searchApi.search(searchRequest);
+			SearchResponse searchResponse = unwrapSearch(searchApi.search(searchRequest));
 
 			Map<String,Object> options = new HashMap<String,Object>();
 			options.put("cutoff", 5);
@@ -62,7 +66,7 @@ public class App
 			
 			searchRequest.setSource("title");
 			
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        
 	        List<String> includes = new ArrayList<String>( Arrays.asList("title", "year", "rating") );
 			List<String> excludes = Arrays.asList("code");
@@ -71,7 +75,7 @@ public class App
 			source.setExcludes(excludes);
 			searchRequest.setSource(source);
 			
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 
 			List<Object> sort = new ArrayList<Object>( Arrays.asList("year") );
 			SortOrder sort2 = new SortOrder();
@@ -85,7 +89,7 @@ public class App
 			sort.add(sort3);
 			searchRequest.setSort(sort);
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 			
 			Map<String,String> expr = new HashMap<String,String>();
 			expr.put("expr1", "min(year,2900)");
@@ -99,14 +103,14 @@ public class App
         	);
         	searchRequest.setExpressions(expressions);
 
-        	searchResponse = searchApi.search(searchRequest);
+        	searchResponse = unwrapSearch(searchApi.search(searchRequest));
         	
         	source = (SourceByRules)searchRequest.getSource();
         	includes.addAll( Arrays.asList("expr1", "expr2") );
         	source.setIncludes(includes);
         	searchRequest.setSource(source);
 
-        	searchResponse = searchApi.search(searchRequest);
+        	searchResponse = unwrapSearch(searchApi.search(searchRequest));
         				        					
 	        Aggregation agg = new Aggregation();
 	        agg.setName("agg1");
@@ -114,7 +118,7 @@ public class App
         	agg.setSize(10);
 			searchRequest.setAggs( new ArrayList<Aggregation>( Arrays.asList(agg) ) );
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 			
 			agg = new Aggregation();
 	        agg.setName("agg2");
@@ -123,7 +127,7 @@ public class App
 			aggs.add(agg);
 			searchRequest.setAggs(aggs);
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 			
 			Highlight highlight = new Highlight();
         	highlight.setFieldnames( Arrays.asList("title") );
@@ -132,7 +136,7 @@ public class App
 	        highlight.setSnippetBoundary(Highlight.SnippetBoundaryEnum.SENTENCE);
         	searchRequest.setHighlight(highlight);
 
-        	searchResponse = searchApi.search(searchRequest);
+        	searchResponse = unwrapSearch(searchApi.search(searchRequest));
 
 			HighlightField highlightField = new HighlightField();
 			highlightField.setName("title");
@@ -141,7 +145,7 @@ public class App
 			highlight.setFields(highlightFields);
 			searchRequest.setHighlight(highlight);
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 			
 			highlightField = new HighlightField();
 			highlightField.setName("plot");
@@ -152,7 +156,7 @@ public class App
         	
         	searchRequest.setHighlight(highlight);
 
-        	searchResponse = searchApi.search(searchRequest);
+        	searchResponse = unwrapSearch(searchApi.search(searchRequest));
 
         	HashMap<String,Object> highlightQuery = new HashMap<String,Object>(){{
 	            put("match", new HashMap<String,Object>(){{
@@ -161,27 +165,27 @@ public class App
 	        }};
         	highlight.setHighlightQuery(highlightQuery);
 
-        	searchResponse = searchApi.search(searchRequest);
+        	searchResponse = unwrapSearch(searchApi.search(searchRequest));
 						
 			QueryFilter queryFilter = new QueryFilter();
 			queryFilter.setQueryString("Star Trek 2");								
 			searchRequest.setFulltextFilter(queryFilter);
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 			
 			MatchFilter matchFilter = new MatchFilter();
 			matchFilter.setQueryString("Nemesis");
 			matchFilter.setQueryFields("title");	
 			searchRequest.setFulltextFilter(matchFilter);
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 			
 			MatchPhraseFilter matchPhraseFilter = new MatchPhraseFilter();
 			matchPhraseFilter.setQueryPhrase("Star Trek 2");
 			matchPhraseFilter.setQueryFields("title");
 			searchRequest.setFulltextFilter(matchPhraseFilter);
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 			
 			MatchOpFilter matchOpFilter = new MatchOpFilter();
 			matchOpFilter.setQueryString("Enterprise test");
@@ -189,21 +193,21 @@ public class App
 			matchOpFilter.setOperator(MatchOpFilter.OperatorEnum.OR);
 			searchRequest.setFulltextFilter(matchOpFilter);
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 			
 			EqualsFilter equalsFilter = new EqualsFilter();
 			equalsFilter.setField("year");
 			equalsFilter.setValue(2003);
 			searchRequest.setAttrFilter(equalsFilter);
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 			
 			InFilter inFilter = new InFilter();
 			inFilter.setField("year");
 			inFilter.setValues( Arrays.asList(2001, 2002) );
 	        searchRequest.setAttrFilter(inFilter);
 
-	        searchResponse = searchApi.search(searchRequest);
+	        searchResponse = unwrapSearch(searchApi.search(searchRequest));
 			
 			RangeFilter rangeFilter = new RangeFilter();
 			rangeFilter.setField("year");
@@ -211,13 +215,13 @@ public class App
 			rangeFilter.setGte(BigDecimal.valueOf(0));
 			searchRequest.setAttrFilter(rangeFilter);
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 
 			rangeFilter.setField("rating");
 			rangeFilter.setGt(BigDecimal.valueOf(1.5));
 			searchRequest.setAttrFilter(rangeFilter);
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 
 			GeoDistanceFilter geoFilter = new GeoDistanceFilter();
 			GeoDistanceFilterLocationAnchor locAnchor = new GeoDistanceFilterLocationAnchor();
@@ -229,7 +233,7 @@ public class App
 			geoFilter.setDistance("100km");
 			searchRequest.setAttrFilter(geoFilter);
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 			
 			BoolFilter boolFilter = new BoolFilter();
 			equalsFilter = new EqualsFilter();
@@ -244,7 +248,7 @@ public class App
 			boolFilter.setMust(mustFilter);
 			searchRequest.setAttrFilter(boolFilter);
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 
 			equalsFilter = new EqualsFilter();
 			equalsFilter.setField("year");
@@ -252,7 +256,7 @@ public class App
 			boolFilter.setMustNot( Arrays.asList(equalsFilter) );
 			searchRequest.setAttrFilter(boolFilter);
 
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 			
 			boolFilter = new BoolFilter();
 			
@@ -267,7 +271,7 @@ public class App
 			boolFilter.setMust( Arrays.asList(nestedBoolFilter) );
 			searchRequest.setAttrFilter(boolFilter);
 											
-			searchResponse = searchApi.search(searchRequest);
+			searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	  
 	        System.out.println("Search tests finished");
 	        
@@ -328,7 +332,7 @@ public class App
 	        highlight.setFieldnames( Arrays.asList("title") );
 	   
 	        searchRequest.setHighlight(highlight);
-	        SearchResponse searchResponse = searchApi.search(searchRequest);
+	        SearchResponse searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        System.out.println(searchResponse.toString() );
 	        
 	        sql ="TRUNCATE TABLE products";
@@ -364,7 +368,7 @@ public class App
 	        searchRequest.setSort(new ArrayList<Object>(){{
 	            add(new HashMap<String,String>(){{ put("post_date","desc");}});
 	        }});
-	        searchResponse = searchApi.search(searchRequest);
+	        searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        System.out.println(searchResponse.toString() );
 	        List<Object> hits  = searchResponse.getHits().getHits(); 
 	        for(Object hit:hits) {
@@ -380,7 +384,7 @@ public class App
 	        searchRequest = new SearchRequest();
 	        searchRequest.setIndex("forum");
 	        searchRequest.setQuery(query);
-	        searchResponse = searchApi.search(searchRequest);
+	        searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        
 	        
 	        searchRequest = new SearchRequest();
@@ -397,7 +401,7 @@ public class App
 		        }}
 	        );
 	        searchRequest.setExpressions(expressions);
-	        searchResponse = searchApi.search(searchRequest);
+	        searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        */
 	        List<Object> expressions = Arrays.asList(
 		        new HashMap<String,Object>(){{
@@ -809,7 +813,7 @@ public class App
 	        searchRequest.setIndex("facetdemo2");
 	        searchRequest.setQuery(query);
 			System.out.println( searchRequest.toString());
-			SearchResponse searchResponse = searchApi.search(searchRequest);
+			SearchResponse searchResponse = unwrapSearch(searchApi.search(searchRequest));
 			// SearchR sr = gson.fromJson(searchResponse,SearchR.class);
 			System.out.println(searchResponse.toString() );
 	
@@ -856,7 +860,7 @@ public class App
 	        highlight = new Highlight();
 	        
 	        searchRequest.setHighlight(highlight);
-	        searchResponse = searchApi.search(searchRequest);
+	        searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        System.out.println(searchResponse.toString() );   
 	        
 	        searchRequest = new SearchRequest();
@@ -870,7 +874,7 @@ public class App
 	        highlight.setLimit(50);
 	        
 	        searchRequest.setHighlight(highlight);
-	        searchResponse = searchApi.search(searchRequest);
+	        searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        System.out.println(searchResponse.toString() );   
 	        
 	        searchRequest = new SearchRequest();
@@ -884,7 +888,7 @@ public class App
 	        highlight.setFieldnames( Arrays.asList("content") );
 	
 	        searchRequest.setHighlight(highlight);
-	        searchResponse = searchApi.search(searchRequest);
+	        searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        System.out.println(searchResponse.toString() );   
 	        
 	        searchRequest = new SearchRequest();
@@ -897,7 +901,7 @@ public class App
 	        highlight = new Highlight();
 	
 	        searchRequest.setHighlight(highlight);
-	        searchResponse = searchApi.search(searchRequest);
+	        searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        System.out.println(searchResponse.toString() );   
 	
 	        searchRequest = new SearchRequest();
@@ -918,7 +922,7 @@ public class App
 	        );
 	        
 	        searchRequest.setHighlight(highlight);
-	        searchResponse = searchApi.search(searchRequest);
+	        searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        System.out.println(searchResponse.toString() );   
 	        
 	        Aggregation agg = new Aggregation();
@@ -935,7 +939,7 @@ public class App
 	        searchRequest.setAggs( Arrays.asList(agg) );
 	        
 	        
-	        //searchResponse = searchApi.search(searchRequest);
+	        //searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        //System.out.println(searchResponse.toString() );           
 	        
 	        agg = new Aggregation();
@@ -950,7 +954,7 @@ public class App
 	        query.put("match_all", new HashMap<String,Object>());
 	        searchRequest.setQuery(query);
 	        searchRequest.setAggs( Arrays.asList(agg) );
-	        //searchResponse = searchApi.search(searchRequest);
+	        //searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        //System.out.println(searchResponse.toString() );  
 	        
 	        agg = new Aggregation();
@@ -964,7 +968,7 @@ public class App
 	        query.put("match_all", new HashMap<String,Object>());
 	        searchRequest.setQuery(query);
 	        searchRequest.setAggs( Arrays.asList(agg) );
-	        //searchResponse = searchApi.search(searchRequest);
+	        //searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        //System.out.println(searchResponse.toString() );  
 	        
 	        Aggregation agg1 = new Aggregation();
@@ -982,7 +986,7 @@ public class App
 	        query.put("match_all", new HashMap<String,Object>());
 	        searchRequest.setQuery(query);
 	        searchRequest.setAggs(aggs);
-	        //searchResponse = searchApi.search(searchRequest);
+	        //searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        //System.out.println(searchResponse.toString() );  
 	        
 	        
@@ -1003,7 +1007,7 @@ public class App
 	        query.put("match_all", new HashMap<String,Object>());
 	        searchRequest.setQuery(query);
 	        searchRequest.setAggs( Arrays.asList(agg) );
-	        //searchResponse = searchApi.search(searchRequest);
+	        //searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        //System.out.println(searchResponse.toString() );  
 	        
 	        searchRequest = new SearchRequest();
@@ -1022,7 +1026,7 @@ public class App
 	        query.put("match_all", new HashMap<String,Object>());
 	        searchRequest.setQuery(query);
 	        searchRequest.setAggs(aggs);
-	        //searchResponse = searchApi.search(searchRequest);
+	        //searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        //System.out.println(searchResponse.toString() );  
 	        
 	        
@@ -1043,7 +1047,7 @@ public class App
                 }}
 			);
 	        searchRequest.setHighlight(highlight);
-	        searchResponse = searchApi.search(searchRequest);
+	        searchResponse = unwrapSearch(searchApi.search(searchRequest));
 	        
 	        System.out.println("Tests finished");
 	    } catch (ApiException e) {

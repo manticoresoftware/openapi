@@ -2,7 +2,9 @@ diff --git a/out/manticoresearch-python-asyncio/manticoresearch/api/utils_api.py
 index 9c42dd9..57b6c80 100755
 --- a/out/manticoresearch-python-asyncio/manticoresearch/api/utils_api.py
 +++ b/out/manticoresearch-python-asyncio/manticoresearch/api/utils_api.py
-@@ -43,6 +43,6 @@ class UtilsApi:
+@@ -41,9 +41,9 @@ class UtilsApi:
+ 
+     @validate_call
      async def sql(
          self,
          body: Annotated[StrictStr, Field(description="A query parameter string. ")],

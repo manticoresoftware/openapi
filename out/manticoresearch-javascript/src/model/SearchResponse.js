@@ -12,17 +12,18 @@
  */
 
 import ApiClient from '../ApiClient';
+import AggBucketsResult from './AggBucketsResult';
 import SearchResponseHits from './SearchResponseHits';
 
 /**
  * The SearchResponse model module.
  * @module model/SearchResponse
- * @version 9.0.0
+ * @version 10.0.0
  */
 class SearchResponse {
     /**
      * Constructs a new <code>SearchResponse</code>.
-     * Response object containing the results of a search request
+     * Response object containing the results of a regular search request
      * @alias module:model/SearchResponse
      */
     constructor() { 
@@ -56,7 +57,7 @@ class SearchResponse {
                 obj['timed_out'] = ApiClient.convertToType(data['timed_out'], 'Boolean');
             }
             if (data.hasOwnProperty('aggregations')) {
-                obj['aggregations'] = ApiClient.convertToType(data['aggregations'], Object);
+                obj['aggregations'] = ApiClient.convertToType(data['aggregations'], {'String': AggBucketsResult});
             }
             if (data.hasOwnProperty('hits')) {
                 obj['hits'] = SearchResponseHits.constructFromObject(data['hits']);
@@ -110,8 +111,8 @@ SearchResponse.prototype['took'] = undefined;
 SearchResponse.prototype['timed_out'] = undefined;
 
 /**
- * Aggregated search results grouped by the specified criteria
- * @member {Object} aggregations
+ * Aggregated search results grouped by the specified criteria. Each named aggregation typically contains a `buckets` array (or keyed map) of bucket objects with `key`, `doc_count`, and optional `status`. 
+ * @member {Object.<String, module:model/AggBucketsResult>} aggregations
  */
 SearchResponse.prototype['aggregations'] = undefined;
 

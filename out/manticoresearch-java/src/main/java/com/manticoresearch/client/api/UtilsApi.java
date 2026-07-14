@@ -17,7 +17,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-22T12:27:44.564851536Z[Etc/UTC]", comments = "Generator version: 7.17.0-SNAPSHOT")public class UtilsApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-04-15T06:59:37.812808099Z[Etc/UTC]", comments = "Generator version: 7.17.0")public class UtilsApi {
   private ApiClient apiClient;
 
   public UtilsApi() {

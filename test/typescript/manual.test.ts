@@ -5,6 +5,13 @@ var indexApi: Manticoresearch.IndexApi;
 var searchApi: Manticoresearch.SearchApi;
 var utilsApi: Manticoresearch.UtilsApi;
 
+function asSearchResponse(res: Manticoresearch.SearchResponse | Manticoresearch.ChatResponse): Manticoresearch.SearchResponse {
+  if (res && typeof res === 'object' && 'hits' in res) {
+    return res as Manticoresearch.SearchResponse;
+  }
+  throw new Error('Expected search response');
+}
+
 beforeEach(function () {
   const serverConfig = new Manticoresearch.ServerConfiguration("http://localhost:9408", {})
   const config = Manticoresearch.createConfiguration({
@@ -60,7 +67,7 @@ describe('Search Api Tests', () => {
       
       let search_request = {"table":"movies"};
       
-      let searchRes = await searchApi.search(search_request);
+      let searchRes = asSearchResponse(await searchApi.search(search_request));
       expect(searchRes).to.deep.nested.property('hits.total', 4);
 
       let query_highlight = new Manticoresearch.Highlight()
@@ -78,12 +85,12 @@ describe('Search Api Tests', () => {
 
 
       console.log("The response of SearchApi->search:\n")    
-      let search_response = await searchApi.search(search_request2)    
+      let search_response = asSearchResponse(await searchApi.search(search_request2))    
       expect(search_response).to.deep.nested.property('hits.total', 1);
       if (typeof search_response.hits !== 'undefined' && typeof search_response.hits.hits !== 'undefined' && typeof search_response.hits.hits[0] !== 'undefined')
         console.log(search_response.hits.hits[0].highlight)
 
-      search_response = await searchApi.search({"table": "movies", "query": {"query_string": "@title Trek 4"}, "highlight": {"fields": ["title"]}});
+      search_response = asSearchResponse(await searchApi.search({"table": "movies", "query": {"query_string": "@title Trek 4"}, "highlight": {"fields": ["title"]}}));
       expect(search_response).to.deep.nested.property('hits.total', 1);
       if (typeof search_response.hits !== 'undefined' && typeof search_response.hits.hits !== 'undefined' && typeof search_response.hits.hits[0] !== 'undefined')
         console.log(search_response.hits.hits[0].highlight)

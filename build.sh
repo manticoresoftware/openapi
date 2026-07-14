@@ -18,8 +18,8 @@ do_python() {
 do_python_asyncio() {
   echo "Building Python async..."
   rm -rf out/manticoresearch-python-asyncio
-  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g python -o /local/out/manticoresearch-python-asyncio -t /local/templates/python --git-repo-id manticoresearch-python-asyncio --git-user-id manticoresoftware  --additional-properties library=asyncio --additional-properties packageRepo=manticoresearch-python-asyncio --additional-properties projectName=manticoresearch-asyncio --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/python-asyncio` $build_to_branch
-  rm -rf out/manticoresearch-python-asyncio/test/* 
+  docker run --rm -v ${PWD}:/local  -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn"  "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_file  -g python -o /local/out/manticoresearch-python-asyncio -t /local/templates/python-asyncio --git-repo-id manticoresearch-python-asyncio --git-user-id manticoresoftware  --additional-properties library=asyncio --additional-properties packageRepo=manticoresearch-python-asyncio --additional-properties projectName=manticoresearch-asyncio --additional-properties packageName=manticoresearch --additional-properties packageVersion=`cat versions/python-asyncio` $build_to_branch
+  rm -rf out/manticoresearch-python-asyncio/test/*
   cp -r LICENSE.txt out/manticoresearch-python-asyncio/LICENSE.txt
   #cp docs/python/docs/* out/manticoresearch-python-asyncio/docs/
   # replace test with our tests
@@ -133,9 +133,10 @@ do_typescript() {
   git apply patches/typescript.utilsapi.patch
   git apply patches/typescript.indexapi.patch
   cp LICENSE.txt out/manticoresearch-typescript/LICENSE.txt
+  mkdir out/manticoresearch-typescript/examples/ && cp -r examples/typescript/* out/manticoresearch-typescript/examples/
   mkdir out/manticoresearch-typescript/test/ && cp -R test/typescript/* out/manticoresearch-typescript/test/
- cp -r docs/typescript/docs/* out/manticoresearch-typescript/
-  
+  cp -r docs/typescript/docs/* out/manticoresearch-typescript/
+    
   # Adding a custom tsup config we use for package build
   #cp misc/typescript/tsup.config.ts out/manticoresearch-typescript/tsup.config.ts
   echo "Typescript done."
@@ -145,7 +146,7 @@ do_csharp() {
   echo "Building CSharp ..."
   rm -rf out/manticoresearch-net 
   docker run --rm -v ${PWD}:/local   -u "$(id -u):$(id -g)"  -e JAVA_OPTS="-Dlog.level=warn" "openapitools/openapi-generator-cli$version" generate -i /local/$openapi_schema_no_nullables_file  -g csharp  -o /local/out/manticoresearch-net -t /local/templates/csharp --library httpclient --git-repo-id manticoresearch-csharp --git-user-id manticoresoftware --additional-properties packageName=ManticoreSearch --additional-properties library=httpclient --additional-properties packageVersion=`cat versions/csharp` $build_to_branch
-  git apply patches/net.matchall.patch patches/net.emit_values.patch patches/net.uint64.patch
+  git apply patches/net.matchall.patch patches/net.emit_values.patch patches/net.uint64.patch patches/net.search_tests.patch
   #cp -r gh-actions/csharp/. out/manticoresearch-net
   cp -r docs/csharp/docs/* out/manticoresearch-net/docs/
   echo "CSharp done."
@@ -238,13 +239,7 @@ openapi_schema_file="manticore.yml"
 openapi_schema_int64_file="manticore_int64.yml"
 openapi_schema_no_nullables_file="manticore_no_nullables.yml"
 sed 's/uint64/int64/g' "$openapi_schema_file" > "$openapi_schema_int64_file"
-sed -e '692c\
-          type: object
-' -e '265c\
-              type: object
-' -e '268c\
-              type: object
-' "$openapi_schema_file" > "$openapi_schema_no_nullables_file"
+python3 generate_no_nullables_yml.py "$openapi_schema_file" "$openapi_schema_no_nullables_file"
 
 case $1 in
  python-asyncio)

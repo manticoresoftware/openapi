@@ -40,6 +40,10 @@ import java.math.BigDecimal;
  */
 public class SearchApiTest {
 
+    private static SearchResponse unwrapSearch(SearchResultResponse result) {
+        return result.getSearchResponse();
+    }
+
     private static final String BASE_PATH = "http://localhost:9408";
     private IndexApi indexApi;
     private SearchApi searchApi;
@@ -116,7 +120,7 @@ public class SearchApiTest {
 					options.put("ranker", "bm25");
 					searchRequest.setOptions(options);
 					
-					SearchResponse searchResponse = searchApi.search(searchRequest);
+					SearchResponse searchResponse = unwrapSearch(searchApi.search(searchRequest));
 					System.out.println(searchResponse);
 			    }
 

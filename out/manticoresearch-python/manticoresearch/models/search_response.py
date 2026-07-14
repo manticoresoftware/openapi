@@ -20,17 +20,18 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from manticoresearch.models.search_response_aggregations_value import SearchResponseAggregationsValue
 from manticoresearch.models.search_response_hits import SearchResponseHits
 from typing import Optional, Set
 from typing_extensions import Self
 
 class SearchResponse(BaseModel):
     """
-    Response object containing the results of a search request
+    Response object containing the results of a regular search request
     """ # noqa: E501
     took: Optional[StrictInt] = Field(default=None, description="Time taken to execute the search")
     timed_out: Optional[StrictBool] = Field(default=None, description="Indicates whether the search operation timed out")
-    aggregations: Optional[Dict[str, Any]] = Field(default=None, description="Aggregated search results grouped by the specified criteria")
+    aggregations: Optional[Dict[str, SearchResponseAggregationsValue]] = Field(default=None, description="Aggregated search results grouped by the specified criteria. Each named aggregation typically contains a `buckets` array (or keyed map) of bucket objects with `key`, `doc_count`, and optional `status`. ")
     hits: Optional[SearchResponseHits] = None
     profile: Optional[Dict[str, Any]] = Field(default=None, description="Profile information about the search execution, if profiling is enabled")
     scroll: Optional[StrictStr] = Field(default=None, description="Scroll token to be used fo pagination")
@@ -76,6 +77,13 @@ class SearchResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each value in aggregations (dict)
+        _field_dict = {}
+        if self.aggregations:
+            for _key_aggregations in self.aggregations:
+                if self.aggregations[_key_aggregations]:
+                    _field_dict[_key_aggregations] = self.aggregations[_key_aggregations].to_dict()
+            _dict['aggregations'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of hits
         if self.hits:
             _dict['hits'] = self.hits.to_dict()
@@ -93,7 +101,12 @@ class SearchResponse(BaseModel):
         _obj = cls.model_validate({
             "took": obj.get("took"),
             "timed_out": obj.get("timed_out"),
-            "aggregations": obj.get("aggregations"),
+            "aggregations": dict(
+                (_k, SearchResponseAggregationsValue.from_dict(_v))
+                for _k, _v in obj["aggregations"].items()
+            )
+            if obj.get("aggregations") is not None
+            else None,
             "hits": SearchResponseHits.from_dict(obj["hits"]) if obj.get("hits") is not None else None,
             "profile": obj.get("profile"),
             "scroll": obj.get("scroll"),

@@ -54,16 +54,15 @@ diff --git a/out/manticoresearch-net/docs/Knn.md b/out/manticoresearch-net/docs/
 index f76b76e..9434551 100755
 --- a/out/manticoresearch-net/docs/Knn.md
 +++ b/out/manticoresearch-net/docs/Knn.md
-@@ -8,8 +8,8 @@ Name | Type | Description | Notes
- **Field** | **string** | Field to perform the k-nearest neighbor search on | 
+@@ -9,7 +9,7 @@ Name | Type | Description | Notes
  **K** | **int** | The number of nearest neighbors to return | 
  **Query** | [**KnnQuery**](KnnQuery.md) |  | [optional] 
  **QueryVector** | **List&lt;decimal&gt;** | The vector used as input for the KNN search | [optional] 
 -**DocId** | **int** | The docuemnt ID used as input for the KNN search | [optional] 
-+**DocId** | **UInt64** | The document ID used as input for the KNN search | [optional]
++**DocId** | **UInt64** | The docuemnt ID used as input for the KNN search | [optional]
  **Ef** | **int** | Optional parameter controlling the accuracy of the search | [optional] 
- **Filter** | [**QueryFilter**](QueryFilter.md) |  | [optional] 
- 
+ **Rescore** | **bool** | Optional parameter enabling KNN rescoring (disabled by default) | [optional] 
+ **Oversampling** | **decimal** | Optional parameter setting a factor by which k is multiplied when executing the KNN search | [optional] 
 diff --git a/out/manticoresearch-net/docs/SuccessResponse.md b/out/manticoresearch-net/docs/SuccessResponse.md
 index a6acc74..8bf7608 100755
 --- a/out/manticoresearch-net/docs/SuccessResponse.md
@@ -195,16 +194,16 @@ diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/Knn.cs b/out/mant
 index 6e06628..16991e7 100755
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/Knn.cs
 +++ b/out/manticoresearch-net/src/ManticoreSearch/Model/Knn.cs
-@@ -47,7 +47,7 @@ namespace ManticoreSearch.Model
-         /// <param name="docId">The docuemnt ID used as input for the KNN search.</param>
-         /// <param name="ef">Optional parameter controlling the accuracy of the search.</param>
+@@ -50,7 +50,7 @@ namespace ManticoreSearch.Model
+         /// <param name="rescore">Optional parameter enabling KNN rescoring (disabled by default).</param>
+         /// <param name="oversampling">Optional parameter setting a factor by which k is multiplied when executing the KNN search.</param>
          /// <param name="filter">filter.</param>
--        public Knn(string field = default, int k = default, KnnQuery query = default, List<decimal> queryVector = default, int docId = default, int ef = default, QueryFilter filter = default)
-+        public Knn(string field = default, int k = default, KnnQuery query = default, List<decimal> queryVector = default, UInt64 docId = default, int ef = default, QueryFilter filter = default)
+-        public Knn(string field = default, int k = default, KnnQuery query = default, List<decimal> queryVector = default, int docId = default, int ef = default, bool rescore = default, decimal oversampling = default, QueryFilter filter = default)
++        public Knn(string field = default, int k = default, KnnQuery query = default, List<decimal> queryVector = default, UInt64 docId = default, int ef = default, bool rescore = default, decimal oversampling = default, QueryFilter filter = default)
          {
              // to ensure "field" is required (not null)
              if (field == null)
-@@ -88,7 +88,7 @@ namespace ManticoreSearch.Model
+@@ -100,7 +100,7 @@ namespace ManticoreSearch.Model
          /// </summary>
          /// <value>The docuemnt ID used as input for the KNN search</value>
          [DataMember(Name = "doc_id", EmitDefaultValue = false)]

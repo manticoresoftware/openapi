@@ -3,7 +3,7 @@ use manticoresearch::{
     apis::{
         {configuration::Configuration,IndexApi,IndexApiClient,SearchApi,SearchApiClient,UtilsApi,UtilsApiClient}
     },
-    models::{SearchRequest,SearchQuery,Highlight,HighlightFields}
+    models::{SearchRequest,SearchQuery,Highlight,HighlightFields,SearchResultResponse}
 };
 use std::collections::HashMap;
 use tokio;
@@ -68,7 +68,11 @@ async fn search_api_basic_requests() {
     assert!(res.is_ok(), "Search failed: {:?}", res.err());
 
     let result = res.unwrap();
-    println!("Search result: {:?}", result);
+    let search_response = match result {
+        SearchResultResponse::SearchResponse(search_response) => search_response,
+        other => panic!("unexpected search response: {:?}", other),
+    };
+    println!("Search result: {:?}", search_response);
 
 }
 

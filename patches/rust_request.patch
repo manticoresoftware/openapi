@@ -10,21 +10,18 @@ index 8902fb3..faa57b8 100644
  use futures;
  use futures::Future;
  use futures::future::*;
-@@ -207,9 +208,26 @@ impl Request {
+@@ -207,9 +208,23 @@ impl Request {
              }
              req_builder.body(enc.finish())
          } else if let Some(body) = self.serialized_body {
 -            req_headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
 -            req_headers.insert(CONTENT_LENGTH, body.len().into());
 -            req_builder.body(body)
-+            let req_len;
 +            let mut req_body;
 +            let content_type;
-+            if body[0..1] == "\"".to_string() {
-+                req_len = body.len()-2;
-+                req_body = body[1..body.len()-1].to_string();
++            if body.starts_with('"') && body.len() >= 2 {
++                req_body = body[1..body.len() - 1].to_string();
 +            } else {
-+                req_len = body.len();
 +                req_body = body.to_string();
 +            }
 +            if path == "/bulk".to_string() {
@@ -35,7 +32,7 @@ index 8902fb3..faa57b8 100644
 +                content_type = HeaderValue::from_static("application/json");
 +            }
 +            req_headers.insert(CONTENT_TYPE, content_type);
-+            req_headers.insert(CONTENT_LENGTH, req_len.into());
++            req_headers.insert(CONTENT_LENGTH, req_body.len().into());
 +            req_builder.body(req_body)
          } else {
              req_builder.body(String::new())
