@@ -14,7 +14,6 @@ from manticoresearch.api.index_api import IndexApi  # noqa: E501
 from manticoresearch.models import *
 from manticoresearch.rest import ApiException
 from unittest import IsolatedAsyncioTestCase
-from search_helpers import unwrap_search_response
 from urllib.parse import quote
 from time import sleep
 import sys
@@ -63,12 +62,12 @@ class TestManualApi(IsolatedAsyncioTestCase):
         search_request.query = searchQuery
 
         searchApi = manticoresearch.SearchApi(client)
-        res = unwrap_search_response(await searchApi.search(search_request))
+        res = await searchApi.search(search_request)
         self.assertEqual(res.hits.hits[0].id, 4)
 
         search_request = {"table":"movies","query":{"bool": {"must": [ {"match": {"title":"4"}}] }}}
 
-        res = unwrap_search_response(await searchApi.search(search_request))
+        res = await searchApi.search(search_request)
         print(res.hits.hits[0].id)
         self.assertEqual(res.hits.hits[0].id, 4)
 

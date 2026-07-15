@@ -1,0 +1,64 @@
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    DOTNET_ROOT=/usr/share/dotnet \
+    CARGO_HOME=/usr/local/cargo \
+    RUSTUP_HOME=/usr/local/rustup \
+    NVM_DIR=/usr/local/nvm \
+    GO111MODULE=on \
+    MIX_HOME=/usr/local/mix \
+    HEX_HOME=/usr/local/hex
+
+# Base tools + language runtimes available via apt
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        curl \
+        wget \
+        git \
+        unzip \
+        xz-utils \
+        build-essential \
+        pkg-config \
+        libssl-dev \
+        python3 \
+        python3-pip \
+        python3-venv \
+        openjdk-17-jdk-headless \
+        maven \
+        golang-go \
+        erlang \
+        elixir \
+        rsync \
+        jq \
+    && rm -rf /var/lib/apt/lists/*
+
+# Node via nvm (used by javascript / typescript clients)
+ENV NODE_VERSION=20.18.1
+RUN mkdir -p "$NVM_DIR" \
+    && curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
+    && . "$NVM_DIR/nvm.sh" \
+    && nvm install "$NODE_VERSION" \
+    && nvm alias default "$NODE_VERSION" \
+    && ln -sf "$NVM_DIR/versions/node/v$NODE_VERSION/bin/node" /usr/local/bin/node \
+    && ln -sf "$NVM_DIR/versions/node/v$NODE_VERSION/bin/npm" /usr/local/bin/npm \
+    && ln -sf "$NVM_DIR/versions/node/v$NODE_VERSION/bin/npx" /usr/local/bin/npx
+
+# .NET SDK 9 (net clients target net9.0)
+RUN curl -fsSL https://dot.net/v1/dotnet-install.sh -o /tmp/dotnet-install.sh \
+    && bash /tmp/dotnet-install.sh --channel 9.0 --install-dir /usr/share/dotnet \
+    && ln -sf /usr/share/dotnet/dotnet /usr/local/bin/dotnet \
+    && rm /tmp/dotnet-install.sh
+
+# Rust toolchain
+RUN curl -fsSL https://sh.rustup.rs | sh -s -- -y --default-toolchain stable \
+    && ln -sf /usr/local/cargo/bin/* /usr/local/bin/
+
+ENV PATH="/usr/local/cargo/bin:/usr/share/dotnet:${PATH}" \
+    JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+
+WORKDIR /work
+
+COPY run-client-tests.sh /run-client-tests.sh
+RUN chmod +x /run-client-tests.sh
+
+ENTRYPOINT ["/run-client-tests.sh", "--matrix"]

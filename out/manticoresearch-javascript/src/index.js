@@ -32,7 +32,6 @@ import AutocompleteRequest from './model/AutocompleteRequest';
 import BoolFilter from './model/BoolFilter';
 import BulkResponse from './model/BulkResponse';
 import Chat from './model/Chat';
-import ChatResponse from './model/ChatResponse';
 import DeleteDocumentRequest from './model/DeleteDocumentRequest';
 import DeleteResponse from './model/DeleteResponse';
 import ErrorResponse from './model/ErrorResponse';
@@ -68,7 +67,6 @@ import SearchQuery from './model/SearchQuery';
 import SearchRequest from './model/SearchRequest';
 import SearchResponse from './model/SearchResponse';
 import SearchResponseHits from './model/SearchResponseHits';
-import SearchResultResponse from './model/SearchResultResponse';
 import SourceRules from './model/SourceRules';
 import SqlObjResponse from './model/SqlObjResponse';
 import SqlResponse from './model/SqlResponse';
@@ -109,7 +107,7 @@ import UtilsApi from './api/UtilsApi';
 * </pre>
 * </p>
 * @module index
-* @version 10.0.0
+* @version 10.1.0
 */
 export {
     /**
@@ -231,12 +229,6 @@ export {
      * @property {module:model/Chat}
      */
     Chat,
-
-    /**
-     * The ChatResponse model constructor.
-     * @property {module:model/ChatResponse}
-     */
-    ChatResponse,
 
     /**
      * The DeleteDocumentRequest model constructor.
@@ -447,12 +439,6 @@ export {
      * @property {module:model/SearchResponseHits}
      */
     SearchResponseHits,
-
-    /**
-     * The SearchResultResponse model constructor.
-     * @property {module:model/SearchResultResponse}
-     */
-    SearchResultResponse,
 
     /**
      * The SourceRules model constructor.

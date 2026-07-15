@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "11.0.0"
+__version__ = "11.1.0"
 
 # Define package exports
 __all__ = [
@@ -50,7 +50,6 @@ __all__ = [
     "BoolFilter",
     "BulkResponse",
     "Chat",
-    "ChatResponse",
     "DeleteDocumentRequest",
     "DeleteResponse",
     "ErrorResponse",
@@ -85,9 +84,7 @@ __all__ = [
     "SearchQuery",
     "SearchRequest",
     "SearchResponse",
-    "SearchResponseAggregationsValue",
     "SearchResponseHits",
-    "SearchResultResponse",
     "SourceRules",
     "SqlObjResponse",
     "SqlResponse",
@@ -132,7 +129,6 @@ from manticoresearch.models.autocomplete_request import AutocompleteRequest as A
 from manticoresearch.models.bool_filter import BoolFilter as BoolFilter
 from manticoresearch.models.bulk_response import BulkResponse as BulkResponse
 from manticoresearch.models.chat import Chat as Chat
-from manticoresearch.models.chat_response import ChatResponse as ChatResponse
 from manticoresearch.models.delete_document_request import DeleteDocumentRequest as DeleteDocumentRequest
 from manticoresearch.models.delete_response import DeleteResponse as DeleteResponse
 from manticoresearch.models.error_response import ErrorResponse as ErrorResponse
@@ -167,9 +163,7 @@ from manticoresearch.models.script_field_script import ScriptFieldScript as Scri
 from manticoresearch.models.search_query import SearchQuery as SearchQuery
 from manticoresearch.models.search_request import SearchRequest as SearchRequest
 from manticoresearch.models.search_response import SearchResponse as SearchResponse
-from manticoresearch.models.search_response_aggregations_value import SearchResponseAggregationsValue as SearchResponseAggregationsValue
 from manticoresearch.models.search_response_hits import SearchResponseHits as SearchResponseHits
-from manticoresearch.models.search_result_response import SearchResultResponse as SearchResultResponse
 from manticoresearch.models.source_rules import SourceRules as SourceRules
 from manticoresearch.models.sql_obj_response import SqlObjResponse as SqlObjResponse
 from manticoresearch.models.sql_response import SqlResponse as SqlResponse

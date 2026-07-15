@@ -55,7 +55,7 @@ class SearchRequest(BaseModel):
     sort: Optional[Any] = None
     source: Optional[Any] = Field(default=None, alias="_source")
     track_scores: Optional[StrictBool] = Field(default=None, description="Enable or disable result weight calculation used for sorting")
-    __properties: ClassVar[List[str]] = []
+    __properties: ClassVar[List[str]] = ["table", "chat", "query", "join", "highlight", "limit", "knn", "hybrid", "facet_filter_mode", "aggs", "expressions", "script_fields", "max_matches", "offset", "options", "profile", "sort", "_source", "track_scores"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -96,6 +96,52 @@ class SearchRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of chat
+        if self.chat:
+            _dict['chat'] = self.chat.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of query
+        if self.query:
+            _dict['query'] = self.query.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in join (list)
+        _items = []
+        if self.join:
+            for _item_join in self.join:
+                if _item_join:
+                    _items.append(_item_join.to_dict())
+            _dict['join'] = _items
+        # override the default output from pydantic by calling `to_dict()` of highlight
+        if self.highlight:
+            _dict['highlight'] = self.highlight.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of knn
+        if self.knn:
+            _dict['knn'] = self.knn.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of hybrid
+        if self.hybrid:
+            _dict['hybrid'] = self.hybrid.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each value in aggs (dict)
+        _field_dict = {}
+        if self.aggs:
+            for _key_aggs in self.aggs:
+                if self.aggs[_key_aggs]:
+                    _field_dict[_key_aggs] = self.aggs[_key_aggs].to_dict()
+            _dict['aggs'] = _field_dict
+        # override the default output from pydantic by calling `to_dict()` of each value in script_fields (dict)
+        _field_dict = {}
+        if self.script_fields:
+            for _key_script_fields in self.script_fields:
+                if self.script_fields[_key_script_fields]:
+                    _field_dict[_key_script_fields] = self.script_fields[_key_script_fields].to_dict()
+            _dict['script_fields'] = _field_dict
+        # set to None if sort (nullable) is None
+        # and model_fields_set contains the field
+        if self.sort is None and "sort" in self.model_fields_set:
+            _dict['sort'] = None
+
+        # set to None if source (nullable) is None
+        # and model_fields_set contains the field
+        if self.source is None and "source" in self.model_fields_set:
+            _dict['_source'] = None
+
         return _dict
 
     @classmethod
@@ -108,6 +154,35 @@ class SearchRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "table": obj.get("table"),
+            "chat": Chat.from_dict(obj["chat"]) if obj.get("chat") is not None else None,
+            "query": SearchQuery.from_dict(obj["query"]) if obj.get("query") is not None else None,
+            "join": [Join.from_dict(_item) for _item in obj["join"]] if obj.get("join") is not None else None,
+            "highlight": Highlight.from_dict(obj["highlight"]) if obj.get("highlight") is not None else None,
+            "limit": obj.get("limit"),
+            "knn": Knn.from_dict(obj["knn"]) if obj.get("knn") is not None else None,
+            "hybrid": Hybrid.from_dict(obj["hybrid"]) if obj.get("hybrid") is not None else None,
+            "facet_filter_mode": obj.get("facet_filter_mode"),
+            "aggs": dict(
+                (_k, Aggregation.from_dict(_v))
+                for _k, _v in obj["aggs"].items()
+            )
+            if obj.get("aggs") is not None
+            else None,
+            "expressions": obj.get("expressions"),
+            "script_fields": dict(
+                (_k, ScriptField.from_dict(_v))
+                for _k, _v in obj["script_fields"].items()
+            )
+            if obj.get("script_fields") is not None
+            else None,
+            "max_matches": obj.get("max_matches"),
+            "offset": obj.get("offset"),
+            "options": obj.get("options"),
+            "profile": obj.get("profile"),
+            "sort": obj.get("sort"),
+            "_source": obj.get("_source"),
+            "track_scores": obj.get("track_scores")
         })
         return _obj
 

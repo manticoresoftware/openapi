@@ -18,7 +18,6 @@ import openapi_client
 from openapi_client.api.search_api import SearchApi  # noqa: E501
 from openapi_client.rest import ApiException
 from parametrized_test_case import ParametrizedTestCase
-from search_helpers import unwrap_search_response
 
 class TestSearchApi(ParametrizedTestCase):
     """SearchApi unit test stubs"""
@@ -60,13 +59,13 @@ class TestSearchApi(ParametrizedTestCase):
         insert_req_body = {"index":"test","id":1,"doc":{"content":"sample content","name":"test doc","cat":"10"}} 
         self.index_api.insert(insert_req_body)
         req_body = {"index":"test","query":{"match":{"content":"sample"}}} 
-        api_resp = unwrap_search_response(self.api.search(req_body))
+        api_resp = self.api.search(req_body)
         res = {'id': api_resp.hits.hits[0]['_id'], 'total': api_resp.hits.total, 'profile': api_resp.profile, 'timed_out': api_resp.timed_out}
         expected_res = {'id': '1', 'total': 1, 'profile': None, 'timed_out': False}
         self.assertDictEqual(res, expected_res)
         
         req_body = {"index":"test","query":{"match":{"content":"no match"}}} 
-        api_resp = unwrap_search_response(self.api.search(req_body))
+        api_resp = self.api.search(req_body)
         res = {'hits': api_resp.hits.hits, 'total': api_resp.hits.total, 'profile': api_resp.profile, 'timed_out': api_resp.timed_out}
         expected_res = {'hits': [], 'total': 0, 'profile': None, 'timed_out': False}
         self.assertDictEqual(res, expected_res)

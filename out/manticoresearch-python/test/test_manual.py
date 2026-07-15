@@ -14,7 +14,6 @@ from manticoresearch.api.index_api import IndexApi  # noqa: E501
 from manticoresearch.models import *
 from manticoresearch.rest import ApiException
 from parametrized_test_case import ParametrizedTestCase
-from search_helpers import unwrap_search_response
 from urllib.parse import quote
 import sys
 
@@ -54,12 +53,12 @@ class TestManualApi(ParametrizedTestCase):
         searchQuery = SearchQuery(bool={"must": [ {"match": {"title":"4"}}] })
         search_request.query = searchQuery
 
-        res = unwrap_search_response(searchApi.search(search_request))
+        res = searchApi.search(search_request)
         self.assertEqual(res.hits.hits[0].id, 4)
 
         search_request = {"table":"movies","query":{"bool": {"must": [ {"match": {"title":"4"}}] }}}
 
-        res = unwrap_search_response(searchApi.search(search_request))
+        res = searchApi.search(search_request)
         self.assertEqual(res.hits.hits[0].id, 4)
 
         autocomplete_request = {"table":"movies","query": "Romul","options": {"fuzziness": 0, "layouts": "us,uk"} }

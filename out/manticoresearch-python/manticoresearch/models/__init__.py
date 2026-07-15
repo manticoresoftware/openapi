@@ -33,7 +33,6 @@ from manticoresearch.models.autocomplete_request import AutocompleteRequest
 from manticoresearch.models.bool_filter import BoolFilter
 from manticoresearch.models.bulk_response import BulkResponse
 from manticoresearch.models.chat import Chat
-from manticoresearch.models.chat_response import ChatResponse
 from manticoresearch.models.delete_document_request import DeleteDocumentRequest
 from manticoresearch.models.delete_response import DeleteResponse
 from manticoresearch.models.error_response import ErrorResponse
@@ -68,9 +67,7 @@ from manticoresearch.models.script_field_script import ScriptFieldScript
 from manticoresearch.models.search_query import SearchQuery
 from manticoresearch.models.search_request import SearchRequest
 from manticoresearch.models.search_response import SearchResponse
-from manticoresearch.models.search_response_aggregations_value import SearchResponseAggregationsValue
 from manticoresearch.models.search_response_hits import SearchResponseHits
-from manticoresearch.models.search_result_response import SearchResultResponse
 from manticoresearch.models.source_rules import SourceRules
 from manticoresearch.models.sql_obj_response import SqlObjResponse
 from manticoresearch.models.sql_response import SqlResponse

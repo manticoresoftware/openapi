@@ -11,10 +11,7 @@ import inspect
 from parametrized_test_case import ParametrizedTestCase
 
 configuration = manticoresearch.Configuration(
-    host = "http://localhost:9508",
-    #username = 'admin',
-    #password = '12345678'
-    access_token = 'a0818c4ef3fa4b7f575fb9cca722696f3c8fd6fce0c8d9223b5b05bad7d7d0c71'
+    host = "http://localhost:9408"
 )
 
 print

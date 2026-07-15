@@ -58,6 +58,8 @@ For more detailed information about the autocomplete queries, please refer to th
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -71,6 +73,21 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = manticoresearch.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = manticoresearch.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 async with manticoresearch.ApiClient(configuration) as api_client:
@@ -102,7 +119,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -174,6 +191,8 @@ Responds with an object with matched stored queries:  ```
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -188,6 +207,21 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = manticoresearch.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = manticoresearch.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 async with manticoresearch.ApiClient(configuration) as api_client:
@@ -221,7 +255,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -274,11 +308,14 @@ Here is an example search response:
   }
   ```
 
+For conversational search, include a `chat` object instead of `table` and `query`. The response then includes the optional conversational fields on `searchResponse` (`conversation_uuid`, `user_query`, `search_query`, `response`, `sources`).
 For more information about the match query syntax and additional parameters that can be added to request and response, please see the documentation [here](https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP-JSON).
 
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -293,6 +330,21 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = manticoresearch.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = manticoresearch.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 async with manticoresearch.ApiClient(configuration) as api_client:
@@ -324,7 +376,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -335,7 +387,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Ok |  -  |
+**200** | Ok. Returns &#x60;searchResponse&#x60;. For conversational search requests that include a &#x60;chat&#x60; object, the optional conversational fields are also set.  |  -  |
 **0** | error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -40,9 +40,6 @@ import java.math.BigDecimal;
  */
 public class SearchApiTest {
 
-    private static SearchResponse unwrapSearch(SearchResultResponse result) {
-        return result.getSearchResponse();
-    }
 
     private static final String BASE_PATH = "http://localhost:9408";
     private IndexApi indexApi;
@@ -226,7 +223,7 @@ public class SearchApiTest {
 					boolFilter.setMust(mustFilter);
 					searchRequest.setAttrFilter(boolFilter);
 			
-					SearchResponse searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					SearchResponse searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 			
 					equalsFilter = new EqualsFilter();
@@ -235,7 +232,7 @@ public class SearchApiTest {
 					boolFilter.setMustNot( Arrays.asList(equalsFilter) );
 					searchRequest.setAttrFilter(boolFilter);
 			
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 					
 					boolFilter = new BoolFilter();
@@ -251,7 +248,7 @@ public class SearchApiTest {
 					boolFilter.setMust( Arrays.asList(nestedBoolFilter) );
 					searchRequest.setAttrFilter(boolFilter);
 													
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 				}
 			
@@ -262,7 +259,7 @@ public class SearchApiTest {
 					equalsFilter.setValue(2003);
 					searchRequest.setAttrFilter(equalsFilter);
 			
-					SearchResponse searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					SearchResponse searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 					
 					InFilter inFilter = new InFilter();
@@ -270,7 +267,7 @@ public class SearchApiTest {
 					inFilter.setValues( Arrays.asList(2001, 2002) );
 			        searchRequest.setAttrFilter(inFilter);
 			
-			        searchResponse = unwrapSearch(searchApi.search(searchRequest));
+			        searchResponse = searchApi.search(searchRequest);
 			        System.out.println(searchResponse);
 					
 					RangeFilter rangeFilter = new RangeFilter();
@@ -279,7 +276,7 @@ public class SearchApiTest {
 					rangeFilter.setGte(new RangeFilterValue(BigDecimal.valueOf(0)));
 					searchRequest.setAttrFilter(rangeFilter);
 			
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 			
 					rangeFilter = new RangeFilter();
@@ -287,7 +284,7 @@ public class SearchApiTest {
 					rangeFilter.setGt(new RangeFilterValue(BigDecimal.valueOf(1.5)));
 					searchRequest.setAttrFilter(rangeFilter);
 			
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 
 					rangeFilter = new RangeFilter();
@@ -295,7 +292,7 @@ public class SearchApiTest {
 					rangeFilter.setGte(new RangeFilterValue("A"));
 					searchRequest.setAttrFilter(rangeFilter);
 					System.out.println(searchRequest);
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 					
 			
@@ -309,7 +306,7 @@ public class SearchApiTest {
 					geoFilter.setDistance("100km");
 					searchRequest.setAttrFilter(geoFilter);
 			
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 			    }
 			
@@ -320,7 +317,7 @@ public class SearchApiTest {
 					matchFilter.setQueryFields("title");	
 					searchRequest.setFulltextFilter(matchFilter);
 			
-					SearchResponse searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					SearchResponse searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 					
 					MatchPhraseFilter matchPhraseFilter = new MatchPhraseFilter();
@@ -328,7 +325,7 @@ public class SearchApiTest {
 					matchPhraseFilter.setQueryFields("title");
 					searchRequest.setFulltextFilter(matchPhraseFilter);
 			
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 					
 					MatchOpFilter matchOpFilter = new MatchOpFilter();
@@ -337,7 +334,7 @@ public class SearchApiTest {
 					matchOpFilter.setOperator(MatchOpFilter.OperatorEnum.OR);
 					searchRequest.setFulltextFilter(matchOpFilter);
 			
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 			    }
 			
@@ -350,7 +347,7 @@ public class SearchApiTest {
 			        highlight.setSnippetBoundary(Highlight.SnippetBoundaryEnum.SENTENCE);
 			    	searchRequest.setHighlight(highlight);
 			
-			    	SearchResponse searchResponse = unwrapSearch(searchApi.search(searchRequest));
+			    	SearchResponse searchResponse = searchApi.search(searchRequest);
 			    	System.out.println(searchResponse);
 			
 					HighlightField highlightField = new HighlightField();
@@ -360,7 +357,7 @@ public class SearchApiTest {
 					highlight.setFields(highlightFields);
 					searchRequest.setHighlight(highlight);
 			
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 					
 					highlightField = new HighlightField();
@@ -372,7 +369,7 @@ public class SearchApiTest {
 			    	
 			    	searchRequest.setHighlight(highlight);
 			
-			    	searchResponse = unwrapSearch(searchApi.search(searchRequest));
+			    	searchResponse = searchApi.search(searchRequest);
 			    	System.out.println(searchResponse);
 			
 			    	HashMap<String,Object> highlightQuery = new HashMap<String,Object>(){{
@@ -380,7 +377,7 @@ public class SearchApiTest {
 			        }};
 			    	highlight.setHighlightQuery(highlightQuery);
 			
-			    	searchResponse = unwrapSearch(searchApi.search(searchRequest));
+			    	searchResponse = searchApi.search(searchRequest);
 			    	System.out.println(searchResponse);
 			    }
 			
@@ -396,7 +393,7 @@ public class SearchApiTest {
 					
 					searchRequest.setAggs(aggs);
 			
-					SearchResponse searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					SearchResponse searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 					
 					terms = new AggregationTerms();
@@ -412,7 +409,7 @@ public class SearchApiTest {
 			        
 			        searchRequest.setAggs(aggs);
 			
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 
 					AggregationCompositeSourcesInnerValueTerms compAggTerms1 = new AggregationCompositeSourcesInnerValueTerms();
@@ -438,7 +435,7 @@ public class SearchApiTest {
 					
 					searchRequest.setAggs(aggs);
 
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 			    }
 			
@@ -453,7 +450,7 @@ public class SearchApiTest {
 			        source.setIncludes(includes);
 			        searchRequest.setSource(source);
 			
-			    	SearchResponse searchResponse = unwrapSearch(searchApi.search(searchRequest));
+			    	SearchResponse searchResponse = searchApi.search(searchRequest);
 			    	System.out.println(searchResponse);
 			    }
 			
@@ -471,7 +468,7 @@ public class SearchApiTest {
 					sort.add(sort3);
 					searchRequest.setSort(sort);
 			
-					SearchResponse searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					SearchResponse searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 			    }
 			
@@ -485,7 +482,7 @@ public class SearchApiTest {
 					searchRequest.setLimit(10);
 					searchRequest.setTrackScores(false);
 			
-					SearchResponse searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					SearchResponse searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 			
 					Map<String,Object> options = new HashMap<String,Object>();
@@ -495,7 +492,7 @@ public class SearchApiTest {
 					
 					searchRequest.setSource("title");
 					
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 			        
 			        List<String> includes = new ArrayList<String>( Arrays.asList("title", "_year", "rating") );
@@ -505,7 +502,7 @@ public class SearchApiTest {
 					source.setExcludes(excludes);
 					searchRequest.setSource(source);
 					
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 			    }
 
@@ -523,7 +520,7 @@ public class SearchApiTest {
 			        SearchRequestKnn searchRequestKnn = new SearchRequestKnn();
 					searchRequestKnn.setActualInstance(knnQueryByVector);
 					searchRequest.setKnn(searchRequestKnn);
-					SearchResponse searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					SearchResponse searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 					
 					KnnQueryByDocId knnQueryByDocId = new KnnQueryByDocId();
@@ -532,7 +529,7 @@ public class SearchApiTest {
 			        knnQueryByDocId.setK(5);
 			        searchRequestKnn.setActualInstance(knnQueryByDocId);
 					searchRequest.setKnn(searchRequestKnn);
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 
 					
@@ -554,13 +551,13 @@ public class SearchApiTest {
 					knnQueryByVector.setFilter(boolFilter);
 			        searchRequestKnn.setActualInstance(knnQueryByVector);
 					searchRequest.setKnn(searchRequestKnn);
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 
 					knnQueryByDocId.setFilter(boolFilter);
 			        searchRequestKnn.setActualInstance(knnQueryByDocId);
 					searchRequest.setKnn(searchRequestKnn);
-					searchResponse = unwrapSearch(searchApi.search(searchRequest));
+					searchResponse = searchApi.search(searchRequest);
 					System.out.println(searchResponse);
 			    }
 	            

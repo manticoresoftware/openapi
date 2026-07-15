@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ScriptFieldScript model module.
  * @module model/ScriptFieldScript
- * @version 10.0.0
+ * @version 10.1.0
  */
 class ScriptFieldScript {
     /**

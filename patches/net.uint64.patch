@@ -86,7 +86,7 @@ index 2b80f04..8c8c863 100755
  **Doc** | **Object** | Object containing the document fields to update | 
 -**Id** | **int** | Document ID | [optional] 
 +**Id** | **UInt64** | Document ID | [optional]
- **Query** | [**QueryFilter**](QueryFilter.md) |  | [optional] 
+ **Query** | [**QueryFilter**](QueryFilter.md) | Object defining conditions to perform the updates | [optional] 
  
  [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 diff --git a/out/manticoresearch-net/docs/UpdateResponse.md b/out/manticoresearch-net/docs/UpdateResponse.md
@@ -241,7 +241,7 @@ index 9095cfa..4bb07f2 100755
 @@ -46,7 +46,7 @@ namespace ManticoreSearch.Model
          /// <param name="doc">Object containing the document fields to update (required).</param>
          /// <param name="id">Document ID.</param>
-         /// <param name="query">query.</param>
+         /// <param name="query">Object defining conditions to perform the updates.</param>
 -        public UpdateDocumentRequest(string table = default, string cluster = default, Object doc = default, int id = default, QueryFilter query = default)
 +        public UpdateDocumentRequest(string table = default, string cluster = default, Object doc = default, UInt64 id = default, QueryFilter query = default)
          {
@@ -255,7 +255,7 @@ index 9095cfa..4bb07f2 100755
 +        public UInt64 Id { get; set; }
  
          /// <summary>
-         /// Gets or Sets Query
+         /// Object defining conditions to perform the updates
 diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateResponse.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateResponse.cs
 index 7c52d54..d68a092 100755
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateResponse.cs

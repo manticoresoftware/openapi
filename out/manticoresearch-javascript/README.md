@@ -3,7 +3,7 @@
 Сlient for Manticore Search.
 
 
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-javascript/tree/10.0.0
+❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-javascript/tree/10.1.0
 
 ## Compatibility Table
 
@@ -120,7 +120,6 @@ Class | Method | HTTP request | Description
  - [Manticoresearch.BoolFilter](docs/BoolFilter.md)
  - [Manticoresearch.BulkResponse](docs/BulkResponse.md)
  - [Manticoresearch.Chat](docs/Chat.md)
- - [Manticoresearch.ChatResponse](docs/ChatResponse.md)
  - [Manticoresearch.DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
  - [Manticoresearch.DeleteResponse](docs/DeleteResponse.md)
  - [Manticoresearch.ErrorResponse](docs/ErrorResponse.md)
@@ -156,7 +155,6 @@ Class | Method | HTTP request | Description
  - [Manticoresearch.SearchRequest](docs/SearchRequest.md)
  - [Manticoresearch.SearchResponse](docs/SearchResponse.md)
  - [Manticoresearch.SearchResponseHits](docs/SearchResponseHits.md)
- - [Manticoresearch.SearchResultResponse](docs/SearchResultResponse.md)
  - [Manticoresearch.SourceRules](docs/SourceRules.md)
  - [Manticoresearch.SqlObjResponse](docs/SqlObjResponse.md)
  - [Manticoresearch.SqlResponse](docs/SqlResponse.md)

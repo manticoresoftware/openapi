@@ -20,18 +20,6 @@ import (
 	Manticoresearch "github.com/manticoresoftware/manticoresearch-go"
 )
 
-func unwrapSearchResponse(resp *Manticoresearch.SearchResultResponse) *Manticoresearch.SearchResponse {
-	if resp == nil {
-		return nil
-	}
-	if resp.SearchResponse != nil {
-		return resp.SearchResponse
-	}
-	if actual, ok := resp.GetActualInstance().(*Manticoresearch.SearchResponse); ok {
-		return actual
-	}
-	return nil
-}
 
 func Test_openapi_SearchAPIService(t *testing.T) {
 
@@ -70,16 +58,15 @@ func Test_openapi_SearchAPIService(t *testing.T) {
 
 		searchQuery := Manticoresearch.NewSearchQuery()
 		searchQuery.SetQueryString("@title Trek 4")	
-		searchRequest := Manticoresearch.NewSearchRequest("movies")
+		searchRequest := Manticoresearch.NewSearchRequest()
+		searchRequest.SetTable("movies")
 		searchRequest.Highlight = queryHighlight
 		searchRequest.Query = searchQuery
 		resp, httpRes, err := apiClient.SearchAPI.Search(context.Background()).SearchRequest(*searchRequest).Execute()
 		fmt.Printf("%+v\n\n", httpRes)
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		searchResp := unwrapSearchResponse(resp)
-		require.NotNil(t, searchResp)
-		outRes, outErr = json.Marshal(searchResp)
+		outRes, outErr = json.Marshal(resp)
 		require.Nil(t, outErr)
 		fmt.Printf("%+v\n\n", string(outRes[:]))
 		assert.Equal(t, 200, httpRes.StatusCode)

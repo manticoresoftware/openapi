@@ -18,7 +18,7 @@ import QueryFilter from './QueryFilter';
 /**
  * The Knn model module.
  * @module model/Knn
- * @version 10.0.0
+ * @version 10.1.0
  */
 class Knn {
     /**

@@ -51,6 +51,8 @@ The method expects a raw string as the batch in NDJSON.
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -64,6 +66,21 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = manticoresearch.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = manticoresearch.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 async with manticoresearch.ApiClient(configuration) as api_client:
@@ -95,7 +112,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -152,6 +169,8 @@ Responds with an object telling how many documents got deleted:
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -166,6 +185,21 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = manticoresearch.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = manticoresearch.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 async with manticoresearch.ApiClient(configuration) as api_client:
@@ -197,7 +231,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -269,6 +303,8 @@ It responds with an object in format:
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -283,6 +319,21 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = manticoresearch.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = manticoresearch.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 async with manticoresearch.ApiClient(configuration) as api_client:
@@ -314,7 +365,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -345,6 +396,8 @@ Responds with an object of the following format:
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -359,6 +412,21 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = manticoresearch.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = manticoresearch.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 async with manticoresearch.ApiClient(configuration) as api_client:
@@ -394,7 +462,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -425,6 +493,8 @@ Responds with an object in format:
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -439,6 +509,21 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = manticoresearch.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = manticoresearch.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 async with manticoresearch.ApiClient(configuration) as api_client:
@@ -470,7 +555,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -527,6 +612,8 @@ Responds with an object that tells how many documents where updated in format:
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -541,6 +628,21 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = manticoresearch.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = manticoresearch.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 async with manticoresearch.ApiClient(configuration) as api_client:
@@ -572,7 +674,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 

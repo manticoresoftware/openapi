@@ -49,13 +49,6 @@ import { JSONParse, JSONStringify } from 'json-with-bigint';
       object[property] = value;
   }
 
-  var unwrapSearchResponse = function(res) {
-    if (typeof res.getActualInstance === 'function') {
-      return res.getActualInstance();
-    }
-    return res;
-  }
-
   describe('Manual', function() {
     describe('test', function() {
       it('run manual code samples', async function() {
@@ -86,14 +79,14 @@ import { JSONParse, JSONStringify } from 'json-with-bigint';
         search_request.highlight = query_highlight;
 
         console.log('The response of SearchApi->search:\n');
-        let search_response = unwrapSearchResponse(await searchApi.search(search_request));
+        let search_response = await searchApi.search(search_request);
         console.log(search_response.hits.hits[0]);
 
-        search_response = unwrapSearchResponse(await searchApi.search({
+        search_response = await searchApi.search({
           'table': 'movies',
           'query': {'query_string': '@title Trek 4'},
           'highlight': {'fields': ['title']}
-        }));
+        });
         console.log(search_response.hits.hits[0].highlight);
 
         console.log('Search tests finished');

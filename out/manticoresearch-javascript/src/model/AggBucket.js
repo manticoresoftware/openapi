@@ -17,7 +17,7 @@ import FacetBucketStatus from './FacetBucketStatus';
 /**
  * The AggBucket model module.
  * @module model/AggBucket
- * @version 10.0.0
+ * @version 10.1.0
  */
 class AggBucket {
     /**

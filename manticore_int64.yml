@@ -96,7 +96,7 @@ components:
           type: boolean
       required:
         - field
-        - interval
+        - calendar_interval
     range:
       type: object
       description: >
@@ -479,9 +479,12 @@ components:
             Request object for search operation. Either `table` (regular search)
             or `chat` (conversational search) must be provided.
           type: object
-          anyOf:
-            - required: [table]
-            - required: [chat]
+          # if/then instead of anyOf — avoids TS generator JsonSchema→ComposedSchema cast (OAS 3.1)
+          if:
+            not:
+              required: [table]
+          then:
+            required: [chat]
           properties:
             table:
               type: string
@@ -1128,7 +1131,13 @@ components:
       additionalProperties: true
     searchResponse:
       type: object
-      description: Response object containing the results of a regular search request
+      description: >
+        Response object containing search results. For conversational search
+        requests that include a `chat` object, the optional chat fields below
+        are also populated.
+
+        For conversational search response fields see
+        [Conversational search](https://manual.manticoresearch.com/Searching/Conversational_search#Response)
       properties:
         took:
           type: integer
@@ -1199,55 +1208,28 @@ components:
           type: object
           additionalProperties: true
           description: Warnings encountered during the search operation
-    chatResponse:
-      type: object
-      description: >
-        Response object for conversational search.
-
-        For more information see
-        [Conversational search](https://manual.manticoresearch.com/Searching/Conversational_search#Response)
-      required:
-        - conversation_uuid
-        - user_query
-        - search_query
-        - response
-        - sources
-      properties:
         conversation_uuid:
           type: string
-          description: Existing or generated conversation id
+          description: Existing or generated conversation id (conversational search)
           example: docs-chat-001
         user_query:
           type: string
-          description: Original user query
+          description: Original user query (conversational search)
           example: What is vector search?
         search_query:
           type: string
-          description: Standalone search query used for KNN retrieval
+          description: Standalone search query used for KNN retrieval (conversational search)
           example: vector search, embeddings, similarity search
         response:
           type: string
-          description: LLM answer as generated
+          description: LLM answer as generated (conversational search)
           example: Vector search finds similar items by comparing embeddings...
         sources:
           type: string
           description: >
-            JSON string containing retrieved source rows used as LLM context.
+            JSON string containing retrieved source rows used as LLM context
+            (conversational search).
           example: '[{"id":1,"title":"Vector Search","content":"...","knn_dist":0.12}]'
-      additionalProperties: false
-      example:
-        conversation_uuid: docs-chat-001
-        user_query: What is vector search?
-        search_query: vector search, embeddings, similarity search
-        response: Vector search finds similar items by comparing embeddings...
-        sources: '[{"id":1,"title":"Vector Search","content":"...","knn_dist":0.12}]'
-    searchResultResponse:
-      oneOf:
-        - $ref: '#/components/schemas/searchResponse'
-        - $ref: '#/components/schemas/chatResponse'
-      description: >
-        Response from `POST /search`. Returns `searchResponse` for regular search
-        requests and `chatResponse` when the request includes a `chat` object.
     responseError:
       oneOf:
         - $ref: '#/components/schemas/responseErrorDetails'
@@ -1435,7 +1417,9 @@ paths:
           ```
 
         For conversational search, include a `chat` object instead of `table` and
-        `query`. The response then follows the `chatResponse` schema.
+        `query`. The response then includes the optional conversational fields
+        on `searchResponse` (`conversation_uuid`, `user_query`, `search_query`,
+        `response`, `sources`).
 
         For more information about the match query syntax and additional parameters that can be added to request and response, please see the documentation [here](https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP-JSON).
 
@@ -1455,12 +1439,12 @@ paths:
       responses:
         '200':
           description: >
-            Ok. Returns `searchResponse` for regular search, or `chatResponse`
-            for conversational search requests that include a `chat` object.
+            Ok. Returns `searchResponse`. For conversational search requests that
+            include a `chat` object, the optional conversational fields are also set.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/searchResultResponse'
+                $ref: '#/components/schemas/searchResponse'
         default:
           description: error
           content:

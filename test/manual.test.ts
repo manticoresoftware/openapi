@@ -5,12 +5,6 @@ var indexApi: Manticoresearch.IndexApi;
 var searchApi: Manticoresearch.SearchApi;
 var utilsApi: Manticoresearch.UtilsApi;
 
-function asSearchResponse(res: Manticoresearch.SearchResponse | Manticoresearch.ChatResponse): Manticoresearch.SearchResponse {
-  if (res && typeof res === 'object' && 'hits' in res) {
-    return res as Manticoresearch.SearchResponse;
-  }
-  throw new Error('Expected search response');
-}
 
 beforeEach(function () {
   const config = new Manticoresearch.Configuration({
@@ -200,37 +194,37 @@ describe('Search Api Tests', () => {
       ];
       await indexApi.bulk(insertDocs.map((e) => JSON.stringify(e)).join('\n'));
 
-      let res = asSearchResponse(await searchApi.search({
+      let res = await searchApi.search({
         table: 'test',
         query: { match_all: {} },
-      }));
+      });
       expect(res).to.deep.nested.property('hits.total', 5);
 
-      res = asSearchResponse(await searchApi.search({
+      res = await searchApi.search({
         table: 'test',
         query: { match_all: {} },
         options: { cutoff: 1 },
-      }));
+      });
       expect(res).to.deep.nested.property('hits.total', 1);
 
-      res = asSearchResponse(await searchApi.search({
+      res = await searchApi.search({
         table: 'test',
         query: {
           match_all: {},
           bool: { should: [{ equals: { cat: 1 } }, { in: { cat: [5, 10] } }] },
         },
         sort: [{ cat: 'desc' }],
-      }));
+      });
       expect(res).to.deep.nested.property('hits.total', 3);
 
-      res = asSearchResponse(await searchApi.search({
+      res = await searchApi.search({
         table: 'test',
         query: {
           match_all: {},
           bool: { should: [{ equals: { cat: 2 } }, { in: { cat: [3, 4] } }] },
         },
         sort: [{ cat: 'desc' }],
-      }));
+      });
       expect(res).to.deep.nested.property('hits.total', 0);
     } catch (e) {
       const errorResponse = e instanceof Manticoresearch.ResponseError ? await e.response.json() : e;
@@ -255,7 +249,7 @@ describe('Search Api Tests', () => {
         }
       };
 
-      const result = asSearchResponse(await searchApi.search(query));
+      const result = await searchApi.search(query);
       expect(result).to.have.nested.property('aggregations.categories.buckets');
       expect(result.aggregations!.categories.buckets).to.have.lengthOf(3)
     } catch (err) {
@@ -276,7 +270,7 @@ describe('Search Api Tests', () => {
         }
       };
 
-      const result = asSearchResponse(await searchApi.search(query));
+      const result = await searchApi.search(query);
       expect(result).to.have.nested.property('hits.hits[0]._source.title_len')
       expect((result.hits!.hits?.at(0) as any)._source!.name).to.equal('Doc 1')
       expect((result.hits!.hits?.at(0) as any)._source!.title_len).to.equal(2262810400) // === crc32("Doc 1")

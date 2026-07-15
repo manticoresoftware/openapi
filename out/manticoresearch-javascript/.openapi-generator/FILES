@@ -22,7 +22,6 @@ docs/AutocompleteRequest.md
 docs/BoolFilter.md
 docs/BulkResponse.md
 docs/Chat.md
-docs/ChatResponse.md
 docs/DeleteDocumentRequest.md
 docs/DeleteResponse.md
 docs/ErrorResponse.md
@@ -60,7 +59,6 @@ docs/SearchQuery.md
 docs/SearchRequest.md
 docs/SearchResponse.md
 docs/SearchResponseHits.md
-docs/SearchResultResponse.md
 docs/SourceRules.md
 docs/SqlObjResponse.md
 docs/SqlResponse.md
@@ -95,7 +93,6 @@ src/model/AutocompleteRequest.js
 src/model/BoolFilter.js
 src/model/BulkResponse.js
 src/model/Chat.js
-src/model/ChatResponse.js
 src/model/DeleteDocumentRequest.js
 src/model/DeleteResponse.js
 src/model/ErrorResponse.js
@@ -131,7 +128,6 @@ src/model/SearchQuery.js
 src/model/SearchRequest.js
 src/model/SearchResponse.js
 src/model/SearchResponseHits.js
-src/model/SearchResultResponse.js
 src/model/SourceRules.js
 src/model/SqlObjResponse.js
 src/model/SqlResponse.js
@@ -160,7 +156,6 @@ test/model/AutocompleteRequest.spec.js
 test/model/BoolFilter.spec.js
 test/model/BulkResponse.spec.js
 test/model/Chat.spec.js
-test/model/ChatResponse.spec.js
 test/model/DeleteDocumentRequest.spec.js
 test/model/DeleteResponse.spec.js
 test/model/ErrorResponse.spec.js
@@ -196,7 +191,6 @@ test/model/SearchQuery.spec.js
 test/model/SearchRequest.spec.js
 test/model/SearchResponse.spec.js
 test/model/SearchResponseHits.spec.js
-test/model/SearchResultResponse.spec.js
 test/model/SourceRules.spec.js
 test/model/SqlObjResponse.spec.js
 test/model/SqlResponse.spec.js

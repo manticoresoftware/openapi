@@ -3,7 +3,7 @@
 Сlient for Manticore Search.
 
 
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-python/tree/11.0.0
+❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-python/tree/11.1.0
 
 ## Requirements.
 
@@ -153,7 +153,6 @@ Class | Method | HTTP request | Description
  - [BoolFilter](docs/BoolFilter.md)
  - [BulkResponse](docs/BulkResponse.md)
  - [Chat](docs/Chat.md)
- - [ChatResponse](docs/ChatResponse.md)
  - [DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
  - [DeleteResponse](docs/DeleteResponse.md)
  - [ErrorResponse](docs/ErrorResponse.md)
@@ -188,9 +187,7 @@ Class | Method | HTTP request | Description
  - [SearchQuery](docs/SearchQuery.md)
  - [SearchRequest](docs/SearchRequest.md)
  - [SearchResponse](docs/SearchResponse.md)
- - [SearchResponseAggregationsValue](docs/SearchResponseAggregationsValue.md)
  - [SearchResponseHits](docs/SearchResponseHits.md)
- - [SearchResultResponse](docs/SearchResultResponse.md)
  - [SourceRules](docs/SourceRules.md)
  - [SqlObjResponse](docs/SqlObjResponse.md)
  - [SqlResponse](docs/SqlResponse.md)

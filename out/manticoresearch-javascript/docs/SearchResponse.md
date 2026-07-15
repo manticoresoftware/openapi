@@ -11,5 +11,10 @@ Name | Type | Description | Notes
 **profile** | **Object** | Profile information about the search execution, if profiling is enabled | [optional] 
 **scroll** | **String** | Scroll token to be used fo pagination | [optional] 
 **warning** | **Object** | Warnings encountered during the search operation | [optional] 
+**conversationUuid** | **String** | Existing or generated conversation id (conversational search) | [optional] 
+**userQuery** | **String** | Original user query (conversational search) | [optional] 
+**searchQuery** | **String** | Standalone search query used for KNN retrieval (conversational search) | [optional] 
+**response** | **String** | LLM answer as generated (conversational search) | [optional] 
+**sources** | **String** | JSON string containing retrieved source rows used as LLM context (conversational search).  | [optional] 
 
 

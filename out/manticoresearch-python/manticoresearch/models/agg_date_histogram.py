@@ -28,7 +28,7 @@ class AggDateHistogram(BaseModel):
     Object to use histograms in aggregation, i.e., grouping search results by histogram values
     """ # noqa: E501
     var_field: StrictStr = Field(description="Field to group by", alias="field")
-    calendar_interval: Optional[StrictInt] = Field(default=None, description="Interval of the histogram values")
+    calendar_interval: StrictInt = Field(description="Interval of the histogram values")
     offset: Optional[StrictInt] = Field(default=None, description="Offset of the histogram values. Default value is 0.")
     keyed: Optional[StrictBool] = Field(default=None, description="Flag that defines if a search response will be a dictionary with the bucket keys. Default value is false.")
     __properties: ClassVar[List[str]] = ["field", "calendar_interval", "offset", "keyed"]

@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AggDateHistogram model module.
  * @module model/AggDateHistogram
- * @version 10.0.0
+ * @version 10.1.0
  */
 class AggDateHistogram {
     /**
@@ -24,10 +24,11 @@ class AggDateHistogram {
      * Object to use histograms in aggregation, i.e., grouping search results by histogram values
      * @alias module:model/AggDateHistogram
      * @param field {String} Field to group by
+     * @param calendarInterval {Number} Interval of the histogram values
      */
-    constructor(field) { 
+    constructor(field, calendarInterval) { 
         
-        AggDateHistogram.initialize(this, field);
+        AggDateHistogram.initialize(this, field, calendarInterval);
     }
 
     /**
@@ -35,8 +36,9 @@ class AggDateHistogram {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, field) { 
+    static initialize(obj, field, calendarInterval) { 
         obj['field'] = field;
+        obj['calendar_interval'] = calendarInterval;
     }
 
     /**
@@ -89,7 +91,7 @@ class AggDateHistogram {
 
 }
 
-AggDateHistogram.RequiredProperties = ["field"];
+AggDateHistogram.RequiredProperties = ["field", "calendar_interval"];
 
 /**
  * Field to group by
