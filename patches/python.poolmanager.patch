@@ -1,0 +1,12 @@
+diff --git a/out/manticoresearch-python/manticoresearch/rest.py b/out/manticoresearch-python/manticoresearch/rest.py
+index a191416..c8afcd6 100644
+--- a/out/manticoresearch-python/manticoresearch/rest.py
++++ b/out/manticoresearch-python/manticoresearch/rest.py
+@@ -73,6 +73,7 @@ class RESTClientObject:
+             cert_reqs = ssl.CERT_NONE
+ 
+         pool_args = {
++            "num_pools": 1,
+             "cert_reqs": cert_reqs,
+             "ca_certs": configuration.ssl_ca_cert,
+             "cert_file": configuration.cert_file,

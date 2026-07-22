@@ -1,0 +1,60 @@
+# Multi-client OpenAPI test harness.
+# Usage: ./run-client-tests.sh
+# Optional: CLIENTS=python,java ./run-client-tests.sh
+
+services:
+  manticore:
+    image: manticoresearch/manticore:dev
+    container_name: openapi-manticore
+    ports:
+      # Host 9408/9406 are commonly taken by local Manticore; use 19408 for HTTP.
+      - "19408:9308"
+    healthcheck:
+      # Image has wget, not curl.
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:9308/"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+      start_period: 5s
+
+  manticore-auth:
+    image: manticoresearch/manticore:dev
+    container_name: openapi-manticore-auth
+    ports:
+      - "19508:9308"
+    environment:
+      # Use the image default config; only enable auth (avoids fragile full-conf mounts).
+      searchd_auth: "1"
+    healthcheck:
+      # Auth node returns 401 + WWW-Authenticate; wget exits 6 for that
+      # (not 8). Accept 0/6/8 as "daemon is answering HTTP".
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:9308/; ec=$$?; [ $$ec -eq 0 ] || [ $$ec -eq 6 ] || [ $$ec -eq 8 ]"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+      start_period: 5s
+
+  client-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.client-tests
+    image: openapi-client-tests:local
+    container_name: openapi-client-tests
+    network_mode: host
+    volumes:
+      - ./out:/clients:ro
+      - ./run-client-tests.sh:/run-client-tests.sh:ro
+    environment:
+      CLIENTS: "${CLIENTS:-}"
+      MANTICORE_NOAUTH_URL: "${MANTICORE_NOAUTH_URL:-http://localhost:19408}"
+      MANTICORE_AUTH_URL: "${MANTICORE_AUTH_URL:-http://localhost:19508}"
+      MANTICORE_USER: "${MANTICORE_USER:-admin}"
+      MANTICORE_PASSWORD: "${MANTICORE_PASSWORD:-TestPass#2026}"
+      INSIDE_CLIENT_TESTS: "1"
+    depends_on:
+      manticore:
+        condition: service_healthy
+      manticore-auth:
+        condition: service_healthy
+    profiles:
+      - test

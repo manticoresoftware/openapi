@@ -41,6 +41,13 @@ defmodule Manticoresearch.Api.IndexTest do
               }]
     api_response = Manticoresearch.Api.Search.search(tesla_client, json)
     IO.inspect api_response
-    assert api_response == expected_response
+    {:ok, search_response} = api_response
+    search_response =
+      case search_response do
+        %Manticoresearch.Model.SearchResponse{} = response -> response
+        %{"hits" => _} = response -> struct(Manticoresearch.Model.SearchResponse, response)
+        other -> raise "unexpected search response: #{inspect(other)}"
+      end
+    assert {:ok, search_response} == expected_response
   end
 end

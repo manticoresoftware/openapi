@@ -49,7 +49,7 @@ func Test_openapi_IndexAPIService(t *testing.T) {
 		indexReq1 = manticoreclient.NewInsertDocumentRequest("test1", indexDoc)
 		apiClient.IndexAPI.Insert(context.Background()).InsertDocumentRequest(*indexReq).Execute();
 
-		searchRequest1 := manticoreclient.NewSearchRequest("test1")
+		searchRequest1 := func() *manticoreclient.SearchRequest { r := manticoreclient.NewSearchRequest(); r.SetTable("test1"); return r }()
 		query1 := map[string]interface{} {"query_string": "Title"};
 		searchRequest.SetQuery(query1);
 

@@ -33,6 +33,10 @@ type Knn struct {
 	DocId *uint64 `json:"doc_id,omitempty"`
 	// Optional parameter controlling the accuracy of the search
 	Ef *int32 `json:"ef,omitempty"`
+	// Optional parameter enabling KNN rescoring (disabled by default)
+	Rescore *bool `json:"rescore,omitempty"`
+	// Optional parameter setting a factor by which k is multiplied when executing the KNN search
+	Oversampling *float32 `json:"oversampling,omitempty"`
 	Filter *QueryFilter `json:"filter,omitempty"`
 }
 
@@ -196,7 +200,7 @@ func (o *Knn) HasDocId() bool {
 	return false
 }
 
-// SetDocId gets a reference to the given uint64 and assigns it to the DocId field.
+// SetDocId gets a reference to the given int32 and assigns it to the DocId field.
 func (o *Knn) SetDocId(v uint64) {
 	o.DocId = &v
 }
@@ -231,6 +235,70 @@ func (o *Knn) HasEf() bool {
 // SetEf gets a reference to the given int32 and assigns it to the Ef field.
 func (o *Knn) SetEf(v int32) {
 	o.Ef = &v
+}
+
+// GetRescore returns the Rescore field value if set, zero value otherwise.
+func (o *Knn) GetRescore() bool {
+	if o == nil || IsNil(o.Rescore) {
+		var ret bool
+		return ret
+	}
+	return *o.Rescore
+}
+
+// GetRescoreOk returns a tuple with the Rescore field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Knn) GetRescoreOk() (*bool, bool) {
+	if o == nil || IsNil(o.Rescore) {
+		return nil, false
+	}
+	return o.Rescore, true
+}
+
+// HasRescore returns a boolean if a field has been set.
+func (o *Knn) HasRescore() bool {
+	if o != nil && !IsNil(o.Rescore) {
+		return true
+	}
+
+	return false
+}
+
+// SetRescore gets a reference to the given bool and assigns it to the Rescore field.
+func (o *Knn) SetRescore(v bool) {
+	o.Rescore = &v
+}
+
+// GetOversampling returns the Oversampling field value if set, zero value otherwise.
+func (o *Knn) GetOversampling() float32 {
+	if o == nil || IsNil(o.Oversampling) {
+		var ret float32
+		return ret
+	}
+	return *o.Oversampling
+}
+
+// GetOversamplingOk returns a tuple with the Oversampling field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Knn) GetOversamplingOk() (*float32, bool) {
+	if o == nil || IsNil(o.Oversampling) {
+		return nil, false
+	}
+	return o.Oversampling, true
+}
+
+// HasOversampling returns a boolean if a field has been set.
+func (o *Knn) HasOversampling() bool {
+	if o != nil && !IsNil(o.Oversampling) {
+		return true
+	}
+
+	return false
+}
+
+// SetOversampling gets a reference to the given float32 and assigns it to the Oversampling field.
+func (o *Knn) SetOversampling(v float32) {
+	o.Oversampling = &v
 }
 
 // GetFilter returns the Filter field value if set, zero value otherwise.
@@ -288,6 +356,12 @@ func (o Knn) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Ef) {
 		toSerialize["ef"] = o.Ef
+	}
+	if !IsNil(o.Rescore) {
+		toSerialize["rescore"] = o.Rescore
+	}
+	if !IsNil(o.Oversampling) {
+		toSerialize["oversampling"] = o.Oversampling
 	}
 	if !IsNil(o.Filter) {
 		toSerialize["filter"] = o.Filter

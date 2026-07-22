@@ -4,8 +4,14 @@
 {{^poetry1}}
 [project]
 {{/poetry1}}
+{{#devBranch}}
+name = "{{{packageName}}}-devel"
+version = "{{{packageVersion}}}"
+{{/devBranch}}
+{{^devBranch}}
 name = "{{{packageName}}}"
 version = "{{{packageVersion}}}"
+{{/devBranch}}
 description = "{{{appName}}}"
 {{#poetry1}}
 authors = ["{{infoName}}{{^infoName}}OpenAPI Generator Community{{/infoName}} <{{infoEmail}}{{^infoEmail}}team@openapitools.org{{/infoEmail}}>"]

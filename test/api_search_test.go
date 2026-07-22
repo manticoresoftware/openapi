@@ -20,6 +20,7 @@ import (
 	openapiclient "github.com/manticoresoftware/manticoresearch-go"
 )
 
+
 func Test_openapi_SearchAPIService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
@@ -86,6 +87,7 @@ func Test_openapi_SearchAPIService(t *testing.T) {
 				
 			require.Nil(t, err)
 			require.NotNil(t, resp)
+			require.NotNil(t, resp)
 			assert.Equal(t, 200, httpRes.StatusCode)
 			
 			outRes, outErr := json.Marshal(resp)
@@ -98,6 +100,7 @@ func Test_openapi_SearchAPIService(t *testing.T) {
 			resp, httpRes, err = search.SearchRequest(*searchReq).Execute()
 				
 			require.Nil(t, err)
+			require.NotNil(t, resp)
 			require.NotNil(t, resp)
 			assert.Equal(t, 200, httpRes.StatusCode)
 			
@@ -113,6 +116,7 @@ func Test_openapi_SearchAPIService(t *testing.T) {
 			resp, httpRes, err = search.SearchRequest(*searchReq).Execute()
 				
 			require.Nil(t, err)
+			require.NotNil(t, resp)
 			require.NotNil(t, resp)
 			assert.Equal(t, 200, httpRes.StatusCode)
 			
@@ -133,7 +137,7 @@ func Test_openapi_SearchAPIService(t *testing.T) {
    		apiClient.IndexAPI.Bulk(context.Background()).Body(strings.Join(docs[:], "\n")).Execute()
    		
 		search := apiClient.SearchAPI.Search(context.Background())
-		searchRequest := openapiclient.NewSearchRequest("movies")
+		searchRequest := func() *openapiclient.SearchRequest { r := openapiclient.NewSearchRequest(); r.SetTable("movies"); return r }()
 		testBasicSearch(search, searchRequest)			
 	})
 

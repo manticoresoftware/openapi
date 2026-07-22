@@ -18,6 +18,10 @@ tags:
     description: Operations about performing searches over tables
   - name: Utils
     description: Various operations
+security:
+  - {}
+  - basicAuth: []
+  - bearerAuth: []
 externalDocs:
   description: Find out more about Manticore Search
   url: 'https://manticoresearch.com/'
@@ -78,7 +82,7 @@ components:
           description: Field to group by
           example: field
           type: string
-        interval:
+        calendar_interval:
           description: Interval of the histogram values
           example: 10
           type: integer
@@ -92,7 +96,46 @@ components:
           type: boolean
       required:
         - field
-        - interval
+        - calendar_interval
+    range:
+      type: object
+      description: >
+        An aggregation range.
+      properties:
+        from:
+          description: >
+            Lower bound (inclusive). Numeric for `range`; date math expression for
+            `date_range`.
+        to:
+          description: >
+            Upper bound (exclusive). Numeric for `range`; date math expression for
+            `date_range`.
+      additionalProperties: false
+    aggRange:
+      type: object
+      description: >
+        Group documents into custom numeric or date ranges. Use with the `range` or
+        `date_range` aggregation type.
+      required:
+        - field
+        - ranges
+      properties:
+        field:
+          type: string
+          description: Attribute to group by
+          example: price
+        ranges:
+          type: array
+          items:
+            $ref: '#/components/schemas/range'
+          minItems: 1
+          description: Ordered list of ranges
+        keyed:
+          type: boolean
+          description: >
+            Return buckets as an object keyed by range label when true, or as an array
+            when false. Default is false.
+      additionalProperties: false
     aggComposite:
       type: object
       description: Object to perform composite aggregation, i.e., grouping search results by multiple fields
@@ -123,6 +166,99 @@ components:
           example: 1000
       description: Object containing term fields to aggregate on
       additionalProperties: false
+    aggTDigest:
+      type: object
+      description: T-Digest settings for approximate statistical aggregations
+      properties:
+        compression:
+          type: number
+          description: Accuracy/memory trade-off. Default is 200.
+          example: 200
+      additionalProperties: false
+    aggPercentiles:
+      type: object
+      description: >
+        Object to use percentile values in aggregation.
+        For more information see
+        [Grouping](https://manual.manticoresearch.com/Searching/Grouping#PERCENTILES(),-PERCENTILE_RANKS(),-MEDIAN_ABSOLUTE_DEVIATION())
+      required:
+        - field
+      properties:
+        field:
+          type: string
+          description: Numeric field to calculate percentiles for
+          example: latency
+        values:
+          type: array
+          items:
+            type: number
+          description: >
+            Percentile points to compute (0-100). Defaults to 1, 5, 25, 50, 75,
+            95, and 99 when omitted.
+          example: [5, 50, 95]
+        keyed:
+          type: boolean
+          description: >
+            Return an object keyed by percentile when true, or an array when false.
+            Default is false.
+        tdigest:
+          $ref: '#/components/schemas/aggTDigest'
+      additionalProperties: false
+    aggPercentileRanks:
+      type: object
+      description: >
+        Object to use percentile ranks in aggregation.
+        For more information see
+        [Grouping](https://manual.manticoresearch.com/Searching/Grouping#PERCENTILE_RANKS(),-MEDIAN_ABSOLUTE_DEVIATION())
+      required:
+        - field
+        - values
+      properties:
+        field:
+          type: string
+          description: Numeric field to calculate percentile ranks for
+          example: latency
+        values:
+          type: array
+          items:
+            type: number
+          description: Input values to rank
+          example: [10, 150, 1500]
+        keyed:
+          type: boolean
+          description: >
+            Return an object keyed by input value when true, or an array when false.
+            Default is false.
+        tdigest:
+          $ref: '#/components/schemas/aggTDigest'
+      additionalProperties: false
+    aggMedianAbsoluteDeviation:
+      type: object
+      description: >
+        Object to use median absolute deviation in aggregation.
+        For more information see
+        [Grouping](https://manual.manticoresearch.com/Searching/Grouping#PERCENTILES(),-PERCENTILE_RANKS(),-MEDIAN_ABSOLUTE_DEVIATION())
+      required:
+        - field
+      properties:
+        field:
+          type: string
+          description: Numeric field to calculate MAD for
+          example: latency
+        tdigest:
+          $ref: '#/components/schemas/aggTDigest'
+      additionalProperties: false
+    aggMetric:
+      type: object
+      description: Metric aggregation over a numeric field
+      required:
+        - field
+      properties:
+        field:
+          type: string
+          description: Numeric field to aggregate
+          example: rental_rate
+      additionalProperties: false
     aggregation:
       allOf:
       - type: object
@@ -138,6 +274,26 @@ components:
             $ref: '#/components/schemas/aggComposite'
           histogram:
             $ref: '#/components/schemas/aggHistogram'
+          date_histogram:
+            $ref: '#/components/schemas/aggDateHistogram'
+          range:
+            $ref: '#/components/schemas/aggRange'
+          date_range:
+            $ref: '#/components/schemas/aggRange'
+          percentiles:
+            $ref: '#/components/schemas/aggPercentiles'
+          percentile_ranks:
+            $ref: '#/components/schemas/aggPercentileRanks'
+          median_absolute_deviation:
+            $ref: '#/components/schemas/aggMedianAbsoluteDeviation'
+          min:
+            $ref: '#/components/schemas/aggMetric'
+          max:
+            $ref: '#/components/schemas/aggMetric'
+          sum:
+            $ref: '#/components/schemas/aggMetric'
+          avg:
+            $ref: '#/components/schemas/aggMetric'
     knn:
       type: object
       required: [field, k]
@@ -167,6 +323,12 @@ components:
         ef:
           type: integer
           description: Optional parameter controlling the accuracy of the search
+        rescore:
+          type: boolean
+          description: Optional parameter enabling KNN rescoring (disabled by default) 
+        oversampling:
+          type: number
+          description: Optional parameter setting a factor by which k is multiplied when executing the KNN search          
         filter: 
           $ref: '#/components/schemas/queryFilter'
       description: Object representing a k-nearest neighbor search query
@@ -206,15 +368,129 @@ components:
           properties:
             highlight:
               $ref: '#/components/schemas/highlight'
+          additionalProperties: false
       description: Defines a query structure for performing search operations
+    chat:
+      type: object
+      description: >
+        Conversational search request handled by Manticore Buddy via `CALL CHAT`.
+        When this object is set, the `/search` endpoint answers through an LLM
+        using KNN-retrieved rows as context instead of returning regular search hits.
+
+        Required fields are `query`, `table`, and `model_name`. Chat model
+        management (`CREATE CHAT MODEL`, etc.) remains SQL-only.
+
+        For more information see
+        [Conversational search](https://manual.manticoresearch.com/Searching/Conversational_search#HTTP-JSON-syntax)
+      required:
+        - query
+        - table
+        - model_name
+      properties:
+        query:
+          type: string
+          description: User question to send to the chat model
+          example: What is vector search?
+        table:
+          type: string
+          description: Vectorized table to retrieve context from
+          example: docs
+        model_name:
+          type: string
+          description: Name of the chat model
+          example: assistant
+        conversation_uuid:
+          type: string
+          description: >
+            Existing conversation id to continue the dialog, or an empty string
+            to start a new conversation. If omitted, a new id is generated.
+          example: docs-chat-001
+        vector_field:
+          type: string
+          description: >
+            A specific vector field to search by. If omitted, Buddy uses the first
+            `FLOAT_VECTOR` field from `SHOW CREATE TABLE`.
+          example: title_embedding
+        fields:
+          type: string
+          description: >
+            Legacy alias for `vector_field`. A request must not include both
+            `vector_field` and `fields`.
+      additionalProperties: false
+      example:
+        query: What is vector search?
+        table: docs
+        model_name: assistant
+        conversation_uuid: docs-chat-001
+        vector_field: embedding
+    hybrid:
+      type: object
+      description: >
+        Perform hybrid search on tables with auto-embeddings. Runs full-text
+        and vector search and fuses results with RRF. 
+        For more information see
+        [Hybrid search](https://manual.manticoresearch.com/Searching/Hybrid_search#Simplified-JSON-syntax:-hybrid)
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: Search query string
+          example: machine learning
+        field:
+          type: string
+          description: >
+            Vector field name.
+          example: vec
+      additionalProperties: false
+      example:
+        query: machine learning
+        field: vec
+    scriptFieldScript:
+      type: object
+      description: Inline script used to compute a search expression
+      required:
+        - inline
+      properties:
+        inline:
+          type: string
+          description: Expression to compute (same syntax as SQL expressions)
+      additionalProperties: false
+    scriptField:
+      type: object
+      description: Named expression computed at search time
+      required:
+        - script
+      properties:
+        script:
+          $ref: '#/components/schemas/scriptFieldScript'
+      additionalProperties: false
+    facetFilterMode:
+      type: string
+      enum:
+        - strict
+        - auto
+        - max
+      description: >
+        Controls how facets inherit attribute filters from the main query.
+        [Faceted search](https://manual.manticoresearch.com/Searching/Faceted_search#HTTP-JSON)
     searchRequest:
-          description: Request object for search operation
+          description: >
+            Request object for search operation. Either `table` (regular search)
+            or `chat` (conversational search) must be provided.
           type: object
-          required: [table]
+          # if/then instead of anyOf — avoids TS generator JsonSchema→ComposedSchema cast (OAS 3.1)
+          if:
+            not:
+              required: [table]
+          then:
+            required: [chat]
           properties:
             table:
               type: string
               description: The table to perform the search on
+            chat:
+              $ref: '#/components/schemas/chat'
             query:
               $ref: '#/components/schemas/searchQuery'
             join:
@@ -229,6 +505,13 @@ components:
               description: Maximum number of results to return
             knn:
               $ref: '#/components/schemas/knn'
+              description: >
+                K-nearest neighbor search settings. Pass a single `knn` object or
+                an array of objects for multi-vector search.
+            hybrid:
+              $ref: '#/components/schemas/hybrid'
+            facet_filter_mode:
+              $ref: '#/components/schemas/facetFilterMode'
             aggs:
               type: object
               additionalProperties:
@@ -248,7 +531,26 @@ components:
                 type: string
               example:
                 title_len: "crc32(title)"
-              description: Expressions to calculate additional values for the result
+              description: >
+                Expressions to calculate additional values for the result.
+                Simpler alternative to `script_fields`; expression names must
+                be lowercase.
+            script_fields:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/scriptField'
+              description: >
+                Named expressions computed at search time. Each value defines an
+                inline script whose result is stored under the field name.
+                For more information see
+                [Expressions](https://manual.manticoresearch.com/Searching/Expressions#script_fields)
+              example:
+                add_all:
+                  script:
+                    inline: "( gid * 10 ) | crc32(title)"
+                title_len:
+                  script:
+                    inline: "crc32(title)"
             max_matches:
               type: integer
               description: Maximum number of matches allowed in the result
@@ -653,7 +955,7 @@ components:
           enum:
             - '{}'
       description: Filter helper object defining the 'match all'' condition
-    range:
+    rangeFilter:
       type: object
       properties:
         lt:
@@ -787,9 +1089,55 @@ components:
             percolate:
               document:
                 title: some text to match
+    facetBucketStatus:
+      type: string
+      enum:
+        - selected
+        - available
+        - unavailable
+      description: >
+        Facet bucket availability marker returned when `facet_filter_mode` is
+        `auto` or `max`. `selected` means the bucket value is already present in
+        a same-facet value filter. `available` means selecting the bucket can
+        produce results. `unavailable` means the bucket exists in the broad max
+        count scope but selecting it would produce no results.
+    aggBucket:
+      type: object
+      description: Single bucket in an aggregation result
+      properties:
+        key:
+          description: Aggregated bucket value
+        doc_count:
+          type: integer
+          description: Number of documents in the bucket
+        status:
+          $ref: '#/components/schemas/facetBucketStatus'
+      required:
+        - doc_count
+      additionalProperties: true
+    aggBucketsResult:
+      type: object
+      description: Aggregation group returned under `aggregations`
+      properties:
+        buckets:
+          description: >
+            Bucket list when `keyed` is false (array of bucket objects), or a
+            keyed map of bucket objects when `keyed` is true. Each bucket has
+            `key`, `doc_count`, and optional `status`.
+        after_key:
+          type: object
+          additionalProperties: true
+          description: Pagination cursor returned by composite aggregations
+      additionalProperties: true
     searchResponse:
       type: object
-      description: Response object containing the results of a search request
+      description: >
+        Response object containing search results. For conversational search
+        requests that include a `chat` object, the optional chat fields below
+        are also populated.
+
+        For conversational search response fields see
+        [Conversational search](https://manual.manticoresearch.com/Searching/Conversational_search#Response)
       properties:
         took:
           type: integer
@@ -799,8 +1147,28 @@ components:
           description: Indicates whether the search operation timed out
         aggregations:
           type: object
-          additionalProperties: true
-          description: Aggregated search results grouped by the specified criteria        
+          additionalProperties:
+            $ref: '#/components/schemas/aggBucketsResult'
+          description: >
+            Aggregated search results grouped by the specified criteria. Each
+            named aggregation typically contains a `buckets` array (or keyed map)
+            of bucket objects with `key`, `doc_count`, and optional `status`.
+          example:
+            sizes:
+              buckets:
+                - key: small
+                  doc_count: 1
+                  status: selected
+                - key: large
+                  doc_count: 1
+                  status: available
+            colors:
+              buckets:
+                - key: 10
+                  doc_count: 1019
+                - key: 9
+                  doc_count: 954
+                  status: unavailable
         hits:
           type: object
           properties:
@@ -840,6 +1208,28 @@ components:
           type: object
           additionalProperties: true
           description: Warnings encountered during the search operation
+        conversation_uuid:
+          type: string
+          description: Existing or generated conversation id (conversational search)
+          example: docs-chat-001
+        user_query:
+          type: string
+          description: Original user query (conversational search)
+          example: What is vector search?
+        search_query:
+          type: string
+          description: Standalone search query used for KNN retrieval (conversational search)
+          example: vector search, embeddings, similarity search
+        response:
+          type: string
+          description: LLM answer as generated (conversational search)
+          example: Vector search finds similar items by comparing embeddings...
+        sources:
+          type: string
+          description: >
+            JSON string containing retrieved source rows used as LLM context
+            (conversational search).
+          example: '[{"id":1,"title":"Vector Search","content":"...","knn_dist":0.12}]'
     responseError:
       oneOf:
         - $ref: '#/components/schemas/responseErrorDetails'
@@ -902,6 +1292,17 @@ components:
       example:
         - total: 0
           error: null
+    tokenRequest:
+      type: object
+      description: >
+        Empty request body. Used to create or rotate a bearer token for the authenticated HTTP user.
+      additionalProperties: false
+      example: {}
+    tokenResponse:
+      type: string
+      description: >
+        Raw bearer token string.
+      example: '115za1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2'
     updateDocumentRequest:
       type: object
       description: Payload for updating a document or multiple documents in a table
@@ -956,6 +1357,18 @@ components:
       example:
         table: test
         updated: 29
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: >
+        HTTP Basic authentication with a Manticore user name and password.
+        Required for `POST /token` when authentication and authorization is enabled.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >
+        Bearer authentication. The token is returned by the `POST /token` endpoint.
 paths:
   /search:
     post:
@@ -1003,6 +1416,11 @@ paths:
           }
           ```
 
+        For conversational search, include a `chat` object instead of `table` and
+        `query`. The response then includes the optional conversational fields
+        on `searchResponse` (`conversation_uuid`, `user_query`, `search_query`,
+        `response`, `sources`).
+
         For more information about the match query syntax and additional parameters that can be added to request and response, please see the documentation [here](https://manual.manticoresearch.com/Searching/Full_text_matching/Basic_usage#HTTP-JSON).
 
       operationId: search
@@ -1020,7 +1438,9 @@ paths:
               - '''request=SearchRequest(table="test",query=Query(query_string="abc"))'''
       responses:
         '200':
-          description: Ok
+          description: >
+            Ok. Returns `searchResponse`. For conversational search requests that
+            include a `chat` object, the optional conversational fields are also set.
           content:
             application/json:
               schema:
@@ -1479,7 +1899,7 @@ paths:
         The response object depends on the query executed. In select mode the response has same format as `/search` operation.
       operationId: sql
       tags:
-        - utils
+        - Utils
       externalDocs:
         url: 'https://manual.manticoresearch.com/Connecting_to_the_server/HTTP#sql-api'
       requestBody:
@@ -1510,6 +1930,55 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/sqlResponse'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /token:
+    post:
+      summary: Create or rotate a bearer token
+      operationId: token
+      description: >
+        Create or rotate a bearer token for the authenticated HTTP user.
+
+        Requires HTTP Basic authentication with a Manticore user name and password. The endpoint returns the raw token.
+
+        Example:
+
+          ```
+          curl -u admin:password -X POST http://127.0.0.1:9308/token -d "{}"
+          ```
+      tags:
+        - Utils
+      security:
+        - basicAuth: []
+      externalDocs:
+        url: 'https://manual.manticoresearch.com/Security/Authentication_and_authorization'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tokenRequest'
+            example: {}
+      responses:
+        '200':
+          description: Bearer token created or rotated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokenResponse'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/tokenResponse'
+        '401':
+          description: Missing or invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
         default:
           description: error
           content:

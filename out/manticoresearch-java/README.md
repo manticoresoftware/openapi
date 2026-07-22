@@ -1,12 +1,11 @@
 # Manticore Java client
 
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-java/tree/9.0.0
 
 Manticore Search Client
 
-- API version: 9.0.0
+- API version: 10.1.1
 
-- Build date: 2025-10-22T12:27:44.564851536Z[Etc/UTC]
+- Build date: 2026-07-15T17:05:43.549629793Z[Etc/UTC]
 
 ## Requirements
 
@@ -14,22 +13,6 @@ Building the API client library requires:
 
 1. Java 1.8+
 2. Maven/Gradle
-
-
-## Compatibility Table
-
-| **manticoresearch-java**       | **Manticore Search**                |  **Compatibility**       |
-| ------------------------------ | ----------------------------------- |  ------------------------|
-| `dev`                          | `dev` (latest development version)  |  ✅ Fully Compatible     |
-| 8.0.0 or newer                 | 9.2.14 or newer                     |  ✅ Fully Compatible     |
-| 6.0.0 to 8.0.0                 | 9.2.14 or newer                     |  ⚠️ Partially Compatible |
-| 6.0.0 to 8.0.0                 | 7.0.0 to 9.2.14                     |  ✅ Fully Compatible     |
-| 6.0.0 to 8.0.0                 | 2.5.1 to 7.0.0                      |  ⚠️ Partially Compatible |
-| 5.0.0 to 6.0.0                 | 6.3.6 to 7.0.0                      |  ✅ Fully Compatible     |
-| 5.0.0 to 6.0.0                 | 2.5.1 to 6.3.6                      |  ⚠️ Partially Compatible |
-| 3.3.1 to 5.0.0                 | 6.2.0 to 6.3.6                      |  ✅ Fully Compatible     |
-| 3.3.1 to 5.0.0                 | 2.5.1 to 6.2.0                      |  ⚠️ Partially Compatible |
-| 2.0.2 to 3.3.1                 | 2.5.1 to 6.2.0                      |  ✅ Fully Compatible     |
 
 
 ## Installation
@@ -56,7 +39,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.manticoresearch</groupId>
   <artifactId>manticoresearch</artifactId>
-  <version>9.0.0</version>
+  <version>10.1.1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -72,7 +55,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.manticoresearch:manticoresearch:9.0.0"
+     implementation "com.manticoresearch:manticoresearch:10.1.1"
   }
 ```
 
@@ -86,7 +69,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/manticoresearch-9.0.0.jar`
+- `target/manticoresearch-10.1.1.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -106,6 +89,15 @@ public class ApiExample {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("http://127.0.0.1:9308");
         
+        // Configure HTTP basic authorization: basicAuth
+        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+        basicAuth.setUsername("YOUR USERNAME");
+        basicAuth.setPassword("YOUR PASSWORD");
+
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
         IndexApi apiInstance = new IndexApi(defaultClient);
         String body = "body_example"; // String | 
 
@@ -161,23 +153,35 @@ Class | Method | HTTP request | Description
 *SearchApi* | [**percolate**](docs/SearchApi.md#percolate) | **POST** /pq/{table}/search | Perform reverse search on a percolate table
 *SearchApi* | [**search**](docs/SearchApi.md#search) | **POST** /search | Performs a search on a table
 *UtilsApi* | [**sql**](docs/UtilsApi.md#sql) | **POST** /sql | Perform SQL requests
+*UtilsApi* | [**token**](docs/UtilsApi.md#token) | **POST** /token | Create or rotate a bearer token
 
 
 ## Documentation for Models
 
+ - [AggBucket](docs/AggBucket.md)
+ - [AggBucketsResult](docs/AggBucketsResult.md)
  - [AggComposite](docs/AggComposite.md)
  - [AggCompositeSource](docs/AggCompositeSource.md)
  - [AggCompositeTerm](docs/AggCompositeTerm.md)
  - [AggDateHistogram](docs/AggDateHistogram.md)
  - [AggHistogram](docs/AggHistogram.md)
+ - [AggMedianAbsoluteDeviation](docs/AggMedianAbsoluteDeviation.md)
+ - [AggMetric](docs/AggMetric.md)
+ - [AggPercentileRanks](docs/AggPercentileRanks.md)
+ - [AggPercentiles](docs/AggPercentiles.md)
+ - [AggRange](docs/AggRange.md)
+ - [AggTDigest](docs/AggTDigest.md)
  - [AggTerms](docs/AggTerms.md)
  - [Aggregation](docs/Aggregation.md)
  - [AutocompleteRequest](docs/AutocompleteRequest.md)
  - [BoolFilter](docs/BoolFilter.md)
  - [BulkResponse](docs/BulkResponse.md)
+ - [Chat](docs/Chat.md)
  - [DeleteDocumentRequest](docs/DeleteDocumentRequest.md)
  - [DeleteResponse](docs/DeleteResponse.md)
  - [ErrorResponse](docs/ErrorResponse.md)
+ - [FacetBucketStatus](docs/FacetBucketStatus.md)
+ - [FacetFilterMode](docs/FacetFilterMode.md)
  - [FulltextFilter](docs/FulltextFilter.md)
  - [GeoDistance](docs/GeoDistance.md)
  - [GeoDistanceLocationAnchor](docs/GeoDistanceLocationAnchor.md)
@@ -185,6 +189,7 @@ Class | Method | HTTP request | Description
  - [HighlightFieldOption](docs/HighlightFieldOption.md)
  - [HighlightFields](docs/HighlightFields.md)
  - [HitsHits](docs/HitsHits.md)
+ - [Hybrid](docs/Hybrid.md)
  - [InsertDocumentRequest](docs/InsertDocumentRequest.md)
  - [Join](docs/Join.md)
  - [JoinCond](docs/JoinCond.md)
@@ -197,9 +202,12 @@ Class | Method | HTTP request | Description
  - [PercolateRequestQuery](docs/PercolateRequestQuery.md)
  - [QueryFilter](docs/QueryFilter.md)
  - [Range](docs/Range.md)
+ - [RangeFilter](docs/RangeFilter.md)
  - [ReplaceDocumentRequest](docs/ReplaceDocumentRequest.md)
  - [ResponseError](docs/ResponseError.md)
  - [ResponseErrorDetails](docs/ResponseErrorDetails.md)
+ - [ScriptField](docs/ScriptField.md)
+ - [ScriptFieldScript](docs/ScriptFieldScript.md)
  - [SearchQuery](docs/SearchQuery.md)
  - [SearchRequest](docs/SearchRequest.md)
  - [SearchResponse](docs/SearchResponse.md)
@@ -214,8 +222,17 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Authorization
 
-All endpoints do not require authorization.
 Authentication schemes defined for the API:
+### basicAuth
+
+
+- **Type**: HTTP basic authentication
+
+### bearerAuth
+
+
+- **Type**: HTTP basic authentication
+
 
 ## Recommendation
 

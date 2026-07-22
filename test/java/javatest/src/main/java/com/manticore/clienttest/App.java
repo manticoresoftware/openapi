@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 
 public class App 
 {
+
 	public static void testSearchRequestBuild(ApiClient client, IndexApi indexApi, SearchApi searchApi, UtilsApi utilsApi)
 	{
 		try {

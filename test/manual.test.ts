@@ -5,6 +5,7 @@ var indexApi: Manticoresearch.IndexApi;
 var searchApi: Manticoresearch.SearchApi;
 var utilsApi: Manticoresearch.UtilsApi;
 
+
 beforeEach(function () {
   const config = new Manticoresearch.Configuration({
     basePath: "http://localhost:9408",

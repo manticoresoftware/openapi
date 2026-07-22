@@ -5,7 +5,9 @@ import { from, Observable } from {{#useRxJS}}'rxjs'{{/useRxJS}}{{^useRxJS}}'../r
 import fetch from "node-fetch";
 {{/node}}
 {{#browser}}
-import "whatwg-fetch";
+if (typeof fetch === "undefined") {
+  require("whatwg-fetch");
+}
 {{/browser}}
 {{/platforms}}
 

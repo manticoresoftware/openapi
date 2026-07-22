@@ -1,44 +1,62 @@
 # coding: utf-8
 
-import sys
-from setuptools import setup, find_packages
+{{>partial_header}}
 
-NAME = "{{packageName}}"
-VERSION = "{{packageVersion}}"
-{{#apiInfo}}{{#apis}}{{#-last}}
+from setuptools import setup, find_packages  # noqa: H301
+
 # To install the library, run the following
 #
 # python setup.py install
 #
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
-
+{{#devBranch}}
+NAME = "{{{projectName}}}-devel"
+{{/devBranch}}
+{{^devBranch}}
+NAME = "{{{projectName}}}"
+{{/devBranch}}
+VERSION = "{{packageVersion}}"
+PYTHON_REQUIRES = ">=3.7"
+{{#apiInfo}}
+{{#apis}}
+{{#-last}}
 REQUIRES = [
-    "connexion==2.14.1",
-    "swagger-ui-bundle==0.0.9",
-    "aiohttp_jinja2==1.5.0",
+    "urllib3 >= 1.25.3, < 3",
+    "python-dateutil",
+{{#asyncio}}
+    "aiohttp >= 3.0.0",
+    "aiohttp-retry >= 2.8.3",
+{{/asyncio}}
+{{#tornado}}
+    "tornado>=4.2,<5",
+{{/tornado}}
+{{#hasHttpSignatureMethods}}
+    "pem>=19.3.0",
+    "pycryptodome>=3.9.0",
+{{/hasHttpSignatureMethods}}
+    "pydantic >= 2",
+    "typing-extensions >= 4.7.1",
 ]
 
 setup(
     name=NAME,
     version=VERSION,
     description="{{appName}}",
-    author_email="{{infoEmail}}",
+    author="{{infoName}}{{^infoName}}OpenAPI Generator community{{/infoName}}",
+    author_email="{{infoEmail}}{{^infoEmail}}team@openapitools.org{{/infoEmail}}",
     url="{{packageUrl}}",
-    keywords=["OpenAPI", "{{appName}}"],
+    keywords=["OpenAPI", "OpenAPI-Generator", "{{{appName}}}"],
     install_requires=REQUIRES,
-    packages=find_packages({{#lambda.forwardslash}}{{#pythonSrcRoot}}"{{{.}}}"{{/pythonSrcRoot}}){{/lambda.forwardslash}},
-    {{#lambda.forwardslash}}
-    {{#pythonSrcRoot}}
-    package_dir={"": "{{{.}}}"},
-    {{/pythonSrcRoot}}
-    {{/lambda.forwardslash}}
-    package_data={'': ['{{#lambda.forwardslash}}{{#pythonSrcRoot}}{{{.}}}/{{/pythonSrcRoot}}{{/lambda.forwardslash}}openapi/openapi.yaml']},
+    packages=find_packages(exclude=["test", "tests"]),
     include_package_data=True,
-    entry_points={
-        'console_scripts': ['{{packageName}}={{packageName}}.__main__:main']},
+    {{#licenseInfo}}license="{{.}}",
+    {{/licenseInfo}}long_description_content_type='text/markdown',
     long_description="""\
     {{appDescription}}
-    """
+    """,  # noqa: E501
+    package_data={"{{{packageName}}}": ["py.typed"]},
 )
-{{/-last}}{{/apis}}{{/apiInfo}}
+{{/-last}}
+{{/apis}}
+{{/apiInfo}}
