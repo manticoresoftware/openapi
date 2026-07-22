@@ -3,19 +3,11 @@
 Сlient for Manticore Search.
 
 
-❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-python-asyncio/tree/2.1.0
 
 ## Requirements.
 
 Minimum Manticore Search version is >= 9.2.14 with HTTP protocol enabled.
 
-| **manticoresearch-python*       | **Manticore Search**                | **Python**     | **Compatibility**       |
-| ------------------------------- | ----------------------------------- | -------------- | ------------------------|
-| `manticoresearch-asyncio-devel` | `dev` (latest development version)  | 3.4 or newer   | ✅ Fully Compatible     |
-| 2.0.0 or newer                  | 17.5.1 or newer                     | 3.4 or newer   | ✅ Fully Compatible     |
-| 2.0.0 or newer                  | 9.2.14 to 17.5.1                    | 3.4 or newer   | ⚠️ Partially Compatible |
-| 1.0.0 to 2.0.0                  | 17.5.1 or newer                     | 3.4 or newer   | ⚠️ Partially Compatible |
-| 1.0.0 to 2.0.0                  | 9.2.14 to 17.5.1                    | 3.4 or newer   | ✅ Fully Compatible     |
 
 ## Installation & Usage
 ### pip install

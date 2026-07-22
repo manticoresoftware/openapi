@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.manticoresearch</groupId>
-    <artifactId>manticoresearch-dev</artifactId>
-    <name>manticoresearch-dev</name>
-    <version>10.1.0</version>
+    <artifactId>manticoresearch</artifactId>
+    <name>manticoresearch</name>
+    <version>10.1.1</version>
     <url>https://github.com/manticoresoftware/manticoresearch-java</url>
     <description>Client for Manticore Search</description>
     <scm>
@@ -12,6 +12,7 @@
         <developerConnection>scm:git:git@github.com:openapitools/openapi-generator.git</developerConnection>
         <url>https://github.com/openapitools/openapi-generator</url>
     </scm>
+
 
     <licenses>
         <license>
@@ -254,7 +255,7 @@
               <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>0.3.0</version>
+                <version>0.11.0</version>
                 <extensions>true</extensions>
                 <configuration>
                   <publishingServerId>central</publishingServerId>

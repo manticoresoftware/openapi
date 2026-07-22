@@ -12,12 +12,11 @@ from setuptools import setup, find_packages  # noqa: H301
 # http://pypi.python.org/pypi/setuptools
 {{#devBranch}}
 NAME = "{{{projectName}}}-devel"
-VERSION = "{{packageVersion}}"
 {{/devBranch}}
 {{^devBranch}}
 NAME = "{{{projectName}}}"
-VERSION = "{{packageVersion}}"
 {{/devBranch}}
+VERSION = "{{packageVersion}}"
 PYTHON_REQUIRES = ">=3.7"
 {{#apiInfo}}
 {{#apis}}

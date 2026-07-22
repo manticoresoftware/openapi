@@ -1,5 +1,5 @@
 [project]
-name = "manticoresearch-asyncio-devel"
+name = "manticoresearch-asyncio"
 version = "2.1.0"
 description = "Manticore Search Client"
 authors = [
