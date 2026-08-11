@@ -2,10 +2,11 @@
  If this is map and items are nullable, make sure that nulls are included.
  To determine what JsonInclude.Include method to use, consider the following:
  * If the field is required, always include it, even if it is null.
+ * If x-java-json-include-non-empty is set, omit empty values.
  * Else use custom behaviour, IOW use whatever is defined on the object mapper
  }}
   @JsonProperty(JSON_PROPERTY_{{nameInSnakeCase}})
-  @JsonInclude({{#isMap}}{{#items.isNullable}}content = JsonInclude.Include.ALWAYS, {{/items.isNullable}}{{/isMap}}value = JsonInclude.Include.{{#required}}ALWAYS{{/required}}{{^required}}USE_DEFAULTS{{/required}})
+  @JsonInclude({{#isMap}}{{#items.isNullable}}content = JsonInclude.Include.ALWAYS, {{/items.isNullable}}{{/isMap}}value = JsonInclude.Include.{{#vendorExtensions.x-java-json-include-non-empty}}NON_EMPTY{{/vendorExtensions.x-java-json-include-non-empty}}{{^vendorExtensions.x-java-json-include-non-empty}}{{#required}}ALWAYS{{/required}}{{^required}}USE_DEFAULTS{{/required}}{{/vendorExtensions.x-java-json-include-non-empty}})
 {{#withXml}}
   @JacksonXmlProperty(localName = "{{items.xmlName}}{{^items.xmlName}}{{xmlName}}{{^xmlName}}{{baseName}}{{/xmlName}}{{/items.xmlName}}"{{#isXmlAttribute}}, isAttribute = true{{/isXmlAttribute}}{{#xmlNamespace}}, namespace = "{{.}}"{{/xmlNamespace}})
   {{#isContainer}}

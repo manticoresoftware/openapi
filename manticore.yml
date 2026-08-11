@@ -515,6 +515,7 @@ components:
               $ref: '#/components/schemas/facetFilterMode'
             aggs:
               type: object
+              x-java-json-include-non-empty: true
               additionalProperties:
                 $ref: '#/components/schemas/aggregation'
               example:
