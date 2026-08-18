@@ -3,9 +3,9 @@
 
 Manticore Search Client
 
-- API version: 10.1.1
+- API version: 10.2.0
 
-- Build date: 2026-07-15T17:05:43.549629793Z[Etc/UTC]
+- Build date: 2026-08-05T14:22:59.689871728Z[Etc/UTC]
 
 ## Requirements
 
@@ -39,7 +39,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.manticoresearch</groupId>
   <artifactId>manticoresearch</artifactId>
-  <version>10.1.1</version>
+  <version>10.2.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -55,7 +55,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.manticoresearch:manticoresearch:10.1.1"
+     implementation "com.manticoresearch:manticoresearch:10.2.0"
   }
 ```
 
@@ -69,7 +69,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/manticoresearch-10.1.1.jar`
+- `target/manticoresearch-10.2.0.jar`
 - `target/lib/*.jar`
 
 ## Getting Started

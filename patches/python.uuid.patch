@@ -1,0 +1,488 @@
+diff --git a/out/manticoresearch-python/manticoresearch/api/index_api.py b/out/manticoresearch-python/manticoresearch/api/index_api.py
+--- a/out/manticoresearch-python/manticoresearch/api/index_api.py
++++ b/out/manticoresearch-python/manticoresearch/api/index_api.py
+@@ -872,6 +872,51 @@
+ 
+ 
+ 
++
++    @validate_call
++    def partial_replace_uuid(
++        self,
++        table: Annotated[StrictStr, Field(description="Name of the percolate table")],
++        uuid: Annotated[StrictStr, Field(description="UUID of the document to replace")],
++        replace_document_request: ReplaceDocumentRequest,
++        _request_timeout: Union[
++            None,
++            Annotated[StrictFloat, Field(gt=0)],
++            Tuple[
++                Annotated[StrictFloat, Field(gt=0)],
++                Annotated[StrictFloat, Field(gt=0)]
++            ]
++        ] = None,
++        _request_auth: Optional[Dict[StrictStr, Any]] = None,
++        _content_type: Optional[StrictStr] = None,
++        _headers: Optional[Dict[StrictStr, Any]] = None,
++        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
++    ) -> UpdateResponse:
++        """Partially replaces a document in a table by UUID string id."""
++        _param = self._partial_replace_serialize(
++            table=table,
++            id=uuid,
++            replace_document_request=replace_document_request,
++            _request_auth=_request_auth,
++            _content_type=_content_type,
++            _headers=_headers,
++            _host_index=_host_index
++        )
++        _response_types_map: Dict[str, Optional[str]] = {
++            '200': "UpdateResponse",
++            '400': "ErrorResponse",
++        }
++        response_data = self.api_client.call_api(
++            *_param,
++            _request_timeout=_request_timeout
++        )
++        response_data.read()
++        return self.api_client.response_deserialize(
++            response_data=response_data,
++            response_types_map=_response_types_map,
++        ).data
++
++
+     @validate_call
+     def partial_replace(
+         self,
+diff --git a/out/manticoresearch-python/manticoresearch/document_id_util.py b/out/manticoresearch-python/manticoresearch/document_id_util.py
+new file mode 100644
+--- /dev/null
++++ b/out/manticoresearch-python/manticoresearch/document_id_util.py
+@@ -0,0 +1,21 @@
++# coding: utf-8
++"""Helpers for numeric document id + UUID companion fields."""
++from __future__ import annotations
++from typing import Any, Optional, Tuple
++
++def split_document_id(value: Any) -> Tuple[Optional[int], Optional[str]]:
++    if value is None:
++        return None, None
++    if isinstance(value, str):
++        return None, value
++    if isinstance(value, bool):
++        raise TypeError("Document id must be int or str, not bool")
++    if isinstance(value, (int, float)):
++        return int(value), None
++    raise TypeError(f"Unsupported document id type: {type(value)!r}")
++
++def assign_wire_id(dst: dict, wire_key: str, numeric_id: Any, uuid: Any) -> None:
++    if uuid is not None:
++        dst[wire_key] = uuid
++    elif numeric_id is not None:
++        dst[wire_key] = numeric_id
+diff --git a/out/manticoresearch-python/manticoresearch/models/delete_document_request.py b/out/manticoresearch-python/manticoresearch/models/delete_document_request.py
+--- a/out/manticoresearch-python/manticoresearch/models/delete_document_request.py
++++ b/out/manticoresearch-python/manticoresearch/models/delete_document_request.py
+@@ -22,6 +22,7 @@
+ from typing import Any, ClassVar, Dict, List, Optional
+ from typing import Optional, Set
+ from typing_extensions import Self
++from manticoresearch.document_id_util import assign_wire_id, split_document_id
+ 
+ class DeleteDocumentRequest(BaseModel):
+     """
+@@ -30,6 +31,7 @@
+     table: StrictStr = Field(description="Table name")
+     cluster: Optional[StrictStr] = Field(default=None, description="Cluster name")
+     id: Optional[StrictInt] = Field(default=None, description="The ID of document for deletion")
++    uuid: Optional[StrictStr] = Field(default=None, description="UUID document id when the wire id field is a string; numeric id is null in that case")
+     query: Optional[Dict[str, Any]] = Field(default=None, description="Defines the criteria to match documents for deletion")
+     __properties: ClassVar[List[str]] = ["table", "cluster", "id", "query"]
+ 
+@@ -65,6 +67,7 @@
+           are ignored.
+         """
+         excluded_fields: Set[str] = set([
++            "uuid",
+         ])
+ 
+         _dict = self.model_dump(
+@@ -72,6 +75,8 @@
+             exclude=excluded_fields,
+             exclude_none=True,
+         )
++        _dict.pop('id', None)
++        assign_wire_id(_dict, 'id', self.id, self.uuid)
+         return _dict
+ 
+     @classmethod
+@@ -83,10 +88,13 @@
+         if not isinstance(obj, dict):
+             return cls.model_validate(obj)
+ 
++        _num_id, _uuid = split_document_id(obj.get("id"))
++
+         _obj = cls.model_validate({
+             "table": obj.get("table"),
+             "cluster": obj.get("cluster"),
+-            "id": obj.get("id"),
++            "id": _num_id,
++            "uuid": _uuid,
+             "query": obj.get("query")
+         })
+         return _obj
+diff --git a/out/manticoresearch-python/manticoresearch/models/delete_response.py b/out/manticoresearch-python/manticoresearch/models/delete_response.py
+--- a/out/manticoresearch-python/manticoresearch/models/delete_response.py
++++ b/out/manticoresearch-python/manticoresearch/models/delete_response.py
+@@ -22,6 +22,7 @@
+ from typing import Any, ClassVar, Dict, List, Optional
+ from typing import Optional, Set
+ from typing_extensions import Self
++from manticoresearch.document_id_util import assign_wire_id, split_document_id
+ 
+ class DeleteResponse(BaseModel):
+     """
+@@ -30,6 +31,7 @@
+     table: Optional[StrictStr] = Field(default=None, description="The name of the table from which the document was deleted")
+     deleted: Optional[StrictInt] = Field(default=None, description="Number of documents deleted")
+     id: Optional[StrictInt] = Field(default=None, description="The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned ")
++    uuid: Optional[StrictStr] = Field(default=None, description="UUID document id when the wire id field is a string; numeric id is null in that case")
+     found: Optional[StrictBool] = Field(default=None, description="Indicates whether any documents to be deleted were found")
+     result: Optional[StrictStr] = Field(default=None, description="Result of the delete operation, typically 'deleted'")
+     __properties: ClassVar[List[str]] = ["table", "deleted", "id", "found", "result"]
+@@ -66,6 +68,7 @@
+           are ignored.
+         """
+         excluded_fields: Set[str] = set([
++            "uuid",
+         ])
+ 
+         _dict = self.model_dump(
+@@ -73,6 +76,8 @@
+             exclude=excluded_fields,
+             exclude_none=True,
+         )
++        _dict.pop('id', None)
++        assign_wire_id(_dict, 'id', self.id, self.uuid)
+         return _dict
+ 
+     @classmethod
+@@ -84,10 +89,13 @@
+         if not isinstance(obj, dict):
+             return cls.model_validate(obj)
+ 
++        _num_id, _uuid = split_document_id(obj.get("id"))
++
+         _obj = cls.model_validate({
+             "table": obj.get("table"),
+             "deleted": obj.get("deleted"),
+-            "id": obj.get("id"),
++            "id": _num_id,
++            "uuid": _uuid,
+             "found": obj.get("found"),
+             "result": obj.get("result")
+         })
+diff --git a/out/manticoresearch-python/manticoresearch/models/hits_hits.py b/out/manticoresearch-python/manticoresearch/models/hits_hits.py
+--- a/out/manticoresearch-python/manticoresearch/models/hits_hits.py
++++ b/out/manticoresearch-python/manticoresearch/models/hits_hits.py
+@@ -22,12 +22,14 @@
+ from typing import Any, ClassVar, Dict, List, Optional, Union
+ from typing import Optional, Set
+ from typing_extensions import Self
++from manticoresearch.document_id_util import assign_wire_id, split_document_id
+ 
+ class HitsHits(BaseModel):
+     """
+     Search hit representing a matched document
+     """ # noqa: E501
+     id: Optional[StrictInt] = Field(default=None, description="The ID of the matched document", alias="_id")
++    uuid: Optional[StrictStr] = Field(default=None, description="UUID document id when the wire id field is a string; numeric id is null in that case")
+     score: Optional[StrictInt] = Field(default=None, description="The score of the matched document", alias="_score")
+     source: Optional[Dict[str, Any]] = Field(default=None, description="The source data of the matched document", alias="_source")
+     knn_dist: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The knn distance of the matched document returned for knn queries", alias="_knn_dist")
+@@ -69,6 +71,7 @@
+           are ignored.
+         """
+         excluded_fields: Set[str] = set([
++            "uuid",
+         ])
+ 
+         _dict = self.model_dump(
+@@ -76,6 +79,8 @@
+             exclude=excluded_fields,
+             exclude_none=True,
+         )
++        _dict.pop('_id', None)
++        assign_wire_id(_dict, '_id', self.id, self.uuid)
+         return _dict
+ 
+     @classmethod
+@@ -87,8 +92,11 @@
+         if not isinstance(obj, dict):
+             return cls.model_validate(obj)
+ 
++        _num_id, _uuid = split_document_id(obj.get("_id"))
++
+         _obj = cls.model_validate({
+-            "_id": obj.get("_id"),
++            "_id": _num_id,
++            "uuid": _uuid,
+             "_score": obj.get("_score"),
+             "_source": obj.get("_source"),
+             "_knn_dist": obj.get("_knn_dist"),
+diff --git a/out/manticoresearch-python/manticoresearch/models/insert_document_request.py b/out/manticoresearch-python/manticoresearch/models/insert_document_request.py
+--- a/out/manticoresearch-python/manticoresearch/models/insert_document_request.py
++++ b/out/manticoresearch-python/manticoresearch/models/insert_document_request.py
+@@ -22,6 +22,7 @@
+ from typing import Any, ClassVar, Dict, List, Optional
+ from typing import Optional, Set
+ from typing_extensions import Self
++from manticoresearch.document_id_util import assign_wire_id, split_document_id
+ 
+ class InsertDocumentRequest(BaseModel):
+     """
+@@ -30,6 +31,7 @@
+     table: StrictStr = Field(description="Name of the table to insert the document into")
+     cluster: Optional[StrictStr] = Field(default=None, description="Name of the cluster to insert the document into")
+     id: Optional[StrictInt] = Field(default=None, description="Document ID. If not provided, an ID will be auto-generated ")
++    uuid: Optional[StrictStr] = Field(default=None, description="UUID document id when the wire id field is a string; numeric id is null in that case")
+     doc: Dict[str, Any] = Field(description="Object containing document data ")
+     __properties: ClassVar[List[str]] = ["table", "cluster", "id", "doc"]
+ 
+@@ -65,6 +67,7 @@
+           are ignored.
+         """
+         excluded_fields: Set[str] = set([
++            "uuid",
+         ])
+ 
+         _dict = self.model_dump(
+@@ -72,6 +75,8 @@
+             exclude=excluded_fields,
+             exclude_none=True,
+         )
++        _dict.pop('id', None)
++        assign_wire_id(_dict, 'id', self.id, self.uuid)
+         return _dict
+ 
+     @classmethod
+@@ -83,10 +88,13 @@
+         if not isinstance(obj, dict):
+             return cls.model_validate(obj)
+ 
++        _num_id, _uuid = split_document_id(obj.get("id"))
++
+         _obj = cls.model_validate({
+             "table": obj.get("table"),
+             "cluster": obj.get("cluster"),
+-            "id": obj.get("id"),
++            "id": _num_id,
++            "uuid": _uuid,
+             "doc": obj.get("doc")
+         })
+         return _obj
+diff --git a/out/manticoresearch-python/manticoresearch/models/knn.py b/out/manticoresearch-python/manticoresearch/models/knn.py
+--- a/out/manticoresearch-python/manticoresearch/models/knn.py
++++ b/out/manticoresearch-python/manticoresearch/models/knn.py
+@@ -24,6 +24,7 @@
+ from manticoresearch.models.query_filter import QueryFilter
+ from typing import Optional, Set
+ from typing_extensions import Self
++from manticoresearch.document_id_util import assign_wire_id, split_document_id
+ 
+ class Knn(BaseModel):
+     """
+@@ -34,6 +35,7 @@
+     query: Optional[KnnQuery] = None
+     query_vector: Optional[List[Union[StrictFloat, StrictInt]]] = Field(default=None, description="The vector used as input for the KNN search")
+     doc_id: Optional[StrictInt] = Field(default=None, description="The document ID used as input for the KNN search")
++    uuid: Optional[StrictStr] = Field(default=None, description="UUID document id when the wire id field is a string; numeric id is null in that case")
+     ef: Optional[StrictInt] = Field(default=None, description="Optional parameter controlling the accuracy of the search")
+     rescore: Optional[StrictBool] = Field(default=None, description="Optional parameter enabling KNN rescoring (disabled by default)")
+     oversampling: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Optional parameter setting a factor by which k is multiplied when executing the KNN search")
+@@ -72,6 +74,7 @@
+           are ignored.
+         """
+         excluded_fields: Set[str] = set([
++            "uuid",
+         ])
+ 
+         _dict = self.model_dump(
+@@ -85,6 +88,8 @@
+         # override the default output from pydantic by calling `to_dict()` of filter
+         if self.filter:
+             _dict['filter'] = self.filter.to_dict()
++        _dict.pop('doc_id', None)
++        assign_wire_id(_dict, 'doc_id', self.doc_id, self.uuid)
+         return _dict
+ 
+     @classmethod
+@@ -96,12 +101,15 @@
+         if not isinstance(obj, dict):
+             return cls.model_validate(obj)
+ 
++        _num_id, _uuid = split_document_id(obj.get("doc_id"))
++
+         _obj = cls.model_validate({
+             "field": obj.get("field"),
+             "k": obj.get("k"),
+             "query": KnnQuery.from_dict(obj["query"]) if obj.get("query") is not None else None,
+             "query_vector": obj.get("query_vector"),
+-            "doc_id": obj.get("doc_id"),
++            "doc_id": _num_id,
++            "uuid": _uuid,
+             "ef": obj.get("ef"),
+             "rescore": obj.get("rescore"),
+             "oversampling": obj.get("oversampling"),
+diff --git a/out/manticoresearch-python/manticoresearch/models/success_response.py b/out/manticoresearch-python/manticoresearch/models/success_response.py
+--- a/out/manticoresearch-python/manticoresearch/models/success_response.py
++++ b/out/manticoresearch-python/manticoresearch/models/success_response.py
+@@ -22,6 +22,7 @@
+ from typing import Any, ClassVar, Dict, List, Optional
+ from typing import Optional, Set
+ from typing_extensions import Self
++from manticoresearch.document_id_util import assign_wire_id, split_document_id
+ 
+ class SuccessResponse(BaseModel):
+     """
+@@ -29,6 +30,7 @@
+     """ # noqa: E501
+     table: Optional[StrictStr] = Field(default=None, description="Name of the document table")
+     id: Optional[StrictInt] = Field(default=None, description="ID of the document affected by the request operation")
++    uuid: Optional[StrictStr] = Field(default=None, description="UUID document id when the wire id field is a string; numeric id is null in that case")
+     created: Optional[StrictBool] = Field(default=None, description="Indicates whether the document was created as a result of the operation")
+     result: Optional[StrictStr] = Field(default=None, description="Result of the operation, typically 'created', 'updated', or 'deleted'")
+     found: Optional[StrictBool] = Field(default=None, description="Indicates whether the document was found in the table")
+@@ -67,6 +69,7 @@
+           are ignored.
+         """
+         excluded_fields: Set[str] = set([
++            "uuid",
+         ])
+ 
+         _dict = self.model_dump(
+@@ -74,6 +77,8 @@
+             exclude=excluded_fields,
+             exclude_none=True,
+         )
++        _dict.pop('id', None)
++        assign_wire_id(_dict, 'id', self.id, self.uuid)
+         return _dict
+ 
+     @classmethod
+@@ -85,9 +90,12 @@
+         if not isinstance(obj, dict):
+             return cls.model_validate(obj)
+ 
++        _num_id, _uuid = split_document_id(obj.get("id"))
++
+         _obj = cls.model_validate({
+             "table": obj.get("table"),
+-            "id": obj.get("id"),
++            "id": _num_id,
++            "uuid": _uuid,
+             "created": obj.get("created"),
+             "result": obj.get("result"),
+             "found": obj.get("found"),
+diff --git a/out/manticoresearch-python/manticoresearch/models/update_document_request.py b/out/manticoresearch-python/manticoresearch/models/update_document_request.py
+--- a/out/manticoresearch-python/manticoresearch/models/update_document_request.py
++++ b/out/manticoresearch-python/manticoresearch/models/update_document_request.py
+@@ -23,6 +23,7 @@
+ from manticoresearch.models.query_filter import QueryFilter
+ from typing import Optional, Set
+ from typing_extensions import Self
++from manticoresearch.document_id_util import assign_wire_id, split_document_id
+ 
+ class UpdateDocumentRequest(BaseModel):
+     """
+@@ -32,6 +33,7 @@
+     cluster: Optional[StrictStr] = Field(default=None, description="Name of the document cluster")
+     doc: Dict[str, Any] = Field(description="Object containing the document fields to update")
+     id: Optional[StrictInt] = Field(default=None, description="Document ID")
++    uuid: Optional[StrictStr] = Field(default=None, description="UUID document id when the wire id field is a string; numeric id is null in that case")
+     query: Optional[QueryFilter] = None
+     __properties: ClassVar[List[str]] = ["table", "cluster", "doc", "id", "query"]
+ 
+@@ -67,6 +69,7 @@
+           are ignored.
+         """
+         excluded_fields: Set[str] = set([
++            "uuid",
+         ])
+ 
+         _dict = self.model_dump(
+@@ -82,6 +85,8 @@
+         if self.query is None and "query" in self.model_fields_set:
+             _dict['query'] = None
+ 
++        _dict.pop('id', None)
++        assign_wire_id(_dict, 'id', self.id, self.uuid)
+         return _dict
+ 
+     @classmethod
+@@ -93,11 +98,14 @@
+         if not isinstance(obj, dict):
+             return cls.model_validate(obj)
+ 
++        _num_id, _uuid = split_document_id(obj.get("id"))
++
+         _obj = cls.model_validate({
+             "table": obj.get("table"),
+             "cluster": obj.get("cluster"),
+             "doc": obj.get("doc"),
+-            "id": obj.get("id"),
++            "id": _num_id,
++            "uuid": _uuid,
+             "query": QueryFilter.from_dict(obj["query"]) if obj.get("query") is not None else None
+         })
+         return _obj
+diff --git a/out/manticoresearch-python/manticoresearch/models/update_response.py b/out/manticoresearch-python/manticoresearch/models/update_response.py
+--- a/out/manticoresearch-python/manticoresearch/models/update_response.py
++++ b/out/manticoresearch-python/manticoresearch/models/update_response.py
+@@ -22,6 +22,7 @@
+ from typing import Any, ClassVar, Dict, List, Optional
+ from typing import Optional, Set
+ from typing_extensions import Self
++from manticoresearch.document_id_util import assign_wire_id, split_document_id
+ 
+ class UpdateResponse(BaseModel):
+     """
+@@ -30,6 +31,7 @@
+     table: Optional[StrictStr] = Field(default=None, description="Name of the document table")
+     updated: Optional[StrictInt] = Field(default=None, description="Number of documents updated")
+     id: Optional[StrictInt] = Field(default=None, description="Document ID")
++    uuid: Optional[StrictStr] = Field(default=None, description="UUID document id when the wire id field is a string; numeric id is null in that case")
+     result: Optional[StrictStr] = Field(default=None, description="Result of the update operation, typically 'updated'")
+     __properties: ClassVar[List[str]] = ["table", "updated", "id", "result"]
+ 
+@@ -65,6 +67,7 @@
+           are ignored.
+         """
+         excluded_fields: Set[str] = set([
++            "uuid",
+         ])
+ 
+         _dict = self.model_dump(
+@@ -72,6 +75,8 @@
+             exclude=excluded_fields,
+             exclude_none=True,
+         )
++        _dict.pop('id', None)
++        assign_wire_id(_dict, 'id', self.id, self.uuid)
+         return _dict
+ 
+     @classmethod
+@@ -83,10 +88,13 @@
+         if not isinstance(obj, dict):
+             return cls.model_validate(obj)
+ 
++        _num_id, _uuid = split_document_id(obj.get("id"))
++
+         _obj = cls.model_validate({
+             "table": obj.get("table"),
+             "updated": obj.get("updated"),
+-            "id": obj.get("id"),
++            "id": _num_id,
++            "uuid": _uuid,
+             "result": obj.get("result")
+         })
+         return _obj

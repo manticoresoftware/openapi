@@ -1,3 +1,3 @@
-use Mix.Config
+import Config
 
-config :manticoresearch, base_url: "http://manticoresearch-manticore:9308"
+config :manticoresearch, base_url: "http://localhost:9408"

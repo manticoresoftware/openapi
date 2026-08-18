@@ -1,6 +1,9 @@
 FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive \
+    LANG=C.UTF-8 \
+    LANGUAGE=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
     DOTNET_ROOT=/usr/share/dotnet \
     CARGO_HOME=/usr/local/cargo \
     RUSTUP_HOME=/usr/local/rustup \
@@ -26,11 +29,31 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         openjdk-17-jdk-headless \
         maven \
         golang-go \
-        erlang \
-        elixir \
         rsync \
         jq \
+        libncurses6 \
+        libsctp1 \
     && rm -rf /var/lib/apt/lists/*
+
+# OpenAPI Generator 7.17.0 Elixir clients require Elixir ~> 1.18 (stdlib JSON)
+# and OTP 27. Ubuntu 24.04 apt packages are too old, so use Hex's prebuilt
+# binaries.
+ARG OTP_VERSION=27.3.4
+ARG ELIXIR_VERSION=1.18.4
+RUN ARCH="$(dpkg --print-architecture)" \
+    && curl -fsSL "https://builds.hex.pm/builds/otp/${ARCH}/ubuntu-24.04/OTP-${OTP_VERSION}.tar.gz" \
+         -o /tmp/otp.tar.gz \
+    && mkdir -p /usr/local/otp \
+    && tar -xzf /tmp/otp.tar.gz -C /usr/local/otp --strip-components=1 \
+    && rm /tmp/otp.tar.gz \
+    && if [ -x /usr/local/otp/Install ]; then /usr/local/otp/Install -sasl /usr/local/otp; fi \
+    && curl -fsSL "https://builds.hex.pm/builds/elixir/v${ELIXIR_VERSION}-otp-27.zip" \
+         -o /tmp/elixir.zip \
+    && mkdir -p /usr/local/elixir \
+    && unzip -q /tmp/elixir.zip -d /usr/local/elixir \
+    && rm /tmp/elixir.zip
+
+ENV PATH="/usr/local/elixir/bin:/usr/local/otp/bin:${PATH}"
 
 # Node via nvm (used by javascript / typescript clients)
 ENV NODE_VERSION=20.18.1
@@ -53,7 +76,7 @@ RUN curl -fsSL https://dot.net/v1/dotnet-install.sh -o /tmp/dotnet-install.sh \
 RUN curl -fsSL https://sh.rustup.rs | sh -s -- -y --default-toolchain stable \
     && ln -sf /usr/local/cargo/bin/* /usr/local/bin/
 
-ENV PATH="/usr/local/cargo/bin:/usr/share/dotnet:${PATH}" \
+ENV PATH="/usr/local/elixir/bin:/usr/local/otp/bin:/usr/local/cargo/bin:/usr/share/dotnet:${PATH}" \
     JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 
 WORKDIR /work

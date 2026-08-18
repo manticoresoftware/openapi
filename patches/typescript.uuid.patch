@@ -1,0 +1,392 @@
+diff --git a/out/manticoresearch-typescript/apis/IndexApi.ts b/out/manticoresearch-typescript/apis/IndexApi.ts
+index 6821d989..a91f5202 100644
+--- a/out/manticoresearch-typescript/apis/IndexApi.ts
++++ b/out/manticoresearch-typescript/apis/IndexApi.ts
+@@ -185,6 +185,11 @@ export class IndexApiRequestFactory extends BaseAPIRequestFactory {
+      * @param id Id of the document to replace
+      * @param replaceDocumentRequest 
+      */
++    /** Partially replaces a document by UUID string id. */
++    public async partialReplaceUuid(table: string, uuid: string, replaceDocumentRequest: ReplaceDocumentRequest, _options?: Configuration): Promise<RequestContext> {
++        return this.partialReplace(table, uuid as unknown as number, replaceDocumentRequest, _options);
++    }
++
+     public async partialReplace(table: string, id: number, replaceDocumentRequest: ReplaceDocumentRequest, _options?: Configuration): Promise<RequestContext> {
+         let _config = _options || this.configuration;
+ 
+diff --git a/out/manticoresearch-typescript/models/DeleteDocumentRequest.ts b/out/manticoresearch-typescript/models/DeleteDocumentRequest.ts
+index af9c4a9e..d578901d 100644
+--- a/out/manticoresearch-typescript/models/DeleteDocumentRequest.ts
++++ b/out/manticoresearch-typescript/models/DeleteDocumentRequest.ts
+@@ -27,7 +27,11 @@ export class DeleteDocumentRequest {
+     /**
+     * The ID of document for deletion
+     */
+-    'id'?: number;
++    'id'?: number | null;
++    /**
++    * UUID document ID when the wire ID field is a string.
++    */
++    'uuid'?: string | null;
+     /**
+     * Defines the criteria to match documents for deletion
+     */
+@@ -56,6 +60,12 @@ export class DeleteDocumentRequest {
+             "type": "number",
+             "format": "uint64"
+         },
++        {
++            "name": "uuid",
++            "baseName": "uuid",
++            "type": "string",
++            "format": ""
++        },
+         {
+             "name": "query",
+             "baseName": "query",
+diff --git a/out/manticoresearch-typescript/models/DeleteResponse.ts b/out/manticoresearch-typescript/models/DeleteResponse.ts
+index 08877dc5..9ff42f14 100644
+--- a/out/manticoresearch-typescript/models/DeleteResponse.ts
++++ b/out/manticoresearch-typescript/models/DeleteResponse.ts
+@@ -27,7 +27,11 @@ export class DeleteResponse {
+     /**
+     * The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned 
+     */
+-    'id'?: number;
++    'id'?: number | null;
++    /**
++    * UUID document ID when the wire ID field is a string.
++    */
++    'uuid'?: string | null;
+     /**
+     * Indicates whether any documents to be deleted were found
+     */
+@@ -60,6 +64,12 @@ export class DeleteResponse {
+             "type": "number",
+             "format": "uint64"
+         },
++        {
++            "name": "uuid",
++            "baseName": "uuid",
++            "type": "string",
++            "format": ""
++        },
+         {
+             "name": "found",
+             "baseName": "found",
+diff --git a/out/manticoresearch-typescript/models/HitsHits.ts b/out/manticoresearch-typescript/models/HitsHits.ts
+index 03c899fa..c6cde3b4 100644
+--- a/out/manticoresearch-typescript/models/HitsHits.ts
++++ b/out/manticoresearch-typescript/models/HitsHits.ts
+@@ -19,7 +19,11 @@ export class HitsHits {
+     /**
+     * The ID of the matched document
+     */
+-    '_id'?: number;
++    '_id'?: number | null;
++    /**
++    * UUID document ID when the wire ID field is a string.
++    */
++    '_uuid'?: string | null;
+     /**
+     * The score of the matched document
+     */
+@@ -60,6 +64,12 @@ export class HitsHits {
+             "type": "number",
+             "format": "uint64"
+         },
++        {
++            "name": "_uuid",
++            "baseName": "_uuid",
++            "type": "string",
++            "format": ""
++        },
+         {
+             "name": "_score",
+             "baseName": "_score",
+diff --git a/out/manticoresearch-typescript/models/InsertDocumentRequest.ts b/out/manticoresearch-typescript/models/InsertDocumentRequest.ts
+index ebe4619e..6f48150f 100644
+--- a/out/manticoresearch-typescript/models/InsertDocumentRequest.ts
++++ b/out/manticoresearch-typescript/models/InsertDocumentRequest.ts
+@@ -27,7 +27,11 @@ export class InsertDocumentRequest {
+     /**
+     * Document ID. If not provided, an ID will be auto-generated 
+     */
+-    'id'?: number;
++    'id'?: number | null;
++    /**
++    * UUID document ID when the wire ID field is a string.
++    */
++    'uuid'?: string | null;
+     /**
+     * Object containing document data 
+     */
+@@ -56,6 +60,12 @@ export class InsertDocumentRequest {
+             "type": "number",
+             "format": "uint64"
+         },
++        {
++            "name": "uuid",
++            "baseName": "uuid",
++            "type": "string",
++            "format": ""
++        },
+         {
+             "name": "doc",
+             "baseName": "doc",
+diff --git a/out/manticoresearch-typescript/models/Knn.ts b/out/manticoresearch-typescript/models/Knn.ts
+index 0213b9fa..eb442fea 100644
+--- a/out/manticoresearch-typescript/models/Knn.ts
++++ b/out/manticoresearch-typescript/models/Knn.ts
+@@ -34,7 +34,11 @@ export class Knn {
+     /**
+     * The document ID used as input for the KNN search
+     */
+-    'doc_id'?: number;
++    'doc_id'?: number | null;
++    /**
++    * UUID document ID when the wire ID field is a string.
++    */
++    'uuid'?: string | null;
+     /**
+     * Optional parameter controlling the accuracy of the search
+     */
+@@ -84,6 +88,12 @@ export class Knn {
+             "type": "number",
+             "format": "uint64"
+         },
++        {
++            "name": "uuid",
++            "baseName": "uuid",
++            "type": "string",
++            "format": ""
++        },
+         {
+             "name": "ef",
+             "baseName": "ef",
+diff --git a/out/manticoresearch-typescript/models/ObjectSerializer.ts b/out/manticoresearch-typescript/models/ObjectSerializer.ts
+index 4fcdc9b3..6f2cd345 100644
+--- a/out/manticoresearch-typescript/models/ObjectSerializer.ts
++++ b/out/manticoresearch-typescript/models/ObjectSerializer.ts
+@@ -270,6 +270,17 @@ const JSONbig = require('json-bigint')({
+ 	useNativeBigInt: true,
+ });
+ 
++const documentIdCompanions: {[index: string]: {wire: string, id: string, uuid: string}} = {
++    HitsHits: {wire: "_id", id: "_id", uuid: "_uuid"},
++    InsertDocumentRequest: {wire: "id", id: "id", uuid: "uuid"},
++    DeleteDocumentRequest: {wire: "id", id: "id", uuid: "uuid"},
++    DeleteResponse: {wire: "id", id: "id", uuid: "uuid"},
++    SuccessResponse: {wire: "id", id: "id", uuid: "uuid"},
++    UpdateDocumentRequest: {wire: "id", id: "id", uuid: "uuid"},
++    UpdateResponse: {wire: "id", id: "id", uuid: "uuid"},
++    Knn: {wire: "doc_id", id: "doc_id", uuid: "uuid"},
++};
++
+ export class ObjectSerializer {
+     public static findCorrectType(data: any, expectedType: string) {
+         if (data == undefined) {
+@@ -367,6 +378,13 @@ export class ObjectSerializer {
+ 	            for (let attributeType of attributeTypes) {
+ 	                instance[attributeType.baseName] = ObjectSerializer.serialize(data[attributeType.name], attributeType.type, attributeType.format);
+ 	            }
++	            const companion = documentIdCompanions[type];
++                if (companion) {
++                    delete instance[companion.uuid];
++                    if (data[companion.uuid] !== undefined && data[companion.uuid] !== null) {
++                        instance[companion.wire] = data[companion.uuid];
++                    }
++                }
+ 	            return instance;
+ 	        } catch (e) {
+                 return data;
+@@ -424,6 +442,15 @@ export class ObjectSerializer {
+                         instance[attributeType.name] = value;
+                     }
+                 }
++                const companion = documentIdCompanions[type];
++                if (companion && data[companion.wire] !== undefined) {
++                    if (typeof data[companion.wire] === "string") {
++                        instance[companion.id] = null;
++                        instance[companion.uuid] = data[companion.wire];
++                    } else {
++                        instance[companion.uuid] = null;
++                    }
++                }
+                 return instance;
+             } catch (e) {
+                 return data;
+diff --git a/out/manticoresearch-typescript/models/SuccessResponse.ts b/out/manticoresearch-typescript/models/SuccessResponse.ts
+index 5d66a210..508b00c9 100644
+--- a/out/manticoresearch-typescript/models/SuccessResponse.ts
++++ b/out/manticoresearch-typescript/models/SuccessResponse.ts
+@@ -23,7 +23,11 @@ export class SuccessResponse {
+     /**
+     * ID of the document affected by the request operation
+     */
+-    'id'?: number;
++    'id'?: number | null;
++    /**
++    * UUID document ID when the wire ID field is a string.
++    */
++    'uuid'?: string | null;
+     /**
+     * Indicates whether the document was created as a result of the operation
+     */
+@@ -58,6 +62,12 @@ export class SuccessResponse {
+             "type": "number",
+             "format": "uint64"
+         },
++        {
++            "name": "uuid",
++            "baseName": "uuid",
++            "type": "string",
++            "format": ""
++        },
+         {
+             "name": "created",
+             "baseName": "created",
+diff --git a/out/manticoresearch-typescript/models/UpdateDocumentRequest.ts b/out/manticoresearch-typescript/models/UpdateDocumentRequest.ts
+index fa3bcfdf..047fec9e 100644
+--- a/out/manticoresearch-typescript/models/UpdateDocumentRequest.ts
++++ b/out/manticoresearch-typescript/models/UpdateDocumentRequest.ts
+@@ -32,7 +32,11 @@ export class UpdateDocumentRequest {
+     /**
+     * Document ID
+     */
+-    'id'?: number;
++    'id'?: number | null;
++    /**
++    * UUID document ID when the wire ID field is a string.
++    */
++    'uuid'?: string | null;
+     'query'?: QueryFilter | null;
+ 
+     static readonly discriminator: string | undefined = undefined;
+@@ -64,6 +68,12 @@ export class UpdateDocumentRequest {
+             "type": "number",
+             "format": "uint64"
+         },
++        {
++            "name": "uuid",
++            "baseName": "uuid",
++            "type": "string",
++            "format": ""
++        },
+         {
+             "name": "query",
+             "baseName": "query",
+diff --git a/out/manticoresearch-typescript/models/UpdateResponse.ts b/out/manticoresearch-typescript/models/UpdateResponse.ts
+index 5d56ba17..0d0754fe 100644
+--- a/out/manticoresearch-typescript/models/UpdateResponse.ts
++++ b/out/manticoresearch-typescript/models/UpdateResponse.ts
+@@ -27,7 +27,11 @@ export class UpdateResponse {
+     /**
+     * Document ID
+     */
+-    'id'?: number;
++    'id'?: number | null;
++    /**
++    * UUID document ID when the wire ID field is a string.
++    */
++    'uuid'?: string | null;
+     /**
+     * Result of the update operation, typically \'updated\'
+     */
+@@ -56,6 +60,12 @@ export class UpdateResponse {
+             "type": "number",
+             "format": "uint64"
+         },
++        {
++            "name": "uuid",
++            "baseName": "uuid",
++            "type": "string",
++            "format": ""
++        },
+         {
+             "name": "result",
+             "baseName": "result",
+diff --git a/out/manticoresearch-typescript/types/ObjectParamAPI.ts b/out/manticoresearch-typescript/types/ObjectParamAPI.ts
+index ae374914..5eeecc03 100644
+--- a/out/manticoresearch-typescript/types/ObjectParamAPI.ts
++++ b/out/manticoresearch-typescript/types/ObjectParamAPI.ts
+@@ -115,6 +115,12 @@ export interface IndexApiPartialReplaceRequest {
+     replaceDocumentRequest: ReplaceDocumentRequest
+ }
+ 
++export interface IndexApiPartialReplaceUuidRequest {
++    table: string
++    uuid: string
++    replaceDocumentRequest: ReplaceDocumentRequest
++}
++
+ export interface IndexApiReplaceRequest {
+     /**
+      * 
+@@ -199,6 +205,15 @@ export class ObjectIndexApi {
+      * Partially replaces a document in a table
+      * @param param the request object
+      */
++    /** Partially replaces a document by UUID string id. */
++    public partialReplaceUuidWithHttpInfo(param: IndexApiPartialReplaceUuidRequest, options?: Configuration): Promise<HttpInfo<UpdateResponse>> {
++        return this.api.partialReplaceUuidWithHttpInfo(param.table, param.uuid, param.replaceDocumentRequest, options).toPromise();
++    }
++
++    public partialReplaceUuid(param: IndexApiPartialReplaceUuidRequest, options?: Configuration): Promise<UpdateResponse> {
++        return this.api.partialReplaceUuid(param.table, param.uuid, param.replaceDocumentRequest, options).toPromise();
++    }
++
+     public partialReplaceWithHttpInfo(param: IndexApiPartialReplaceRequest, options?: Configuration): Promise<HttpInfo<UpdateResponse>> {
+         return this.api.partialReplaceWithHttpInfo(param.table, param.id, param.replaceDocumentRequest,  options).toPromise();
+     }
+diff --git a/out/manticoresearch-typescript/types/ObservableAPI.ts b/out/manticoresearch-typescript/types/ObservableAPI.ts
+index 4502da19..24076a7a 100644
+--- a/out/manticoresearch-typescript/types/ObservableAPI.ts
++++ b/out/manticoresearch-typescript/types/ObservableAPI.ts
+@@ -185,6 +185,26 @@ export class ObservableIndexApi {
+      * @param id Id of the document to replace
+      * @param replaceDocumentRequest
+      */
++    /** Partially replaces a document by UUID string id. */
++    public partialReplaceUuidWithHttpInfo(table: string, uuid: string, replaceDocumentRequest: ReplaceDocumentRequest, _options?: Configuration): Observable<HttpInfo<UpdateResponse>> {
++        const requestContextPromise = this.requestFactory.partialReplaceUuid(table, uuid, replaceDocumentRequest, _options);
++        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
++        for (const middleware of this.configuration.middleware) {
++            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
++        }
++        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).pipe(mergeMap((response: ResponseContext) => {
++            let middlewarePostObservable = of(response);
++            for (const middleware of this.configuration.middleware) {
++                middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
++            }
++            return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.partialReplaceWithHttpInfo(rsp)));
++        }));
++    }
++
++    public partialReplaceUuid(table: string, uuid: string, replaceDocumentRequest: ReplaceDocumentRequest, _options?: Configuration): Observable<UpdateResponse> {
++        return this.partialReplaceUuidWithHttpInfo(table, uuid, replaceDocumentRequest, _options).pipe(map((apiResponse: HttpInfo<UpdateResponse>) => apiResponse.data));
++    }
++
+     public partialReplaceWithHttpInfo(table: string, id: number, replaceDocumentRequest: ReplaceDocumentRequest, _options?: Configuration): Observable<HttpInfo<UpdateResponse>> {
+         const requestContextPromise = this.requestFactory.partialReplace(table, id, replaceDocumentRequest, _options);
+ 
+diff --git a/out/manticoresearch-typescript/types/PromiseAPI.ts b/out/manticoresearch-typescript/types/PromiseAPI.ts
+index de4e9525..b334b463 100644
+--- a/out/manticoresearch-typescript/types/PromiseAPI.ts
++++ b/out/manticoresearch-typescript/types/PromiseAPI.ts
+@@ -142,6 +142,15 @@ export class PromiseIndexApi {
+      * @param id Id of the document to replace
+      * @param replaceDocumentRequest
+      */
++    /** Partially replaces a document by UUID string id. */
++    public partialReplaceUuidWithHttpInfo(table: string, uuid: string, replaceDocumentRequest: ReplaceDocumentRequest, _options?: Configuration): Promise<HttpInfo<UpdateResponse>> {
++        return this.api.partialReplaceUuidWithHttpInfo(table, uuid, replaceDocumentRequest, _options).toPromise();
++    }
++
++    public partialReplaceUuid(table: string, uuid: string, replaceDocumentRequest: ReplaceDocumentRequest, _options?: Configuration): Promise<UpdateResponse> {
++        return this.api.partialReplaceUuid(table, uuid, replaceDocumentRequest, _options).toPromise();
++    }
++
+     public partialReplaceWithHttpInfo(table: string, id: number, replaceDocumentRequest: ReplaceDocumentRequest, _options?: Configuration): Promise<HttpInfo<UpdateResponse>> {
+         const result = this.api.partialReplaceWithHttpInfo(table, id, replaceDocumentRequest, _options);
+         return result.toPromise();

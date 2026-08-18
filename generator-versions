@@ -1,0 +1,13 @@
+# OpenAPI Generator Docker image tags used to build each client.
+# Collected from ./out/<client>/.openapi-generator/VERSION (java: @Generated annotations).
+# Format: <client> <tag>   (tag is passed as build.sh arg 2, e.g. v7.17.0)
+
+python v7.17.0
+python-asyncio v7.17.0
+java v7.17.0
+javascript v7.17.0
+typescript v7.17.0
+csharp v7.17.0
+go v7.17.0
+rust v7.17.0
+elixir v7.17.0

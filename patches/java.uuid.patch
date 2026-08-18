@@ -1,0 +1,688 @@
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/api/IndexApi.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/api/IndexApi.java
+index a8848c5b..542f9eca 100755
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/api/IndexApi.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/api/IndexApi.java
+@@ -260,6 +260,42 @@ import java.util.Map;
+                                new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarAuthNames, localVarReturnType, false);
+   }
++
++  /**
++   * Partially replaces a document addressed by a UUID string.
++   * @param table Name of the table (required)
++   * @param uuid UUID of the document to replace (required)
++   * @param replaceDocumentRequest replacement document (required)
++   * @return UpdateResponse
++   * @throws ApiException if the API call fails
++   */
++  public UpdateResponse partialReplaceUuid(String table, String uuid, ReplaceDocumentRequest replaceDocumentRequest) throws ApiException {
++    return partialReplaceUuidWithHttpInfo(table, uuid, replaceDocumentRequest).getData();
++  }
++
++  /** Performs a UUID-addressed partial replace with HTTP metadata. */
++  public ApiResponse<UpdateResponse> partialReplaceUuidWithHttpInfo(String table, String uuid, ReplaceDocumentRequest replaceDocumentRequest) throws ApiException {
++    if (table == null) {
++      throw new ApiException(400, "Missing the required parameter 'table' when calling partialReplaceUuid");
++    }
++    if (uuid == null) {
++      throw new ApiException(400, "Missing the required parameter 'uuid' when calling partialReplaceUuid");
++    }
++    if (replaceDocumentRequest == null) {
++      throw new ApiException(400, "Missing the required parameter 'replaceDocumentRequest' when calling partialReplaceUuid");
++    }
++
++    String localVarPath = "/{table}/_update/{id}"
++            .replaceAll("\\{table}", apiClient.escapeString(table))
++            .replaceAll("\\{id}", apiClient.escapeString(uuid));
++    String localVarAccept = apiClient.selectHeaderAccept("application/json");
++    String localVarContentType = apiClient.selectHeaderContentType("application/json");
++    String[] localVarAuthNames = new String[] {"basicAuth", "bearerAuth"};
++    GenericType<UpdateResponse> localVarReturnType = new GenericType<UpdateResponse>() {};
++    return apiClient.invokeAPI("IndexApi.partialReplaceUuid", localVarPath, "POST", new ArrayList<>(), replaceDocumentRequest,
++                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
++                               localVarAuthNames, localVarReturnType, false);
++  }
+   /**
+    * Replace new document in a table
+    * Replace an existing document. Input has same format as &#x60;insert&#x60; operation. Responds with an object in format:    &#x60;&#x60;&#x60;   {&#39;table&#39;:&#39;products&#39;,&#39;id&#39;:1,&#39;created&#39;:false,&#39;result&#39;:&#39;updated&#39;,&#39;status&#39;:200}   &#x60;&#x60;&#x60; 
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/DeleteDocumentRequest.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/DeleteDocumentRequest.java
+index 09f1a736..51be1c8c 100755
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/DeleteDocumentRequest.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/DeleteDocumentRequest.java
+@@ -47,6 +47,10 @@ public class DeleteDocumentRequest {
+   public static final String JSON_PROPERTY_ID = "id";
+   private Long id;
+ 
++  /** UUID companion for the numeric document identifier. */
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  private String uuid;
++
+   public static final String JSON_PROPERTY_QUERY = "query";
+   private Object query;
+ 
+@@ -113,20 +117,51 @@ public class DeleteDocumentRequest {
+    * @return id
+    */
+   @jakarta.annotation.Nullable
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+-
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public Long getId() {
+     return id;
+   }
+ 
+ 
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public void setId(Long id) {
+     this.id = id;
+   }
+ 
++  public DeleteDocumentRequest uuid(String uuid) {
++    this.uuid = uuid;
++    return this;
++  }
++
++  /**
++   * UUID companion for the numeric document identifier.
++   * @return uuid
++   */
++  @jakarta.annotation.Nullable
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public String getUuid() {
++    return uuid;
++  }
++
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public void setUuid(String uuid) {
++    this.uuid = uuid;
++  }
++
++  /** Deserialize the single wire identifier as either numeric id or UUID. */
++  @com.fasterxml.jackson.annotation.JsonSetter("id")
++  public void setWireId(Object value) {
++    this.id = value instanceof Number ? ((Number) value).longValue() : null;
++    this.uuid = value instanceof String ? (String) value : null;
++  }
++
++  /** Serialize the numeric id or UUID companion as one wire field. */
++  @com.fasterxml.jackson.annotation.JsonProperty("id")
++  @com.fasterxml.jackson.annotation.JsonInclude(value = com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
++  public Object getWireId() {
++    return uuid != null ? uuid : id;
++  }
++
+ 
+   public DeleteDocumentRequest query(Object query) {
+     this.query = query;
+@@ -182,6 +216,7 @@ public class DeleteDocumentRequest {
+     sb.append("    table: ").append(toIndentedString(table)).append("\n");
+     sb.append("    cluster: ").append(toIndentedString(cluster)).append("\n");
+     sb.append("    id: ").append(toIndentedString(id)).append("\n");
++    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+     sb.append("    query: ").append(toIndentedString(query)).append("\n");
+     sb.append("}");
+     return sb.toString();
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/DeleteResponse.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/DeleteResponse.java
+index 60d655c3..cd481a15 100755
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/DeleteResponse.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/DeleteResponse.java
+@@ -48,6 +48,10 @@ public class DeleteResponse {
+   public static final String JSON_PROPERTY_ID = "id";
+   private Long id;
+ 
++  /** UUID companion for the numeric document identifier. */
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  private String uuid;
++
+   public static final String JSON_PROPERTY_FOUND = "found";
+   private Boolean found;
+ 
+@@ -117,20 +121,51 @@ public class DeleteResponse {
+    * @return id
+    */
+   @jakarta.annotation.Nullable
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+-
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public Long getId() {
+     return id;
+   }
+ 
+ 
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public void setId(Long id) {
+     this.id = id;
+   }
+ 
++  public DeleteResponse uuid(String uuid) {
++    this.uuid = uuid;
++    return this;
++  }
++
++  /**
++   * UUID companion for the numeric document identifier.
++   * @return uuid
++   */
++  @jakarta.annotation.Nullable
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public String getUuid() {
++    return uuid;
++  }
++
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public void setUuid(String uuid) {
++    this.uuid = uuid;
++  }
++
++  /** Deserialize the single wire identifier as either numeric id or UUID. */
++  @com.fasterxml.jackson.annotation.JsonSetter("id")
++  public void setWireId(Object value) {
++    this.id = value instanceof Number ? ((Number) value).longValue() : null;
++    this.uuid = value instanceof String ? (String) value : null;
++  }
++
++  /** Serialize the numeric id or UUID companion as one wire field. */
++  @com.fasterxml.jackson.annotation.JsonProperty("id")
++  @com.fasterxml.jackson.annotation.JsonInclude(value = com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
++  public Object getWireId() {
++    return uuid != null ? uuid : id;
++  }
++
+ 
+   public DeleteResponse found(Boolean found) {
+     this.found = found;
+@@ -212,6 +246,7 @@ public class DeleteResponse {
+     sb.append("    table: ").append(toIndentedString(table)).append("\n");
+     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
+     sb.append("    id: ").append(toIndentedString(id)).append("\n");
++    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+     sb.append("    found: ").append(toIndentedString(found)).append("\n");
+     sb.append("    result: ").append(toIndentedString(result)).append("\n");
+     sb.append("}");
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/HitsHits.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/HitsHits.java
+index a5903311..108877f8 100755
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/HitsHits.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/HitsHits.java
+@@ -46,6 +46,10 @@ public class HitsHits {
+   public static final String JSON_PROPERTY_ID = "_id";
+   private Long id;
+ 
++  /** UUID companion for the numeric document identifier. */
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  private String uuid;
++
+   public static final String JSON_PROPERTY_SCORE = "_score";
+   private Integer score;
+ 
+@@ -80,20 +84,51 @@ public class HitsHits {
+    * @return id
+    */
+   @jakarta.annotation.Nullable
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+-
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public Long getId() {
+     return id;
+   }
+ 
+ 
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public void setId(Long id) {
+     this.id = id;
+   }
+ 
++  public HitsHits uuid(String uuid) {
++    this.uuid = uuid;
++    return this;
++  }
++
++  /**
++   * UUID companion for the numeric document identifier.
++   * @return uuid
++   */
++  @jakarta.annotation.Nullable
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public String getUuid() {
++    return uuid;
++  }
++
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public void setUuid(String uuid) {
++    this.uuid = uuid;
++  }
++
++  /** Deserialize the single wire identifier as either numeric id or UUID. */
++  @com.fasterxml.jackson.annotation.JsonSetter("_id")
++  public void setWireId(Object value) {
++    this.id = value instanceof Number ? ((Number) value).longValue() : null;
++    this.uuid = value instanceof String ? (String) value : null;
++  }
++
++  /** Serialize the numeric id or UUID companion as one wire field. */
++  @com.fasterxml.jackson.annotation.JsonProperty("_id")
++  @com.fasterxml.jackson.annotation.JsonInclude(value = com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
++  public Object getWireId() {
++    return uuid != null ? uuid : id;
++  }
++
+ 
+   public HitsHits score(Integer score) {
+     this.score = score;
+@@ -293,7 +327,7 @@ public class HitsHits {
+ 
+   @Override
+   public int hashCode() {
+-    return Objects.hash(id, score, source, knnDist, highlight, table, type, fields);
++    return Objects.hash(id, uuid, score, source, knnDist, highlight, table, type, fields);
+   }
+ 
+   @Override
+@@ -301,6 +335,7 @@ public class HitsHits {
+     StringBuilder sb = new StringBuilder();
+     sb.append("class HitsHits {\n");
+     sb.append("    id: ").append(toIndentedString(id)).append("\n");
++    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+     sb.append("    score: ").append(toIndentedString(score)).append("\n");
+     sb.append("    source: ").append(toIndentedString(source)).append("\n");
+     sb.append("    knnDist: ").append(toIndentedString(knnDist)).append("\n");
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/InsertDocumentRequest.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/InsertDocumentRequest.java
+index 4de46f8a..466bcb3f 100755
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/InsertDocumentRequest.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/InsertDocumentRequest.java
+@@ -47,6 +47,10 @@ public class InsertDocumentRequest {
+   public static final String JSON_PROPERTY_ID = "id";
+   private Long id;
+ 
++  /** UUID companion for the numeric document identifier. */
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  private String uuid;
++
+   public static final String JSON_PROPERTY_DOC = "doc";
+   private Object doc;
+ 
+@@ -113,20 +117,51 @@ public class InsertDocumentRequest {
+    * @return id
+    */
+   @jakarta.annotation.Nullable
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+-
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public Long getId() {
+     return id;
+   }
+ 
+ 
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public void setId(Long id) {
+     this.id = id;
+   }
+ 
++  public InsertDocumentRequest uuid(String uuid) {
++    this.uuid = uuid;
++    return this;
++  }
++
++  /**
++   * UUID companion for the numeric document identifier.
++   * @return uuid
++   */
++  @jakarta.annotation.Nullable
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public String getUuid() {
++    return uuid;
++  }
++
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public void setUuid(String uuid) {
++    this.uuid = uuid;
++  }
++
++  /** Deserialize the single wire identifier as either numeric id or UUID. */
++  @com.fasterxml.jackson.annotation.JsonSetter("id")
++  public void setWireId(Object value) {
++    this.id = value instanceof Number ? ((Number) value).longValue() : null;
++    this.uuid = value instanceof String ? (String) value : null;
++  }
++
++  /** Serialize the numeric id or UUID companion as one wire field. */
++  @com.fasterxml.jackson.annotation.JsonProperty("id")
++  @com.fasterxml.jackson.annotation.JsonInclude(value = com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
++  public Object getWireId() {
++    return uuid != null ? uuid : id;
++  }
++
+ 
+   public InsertDocumentRequest doc(Object doc) {
+     this.doc = doc;
+@@ -182,6 +216,7 @@ public class InsertDocumentRequest {
+     sb.append("    table: ").append(toIndentedString(table)).append("\n");
+     sb.append("    cluster: ").append(toIndentedString(cluster)).append("\n");
+     sb.append("    id: ").append(toIndentedString(id)).append("\n");
++    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+     sb.append("    doc: ").append(toIndentedString(doc)).append("\n");
+     sb.append("}");
+     return sb.toString();
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/Knn.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/Knn.java
+index 5fd1e271..3bda31ec 100755
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/Knn.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/Knn.java
+@@ -63,6 +63,10 @@ public class Knn {
+   public static final String JSON_PROPERTY_DOC_ID = "doc_id";
+   private Long docId;
+ 
++  /** UUID companion for the numeric document identifier. */
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  private String uuid;
++
+   public static final String JSON_PROPERTY_EF = "ef";
+   private Integer ef;
+ 
+@@ -210,6 +214,40 @@ public class Knn {
+     this.docId = docId;
+   }
+ 
++  public Knn uuid(String uuid) {
++    this.uuid = uuid;
++    return this;
++  }
++
++  /**
++   * UUID companion for the numeric document identifier.
++   * @return uuid
++   */
++  @jakarta.annotation.Nullable
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public String getUuid() {
++    return uuid;
++  }
++
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public void setUuid(String uuid) {
++    this.uuid = uuid;
++  }
++
++  /** Deserialize the single wire identifier as either numeric id or UUID. */
++  @com.fasterxml.jackson.annotation.JsonSetter("doc_id")
++  public void setWireDocId(Object value) {
++    this.docId = value instanceof Number ? ((Number) value).longValue() : null;
++    this.uuid = value instanceof String ? (String) value : null;
++  }
++
++  /** Serialize the numeric id or UUID companion as one wire field. */
++  @com.fasterxml.jackson.annotation.JsonProperty("doc_id")
++  @com.fasterxml.jackson.annotation.JsonInclude(value = com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
++  public Object getWireDocId() {
++    return uuid != null ? uuid : docId;
++  }
++
+ 
+   public Knn ef(Integer ef) {
+     this.ef = ef;
+@@ -327,6 +364,7 @@ public class Knn {
+         Objects.equals(this.query, knn.query) &&
+         Objects.equals(this.queryVector, knn.queryVector) &&
+         Objects.equals(this.docId, knn.docId) &&
++        Objects.equals(this.uuid, knn.uuid) &&
+         Objects.equals(this.ef, knn.ef) &&
+         Objects.equals(this.rescore, knn.rescore) &&
+         Objects.equals(this.oversampling, knn.oversampling) &&
+@@ -347,6 +385,7 @@ public class Knn {
+     sb.append("    query: ").append(toIndentedString(query)).append("\n");
+     sb.append("    queryVector: ").append(toIndentedString(queryVector)).append("\n");
+     sb.append("    docId: ").append(toIndentedString(docId)).append("\n");
++    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+     sb.append("    ef: ").append(toIndentedString(ef)).append("\n");
+     sb.append("    rescore: ").append(toIndentedString(rescore)).append("\n");
+     sb.append("    oversampling: ").append(toIndentedString(oversampling)).append("\n");
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SuccessResponse.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SuccessResponse.java
+index 765005bd..68bd9a90 100755
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SuccessResponse.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/SuccessResponse.java
+@@ -46,6 +46,10 @@ public class SuccessResponse {
+   public static final String JSON_PROPERTY_ID = "id";
+   private Long id;
+ 
++  /** UUID companion for the numeric document identifier. */
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  private String uuid;
++
+   public static final String JSON_PROPERTY_CREATED = "created";
+   private Boolean created;
+ 
+@@ -96,20 +100,51 @@ public class SuccessResponse {
+    * @return id
+    */
+   @jakarta.annotation.Nullable
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+-
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public Long getId() {
+     return id;
+   }
+ 
+ 
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public void setId(Long id) {
+     this.id = id;
+   }
+ 
++  public SuccessResponse uuid(String uuid) {
++    this.uuid = uuid;
++    return this;
++  }
++
++  /**
++   * UUID companion for the numeric document identifier.
++   * @return uuid
++   */
++  @jakarta.annotation.Nullable
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public String getUuid() {
++    return uuid;
++  }
++
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public void setUuid(String uuid) {
++    this.uuid = uuid;
++  }
++
++  /** Deserialize the single wire identifier as either numeric id or UUID. */
++  @com.fasterxml.jackson.annotation.JsonSetter("id")
++  public void setWireId(Object value) {
++    this.id = value instanceof Number ? ((Number) value).longValue() : null;
++    this.uuid = value instanceof String ? (String) value : null;
++  }
++
++  /** Serialize the numeric id or UUID companion as one wire field. */
++  @com.fasterxml.jackson.annotation.JsonProperty("id")
++  @com.fasterxml.jackson.annotation.JsonInclude(value = com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
++  public Object getWireId() {
++    return uuid != null ? uuid : id;
++  }
++
+ 
+   public SuccessResponse created(Boolean created) {
+     this.created = created;
+@@ -241,6 +275,7 @@ public class SuccessResponse {
+     sb.append("class SuccessResponse {\n");
+     sb.append("    table: ").append(toIndentedString(table)).append("\n");
+     sb.append("    id: ").append(toIndentedString(id)).append("\n");
++    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+     sb.append("    created: ").append(toIndentedString(created)).append("\n");
+     sb.append("    result: ").append(toIndentedString(result)).append("\n");
+     sb.append("    found: ").append(toIndentedString(found)).append("\n");
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/UpdateDocumentRequest.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/UpdateDocumentRequest.java
+index bb8b5007..7313423a 100755
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/UpdateDocumentRequest.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/UpdateDocumentRequest.java
+@@ -56,6 +56,10 @@ public class UpdateDocumentRequest {
+   public static final String JSON_PROPERTY_ID = "id";
+   private Long id;
+ 
++  /** UUID companion for the numeric document identifier. */
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  private String uuid;
++
+   public static final String JSON_PROPERTY_QUERY = "query";
+   private JsonNullable<QueryFilter> query = JsonNullable.<QueryFilter>undefined();
+ 
+@@ -147,20 +151,51 @@ public class UpdateDocumentRequest {
+    * @return id
+    */
+   @jakarta.annotation.Nullable
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+-
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public Long getId() {
+     return id;
+   }
+ 
+ 
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public void setId(Long id) {
+     this.id = id;
+   }
+ 
++  public UpdateDocumentRequest uuid(String uuid) {
++    this.uuid = uuid;
++    return this;
++  }
++
++  /**
++   * UUID companion for the numeric document identifier.
++   * @return uuid
++   */
++  @jakarta.annotation.Nullable
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public String getUuid() {
++    return uuid;
++  }
++
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public void setUuid(String uuid) {
++    this.uuid = uuid;
++  }
++
++  /** Deserialize the single wire identifier as either numeric id or UUID. */
++  @com.fasterxml.jackson.annotation.JsonSetter("id")
++  public void setWireId(Object value) {
++    this.id = value instanceof Number ? ((Number) value).longValue() : null;
++    this.uuid = value instanceof String ? (String) value : null;
++  }
++
++  /** Serialize the numeric id or UUID companion as one wire field. */
++  @com.fasterxml.jackson.annotation.JsonProperty("id")
++  @com.fasterxml.jackson.annotation.JsonInclude(value = com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
++  public Object getWireId() {
++    return uuid != null ? uuid : id;
++  }
++
+ 
+   public UpdateDocumentRequest query(QueryFilter query) {
+     this.query = JsonNullable.<QueryFilter>of(query);
+@@ -236,6 +270,7 @@ public class UpdateDocumentRequest {
+     sb.append("    cluster: ").append(toIndentedString(cluster)).append("\n");
+     sb.append("    doc: ").append(toIndentedString(doc)).append("\n");
+     sb.append("    id: ").append(toIndentedString(id)).append("\n");
++    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+     sb.append("    query: ").append(toIndentedString(query)).append("\n");
+     sb.append("}");
+     return sb.toString();
+diff --git a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/UpdateResponse.java b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/UpdateResponse.java
+index 47c56049..1ea1421e 100755
+--- a/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/UpdateResponse.java
++++ b/out/manticoresearch-java/src/main/java/com/manticoresearch/client/model/UpdateResponse.java
+@@ -47,6 +47,10 @@ public class UpdateResponse {
+   public static final String JSON_PROPERTY_ID = "id";
+   private Long id;
+ 
++  /** UUID companion for the numeric document identifier. */
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  private String uuid;
++
+   public static final String JSON_PROPERTY_RESULT = "result";
+   private String result;
+ 
+@@ -113,20 +117,51 @@ public class UpdateResponse {
+    * @return id
+    */
+   @jakarta.annotation.Nullable
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+-
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public Long getId() {
+     return id;
+   }
+ 
+ 
+-  @JsonProperty(JSON_PROPERTY_ID)
+-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
++  @com.fasterxml.jackson.annotation.JsonIgnore
+   public void setId(Long id) {
+     this.id = id;
+   }
+ 
++  public UpdateResponse uuid(String uuid) {
++    this.uuid = uuid;
++    return this;
++  }
++
++  /**
++   * UUID companion for the numeric document identifier.
++   * @return uuid
++   */
++  @jakarta.annotation.Nullable
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public String getUuid() {
++    return uuid;
++  }
++
++  @com.fasterxml.jackson.annotation.JsonIgnore
++  public void setUuid(String uuid) {
++    this.uuid = uuid;
++  }
++
++  /** Deserialize the single wire identifier as either numeric id or UUID. */
++  @com.fasterxml.jackson.annotation.JsonSetter("id")
++  public void setWireId(Object value) {
++    this.id = value instanceof Number ? ((Number) value).longValue() : null;
++    this.uuid = value instanceof String ? (String) value : null;
++  }
++
++  /** Serialize the numeric id or UUID companion as one wire field. */
++  @com.fasterxml.jackson.annotation.JsonProperty("id")
++  @com.fasterxml.jackson.annotation.JsonInclude(value = com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
++  public Object getWireId() {
++    return uuid != null ? uuid : id;
++  }
++
+ 
+   public UpdateResponse result(String result) {
+     this.result = result;
+@@ -182,6 +216,7 @@ public class UpdateResponse {
+     sb.append("    table: ").append(toIndentedString(table)).append("\n");
+     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+     sb.append("    id: ").append(toIndentedString(id)).append("\n");
++    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+     sb.append("    result: ").append(toIndentedString(result)).append("\n");
+     sb.append("}");
+     return sb.toString();

@@ -7,14 +7,14 @@
 
 ```shell
 
-go get github.com/manticoresoftware/manticoresearch-go@v1.12.0
+go get github.com/manticoresoftware/manticoresearch-go@v1.13.0
 
 ```
 
 ## Getting Started
 
 go mod init main
-go get github.com/manticoresoftware/manticoresearch-go@v1.12.0
+go get github.com/manticoresoftware/manticoresearch-go@v1.13.0
 
 ```go
 

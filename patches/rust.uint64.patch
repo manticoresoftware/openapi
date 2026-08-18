@@ -1,49 +1,4 @@
-diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/apis/index_api.rs /tmp/tmpylpdflou/b/out/manticoresearch-rust/src/apis/index_api.rs
---- a/out/manticoresearch-rust/src/apis/index_api.rs
-+++ b/out/manticoresearch-rust/src/apis/index_api.rs
-@@ -40,7 +40,7 @@
-     fn bulk(&self, body: &str) -> Pin<Box<dyn Future<Output = Result<models::BulkResponse, Error>> + Send>>;
-     fn delete(&self, delete_document_request: models::DeleteDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::DeleteResponse, Error>> + Send>>;
-     fn insert(&self, insert_document_request: models::InsertDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::SuccessResponse, Error>> + Send>>;
--    fn partial_replace(&self, table: &str, id: i32, replace_document_request: models::ReplaceDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::UpdateResponse, Error>> + Send>>;
-+    fn partial_replace(&self, table: &str, id: u64, replace_document_request: models::ReplaceDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::UpdateResponse, Error>> + Send>>;
-     fn replace(&self, insert_document_request: models::InsertDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::SuccessResponse, Error>> + Send>>;
-     fn update(&self, update_document_request: models::UpdateDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::UpdateResponse, Error>> + Send>>;
- }
-@@ -78,7 +78,7 @@
-     }
- 
-     #[allow(unused_mut)]
--    fn partial_replace(&self, table: &str, id: i32, replace_document_request: models::ReplaceDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::UpdateResponse, Error>> + Send>> {
-+    fn partial_replace(&self, table: &str, id: u64, replace_document_request: models::ReplaceDocumentRequest) -> Pin<Box<dyn Future<Output = Result<models::UpdateResponse, Error>> + Send>> {
-         let mut req = __internal_request::Request::new(hyper::Method::POST, "/{table}/_update/{id}".to_string())
-             .with_auth(__internal_request::Auth::Basic)
-         ;
-diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/models/delete_document_request.rs /tmp/tmpylpdflou/b/out/manticoresearch-rust/src/models/delete_document_request.rs
---- a/out/manticoresearch-rust/src/models/delete_document_request.rs
-+++ b/out/manticoresearch-rust/src/models/delete_document_request.rs
-@@ -22,7 +22,7 @@
-     pub cluster: Option<String>,
-     /// The ID of document for deletion
-     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
--    pub id: Option<i32>,
-+    pub id: Option<u64>,
-     /// Defines the criteria to match documents for deletion
-     #[serde(rename = "query", skip_serializing_if = "Option::is_none")]
-     pub query: Option<serde_json::Value>,
-diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/models/delete_response.rs /tmp/tmpylpdflou/b/out/manticoresearch-rust/src/models/delete_response.rs
---- a/out/manticoresearch-rust/src/models/delete_response.rs
-+++ b/out/manticoresearch-rust/src/models/delete_response.rs
-@@ -22,7 +22,7 @@
-     pub deleted: Option<i32>,
-     /// The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned
-     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
--    pub id: Option<i32>,
-+    pub id: Option<u64>,
-     /// Indicates whether any documents to be deleted were found
-     #[serde(rename = "found", skip_serializing_if = "Option::is_none")]
-     pub found: Option<bool>,
-diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/models/hits_hits.rs /tmp/tmpylpdflou/b/out/manticoresearch-rust/src/models/hits_hits.rs
+diff --git a/out/manticoresearch-rust/src/models/hits_hits.rs b/out/manticoresearch-rust/src/models/hits_hits.rs
 --- a/out/manticoresearch-rust/src/models/hits_hits.rs
 +++ b/out/manticoresearch-rust/src/models/hits_hits.rs
 @@ -16,7 +16,7 @@
@@ -55,7 +10,7 @@ diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/models/hits_hits.r
      /// The score of the matched document
      #[serde(rename = "_score", skip_serializing_if = "Option::is_none")]
      pub _score: Option<i32>,
-diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/models/insert_document_request.rs /tmp/tmpylpdflou/b/out/manticoresearch-rust/src/models/insert_document_request.rs
+diff --git a/out/manticoresearch-rust/src/models/insert_document_request.rs b/out/manticoresearch-rust/src/models/insert_document_request.rs
 --- a/out/manticoresearch-rust/src/models/insert_document_request.rs
 +++ b/out/manticoresearch-rust/src/models/insert_document_request.rs
 @@ -22,7 +22,7 @@
@@ -67,19 +22,31 @@ diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/models/insert_docu
      /// Object containing document data 
      #[serde(rename = "doc")]
      pub doc: serde_json::Value,
-diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/models/knn.rs /tmp/tmpylpdflou/b/out/manticoresearch-rust/src/models/knn.rs
---- a/out/manticoresearch-rust/src/models/knn.rs
-+++ b/out/manticoresearch-rust/src/models/knn.rs
-@@ -27,7 +27,7 @@
-     pub query_vector: Option<Vec<f64>>,
-     /// The docuemnt ID used as input for the KNN search
-     #[serde(rename = "doc_id", skip_serializing_if = "Option::is_none")]
--    pub doc_id: Option<i32>,
-+    pub doc_id: Option<u64>,
-     /// Optional parameter controlling the accuracy of the search
-     #[serde(rename = "ef", skip_serializing_if = "Option::is_none")]
-     pub ef: Option<i32>,
-diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/models/success_response.rs /tmp/tmpylpdflou/b/out/manticoresearch-rust/src/models/success_response.rs
+diff --git a/out/manticoresearch-rust/src/models/delete_document_request.rs b/out/manticoresearch-rust/src/models/delete_document_request.rs
+--- a/out/manticoresearch-rust/src/models/delete_document_request.rs
++++ b/out/manticoresearch-rust/src/models/delete_document_request.rs
+@@ -22,7 +22,7 @@
+     pub cluster: Option<String>,
+     /// The ID of document for deletion
+     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+-    pub id: Option<i32>,
++    pub id: Option<u64>,
+     /// Defines the criteria to match documents for deletion
+     #[serde(rename = "query", skip_serializing_if = "Option::is_none")]
+     pub query: Option<serde_json::Value>,
+diff --git a/out/manticoresearch-rust/src/models/delete_response.rs b/out/manticoresearch-rust/src/models/delete_response.rs
+--- a/out/manticoresearch-rust/src/models/delete_response.rs
++++ b/out/manticoresearch-rust/src/models/delete_response.rs
+@@ -22,7 +22,7 @@
+     pub deleted: Option<i32>,
+     /// The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned 
+     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+-    pub id: Option<i32>,
++    pub id: Option<u64>,
+     /// Indicates whether any documents to be deleted were found
+     #[serde(rename = "found", skip_serializing_if = "Option::is_none")]
+     pub found: Option<bool>,
+diff --git a/out/manticoresearch-rust/src/models/success_response.rs b/out/manticoresearch-rust/src/models/success_response.rs
 --- a/out/manticoresearch-rust/src/models/success_response.rs
 +++ b/out/manticoresearch-rust/src/models/success_response.rs
 @@ -19,7 +19,7 @@
@@ -91,7 +58,7 @@ diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/models/success_res
      /// Indicates whether the document was created as a result of the operation
      #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
      pub created: Option<bool>,
-diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/models/update_document_request.rs /tmp/tmpylpdflou/b/out/manticoresearch-rust/src/models/update_document_request.rs
+diff --git a/out/manticoresearch-rust/src/models/update_document_request.rs b/out/manticoresearch-rust/src/models/update_document_request.rs
 --- a/out/manticoresearch-rust/src/models/update_document_request.rs
 +++ b/out/manticoresearch-rust/src/models/update_document_request.rs
 @@ -25,7 +25,7 @@
@@ -103,7 +70,7 @@ diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/models/update_docu
      #[serde(rename = "query", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
      pub query: Option<Option<Box<models::QueryFilter>>>,
  }
-diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/models/update_response.rs /tmp/tmpylpdflou/b/out/manticoresearch-rust/src/models/update_response.rs
+diff --git a/out/manticoresearch-rust/src/models/update_response.rs b/out/manticoresearch-rust/src/models/update_response.rs
 --- a/out/manticoresearch-rust/src/models/update_response.rs
 +++ b/out/manticoresearch-rust/src/models/update_response.rs
 @@ -22,7 +22,7 @@
@@ -115,3 +82,15 @@ diff -u -N -r /tmp/tmpylpdflou/a/out/manticoresearch-rust/src/models/update_resp
      /// Result of the update operation, typically 'updated'
      #[serde(rename = "result", skip_serializing_if = "Option::is_none")]
      pub result: Option<String>,
+diff --git a/out/manticoresearch-rust/src/models/knn.rs b/out/manticoresearch-rust/src/models/knn.rs
+--- a/out/manticoresearch-rust/src/models/knn.rs
++++ b/out/manticoresearch-rust/src/models/knn.rs
+@@ -27,7 +27,7 @@
+     pub query_vector: Option<Vec<f64>>,
+     /// The document ID used as input for the KNN search
+     #[serde(rename = "doc_id", skip_serializing_if = "Option::is_none")]
+-    pub doc_id: Option<i32>,
++    pub doc_id: Option<u64>,
+     /// Optional parameter controlling the accuracy of the search
+     #[serde(rename = "ef", skip_serializing_if = "Option::is_none")]
+     pub ef: Option<i32>,

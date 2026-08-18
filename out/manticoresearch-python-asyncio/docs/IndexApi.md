@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**delete**](IndexApi.md#delete) | **POST** /delete | Delete a document in a table
 [**insert**](IndexApi.md#insert) | **POST** /insert | Create a new document in a table
 [**partial_replace**](IndexApi.md#partial_replace) | **POST** /{table}/_update/{id} | Partially replaces a document in a table
+[**partial_replace_uuid**](IndexApi.md#partial_replace_uuid) | **POST** /{table}/_update/{id} | Partially replaces a document in a table by UUID
 [**replace**](IndexApi.md#replace) | **POST** /replace | Replace new document in a table
 [**update**](IndexApi.md#update) | **POST** /update | Update a document in a table
 
@@ -17,42 +18,10 @@ Method | HTTP request | Description
 
 Bulk table operations
 
-Sends multiple operatons like inserts, updates, replaces or deletes. 
-For each operation it's object must have same format as in their dedicated method. 
-The method expects a raw string as the batch in NDJSON.
- Each operation object needs to be serialized to 
- JSON and separated by endline (\n). 
- 
-  An example of raw input:
-  
-  ```
-  {"insert": {"table": "movies", "doc": {"plot": "A secret team goes to North Pole", "rating": 9.5, "language": [2, 3], "title": "This is an older movie", "lon": 51.99, "meta": {"keywords":["travel","ice"],"genre":["adventure"]}, "year": 1950, "lat": 60.4, "advise": "PG-13"}}}
-  \n
-  {"delete": {"table": "movies","id":700}}
-  ```
-  
-  Responds with an object telling whenever any errors occured and an array with status for each operation:
-  
-  ```
-  {
-    'items':
-    [
-      {
-        'update':{'table':'products','id':1,'result':'updated'}
-      },
-      {
-        'update':{'table':'products','id':2,'result':'updated'}
-      }
-    ],
-    'errors':false
-  }
-  ```
-
+Sends multiple operatons like inserts, updates, replaces or deletes.  For each operation it's object must have same format as in their dedicated method.  The method expects a raw string as the batch in NDJSON.  Each operation object needs to be serialized to   JSON and separated by endline (\\n).      An example of raw input:      ```   {\"insert\": {\"table\": \"movies\", \"doc\": {\"plot\": \"A secret team goes to North Pole\", \"rating\": 9.5, \"language\": [2, 3], \"title\": \"This is an older movie\", \"lon\": 51.99, \"meta\": {\"keywords\":[\"travel\",\"ice\"],\"genre\":[\"adventure\"]}, \"year\": 1950, \"lat\": 60.4, \"advise\": \"PG-13\"}}}   \\n   {\"delete\": {\"table\": \"movies\",\"id\":700}}   ```      Responds with an object telling whenever any errors occured and an array with status for each operation:      ```   {     'items':     [       {         'update':{'table':'products','_id':1,'result':'updated'}       },       {         'update':{'table':'products','_id':2,'result':'updated'}       }     ],     'errors':false   }   ``` 
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -66,31 +35,16 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = manticoresearch.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization: bearerAuth
-configuration = manticoresearch.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+with manticoresearch.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = manticoresearch.IndexApi(api_client)
     body = 'body_example' # str | 
 
     try:
         # Bulk table operations
-        api_response = await api_instance.bulk(body)
+        api_response = api_instance.bulk(body)
         print("The response of IndexApi->bulk:\n")
         pprint(api_response)
     except Exception as e:
@@ -112,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -133,44 +87,10 @@ Name | Type | Description  | Notes
 
 Delete a document in a table
 
-Delete one or several documents.
-The method has 2 ways of deleting: either by id, in case only one document is deleted or by using a  match query, in which case multiple documents can be delete .
-Example of input to delete by id:
-
-  ```
-  {'table':'movies','id':100}
-  ```
-
-Example of input to delete using a query:
-
-  ```
-  {
-    'table':'movies',
-    'query':
-    {
-      'bool':
-      {
-        'must':
-        [
-          {'query_string':'new movie'}
-        ]
-      }
-    }
-  }
-  ```
-
-The match query has same syntax as in for searching.
-Responds with an object telling how many documents got deleted: 
-
-  ```
-  {'table':'products','updated':1}
-  ```
-
+Delete one or several documents. The method has 2 ways of deleting: either by id, in case only one document is deleted or by using a  match query, in which case multiple documents can be delete . Example of input to delete by id:    ```   {'table':'movies','id':100}   ```  Example of input to delete using a query:    ```   {     'table':'movies',     'query':     {       'bool':       {         'must':         [           {'query_string':'new movie'}         ]       }     }   }   ```  The match query has same syntax as in for searching. Responds with an object telling how many documents got deleted:     ```   {'table':'products','updated':1}   ``` 
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -185,31 +105,16 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = manticoresearch.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization: bearerAuth
-configuration = manticoresearch.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+with manticoresearch.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = manticoresearch.IndexApi(api_client)
     delete_document_request = {"table":"test","query":{"match":{"title":"apple"}}} # DeleteDocumentRequest | 
 
     try:
         # Delete a document in a table
-        api_response = await api_instance.delete(delete_document_request)
+        api_response = api_instance.delete(delete_document_request)
         print("The response of IndexApi->delete:\n")
         pprint(api_response)
     except Exception as e:
@@ -231,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -252,59 +157,10 @@ Name | Type | Description  | Notes
 
 Create a new document in a table
 
-Insert a document. 
-Expects an object like:
- 
-  ```
-  {
-    'table':'movies',
-    'id':701,
-    'doc':
-    {
-      'title':'This is an old movie',
-      'plot':'A secret team goes to North Pole',
-      'year':1950,
-      'rating':9.5,
-      'lat':60.4,
-      'lon':51.99,
-      'advise':'PG-13',
-      'meta':'{"keywords":{"travel","ice"},"genre":{"adventure"}}',
-      'language':[2,3]
-    }
-  }
-  ```
- 
-The document id can also be missing, in which case an autogenerated one will be used:
-         
-  ```
-  {
-    'table':'movies',
-    'doc':
-    {
-      'title':'This is a new movie',
-      'plot':'A secret team goes to North Pole',
-      'year':2020,
-      'rating':9.5,
-      'lat':60.4,
-      'lon':51.99,
-      'advise':'PG-13',
-      'meta':'{"keywords":{"travel","ice"},"genre":{"adventure"}}',
-      'language':[2,3]
-    }
-  }
-  ```
- 
-It responds with an object in format:
-  
-  ```
-  {'table':'products','id':701,'created':true,'result':'created','status':201}
-  ```
-
+Insert a document.  Expects an object like:     ```   {     'table':'movies',     'id':701,     'doc':     {       'title':'This is an old movie',       'plot':'A secret team goes to North Pole',       'year':1950,       'rating':9.5,       'lat':60.4,       'lon':51.99,       'advise':'PG-13',       'meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}',       'language':[2,3]     }   }   ```   The document id can also be missing, in which case an autogenerated one will be used:             ```   {     'table':'movies',     'doc':     {       'title':'This is a new movie',       'plot':'A secret team goes to North Pole',       'year':2020,       'rating':9.5,       'lat':60.4,       'lon':51.99,       'advise':'PG-13',       'meta':'{\"keywords\":{\"travel\",\"ice\"},\"genre\":{\"adventure\"}}',       'language':[2,3]     }   }   ```   It responds with an object in format:      ```   {'table':'products','_id':701,'created':true,'result':'created','status':201}   ``` 
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -319,31 +175,16 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = manticoresearch.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization: bearerAuth
-configuration = manticoresearch.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+with manticoresearch.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = manticoresearch.IndexApi(api_client)
     insert_document_request = {"table":"test","id":1,"doc":{"title":"sample title","gid":10}} # InsertDocumentRequest | 
 
     try:
         # Create a new document in a table
-        api_response = await api_instance.insert(insert_document_request)
+        api_response = api_instance.insert(insert_document_request)
         print("The response of IndexApi->insert:\n")
         pprint(api_response)
     except Exception as e:
@@ -365,7 +206,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -386,18 +227,10 @@ Name | Type | Description  | Notes
 
 Partially replaces a document in a table
 
-Partially replaces a document with given id in a table
-Responds with an object of the following format: 
-
-  ```
-  {'table':'products','updated':1}
-  ```
-
+Partially replaces a document with given id in a table Responds with an object of the following format:     ```   {'table':'products','updated':1}   ``` 
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -412,24 +245,9 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = manticoresearch.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization: bearerAuth
-configuration = manticoresearch.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+with manticoresearch.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = manticoresearch.IndexApi(api_client)
     table = 'table_example' # str | Name of the percolate table
@@ -438,7 +256,7 @@ async with manticoresearch.ApiClient(configuration) as api_client:
 
     try:
         # Partially replaces a document in a table
-        api_response = await api_instance.partial_replace(table, id, replace_document_request)
+        api_response = api_instance.partial_replace(table, id, replace_document_request)
         print("The response of IndexApi->partial_replace:\n")
         pprint(api_response)
     except Exception as e:
@@ -462,7 +280,68 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | item updated |  -  |
+**0** | error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **partial_replace_uuid**
+> UpdateResponse partial_replace_uuid(table, uuid, replace_document_request)
+
+Partially replaces a document in a table by UUID string id
+
+Same endpoint as `partial_replace`, but the path `{id}` is a UUID string (for tables created with `id uuid`). Prefer this helper instead of passing a UUID into the numeric `partial_replace` API.
+
+### Example
+
+
+```python
+import manticoresearch
+from manticoresearch.models.replace_document_request import ReplaceDocumentRequest
+from pprint import pprint
+
+configuration = manticoresearch.Configuration(host="http://127.0.0.1:9308")
+with manticoresearch.ApiClient(configuration) as api_client:
+    api_instance = manticoresearch.IndexApi(api_client)
+    table = "movies_uuid"
+    uuid = "550e8400-e29b-41d4-a716-446655440000"
+    replace_document_request = {"doc": {"title": "updated"}}
+    try:
+        api_response = api_instance.partial_replace_uuid(table, uuid, replace_document_request)
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling IndexApi->partial_replace_uuid: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **table** | **str**| Name of the table | 
+ **uuid** | **str**| UUID of the document to replace | 
+ **replace_document_request** | [**ReplaceDocumentRequest**](ReplaceDocumentRequest.md)|  | 
+
+### Return type
+
+[**UpdateResponse**](UpdateResponse.md)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 
@@ -483,18 +362,10 @@ Name | Type | Description  | Notes
 
 Replace new document in a table
 
-Replace an existing document. Input has same format as `insert` operation.
-Responds with an object in format:
-
-  ```
-  {'table':'products','id':1,'created':false,'result':'updated','status':200}
-  ```
-
+Replace an existing document. Input has same format as `insert` operation. Responds with an object in format:    ```   {'table':'products','_id':1,'created':false,'result':'updated','status':200}   ``` 
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -509,31 +380,16 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = manticoresearch.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization: bearerAuth
-configuration = manticoresearch.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+with manticoresearch.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = manticoresearch.IndexApi(api_client)
     insert_document_request = {"table":"test","id":1,"doc":{"title":"updated title","gid":15}} # InsertDocumentRequest | 
 
     try:
         # Replace new document in a table
-        api_response = await api_instance.replace(insert_document_request)
+        api_response = api_instance.replace(insert_document_request)
         print("The response of IndexApi->replace:\n")
         pprint(api_response)
     except Exception as e:
@@ -555,7 +411,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -576,44 +432,10 @@ Name | Type | Description  | Notes
 
 Update a document in a table
 
-Update one or several documents.
-The update can be made by passing the id or by using a match query in case multiple documents can be updated.  For example update a document using document id:
-
-  ```
-  {'table':'movies','doc':{'rating':9.49},'id':100}
-  ```
-
-And update by using a match query:
-
-  ```
-  {
-    'table':'movies',
-    'doc':{'rating':9.49},
-    'query':
-    {
-      'bool':
-      {
-        'must':
-        [
-          {'query_string':'new movie'}
-        ]
-      }
-    }
-  }
-  ``` 
-
-The match query has same syntax as for searching.
-Responds with an object that tells how many documents where updated in format: 
-
-  ```
-  {'table':'products','updated':1}
-  ```
-
+Update one or several documents. The update can be made by passing the id or by using a match query in case multiple documents can be updated.  For example update a document using document id:    ```   {'table':'movies','doc':{'rating':9.49},'id':100}   ```  And update by using a match query:    ```   {     'table':'movies',     'doc':{'rating':9.49},     'query':     {       'bool':       {         'must':         [           {'query_string':'new movie'}         ]       }     }   }   ```   The match query has same syntax as for searching. Responds with an object that tells how many documents where updated in format:     ```   {'table':'products','updated':1}   ``` 
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer Authentication (bearerAuth):
 
 ```python
 import manticoresearch
@@ -628,31 +450,16 @@ configuration = manticoresearch.Configuration(
     host = "http://127.0.0.1:9308"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = manticoresearch.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization: bearerAuth
-configuration = manticoresearch.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
-async with manticoresearch.ApiClient(configuration) as api_client:
+with manticoresearch.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = manticoresearch.IndexApi(api_client)
     update_document_request = {"table":"test","doc":{"gid":20},"query":{"equals":{"cat_id":2}}} # UpdateDocumentRequest | 
 
     try:
         # Update a document in a table
-        api_response = await api_instance.update(update_document_request)
+        api_response = api_instance.update(update_document_request)
         print("The response of IndexApi->update:\n")
         pprint(api_response)
     except Exception as e:
@@ -674,7 +481,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

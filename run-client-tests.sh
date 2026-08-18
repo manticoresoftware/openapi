@@ -558,6 +558,25 @@ elif client == "rust":
         write(p, text)
 
 elif client == "elixir":
+    if mode == "noauth":
+        conn = f'Manticoresearch.Connection.new(base_url: "{url}")'
+    elif mode == "basic":
+        conn = (
+            f'Manticoresearch.Connection.new(base_url: "{url}", '
+            f'username: "{user}", password: "{password}")'
+        )
+    else:
+        conn = (
+            f'Manticoresearch.Connection.new(base_url: "{url}", '
+            f'bearer_token: "{token}")'
+        )
+    conn_re = re.compile(
+        r'Manticoresearch\.Connection\.new\(base_url:\s*"[^"]+"(?:\s*,\s*[^)]*)?\)'
+    )
+    for p in (root / "test").glob("*.exs"):
+        text = conn_re.sub(conn, rewrite_urls(p.read_text(encoding="utf-8")))
+        write(p, text)
+
     for env_file in ("config/test.exs", "config/dev.exs", "config/config.exs"):
         p = root / env_file
         if not p.exists():
@@ -568,27 +587,7 @@ elif client == "elixir":
             f'config :manticoresearch, base_url: "{url}"',
             text,
         )
-        if "base_url:" not in text and env_file.endswith("test.exs"):
-            text += f'\nconfig :manticoresearch, base_url: "{url}"\n'
         write(p, text)
-
-    conn = root / "lib" / "manticoresearch" / "connection.ex"
-    if conn.exists():
-        text = conn.read_text(encoding="utf-8")
-        text = re.sub(
-            r'plug Tesla\.Middleware\.Headers, \[.*?\]\n',
-            'plug Tesla.Middleware.Headers, [{"user-agent", "Elixir"}]\n',
-            text,
-            count=1,
-        )
-        if mode != "noauth":
-            header = auth_header_basic if mode == "basic" else auth_header_bearer
-            text = text.replace(
-                'plug Tesla.Middleware.Headers, [{"user-agent", "Elixir"}]',
-                'plug Tesla.Middleware.Headers, [{"user-agent", "Elixir"}, '
-                f'{{"Authorization", {header!r}}}]',
-            )
-        write(conn, text)
 
 print(f"prepared {client} mode={mode} url={url}", flush=True)
 PY
@@ -755,7 +754,7 @@ run_matrix() {
   print_summary
 }
 
-host_orchestrate() {
+prepare_services() {
   cd "$ROOT_DIR"
 
   if [[ ! -d "$ROOT_DIR/out" ]]; then
@@ -770,9 +769,10 @@ host_orchestrate() {
   wait_http "$MANTICORE_NOAUTH_URL" "manticore(noauth)" 0
   wait_http "$MANTICORE_AUTH_URL" "manticore(auth)" 1
   bootstrap_auth
+  log "Test services ready"
+}
 
-  log "Running test matrix in client-tests container ..."
-  set +e
+run_client_tests_container() {
   docker compose --profile test run --rm \
     -e CLIENTS="${CLIENTS:-}" \
     -e EXCLUDE_CLIENTS="${EXCLUDE_CLIENTS:-}" \
@@ -781,6 +781,14 @@ host_orchestrate() {
     -e MANTICORE_USER="$MANTICORE_USER" \
     -e MANTICORE_PASSWORD="$MANTICORE_PASSWORD" \
     client-tests
+}
+
+host_orchestrate() {
+  prepare_services
+
+  log "Running test matrix in client-tests container ..."
+  set +e
+  run_client_tests_container
   local rc=$?
   set -e
   exit "$rc"
@@ -790,6 +798,7 @@ usage() {
   cat <<'EOF'
 Usage:
   ./run-client-tests.sh                         Start Manticore services and run all client tests
+  ./run-client-tests.sh --prepare               Build image, start Manticore, bootstrap auth, exit
   ./run-client-tests.sh --matrix                Run the test matrix only (container entrypoint)
   ./run-client-tests.sh --exclude java,rust     Run all clients except the listed ones
   ./run-client-tests.sh --matrix --exclude go
@@ -797,6 +806,7 @@ Usage:
 
 Options:
   --exclude LIST        Comma-separated clients to skip (aliases: js, ts, py, ...)
+  --prepare             Start services only (for callers that run --matrix per client)
   --matrix              Run matrix only (no compose up)
   --help                Show this help
 
@@ -818,6 +828,10 @@ main() {
       --help|-h)
         usage
         return 0
+        ;;
+      --prepare)
+        run_mode=prepare
+        shift
         ;;
       --matrix)
         run_mode=matrix
@@ -861,6 +875,7 @@ main() {
   done
 
   case "$run_mode" in
+    prepare) prepare_services ;;
     matrix) run_matrix ;;
     "") host_orchestrate ;;
     *)

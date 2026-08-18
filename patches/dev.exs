@@ -1,5 +1,3 @@
-use Mix.Config
+import Config
 
-config :manticoresearch, base_url: "http://127.0.0.1:6368"
-
-
+config :manticoresearch, base_url: "http://127.0.0.1:9408"

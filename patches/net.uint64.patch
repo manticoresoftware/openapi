@@ -1,112 +1,82 @@
-diff --git a/out/manticoresearch-net/docs/DeleteDocumentRequest.md b/out/manticoresearch-net/docs/DeleteDocumentRequest.md
-index 6e8d46e..4dcfa70 100755
---- a/out/manticoresearch-net/docs/DeleteDocumentRequest.md
-+++ b/out/manticoresearch-net/docs/DeleteDocumentRequest.md
-@@ -7,7 +7,7 @@ Name | Type | Description | Notes
- ------------ | ------------- | ------------- | -------------
- **Table** | **string** | Table name | 
- **Cluster** | **string** | Cluster name | [optional] 
--**Id** | **int** | The ID of document for deletion | [optional] 
-+**Id** | **UInt64** | The ID of document for deletion | [optional]
- **Query** | **Object** | Defines the criteria to match documents for deletion | [optional] 
+diff --git a/out/manticoresearch-net/src/ManticoreSearch/Api/IndexApi.cs b/out/manticoresearch-net/src/ManticoreSearch/Api/IndexApi.cs
+--- a/out/manticoresearch-net/src/ManticoreSearch/Api/IndexApi.cs
++++ b/out/manticoresearch-net/src/ManticoreSearch/Api/IndexApi.cs
+@@ -102,7 +102,7 @@
+         /// <param name="id">Id of the document to replace</param>
+         /// <param name="replaceDocumentRequest"></param>
+         /// <returns>UpdateResponse</returns>
+-        UpdateResponse PartialReplace(string table, int id, ReplaceDocumentRequest replaceDocumentRequest);
++        UpdateResponse PartialReplace(string table, UInt64 id, ReplaceDocumentRequest replaceDocumentRequest);
  
- [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
-diff --git a/out/manticoresearch-net/docs/DeleteResponse.md b/out/manticoresearch-net/docs/DeleteResponse.md
-index f5fd572..2585f44 100755
---- a/out/manticoresearch-net/docs/DeleteResponse.md
-+++ b/out/manticoresearch-net/docs/DeleteResponse.md
-@@ -6,7 +6,7 @@ Response object for successful delete request
- Name | Type | Description | Notes
- ------------ | ------------- | ------------- | -------------
- **Table** | **string** | The name of the table from which the document was deleted | [optional] 
--**Deleted** | **int** | Number of documents deleted | [optional] 
-+**Deleted** | **UInt64** | Number of documents deleted | [optional]
- **Id** | **int** | The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned | [optional] 
- **Found** | **bool** | Indicates whether any documents to be deleted were found | [optional] 
- **Result** | **string** | Result of the delete operation, typically &#39;deleted&#39; | [optional] 
-diff --git a/out/manticoresearch-net/docs/HitsHits.md b/out/manticoresearch-net/docs/HitsHits.md
-index a92eb22..5f72f53 100755
---- a/out/manticoresearch-net/docs/HitsHits.md
-+++ b/out/manticoresearch-net/docs/HitsHits.md
-@@ -6,7 +6,7 @@ Search hit representing a matched document
- Name | Type | Description | Notes
- ------------ | ------------- | ------------- | -------------
- **Id** | **int** | The ID of the matched document | [optional] 
--**Score** | **int** | The score of the matched document | [optional] 
-+**Score** | **UInt64** | The score of the matched document | [optional]
- **Source** | **Object** | The source data of the matched document | [optional] 
- **KnnDist** | **decimal** | The knn distance of the matched document returned for knn queries | [optional] 
- **Highlight** | **Object** | The highlighting-related data of the matched document | [optional] 
-diff --git a/out/manticoresearch-net/docs/InsertDocumentRequest.md b/out/manticoresearch-net/docs/InsertDocumentRequest.md
-index 6cba1e9..64b505f 100755
---- a/out/manticoresearch-net/docs/InsertDocumentRequest.md
-+++ b/out/manticoresearch-net/docs/InsertDocumentRequest.md
-@@ -7,7 +7,7 @@ Name | Type | Description | Notes
- ------------ | ------------- | ------------- | -------------
- **Table** | **string** | Name of the table to insert the document into | 
- **Cluster** | **string** | Name of the cluster to insert the document into | [optional] 
--**Id** | **int** | Document ID. If not provided, an ID will be auto-generated  | [optional] 
-+**Id** | **UInt64** | Document ID. If not provided, an ID will be auto-generated  | [optional]
- **Doc** | **Object** | Object containing document data  | 
+         /// <summary>
+         /// Partially replaces a document in a table
+@@ -115,7 +115,7 @@
+         /// <param name="id">Id of the document to replace</param>
+         /// <param name="replaceDocumentRequest"></param>
+         /// <returns>ApiResponse of UpdateResponse</returns>
+-        ApiResponse<UpdateResponse> PartialReplaceWithHttpInfo(string table, int id, ReplaceDocumentRequest replaceDocumentRequest);
++        ApiResponse<UpdateResponse> PartialReplaceWithHttpInfo(string table, UInt64 id, ReplaceDocumentRequest replaceDocumentRequest);
+         /// <summary>
+         /// Replace new document in a table
+         /// </summary>
+@@ -248,7 +248,7 @@
+         /// <param name="replaceDocumentRequest"></param>
+         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+         /// <returns>Task of UpdateResponse</returns>
+-        System.Threading.Tasks.Task<UpdateResponse> PartialReplaceAsync(string table, int id, ReplaceDocumentRequest replaceDocumentRequest, System.Threading.CancellationToken cancellationToken = default);
++        System.Threading.Tasks.Task<UpdateResponse> PartialReplaceAsync(string table, UInt64 id, ReplaceDocumentRequest replaceDocumentRequest, System.Threading.CancellationToken cancellationToken = default);
  
- [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
-diff --git a/out/manticoresearch-net/docs/Knn.md b/out/manticoresearch-net/docs/Knn.md
-index f76b76e..9434551 100755
---- a/out/manticoresearch-net/docs/Knn.md
-+++ b/out/manticoresearch-net/docs/Knn.md
-@@ -9,7 +9,7 @@ Name | Type | Description | Notes
- **K** | **int** | The number of nearest neighbors to return | 
- **Query** | [**KnnQuery**](KnnQuery.md) |  | [optional] 
- **QueryVector** | **List&lt;decimal&gt;** | The vector used as input for the KNN search | [optional] 
--**DocId** | **int** | The docuemnt ID used as input for the KNN search | [optional] 
-+**DocId** | **UInt64** | The docuemnt ID used as input for the KNN search | [optional]
- **Ef** | **int** | Optional parameter controlling the accuracy of the search | [optional] 
- **Rescore** | **bool** | Optional parameter enabling KNN rescoring (disabled by default) | [optional] 
- **Oversampling** | **decimal** | Optional parameter setting a factor by which k is multiplied when executing the KNN search | [optional] 
-diff --git a/out/manticoresearch-net/docs/SuccessResponse.md b/out/manticoresearch-net/docs/SuccessResponse.md
-index a6acc74..8bf7608 100755
---- a/out/manticoresearch-net/docs/SuccessResponse.md
-+++ b/out/manticoresearch-net/docs/SuccessResponse.md
-@@ -6,7 +6,7 @@ Response object indicating the success of an operation, such as inserting or upd
- Name | Type | Description | Notes
- ------------ | ------------- | ------------- | -------------
- **Table** | **string** | Name of the document table | [optional] 
--**Id** | **int** | ID of the document affected by the request operation | [optional] 
-+**Id** | **UInt64** | ID of the document affected by the request operation | [optional]
- **Created** | **bool** | Indicates whether the document was created as a result of the operation | [optional] 
- **Result** | **string** | Result of the operation, typically &#39;created&#39;, &#39;updated&#39;, or &#39;deleted&#39; | [optional] 
- **Found** | **bool** | Indicates whether the document was found in the table | [optional] 
-diff --git a/out/manticoresearch-net/docs/UpdateDocumentRequest.md b/out/manticoresearch-net/docs/UpdateDocumentRequest.md
-index 2b80f04..8c8c863 100755
---- a/out/manticoresearch-net/docs/UpdateDocumentRequest.md
-+++ b/out/manticoresearch-net/docs/UpdateDocumentRequest.md
-@@ -8,7 +8,7 @@ Name | Type | Description | Notes
- **Table** | **string** | Name of the document table | 
- **Cluster** | **string** | Name of the document cluster | [optional] 
- **Doc** | **Object** | Object containing the document fields to update | 
--**Id** | **int** | Document ID | [optional] 
-+**Id** | **UInt64** | Document ID | [optional]
- **Query** | [**QueryFilter**](QueryFilter.md) | Object defining conditions to perform the updates | [optional] 
- 
- [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
-diff --git a/out/manticoresearch-net/docs/UpdateResponse.md b/out/manticoresearch-net/docs/UpdateResponse.md
-index cd7d8f0..1720af4 100755
---- a/out/manticoresearch-net/docs/UpdateResponse.md
-+++ b/out/manticoresearch-net/docs/UpdateResponse.md
-@@ -7,7 +7,7 @@ Name | Type | Description | Notes
- ------------ | ------------- | ------------- | -------------
- **Table** | **string** | Name of the document table | [optional] 
- **Updated** | **int** | Number of documents updated | [optional] 
--**Id** | **int** | Document ID | [optional] 
-+**Id** | **UInt64** | Document ID | [optional]
- **Result** | **string** | Result of the update operation, typically &#39;updated&#39; | [optional] 
- 
- [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+         /// <summary>
+         /// Partially replaces a document in a table
+@@ -262,7 +262,7 @@
+         /// <param name="replaceDocumentRequest"></param>
+         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+         /// <returns>Task of ApiResponse (UpdateResponse)</returns>
+-        System.Threading.Tasks.Task<ApiResponse<UpdateResponse>> PartialReplaceWithHttpInfoAsync(string table, int id, ReplaceDocumentRequest replaceDocumentRequest, System.Threading.CancellationToken cancellationToken = default);
++        System.Threading.Tasks.Task<ApiResponse<UpdateResponse>> PartialReplaceWithHttpInfoAsync(string table, UInt64 id, ReplaceDocumentRequest replaceDocumentRequest, System.Threading.CancellationToken cancellationToken = default);
+         /// <summary>
+         /// Replace new document in a table
+         /// </summary>
+@@ -953,7 +953,7 @@
+         /// <param name="id">Id of the document to replace</param>
+         /// <param name="replaceDocumentRequest"></param>
+         /// <returns>UpdateResponse</returns>
+-        public UpdateResponse PartialReplace(string table, int id, ReplaceDocumentRequest replaceDocumentRequest)
++        public UpdateResponse PartialReplace(string table, UInt64 id, ReplaceDocumentRequest replaceDocumentRequest)
+         {
+             ManticoreSearch.Client.ApiResponse<UpdateResponse> localVarResponse = PartialReplaceWithHttpInfo(table, id, replaceDocumentRequest);
+             return localVarResponse.Data;
+@@ -967,7 +967,7 @@
+         /// <param name="id">Id of the document to replace</param>
+         /// <param name="replaceDocumentRequest"></param>
+         /// <returns>ApiResponse of UpdateResponse</returns>
+-        public ManticoreSearch.Client.ApiResponse<UpdateResponse> PartialReplaceWithHttpInfo(string table, int id, ReplaceDocumentRequest replaceDocumentRequest)
++        public ManticoreSearch.Client.ApiResponse<UpdateResponse> PartialReplaceWithHttpInfo(string table, UInt64 id, ReplaceDocumentRequest replaceDocumentRequest)
+         {
+             // verify the required parameter 'table' is set
+             if (table == null)
+@@ -1032,7 +1032,7 @@
+         /// <param name="replaceDocumentRequest"></param>
+         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+         /// <returns>Task of UpdateResponse</returns>
+-        public async System.Threading.Tasks.Task<UpdateResponse> PartialReplaceAsync(string table, int id, ReplaceDocumentRequest replaceDocumentRequest, System.Threading.CancellationToken cancellationToken = default)
++        public async System.Threading.Tasks.Task<UpdateResponse> PartialReplaceAsync(string table, UInt64 id, ReplaceDocumentRequest replaceDocumentRequest, System.Threading.CancellationToken cancellationToken = default)
+         {
+             ManticoreSearch.Client.ApiResponse<UpdateResponse> localVarResponse = await PartialReplaceWithHttpInfoAsync(table, id, replaceDocumentRequest, cancellationToken).ConfigureAwait(false);
+             return localVarResponse.Data;
+@@ -1047,7 +1047,7 @@
+         /// <param name="replaceDocumentRequest"></param>
+         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+         /// <returns>Task of ApiResponse (UpdateResponse)</returns>
+-        public async System.Threading.Tasks.Task<ManticoreSearch.Client.ApiResponse<UpdateResponse>> PartialReplaceWithHttpInfoAsync(string table, int id, ReplaceDocumentRequest replaceDocumentRequest, System.Threading.CancellationToken cancellationToken = default)
++        public async System.Threading.Tasks.Task<ManticoreSearch.Client.ApiResponse<UpdateResponse>> PartialReplaceWithHttpInfoAsync(string table, UInt64 id, ReplaceDocumentRequest replaceDocumentRequest, System.Threading.CancellationToken cancellationToken = default)
+         {
+             // verify the required parameter 'table' is set
+             if (table == null)
 diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteDocumentRequest.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteDocumentRequest.cs
-index 36abbba..4bd0be1 100755
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteDocumentRequest.cs
 +++ b/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteDocumentRequest.cs
-@@ -45,7 +45,7 @@ namespace ManticoreSearch.Model
+@@ -45,7 +45,7 @@
          /// <param name="cluster">Cluster name.</param>
          /// <param name="id">The ID of document for deletion.</param>
          /// <param name="query">Defines the criteria to match documents for deletion.</param>
@@ -115,7 +85,7 @@ index 36abbba..4bd0be1 100755
          {
              // to ensure "table" is required (not null)
              if (table == null)
-@@ -77,7 +77,7 @@ namespace ManticoreSearch.Model
+@@ -77,7 +77,7 @@
          /// </summary>
          /// <value>The ID of document for deletion</value>
          [DataMember(Name = "id", EmitDefaultValue = false)]
@@ -125,11 +95,10 @@ index 36abbba..4bd0be1 100755
          /// <summary>
          /// Defines the criteria to match documents for deletion
 diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteResponse.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteResponse.cs
-index c0a5332..25d09c8 100755
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteResponse.cs
 +++ b/out/manticoresearch-net/src/ManticoreSearch/Model/DeleteResponse.cs
-@@ -41,7 +41,7 @@ namespace ManticoreSearch.Model
-         /// <param name="id">The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned.</param>
+@@ -41,7 +41,7 @@
+         /// <param name="id">The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned .</param>
          /// <param name="found">Indicates whether any documents to be deleted were found.</param>
          /// <param name="result">Result of the delete operation, typically &#39;deleted&#39;.</param>
 -        public DeleteResponse(string table = default, int deleted = default, int id = default, bool found = default, string result = default)
@@ -137,9 +106,9 @@ index c0a5332..25d09c8 100755
          {
              this.Table = table;
              this.Deleted = deleted;
-@@ -69,7 +69,7 @@ namespace ManticoreSearch.Model
+@@ -69,7 +69,7 @@
          /// </summary>
-         /// <value>The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned</value>
+         /// <value>The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned </value>
          [DataMember(Name = "id", EmitDefaultValue = false)]
 -        public int Id { get; set; }
 +        public UInt64 Id { get; set; }
@@ -147,10 +116,9 @@ index c0a5332..25d09c8 100755
          /// <summary>
          /// Indicates whether any documents to be deleted were found
 diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/HitsHits.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/HitsHits.cs
-index 384401b..6816b0f 100755
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/HitsHits.cs
 +++ b/out/manticoresearch-net/src/ManticoreSearch/Model/HitsHits.cs
-@@ -44,7 +44,7 @@ namespace ManticoreSearch.Model
+@@ -44,7 +44,7 @@
          /// <param name="table">The table name of the matched document returned for percolate queries.</param>
          /// <param name="type">The type of the matched document returned for percolate queries.</param>
          /// <param name="fields">The percolate-related fields of the matched document returned for percolate queries.</param>
@@ -159,7 +127,7 @@ index 384401b..6816b0f 100755
          {
              this.Id = id;
              this.Score = score;
-@@ -61,7 +61,7 @@ namespace ManticoreSearch.Model
+@@ -61,7 +61,7 @@
          /// </summary>
          /// <value>The ID of the matched document</value>
          [DataMember(Name = "_id", EmitDefaultValue = false)]
@@ -169,10 +137,9 @@ index 384401b..6816b0f 100755
          /// <summary>
          /// The score of the matched document
 diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/InsertDocumentRequest.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/InsertDocumentRequest.cs
-index 6b826e9..c43aecf 100755
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/InsertDocumentRequest.cs
 +++ b/out/manticoresearch-net/src/ManticoreSearch/Model/InsertDocumentRequest.cs
-@@ -45,7 +45,7 @@ namespace ManticoreSearch.Model
+@@ -45,7 +45,7 @@
          /// <param name="cluster">Name of the cluster to insert the document into.</param>
          /// <param name="id">Document ID. If not provided, an ID will be auto-generated .</param>
          /// <param name="doc">Object containing document data  (required).</param>
@@ -181,7 +148,7 @@ index 6b826e9..c43aecf 100755
          {
              // to ensure "table" is required (not null)
              if (table == null)
-@@ -82,7 +82,7 @@ namespace ManticoreSearch.Model
+@@ -82,7 +82,7 @@
          /// </summary>
          /// <value>Document ID. If not provided, an ID will be auto-generated </value>
          [DataMember(Name = "id", EmitDefaultValue = false)]
@@ -191,10 +158,9 @@ index 6b826e9..c43aecf 100755
          /// <summary>
          /// Object containing document data 
 diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/Knn.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/Knn.cs
-index 6e06628..16991e7 100755
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/Knn.cs
 +++ b/out/manticoresearch-net/src/ManticoreSearch/Model/Knn.cs
-@@ -50,7 +50,7 @@ namespace ManticoreSearch.Model
+@@ -50,7 +50,7 @@
          /// <param name="rescore">Optional parameter enabling KNN rescoring (disabled by default).</param>
          /// <param name="oversampling">Optional parameter setting a factor by which k is multiplied when executing the KNN search.</param>
          /// <param name="filter">filter.</param>
@@ -203,9 +169,9 @@ index 6e06628..16991e7 100755
          {
              // to ensure "field" is required (not null)
              if (field == null)
-@@ -100,7 +100,7 @@ namespace ManticoreSearch.Model
+@@ -101,7 +101,7 @@
          /// </summary>
-         /// <value>The docuemnt ID used as input for the KNN search</value>
+         /// <value>The document ID used as input for the KNN search</value>
          [DataMember(Name = "doc_id", EmitDefaultValue = false)]
 -        public int DocId { get; set; }
 +        public UInt64 DocId { get; set; }
@@ -213,10 +179,9 @@ index 6e06628..16991e7 100755
          /// <summary>
          /// Optional parameter controlling the accuracy of the search
 diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/SuccessResponse.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/SuccessResponse.cs
-index e5a5880..ccec01d 100755
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/SuccessResponse.cs
 +++ b/out/manticoresearch-net/src/ManticoreSearch/Model/SuccessResponse.cs
-@@ -42,7 +42,7 @@ namespace ManticoreSearch.Model
+@@ -42,7 +42,7 @@
          /// <param name="result">Result of the operation, typically &#39;created&#39;, &#39;updated&#39;, or &#39;deleted&#39;.</param>
          /// <param name="found">Indicates whether the document was found in the table.</param>
          /// <param name="status">HTTP status code representing the result of the operation.</param>
@@ -225,7 +190,7 @@ index e5a5880..ccec01d 100755
          {
              this.Table = table;
              this.Id = id;
-@@ -64,7 +64,7 @@ namespace ManticoreSearch.Model
+@@ -64,7 +64,7 @@
          /// </summary>
          /// <value>ID of the document affected by the request operation</value>
          [DataMember(Name = "id", EmitDefaultValue = false)]
@@ -235,10 +200,9 @@ index e5a5880..ccec01d 100755
          /// <summary>
          /// Indicates whether the document was created as a result of the operation
 diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateDocumentRequest.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateDocumentRequest.cs
-index 9095cfa..4bb07f2 100755
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateDocumentRequest.cs
 +++ b/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateDocumentRequest.cs
-@@ -46,7 +46,7 @@ namespace ManticoreSearch.Model
+@@ -46,7 +46,7 @@
          /// <param name="doc">Object containing the document fields to update (required).</param>
          /// <param name="id">Document ID.</param>
          /// <param name="query">Object defining conditions to perform the updates.</param>
@@ -247,7 +211,7 @@ index 9095cfa..4bb07f2 100755
          {
              // to ensure "table" is required (not null)
              if (table == null)
-@@ -94,7 +94,7 @@ namespace ManticoreSearch.Model
+@@ -94,7 +94,7 @@
          /// </summary>
          /// <value>Document ID</value>
          [DataMember(Name = "id", EmitDefaultValue = false)]
@@ -257,10 +221,9 @@ index 9095cfa..4bb07f2 100755
          /// <summary>
          /// Object defining conditions to perform the updates
 diff --git a/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateResponse.cs b/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateResponse.cs
-index 7c52d54..d68a092 100755
 --- a/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateResponse.cs
 +++ b/out/manticoresearch-net/src/ManticoreSearch/Model/UpdateResponse.cs
-@@ -40,7 +40,7 @@ namespace ManticoreSearch.Model
+@@ -40,7 +40,7 @@
          /// <param name="updated">Number of documents updated.</param>
          /// <param name="id">Document ID.</param>
          /// <param name="result">Result of the update operation, typically &#39;updated&#39;.</param>
@@ -269,7 +232,7 @@ index 7c52d54..d68a092 100755
          {
              this.Table = table;
              this.Updated = updated;
-@@ -67,7 +67,7 @@ namespace ManticoreSearch.Model
+@@ -67,7 +67,7 @@
          /// </summary>
          /// <value>Document ID</value>
          [DataMember(Name = "id", EmitDefaultValue = false)]

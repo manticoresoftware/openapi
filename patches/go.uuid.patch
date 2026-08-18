@@ -1,0 +1,787 @@
+diff --git a/out/manticoresearch-go/api_index.go b/out/manticoresearch-go/api_index.go
+--- a/out/manticoresearch-go/api_index.go
++++ b/out/manticoresearch-go/api_index.go
+@@ -619,6 +619,122 @@
+ 	return localVarReturnValue, localVarHTTPResponse, nil
+ }
+ 
++type ApiPartialReplaceUuidRequest struct {
++	ctx context.Context
++	ApiService *IndexAPIService
++	table string
++	uuid string
++	replaceDocumentRequest *ReplaceDocumentRequest
++}
++
++func (r ApiPartialReplaceUuidRequest) ReplaceDocumentRequest(replaceDocumentRequest ReplaceDocumentRequest) ApiPartialReplaceUuidRequest {
++	r.replaceDocumentRequest = &replaceDocumentRequest
++	return r
++}
++
++func (r ApiPartialReplaceUuidRequest) Execute() (*UpdateResponse, *http.Response, error) {
++	return r.ApiService.PartialReplaceUuidExecute(r)
++}
++
++// PartialReplaceUuid Partially replaces a document in a table by UUID
++func (a *IndexAPIService) PartialReplaceUuid(ctx context.Context, table string, uuid string) ApiPartialReplaceUuidRequest {
++	return ApiPartialReplaceUuidRequest{
++		ApiService: a,
++		ctx: ctx,
++		table: table,
++		uuid: uuid,
++	}
++}
++
++func (a *IndexAPIService) PartialReplaceUuidExecute(r ApiPartialReplaceUuidRequest) (*UpdateResponse, *http.Response, error) {
++	var (
++		localVarHTTPMethod   = http.MethodPost
++		localVarPostBody     interface{}
++		formFiles            []formFile
++		localVarReturnValue  *UpdateResponse
++	)
++
++	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.PartialReplaceUuid")
++	if err != nil {
++		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
++	}
++
++	localVarPath := localBasePath + "/{table}/_update/{id}"
++	localVarPath = strings.Replace(localVarPath, "{"+"table"+"}", url.PathEscape(parameterValueToString(r.table, "table")), -1)
++	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.uuid, "id")), -1)
++
++	localVarHeaderParams := make(map[string]string)
++	localVarQueryParams := url.Values{}
++	localVarFormParams := url.Values{}
++	if r.replaceDocumentRequest == nil {
++		return localVarReturnValue, nil, reportError("replaceDocumentRequest is required and must be specified")
++	}
++
++	// to determine the Content-Type header
++	localVarHTTPContentTypes := []string{"application/json"}
++
++	// set Content-Type header
++	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
++	if localVarHTTPContentType != "" {
++		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
++	}
++
++	// to determine the Accept header
++	localVarHTTPHeaderAccepts := []string{"application/json"}
++
++	// set Accept header
++	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
++	if localVarHTTPHeaderAccept != "" {
++		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
++	}
++	// body params
++	localVarPostBody = r.replaceDocumentRequest
++	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
++	if err != nil {
++		return localVarReturnValue, nil, err
++	}
++
++	localVarHTTPResponse, err := a.client.callAPI(req)
++	if err != nil || localVarHTTPResponse == nil {
++		return localVarReturnValue, localVarHTTPResponse, err
++	}
++
++	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
++	localVarHTTPResponse.Body.Close()
++	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
++	if err != nil {
++		return localVarReturnValue, localVarHTTPResponse, err
++	}
++
++	if localVarHTTPResponse.StatusCode >= 300 {
++		newErr := &GenericOpenAPIError{
++			body:  localVarBody,
++			error: localVarHTTPResponse.Status,
++		}
++			var v ErrorResponse
++			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
++			if err != nil {
++				newErr.error = err.Error()
++				return localVarReturnValue, localVarHTTPResponse, newErr
++			}
++					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
++					newErr.model = v
++		return localVarReturnValue, localVarHTTPResponse, newErr
++	}
++
++	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
++	if err != nil {
++		newErr := &GenericOpenAPIError{
++			body:  localVarBody,
++			error: err.Error(),
++		}
++		return localVarReturnValue, localVarHTTPResponse, newErr
++	}
++
++	return localVarReturnValue, localVarHTTPResponse, nil
++}
++
++
+ type ApiReplaceRequest struct {
+ 	ctx context.Context
+ 	ApiService *IndexAPIService
+diff --git a/out/manticoresearch-go/document_id.go b/out/manticoresearch-go/document_id.go
+new file mode 100644
+--- /dev/null
++++ b/out/manticoresearch-go/document_id.go
+@@ -0,0 +1,32 @@
++package openapi
++
++import (
++	"encoding/json"
++	"fmt"
++)
++
++// splitDocumentIDJSON parses a raw JSON value into numeric id and/or uuid string.
++func splitDocumentIDJSON(raw json.RawMessage) (id *uint64, uuid *string, err error) {
++	if len(raw) == 0 || string(raw) == "null" {
++		return nil, nil, nil
++	}
++	var asString string
++	if err := json.Unmarshal(raw, &asString); err == nil {
++		return nil, &asString, nil
++	}
++	var asUint uint64
++	if err := json.Unmarshal(raw, &asUint); err == nil {
++		return &asUint, nil, nil
++	}
++	return nil, nil, fmt.Errorf("document id must be uint64 or string, got %s", string(raw))
++}
++
++func wireDocumentID(id *uint64, uuid *string) interface{} {
++	if uuid != nil {
++		return *uuid
++	}
++	if id != nil {
++		return *id
++	}
++	return nil
++}
+diff --git a/out/manticoresearch-go/model_delete_document_request.go b/out/manticoresearch-go/model_delete_document_request.go
+--- a/out/manticoresearch-go/model_delete_document_request.go
++++ b/out/manticoresearch-go/model_delete_document_request.go
+@@ -27,7 +27,9 @@
+ 	// Cluster name
+ 	Cluster *string `json:"cluster,omitempty"`
+ 	// The ID of document for deletion
+-	Id *uint64 `json:"id,omitempty"`
++	Id *uint64 `json:"-"`
++	// UUID document id when the wire id is a string; Id is nil in that case
++	Uuid *string `json:"-"`
+ 	// Defines the criteria to match documents for deletion
+ 	Query map[string]interface{} `json:"query,omitempty"`
+ }
+@@ -140,6 +142,38 @@
+ 	o.Id = &v
+ }
+ 
++// GetUuid returns the Uuid field value if set, zero value otherwise.
++func (o *DeleteDocumentRequest) GetUuid() string {
++	if o == nil || IsNil(o.Uuid) {
++		var ret string
++		return ret
++	}
++	return *o.Uuid
++}
++
++// GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
++// and a boolean to check if the value has been set.
++func (o *DeleteDocumentRequest) GetUuidOk() (*string, bool) {
++	if o == nil || IsNil(o.Uuid) {
++		return nil, false
++	}
++	return o.Uuid, true
++}
++
++// HasUuid returns a boolean if a Uuid field has been set.
++func (o *DeleteDocumentRequest) HasUuid() bool {
++	if o != nil && !IsNil(o.Uuid) {
++		return true
++	}
++	return false
++}
++
++// SetUuid gets a reference to the given string and assigns it to the Uuid field.
++func (o *DeleteDocumentRequest) SetUuid(v string) {
++	o.Uuid = &v
++}
++
++
+ // GetQuery returns the Query field value if set, zero value otherwise.
+ func (o *DeleteDocumentRequest) GetQuery() map[string]interface{} {
+ 	if o == nil || IsNil(o.Query) {
+@@ -186,8 +220,8 @@
+ 	if !IsNil(o.Cluster) {
+ 		toSerialize["cluster"] = o.Cluster
+ 	}
+-	if !IsNil(o.Id) {
+-		toSerialize["id"] = o.Id
++	if w := wireDocumentID(o.Id, o.Uuid); w != nil {
++		toSerialize["id"] = w
+ 	}
+ 	if !IsNil(o.Query) {
+ 		toSerialize["query"] = o.Query
+diff --git a/out/manticoresearch-go/model_delete_response.go b/out/manticoresearch-go/model_delete_response.go
+--- a/out/manticoresearch-go/model_delete_response.go
++++ b/out/manticoresearch-go/model_delete_response.go
+@@ -25,7 +25,9 @@
+ 	// Number of documents deleted
+ 	Deleted *int32 `json:"deleted,omitempty"`
+ 	// The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned 
+-	Id *uint64 `json:"id,omitempty"`
++	Id *uint64 `json:"-"`
++	// UUID document id when the wire id is a string; Id is nil in that case
++	Uuid *string `json:"-"`
+ 	// Indicates whether any documents to be deleted were found
+ 	Found *bool `json:"found,omitempty"`
+ 	// Result of the delete operation, typically 'deleted'
+@@ -145,6 +147,38 @@
+ 	o.Id = &v
+ }
+ 
++// GetUuid returns the Uuid field value if set, zero value otherwise.
++func (o *DeleteResponse) GetUuid() string {
++	if o == nil || IsNil(o.Uuid) {
++		var ret string
++		return ret
++	}
++	return *o.Uuid
++}
++
++// GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
++// and a boolean to check if the value has been set.
++func (o *DeleteResponse) GetUuidOk() (*string, bool) {
++	if o == nil || IsNil(o.Uuid) {
++		return nil, false
++	}
++	return o.Uuid, true
++}
++
++// HasUuid returns a boolean if a Uuid field has been set.
++func (o *DeleteResponse) HasUuid() bool {
++	if o != nil && !IsNil(o.Uuid) {
++		return true
++	}
++	return false
++}
++
++// SetUuid gets a reference to the given string and assigns it to the Uuid field.
++func (o *DeleteResponse) SetUuid(v string) {
++	o.Uuid = &v
++}
++
++
+ // GetFound returns the Found field value if set, zero value otherwise.
+ func (o *DeleteResponse) GetFound() bool {
+ 	if o == nil || IsNil(o.Found) {
+@@ -225,8 +259,8 @@
+ 	if !IsNil(o.Deleted) {
+ 		toSerialize["deleted"] = o.Deleted
+ 	}
+-	if !IsNil(o.Id) {
+-		toSerialize["id"] = o.Id
++	if w := wireDocumentID(o.Id, o.Uuid); w != nil {
++		toSerialize["id"] = w
+ 	}
+ 	if !IsNil(o.Found) {
+ 		toSerialize["found"] = o.Found
+@@ -237,6 +271,27 @@
+ 	return toSerialize, nil
+ }
+ 
++
++func (o *DeleteResponse) UnmarshalJSON(data []byte) error {
++	type Alias DeleteResponse
++	aux := struct {
++		RawId json.RawMessage `json:"id"`
++		*Alias
++	}{
++		Alias: (*Alias)(o),
++	}
++	if err := json.Unmarshal(data, &aux); err != nil {
++		return err
++	}
++	id, uuid, err := splitDocumentIDJSON(aux.RawId)
++	if err != nil {
++		return err
++	}
++	o.Id = id
++	o.Uuid = uuid
++	return nil
++}
++
+ type NullableDeleteResponse struct {
+ 	value *DeleteResponse
+ 	isSet bool
+diff --git a/out/manticoresearch-go/model_hits_hits.go b/out/manticoresearch-go/model_hits_hits.go
+--- a/out/manticoresearch-go/model_hits_hits.go
++++ b/out/manticoresearch-go/model_hits_hits.go
+@@ -21,7 +21,9 @@
+ // HitsHits Search hit representing a matched document
+ type HitsHits struct {
+ 	// The ID of the matched document
+-	Id *uint64 `json:"_id,omitempty"`
++	Id *uint64 `json:"-"`
++	// UUID document id when the wire id is a string; Id is nil in that case
++	Uuid *string `json:"-"`
+ 	// The score of the matched document
+ 	Score *int32 `json:"_score,omitempty"`
+ 	// The source data of the matched document
+@@ -87,6 +89,38 @@
+ 	o.Id = &v
+ }
+ 
++// GetUuid returns the Uuid field value if set, zero value otherwise.
++func (o *HitsHits) GetUuid() string {
++	if o == nil || IsNil(o.Uuid) {
++		var ret string
++		return ret
++	}
++	return *o.Uuid
++}
++
++// GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
++// and a boolean to check if the value has been set.
++func (o *HitsHits) GetUuidOk() (*string, bool) {
++	if o == nil || IsNil(o.Uuid) {
++		return nil, false
++	}
++	return o.Uuid, true
++}
++
++// HasUuid returns a boolean if a Uuid field has been set.
++func (o *HitsHits) HasUuid() bool {
++	if o != nil && !IsNil(o.Uuid) {
++		return true
++	}
++	return false
++}
++
++// SetUuid gets a reference to the given string and assigns it to the Uuid field.
++func (o *HitsHits) SetUuid(v string) {
++	o.Uuid = &v
++}
++
++
+ // GetScore returns the Score field value if set, zero value otherwise.
+ func (o *HitsHits) GetScore() int32 {
+ 	if o == nil || IsNil(o.Score) {
+@@ -321,8 +355,8 @@
+ 
+ func (o HitsHits) ToMap() (map[string]interface{}, error) {
+ 	toSerialize := map[string]interface{}{}
+-	if !IsNil(o.Id) {
+-		toSerialize["_id"] = o.Id
++	if w := wireDocumentID(o.Id, o.Uuid); w != nil {
++		toSerialize["_id"] = w
+ 	}
+ 	if !IsNil(o.Score) {
+ 		toSerialize["_score"] = o.Score
+@@ -348,6 +382,27 @@
+ 	return toSerialize, nil
+ }
+ 
++
++func (o *HitsHits) UnmarshalJSON(data []byte) error {
++	type Alias HitsHits
++	aux := struct {
++		RawId json.RawMessage `json:"_id"`
++		*Alias
++	}{
++		Alias: (*Alias)(o),
++	}
++	if err := json.Unmarshal(data, &aux); err != nil {
++		return err
++	}
++	id, uuid, err := splitDocumentIDJSON(aux.RawId)
++	if err != nil {
++		return err
++	}
++	o.Id = id
++	o.Uuid = uuid
++	return nil
++}
++
+ type NullableHitsHits struct {
+ 	value *HitsHits
+ 	isSet bool
+diff --git a/out/manticoresearch-go/model_insert_document_request.go b/out/manticoresearch-go/model_insert_document_request.go
+--- a/out/manticoresearch-go/model_insert_document_request.go
++++ b/out/manticoresearch-go/model_insert_document_request.go
+@@ -27,7 +27,9 @@
+ 	// Name of the cluster to insert the document into
+ 	Cluster *string `json:"cluster,omitempty"`
+ 	// Document ID. If not provided, an ID will be auto-generated 
+-	Id *uint64 `json:"id,omitempty"`
++	Id *uint64 `json:"-"`
++	// UUID document id when the wire id is a string; Id is nil in that case
++	Uuid *string `json:"-"`
+ 	// Object containing document data 
+ 	Doc map[string]interface{} `json:"doc"`
+ }
+@@ -141,6 +143,38 @@
+ 	o.Id = &v
+ }
+ 
++// GetUuid returns the Uuid field value if set, zero value otherwise.
++func (o *InsertDocumentRequest) GetUuid() string {
++	if o == nil || IsNil(o.Uuid) {
++		var ret string
++		return ret
++	}
++	return *o.Uuid
++}
++
++// GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
++// and a boolean to check if the value has been set.
++func (o *InsertDocumentRequest) GetUuidOk() (*string, bool) {
++	if o == nil || IsNil(o.Uuid) {
++		return nil, false
++	}
++	return o.Uuid, true
++}
++
++// HasUuid returns a boolean if a Uuid field has been set.
++func (o *InsertDocumentRequest) HasUuid() bool {
++	if o != nil && !IsNil(o.Uuid) {
++		return true
++	}
++	return false
++}
++
++// SetUuid gets a reference to the given string and assigns it to the Uuid field.
++func (o *InsertDocumentRequest) SetUuid(v string) {
++	o.Uuid = &v
++}
++
++
+ // GetDoc returns the Doc field value
+ func (o *InsertDocumentRequest) GetDoc() map[string]interface{} {
+ 	if o == nil {
+@@ -179,8 +213,8 @@
+ 	if !IsNil(o.Cluster) {
+ 		toSerialize["cluster"] = o.Cluster
+ 	}
+-	if !IsNil(o.Id) {
+-		toSerialize["id"] = o.Id
++	if w := wireDocumentID(o.Id, o.Uuid); w != nil {
++		toSerialize["id"] = w
+ 	}
+ 	toSerialize["doc"] = o.Doc
+ 	return toSerialize, nil
+diff --git a/out/manticoresearch-go/model_knn.go b/out/manticoresearch-go/model_knn.go
+--- a/out/manticoresearch-go/model_knn.go
++++ b/out/manticoresearch-go/model_knn.go
+@@ -31,7 +31,9 @@
+ 	// The vector used as input for the KNN search
+ 	QueryVector []float32 `json:"query_vector,omitempty"`
+ 	// The document ID used as input for the KNN search
+-	DocId *uint64 `json:"doc_id,omitempty"`
++	DocId *uint64 `json:"-"`
++	// UUID document id when the wire id is a string; DocId is nil in that case
++	Uuid *string `json:"-"`
+ 	// Optional parameter controlling the accuracy of the search
+ 	Ef *int32 `json:"ef,omitempty"`
+ 	// Optional parameter enabling KNN rescoring (disabled by default)
+@@ -216,6 +218,38 @@
+ 	o.DocId = &v
+ }
+ 
++// GetUuid returns the Uuid field value if set, zero value otherwise.
++func (o *Knn) GetUuid() string {
++	if o == nil || IsNil(o.Uuid) {
++		var ret string
++		return ret
++	}
++	return *o.Uuid
++}
++
++// GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
++// and a boolean to check if the value has been set.
++func (o *Knn) GetUuidOk() (*string, bool) {
++	if o == nil || IsNil(o.Uuid) {
++		return nil, false
++	}
++	return o.Uuid, true
++}
++
++// HasUuid returns a boolean if a Uuid field has been set.
++func (o *Knn) HasUuid() bool {
++	if o != nil && !IsNil(o.Uuid) {
++		return true
++	}
++	return false
++}
++
++// SetUuid gets a reference to the given string and assigns it to the Uuid field.
++func (o *Knn) SetUuid(v string) {
++	o.Uuid = &v
++}
++
++
+ // GetEf returns the Ef field value if set, zero value otherwise.
+ func (o *Knn) GetEf() int32 {
+ 	if o == nil || IsNil(o.Ef) {
+@@ -364,8 +398,8 @@
+ 	if !IsNil(o.QueryVector) {
+ 		toSerialize["query_vector"] = o.QueryVector
+ 	}
+-	if !IsNil(o.DocId) {
+-		toSerialize["doc_id"] = o.DocId
++	if w := wireDocumentID(o.DocId, o.Uuid); w != nil {
++		toSerialize["doc_id"] = w
+ 	}
+ 	if !IsNil(o.Ef) {
+ 		toSerialize["ef"] = o.Ef
+diff --git a/out/manticoresearch-go/model_success_response.go b/out/manticoresearch-go/model_success_response.go
+--- a/out/manticoresearch-go/model_success_response.go
++++ b/out/manticoresearch-go/model_success_response.go
+@@ -23,7 +23,9 @@
+ 	// Name of the document table
+ 	Table *string `json:"table,omitempty"`
+ 	// ID of the document affected by the request operation
+-	Id *uint64 `json:"id,omitempty"`
++	Id *uint64 `json:"-"`
++	// UUID document id when the wire id is a string; Id is nil in that case
++	Uuid *string `json:"-"`
+ 	// Indicates whether the document was created as a result of the operation
+ 	Created *bool `json:"created,omitempty"`
+ 	// Result of the operation, typically 'created', 'updated', or 'deleted'
+@@ -115,6 +117,38 @@
+ 	o.Id = &v
+ }
+ 
++// GetUuid returns the Uuid field value if set, zero value otherwise.
++func (o *SuccessResponse) GetUuid() string {
++	if o == nil || IsNil(o.Uuid) {
++		var ret string
++		return ret
++	}
++	return *o.Uuid
++}
++
++// GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
++// and a boolean to check if the value has been set.
++func (o *SuccessResponse) GetUuidOk() (*string, bool) {
++	if o == nil || IsNil(o.Uuid) {
++		return nil, false
++	}
++	return o.Uuid, true
++}
++
++// HasUuid returns a boolean if a Uuid field has been set.
++func (o *SuccessResponse) HasUuid() bool {
++	if o != nil && !IsNil(o.Uuid) {
++		return true
++	}
++	return false
++}
++
++// SetUuid gets a reference to the given string and assigns it to the Uuid field.
++func (o *SuccessResponse) SetUuid(v string) {
++	o.Uuid = &v
++}
++
++
+ // GetCreated returns the Created field value if set, zero value otherwise.
+ func (o *SuccessResponse) GetCreated() bool {
+ 	if o == nil || IsNil(o.Created) {
+@@ -256,8 +290,8 @@
+ 	if !IsNil(o.Table) {
+ 		toSerialize["table"] = o.Table
+ 	}
+-	if !IsNil(o.Id) {
+-		toSerialize["id"] = o.Id
++	if w := wireDocumentID(o.Id, o.Uuid); w != nil {
++		toSerialize["id"] = w
+ 	}
+ 	if !IsNil(o.Created) {
+ 		toSerialize["created"] = o.Created
+@@ -274,6 +308,27 @@
+ 	return toSerialize, nil
+ }
+ 
++
++func (o *SuccessResponse) UnmarshalJSON(data []byte) error {
++	type Alias SuccessResponse
++	aux := struct {
++		RawId json.RawMessage `json:"id"`
++		*Alias
++	}{
++		Alias: (*Alias)(o),
++	}
++	if err := json.Unmarshal(data, &aux); err != nil {
++		return err
++	}
++	id, uuid, err := splitDocumentIDJSON(aux.RawId)
++	if err != nil {
++		return err
++	}
++	o.Id = id
++	o.Uuid = uuid
++	return nil
++}
++
+ type NullableSuccessResponse struct {
+ 	value *SuccessResponse
+ 	isSet bool
+diff --git a/out/manticoresearch-go/model_update_document_request.go b/out/manticoresearch-go/model_update_document_request.go
+--- a/out/manticoresearch-go/model_update_document_request.go
++++ b/out/manticoresearch-go/model_update_document_request.go
+@@ -29,7 +29,9 @@
+ 	// Object containing the document fields to update
+ 	Doc map[string]interface{} `json:"doc"`
+ 	// Document ID
+-	Id *uint64 `json:"id,omitempty"`
++	Id *uint64 `json:"-"`
++	// UUID document id when the wire id is a string; Id is nil in that case
++	Uuid *string `json:"-"`
+ 	Query NullableQueryFilter `json:"query,omitempty"`
+ }
+ 
+@@ -166,6 +168,38 @@
+ 	o.Id = &v
+ }
+ 
++// GetUuid returns the Uuid field value if set, zero value otherwise.
++func (o *UpdateDocumentRequest) GetUuid() string {
++	if o == nil || IsNil(o.Uuid) {
++		var ret string
++		return ret
++	}
++	return *o.Uuid
++}
++
++// GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
++// and a boolean to check if the value has been set.
++func (o *UpdateDocumentRequest) GetUuidOk() (*string, bool) {
++	if o == nil || IsNil(o.Uuid) {
++		return nil, false
++	}
++	return o.Uuid, true
++}
++
++// HasUuid returns a boolean if a Uuid field has been set.
++func (o *UpdateDocumentRequest) HasUuid() bool {
++	if o != nil && !IsNil(o.Uuid) {
++		return true
++	}
++	return false
++}
++
++// SetUuid gets a reference to the given string and assigns it to the Uuid field.
++func (o *UpdateDocumentRequest) SetUuid(v string) {
++	o.Uuid = &v
++}
++
++
+ // GetQuery returns the Query field value if set, zero value otherwise (both if not set or set to explicit null).
+ func (o *UpdateDocumentRequest) GetQuery() QueryFilter {
+ 	if o == nil || IsNil(o.Query.Get()) {
+@@ -223,8 +257,8 @@
+ 		toSerialize["cluster"] = o.Cluster
+ 	}
+ 	toSerialize["doc"] = o.Doc
+-	if !IsNil(o.Id) {
+-		toSerialize["id"] = o.Id
++	if w := wireDocumentID(o.Id, o.Uuid); w != nil {
++		toSerialize["id"] = w
+ 	}
+ 	if o.Query.IsSet() {
+ 		toSerialize["query"] = o.Query.Get()
+diff --git a/out/manticoresearch-go/model_update_response.go b/out/manticoresearch-go/model_update_response.go
+--- a/out/manticoresearch-go/model_update_response.go
++++ b/out/manticoresearch-go/model_update_response.go
+@@ -25,7 +25,9 @@
+ 	// Number of documents updated
+ 	Updated *int32 `json:"updated,omitempty"`
+ 	// Document ID
+-	Id *uint64 `json:"id,omitempty"`
++	Id *uint64 `json:"-"`
++	// UUID document id when the wire id is a string; Id is nil in that case
++	Uuid *string `json:"-"`
+ 	// Result of the update operation, typically 'updated'
+ 	Result *string `json:"result,omitempty"`
+ }
+@@ -143,6 +145,38 @@
+ 	o.Id = &v
+ }
+ 
++// GetUuid returns the Uuid field value if set, zero value otherwise.
++func (o *UpdateResponse) GetUuid() string {
++	if o == nil || IsNil(o.Uuid) {
++		var ret string
++		return ret
++	}
++	return *o.Uuid
++}
++
++// GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
++// and a boolean to check if the value has been set.
++func (o *UpdateResponse) GetUuidOk() (*string, bool) {
++	if o == nil || IsNil(o.Uuid) {
++		return nil, false
++	}
++	return o.Uuid, true
++}
++
++// HasUuid returns a boolean if a Uuid field has been set.
++func (o *UpdateResponse) HasUuid() bool {
++	if o != nil && !IsNil(o.Uuid) {
++		return true
++	}
++	return false
++}
++
++// SetUuid gets a reference to the given string and assigns it to the Uuid field.
++func (o *UpdateResponse) SetUuid(v string) {
++	o.Uuid = &v
++}
++
++
+ // GetResult returns the Result field value if set, zero value otherwise.
+ func (o *UpdateResponse) GetResult() string {
+ 	if o == nil || IsNil(o.Result) {
+@@ -191,8 +225,8 @@
+ 	if !IsNil(o.Updated) {
+ 		toSerialize["updated"] = o.Updated
+ 	}
+-	if !IsNil(o.Id) {
+-		toSerialize["id"] = o.Id
++	if w := wireDocumentID(o.Id, o.Uuid); w != nil {
++		toSerialize["id"] = w
+ 	}
+ 	if !IsNil(o.Result) {
+ 		toSerialize["result"] = o.Result
+@@ -200,6 +234,27 @@
+ 	return toSerialize, nil
+ }
+ 
++
++func (o *UpdateResponse) UnmarshalJSON(data []byte) error {
++	type Alias UpdateResponse
++	aux := struct {
++		RawId json.RawMessage `json:"id"`
++		*Alias
++	}{
++		Alias: (*Alias)(o),
++	}
++	if err := json.Unmarshal(data, &aux); err != nil {
++		return err
++	}
++	id, uuid, err := splitDocumentIDJSON(aux.RawId)
++	if err != nil {
++		return err
++	}
++	o.Id = id
++	o.Uuid = uuid
++	return nil
++}
++
+ type NullableUpdateResponse struct {
+ 	value *UpdateResponse
+ 	isSet bool

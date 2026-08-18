@@ -1,30 +1,86 @@
-# {{moduleName}}
+# Manticore Elixir client
 
 {{appDescription}}
 
-### Building
+{{^outBranch}}
+{{#infoUrl}}
+❗ WARNING: this is a development version of the client. The latest release's readme is https://github.com/manticoresoftware/manticoresearch-elixir/tree/{{packageVersion}}
+{{/infoUrl}}
+{{/outBranch}}
+
+## Requirements.
+
+Minimum Manticore Search version is >= 4.0.2 with HTTP protocol enabled.
+
+{{^outBranch}}
+| **manticoresearch-elixir**  | **Manticore Search**                | **Elixir**     | **Compatibility**        |
+| --------------------------- | ----------------------------------- | -------------- | ------------------------ |
+| `dev`                       | `dev` (latest development version)  | 1.18 or newer  | ✅ Fully Compatible      |
+| 5.0.0 or newer              | 28.6.6 or newer                     | 1.18 or newer  | ✅ Fully Compatible      |
+| 5.0.0 or newer              | 4.2.1  to 28.6.6                    | 1.18 or newer  | ⚠️ Partially Compatible  |
+| 4.0.0 to 5.0.0              | 4.2.1  to 28.6.6                    | 1.18 or newer  | ⚠️ Partially Compatible  |
+| 4.0.0 to 5.0.0              | 4.0.2 to 4.2.1                      | 1.18 or newer  | ✅ Fully Compatible      |
+| 2.0.0 to 4.0.0              | 4.2.1  to 28.6.6                    | 1.6 or newer   | ⚠️ Partially Compatible  |
+| 2.0.0 to 4.0.0              | 4.0.2 to 4.2.1                      | 1.6 or newer   | ✅ Fully Compatible      |
+| 1.0.0 to 2.0.0              | 4.2.1 to 28.6.6                     | 1.6 or newer   | ⚠️ Partially Compatible  |
+| 1.0.0 to 2.0.0              | 4.0.2 to 4.2.1                      | 1.6 or newer   | ✅ Fully Compatible      |
+{{/outBranch}}
+
+## Building
 
 To install the required dependencies and to build the elixir project, run:
-```
+
+```console
 mix local.hex --force
 mix do deps.get, compile
 ```
 
 ## Installation
 
-Add  `manticoresearch` to your list of dependencies in `mix.exs`:
+{{#outBranch}}
+If [available in Hex][], the package can be installed by adding `{{#underscored}}{{packageName}}{{/underscored}}` to
+your list of dependencies in `mix.exs`:
 
 ```elixir
-def deps do
-  [{:{{#underscored}}{{packageName}}{{/underscored}}, "~> 0.1.0"}]
-end
+{{=<% %>=}}def deps do
+  [{<%#atom%><%#underscored%><%packageName%><%/underscored%><%/atom%>, "~> <%packageVersion%>"}]
+end<%={{ }}=%>
 ```
 
-## Requirements
+Documentation can be generated with [ExDoc][] and published on [HexDocs][]. Once published, the docs can be found at
+[https://hexdocs.pm/{{#underscored}}{{packageName}}{{/underscored}}][docs].
+{{/outBranch}}
+{{^outBranch}}
+The latest development version tracks the GitHub `dev` branch. Add this to your `mix.exs` dependencies:
 
-| Manticore Search  | manticoresearch-elixir |     Elixir    |
-| ----------------- | ---------------------- | ------------- |
-| >= 4.2.1          | 2.0.x                  | >= 2.0        |
-| >= 4.0.2          | 1.0.x                  | >= 2.0        |
+```elixir
+{{=<% %>=}}def deps do
+  [{<%#atom%><%#underscored%><%packageName%><%/underscored%><%/atom%>,
+    git: "https://github.com/<%gitUserId%>/<%gitRepoId%>.git",
+    branch: "dev"}]
+end<%={{ }}=%>
+```
 
-Documentation available at [HexDocs](https://hexdocs.pm/manticoresearch).
+If a pre-release is published to Hex, you can also use `~> {{packageVersion}}-dev`.
+{{/outBranch}}
+
+## Configuration
+
+You can override the URL of your server (e.g. if you have a separate development and production server in your
+configuration files).
+
+```elixir
+config :{{#underscored}}{{packageName}}{{/underscored}}, base_url: "{{{basePath}}}"
+```
+
+Multiple clients for the same API with different URLs can be created passing different `base_url`s when calling
+`{{moduleName}}.Connection.new/1`:
+
+```elixir
+client = {{moduleName}}.Connection.new(base_url: "{{{basePath}}}")
+```
+
+[exdoc]: https://github.com/elixir-lang/ex_doc
+[hexdocs]: https://hexdocs.pm
+[available in hex]: https://hex.pm/docs/publish
+[docs]: https://hexdocs.pm/{{#underscored}}{{packageName}}{{/underscored}}

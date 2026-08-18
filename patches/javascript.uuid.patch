@@ -1,0 +1,454 @@
+diff --git a/out/manticoresearch-javascript/src/api/IndexApi.js b/out/manticoresearch-javascript/src/api/IndexApi.js
+index d62ef378..cdab8755 100644
+--- a/out/manticoresearch-javascript/src/api/IndexApi.js
++++ b/out/manticoresearch-javascript/src/api/IndexApi.js
+@@ -237,6 +237,19 @@ export default class IndexApi {
+      * @param {module:model/ReplaceDocumentRequest} replaceDocumentRequest 
+      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UpdateResponse}
+      */
++    /** Partially replaces a document by UUID string id. */
++    partialReplaceUuidWithHttpInfo(table, uuid, replaceDocumentRequest) {
++      return this.partialReplaceWithHttpInfo(table, uuid, replaceDocumentRequest);
++    }
++
++    /** Partially replaces a document by UUID string id. */
++    partialReplaceUuid(table, uuid, replaceDocumentRequest) {
++      return this.partialReplaceUuidWithHttpInfo(table, uuid, replaceDocumentRequest)
++        .then(function(response_and_data) {
++          return response_and_data.data;
++        });
++    }
++
+     partialReplace(table, id, replaceDocumentRequest) {
+       return this.partialReplaceWithHttpInfo(table, id, replaceDocumentRequest)
+         .then(function(response_and_data) {
+diff --git a/out/manticoresearch-javascript/src/model/DeleteDocumentRequest.js b/out/manticoresearch-javascript/src/model/DeleteDocumentRequest.js
+index a9fceef2..736723e1 100644
+--- a/out/manticoresearch-javascript/src/model/DeleteDocumentRequest.js
++++ b/out/manticoresearch-javascript/src/model/DeleteDocumentRequest.js
+@@ -57,7 +57,13 @@ class DeleteDocumentRequest {
+                 obj['cluster'] = ApiClient.convertToType(data['cluster'], 'String');
+             }
+             if (data.hasOwnProperty('id')) {
+-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
++                if (typeof data['id'] === 'string' || data['id'] instanceof String) {
++                    obj['id'] = null;
++                    obj['uuid'] = data['id'];
++                } else {
++                    obj['id'] = ApiClient.convertToType(data['id'], 'Number');
++                    obj['uuid'] = null;
++                }
+             }
+             if (data.hasOwnProperty('query')) {
+                 obj['query'] = ApiClient.convertToType(data['query'], Object);
+@@ -91,6 +97,22 @@ class DeleteDocumentRequest {
+     }
+ 
+ 
++
++    /**
++     * Serializes numeric document IDs or UUID companions to one wire field.
++     * @return {Object} JSON-compatible document data.
++     */
++    toJSON() {
++        const data = {...this};
++        delete data['uuid'];
++        if (this['uuid'] !== undefined && this['uuid'] !== null) {
++            data['id'] = this['uuid'];
++        } else if (this['id'] === undefined || this['id'] === null) {
++            delete data['id'];
++        }
++        return data;
++    }
++
+ }
+ 
+ DeleteDocumentRequest.RequiredProperties = ["table"];
+@@ -113,6 +135,12 @@ DeleteDocumentRequest.prototype['cluster'] = undefined;
+  */
+ DeleteDocumentRequest.prototype['id'] = undefined;
+ 
++/**
++ * UUID document ID when the wire ID field is a string.
++ * @member {String} uuid
++ */
++DeleteDocumentRequest.prototype['uuid'] = undefined;
++
+ /**
+  * Defines the criteria to match documents for deletion
+  * @member {Object} query
+diff --git a/out/manticoresearch-javascript/src/model/DeleteResponse.js b/out/manticoresearch-javascript/src/model/DeleteResponse.js
+index 4a488157..9bca6384 100644
+--- a/out/manticoresearch-javascript/src/model/DeleteResponse.js
++++ b/out/manticoresearch-javascript/src/model/DeleteResponse.js
+@@ -55,7 +55,13 @@ class DeleteResponse {
+                 obj['deleted'] = ApiClient.convertToType(data['deleted'], 'Number');
+             }
+             if (data.hasOwnProperty('id')) {
+-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
++                if (typeof data['id'] === 'string' || data['id'] instanceof String) {
++                    obj['id'] = null;
++                    obj['uuid'] = data['id'];
++                } else {
++                    obj['id'] = ApiClient.convertToType(data['id'], 'Number');
++                    obj['uuid'] = null;
++                }
+             }
+             if (data.hasOwnProperty('found')) {
+                 obj['found'] = ApiClient.convertToType(data['found'], 'Boolean');
+@@ -85,6 +91,20 @@ class DeleteResponse {
+         return true;
+     }
+ 
++    /**
++     * Serializes numeric document IDs or UUID companions to one wire field.
++     * @return {Object} JSON-compatible document data.
++     */
++    toJSON() {
++        const data = {...this};
++        delete data['uuid'];
++        if (this['uuid'] !== undefined && this['uuid'] !== null) {
++            data['id'] = this['uuid'];
++        } else if (this['id'] === undefined || this['id'] === null) {
++            delete data['id'];
++        }
++        return data;
++    }
+ 
+ }
+ 
+@@ -108,6 +128,12 @@ DeleteResponse.prototype['deleted'] = undefined;
+  */
+ DeleteResponse.prototype['id'] = undefined;
+ 
++/**
++ * UUID document ID when the wire ID field is a string.
++ * @member {String} uuid
++ */
++DeleteResponse.prototype['uuid'] = undefined;
++
+ /**
+  * Indicates whether any documents to be deleted were found
+  * @member {Boolean} found
+diff --git a/out/manticoresearch-javascript/src/model/HitsHits.js b/out/manticoresearch-javascript/src/model/HitsHits.js
+index d258c738..30e8898e 100644
+--- a/out/manticoresearch-javascript/src/model/HitsHits.js
++++ b/out/manticoresearch-javascript/src/model/HitsHits.js
+@@ -49,7 +49,13 @@ class HitsHits {
+             obj = obj || new HitsHits();
+ 
+             if (data.hasOwnProperty('_id')) {
+-                obj['_id'] = ApiClient.convertToType(data['_id'], 'Number');
++                if (typeof data['_id'] === 'string' || data['_id'] instanceof String) {
++                    obj['_id'] = null;
++                    obj['_uuid'] = data['_id'];
++                } else {
++                    obj['_id'] = ApiClient.convertToType(data['_id'], 'Number');
++                    obj['_uuid'] = null;
++                }
+             }
+             if (data.hasOwnProperty('_score')) {
+                 obj['_score'] = ApiClient.convertToType(data['_score'], 'Number');
+@@ -95,6 +101,22 @@ class HitsHits {
+     }
+ 
+ 
++    /**
++     * Serializes numeric document IDs or UUID companions to one wire field.
++     * @return {Object} JSON-compatible document data.
++     */
++    toJSON() {
++        const data = {...this};
++        delete data['_uuid'];
++        if (this['_uuid'] !== undefined && this['_uuid'] !== null) {
++            data['_id'] = this['_uuid'];
++        } else if (this['_id'] === undefined || this['_id'] === null) {
++            delete data['_id'];
++        }
++        return data;
++    }
++
++
+ }
+ 
+ 
+@@ -105,6 +127,12 @@ class HitsHits {
+  */
+ HitsHits.prototype['_id'] = undefined;
+ 
++/**
++ * UUID document ID when the wire ID field is a string.
++ * @member {String} _uuid
++ */
++HitsHits.prototype['_uuid'] = undefined;
++
+ /**
+  * The score of the matched document
+  * @member {Number} _score
+diff --git a/out/manticoresearch-javascript/src/model/InsertDocumentRequest.js b/out/manticoresearch-javascript/src/model/InsertDocumentRequest.js
+index 9e402252..ac1eebf4 100644
+--- a/out/manticoresearch-javascript/src/model/InsertDocumentRequest.js
++++ b/out/manticoresearch-javascript/src/model/InsertDocumentRequest.js
+@@ -59,7 +59,13 @@ class InsertDocumentRequest {
+                 obj['cluster'] = ApiClient.convertToType(data['cluster'], 'String');
+             }
+             if (data.hasOwnProperty('id')) {
+-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
++                if (typeof data['id'] === 'string' || data['id'] instanceof String) {
++                    obj['id'] = null;
++                    obj['uuid'] = data['id'];
++                } else {
++                    obj['id'] = ApiClient.convertToType(data['id'], 'Number');
++                    obj['uuid'] = null;
++                }
+             }
+             if (data.hasOwnProperty('doc')) {
+                 obj['doc'] = ApiClient.convertToType(data['doc'], Object);
+@@ -93,6 +99,22 @@ class InsertDocumentRequest {
+     }
+ 
+ 
++
++    /**
++     * Serializes numeric document IDs or UUID companions to one wire field.
++     * @return {Object} JSON-compatible document data.
++     */
++    toJSON() {
++        const data = {...this};
++        delete data['uuid'];
++        if (this['uuid'] !== undefined && this['uuid'] !== null) {
++            data['id'] = this['uuid'];
++        } else if (this['id'] === undefined || this['id'] === null) {
++            delete data['id'];
++        }
++        return data;
++    }
++
+ }
+ 
+ InsertDocumentRequest.RequiredProperties = ["table", "doc"];
+@@ -115,6 +137,12 @@ InsertDocumentRequest.prototype['cluster'] = undefined;
+  */
+ InsertDocumentRequest.prototype['id'] = undefined;
+ 
++/**
++ * UUID document ID when the wire ID field is a string.
++ * @member {String} uuid
++ */
++InsertDocumentRequest.prototype['uuid'] = undefined;
++
+ /**
+  * Object containing document data 
+  * @member {Object} doc
+diff --git a/out/manticoresearch-javascript/src/model/Knn.js b/out/manticoresearch-javascript/src/model/Knn.js
+index c26a255c..f2051edc 100644
+--- a/out/manticoresearch-javascript/src/model/Knn.js
++++ b/out/manticoresearch-javascript/src/model/Knn.js
+@@ -65,7 +65,13 @@ class Knn {
+                 obj['query_vector'] = ApiClient.convertToType(data['query_vector'], ['Number']);
+             }
+             if (data.hasOwnProperty('doc_id')) {
+-                obj['doc_id'] = ApiClient.convertToType(data['doc_id'], 'Number');
++                if (typeof data['doc_id'] === 'string' || data['doc_id'] instanceof String) {
++                    obj['doc_id'] = null;
++                    obj['uuid'] = data['doc_id'];
++                } else {
++                    obj['doc_id'] = ApiClient.convertToType(data['doc_id'], 'Number');
++                    obj['uuid'] = null;
++                }
+             }
+             if (data.hasOwnProperty('ef')) {
+                 obj['ef'] = ApiClient.convertToType(data['ef'], 'Number');
+@@ -115,6 +121,20 @@ class Knn {
+         return true;
+     }
+ 
++    /**
++     * Serializes numeric document IDs or UUID companions to one wire field.
++     * @return {Object} JSON-compatible document data.
++     */
++    toJSON() {
++        const data = {...this};
++        delete data['uuid'];
++        if (this['uuid'] !== undefined && this['uuid'] !== null) {
++            data['doc_id'] = this['uuid'];
++        } else if (this['doc_id'] === undefined || this['doc_id'] === null) {
++            delete data['doc_id'];
++        }
++        return data;
++    }
+ 
+ }
+ 
+@@ -149,6 +169,12 @@ Knn.prototype['query_vector'] = undefined;
+  */
+ Knn.prototype['doc_id'] = undefined;
+ 
++/**
++ * UUID document ID when the wire ID field is a string.
++ * @member {String} uuid
++ */
++Knn.prototype['uuid'] = undefined;
++
+ /**
+  * Optional parameter controlling the accuracy of the search
+  * @member {Number} ef
+diff --git a/out/manticoresearch-javascript/src/model/SuccessResponse.js b/out/manticoresearch-javascript/src/model/SuccessResponse.js
+index 5125fb68..ed363632 100644
+--- a/out/manticoresearch-javascript/src/model/SuccessResponse.js
++++ b/out/manticoresearch-javascript/src/model/SuccessResponse.js
+@@ -52,7 +52,13 @@ class SuccessResponse {
+                 obj['table'] = ApiClient.convertToType(data['table'], 'String');
+             }
+             if (data.hasOwnProperty('id')) {
+-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
++                if (typeof data['id'] === 'string' || data['id'] instanceof String) {
++                    obj['id'] = null;
++                    obj['uuid'] = data['id'];
++                } else {
++                    obj['id'] = ApiClient.convertToType(data['id'], 'Number');
++                    obj['uuid'] = null;
++                }
+             }
+             if (data.hasOwnProperty('created')) {
+                 obj['created'] = ApiClient.convertToType(data['created'], 'Boolean');
+@@ -88,6 +94,20 @@ class SuccessResponse {
+         return true;
+     }
+ 
++    /**
++     * Serializes numeric document IDs or UUID companions to one wire field.
++     * @return {Object} JSON-compatible document data.
++     */
++    toJSON() {
++        const data = {...this};
++        delete data['uuid'];
++        if (this['uuid'] !== undefined && this['uuid'] !== null) {
++            data['id'] = this['uuid'];
++        } else if (this['id'] === undefined || this['id'] === null) {
++            delete data['id'];
++        }
++        return data;
++    }
+ 
+ }
+ 
+@@ -105,6 +125,12 @@ SuccessResponse.prototype['table'] = undefined;
+  */
+ SuccessResponse.prototype['id'] = undefined;
+ 
++/**
++ * UUID document ID when the wire ID field is a string.
++ * @member {String} uuid
++ */
++SuccessResponse.prototype['uuid'] = undefined;
++
+ /**
+  * Indicates whether the document was created as a result of the operation
+  * @member {Boolean} created
+diff --git a/out/manticoresearch-javascript/src/model/UpdateDocumentRequest.js b/out/manticoresearch-javascript/src/model/UpdateDocumentRequest.js
+index 7203c740..57fc1480 100644
+--- a/out/manticoresearch-javascript/src/model/UpdateDocumentRequest.js
++++ b/out/manticoresearch-javascript/src/model/UpdateDocumentRequest.js
+@@ -63,7 +63,13 @@ class UpdateDocumentRequest {
+                 obj['doc'] = ApiClient.convertToType(data['doc'], Object);
+             }
+             if (data.hasOwnProperty('id')) {
+-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
++                if (typeof data['id'] === 'string' || data['id'] instanceof String) {
++                    obj['id'] = null;
++                    obj['uuid'] = data['id'];
++                } else {
++                    obj['id'] = ApiClient.convertToType(data['id'], 'Number');
++                    obj['uuid'] = null;
++                }
+             }
+             if (data.hasOwnProperty('query')) {
+                 obj['query'] = QueryFilter.constructFromObject(data['query']);
+@@ -100,6 +106,20 @@ class UpdateDocumentRequest {
+         return true;
+     }
+ 
++    /**
++     * Serializes numeric document IDs or UUID companions to one wire field.
++     * @return {Object} JSON-compatible document data.
++     */
++    toJSON() {
++        const data = {...this};
++        delete data['uuid'];
++        if (this['uuid'] !== undefined && this['uuid'] !== null) {
++            data['id'] = this['uuid'];
++        } else if (this['id'] === undefined || this['id'] === null) {
++            delete data['id'];
++        }
++        return data;
++    }
+ 
+ }
+ 
+@@ -129,6 +149,12 @@ UpdateDocumentRequest.prototype['doc'] = undefined;
+  */
+ UpdateDocumentRequest.prototype['id'] = undefined;
+ 
++/**
++ * UUID document ID when the wire ID field is a string.
++ * @member {String} uuid
++ */
++UpdateDocumentRequest.prototype['uuid'] = undefined;
++
+ /**
+  * @member {module:model/QueryFilter} query
+  */
+diff --git a/out/manticoresearch-javascript/src/model/UpdateResponse.js b/out/manticoresearch-javascript/src/model/UpdateResponse.js
+index 3a747e24..5d54ce18 100644
+--- a/out/manticoresearch-javascript/src/model/UpdateResponse.js
++++ b/out/manticoresearch-javascript/src/model/UpdateResponse.js
+@@ -55,7 +55,13 @@ class UpdateResponse {
+                 obj['updated'] = ApiClient.convertToType(data['updated'], 'Number');
+             }
+             if (data.hasOwnProperty('id')) {
+-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
++                if (typeof data['id'] === 'string' || data['id'] instanceof String) {
++                    obj['id'] = null;
++                    obj['uuid'] = data['id'];
++                } else {
++                    obj['id'] = ApiClient.convertToType(data['id'], 'Number');
++                    obj['uuid'] = null;
++                }
+             }
+             if (data.hasOwnProperty('result')) {
+                 obj['result'] = ApiClient.convertToType(data['result'], 'String');
+@@ -82,6 +88,20 @@ class UpdateResponse {
+         return true;
+     }
+ 
++    /**
++     * Serializes numeric document IDs or UUID companions to one wire field.
++     * @return {Object} JSON-compatible document data.
++     */
++    toJSON() {
++        const data = {...this};
++        delete data['uuid'];
++        if (this['uuid'] !== undefined && this['uuid'] !== null) {
++            data['id'] = this['uuid'];
++        } else if (this['id'] === undefined || this['id'] === null) {
++            delete data['id'];
++        }
++        return data;
++    }
+ 
+ }
+ 
+@@ -105,6 +125,12 @@ UpdateResponse.prototype['updated'] = undefined;
+  */
+ UpdateResponse.prototype['id'] = undefined;
+ 
++/**
++ * UUID document ID when the wire ID field is a string.
++ * @member {String} uuid
++ */
++UpdateResponse.prototype['uuid'] = undefined;
++
+ /**
+  * Result of the update operation, typically 'updated'
+  * @member {String} result

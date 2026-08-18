@@ -296,14 +296,15 @@ components:
             $ref: '#/components/schemas/aggMetric'
     knn:
       type: object
-      required: [field, k]
+      required: [field]
       properties:
         field:
           type: string
           description: Field to perform the k-nearest neighbor search on
         k:
           type: integer
-          description: The number of nearest neighbors to return
+          deprecated: true
+          description: Deprecated. Use the top-level `limit` parameter instead.
         query:
           oneOf:
             - type: string
@@ -316,10 +317,9 @@ components:
             type: number
           description: The vector used as input for the KNN search
         doc_id:
-          type: integer
-          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
-          format: int64
-          description: The docuemnt ID used as input for the KNN search
+          allOf:
+            - $ref: '#/components/schemas/documentId'
+          description: The document ID used as input for the KNN search
         ef:
           type: integer
           description: Optional parameter controlling the accuracy of the search
@@ -671,9 +671,8 @@ components:
           type: string
           description: Cluster name
         id:
-          type: integer
-          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
-          format: int64
+          allOf:
+            - $ref: '#/components/schemas/documentId'
           description: The ID of document for deletion
         query:
           type: object
@@ -692,10 +691,11 @@ components:
           type: integer
           description: Number of documents deleted
         id:
-          type: integer
-          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
-          format: int64
-          description: The ID of the deleted document. If multiple documents are deleted, the ID of the first deleted document is returned
+          allOf:
+            - $ref: '#/components/schemas/documentId'
+          description: >
+            The ID of the deleted document. If multiple documents are deleted,
+            the ID of the first deleted document is returned
         found:
           type: boolean
           description: Indicates whether any documents to be deleted were found
@@ -704,7 +704,13 @@ components:
           description: Result of the delete operation, typically 'deleted'
       example:
         table: test
-        deleted: 29      
+        deleted: 29
+    documentId:
+      type: integer
+      # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
+      format: int64
+      # Per-property descriptions stay on each $ref site so existing int64 patches keep matching.
+      # UUID tables may still return a string on the same wire field; clients expose that via a companion `uuid` field.
     highlight:
       allOf:
         - type: object
@@ -816,9 +822,8 @@ components:
       type: object
       properties:
         _id:
-          type: integer
-          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
-          format: int64
+          allOf:
+            - $ref: '#/components/schemas/documentId'
           description: The ID of the matched document
         _score:
           type: integer
@@ -858,10 +863,9 @@ components:
           type: string
           description: Name of the cluster to insert the document into
         id:
-          type: integer
-          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
-          format: int64
-          description: |
+          allOf:
+            - $ref: '#/components/schemas/documentId'
+          description: >
             Document ID. If not provided, an ID will be auto-generated
         doc:
           type: object
@@ -1050,9 +1054,8 @@ components:
           type: string
           description: Name of the document table
         id:
-          type: integer
-          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
-          format: int64
+          allOf:
+            - $ref: '#/components/schemas/documentId'
           description: ID of the document affected by the request operation
         created:
           type: boolean
@@ -1324,9 +1327,8 @@ components:
           example:
             gid: 10
         id:
-          type: integer
-          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
-          format: int64
+          allOf:
+            - $ref: '#/components/schemas/documentId'
           description: Document ID
         query:
           oneOf:
@@ -1348,9 +1350,8 @@ components:
           type: integer
           description: Number of documents updated
         id:
-          type: integer
-          # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
-          format: int64
+          allOf:
+            - $ref: '#/components/schemas/documentId'
           description: Document ID
         result:
           type: string
@@ -2085,9 +2086,8 @@ paths:
         - in: path
           name: id
           schema:
-            type: integer 
-            # when building clients, we use a patch to set the int64 format for the Java client here since unsigned int64 is not supported in Java
-            format: int64
+            allOf:
+              - $ref: '#/components/schemas/documentId'
           required: true
           description: Id of the document to replace
       requestBody:

@@ -36,7 +36,7 @@ import com.manticoresearch.client.JSON;
   Match.JSON_PROPERTY_BOOST
 })
 @JsonTypeName("_match")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-07-15T17:05:43.549629793Z[Etc/UTC]", comments = "Generator version: 7.17.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-08-05T14:22:59.689871728Z[Etc/UTC]", comments = "Generator version: 7.17.0")
 public class Match {
   public static final String JSON_PROPERTY_QUERY = "query";
   private String query;
