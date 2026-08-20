@@ -81,6 +81,7 @@ do_java() {
     --additional-properties licenseName="Apache 2.0" \
     --additional-properties artifactDescription="Client for Manticore Search" \
     --additional-properties library="jersey3" \
+    --additional-properties failOnUnknownProperties=false \
     --additional-properties useJakartaEe=true \
     --additional-properties prevVersion=$prev_version \
     $build_to_branch
