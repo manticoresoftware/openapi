@@ -1119,17 +1119,42 @@ components:
       additionalProperties: true
     aggBucketsResult:
       type: object
-      description: Aggregation group returned under `aggregations`
+      description: >
+        One aggregation result. It is either BUCKET-shaped or METRIC-shaped, never
+        both: which one depends on the aggregation that was requested.
       properties:
         buckets:
           description: >
             Bucket list when `keyed` is false (array of bucket objects), or a
             keyed map of bucket objects when `keyed` is true. Each bucket has
-            `key`, `doc_count`, and optional `status`.
+            `key` and `doc_count`, plus `from`/`to` for `range` and `date_range`,
+            `key_as_string` for `date_histogram`, and an optional `status`.
+            Returned by `terms`, `histogram`, `date_histogram`, `range`,
+            `date_range` and `composite`.
         after_key:
           type: object
           additionalProperties: true
           description: Pagination cursor returned by composite aggregations
+        value:
+          description: >
+            Returned by `min`, `max`, `sum`, `avg` and
+            `median_absolute_deviation`. Untyped like `buckets` and `values`,
+            because the JSON type follows the aggregation: an integer one
+            returns an exact integer, which for `sum` or `max` over an int64
+            attribute can exceed what a double holds exactly, while a float one
+            returns a floating-point number. `value_as_string` carries the exact
+            rendering when the engine sends it.
+        value_as_string:
+          type: string
+          description: >
+            String rendering of `value`, returned alongside it by
+            `median_absolute_deviation`.
+        values:
+          description: >
+            Returned by `percentiles` and `percentile_ranks`. Like `buckets`, the
+            shape follows the request's `keyed` flag: an array of
+            `{key, value, value_as_string}` objects when false, a map of requested
+            point to value when true.
       additionalProperties: true
     searchResponse:
       type: object
@@ -1152,9 +1177,10 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/aggBucketsResult'
           description: >
-            Aggregated search results grouped by the specified criteria. Each
-            named aggregation typically contains a `buckets` array (or keyed map)
-            of bucket objects with `key`, `doc_count`, and optional `status`.
+            Aggregated search results, keyed by aggregation name. A bucket
+            aggregation contributes a `buckets` array (or keyed map) of bucket
+            objects; a metric aggregation contributes a `value` or `values`
+            instead. See `aggBucketsResult`.
           example:
             sizes:
               buckets:
@@ -1171,6 +1197,13 @@ components:
                 - key: 9
                   doc_count: 954
                   status: unavailable
+            avg_price:
+              value: 30.5
+            price_percentiles:
+              values:
+                - key: 50
+                  value: 30.5
+                  value_as_string: '30.5'
         hits:
           type: object
           properties:
