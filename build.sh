@@ -16,7 +16,7 @@ do_python() {
   cp docs/python/docs/* out/manticoresearch-python/docs/
   # replace test with our tests
   cp -r test/python/* out/manticoresearch-python/test/   
-  git apply patches/python_bulk.patch patches/python_sql_api.patch patches/python.uuid.patch
+  git apply patches/python_bulk.patch patches/python_sql_api.patch patches/python.uuid.patch patches/python.highlight_fields.patch
   echo "Python done."
 }
 
@@ -29,7 +29,7 @@ do_python_asyncio() {
   cp docs/python/docs/* out/manticoresearch-python-asyncio/docs/
   # replace test with our tests
   cp -r test/python-asyncio/* out/manticoresearch-python-asyncio/test/   
-  git apply patches/python_asyncio_bulk.patch patches/python_asyncio_sql_api.patch patches/python_asyncio.uuid.patch
+  git apply patches/python_asyncio_bulk.patch patches/python_asyncio_sql_api.patch patches/python_asyncio.uuid.patch patches/python_asyncio.highlight_fields.patch
   echo "Python async done."
 }
 
