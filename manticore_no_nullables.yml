@@ -1319,6 +1319,9 @@ components:
           type: number
         timed_out:
           type: boolean
+        scroll:
+          type: string
+          description: Scroll token to be used fo pagination
     sqlResponse:
       oneOf:
         - $ref: '#/components/schemas/sqlRawResponse'

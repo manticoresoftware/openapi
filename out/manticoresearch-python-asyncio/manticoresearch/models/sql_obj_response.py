@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictFloat, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,7 +30,8 @@ class SqlObjResponse(BaseModel):
     hits: Dict[str, Any]
     took: Optional[Union[StrictFloat, StrictInt]] = None
     timed_out: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["hits", "took", "timed_out"]
+    scroll: Optional[StrictStr] = Field(default=None, description="Scroll token to be used fo pagination")
+    __properties: ClassVar[List[str]] = ["hits", "took", "timed_out", "scroll"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,7 +86,8 @@ class SqlObjResponse(BaseModel):
         _obj = cls.model_validate({
             "hits": obj.get("hits"),
             "took": obj.get("took"),
-            "timed_out": obj.get("timed_out")
+            "timed_out": obj.get("timed_out"),
+            "scroll": obj.get("scroll")
         })
         return _obj
 
