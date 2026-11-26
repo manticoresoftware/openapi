@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **hits** | **object** |  | 
 **took** | **float** |  | [optional] 
 **timed_out** | **bool** |  | [optional] 
+**scroll** | **str** | Scroll token to be used fo pagination | [optional] 
 
 ## Example
 
